@@ -14,4 +14,4 @@ These must all be installed locally
 
 
 # Usage
-See [http://selenium-python.readthedocs.org/index.html](Selenium Docs) for help with the selenium library.
+See [Selenium Docs](http://selenium-python.readthedocs.org/index.html) for help with the selenium library.
