@@ -11,3 +11,7 @@ These must all be installed locally
     
     or
     ``easy_install --upgrade selenium``
+
+
+# Usage
+See [http://selenium-python.readthedocs.org/index.html](Selenium Docs) for help with the selenium library.
