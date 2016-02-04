@@ -22,7 +22,7 @@ class Test(unittest.TestCase):
         username.send_keys("jeffc") #put your marker symbol
         #querytext.send_keys(Keys.RETURN) #click the submit button
         submit = driver.find_element(by, "Login") #Find the Login button
-        submit.click() #Find the all alleles and mutations link and click it
+        submit.click() #click the login button
         allallelelink = driver.find_element_by_link_text("89")
         allallelelink.click() #assert that there is no link for Brca1<test1>#testallele = driver.find_element_by_link_text('Brca1<sup>test1</sup>')
         noallelelink = driver.find_element_by_partial_link_text("ash")
