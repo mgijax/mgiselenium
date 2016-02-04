@@ -12,22 +12,54 @@ class Test(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Firefox()
-        self.driver.get()
+        self.driver.implicitly_wait(10)
 
-    def testLoginNoPwd(self):
+    def testLoginNoPwd(self):#verifies entering no password gives error
         driver = self.driver
-        driver.get("http://scrumdog.informatics.jax.org/pwi/")
-        self.assertIn("P-WI", driver.title)
-        username = driver.find_element_by_name('user')
-        username.send_keys("jeffc") #put your marker symbol
-        #querytext.send_keys(Keys.RETURN) #click the submit button
-        submit = driver.find_element(by, "Login") #Find the Login button
+        driver.get("http://scrumdog.informatics.jax.org/pwi/")#get the P-WI main page
+        self.assertIn("P-WI", driver.page_source)#verifies your on the correct page
+        username = driver.find_element_by_name('user')#finds the user login box
+        username.send_keys("jeffc") #enters the username
+        submit = driver.find_element_by_name("submit") #Find the Login button
         submit.click() #click the login button
-        allallelelink = driver.find_element_by_link_text("89")
-        allallelelink.click() #assert that there is no link for Brca1<test1>#testallele = driver.find_element_by_link_text('Brca1<sup>test1</sup>')
-        noallelelink = driver.find_element_by_partial_link_text("ash")
-        #self.assertFalse(noallelelink.is_displayed(), "allele link exists!")
-        self.assertTrue(noallelelink.is_displayed())
+        self.assertIn("user or password is invalid", self.driver.page_source)
+    
+    def testLoginNoUser(self):#verifies entering no user name gives error
+        driver = self.driver
+        driver.get("http://scrumdog.informatics.jax.org/pwi/")#get the P-WI main page
+        self.assertIn("P-WI", driver.page_source)#verifies your on the correct page
+        passwd = driver.find_element_by_name('password')#finds the password box
+        passwd.send_keys("test") #enters a bogus password
+        submit = driver.find_element_by_name("submit") #Find the Login button
+        submit.click() #click the login button
+        self.assertIn("user or password is invalid", self.driver.page_source)    
+
+    def testLoginPass(self):#verifies entering a user name and password logs you in to the system
+        driver = self.driver
+        driver.get("http://scrumdog.informatics.jax.org/pwi/")#get the P-WI main page
+        self.assertIn("P-WI", driver.page_source)#verifies your on the correct page
+        username = driver.find_element_by_name('user')#finds the user login box
+        username.send_keys("jeffc") #enters the username
+        passwd = driver.find_element_by_name('password')#finds the password box
+        passwd.send_keys("Kanto@615") #enters a valid password
+        submit = driver.find_element_by_name("submit") #Find the Login button
+        submit.click() #click the login button
+        self.assertIn("MGI Production WI Index", self.driver.page_source)    
+
+    def testLogoutPass(self):#verifies entering a user name and password logs you in to the system
+        driver = self.driver
+        driver.get("http://scrumdog.informatics.jax.org/pwi/")#get the P-WI main page
+        self.assertIn("P-WI", driver.page_source)#verifies your on the correct page
+        username = driver.find_element_by_name('user')#finds the user login box
+        username.send_keys("jeffc") #enters the username
+        passwd = driver.find_element_by_name('password')#finds the password box
+        passwd.send_keys("Kanto@615") #enters a valid password
+        submit = driver.find_element_by_name("submit") #Find the Login button
+        submit.click() #click the login button
+        self.assertIn("MGI Production WI Index", self.driver.page_source) 
+        logoutlink = driver.find_element_by_id("headerLogout")#find the logout link
+        logoutlink.click() #click the logout link   
+        self.assertIn("Login", self.driver.page_source) #verify the login button now exists
 
     def tearDown(self):
         self.driver.close()
