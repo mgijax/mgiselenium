@@ -199,11 +199,11 @@ class MarkerDetailLinks(unittest.TestCase):
         assert "No results found" not in self.driver.page_source
 
     def test_gxdsummrk_links(self):
-        self.driver.find_element_by_link_text("Expression for Lit")
+        self.driver.find_element_by_link_text("Expression for Kit")
         assert "No results found" not in self.driver.page_source
 
     def test_gxdsumref_links(self):
-        self.driver.find_element_by_link_text("J:61153")
+        self.driver.find_element_by_link_text("for J:61153")
         assert "No results found" not in self.driver.page_source
 
     def test_gxdsumprobe_links(self):
@@ -222,7 +222,271 @@ class MarkerDetailLinks(unittest.TestCase):
         self.driver.find_element_by_link_text("Northern Blot")
         assert "No results found" not in self.driver.page_source
                                                                                                                                                   
-                                                   
+    def test_gxdlitsummary_links(self):
+        self.driver.find_element_by_partial_link_text("Lit Sum")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_gxdlitsumage_links(self):
+        self.driver.find_element_by_partial_link_text("RNA/10.5")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_gxdlitdetail_links(self):
+        self.driver.find_element_by_link_text("Bard1/J:91257")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_gxdlitsummrker_links(self):
+        self.driver.find_element_by_link_text("Trp53")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_gxdlitsumref_links(self):
+        self.driver.find_element_by_link_text("J:148991")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_gxdtissuemrker_links(self):
+        self.driver.find_element_by_link_text("Shh")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_gxdemapa_links(self):
+        self.driver.find_element_by_link_text("mouse")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_gxdantibodydetail_links(self):
+        self.driver.find_element_by_link_text("MGI:2137372")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_verthomology_links(self):
+        self.driver.find_element_by_link_text("Homology Class 36030")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_gograph_links(self):
+        self.driver.find_element_by_link_text("Graph for 36030")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_pirsf_links(self):
+        self.driver.find_element_by_link_text("Paired box Protein Superfamily")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_seqsum_links(self):
+        self.driver.find_element_by_link_text("T")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_seqsumref_links(self):
+        self.driver.find_element_by_link_text("J:90438")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_seqsummrkerprovider_links(self):
+        self.driver.find_element_by_link_text("Grid2/Refseq")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_seqsummrkerprovider2_links(self):
+        self.driver.find_element_by_link_text("Grid2/Uniprot")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_seqdetailuniprot_links(self):
+        self.driver.find_element_by_link_text("UniProt sequence")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_seqdetailrefseq_links(self):
+        self.driver.find_element_by_link_text("RefSeq sequence")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_accreport1_links(self):
+        self.driver.find_element_by_link_text("ID=36030")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_accreport2_links(self):
+        self.driver.find_element_by_link_text("ID=Ren1")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_glossaryindex_links(self):
+        self.driver.find_element_by_link_text("Glossary Index")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_glossaryterm_links(self):
+        self.driver.find_element_by_link_text("Boolean")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_markergograph_links(self):
+        self.driver.find_element_by_link_text("Graph for Kit")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_snpqf_links(self):
+        self.driver.find_element_by_link_text("SNP Query Form")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_snpdetail_links(self):
+        self.driver.find_element_by_link_text("rs29483021")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_mappingsummrker_links(self):
+        self.driver.find_element_by_link_text("Sry")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_mappingsumref_links(self):
+        self.driver.find_element_by_link_text("J:2945")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_mapdetailcross_links(self):
+        self.driver.find_element_by_link_text("Cross")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_mapdetailri_links(self):
+        self.driver.find_element_by_link_text("RI")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_mapdetailtext_links(self):
+        self.driver.find_element_by_link_text("TEXT")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_mapdetailtextgenetic_links(self):
+        self.driver.find_element_by_link_text("TEXT-Genetic Cross")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_linkagemap_links(self):
+        self.driver.find_element_by_link_text("Pax2")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_gobrowser_links(self):
+        self.driver.find_element_by_link_text("GO Browser Form")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_goresults_links(self):
+        self.driver.find_element_by_link_text("Query results for Motility")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_gotermdetail_links(self):
+        self.driver.find_element_by_link_text("gastric motility")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_mpbrowser_links(self):
+        self.driver.find_element_by_link_text("MP Browser Form")
+        assert "No results found" not in self.driver.page_source
+
+    def test_mpresults_links(self):
+        self.driver.find_element_by_link_text("Query results for Albino")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_mptermdetail_links(self):
+        self.driver.find_element_by_link_text("Absent coat pigmentation")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_knockoutsum_links(self):
+        self.driver.find_element_by_link_text("Knockout Summary")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_lexicondetail_links(self):
+        self.driver.find_element_by_link_text("Lexicon Detail for Gpr55")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_deltagendetail_links(self):
+        self.driver.find_element_by_link_text("Deltagen Detail for Scn11a")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_deltagenmbdetail_links(self):
+        self.driver.find_element_by_link_text("Deltagen Molecular Biology Detail for Scn11a")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_deltagenprotocols_links(self):
+        self.driver.find_element_by_link_text("Deltagen Protocols")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_aboutdeltagen_links(self):
+        self.driver.find_element_by_link_text("About the Deltagen Download")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_polymorphsummrker_links(self):
+        self.driver.find_element_by_link_text("Summary for Trp53")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_polymorphdetail_links(self):
+        self.driver.find_element_by_link_text("RFLP Detail")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_snpsum_links(self):
+        self.driver.find_element_by_link_text("query by Pax2")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_snpsummrker_links(self):
+        self.driver.find_element_by_link_text("Zfp46")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_prbsummrker_links(self):
+        self.driver.find_element_by_link_text("probe Oxt")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_prbsumref_links(self):
+        self.driver.find_element_by_link_text("J:2945")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_prbdetail_links(self):
+        self.driver.find_element_by_link_text("MGI:901759")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_cdnasummrker_links(self):
+        self.driver.find_element_by_link_text("cDNA Oxt")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_adbrowser_links(self):
+        self.driver.find_element_by_link_text("AD Browser Form")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_adbrowserresults_links(self):
+        self.driver.find_element_by_link_text("Query results for Brain")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_adtermdetail_links(self):
+        self.driver.find_element_by_link_text("Forebrain")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_allsearchtoolpage_links(self):
+        self.driver.find_element_by_link_text("All Search Tools")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_moreresourcespage_links(self):
+        self.driver.find_element_by_link_text("More Resources")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_analysistoolspage_links(self):
+        self.driver.find_element_by_link_text("Analysis Tools")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_softwaredevelopertoolspage_links(self):
+        self.driver.find_element_by_link_text("Software Developer Tools")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_submitdatapage_links(self):
+        self.driver.find_element_by_link_text("Submit Data")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_quicksearch_links(self):
+        self.driver.find_element_by_link_text("Search for curly whiskers")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_quicksearch100mrk_links(self):
+        self.driver.find_element_by_link_text("first 100 results for curly whiskers")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_quicksearch100voc_links(self):
+        self.driver.find_element_by_link_text("first 100 results for tail")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_quicksearchallmatches_links(self):
+        self.driver.find_element_by_link_text("search for yellow; page for Eny2")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_mgistatspage_links(self):
+        self.driver.find_element_by_link_text("MGI Stats page")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_inputwelcomepage_links(self):
+        self.driver.find_element_by_link_text("Your Input Welcome for Pax6")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+    def test_fasta_links(self):
+        self.driver.find_element_by_link_text("OTTMUST00000035645")
+        assert "No results found" not in self.driver.page_source
+                                                                                                                                                  
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
     def tearDown(self):
         self.driver.close()
 
