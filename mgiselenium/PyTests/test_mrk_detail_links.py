@@ -471,18 +471,18 @@ class MarkerDetailLinks(unittest.TestCase):
         assert "No results found" not in self.driver.page_source
                                                                                                                                                   
     def test_quicksearchallmatches_links(self):
-        self.driver.find_element_by_link_text("search for yellow; page for Eny2")
+        self.driver.find_element_by_partial_link_text("Eny2")
         assert "No results found" not in self.driver.page_source
                                                                                                                                                   
-    def test_mgistatspage_links(self):
+    def test_mgistatspage_links(self):#displays the MGI stats page
         self.driver.find_element_by_link_text("MGI Stats page")
         assert "No results found" not in self.driver.page_source
                                                                                                                                                   
-    def test_inputwelcomepage_links(self):
+    def test_inputwelcomepage_links(self):#Displays the Your Input Welcome form for Pax6
         self.driver.find_element_by_link_text("Your Input Welcome for Pax6")
         assert "No results found" not in self.driver.page_source
                                                                                                                                                   
-    def test_fasta_links(self):
+    def test_fasta_links(self):#tests a FASTA sequence gets returned
         self.driver.find_element_by_link_text("OTTMUST00000035645")
         assert "No results found" not in self.driver.page_source
                                                                                                                                                   
