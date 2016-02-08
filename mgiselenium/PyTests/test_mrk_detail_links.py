@@ -1,6 +1,6 @@
 '''
 Created on Jan 19, 2016
-
+This test verifies all public links found on the wiki page mgiwiki/mediawiki/index.php/sw:WI_Pages_by_Software_Product
 @author: jeffc
 '''
 import unittest
@@ -458,19 +458,19 @@ class MarkerDetailLinks(unittest.TestCase):
         self.driver.find_element_by_link_text("Submit Data")
         assert "No results found" not in self.driver.page_source
                                                                                                                                                   
-    def test_quicksearch_links(self):
+    def test_quicksearch_links(self):#returns all buckets
         self.driver.find_element_by_link_text("Search for curly whiskers")
         assert "No results found" not in self.driver.page_source
                                                                                                                                                   
-    def test_quicksearch100mrk_links(self):
+    def test_quicksearch100mrk_links(self):#returns the first 100 results for the marker/allele bucket
         self.driver.find_element_by_link_text("first 100 results for curly whiskers")
         assert "No results found" not in self.driver.page_source
                                                                                                                                                   
-    def test_quicksearch100voc_links(self):
+    def test_quicksearch100voc_links(self):#returns the first 100 results for the vocabulary bucket
         self.driver.find_element_by_link_text("first 100 results for tail")
         assert "No results found" not in self.driver.page_source
                                                                                                                                                   
-    def test_quicksearchallmatches_links(self):
+    def test_quicksearchallmatches_links(self):#all matches for a marker/allele
         self.driver.find_element_by_partial_link_text("Eny2")
         assert "No results found" not in self.driver.page_source
                                                                                                                                                   
