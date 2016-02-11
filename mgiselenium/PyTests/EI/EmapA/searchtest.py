@@ -1,6 +1,6 @@
 '''
 Created on Jan 28, 2016
-
+This test verifies searching within the EmapA module
 @author: jeffc
 '''
 import unittest
@@ -12,13 +12,15 @@ class searchTest(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Firefox()
-        self.driver.get("http://prodwww.informatics.jax.org/~kstone/selenium/emapa_dummy.html")
+        self.driver.get("http://scrumdog.informatics.jax.org/pwi/edit/emapBrowser")
+        self.driver.implicitly_wait(10)
 
     def testSearch(self):
-        searchbox = self.driver.find_element_by_id("emapaSearch")
+        searchbox = self.driver.find_element_by_id("termSearch")
         searchbox.send_keys("brain")
         searchbox.send_keys(Keys.RETURN)
-        assert "No results found" not in self.driver.page_source
+        result = self.driver.find_element_by_id("emapTermArea")
+        assertEquals (self.driver.result, "brain TS17-28")
         
 
     def tearDown(self):
