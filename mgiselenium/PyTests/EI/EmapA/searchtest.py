@@ -20,21 +20,34 @@ class searchTest(unittest.TestCase):
         searchbox = self.driver.find_element_by_id("termSearch")
         searchbox.send_keys("brain")
         searchbox.send_keys(Keys.RETURN)
-        term_result = self.driver.find_element_by_id("emapTermArea")
+        term_result = self.driver.find_element_by_id("termResultList")
+        items = term_result.find_elements_by_tag_name("li")
+        for item in items:
+            text = item.text
+            print text
         self.assertIn('brain TS17-28', term_result.text)
         
     def testSynonymSearch(self):#tests that a synonym term search works
         searchbox = self.driver.find_element_by_id("termSearch")
         searchbox.send_keys("myocardium")
         searchbox.send_keys(Keys.RETURN)
-        assert False
-        #assert "cardiac muscle tissue TS12-28" in self.driver.find_element_by_id("emapTermArea").text()        
+        term_result = self.driver.find_element_by_id("emapTermArea")
+        items = term_result.find_elements_by_tag_name("li")
+        for item in items:
+            text = item.text
+            print text
+        self.assertIn('cardiac muscle tissue TS12-28', term_result.text)        
 
     def testWildcardSearch(self):#tests that a wildcard term search works
         searchbox = self.driver.find_element_by_id("termSearch")
         searchbox.send_keys("%tectum")
         searchbox.send_keys(Keys.RETURN)
-        self.assertIn("pretectum TS22-28 tectum TS22-28" in self.driver.find_element_by_id("emapTermArea").text)
+        term_result = self.driver.find_element_by_id("termResultList")
+        items = term_result.find_elements_by_tag_name("li")
+        for item in items:
+            text = item.text
+            print text
+        self.assertIn('pretectum TS22-28 tectum TS22-28', term_result.text)
         
     def testtermwithcommaSearch(self):#tests that a term with a comma search works
         searchbox = self.driver.find_element_by_id("termSearch")
@@ -42,7 +55,7 @@ class searchTest(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         result = self.driver.find_element_by_id("emapTermArea")
         assert False
-        #assert result.text == 
+        
             
     def tearDown(self):
         self.driver.close()
