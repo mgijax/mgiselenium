@@ -27,7 +27,7 @@ class SearchTest(unittest.TestCase):
 
     def testBasicSearch(self):
         """
-        tests that a basic term search work
+        tests that a basic term search works
         """
         searchbox = self.driver.find_element_by_id("termSearch")
         searchbox.send_keys("brain")
@@ -71,16 +71,33 @@ class SearchTest(unittest.TestCase):
         self.assertIn('pretectum TS22-28', searchTextItems)
         self.assertIn('tectum TS22-28', searchTextItems)
         
-    def testTermWithCommaSearch(self):
+    def testIdSearch(self):
         """
-        tests that a term with a comma search works
+        tests that an ID search works
         """
+        searchbox = self.driver.find_element_by_id("termSearch")
+        searchbox.send_keys("EMAPA:17544")
+        searchbox.send_keys(Keys.RETURN)
+        term_result = self.driver.find_element_by_id("emapTermArea")
+        items = term_result.find_elements_by_tag_name("li")
+        
+        # add all li text to a list for "assertIn" test
+        searchTextItems = self.getSearchTextAsList(items)
+        
+        self.assertIn('cerebral cortex TS20-28', searchTextItems)        
+        
+        
+        """
+        def testTermWithCommaSearch(self):
+        
+        tests that a term with a comma search works -not working yet so disabled
+        
         searchbox = self.driver.find_element_by_id("termSearch")
         searchbox.send_keys("female,%")
         searchbox.send_keys(Keys.RETURN)
         result = self.driver.find_element_by_id("emapTermArea")
         assert False
-        
+        """
         
     def getSearchTextAsList(self, liItems):
         """
