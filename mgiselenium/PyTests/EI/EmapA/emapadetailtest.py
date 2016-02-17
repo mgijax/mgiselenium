@@ -62,6 +62,7 @@ class Test(unittest.TestCase):
         print "dd text = %s" % searchTermItems
         return searchTermItems
 
+
     def tearDown(self):
         self.driver.close()
 
