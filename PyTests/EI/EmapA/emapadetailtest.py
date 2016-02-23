@@ -8,13 +8,22 @@ import unittest
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
+import sys,os.path
+# adjust the path to find config
+sys.path.append(
+  os.path.join(os.path.dirname(__file__), '../../../../config',)
+)
+import config
+
+# Constants
+BROWSER_URL = config.PWI_URL + "/edit/emapBrowser"
 
 class Test(unittest.TestCase):
 
 
     def setUp(self):
         self.driver = webdriver.Firefox()
-        self.driver.get("http://scrumdog.informatics.jax.org/pwi/edit/emapBrowser")
+        self.driver.get(BROWSER_URL)
         self.driver.implicitly_wait(1)
 
     def testDefaultDetail(self):

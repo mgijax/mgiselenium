@@ -8,6 +8,13 @@ import unittest
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
+import sys,os.path
+# adjust the path to find config
+sys.path.append(
+  os.path.join(os.path.dirname(__file__), '../../config',)
+)
+import config
+
 
 class GxdTest(unittest.TestCase):
 
@@ -17,7 +24,7 @@ class GxdTest(unittest.TestCase):
 
     def test_gxd_Name(self):
         driver = self.driver
-        driver.get("http://www.informatics.jax.org/gxd")
+        driver.get(config.FEWI_URL + "/gxd")
         self.assertIn("Mouse Gene Expression", driver.title, "page not found")
 
 

@@ -8,13 +8,19 @@ import unittest
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
+import sys,os.path
+# adjust the path to find config
+sys.path.append(
+  os.path.join(os.path.dirname(__file__), '../../config',)
+)
+import config
 
 class MarkerDetailLinks(unittest.TestCase):
 
 
     def setUp(self):
         self.driver = webdriver.Firefox() 
-        self.driver.get("http://mgiwiki.jax.org/mediawiki/index.php/sw:WI_Pages_by_Software_Product#Python_WI-postgres")
+        self.driver.get(config.WIKI_URL + "sw:WI_Pages_by_Software_Product#Python_WI-postgres")
 
     def test_mrk_detail_links(self):
         self.driver.find_element_by_link_text("Pax*")
