@@ -7,15 +7,22 @@ import unittest
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
+import sys,os.path
+# adjust the path to find config
+sys.path.append(
+  os.path.join(os.path.dirname(__file__), '../../config',)
+)
+import config
+
 
 class PrivateData(unittest.TestCase): 
 
     def setUp(self):
         self.driver = webdriver.Firefox() 
 
-    def hide_private_allele(self):
+    def test_hide_private_allele(self):
         driver = self.driver
-        driver.get("http://www.informatics.jax.org")
+        driver.get(config.PUBLIC_URL)
         self.assertIn("Informatics", driver.title)
         querytext = driver.find_element_by_name('query')
         querytext.send_keys("Brca1") #put your marker symbol

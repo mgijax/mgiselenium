@@ -21,6 +21,8 @@ PUBLIC_URL = "http://www.informatics.jax.org"
 FEWI_URL = PUBLIC_URL
 
 
+WIKI_URL = "http://mgiwiki.jax.org/mediawiki/index.php/"
+
 
 
 ### PWI Credentials ###
@@ -28,4 +30,5 @@ FEWI_URL = PUBLIC_URL
 # Change these to your unix user/password
 PWI_LOGIN = "unix user"
 PWI_PASSWORD = "unix password"
+
 
