@@ -40,12 +40,13 @@ class SearchTest(unittest.TestCase):
         searchbox.send_keys("mouse")
         searchbox.send_keys(Keys.RETURN)
         treesort = self.driver.find_element_by_id("emapTree").find_element_by_class_name("mgitreeview")
-        items = treesort.find_elements_by_tag_name("li")
+        items = treesort.find_elements_by_css_selector(".node")
         
         # add all li text to a list for "assertIn" test
         searchTreeItems = self.getSearchTextAsList(items)
         
-        #self.assertIn('brain TS17-28', searchTextItems)
+        self.assertEqual(['mouse'], searchTreeItems)
+        
 
     def testBasicSearch(self):
         """
@@ -134,7 +135,6 @@ class SearchTest(unittest.TestCase):
             
         print "li text = %s" % searchTextItems
         return searchTextItems
-        
         
             
     def tearDown(self):
