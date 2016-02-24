@@ -12,7 +12,7 @@ from selenium.webdriver.common.keys import Keys
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
-  os.path.join(os.path.dirname(__file__), '../../../../config',)
+  os.path.join(os.path.dirname(__file__), '../../../config',)
 )
 import config
 
@@ -31,6 +31,21 @@ class SearchTest(unittest.TestCase):
         self.driver = webdriver.Firefox()
         self.driver.get(BROWSER_URL)
         self.driver.implicitly_wait(10)
+
+    def testBasicSort(self):
+        """
+        tests that a basic term sort works
+        """
+        searchbox = self.driver.find_element_by_id("termSearch")
+        searchbox.send_keys("mouse")
+        searchbox.send_keys(Keys.RETURN)
+        treesort = self.driver.find_element_by_id("emapTree").find_element_by_class_name("mgitreeview")
+        items = treesort.find_elements_by_tag_name("li")
+        
+        # add all li text to a list for "assertIn" test
+        searchTreeItems = self.getSearchTextAsList(items)
+        
+        #self.assertIn('brain TS17-28', searchTextItems)
 
     def testBasicSearch(self):
         """
