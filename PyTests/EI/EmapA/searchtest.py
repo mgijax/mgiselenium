@@ -32,22 +32,6 @@ class SearchTest(unittest.TestCase):
         self.driver.get(BROWSER_URL)
         self.driver.implicitly_wait(10)
 
-    def testBasicSort(self):
-        """
-        tests that a basic term sort works
-        """
-        searchbox = self.driver.find_element_by_id("termSearch")
-        searchbox.send_keys("mouse")
-        searchbox.send_keys(Keys.RETURN)
-        treesort = self.driver.find_element_by_id("emapTree").find_element_by_class_name("mgitreeview")
-        items = treesort.find_elements_by_css_selector(".node")
-        
-        # add all li text to a list for "assertIn" test
-        searchTreeItems = self.getSearchTextAsList(items)
-        
-        self.assertEqual(["mouse", "body fluid or substance", "body region", "cavity or lining", "conceptus", "early embryo", "embryo", "extraembryonic component", "germ layer", "organ", "organ system", "tissue", "umbilical or vitelline vessel"], searchTreeItems)
-        
-
     def testBasicSearch(self):
         """
         tests that a basic term search works
