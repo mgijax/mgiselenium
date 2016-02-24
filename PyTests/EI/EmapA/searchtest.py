@@ -45,7 +45,7 @@ class SearchTest(unittest.TestCase):
         # add all li text to a list for "assertIn" test
         searchTreeItems = self.getSearchTextAsList(items)
         
-        self.assertEqual(['mouse'], searchTreeItems)
+        self.assertEqual(["mouse", "body fluid or substance", "body region", "cavity or lining", "conceptus", "early embryo", "embryo", "extraembryonic component", "germ layer", "organ", "organ system", "tissue", "umbilical or vitelline vessel"], searchTreeItems)
         
 
     def testBasicSearch(self):
