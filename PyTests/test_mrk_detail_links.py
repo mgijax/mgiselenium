@@ -25,18 +25,22 @@ class MarkerDetailLinks(unittest.TestCase):
     def test_mrk_detail_links(self):
         self.driver.find_element_by_link_text("Pax*")
         assert "No results found" not in self.driver.page_source
+        assert "pax*" in self.driver.page_source
         
     def test_snorna_links(self):
         self.driver.find_element_by_partial_link_text("snoRNA")
         assert "No results found" not in self.driver.page_source
+        assert "snoRNA gene" in self.driver.page_source
        
     def test_jnumber_links(self):
         self.driver.find_element_by_link_text("J:69860")
         assert "No results found" not in self.driver.page_source
+        assert "J:69860" in self.driver.page_source
 
     def test_bmp3_links(self):
         self.driver.find_element_by_link_text("Bmp3")
         assert "No results found" not in self.driver.page_source
+        assert "Bmp3" in self.driver.page_source
         
     def test_batch_links(self):
         self.driver.find_element_by_partial_link_text("Empty")

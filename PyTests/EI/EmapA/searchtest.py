@@ -1,7 +1,7 @@
 
 '''
 Created on Jan 28, 2016
-This test verifies searching within the EmapA module
+This test verifies searching within the EmapA module, Both a term search and a stage search
 @author: jeffc
 '''
 import unittest
@@ -78,12 +78,12 @@ class SearchTest(unittest.TestCase):
         self.assertIn('pretectum TS22-28', searchTextItems)
         self.assertIn('tectum TS22-28', searchTextItems)
         
-    def testIdSearch(self):
+    def testStageSearch(self):
         """
-        tests that an ID search works
+        tests that a stage search works, test under construction
         """
-        searchbox = self.driver.find_element_by_id("termSearch")
-        searchbox.send_keys("EMAPA:17544")
+        searchbox = self.driver.find_element_by_id("stageSearch")
+        searchbox.send_keys("10")
         searchbox.send_keys(Keys.RETURN)
         term_result = self.driver.find_element_by_id("emapTermArea")
         items = term_result.find_elements_by_tag_name("li")
@@ -91,20 +91,22 @@ class SearchTest(unittest.TestCase):
         # add all li text to a list for "assertIn" test
         searchTextItems = self.getSearchTextAsList(items)
         
-        self.assertIn('cerebral cortex TS20-28', searchTextItems)        
+        self.assertIn('??????', searchTextItems)
         
-        
+    def testMultipleStageSearch(self):
         """
-        def testTermWithCommaSearch(self):
-        
-        tests that a term with a comma search works -not working yet so disabled
-        
-        searchbox = self.driver.find_element_by_id("termSearch")
-        searchbox.send_keys("female,%")
+        tests that a multiple stages search works, test under construction
+        """
+        searchbox = self.driver.find_element_by_id("stageSearch")
+        searchbox.send_keys("10,11,12")
         searchbox.send_keys(Keys.RETURN)
-        result = self.driver.find_element_by_id("emapTermArea")
-        assert False
-        """
+        term_result = self.driver.find_element_by_id("emapTermArea")
+        items = term_result.find_elements_by_tag_name("li")
+        
+        # add all li text to a list for "assertIn" test
+        searchTextItems = self.getSearchTextAsList(items)
+        
+        self.assertIn('??????', searchTextItems)
         
     def getSearchTextAsList(self, liItems):
         """
