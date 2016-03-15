@@ -64,7 +64,6 @@ class TreeViewTest(unittest.TestCase):
         
         term_det = self.driver.find_element_by_id("termDetailContent")
         items = term_det.find_elements_by_tag_name("dd")
-        print items[0]
         time.sleep(1)
         self.assertEqual(items[0].text, "embryo")
         self.assertEqual(items[1].text, "Theiler Stage 20")
@@ -72,18 +71,6 @@ class TreeViewTest(unittest.TestCase):
         
         
         
-        # TODO: assert something
-        
-#         treesort = self.driver.find_element_by_id("emapTree").find_element_by_class_name("mgitreeview")
-#         items = treesort.find_elements_by_css_selector("mark")
-#         
-#         # add all li text to a list for "assertIn" test
-#         searchTreeItems = self.getSearchTextAsList(items)
-#         activestage = self.driver.find_element_by_id("stageList").find_element_by_class_name("stageSelector")
-#         
-#         self.assertEqual(["embryo","embryo"], searchTreeItems)
-#         self.assertEqual(activestage.find_element_by_link_text("All"), "All", "incorrect stage selected")
-
     def testdetailparent(self):
         """
         tests that term detail updates including valid parents, test under construction
