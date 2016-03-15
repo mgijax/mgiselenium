@@ -55,14 +55,25 @@ class TreeViewTest(unittest.TestCase):
         searchbox = self.driver.find_element_by_id("termSearch")
         searchbox.send_keys("embryo")
         searchbox.send_keys(Keys.RETURN)
-        
+        time.sleep(1)
         # select specific stage
         stage20 = self.driver.find_element_by_id("stageList").find_element_by_link_text("20")
         stage20.click()
-        
         time.sleep(1)
+        self.assertEqual(stage20.text, "20")
+        
+        term_det = self.driver.find_element_by_id("termDetailContent")
+        items = term_det.find_elements_by_tag_name("dd")
+        print items[0]
+        time.sleep(1)
+        self.assertEqual(items[0].text, "embryo")
+        self.assertEqual(items[1].text, "Theiler Stage 20")
+        self.assertEqual(items[2].text, "EMAPS:1603920")
+        
+        
         
         # TODO: assert something
+        
 #         treesort = self.driver.find_element_by_id("emapTree").find_element_by_class_name("mgitreeview")
 #         items = treesort.find_elements_by_css_selector("mark")
 #         
