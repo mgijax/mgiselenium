@@ -71,6 +71,10 @@ class Test(unittest.TestCase):
     def tearDown(self):
         self.driver.close()
 
+def suite():
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(Test))
+    return suite
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testLoginNoUser']

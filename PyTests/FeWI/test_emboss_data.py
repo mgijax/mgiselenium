@@ -10,7 +10,14 @@ from selenium.webdriver.common.keys import Keys
 from ddt import ddt, data, unpack
 from pkgutil import get_data
 #from csv import reader
-from config.config import PUBLIC_URL
+
+import sys,os.path
+# adjust the path to find config
+sys.path.append(
+  os.path.join(os.path.dirname(__file__), '../../config',)
+)
+
+from config import PUBLIC_URL
 @ddt
 class TestFile(unittest.TestCase):
 
@@ -45,6 +52,11 @@ class TestFile(unittest.TestCase):
         
     def tearDown(self):
         self.driver.close()
+
+def suite():
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(TestFile))
+    return suite
 
 
 if __name__ == "__main__":

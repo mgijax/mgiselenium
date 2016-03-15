@@ -141,6 +141,11 @@ class TreeViewTest(unittest.TestCase):
         self.driver.close()
 
 
+def suite():
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(TreeViewTest))
+    return suite
+
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
     unittest.main()
