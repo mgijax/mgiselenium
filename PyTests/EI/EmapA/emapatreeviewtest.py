@@ -50,18 +50,28 @@ class TreeViewTest(unittest.TestCase):
         """
         tests that tree view changes to show just tree of term selected, test under construction
         """
+        
+        # perform term search
         searchbox = self.driver.find_element_by_id("termSearch")
         searchbox.send_keys("embryo")
         searchbox.send_keys(Keys.RETURN)
-        treesort = self.driver.find_element_by_id("emapTree").find_element_by_class_name("mgitreeview")
-        items = treesort.find_elements_by_css_selector("mark")
         
-        # add all li text to a list for "assertIn" test
-        searchTreeItems = self.getSearchTextAsList(items)
-        activestage = self.driver.find_element_by_id("stageList").find_element_by_class_name("stageSelector")
+        # select specific stage
+        stage20 = self.driver.find_element_by_id("stageList").find_element_by_link_text("20")
+        stage20.click()
         
-        self.assertEqual(["embryo","embryo"], searchTreeItems)
-        self.assertEqual(activestage.find_element_by_link_text("All"), "All", "incorrect stage selected")
+        time.sleep(1)
+        
+        # TODO: assert something
+#         treesort = self.driver.find_element_by_id("emapTree").find_element_by_class_name("mgitreeview")
+#         items = treesort.find_elements_by_css_selector("mark")
+#         
+#         # add all li text to a list for "assertIn" test
+#         searchTreeItems = self.getSearchTextAsList(items)
+#         activestage = self.driver.find_element_by_id("stageList").find_element_by_class_name("stageSelector")
+#         
+#         self.assertEqual(["embryo","embryo"], searchTreeItems)
+#         self.assertEqual(activestage.find_element_by_link_text("All"), "All", "incorrect stage selected")
 
     def testdetailparent(self):
         """
