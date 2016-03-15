@@ -15,7 +15,7 @@ sys.path.append(
 )
 import config
 
-class modifyemapaTest(unittest.TestCase):
+class ModifyEmapaTest(unittest.TestCase):
 
 
     def setUp(self):
@@ -27,6 +27,12 @@ class modifyemapaTest(unittest.TestCase):
 
     def tearDown(self):
         self.driver.close()
+        
+        
+def suite():
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(ModifyEmapaTest))
+    return suite
 
 
 if __name__ == "__main__":

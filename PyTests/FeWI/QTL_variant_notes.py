@@ -11,7 +11,7 @@ from selenium.webdriver.common.keys import Keys
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
-  os.path.join(os.path.dirname(__file__), '../../../config',)
+  os.path.join(os.path.dirname(__file__), '../../config',)
 )
 import config
 
@@ -34,6 +34,10 @@ class Test(unittest.TestCase):
     def tearDown(self):
         self.driver.close()
 
+def suite():
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(Test))
+    return suite
 
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']

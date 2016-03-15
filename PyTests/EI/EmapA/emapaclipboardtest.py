@@ -339,6 +339,12 @@ class ClipboardTest(unittest.TestCase):
             
     def tearDown(self):
         self.driver.close()
+        
+        
+def suite():
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(ClipboardTest))
+    return suite
 
 
 if __name__ == "__main__":
