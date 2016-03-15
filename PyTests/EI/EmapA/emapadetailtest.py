@@ -11,9 +11,10 @@ from selenium.webdriver.common.keys import Keys
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
-  os.path.join(os.path.dirname(__file__), '../../../../config',)
+  os.path.join(os.path.dirname(__file__), '../../..')
 )
 import config
+from util import wait
 
 # Constants
 BROWSER_URL = config.PWI_URL + "/edit/emapBrowser"
@@ -31,6 +32,8 @@ class Test(unittest.TestCase):
         searchbox.send_keys("%cort%")
         searchbox.send_keys(Keys.RETURN)
         
+        wait.forAjax(self.driver)
+        
         term_result = self.driver.find_element_by_id("termResultList")
         items = term_result.find_elements_by_tag_name("li")
         searchTextItems = self.getSearchTextAsList(items)
@@ -44,6 +47,7 @@ class Test(unittest.TestCase):
         self.assertEqual(searchTermItems[2], "EMAPA:18427")
         self.assertEqual(searchTermItems[3], "adrenal gland cortex")
         self.assertEqual(searchTermItems[4], "part-of adrenal gland")
+        
 
     def getSearchTextAsList(self, liItems):
         """

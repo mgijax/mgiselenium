@@ -12,9 +12,10 @@ import sys,os.path
 
 # adjust the path to find config
 sys.path.append(
-  os.path.join(os.path.dirname(__file__), '../../../config',)
+  os.path.join(os.path.dirname(__file__), '../../..',)
 )
 import config
+from util import wait
 
 # Constants
 BROWSER_URL = config.PWI_URL + "/edit/emapBrowser"
@@ -47,15 +48,25 @@ class ClipboardTest(unittest.TestCase):
         searchbox = self.driver.find_element_by_id("termSearch")
         searchbox.send_keys("brain")
         searchbox.send_keys(Keys.RETURN)
+        
+        wait.forAjax(self.driver)
+        
         result = self.driver.find_element_by_id("termResultList").find_element_by_css_selector("mark")
         result.click()
+        
+        wait.forAjax(self.driver)
+        
         clear = self.driver.find_element_by_id("clipboardFunctions").find_element_by_id("clipboardClear")
         clear.click()
-        time.sleep(5)
+        
+        wait.forAjax(self.driver)
+        
         clipbox = self.driver.find_element_by_id("clipboardInput")
         clipbox.send_keys("16")
         clipbox.send_keys(Keys.RETURN)
-        time.sleep(5)
+        
+        wait.forAjax(self.driver)
+        
         errdisplay = self.driver.find_element_by_id("clipboardError")
         self.assertTrue(errdisplay.is_displayed(), "Error message not displaying")
         
@@ -67,12 +78,20 @@ class ClipboardTest(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         result = self.driver.find_element_by_id("termResultList").find_element_by_css_selector("mark")
         result.click()
+        
+        wait.forAjax(self.driver)
+        
         clear = self.driver.find_element_by_id("clipboardFunctions").find_element_by_id("clipboardClear")
         clear.click()
-        time.sleep(5)
+        
+        wait.forAjax(self.driver)
+        
         clipbox = self.driver.find_element_by_id("clipboardInput")
         clipbox.send_keys("18,19,20,20,21,22,23,24,25")
         clipbox.send_keys(Keys.RETURN) 
+        
+        wait.forAjax(self.driver)
+        
         clipsort = self.driver.find_element_by_id("emapClipBoardContent").find_element_by_id("clipboard")       
         items = clipsort.find_elements_by_css_selector("li")
         
@@ -87,14 +106,25 @@ class ClipboardTest(unittest.TestCase):
         searchbox = self.driver.find_element_by_id("termSearch")
         searchbox.send_keys("tail")
         searchbox.send_keys(Keys.RETURN)
+        
+        wait.forAjax(self.driver)
+        
         result = self.driver.find_element_by_id("termResultList").find_element_by_css_selector("mark")
         result.click()
+        
+        wait.forAjax(self.driver)
+        
         clear = self.driver.find_element_by_id("clipboardFunctions").find_element_by_id("clipboardClear")
         clear.click()
-        time.sleep(5)
+        
+        wait.forAjax(self.driver)
+        
         clipbox = self.driver.find_element_by_id("clipboardInput")
         clipbox.send_keys("18")
         clipbox.send_keys(Keys.RETURN)
+        
+        wait.forAjax(self.driver)
+        
         clipsort = self.driver.find_element_by_id("emapClipBoardContent").find_element_by_id("clipboard")
         items = clipsort.find_elements_by_css_selector("li")
         # add all li text to a list for "assertIn" test
@@ -108,14 +138,25 @@ class ClipboardTest(unittest.TestCase):
         searchbox = self.driver.find_element_by_id("termSearch")
         searchbox.send_keys("epithelium")
         searchbox.send_keys(Keys.RETURN)
+        
+        wait.forAjax(self.driver)
+        
         result = self.driver.find_element_by_id("termResultList").find_element_by_css_selector("mark")
         result.click()
+        
+        wait.forAjax(self.driver)
+        
         clear = self.driver.find_element_by_id("clipboardFunctions").find_element_by_id("clipboardClear")
         clear.click()
-        time.sleep(5)
+        
+        wait.forAjax(self.driver)
+        
         clipbox = self.driver.find_element_by_id("clipboardInput")
         clipbox.send_keys("15,16,17,19")
         clipbox.send_keys(Keys.RETURN) 
+        
+        wait.forAjax(self.driver)
+        
         clipsort = self.driver.find_element_by_id("emapClipBoardContent").find_element_by_id("clipboard")       
         items = clipsort.find_elements_by_css_selector("li")
         
@@ -130,14 +171,25 @@ class ClipboardTest(unittest.TestCase):
         searchbox = self.driver.find_element_by_id("termSearch")
         searchbox.send_keys("neck")
         searchbox.send_keys(Keys.RETURN)
+        
+        wait.forAjax(self.driver)
+        
         result = self.driver.find_element_by_id("termResultList").find_element_by_css_selector("mark")
         result.click()
+        
+        wait.forAjax(self.driver)
+        
         clear = self.driver.find_element_by_id("clipboardFunctions").find_element_by_id("clipboardClear")
         clear.click()
-        time.sleep(5)
+        
+        wait.forAjax(self.driver)
+        
         clipbox = self.driver.find_element_by_id("clipboardInput")
         clipbox.send_keys("22-25")
         clipbox.send_keys(Keys.RETURN) 
+        
+        wait.forAjax(self.driver)
+        
         clipsort = self.driver.find_element_by_id("emapClipBoardContent").find_element_by_id("clipboard")       
         items = clipsort.find_elements_by_css_selector("li")
         
@@ -154,19 +206,26 @@ class ClipboardTest(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         result = self.driver.find_element_by_id("termResultList").find_element_by_css_selector("mark")
         result.click()
+        
+        wait.forAjax(self.driver)
+        
         clear = self.driver.find_element_by_id("clipboardFunctions").find_element_by_id("clipboardClear")
         clear.click()
-        time.sleep(5)
+        
+        wait.forAjax(self.driver)
+        
         clipbox = self.driver.find_element_by_id("clipboardInput")
         clipbox.send_keys("*")
         clipbox.send_keys(Keys.RETURN)
+        
+        wait.forAjax(self.driver)
+        
         clipsort = self.driver.find_element_by_id("emapClipBoardContent").find_element_by_id("clipboard")       
         items = clipsort.find_elements_by_css_selector("li")
         
         # add all li text to a list for "assertIn" test
         searchTreeItems = self.getSearchTextAsList(items)
         print items
-        time.sleep(5)
         self.assertEqual(["TS6; epiblast", "TS7; epiblast", "TS8; epiblast"], searchTreeItems)
         
     def testNonNumberStage(self):
@@ -175,12 +234,17 @@ class ClipboardTest(unittest.TestCase):
         searchbox = self.driver.find_element_by_id("termSearch")
         searchbox.send_keys("epiblast")
         searchbox.send_keys(Keys.RETURN)
+        
+        wait.forAjax(self.driver)
+        
         result = self.driver.find_element_by_id("termResultList").find_element_by_css_selector("mark")
         result.click()   
         clipbox = self.driver.find_element_by_id("clipboardInput")
         clipbox.send_keys("seven")
         clipbox.send_keys(Keys.RETURN)
-        time.sleep(5)
+        
+        wait.forAjax(self.driver)
+        
         errdisplay = self.driver.find_element_by_id("clipboardError")
         self.assertTrue(errdisplay.is_displayed(), "Error message not displaying")
         
@@ -190,12 +254,20 @@ class ClipboardTest(unittest.TestCase):
         searchbox = self.driver.find_element_by_id("termSearch")
         searchbox.send_keys("epiblast")
         searchbox.send_keys(Keys.RETURN)
+        
+        wait.forAjax(self.driver)
+        
         result = self.driver.find_element_by_id("termResultList").find_element_by_css_selector("mark")
         result.click()
+        
+        wait.forAjax(self.driver)
+        
         clipbox = self.driver.find_element_by_id("clipboardInput")
         clipbox.send_keys("8-6")
         clipbox.send_keys(Keys.RETURN)
-        time.sleep(10)
+        
+        wait.forAjax(self.driver)
+
         errdisplay = self.driver.find_element_by_id("clipboardError")
         self.assertTrue(errdisplay.is_displayed(), "Error message not displaying")
         
@@ -206,25 +278,38 @@ class ClipboardTest(unittest.TestCase):
         searchbox = self.driver.find_element_by_id("termSearch")
         searchbox.send_keys("emb%")
         searchbox.send_keys(Keys.RETURN)
+        
+        wait.forAjax(self.driver)
+        
         result = self.driver.find_element_by_id("termResultList").find_elements_by_link_text("embryo")
         clear = self.driver.find_element_by_id("clipboardFunctions").find_element_by_id("clipboardClear")
         clear.click()
-        time.sleep(5)
+        
+        wait.forAjax(self.driver)
+        
         print result
         clipbox = self.driver.find_element_by_id("clipboardInput")
         clipbox.send_keys("4-5")
         clipbox.send_keys(Keys.RETURN)
+        
+        wait.forAjax(self.driver)
+        
         clipsort = self.driver.find_element_by_id("emapClipBoardContent").find_element_by_id("clipboard")
         items = clipsort.find_elements_by_css_selector("li")
         
         # add all li text to a list for "assertIn" test
         searchTreeItems = self.getSearchTextAsList(items)
         print items
-        time.sleep(5)
+        
         self.assertEqual(["TS4; embryo", "TS5; embryo"], searchTreeItems)
         items[1].click()
+        
+        wait.forAjax(self.driver)
+        
         self.driver.find_element_by_xpath("//*[@id='clipboard']/li[2]/img").click()
-        time.sleep(5)
+        
+        wait.forAjax(self.driver)
+        
         clipsort = self.driver.find_element_by_id("emapClipBoardContent").find_element_by_id("clipboard")
         items = clipsort.find_elements_by_css_selector("li")
         searchTreeItems = self.getSearchTextAsList(items)
@@ -237,21 +322,29 @@ class ClipboardTest(unittest.TestCase):
         searchbox = self.driver.find_element_by_id("termSearch")
         searchbox.send_keys("neck")
         searchbox.send_keys(Keys.RETURN)
+        
+        wait.forAjax(self.driver)
+        
         result = self.driver.find_element_by_id("termResultList").find_elements_by_link_text("embryo")
         clear = self.driver.find_element_by_id("clipboardFunctions").find_element_by_id("clipboardClear")
         clear.click()
-        time.sleep(5)
+        
+        wait.forAjax(self.driver)
+        
         print result
         clipbox = self.driver.find_element_by_id("clipboardInput")
         clipbox.send_keys("23-27")
         clipbox.send_keys(Keys.RETURN)
+        
+        wait.forAjax(self.driver)
+        
         clipsort = self.driver.find_element_by_id("emapClipBoardContent").find_element_by_id("clipboard")
         items = clipsort.find_elements_by_css_selector("li")
         
         # add all li text to a list for "assertIn" test
         searchTreeItems = self.getSearchTextAsList(items)
         print items
-        time.sleep(5)
+        
         self.assertEqual(["TS23; neck","TS24; neck","TS25; neck","TS26; neck","TS27; neck"], searchTreeItems)
         items[1].click()
         self.driver.find_element_by_xpath("//*[@id='clipboard']/li[2]/img").click()
@@ -259,7 +352,9 @@ class ClipboardTest(unittest.TestCase):
         self.driver.find_element_by_xpath("//*[@id='clipboard']/li[3]/img").click()
         items[3].click()
         self.driver.find_element_by_xpath("//*[@id='clipboard']/li[4]/img").click()
-        time.sleep(5)
+        
+        wait.forAjax(self.driver)
+        
         clipsort = self.driver.find_element_by_id("emapClipBoardContent").find_element_by_id("clipboard")
         items = clipsort.find_elements_by_css_selector("li")
         searchTreeItems = self.getSearchTextAsList(items)
@@ -274,51 +369,58 @@ class ClipboardTest(unittest.TestCase):
         searchbox = self.driver.find_element_by_id("termSearch")
         searchbox.send_keys("emb%")
         searchbox.send_keys(Keys.RETURN)
+        wait.forAjax(self.driver)
+        
         result = self.driver.find_element_by_id("termResultList").find_elements_by_link_text("embryo")
         clear = self.driver.find_element_by_id("clipboardFunctions").find_element_by_id("clipboardClear")
         clear.click()
-        time.sleep(5)
+        wait.forAjax(self.driver)
+        
         print result
         clipbox = self.driver.find_element_by_id("clipboardInput")
         clipbox.send_keys("5-7")
         clipbox.send_keys(Keys.RETURN)
+        wait.forAjax(self.driver)
+        
         clipsort = self.driver.find_element_by_id("emapClipBoardContent").find_element_by_id("clipboard")
         items = clipsort.find_elements_by_css_selector("li")
         # add all li text to a list for "assertIn" test
         searchTreeItems = self.getSearchTextAsList(items)
         print items
-        time.sleep(5)
+
         self.assertEqual(["TS5; embryo","TS6; embryo","TS7; embryo"], searchTreeItems)
         searchbox.clear()
         clipbox.clear()
         searchbox = self.driver.find_element_by_id("termSearch")
         searchbox.send_keys("endoderm")
         searchbox.send_keys(Keys.RETURN)
+        wait.forAjax(self.driver)
+        
         result = self.driver.find_element_by_id("termResultList").find_elements_by_link_text("embryo")
-        time.sleep(5)
+
         print result
         clipbox = self.driver.find_element_by_id("clipboardInput")
         clipbox.send_keys("6-8")
         clipbox.send_keys(Keys.RETURN)
-        time.sleep(5)
+        wait.forAjax(self.driver)
+        
         clipsort = self.driver.find_element_by_id("emapClipBoardContent").find_element_by_id("clipboard")
         items = clipsort.find_elements_by_css_selector("li")
         
         # add all li text to a list for "assertIn" test
         searchTreeItems = self.getSearchTextAsList(items)
         print items
-        time.sleep(5)
         self.assertEqual(["TS5; embryo","TS6; embryo","TS7; embryo","TS6; endoderm","TS7; endoderm","TS8; endoderm"], searchTreeItems)
         sort = self.driver.find_element_by_id("clipboardFunctions").find_element_by_id("clipboardSort")
         sort.click()
-        time.sleep(5)
+        wait.forAjax(self.driver)
+        
         clipsort = self.driver.find_element_by_id("emapClipBoardContent").find_element_by_id("clipboard")
         items = clipsort.find_elements_by_css_selector("li")
         
         # add all li text to a list for "assertIn" test
         searchTreeItems = self.getSearchTextAsList(items)
         print items
-        time.sleep(5)
         self.assertEqual(["TS5; embryo","TS6; embryo","TS6; endoderm","TS7; embryo","TS7; endoderm","TS8; endoderm"], searchTreeItems)
         
 

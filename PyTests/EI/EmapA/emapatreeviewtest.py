@@ -11,9 +11,10 @@ from selenium.webdriver.common.keys import Keys
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
-  os.path.join(os.path.dirname(__file__), '../../../config',)
+  os.path.join(os.path.dirname(__file__), '../../..',)
 )
 import config
+from util import wait
 
 
 # Constants
@@ -38,6 +39,8 @@ class TreeViewTest(unittest.TestCase):
         searchbox = self.driver.find_element_by_id("termSearch")
         searchbox.send_keys("mouse")
         searchbox.send_keys(Keys.RETURN)
+        wait.forAjax(self.driver)
+        
         treesort = self.driver.find_element_by_id("emapTree").find_element_by_class_name("mgitreeview")
         items = treesort.find_elements_by_css_selector(".node")
         
@@ -55,11 +58,13 @@ class TreeViewTest(unittest.TestCase):
         searchbox = self.driver.find_element_by_id("termSearch")
         searchbox.send_keys("embryo")
         searchbox.send_keys(Keys.RETURN)
-        time.sleep(1)
+        wait.forAjax(self.driver)
+        
         # select specific stage
         stage20 = self.driver.find_element_by_id("stageList").find_element_by_link_text("20")
         stage20.click()
-        time.sleep(3)
+        wait.forAjax(self.driver)
+        
         term_det = self.driver.find_element_by_id("termDetailContent")
         items = term_det.find_elements_by_tag_name("dd")
         self.assertEqual(items[0].text, "embryo")
@@ -74,7 +79,8 @@ class TreeViewTest(unittest.TestCase):
         searchbox = self.driver.find_element_by_id("termSearch")
         searchbox.send_keys("cortical renal tubule")
         searchbox.send_keys(Keys.RETURN)
-        time.sleep(3)
+        wait.forAjax(self.driver)
+        
         term_det = self.driver.find_element_by_id("termDetailContent")
         items = term_det.find_elements_by_tag_name("dd")
         self.assertEqual(items[0].text, "cortical renal tubule")
@@ -85,7 +91,8 @@ class TreeViewTest(unittest.TestCase):
         
         stage24 = self.driver.find_element_by_id("stageList").find_element_by_link_text("24")
         stage24.click()
-        time.sleep(3)
+        wait.forAjax(self.driver)
+        
         term_det = self.driver.find_element_by_id("termDetailContent")
         items = term_det.find_elements_by_tag_name("dd")
         self.assertEqual(items[0].text, "cortical renal tubule")
@@ -96,7 +103,8 @@ class TreeViewTest(unittest.TestCase):
         
         stage22 = self.driver.find_element_by_id("stageList").find_element_by_link_text("22")
         stage22.click()
-        time.sleep(3)
+        wait.forAjax(self.driver)
+        
         term_det = self.driver.find_element_by_id("termDetailContent")
         items = term_det.find_elements_by_tag_name("dd")
         self.assertEqual(items[0].text, "cortical renal tubule")
@@ -106,7 +114,6 @@ class TreeViewTest(unittest.TestCase):
         self.assertEqual(items[4].text.split("\n"), ["part-of developing capillary loop stage nephron group","part-of early nephron","part-of late tubule","part-of maturing nephron","part-of renal cortex","part-of stage IV immature nephron"])
         
         
-        
     def testparentstage(self):
         """
         tests that if parent link is clicked remain in the current stage, test under construction
@@ -114,6 +121,8 @@ class TreeViewTest(unittest.TestCase):
         searchbox = self.driver.find_element_by_id("termSearch")
         searchbox.send_keys("mouse")
         searchbox.send_keys(Keys.RETURN)
+        wait.forAjax(self.driver)
+        
         treesort = self.driver.find_element_by_id("emapTree").find_element_by_class_name("mgitreeview")
         items = treesort.find_elements_by_css_selector(".node")
         
@@ -129,18 +138,14 @@ class TreeViewTest(unittest.TestCase):
         searchbox = self.driver.find_element_by_id("termSearch")
         searchbox.send_keys("mouse")
         searchbox.send_keys(Keys.RETURN)
-        treesort = self.driver.find_element_by_id("emapTree").find_element_by_class_name("mgitreeview")
-        items = treesort.find_elements_by_css_selector(".node")
-        time.sleep(5)
-        # add all li text to a list for "assertIn" test
-        searchTreeItems = self.getSearchTextAsList(items)
-        stagesort = self.driver.find_element_by_id(".stageList")
-        stageitems = stagesort.find_elements_by_class_name("stageSelector")
-        time.sleep(5)
+        wait.forAjax(self.driver)
+        
+        stageitems = self.driver.find_elements_by_class_name("stageSelector")
+
         # add all li text to a list for "assertIn" test
         searchTreeItems = self.getSearchTextAsList(stageitems)
         
-        self.assertEqual([stageitems.text, "All", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"], searchTreeItems)
+        self.assertEqual(searchTreeItems, ["All", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"])
 
     def getSearchTextAsList(self, liItems):
         """

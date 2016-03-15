@@ -11,9 +11,10 @@ from selenium.webdriver.common.keys import Keys
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
-  os.path.join(os.path.dirname(__file__), '../../../../config',)
+  os.path.join(os.path.dirname(__file__), '../../..')
 )
 import config
+from util import wait
 
 class ModifyEmapaTest(unittest.TestCase):
 

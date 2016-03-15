@@ -12,9 +12,10 @@ from selenium.webdriver.common.keys import Keys
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
-  os.path.join(os.path.dirname(__file__), '../../../config',)
+  os.path.join(os.path.dirname(__file__), '../../..',)
 )
 import config
+from util import wait
 
 
 # Constants
@@ -39,6 +40,8 @@ class SearchTest(unittest.TestCase):
         searchbox = self.driver.find_element_by_id("termSearch")
         searchbox.send_keys("brain")
         searchbox.send_keys(Keys.RETURN)
+        wait.forAjax(self.driver)
+        
         term_result = self.driver.find_element_by_id("termResultList")
         items = term_result.find_elements_by_tag_name("li")
         
@@ -54,6 +57,8 @@ class SearchTest(unittest.TestCase):
         searchbox = self.driver.find_element_by_id("termSearch")
         searchbox.send_keys("myocardium")
         searchbox.send_keys(Keys.RETURN)
+        wait.forAjax(self.driver)
+        
         term_result = self.driver.find_element_by_id("emapTermArea")
         items = term_result.find_elements_by_tag_name("li")
         
@@ -69,6 +74,8 @@ class SearchTest(unittest.TestCase):
         searchbox = self.driver.find_element_by_id("termSearch")
         searchbox.send_keys("%tectum")
         searchbox.send_keys(Keys.RETURN)
+        wait.forAjax(self.driver)
+        
         term_result = self.driver.find_element_by_id("termResultList")
         items = term_result.find_elements_by_tag_name("li")
         
@@ -85,6 +92,8 @@ class SearchTest(unittest.TestCase):
         searchbox = self.driver.find_element_by_id("stageSearch")
         searchbox.send_keys("10")
         searchbox.send_keys(Keys.RETURN)
+        wait.forAjax(self.driver)
+        
         term_result = self.driver.find_element_by_id("emapTermArea")
         items = term_result.find_elements_by_tag_name("li")
         
@@ -100,6 +109,8 @@ class SearchTest(unittest.TestCase):
         searchbox = self.driver.find_element_by_id("stageSearch")
         searchbox.send_keys("10,11,12")
         searchbox.send_keys(Keys.RETURN)
+        wait.forAjax(self.driver)
+        
         term_result = self.driver.find_element_by_id("emapTermArea")
         items = term_result.find_elements_by_tag_name("li")
         
