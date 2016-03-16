@@ -4,7 +4,6 @@ This test verifies searching within the EmapA module
 @author: jeffc
 '''
 import unittest
-import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
@@ -34,7 +33,9 @@ class TreeViewTest(unittest.TestCase):
 
     def testBasicSort(self):
         """
-        tests that a basic term sort works by displaying the top terms and verifying the sort of them
+        tests that a basic term sort works by displaying the top terms and verifying the sort of them.
+        @status: test works
+        @todo: add comments
         """
         searchbox = self.driver.find_element_by_id("termSearch")
         searchbox.send_keys("mouse")
@@ -51,7 +52,9 @@ class TreeViewTest(unittest.TestCase):
 
     def testSpecificStageTree(self):
         """
-        tests that tree view changes to show just tree of term selected, test under construction
+        tests that tree view changes to show just tree of term selected.
+        @status: test works
+        @todo: add comments
         """
         
         # perform term search
@@ -74,7 +77,9 @@ class TreeViewTest(unittest.TestCase):
         
     def testdetailparent(self):
         """
-        tests that term detail updates including valid parents, test under construction
+        tests that term detail updates including valid parents.
+        @status:  test works
+        @todo: needs comments
         """
         searchbox = self.driver.find_element_by_id("termSearch")
         searchbox.send_keys("cortical renal tubule")
@@ -116,37 +121,49 @@ class TreeViewTest(unittest.TestCase):
         
     def testparentstage(self):
         """
-        tests that if parent link is clicked remain in the current stage, test under construction
+        tests that if parent link is clicked remain in the current stage.
+        @status: works fine
+        @todo: add comments
         """
         searchbox = self.driver.find_element_by_id("termSearch")
-        searchbox.send_keys("mouse")
+        searchbox.send_keys("3rd ventricle%")
         searchbox.send_keys(Keys.RETURN)
         wait.forAjax(self.driver)
         
-        treesort = self.driver.find_element_by_id("emapTree").find_element_by_class_name("mgitreeview")
-        items = treesort.find_elements_by_css_selector(".node")
+        term_det = self.driver.find_element_by_id("termDetailContent")
+        items = term_det.find_elements_by_tag_name("dd")
+        self.assertEqual(items[0].text, "3rd ventricle")
+        self.assertEqual(items[1].text, "Theiler Stages 14-28")
+        self.assertEqual(items[2].text, "EMAPA:16900")
+        self.assertEqual(items[3].text, "diencephalic vesicle, third ventricle")
+        self.assertEqual(items[4].text.split("\n"), ["is-a brain ventricle","part-of diencephalon","part-of future diencephalon"])
         
-        # add all li text to a list for "assertIn" test
-        searchTreeItems = self.getSearchTextAsList(items)
-        
-        self.assertEqual(["mouse", "body fluid or substance", "body region", "cavity or lining", "conceptus", "early embryo", "embryo", "extraembryonic component", "germ layer", "organ", "organ system", "tissue", "umbilical or vitelline vessel"], searchTreeItems)
-
-    def teststagelinks(self):
-        """
-        tests that all stage links exist in the term detail section and clicking them function correctly, test under construction
-        """
-        searchbox = self.driver.find_element_by_id("termSearch")
-        searchbox.send_keys("mouse")
-        searchbox.send_keys(Keys.RETURN)
+        stage15 = self.driver.find_element_by_id("stageList").find_element_by_link_text("15")
+        stage15.click()
         wait.forAjax(self.driver)
         
-        stageitems = self.driver.find_elements_by_class_name("stageSelector")
-
-        # add all li text to a list for "assertIn" test
-        searchTreeItems = self.getSearchTextAsList(stageitems)
+        term_det = self.driver.find_element_by_id("termDetailContent")
+        items = term_det.find_elements_by_tag_name("dd")
+        self.assertEqual(items[0].text, "3rd ventricle")
+        self.assertEqual(items[1].text, "Theiler Stage 15")
+        self.assertEqual(items[2].text, "EMAPS:1690015")
+        self.assertEqual(items[3].text, "diencephalic vesicle, third ventricle")
+        self.assertEqual(items[4].text.split("\n"), ["is-a brain ventricle","part-of diencephalon"])
         
-        self.assertEqual(searchTreeItems, ["All", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"])
-
+        parent = self.driver.find_element_by_id("termDetailContent").find_element_by_class_name("detailPageListData")
+        parent.find_element_by_link_text("diencephalon").click()
+        wait.forAjax(self.driver)
+        
+        term_det = self.driver.find_element_by_id("termDetailContent")
+        items = term_det.find_elements_by_tag_name("dd")
+        self.assertEqual(items[0].text, "diencephalon")
+        self.assertEqual(items[1].text, "Theiler Stage 15")
+        self.assertEqual(items[2].text, "EMAPS:1689615")
+        self.assertEqual(items[3].text.split("\n"), ["part-of future forebrain"])
+        
+        activestage = self.driver.find_element_by_css_selector(".stageselector.active")
+        self.assertEqual(activestage.text,"15")
+        
     def getSearchTextAsList(self, liItems):
         """
         Take all found li tags in liItems
