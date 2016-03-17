@@ -15,7 +15,7 @@ sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../..',)
 )
 import config
-from util import wait
+from util import iterate, wait
 
 
 # Constants
@@ -46,7 +46,7 @@ class SearchTest(unittest.TestCase):
         items = term_result.find_elements_by_tag_name("li")
         
         # add all li text to a list for "assertIn" test
-        searchTextItems = self.getSearchTextAsList(items)
+        searchTextItems = iterate.getTextAsList(items)
         
         self.assertIn('brain TS17-28', searchTextItems)
         
@@ -63,7 +63,7 @@ class SearchTest(unittest.TestCase):
         items = term_result.find_elements_by_tag_name("li")
         
         # add all li text to a list for "assertIn" test
-        searchTextItems = self.getSearchTextAsList(items)
+        searchTextItems = iterate.getTextAsList(items)
         
         self.assertIn('cardiac muscle tissue TS12-28', searchTextItems)        
 
@@ -80,7 +80,7 @@ class SearchTest(unittest.TestCase):
         items = term_result.find_elements_by_tag_name("li")
         
         # add all li text to a list for "assertIn" test
-        searchTextItems = self.getSearchTextAsList(items)
+        searchTextItems = iterate.getTextAsList(items)
         
         self.assertIn('pretectum TS22-28', searchTextItems)
         self.assertIn('tectum TS22-28', searchTextItems)
@@ -98,7 +98,7 @@ class SearchTest(unittest.TestCase):
         items = term_result.find_elements_by_tag_name("li")
         
         # add all li text to a list for "assertIn" test
-        searchTextItems = self.getSearchTextAsList(items)
+        searchTextItems = iterate.getTextAsList(items)
         
         self.assertIn('??????', searchTextItems)
         
@@ -115,23 +115,9 @@ class SearchTest(unittest.TestCase):
         items = term_result.find_elements_by_tag_name("li")
         
         # add all li text to a list for "assertIn" test
-        searchTextItems = self.getSearchTextAsList(items)
+        searchTextItems = iterate.getTextAsList(items)
         
         self.assertIn('??????', searchTextItems)
-        
-    def getSearchTextAsList(self, liItems):
-        """
-        Take all found li tags in liItems
-            and return a list of all the text values
-            for each li tag
-        """
-        searchTextItems = []
-        for item in liItems:
-            text = item.text
-            searchTextItems.append(item.text)
-            
-        print "li text = %s" % searchTextItems
-        return searchTextItems
         
             
     def tearDown(self):

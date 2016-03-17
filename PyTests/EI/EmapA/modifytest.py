@@ -14,7 +14,7 @@ sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../..')
 )
 import config
-from util import wait
+from util import iterate, wait
 
 class ModifyEmapaTest(unittest.TestCase):
 

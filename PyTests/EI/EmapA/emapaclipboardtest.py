@@ -15,7 +15,7 @@ sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../..',)
 )
 import config
-from util import wait
+from util import iterate, wait
 
 # Constants
 BROWSER_URL = config.PWI_URL + "/edit/emapBrowser"
@@ -96,7 +96,7 @@ class ClipboardTest(unittest.TestCase):
         items = clipsort.find_elements_by_css_selector("li")
         
         # add all li text to a list for "assertIn" test
-        searchTreeItems = self.getSearchTextAsList(items)
+        searchTreeItems = iterate.getTextAsList(items)
         print items
         self.assertEqual(["TS18; brain", "TS19; brain", "TS20; brain", "TS21; brain", "TS22; brain", "TS23; brain", "TS24; brain", "TS25; brain"], searchTreeItems)
         
@@ -128,7 +128,7 @@ class ClipboardTest(unittest.TestCase):
         clipsort = self.driver.find_element_by_id("emapClipBoardContent").find_element_by_id("clipboard")
         items = clipsort.find_elements_by_css_selector("li")
         # add all li text to a list for "assertIn" test
-        searchTreeItems = self.getSearchTextAsList(items)
+        searchTreeItems = iterate.getTextAsList(items)
         print items
         self.assertEqual(["TS18; tail"], searchTreeItems)
         
@@ -161,7 +161,7 @@ class ClipboardTest(unittest.TestCase):
         items = clipsort.find_elements_by_css_selector("li")
         
         # add all li text to a list for "assertIn" test
-        searchTreeItems = self.getSearchTextAsList(items)
+        searchTreeItems = iterate.getTextAsList(items)
         print items
         self.assertEqual(["TS15; epithelium", "TS16; epithelium", "TS17; epithelium", "TS19; epithelium"], searchTreeItems)
         
@@ -194,7 +194,7 @@ class ClipboardTest(unittest.TestCase):
         items = clipsort.find_elements_by_css_selector("li")
         
         # add all li text to a list for "assertIn" test
-        searchTreeItems = self.getSearchTextAsList(items)
+        searchTreeItems = iterate.getTextAsList(items)
         print items
         self.assertEqual(["TS22; neck", "TS23; neck", "TS24; neck", "TS25; neck"], searchTreeItems)
         
@@ -224,7 +224,7 @@ class ClipboardTest(unittest.TestCase):
         items = clipsort.find_elements_by_css_selector("li")
         
         # add all li text to a list for "assertIn" test
-        searchTreeItems = self.getSearchTextAsList(items)
+        searchTreeItems = iterate.getTextAsList(items)
         print items
         self.assertEqual(["TS6; epiblast", "TS7; epiblast", "TS8; epiblast"], searchTreeItems)
         
@@ -298,7 +298,7 @@ class ClipboardTest(unittest.TestCase):
         items = clipsort.find_elements_by_css_selector("li")
         
         # add all li text to a list for "assertIn" test
-        searchTreeItems = self.getSearchTextAsList(items)
+        searchTreeItems = iterate.getTextAsList(items)
         print items
         
         self.assertEqual(["TS4; embryo", "TS5; embryo"], searchTreeItems)
@@ -312,7 +312,7 @@ class ClipboardTest(unittest.TestCase):
         
         clipsort = self.driver.find_element_by_id("emapClipBoardContent").find_element_by_id("clipboard")
         items = clipsort.find_elements_by_css_selector("li")
-        searchTreeItems = self.getSearchTextAsList(items)
+        searchTreeItems = iterate.getTextAsList(items)
         print items
         self.assertEqual(["TS4; embryo"], searchTreeItems)
         
@@ -342,7 +342,7 @@ class ClipboardTest(unittest.TestCase):
         items = clipsort.find_elements_by_css_selector("li")
         
         # add all li text to a list for "assertIn" test
-        searchTreeItems = self.getSearchTextAsList(items)
+        searchTreeItems = iterate.getTextAsList(items)
         print items
         
         self.assertEqual(["TS23; neck","TS24; neck","TS25; neck","TS26; neck","TS27; neck"], searchTreeItems)
@@ -357,7 +357,7 @@ class ClipboardTest(unittest.TestCase):
         
         clipsort = self.driver.find_element_by_id("emapClipBoardContent").find_element_by_id("clipboard")
         items = clipsort.find_elements_by_css_selector("li")
-        searchTreeItems = self.getSearchTextAsList(items)
+        searchTreeItems = iterate.getTextAsList(items)
         print items
         self.assertEqual(["TS23; neck","TS27; neck"], searchTreeItems)
         
@@ -385,7 +385,7 @@ class ClipboardTest(unittest.TestCase):
         clipsort = self.driver.find_element_by_id("emapClipBoardContent").find_element_by_id("clipboard")
         items = clipsort.find_elements_by_css_selector("li")
         # add all li text to a list for "assertIn" test
-        searchTreeItems = self.getSearchTextAsList(items)
+        searchTreeItems = iterate.getTextAsList(items)
         print items
 
         self.assertEqual(["TS5; embryo","TS6; embryo","TS7; embryo"], searchTreeItems)
@@ -408,7 +408,7 @@ class ClipboardTest(unittest.TestCase):
         items = clipsort.find_elements_by_css_selector("li")
         
         # add all li text to a list for "assertIn" test
-        searchTreeItems = self.getSearchTextAsList(items)
+        searchTreeItems = iterate.getTextAsList(items)
         print items
         self.assertEqual(["TS5; embryo","TS6; embryo","TS7; embryo","TS6; endoderm","TS7; endoderm","TS8; endoderm"], searchTreeItems)
         sort = self.driver.find_element_by_id("clipboardFunctions").find_element_by_id("clipboardSort")
@@ -419,24 +419,9 @@ class ClipboardTest(unittest.TestCase):
         items = clipsort.find_elements_by_css_selector("li")
         
         # add all li text to a list for "assertIn" test
-        searchTreeItems = self.getSearchTextAsList(items)
+        searchTreeItems = iterate.getTextAsList(items)
         print items
         self.assertEqual(["TS5; embryo","TS6; embryo","TS6; endoderm","TS7; embryo","TS7; endoderm","TS8; endoderm"], searchTreeItems)
-        
-
-    def getSearchTextAsList(self, liItems):
-        """
-        Take all found li tags in liItems
-            and return a list of all the text values
-            for each li tag
-        """
-        searchTextItems = []
-        for item in liItems:
-            text = item.text
-            searchTextItems.append(item.text)
-            
-        print "li text = %s" % searchTextItems
-        return searchTextItems
         
             
     def tearDown(self):

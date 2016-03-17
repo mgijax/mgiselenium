@@ -15,13 +15,13 @@ sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../..')
 )
 import config
-from util import wait
+from util import iterate, wait
 
 
 # Constants
 BROWSER_URL = config.PWI_URL + "/edit/emapBrowser"
 
-class Test(unittest.TestCase):
+class EmapaDetailTest(unittest.TestCase):
 
 
     def setUp(self):
@@ -42,13 +42,13 @@ class Test(unittest.TestCase):
         # verify first term in search results
         term_result = self.driver.find_element_by_id("termResultList")
         items = term_result.find_elements_by_tag_name("li")
-        searchTextItems = self.getSearchTextAsList(items)
+        searchTextItems = iterate.getTextAsList(items)
         self.assertEqual(searchTextItems[0], "adrenal cortex TS22-28")
         
         # verify this term is loaded into term detail section
         term_det = self.driver.find_element_by_id("termDetailContent")
-        item = term_det.find_elements_by_tag_name("dd")
-        searchTermItems = self.getTermDetailTextAsList(item)
+        items = term_det.find_elements_by_tag_name("dd")
+        searchTermItems = iterate.getTextAsList(items)
         self.assertEqual(searchTermItems[0], "adrenal cortex")
         self.assertEqual(searchTermItems[1], "Theiler Stages 22-28")
         self.assertEqual(searchTermItems[2], "EMAPA:18427")
@@ -68,7 +68,7 @@ class Test(unittest.TestCase):
         
         stageItems = detailArea.find_elements_by_class_name("stageSelector")
         # add all li text to a list for "assertIn" test
-        stages = self.getSearchTextAsList(stageItems)
+        stages = iterate.getTextAsList(stageItems)
         
         self.assertEqual(stages, ["All","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28"])
 
@@ -154,34 +154,6 @@ class Test(unittest.TestCase):
         body = self.driver.find_element_by_tag_name("body")
         self.assertTrue( ("%d rows" % annotCount) in body.text, "same annotation count not found on results summary")
         
-        
-    def getSearchTextAsList(self, liItems):
-        """
-        Take all found li tags in liItems
-            and return a list of all the text values
-            for each li tag (search result section)
-        """
-        searchTextItems = []
-        for item in liItems:
-            text = item.text
-            searchTextItems.append(item.text)
-            
-        print "li text = %s" % searchTextItems
-        return searchTextItems
-    
-    def getTermDetailTextAsList(self, ddItem):            
-        """
-        Take all found dd tags in ddItem 
-            and return a list of all the text values 
-            for each dd tag (term detail section)
-        """
-        searchTermItems = []
-        for item in ddItem:
-            text = item.text
-            searchTermItems.append(item.text)
-            
-        print "dd text = %s" % searchTermItems
-        return searchTermItems
 
     def tearDown(self):
         # close all open windows
@@ -192,7 +164,7 @@ class Test(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(Test))
+    suite.addTest(unittest.makeSuite(EmapaDetailTest))
     return suite
 
 if __name__ == "__main__":
