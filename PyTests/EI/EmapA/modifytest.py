@@ -15,19 +15,21 @@ sys.path.append(
 )
 import config
 from util import iterate, wait
+from base_class import EmapaBaseClass
 
-class ModifyEmapaTest(unittest.TestCase):
+class ModifyEmapaTest(unittest.TestCase, EmapaBaseClass):
 
 
     def setUp(self):
-        self.driver = webdriver.Firefox()
-        self.driver.get()
+        self.init()
 
     def testName(self):
+        # example term search
+        #self.performSearch(term="mouse")
         pass
 
     def tearDown(self):
-        self.driver.close()
+        self.closeAllWindows()
         
         
 def suite():

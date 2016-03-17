@@ -16,28 +16,20 @@ sys.path.append(
 )
 import config
 from util import iterate, wait
+from base_class import EmapaBaseClass
 
-
-# Constants
-BROWSER_URL = config.PWI_URL + "/edit/emapBrowser"
-
-class EmapaDetailTest(unittest.TestCase):
+class EmapaDetailTest(unittest.TestCase, EmapaBaseClass):
 
 
     def setUp(self):
-        self.driver = webdriver.Firefox()
-        self.driver.get(BROWSER_URL)
-        self.driver.implicitly_wait(1)
+        self.init()
 
     def testDefaultDetail(self):
         """
         This test verifies that the initial detail is of the main term
         @status: test works
         """
-        searchbox = self.driver.find_element_by_id("termSearch")
-        searchbox.send_keys("%cort%")
-        searchbox.send_keys(Keys.RETURN)
-        wait.forAjax(self.driver)
+        self.performSearch(term="%cort%")
         
         # verify first term in search results
         term_result = self.driver.find_element_by_id("termResultList")
@@ -59,10 +51,7 @@ class EmapaDetailTest(unittest.TestCase):
         """
         tests that all stage links exist in the term detail section and clicking them function correctly
         """
-        searchbox = self.driver.find_element_by_id("termSearch")
-        searchbox.send_keys("mouse")
-        searchbox.send_keys(Keys.RETURN)
-        wait.forAjax(self.driver)
+        self.performSearch(term="mouse")
         
         detailArea = self.driver.find_element_by_id("termDetailContent")
         
@@ -90,11 +79,7 @@ class EmapaDetailTest(unittest.TestCase):
         tests that when you click a term from the tree the annotation results changes  to just that node results
         """
         
-        # perform term search
-        searchbox = self.driver.find_element_by_id("termSearch")
-        searchbox.send_keys("brain")
-        searchbox.send_keys(Keys.RETURN)
-        wait.forAjax(self.driver)
+        self.performSearch(term="brain")
         
         # select specific stage
         activetree = self.driver.find_element_by_css_selector(".mgitreeview .active")
@@ -123,12 +108,7 @@ class EmapaDetailTest(unittest.TestCase):
         """
         tests that when you click on the annoations link in the detail section it  goes to the correct assay results
         """
-        
-        # perform term search
-        searchbox = self.driver.find_element_by_id("termSearch")
-        searchbox.send_keys("brain blood vessel")
-        searchbox.send_keys(Keys.RETURN)
-        wait.forAjax(self.driver)
+        self.performSearch(term="brain blood vessel")
         
         # select specific stage
         activetree = self.driver.find_element_by_css_selector(".mgitreeview .active")
@@ -146,7 +126,7 @@ class EmapaDetailTest(unittest.TestCase):
         
         wait.forNewWindow(self.driver)
         
-        searchFor =self.driver.find_element_by_css_selector(".youSearchedFor")
+        searchFor = self.driver.find_element_by_css_selector(".youSearchedFor")
         
         self.assertEqual(self.driver.title, "Result Summary")
         self.assertTrue("brain blood vessel" in searchFor.text, "You searched for does not contain structure name")
@@ -156,10 +136,7 @@ class EmapaDetailTest(unittest.TestCase):
         
 
     def tearDown(self):
-        # close all open windows
-        for window_handle in self.driver.window_handles:
-            self.driver.switch_to_window(window_handle)
-            self.driver.close()
+        self.closeAllWindows()
 
 
 def suite():

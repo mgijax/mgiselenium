@@ -15,21 +15,17 @@ sys.path.append(
 import config
 from util import iterate, wait
 
-
-# Constants
-BROWSER_URL = config.PWI_URL + "/edit/emapBrowser"
+from base_class import EmapaBaseClass
 
 # Tests
 
-class TreeViewTest(unittest.TestCase):
+class TreeViewTest(unittest.TestCase, EmapaBaseClass):
     """
     Test EMAPA browser treeview
     """
 
     def setUp(self):
-        self.driver = webdriver.Firefox()
-        self.driver.get(BROWSER_URL)
-        self.driver.implicitly_wait(10)
+        self.init()
 
     def testBasicSort(self):
         """
@@ -37,10 +33,7 @@ class TreeViewTest(unittest.TestCase):
         @status: test works
         @todo: add comments
         """
-        searchbox = self.driver.find_element_by_id("termSearch")
-        searchbox.send_keys("mouse")
-        searchbox.send_keys(Keys.RETURN)
-        wait.forAjax(self.driver)
+        self.performSearch(term="mouse")
         
         treesort = self.driver.find_element_by_id("emapTree").find_element_by_class_name("mgitreeview")
         items = treesort.find_elements_by_css_selector(".node")
@@ -56,12 +49,7 @@ class TreeViewTest(unittest.TestCase):
         @status: test works
         @todo: add comments
         """
-        
-        # perform term search
-        searchbox = self.driver.find_element_by_id("termSearch")
-        searchbox.send_keys("embryo")
-        searchbox.send_keys(Keys.RETURN)
-        wait.forAjax(self.driver)
+        self.performSearch(term="embryo")
         
         # select specific stage
         stage20 = self.driver.find_element_by_id("stageList").find_element_by_link_text("20")
@@ -81,10 +69,7 @@ class TreeViewTest(unittest.TestCase):
         @status:  test works
         @todo: needs comments
         """
-        searchbox = self.driver.find_element_by_id("termSearch")
-        searchbox.send_keys("cortical renal tubule")
-        searchbox.send_keys(Keys.RETURN)
-        wait.forAjax(self.driver)
+        self.performSearch(term="cortical renal tubule")
         
         term_det = self.driver.find_element_by_id("termDetailContent")
         items = term_det.find_elements_by_tag_name("dd")
@@ -125,10 +110,7 @@ class TreeViewTest(unittest.TestCase):
         @status: works fine
         @todo: add comments
         """
-        searchbox = self.driver.find_element_by_id("termSearch")
-        searchbox.send_keys("3rd ventricle%")
-        searchbox.send_keys(Keys.RETURN)
-        wait.forAjax(self.driver)
+        self.performSearch(term="3rd ventricle%")
         
         term_det = self.driver.find_element_by_id("termDetailContent")
         items = term_det.find_elements_by_tag_name("dd")
@@ -170,11 +152,7 @@ class TreeViewTest(unittest.TestCase):
         tests that if a term is clicked, the detail updates,
             and also that node expands
         """
-        # search for mouse
-        searchbox = self.driver.find_element_by_id("termSearch")
-        searchbox.send_keys("mouse")
-        searchbox.send_keys(Keys.RETURN)
-        wait.forAjax(self.driver)
+        self.performSearch(term="mouse")
         
         # click tissue node in tree
         tree = self.driver.find_element_by_id("emapTree")
@@ -194,7 +172,7 @@ class TreeViewTest(unittest.TestCase):
         self.assertTrue("muscle tissue" in tree.text, "muscle tissue should be in tree view")
              
     def tearDown(self):
-        self.driver.close()
+        self.closeAllWindows()
 
 
 def suite():
