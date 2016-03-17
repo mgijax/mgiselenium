@@ -13,7 +13,7 @@ sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../..',)
 )
 import config
-from util import wait
+from util import iterate, wait
 
 
 # Constants
@@ -46,7 +46,7 @@ class TreeViewTest(unittest.TestCase):
         items = treesort.find_elements_by_css_selector(".node")
         
         # add all li text to a list for "assertIn" test
-        searchTreeItems = self.getSearchTextAsList(items)
+        searchTreeItems = iterate.getTextAsList(items)
         
         self.assertEqual(["mouse", "body fluid or substance", "body region", "cavity or lining", "conceptus", "early embryo", "embryo", "extraembryonic component", "germ layer", "organ", "organ system", "tissue", "umbilical or vitelline vessel"], searchTreeItems)
 
@@ -75,7 +75,7 @@ class TreeViewTest(unittest.TestCase):
         self.assertEqual(items[2].text, "EMAPS:1603920")
         
         
-    def testdetailparent(self):
+    def testDetailParent(self):
         """
         tests that term detail updates including valid parents.
         @status:  test works
@@ -119,7 +119,7 @@ class TreeViewTest(unittest.TestCase):
         self.assertEqual(items[4].text.split("\n"), ["part-of developing capillary loop stage nephron group","part-of early nephron","part-of late tubule","part-of maturing nephron","part-of renal cortex","part-of stage IV immature nephron"])
         
         
-    def testparentstage(self):
+    def testParentStage(self):
         """
         tests that if parent link is clicked remain in the current stage.
         @status: works fine
@@ -164,19 +164,34 @@ class TreeViewTest(unittest.TestCase):
         activestage = self.driver.find_element_by_css_selector(".stageselector.active")
         self.assertEqual(activestage.text,"15")
         
-    def getSearchTextAsList(self, liItems):
+        
+    def testClickingNode(self):
         """
-        Take all found li tags in liItems
-            and return a list of all the text values
-            for each li tag
+        tests that if a term is clicked, the detail updates,
+            and also that node expands
         """
-        searchTextItems = []
-        for item in liItems:
-            text = item.text
-            searchTextItems.append(item.text)
-            
-        print "li text = %s" % searchTextItems
-        return searchTextItems
+        # search for mouse
+        searchbox = self.driver.find_element_by_id("termSearch")
+        searchbox.send_keys("mouse")
+        searchbox.send_keys(Keys.RETURN)
+        wait.forAjax(self.driver)
+        
+        # click tissue node in tree
+        tree = self.driver.find_element_by_id("emapTree")
+        tissueNode = tree.find_element_by_link_text("tissue")
+        tissueNode.click()
+        wait.forAjax(self.driver)
+        
+        # verify term detail changed
+        detail = self.driver.find_element_by_id("termDetailContent")
+        ddItems = detail.find_elements_by_tag_name("dd")
+        # verify EMAPA ID for 'tissue' is displayed
+        self.assertEqual(ddItems[2].text, "EMAPA:35868")
+        
+        # verify tree has expanded to include children of tissue
+        tree = self.driver.find_element_by_id("emapTree")
+        self.assertTrue("epithelium" in tree.text, "epithelium should be in tree view")
+        self.assertTrue("muscle tissue" in tree.text, "muscle tissue should be in tree view")
              
     def tearDown(self):
         self.driver.close()
