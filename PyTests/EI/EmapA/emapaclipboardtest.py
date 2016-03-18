@@ -39,7 +39,8 @@ class ClipboardTest(unittest.TestCase, EmapaBaseClass):
         
 
     def testOutRangeStage(self):        
-        """adding a stage that is out of range for a selected term. This test works!
+        """
+        @status adding a stage that is out of range for a selected term.
         """
         self.performSearch(term="brain")
         
@@ -63,7 +64,8 @@ class ClipboardTest(unittest.TestCase, EmapaBaseClass):
         self.assertTrue(errdisplay.is_displayed(), "Error message not displaying")
         
     def testDuplicateStage(self):        
-        """trying to add a duplicate term/stage to the clip board, this test is working!
+        """
+        @status trying to add a duplicate term/stage to the clip board.
         """
         self.performSearch(term="brain")
         
@@ -88,7 +90,8 @@ class ClipboardTest(unittest.TestCase, EmapaBaseClass):
         self.assertEqual(["TS18; brain", "TS19; brain", "TS20; brain", "TS21; brain", "TS22; brain", "TS23; brain", "TS24; brain", "TS25; brain"], searchTreeItems)
         
     def testSingleStage(self):   
-        """adding a single stage to the clipboard, this test works
+        """
+        @status adding a single stage to the clipboard.
         """
         self.performSearch(term="tail")
         
@@ -112,7 +115,8 @@ class ClipboardTest(unittest.TestCase, EmapaBaseClass):
         self.assertEqual(["TS18; tail"], searchTreeItems)
         
     def testCommaStages(self):    
-        """adding stages to the clipboard separated by commas, this test works
+        """
+        @status adding stages to the clipboard separated by commas.
         """
         self.performSearch(term="epithelium")
         
@@ -137,7 +141,8 @@ class ClipboardTest(unittest.TestCase, EmapaBaseClass):
         self.assertEqual(["TS15; epithelium", "TS16; epithelium", "TS17; epithelium", "TS19; epithelium"], searchTreeItems)
         
     def testDashStages(self):   
-        """adding stages to the clip board separated by a dash, this test works!
+        """
+        @status adding stages to the clip board separated by a dash.
         """
         self.performSearch(term="neck")
         
@@ -162,7 +167,8 @@ class ClipboardTest(unittest.TestCase, EmapaBaseClass):
         self.assertEqual(["TS22; neck", "TS23; neck", "TS24; neck", "TS25; neck"], searchTreeItems)
         
     def testWildcardStage(self):   
-        """adding all stages to clip board using a *, this test works!
+        """
+        @status adding all stages to clip board using a *.
         """
         self.performSearch(term="epiblast")
         
@@ -187,7 +193,8 @@ class ClipboardTest(unittest.TestCase, EmapaBaseClass):
         self.assertEqual(["TS6; epiblast", "TS7; epiblast", "TS8; epiblast"], searchTreeItems)
         
     def testNonNumberStage(self):
-        """trying to add a stage to the clip board using a non-numeric number, test works!
+        """
+        @status trying to add a stage to the clip board using a non-numeric number.
         """
         self.performSearch(term="epiblast")
         
@@ -202,7 +209,8 @@ class ClipboardTest(unittest.TestCase, EmapaBaseClass):
         self.assertTrue(errdisplay.is_displayed(), "Error message not displaying")
         
     def testInvalidRange(self):   
-        """trying to add stages to the clipboard using an invalid range, test works!
+        """
+        @status trying to add stages to the clipboard using an invalid range.
         """
         self.performSearch(term="epiblast")
         
@@ -219,7 +227,8 @@ class ClipboardTest(unittest.TestCase, EmapaBaseClass):
         self.assertTrue(errdisplay.is_displayed(), "Error message not displaying")
         
     def testdeleteoneclipboard(self):   
-        """tests you can delete one item from the clipboard, test is working!
+        """
+        @status tests you can delete one item from the clipboard.
         """
         self.performSearch(term="emb%")
         
@@ -252,7 +261,8 @@ class ClipboardTest(unittest.TestCase, EmapaBaseClass):
         self.assertEqual(["TS4; embryo"], searchTreeItems)
         
     def testdeletemultclipboard(self):    
-        """tests you can delete multiple items from the clipboard, test is working!
+        """
+        @status tests you can delete multiple items from the clipboard.
         """
         self.performSearch(term="neck")
         
@@ -289,7 +299,7 @@ class ClipboardTest(unittest.TestCase, EmapaBaseClass):
 
     def testClpboardBasicSort(self):
         """
-        tests that a basic sort works by displaying the clip board results in smart alpha order, test works
+        @status tests that a basic sort works by displaying the clip board results in smart alpha order.
         """
         self.performSearch(term="emb%")
         

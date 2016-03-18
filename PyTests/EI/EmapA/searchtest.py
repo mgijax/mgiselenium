@@ -24,7 +24,7 @@ from base_class import EmapaBaseClass
 
 class SearchTest(unittest.TestCase, EmapaBaseClass):
     """
-    Test EMAPA browser search
+    @status Test EMAPA browser search using terms, stages, synonymns
     """
 
     def setUp(self):
@@ -76,7 +76,7 @@ class SearchTest(unittest.TestCase, EmapaBaseClass):
         
     def testStageSearch(self):
         """
-        tests that a stage search works, test under construction
+        tests that a stage search works
         """
         self.performSearch(stage="10")
         
@@ -94,7 +94,7 @@ class SearchTest(unittest.TestCase, EmapaBaseClass):
         
     def testMultipleStageSearch(self):
         """
-        tests that a multiple stages search works, test under construction
+        tests that a multiple stages search works.
         """
         self.performSearch(stage="10,11,12")
         

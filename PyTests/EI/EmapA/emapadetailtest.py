@@ -108,7 +108,7 @@ class EmapaDetailTest(unittest.TestCase, EmapaBaseClass):
         
     def testAnnotationDetailLink(self):
         """
-        tests that when you click on the annoations link in the detail section it  goes to the correct assay results
+        tests that when you click on the annotations link in the detail section it  goes to the correct assay results
         """
         self.performSearch(term="brain blood vessel")
         
