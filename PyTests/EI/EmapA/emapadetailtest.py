@@ -77,7 +77,7 @@ class Test(unittest.TestCase):
     def testannotationresults(self):
         """
         tests that when you click a term from the tree the annotation results changes  to just that node results
-        @status: under construction
+        @status: test works
         @todo: add comments
         """
         
@@ -131,7 +131,9 @@ class Test(unittest.TestCase):
         self.driver.switch_to_window(self.driver.window_handles[-1])
         
         searchfor =self.driver.find_element_by_css_selector(".youSearchedFor")
-        
+        items = searchfor.find_elements_by_tag_name("dd")
+        self.assertEqual(items[0].text, "EMAPA:35182")
+        self.assertEqual(items[1].text, "brain blood vessel")
         self.assertEqual(self.driver.title, "Result Summary")
         
         
