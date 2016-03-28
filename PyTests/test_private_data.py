@@ -24,6 +24,9 @@ class PrivateData(unittest.TestCase):
         self.driver = webdriver.Firefox() 
 
     def hide_private_allele(self):
+        """
+        @status: Test is under construction
+        """
         driver = self.driver
         driver.get(config.PUBLIC_URL)
         self.assertIn("Informatics", driver.title)
@@ -33,9 +36,10 @@ class PrivateData(unittest.TestCase):
         brcalink = driver.find_element_by_link_text("Brca1")  # Find the Brca1 link and click it
         brcalink.click()  # Find the all alleles and mutations link and click it
         allallelelink = driver.find_element_by_link_text("89")
-        allallelelink.click()  # assert that there is no link for Brca1<test1>#testallele = driver.find_element_by_link_text('Brca1<sup>test1</sup>')
-        noallelelink = driver.find_element_by_link_text("Brca1<test1>")
-        self.assertFalse(noallelelink.is_displayed(), "allele link exists!")
+        allallelelink.click()
+        allalleles = driver.find_elements_by_id("dynamicdata")
+        # assert that there is no link for Brca1<test1>#testallele = driver.find_element_by_link_text('Brca1<sup>test1</sup>')
+        self.assertNotIn(allalleles.text, "test1", "Test1 allele is displaying!")
 
     def tearDown(self):
         self.driver.close()
