@@ -297,10 +297,11 @@ class ClipboardTest(unittest.TestCase, EmapaBaseClass):
         self.assertEqual(["TS23; neck","TS27; neck"], searchTreeItems)
         
 
-    def testClpboardBasicSort(self):
+    def testClipboardBasicSort(self):
         """
         @status tests that a basic sort works by displaying the clip board results in smart alpha order.
         """
+        import time
         self.performSearch(term="emb%")
         
         result = self.driver.find_element_by_id("termResultList").find_elements_by_link_text("embryo")
@@ -324,7 +325,7 @@ class ClipboardTest(unittest.TestCase, EmapaBaseClass):
         # do a new search for endoderm
         self.performSearch(term="endoderm")
         
-        result = self.driver.find_element_by_id("termResultList").find_elements_by_link_text("embryo")
+        result = self.driver.find_element_by_id("termResultList").find_elements_by_link_text("endoderm")
 
         clipbox = self.driver.find_element_by_id("clipboardInput")
         clipbox.send_keys("6-8")
