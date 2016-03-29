@@ -44,9 +44,11 @@ class EmapaBaseClass(object):
         """
         
         termSearch = self.driver.find_element_by_id("termSearch")
+        termSearch.clear()
         termSearch.send_keys(term)
             
         stageSearch = self.driver.find_element_by_id("stageSearch")
+        stageSearch.clear()
         stageSearch.send_keys(stage)
         
         stageSearch.send_keys(Keys.RETURN)
