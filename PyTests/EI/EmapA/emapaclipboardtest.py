@@ -348,7 +348,30 @@ class ClipboardTest(unittest.TestCase, EmapaBaseClass):
         searchTreeItems = iterate.getTextAsList(items)
         self.assertEqual(["TS5; embryo","TS6; embryo","TS6; endoderm","TS7; embryo","TS7; endoderm","TS8; endoderm"], searchTreeItems)
         
-            
+    def testClipboardShortcut(self):   
+        """
+        @status confirm the shortcut keys resets the clipboard input box
+        """
+        self.performSearch(term="tail")
+        
+        result = self.driver.find_element_by_id("termResultList").find_element_by_css_selector("mark")
+        result.click()
+        wait.forAjax(self.driver)
+        
+        clear = self.driver.find_element_by_id("clipboardFunctions").find_element_by_id("clipboardClear")
+        clear.click()
+        wait.forAjax(self.driver)
+        
+        clipbox = self.driver.find_element_by_id("clipboardInput")
+        clipbox.send_keys("18")
+        clipbox.send_keys(Keys.RETURN)
+        wait.forAjax(self.driver)
+        
+        self.assertIn("18", clipbox.text)
+        clipdata = self.driver.find_element_by_id("clipboard").find_element_by_css_selector("li")
+        result = 
+        
+                    
     def tearDown(self):
         self.closeAllWindows()
         
