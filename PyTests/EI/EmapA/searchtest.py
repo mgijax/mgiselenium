@@ -109,7 +109,24 @@ class SearchTest(unittest.TestCase, EmapaBaseClass):
         
         # verify term that exists at all stages entered
         self.assertIn('amniotic cavity', searchTextTerms)
+
         
+    def testTermShortcut(self):
+        """
+        tests that the shortcut clears the term and stage fields
+        """
+        self.performSearch(term="brain", stage="20,21,22")
+        
+        term_result = self.driver.find_element_by_id("termResultList")
+        items = term_result.find_elements_by_tag_name("li")
+        
+        # add all li text to a list for "assertIn" test
+        searchTextItems = iterate.getTextAsList(items)
+        
+        self.assertIn('brain TS17-28', searchTextItems)
+        searchbox = self.driver.find_element_by_id("termSearch")
+        searchbox.text
+        self.assertIn("brain", searchbox.get_attribute("value"))
         
     def getOnlyTermNames(self, elements):
         """

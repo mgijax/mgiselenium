@@ -18,36 +18,47 @@ sys.path.append(
 )
 
 from config import PUBLIC_URL
-@ddt
+
+### constants ###
+SEQUENCE_URL = PUBLIC_URL + "/sequence/"
+
+
 class TestFile(unittest.TestCase):
 
 
-    def get_data(self, file_name):
-        #get_data("embossdata.txt")
-        #create an empty list to store rows
-        rows = []
-        #open the text file
-        data_file = open(file_name, "rb")
-        reader = csv.reader(data_file)
-        next(reader, None)
-        for row in reader:
-            rows.append(row)
-        return rows
-        #print rows
+    def get_data(self, fileName):
+    	"""
+    	opens single column file at fileName
+    	returns all lines as a list
+    	"""
+        f = open(fileName, 'r')
+        lines = []
+        for line in f.readlines():
+        	line = line.strip()
+        	lines.append(line)
+        	
+        return lines
+        
     
         
     def setUp(self):
         self.driver = webdriver.Firefox()
-        self.driver.get(PUBLIC_URL)
+        #self.driver.get(PUBLIC_URL)
         self.driver.implicitly_wait(10)
         
-    @data(get_data("mgiselenium/data/", "../../data/embossdata.txt"))
-    @unpack
-    def test_search(self, search_value):
-        self.search_field = self.driver.find_element_by_id("searchToolTextArea")
-        self.search_field.clear()
-        self.search_field.send_keys("search_value")
-        self.search_field.send_keys(Keys.RETURN)
+    def test_search(self):
+    	
+    	embossIds = self.get_data(os.path.join('../../data','embossdata.txt'))
+    	print embossIds
+    	
+    	for embossId in embossIds:
+    		
+    		self.driver.get(SEQUENCE_URL + embossId)
+    		
+    		goButton = self.driver.find_element_by_css_selector("form[name=\"seqPullDownForm\"] input")
+    		goButton.click()
+    		
+    		self.assertIn("test1234567", self.driver.page_source)
      
         
     def tearDown(self):
