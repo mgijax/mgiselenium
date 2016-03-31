@@ -301,7 +301,7 @@ class ClipboardTest(unittest.TestCase, EmapaBaseClass):
         """
         @status tests that a basic sort works by displaying the clip board results in smart alpha order.
         """
-        import time
+        
         self.performSearch(term="emb%")
         
         result = self.driver.find_element_by_id("termResultList").find_elements_by_link_text("embryo")
@@ -351,28 +351,41 @@ class ClipboardTest(unittest.TestCase, EmapaBaseClass):
         
     def testClipboardShortcut(self):   
         """
-        @status confirm the shortcut keys resets the clipboard input box
+        @status confirm the shortcut keys(ALT + k) resets the clipboard input box
         """
+        #search for the term tail
         self.performSearch(term="tail")
         
         result = self.driver.find_element_by_id("termResultList").find_element_by_css_selector("mark")
         result.click()
         wait.forAjax(self.driver)
-        
+        #clear all items in the clipboard
         clear = self.driver.find_element_by_id("clipboardFunctions").find_element_by_id("clipboardClear")
         clear.click()
         wait.forAjax(self.driver)
-        
+        #Add 18 into the add to clipboard field
         clipbox = self.driver.find_element_by_id("clipboardInput")
         clipbox.send_keys("18")
         clipbox.send_keys(Keys.RETURN)
         wait.forAjax(self.driver)
         
-        self.assertIn("18", clipbox.text)
-        clipdata = self.driver.find_element_by_id("clipboard").find_element_by_css_selector("li")
-        result = 
-        
-                    
+        clipdata = self.driver.find_element_by_id("emapClipBoardContent").find_element_by_id("clipboard")
+        items = clipdata.find_elements_by_css_selector("li")
+        searchTreeItems = iterate.getTextAsList(items)
+        #assert that TS18 tail is displayed in the clipboard
+        self.assertEqual(["TS18; tail"], searchTreeItems)
+        #clear the clipboard using the shortcut keys
+        clipdata.send_keys(Keys.ALT + "k")
+        wait.forAjax(self.driver)
+         
+        #time.sleep(5)
+        clipdata = self.driver.find_element_by_id("emapClipBoardContent")
+        items = clipdata.find_elements_by_css_selector("li")
+        searchTreeItems = iterate.getTextAsList(items)
+        wait.forAjax(self.driver)
+        #Assert that the clipboard is empty
+        self.assertEqual([], searchTreeItems)
+            
     def tearDown(self):
         self.closeAllWindows()
         

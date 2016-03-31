@@ -113,7 +113,7 @@ class SearchTest(unittest.TestCase, EmapaBaseClass):
         
     def testTermShortcut(self):
         """
-        tests that the shortcut clears the term and stage fields
+        tests that the shortcut ALT + c clears the term and stage fields
         """
         self.performSearch(term="brain", stage="20,21,22")
         
@@ -127,7 +127,9 @@ class SearchTest(unittest.TestCase, EmapaBaseClass):
         searchbox = self.driver.find_element_by_id("termSearch")
         searchbox.text
         self.assertIn("brain", searchbox.get_attribute("value"))
-        
+        searchbox.send_keys(Keys.ALT + "c")
+        self.assertIn("", searchbox.get_attribute("value"))
+    
     def getOnlyTermNames(self, elements):
         """
         Returns text strings from each element,
