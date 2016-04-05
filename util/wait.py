@@ -18,10 +18,24 @@ def forAjax(driver, seconds=10):
     NOTE: only checks status of jQuery AJAX requests
     """
     
-    def _ajaxCheck(driver):
-        return driver.execute_script("return jQuery.active==0")
     
+    def _ajaxCheck(driver):
+        openConnections = driver.execute_script("return window.openHTTPs")
+        
+        # check if we need to apply patch
+        if openConnections == None:
+                # apply javascript patch and try once more
+                _applyAjaxPatch(driver)
+                openConnections = driver.execute_script("return window.openHTTPs")
+        
+                # return false if patch didn't work this time
+                if openConnections == None:
+                        return False
+        
+        return openConnections == 0
+        
     WebDriverWait(driver, seconds).until(_ajaxCheck)
+    
     
     
 def forNewWindow(driver, timeout=10):
@@ -60,4 +74,29 @@ def forNewWindow(driver, timeout=10):
     )
     
     
+### helper functions ###
+def _applyAjaxPatch(driver):
+        """
+        Apply a javascript patch to detect open ajax requests
+        """
+        
+        # override XHR prototype to log when requests open/close
+        #   so we can inspect window.openHTTPs counter
+        patchScript = """
+        (function() {
+          var oldOpen = XMLHttpRequest.prototype.open;
+          window.openHTTPs = 0;
+          XMLHttpRequest.prototype.open = function(method, url, async, user, pass) {
+            window.openHTTPs += 1;
+            this.addEventListener('readystatechange', function() {
+              if(this.readyState == 4) {
+                window.openHTTPs -= 1;
+              }
+            }, false);
+            oldOpen.call(this, method, url, async, user, pass);
+          } 
+        })();
+        """
+        
+        driver.execute_script(patchScript)
     
