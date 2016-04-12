@@ -12,6 +12,7 @@ These must all be installed locally
     or
     ``easy_install --upgrade selenium``
  * You must create a config/config.py file.
+
     Use config.py.default as a template
     ``cp config.py.default config.py``
 
