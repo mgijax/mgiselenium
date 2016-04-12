@@ -11,10 +11,14 @@ These must all be installed locally
     
     or
     ``easy_install --upgrade selenium``
+ * You must create a config/config.py file.
+    Use config.py.default as a template
+    ``cp config.py.default config.py``
 
 
 # Usage
 See [Selenium Docs](http://selenium-python.readthedocs.org/index.html) for help with the selenium library.
+
 
 ## Running Tests
 Tests can be run either in Eclipse (with PyDev) or via command line.
