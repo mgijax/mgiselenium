@@ -4,7 +4,7 @@ Created on Feb 22, 2016
 @author: jeffc
 A work in progress, bringing back data but now need to figure how to apply it.
 '''
-import csv, unittest
+import unittest
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from ddt import ddt, data, unpack
@@ -27,16 +27,16 @@ class TestFile(unittest.TestCase):
 
 
     def get_data(self, fileName):
-    	"""
+        """
     	opens single column file at fileName
     	returns all lines as a list
     	"""
         f = open(fileName, 'r')
         lines = []
         for line in f.readlines():
-        	line = line.strip()
-        	lines.append(line)
-        	
+            line = line.strip()
+        lines.append(line)
+        
         return lines
         
     
@@ -47,18 +47,18 @@ class TestFile(unittest.TestCase):
         self.driver.implicitly_wait(10)
         
     def test_search(self):
-    	
-    	embossIds = self.get_data(os.path.join('../../data','embossdata.txt'))
-    	print embossIds
-    	
-    	for embossId in embossIds:
-    		
-    		self.driver.get(SEQUENCE_URL + embossId)
-    		
-    		goButton = self.driver.find_element_by_css_selector("form[name=\"seqPullDownForm\"] input")
-    		goButton.click()
-    		
-    		self.assertIn("test1234567", self.driver.page_source)
+    
+        embossIds = self.get_data(os.path.join('../../data','embossdata.txt'))
+        print embossIds
+    
+        for embossId in embossIds:
+    
+            self.driver.get(SEQUENCE_URL + embossId)
+    
+            goButton = self.driver.find_element_by_css_selector("form[name=\"seqPullDownForm\"] input")
+            goButton.click()
+    
+            self.assertIn("test1234567", self.driver.page_source)
      
         
     def tearDown(self):
