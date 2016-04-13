@@ -194,10 +194,10 @@ class TestSpecSumByRef(unittest.TestCase):
         assayid = mgiid[3].text
         self.assertEqual(assayid, 'MGI:3037440')
         
-def verify_cre_assay(self):
+    def verify_cre_assay(self):
         """
         @status: Tests that all cre assays are correctly displayed at the bottom
-        cre assays are In Situ reporter (knock in)
+        cre assays are Recombinase reporter and  In situ reporter (transgenic)
         """
         driver = self.driver
         driver.get(PWI_URL)
@@ -205,7 +205,7 @@ def verify_cre_assay(self):
         driver.find_element_by_link_text("Reference Form").click()
         accidbox = driver.find_element_by_id('accids')
         # put your J number in the box
-        accidbox.send_keys("J:214586")
+        accidbox.send_keys("J:102843")
         accidbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the specimens link and clicks it
@@ -214,21 +214,21 @@ def verify_cre_assay(self):
         #finds the specimen notes column and then the first 7 items
         summarytable = driver.find_element_by_id("specimenSummaryTable")
         assaytypes = summarytable.find_elements_by_css_selector('td:nth-child(3)')
-        assaytype1 = assaytypes[0]
-        assaytype2 = assaytypes[1]
-        assaytype3 = assaytypes[2]
-        assaytype4 = assaytypes[3]
-        assaytype5 = assaytypes[4]
-        assaytype6 = assaytypes[5]
-        assaytype7 = assaytypes[6]
+        assaytype1 = assaytypes[10]
+        assaytype2 = assaytypes[11]
+        assaytype3 = assaytypes[12]
+        assaytype4 = assaytypes[13]
+        assaytype5 = assaytypes[14]
+        assaytype6 = assaytypes[15]
+        assaytype7 = assaytypes[16]
         #asserts the first 7 specimen notes are correct and in correct order
-        self.assertEqual(assaytype1.text, "2.5% paraformaldehyde  ")
-        self.assertEqual(assaytype2.text, "2.5% paraformaldehyde  ")
-        self.assertEqual(assaytype3.text, "Fixed in 2.5% paraformaldehyde. With N-glycannase pretreatment.  ")
-        self.assertEqual(assaytype4.text, "2.5% paraformaldehyde  ")
-        self.assertEqual(assaytype5.text, "2.5% paraformaldehyde  ")
-        self.assertEqual(assaytype6.text, "2.5% paraformaldehyde  ")
-        self.assertEqual(assaytype7.text, "2.5% paraformaldehyde  ")
+        self.assertEqual(assaytype1.text, "In situ reporter (knock in)")
+        self.assertEqual(assaytype2.text, "In situ reporter (knock in)")
+        self.assertEqual(assaytype3.text, "In situ reporter (knock in)")
+        self.assertEqual(assaytype4.text, "Recombinase reporter")
+        self.assertEqual(assaytype5.text, "Recombinase reporter")
+        self.assertEqual(assaytype6.text, "Recombinase reporter")
+        self.assertEqual(assaytype7.text, "Recombinase reporter")
         
 
     def tearDown(self):
