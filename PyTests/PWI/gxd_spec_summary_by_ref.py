@@ -205,7 +205,7 @@ class TestSpecSumByRef(unittest.TestCase):
         driver.find_element_by_link_text("Reference Form").click()
         accidbox = driver.find_element_by_id('accids')
         # put your J number in the box
-        accidbox.send_keys("J:102843")
+        accidbox.send_keys("J:105186")
         accidbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the specimens link and clicks it
@@ -214,18 +214,18 @@ class TestSpecSumByRef(unittest.TestCase):
         #finds the specimen notes column and then the first 7 items
         summarytable = driver.find_element_by_id("specimenSummaryTable")
         assaytypes = summarytable.find_elements_by_css_selector('td:nth-child(3)')
-        assaytype1 = assaytypes[10]
-        assaytype2 = assaytypes[11]
-        assaytype3 = assaytypes[12]
-        assaytype4 = assaytypes[13]
-        assaytype5 = assaytypes[14]
-        assaytype6 = assaytypes[15]
-        assaytype7 = assaytypes[16]
+        assaytype1 = assaytypes[13]
+        assaytype2 = assaytypes[14]
+        assaytype3 = assaytypes[15]
+        assaytype4 = assaytypes[16]
+        assaytype5 = assaytypes[17]
+        assaytype6 = assaytypes[18]
+        assaytype7 = assaytypes[19]
         #asserts the first 7 specimen notes are correct and in correct order
         self.assertEqual(assaytype1.text, "In situ reporter (knock in)")
-        self.assertEqual(assaytype2.text, "In situ reporter (knock in)")
-        self.assertEqual(assaytype3.text, "In situ reporter (knock in)")
-        self.assertEqual(assaytype4.text, "Recombinase reporter")
+        self.assertEqual(assaytype2.text, "In situ reporter (transgenic)")
+        self.assertEqual(assaytype3.text, "In situ reporter (transgenic)")
+        self.assertEqual(assaytype4.text, "In situ reporter (transgenic)")
         self.assertEqual(assaytype5.text, "Recombinase reporter")
         self.assertEqual(assaytype6.text, "Recombinase reporter")
         self.assertEqual(assaytype7.text, "Recombinase reporter")
