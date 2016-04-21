@@ -134,7 +134,7 @@ class EmapaDetailTest(unittest.TestCase, EmapaBaseClass):
         self.assertTrue("brain blood vessel" in searchFor.text, "You searched for does not contain structure name")
         
         body = self.driver.find_element_by_tag_name("body")
-        self.assertTrue( ("%d rows" % annotCount) in body.text, "same annotation count not found on results summary")
+        self.assertTrue( ("of %d" % annotCount) in body.text, "same annotation count not found on results summary")
         
 
     def tearDown(self):

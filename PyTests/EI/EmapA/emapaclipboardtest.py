@@ -260,13 +260,12 @@ class ClipboardTest(unittest.TestCase, EmapaBaseClass):
         searchTreeItems = iterate.getTextAsList(items)
         self.assertEqual(["TS4; embryo"], searchTreeItems)
         
-    def testdeletemultclipboard(self):    
+    def testDeleteMultClipboard(self):    
         """
         @status tests you can delete multiple items from the clipboard.
         """
         self.performSearch(term="neck")
         
-        result = self.driver.find_element_by_id("termResultList").find_elements_by_link_text("embryo")
         clear = self.driver.find_element_by_id("clipboardFunctions").find_element_by_id("clipboardClear")
         clear.click()
         wait.forAjax(self.driver)
@@ -281,14 +280,19 @@ class ClipboardTest(unittest.TestCase, EmapaBaseClass):
         
         # add all li text to a list for "assertIn" test
         searchTreeItems = iterate.getTextAsList(items)
-        
         self.assertEqual(["TS23; neck","TS24; neck","TS25; neck","TS26; neck","TS27; neck"], searchTreeItems)
-        items[1].click()
+        
+        # TS24; neck
+        self.driver.find_element_by_xpath("//*[@id='clipboard']/li[2]").click()
         self.driver.find_element_by_xpath("//*[@id='clipboard']/li[2]/img").click()
-        items[2].click()
-        self.driver.find_element_by_xpath("//*[@id='clipboard']/li[3]/img").click()
-        items[3].click()
-        self.driver.find_element_by_xpath("//*[@id='clipboard']/li[4]/img").click()
+        wait.forAjax(self.driver)
+        # TS25; neck
+        self.driver.find_element_by_xpath("//*[@id='clipboard']/li[2]").click()
+        self.driver.find_element_by_xpath("//*[@id='clipboard']/li[2]/img").click()
+        wait.forAjax(self.driver)
+        # TS26; neck
+        self.driver.find_element_by_xpath("//*[@id='clipboard']/li[2]").click()
+        self.driver.find_element_by_xpath("//*[@id='clipboard']/li[2]/img").click()
         wait.forAjax(self.driver)
         
         clipsort = self.driver.find_element_by_id("emapClipBoardContent").find_element_by_id("clipboard")
@@ -378,7 +382,6 @@ class ClipboardTest(unittest.TestCase, EmapaBaseClass):
         clipdata.send_keys(Keys.ALT + "k")
         wait.forAjax(self.driver)
          
-        #time.sleep(5)
         clipdata = self.driver.find_element_by_id("emapClipBoardContent")
         items = clipdata.find_elements_by_css_selector("li")
         searchTreeItems = iterate.getTextAsList(items)
