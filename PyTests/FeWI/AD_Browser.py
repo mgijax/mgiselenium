@@ -14,7 +14,7 @@ sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../config',)
 )
 import config
-from config import DEV_URL
+from config import PUBLIC_URL
 
 class TestADBrowser(unittest.TestCase):
 
@@ -28,14 +28,16 @@ class TestADBrowser(unittest.TestCase):
         The default sort for the tree view is smart alpha
         """
         driver = self.driver
-        driver.get(config.DEV_URL + "/vocab/gxd/anatomy/EMAPA:16042")
+        driver.get(config.PUBLIC_URL + "/vocab/gxd/anatomy/EMAPA:16042")
         
         wait.forAjax(driver)
-        termlist = driver.find_element_by_class("ygtvtable")
-        items = termlist[17].find_elements_by_tag_name("td")
-        searchTextItems = iterate.getTextAsList(items)
-        print [x.text for x in items]
-        #self.assertEqual(searchTextItems, ["Gsx2", "Nkx2-1", "Pax6"])
+        time.sleep(1)
+        termList = driver.find_elements_by_class_name("ygtvlabel")
+        terms = iterate.getTextAsList(termList)
+        print [x.text for x in termList]
+        
+        # extra embryonic component should not be 2nd item in list
+        self.assertGreater(terms.index('extraembryonic component'), 2)
         
         
     def tearDown(self):
