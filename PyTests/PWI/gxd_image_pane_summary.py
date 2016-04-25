@@ -205,7 +205,7 @@ class TestImageStubPage(unittest.TestCase):
         """
         @status: Tests the display for image panes with no attached assay
         each image and figure displayed but no assay or specimen
-        @todo: data issue needs to be fixed for test to pass, jackie is working on it."""
+        """
         driver = self.driver
         driver.get(PWI_URL)
         #opens the PWI reference form
@@ -221,8 +221,7 @@ class TestImageStubPage(unittest.TestCase):
         #Locates the images table and finds the table headings
         imagestable = driver.find_element_by_id("paneSummaryTable")
         rows = imagestable.find_elements_by_css_selector('tr')
-        print [x.text for x in rows]
-        #displays each row of data for the first 17 rows
+        #displays each row of data for the first 16 rows
         row1 = rows[1]
         row2 = rows[2]
         row3 = rows[3]
@@ -239,7 +238,7 @@ class TestImageStubPage(unittest.TestCase):
         row14 = rows[14]
         row15 = rows[15]
         row16 = rows[16]
-        #asserts that the rows of data are correct for the first 17 rows
+        #asserts that the rows of data are correct for the first 16 rows
         self.assertEqual(row1.text, 'MGI:4453601\n2 b Fig. 1b MGI:4453599 (Tg(Scgb1a1-cre)1Tauc)')
         self.assertEqual(row2.text, 'MGI:4453603\n3 a Fig. 3a MGI:4453606 (Tg(Scgb1a1-cre)1Tauc)')
         self.assertEqual(row3.text, 'MGI:4453603\n3 c Fig. 3c MGI:4453606 (Tg(Scgb1a1-cre)1Tauc)')
@@ -254,8 +253,8 @@ class TestImageStubPage(unittest.TestCase):
         self.assertEqual(row12.text, 'MGI:4453605\n4 h Fig. 4h MGI:4453606 (Tg(Scgb1a1-cre)1Tauc)')
         self.assertEqual(row13.text, 'MGI:4453605\n4 i Fig. 4i MGI:4453606 (Tg(Scgb1a1-cre)1Tauc)')
         self.assertEqual(row14.text, 'MGI:4453605\n4 j Fig. 4j MGI:4453606 (Tg(Scgb1a1-cre)1Tauc)')
-        self.assertEqual(row15.text, 'MGI:4453605\n4 k Fig. 4k ')
-        self.assertEqual(row16.text, 'MGI:4453605\n4 l Fig. 4l ')
+        self.assertEqual(row15.text, 'MGI:4453605\n4 k')
+        self.assertEqual(row16.text, 'MGI:4453605\n4 l')
         
 
     def verify_images_nospecimen(self):
