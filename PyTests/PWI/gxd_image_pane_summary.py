@@ -16,12 +16,12 @@ sys.path.append(
 import config
 from config import PWI_URL
 
-class TestImageStubPage(unittest.TestCase):
+class TestImagePanePage(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Firefox() 
 
-    def verify_table_headers(self):
+    def test_table_headers(self):
         """
         @status: Tests that the image pane table headers are correct
         Image, Figure Label, Pane Label, Assay (Gene), Specimen label
@@ -46,7 +46,7 @@ class TestImageStubPage(unittest.TestCase):
         #verifies all the table headings are correct and in order
         self.assertEqual(searchTextItems, ['Image', 'Figure', 'Pane', 'Specimen', 'Assay (Gene)', 'Assay Type'])
         
-    def verify_page_sort(self):
+    def test_page_sort(self):
         """
         @status: Tests that the default page sort is correct
         sort is by Figure, Pane, Assay Marker Symbol
@@ -160,7 +160,7 @@ class TestImageStubPage(unittest.TestCase):
         self.assertEqual(row44.text, 'S2L MGI:5619759 (Gata3) Immunohistochemistry')
         self.assertEqual(row45.text, 'S2L MGI:5619760 (Gata2) Immunohistochemistry')
         
-    def verify_multispecs_diffassay(self):
+    def test_multispecs_diffassay(self):
         """
         @status: Tests the display for image panes with multiple specimens from different assays
         each specimen/assay should have it's own row per image
@@ -221,7 +221,7 @@ class TestImageStubPage(unittest.TestCase):
         self.assertEqual(row18.text, "MGI:3522448\n2 C'' 2C',2C'' MGI:3522619 (Sdc1) Immunohistochemistry")
         self.assertEqual(row19.text, "2C,2C'' MGI:3522621 (Hspg2) Immunohistochemistry")
         
-    def verify_multispecs_samegene_assay(self):
+    def test_multispecs_samegene_assay(self):
         """
         @status: Tests the display for image panes with multiple specimens for the same gene and assay
         all the specimens should be displayed on the same row
@@ -296,7 +296,7 @@ class TestImageStubPage(unittest.TestCase):
         self.assertEqual(row25.text, '5F MGI:3776083 (Met) RNA in situ')
         
         
-    def verify_multispecs_sameassay_samepane(self):
+    def test_multispecs_sameassay_samepane(self):
         """
         @status: Tests the display for image panes with multiple specimens from the same assay using the same image pane
         each specimen should have it's own row
@@ -345,7 +345,7 @@ class TestImageStubPage(unittest.TestCase):
         self.assertEqual(row12.text, 'MGI:5750639\n6 E13.5 6 E13.5 MGI:5750680 (H13) RNA in situ')
         self.assertEqual(row13.text, 'MGI:5750639\n6 E14.5 6 E14.5 MGI:5750680 (H13) RNA in situ')
 
-    def verify_images_noassay(self):
+    def test_images_noassay(self):
         """
         @status: Tests the display for image panes with no attached assay
         each image and figure displayed but no assay or specimen
@@ -401,7 +401,7 @@ class TestImageStubPage(unittest.TestCase):
         self.assertEqual(row16.text, 'MGI:4453605\n4 l')
         
 
-    def verify_images_nospecimen(self):
+    def test_images_nospecimen(self):
         """
         @status: Tests the display for image panes with no specimen label
         each image, figure label, pane label, and assay displayed but no specimen label
@@ -447,6 +447,10 @@ class TestImageStubPage(unittest.TestCase):
         self.driver.close()
         
 
+def suite():
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(TestImagePanePage))
+    return suite
 
 
 if __name__ == "__main__":

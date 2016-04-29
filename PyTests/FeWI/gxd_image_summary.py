@@ -23,7 +23,7 @@ class TestImageSummary(unittest.TestCase):
         self.driver = webdriver.Firefox() 
 
 
-    def verify_default_sort_genes(self):
+    def test_default_sort_genes(self):
         """
         @status: Tests that the genes column sorts genes result correctly
         """
@@ -43,7 +43,7 @@ class TestImageSummary(unittest.TestCase):
         searchTextItems = iterate.getTextAsList(items)
         self.assertEqual(searchTextItems, ["Gsx2", "Nkx2-1", "Pax6"])
         
-    def verify_default_sort_assaytype(self):
+    def test_default_sort_assaytype(self):
         """
         @status: Tests the sort order for assay type using default sort
         sort order is gene first, assay type secondary
@@ -64,7 +64,7 @@ class TestImageSummary(unittest.TestCase):
         searchTextItems = iterate.getTextAsList(items)
         self.assertEqual(searchTextItems, ["RNA in situ", "Immunohistochemistry", "Immunohistochemistry"])
         
-    def verify_default_sort_specimentype(self):
+    def test_default_sort_specimentype(self):
         """
         @status: Tests the sort order for specimen type using default sort
         sort order is gene first, assay type secondary
@@ -198,6 +198,11 @@ class TestImageSummary(unittest.TestCase):
            
     def tearDown(self):
         self.driver.close()
+
+def suite():
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(TestImageSummary))
+    return suite
         
 if __name__ == "__main__":
     unittest.main() 

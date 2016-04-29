@@ -21,7 +21,7 @@ from base_class import EmapaBaseClass
 
 # Tests
 
-class ClipboardTest(unittest.TestCase, EmapaBaseClass):
+class TestClipboard(unittest.TestCase, EmapaBaseClass):
     """
     Tests various features connected with the clipboard.
     """
@@ -395,7 +395,7 @@ class ClipboardTest(unittest.TestCase, EmapaBaseClass):
         
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(ClipboardTest))
+    suite.addTest(unittest.makeSuite(TestClipboard))
     return suite
 
 

@@ -135,11 +135,14 @@ class TestSnpBuild(unittest.TestCase):
         
         
         
-    #def tearDown(self):
-    #    self.closeAllWindows()
+    def tearDown(self):
+        self.closeAllWindows()
         
 
-
+def suite():
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(TestSnpBuild))
+    return suite
 
 
 if __name__ == "__main__":

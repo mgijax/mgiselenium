@@ -22,7 +22,7 @@ class TestLitIndexByMrk(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox() 
 
-    def verify_table_headers(self):
+    def test_table_headers(self):
         """
         @status: Tests that the summaries table headers are correct
         """
@@ -48,7 +48,7 @@ class TestLitIndexByMrk(unittest.TestCase):
         #verifies all the table headings are correct and in order
         self.assertEqual(searchTextItems, ['*','Reference','Priority','Conditional'])
         
-    def verify_page_sort(self):
+    def test_page_sort(self):
         """
         @status: Tests that the default page sort is correct
         sort is by no particular order?
@@ -145,7 +145,10 @@ class TestLitIndexByMrk(unittest.TestCase):
     def tearDown(self):
         self.driver.close()
         
-
+def suite():
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(TestLitIndexByMrk))
+    return suite
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testSpecSumByRef']

@@ -19,7 +19,7 @@ from base_class import EmapaBaseClass
 
 # Tests
 
-class TreeViewTest(unittest.TestCase, EmapaBaseClass):
+class TestTreeView(unittest.TestCase, EmapaBaseClass):
     """
     Test EMAPA browser treeview
     """
@@ -177,7 +177,7 @@ class TreeViewTest(unittest.TestCase, EmapaBaseClass):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TreeViewTest))
+    suite.addTest(unittest.makeSuite(TestTreeView))
     return suite
 
 if __name__ == "__main__":

@@ -18,7 +18,7 @@ import config
 from util import iterate, wait
 from base_class import EmapaBaseClass
 
-class EmapaDetailTest(unittest.TestCase, EmapaBaseClass):
+class TestEmapaDetail(unittest.TestCase, EmapaBaseClass):
 
 
     def setUp(self):
@@ -143,7 +143,7 @@ class EmapaDetailTest(unittest.TestCase, EmapaBaseClass):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(EmapaDetailTest))
+    suite.addTest(unittest.makeSuite(TestEmapaDetail))
     return suite
 
 if __name__ == "__main__":

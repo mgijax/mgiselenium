@@ -21,7 +21,7 @@ class TestSpecSumByRef(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox() 
 
-    def verify_table_headers(self):
+    def test_table_headers(self):
         """
         @status: Tests that the summaries table headers are correct
         """
@@ -45,7 +45,7 @@ class TestSpecSumByRef(unittest.TestCase):
         #verifies all the table headings are correct and in order
         self.assertEqual(searchTextItems, ['Assay ID','Marker Symbol','Assay Type','Specimen Label','Age','Age Note','Sex','Hybridization','Fixation','Embedding','Background','Allele(s)','Specimen Note'])
         
-    def verify_page_sort(self):
+    def test_page_sort(self):
         """
         @status: Tests that the default page sort is correct
         sort is by ascii so 10 would come before 4 or 5, or 6, etc.
@@ -91,7 +91,7 @@ class TestSpecSumByRef(unittest.TestCase):
         self.assertEqual(specimen11.text, "4F")
         self.assertEqual(specimen12.text, "5A")
 
-    def verify_age_note(self):
+    def test_age_note(self):
         """
         @status: Tests that the age notes are correct
         an age note is represented by a asterisk.
@@ -128,7 +128,7 @@ class TestSpecSumByRef(unittest.TestCase):
         self.assertEqual(agenote7.text, "*  ")
         
 
-    def verify_specimen_note(self):
+    def test_specimen_note(self):
         """
         @status: Tests that the specimen notes are correctly displayed
         specimen notes should be fully displayed
@@ -165,7 +165,7 @@ class TestSpecSumByRef(unittest.TestCase):
         self.assertEqual(specnote7.text, "2.5% paraformaldehyde  ")
         
 
-    def verify_assay_detail_links(self):
+    def test_assay_detail_links(self):
         """
         @status: Tests that the Assay IDs link to correct assay detail pages
         
@@ -194,7 +194,7 @@ class TestSpecSumByRef(unittest.TestCase):
         assayid = mgiid[3].text
         self.assertEqual(assayid, 'MGI:3037440')
         
-    def verify_cre_assay(self):
+    def test_cre_assay(self):
         """
         @status: Tests that all cre assays are correctly displayed at the bottom
         cre assays are Recombinase reporter and  In situ reporter (transgenic)
@@ -234,7 +234,10 @@ class TestSpecSumByRef(unittest.TestCase):
     def tearDown(self):
         self.driver.close()
         
-
+def suite():
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(TestSpecSumByRef))
+    return suite
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testSpecSumByRef']

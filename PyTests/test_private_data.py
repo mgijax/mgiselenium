@@ -18,12 +18,12 @@ import config
 
 
 
-class PrivateData(unittest.TestCase): 
+class TestPrivateData(unittest.TestCase): 
 
     def setUp(self):
         self.driver = webdriver.Firefox() 
 
-    def hide_private_allele(self):
+    def test_hide_private_allele(self):
         """
         @status: Test is under construction
         """
@@ -43,6 +43,11 @@ class PrivateData(unittest.TestCase):
 
     def tearDown(self):
         self.driver.close()
+
+def suite():
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(TestPrivateData))
+    return suite
         
 if __name__ == "__main__":
     unittest.main() 

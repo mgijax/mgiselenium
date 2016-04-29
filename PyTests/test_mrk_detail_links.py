@@ -15,7 +15,7 @@ sys.path.append(
 )
 import config
 
-class MarkerDetailLinks(unittest.TestCase):
+class TestMarkerDetailLinks(unittest.TestCase):
 
 
     def setUp(self):
@@ -501,7 +501,11 @@ class MarkerDetailLinks(unittest.TestCase):
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
     def tearDown(self):
         self.driver.close()
-
+        
+def suite():
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(TestMarkerDetailLinks))
+    return suite
 
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']

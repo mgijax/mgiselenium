@@ -21,7 +21,7 @@ class TestADBrowser(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox() 
 
-    def verify_parent_data(self):
+    def test_parent_data(self):
         """
         @status: Tests that the parent terms are correctly identified
         In this case all 3 parent terms should be part-of
@@ -39,7 +39,7 @@ class TestADBrowser(unittest.TestCase):
         self.assertEqual(parent[4].text, "part-of conceptus\npart-of egg cylinder\npart-of mouse")
         
         
-    def verify_default_sort_treeview(self):
+    def test_default_sort_treeview(self):
         """
         @status: Tests that the terms are correctly sorted
         The default sort for the tree view is smart alpha
@@ -59,6 +59,11 @@ class TestADBrowser(unittest.TestCase):
         
     def tearDown(self):
         self.driver.close()
+
+def suite():
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(TestADBrowser))
+    return suite
         
 if __name__ == "__main__":
     unittest.main() 

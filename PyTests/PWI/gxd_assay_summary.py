@@ -21,7 +21,7 @@ class TestAssaySummaryPage(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox() 
 
-    def verify_table_headers(self):
+    def test_table_headers(self):
         """
         @status: Tests that the GXD/CRE Assays Summary table headers are correct
         Result Details, Gene, Assay Type, Reference
@@ -46,7 +46,7 @@ class TestAssaySummaryPage(unittest.TestCase):
         #verifies all the table headings are correct and in order
         self.assertEqual(searchTextItems, ['Result Details','Gene','Assay Type','Reference'])
         
-    def verify_page_sort(self):
+    def test_page_sort(self):
         """
         @status: Tests that the default page sort is correct
         sort is by marker, assay type, first reference author, and MGI ID.
@@ -143,7 +143,10 @@ class TestAssaySummaryPage(unittest.TestCase):
     def tearDown(self):
         self.driver.close()
         
-
+def suite():
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(TestAssaySummaryPage))
+    return suite
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testSpecSumByRef']

@@ -22,7 +22,7 @@ from base_class import EmapaBaseClass
 
 # Tests
 
-class SearchTest(unittest.TestCase, EmapaBaseClass):
+class TestSearch(unittest.TestCase, EmapaBaseClass):
     """
     @status Test EMAPA browser search using terms, stages, synonymns
     """
@@ -152,7 +152,7 @@ class SearchTest(unittest.TestCase, EmapaBaseClass):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(SearchTest))
+    suite.addTest(unittest.makeSuite(TestSearch))
     return suite
 
 if __name__ == "__main__":

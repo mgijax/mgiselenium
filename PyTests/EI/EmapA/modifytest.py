@@ -17,7 +17,7 @@ import config
 from util import iterate, wait
 from base_class import EmapaBaseClass
 
-class ModifyEmapaTest(unittest.TestCase, EmapaBaseClass):
+class TestModifyEmapa(unittest.TestCase, EmapaBaseClass):
 
 
     def setUp(self):
@@ -34,7 +34,7 @@ class ModifyEmapaTest(unittest.TestCase, EmapaBaseClass):
         
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(ModifyEmapaTest))
+    suite.addTest(unittest.makeSuite(TestModifyEmapa))
     return suite
 
 
