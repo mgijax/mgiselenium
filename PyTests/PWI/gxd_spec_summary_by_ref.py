@@ -32,18 +32,20 @@ class TestSpecSumByRef(unittest.TestCase):
         accidbox = driver.find_element_by_id('accids')
         # put your J number in the box
         accidbox.send_keys("J:84605")
-        accidbox.send_keys(Keys.RETURN)
-        time.sleep(3)
+        accidbox.submit()
+
         #finds the specimens link and clicks it
         driver.find_element_by_link_text("Specimens").click()
-        wait.forAjax(driver)
+
         #Locates the summary table and finds the table headings
         headerlist = driver.find_element_by_id("specimenSummaryTable")
         items = headerlist.find_elements_by_tag_name("th")
         searchTextItems = iterate.getTextAsList(items)
         wait.forAjax(driver)
         #verifies all the table headings are correct and in order
-        self.assertEqual(searchTextItems, ['Assay ID','Marker Symbol','Assay Type','Specimen Label','Age','Age Note','Sex','Hybridization','Fixation','Embedding','Background','Allele(s)','Specimen Note'])
+        self.assertEqual(searchTextItems, ['Assay ID','Marker Symbol','Assay Type','Specimen Label',
+                                           'Age','Age Note','Sex','Hybridization','Fixation',
+                                           'Embedding','Background','Allele(s)','Specimen Note'])
         
     def test_page_sort(self):
         """
@@ -57,11 +59,11 @@ class TestSpecSumByRef(unittest.TestCase):
         accidbox = driver.find_element_by_id('accids')
         # put your J number in the box
         accidbox.send_keys("J:40904")
-        accidbox.send_keys(Keys.RETURN)
-        time.sleep(3)
+        accidbox.submit()
+
         #finds the specimens link and clicks it
         driver.find_element_by_link_text("Specimens").click()
-        wait.forAjax(driver)
+
         #finds the specimen label column and then the first 12 items
         summarytable = driver.find_element_by_id("specimenSummaryTable")
         specimens = summarytable.find_elements_by_css_selector('td:nth-child(4)')
@@ -103,8 +105,8 @@ class TestSpecSumByRef(unittest.TestCase):
         accidbox = driver.find_element_by_id('accids')
         # put your J number in the box
         accidbox.send_keys("J:84605")
-        accidbox.send_keys(Keys.RETURN)
-        time.sleep(3)
+        accidbox.submit()
+
         #finds the specimens link and clicks it
         driver.find_element_by_link_text("Specimens").click()
         wait.forAjax(driver)
@@ -140,8 +142,8 @@ class TestSpecSumByRef(unittest.TestCase):
         accidbox = driver.find_element_by_id('accids')
         # put your J number in the box
         accidbox.send_keys("J:36691")
-        accidbox.send_keys(Keys.RETURN)
-        time.sleep(3)
+        accidbox.submit()
+
         #finds the specimens link and clicks it
         driver.find_element_by_link_text("Specimens").click()
         wait.forAjax(driver)
@@ -177,17 +179,18 @@ class TestSpecSumByRef(unittest.TestCase):
         accidbox = driver.find_element_by_id('accids')
         # put your J number in the box
         accidbox.send_keys("J:84605")
-        accidbox.send_keys(Keys.RETURN)
-        time.sleep(3)
+        accidbox.submit()
+
         #finds the specimens link and clicks it
         driver.find_element_by_link_text("Specimens").click()
-        wait.forAjax(driver)
+        
         #finds the assay id column and then clicks the link for the first row
         summarytable = driver.find_element_by_id("specimenSummaryTable")
-        assayids = summarytable.find_elements_by_css_selector('td:nth-child(1)')
+        assayids = summarytable.find_elements_by_css_selector('td:nth-child(1) a')
         assayid1 = assayids[0]
         assayid1.click()
-        wait.forAjax(driver)
+
+        
         #finds the MGI id on the page and asserts it is correct
         details = self.driver.find_element_by_class_name('detailPageListData')
         mgiid = details.find_elements_by_css_selector('dd')
@@ -206,8 +209,8 @@ class TestSpecSumByRef(unittest.TestCase):
         accidbox = driver.find_element_by_id('accids')
         # put your J number in the box
         accidbox.send_keys("J:105186")
-        accidbox.send_keys(Keys.RETURN)
-        time.sleep(3)
+        accidbox.submit()
+
         #finds the specimens link and clicks it
         driver.find_element_by_link_text("Specimens").click()
         wait.forAjax(driver)

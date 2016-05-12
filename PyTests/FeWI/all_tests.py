@@ -13,15 +13,19 @@ import unittest
 
 # import all sub test suites
 import private_allele
-import QTL_variant_notes
+import AD_Browser
+import QTL_allele_detail
+import gxd_image_summary
 import test_emboss_data
 
 # add the test suites
 def master_suite():
     suites = []
     
+    suites.append(AD_Browser.suite())
     suites.append(private_allele.suite())
-    suites.append(QTL_variant_notes.suite())
+    suites.append(QTL_allele_detail.suite())
+    suites.append(gxd_image_summary.suite())
     suites.append(test_emboss_data.suite())
 	
     master_suite = unittest.TestSuite(suites)

@@ -36,7 +36,7 @@ class TestAssaySummaryPage(unittest.TestCase):
         accidbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the specimens link and clicks it
-        driver.find_element_by_link_text("GXD/CRE Assays").click()
+        driver.find_element_by_link_text("Assays").click()
         wait.forAjax(driver)
         #Locates the summary table and finds the table headings
         headerlist = driver.find_element_by_id("assaySummaryTable")
@@ -61,7 +61,7 @@ class TestAssaySummaryPage(unittest.TestCase):
         accidbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the GXD/CRE Assays link and clicks it
-        driver.find_element_by_link_text("GXD/CRE Assays").click()
+        driver.find_element_by_link_text("Assays").click()
         wait.forAjax(driver)
         #finds the specimen label column and then the first 12 items
         resultstable = driver.find_element_by_id("assaySummaryTable")

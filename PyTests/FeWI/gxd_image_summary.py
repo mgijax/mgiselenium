@@ -15,7 +15,6 @@ sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../config',)
 )
 import config
-from config import DEV_URL
 
 class TestImageSummary(unittest.TestCase):
 
@@ -28,7 +27,7 @@ class TestImageSummary(unittest.TestCase):
         @status: Tests that the genes column sorts genes result correctly
         """
         driver = self.driver
-        driver.get(config.DEV_URL + "/gxd")
+        driver.get(config.PUBLIC_URL + "/gxd")
         genebox = driver.find_element_by_name('nomenclature')
         # put your marker symbol
         genebox.send_keys("pax6")

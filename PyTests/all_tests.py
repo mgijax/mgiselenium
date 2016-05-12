@@ -12,16 +12,25 @@ import config
 import unittest
 
 # import all sub test suites
-from EmapA import all_tests as emapa_tests
-import Logintest
+from EI import all_tests as ei_tests
+from FeWI import all_tests as fewi_tests
+from PWI import all_tests as pwi_tests
+
+import test_mrk_detail_links
+import test_private_data
+import test_snp_build_numbers
 
 # add the test suites
 def master_suite():
     suites = []
     # run all EmapA test suites
-    suites.append(emapa_tests.master_suite())
+    suites.append(ei_tests.master_suite())
+    suites.append(fewi_tests.master_suite())
+    suites.append(pwi_tests.master_suite())
     
-    suites.append(Logintest.suite())
+    suites.append(test_mrk_detail_links.suite())
+    suites.append(test_private_data.suite())
+    suites.append(test_snp_build_numbers.suite())
 
     master_suite = unittest.TestSuite(suites)
     return master_suite

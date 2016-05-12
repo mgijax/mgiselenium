@@ -12,20 +12,18 @@ import config
 import unittest
 
 # import all sub test suites
-import emapaclipboardtest
-import emapadetailtest
-import emapatreeviewtest
-import modifytest
-import searchtest
+import gxd_assay_summary
+import gxd_image_pane_summary
+import gxd_lit_index_by_mrk
+import gxd_spec_summary_by_ref
 
 # add the test suites
 def master_suite():
         suites = []
-        suites.append(emapaclipboardtest.suite())
-        suites.append(emapadetailtest.suite())
-        suites.append(emapatreeviewtest.suite())
-        suites.append(modifytest.suite())
-        suites.append(searchtest.suite())
+        suites.append(gxd_assay_summary.suite())
+        suites.append(gxd_image_pane_summary.suite())
+        suites.append(gxd_lit_index_by_mrk.suite())
+        suites.append(gxd_spec_summary_by_ref.suite())
         
         master_suite = unittest.TestSuite(suites)
         return master_suite
