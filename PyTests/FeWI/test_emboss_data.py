@@ -2,12 +2,13 @@
 Created on Feb 22, 2016
 
 @author: jeffc
-A work in progress, bringing back data but now need to figure how to apply it.
+A work in progress, bringing back data and verifies some, problem is some results have no ID in results, like nib files so need to
+figure out how to handle these.
 '''
 import unittest
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from ddt import ddt, data, unpack
+#from ddt import ddt, data, unpack
 from pkgutil import get_data
 #from csv import reader
 
@@ -35,7 +36,7 @@ class TestFile(unittest.TestCase):
         lines = []
         for line in f.readlines():
             line = line.strip()
-        lines.append(line)
+            lines.append(line)
         
         return lines
         
@@ -58,8 +59,9 @@ class TestFile(unittest.TestCase):
             goButton = self.driver.find_element_by_css_selector("form[name=\"seqPullDownForm\"] input")
             goButton.click()
     
-            self.assertIn("test1234567", self.driver.page_source)
-     
+            self.assertIn(embossId, self.driver.page_source)
+    
+    
         
     def tearDown(self):
         self.driver.close()

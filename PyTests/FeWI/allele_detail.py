@@ -226,28 +226,28 @@ class Test(unittest.TestCase):
         
         self.assertEqual(alleleType.text, "Transgenic")
         
-    #def test_allele_molecular_image(self):
+    def test_allele_molecular_image(self):
         '''
         @status this test verifies Allele Detail page displays molecular image in the molecular description ribbon.
-        @bug: This page needs the table to have an ID before a test can really be written
         
+        '''
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Tgm3")
         self.driver.find_element_by_class_name("buttonLabel").click()
         self.driver.find_element_by_partial_link_text('tm1Sjo').click()
         
-        image = self.driver.find_element_by_class_name("detailData1").find_element_by_css_selector('img')
+        image = self.driver.find_element_by_id('mutationDescriptionTable').find_element_by_css_selector('a img')
         self.assertTrue(image.is_displayed(), 'the image is not displaying')
         self.driver.get(config.FEWI_URL + "/allele/")
         
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Dock2")
         self.driver.find_element_by_class_name("buttonLabel").click()
-        self.driver.find_element_by_partial_link_text('mu').click()
+        self.driver.find_element_by_partial_link_text('Hsd').click()
         
-        image = self.driver.find_element_by_class_name("td.detailData1").find_element_by_css_selector('img')
+        image = self.driver.find_element_by_id('mutationDescriptionTable').find_element_by_css_selector('a img')
         self.assertTrue(image.is_displayed(), 'the image is not displaying')
-        '''
+        
         
     def test_mutagenetix_link(self):
         '''
@@ -308,26 +308,17 @@ class Test(unittest.TestCase):
         self.assertEqual(actualurl, 'ftp://devftp.informatics.jax.org/pub/datasets/incidental_muts/Mutagenetix.xlsx')
         self.driver.get(config.FEWI_URL + "/allele/")
     
-    #def test_allele_molecular_image_caption(self):
+    def test_allele_molecular_image_caption(self):
         '''
-        @status this test verifies 5.Allele Detail page displays thumbnail caption to the left of the molecular image in the molecular description ribbon.
+        @status this test verifies Allele Detail page displays thumbnail caption to the left of the molecular image in the molecular description ribbon.
         @bug: This page needs the table to have an ID before a test can really be written
-        
+        '''
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Stk11")
         self.driver.find_element_by_class_name("buttonLabel").click()
         self.driver.find_element_by_partial_link_text('tm1.1Jish').click()
         
-        caption = self.driver.find_element_by_class_name("small").find_element_by_css_selector('span')
-        self.assertTrue(caption.is_displayed(), 'the caption is not displaying')
-        self.driver.get(config.FEWI_URL + "/allele/")
-        
-        self.driver.find_element_by_name("nomen").clear()
-        self.driver.find_element_by_name("nomen").send_keys("Gt(ROSA)26Sor")
-        self.driver.find_element_by_class_name("buttonLabel").click()
-        self.driver.find_element_by_partial_link_text('tm1(EYFP)Cos').click()
-        
-        caption = self.driver.find_element_by_class_name("small").find_element_by_css_selector('span')
+        caption = self.driver.find_element_by_id('mutationDescriptionTable').find_element_by_css_selector('span.small')
         self.assertTrue(caption.is_displayed(), 'the caption is not displaying')
         self.driver.get(config.FEWI_URL + "/allele/")
         
@@ -336,7 +327,7 @@ class Test(unittest.TestCase):
         self.driver.find_element_by_class_name("buttonLabel").click()
         self.driver.find_element_by_partial_link_text('tm2.1Jkl').click()
         
-        caption = self.driver.find_element_by_class_name("small").find_element_by_css_selector('span')
+        caption = self.driver.find_element_by_id('mutationDescriptionTable').find_element_by_css_selector('span')
         self.assertTrue(caption.is_displayed(), 'the caption is not displaying')
         self.driver.get(config.FEWI_URL + "/allele/")
         
@@ -344,11 +335,11 @@ class Test(unittest.TestCase):
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Dock2")
         self.driver.find_element_by_class_name("buttonLabel").click()
-        self.driver.find_element_by_partial_link_text('mu').click()
+        self.driver.find_element_by_partial_link_text('Hsd').click()
         
-        caption = self.driver.find_element_by_class_name("small").find_element_by_css_selector('span')
-        self.assertEquals(image.text, 'Schematic showing the duplication and location of the premature stop codon in the Dock2<mu> allele found in Irf5<tm1Ttg>/Irf5<tm1Ttg> mice')
-        '''
+        caption = self.driver.find_element_by_id('mutationDescriptionTable').find_element_by_css_selector('span')
+        self.assertEquals(caption.text, 'Schematic showing the duplication and location of the premature stop codon in the Dock2<mu> allele found in Irf5<tm1Ttg>/Irf5<tm1Ttg> mice')
+        
         
     def test_afp_link(self):
         '''
@@ -375,36 +366,36 @@ class Test(unittest.TestCase):
         self.assertEqual(afplink.text, "incidental mutations")
         self.assertEqual(actualurl, 'ftp://devftp.informatics.jax.org/pub/datasets/incidental_muts/APF.xlsx')
     
-    #def test_collection_value(self):
+    def test_collection_value(self):
         '''
         @status this test verifies these Alleles have the correct project collection in the Mutation origin ribbon.
-        @bug: allele detail page need ID added to tables to complete these tests
         
+        '''
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("0610037L13Rik")
         self.driver.find_element_by_class_name("buttonLabel").click()
         self.driver.find_element_by_partial_link_text('tm1(KOMP)Vlcg').click()
-        collection = self.driver.find_element_by_id('???')
-        
-        self.assertEqual(collection.text, "KOMP-Regeneron")
+        collection = self.driver.find_element_by_id('mutationOriginTable').find_elements_by_css_selector('td.padded')
+        collitem = collection[5]
+        self.assertEqual(collitem.text, "KOMP-Regeneron")
         self.driver.get(config.FEWI_URL + "/allele/")
         
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Acan")
         self.driver.find_element_by_class_name("buttonLabel").click()
         self.driver.find_element_by_partial_link_text('b2b183Clo').click()
-        collection = self.driver.find_element_by_id('???')
-        
-        self.assertEqual(collection.text, "B2B/CvDC")
+        collection = self.driver.find_element_by_id('mutationOriginTable').find_elements_by_css_selector('td.padded')
+        collitem = collection[2]
+        self.assertEqual(collitem.text, "B2B/CvDC")
         self.driver.get(config.FEWI_URL + "/allele/")
         
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Adamts20")
         self.driver.find_element_by_class_name("buttonLabel").click()
         self.driver.find_element_by_partial_link_text('hip').click()
-        collection = self.driver.find_element_by_id('???')
-        
-        self.assertEqual(collection.text, "APF ENU Mutagenesis")
+        collection = self.driver.find_element_by_id('mutationOriginTable').find_elements_by_css_selector('td.padded')
+        collitem = collection[2]
+        self.assertEqual(collitem.text, "APF ENU Mutagenesis")
         self.driver.get(config.FEWI_URL + "/allele/")
         
         
@@ -412,9 +403,9 @@ class Test(unittest.TestCase):
         self.driver.find_element_by_name("nomen").send_keys("Dbx1")
         self.driver.find_element_by_class_name("buttonLabel").click()
         self.driver.find_element_by_partial_link_text('tm1.1(cre)Mull').click()
-        collection = self.driver.find_element_by_id('???')
-        
-        self.assertEqual(collection.text, "Neuroscience Blueprint cre")
+        collection = self.driver.find_element_by_id('mutationOriginTable').find_elements_by_css_selector('td.padded')
+        collitem = collection[4]
+        self.assertEqual(collitem.text, "Neuroscience Blueprint cre")
         self.driver.get(config.FEWI_URL + "/allele/")
         
         
@@ -422,9 +413,9 @@ class Test(unittest.TestCase):
         self.driver.find_element_by_name("nomen").send_keys("Tg(Ucn3-cre)KF31Gsat")
         self.driver.find_element_by_class_name("buttonLabel").click()
         self.driver.find_element_by_partial_link_text('Tg(Ucn3-cre)KF31Gsat').click()
-        collection = self.driver.find_element_by_id('???')
-        
-        self.assertEqual(collection.text, "GENSAT")
+        collection = self.driver.find_element_by_id('mutationOriginTable').find_elements_by_css_selector('td.padded')
+        collitem = collection[2]
+        self.assertEqual(collitem.text, "GENSAT")
         self.driver.get(config.FEWI_URL + "/allele/")
         
         #Collection does not appear when the allele is not assigned to a collection. 
@@ -433,7 +424,7 @@ class Test(unittest.TestCase):
         self.driver.find_element_by_class_name("buttonLabel").click()
         self.driver.find_element_by_partial_link_text('2Neu').click()
         assert "Project Collection" not in self.driver.page_source
-        '''
+        
     def test_pheno_disease_table(self):
         '''
         @status this test verifies these Alleles have the correct Disease models and sorted alphabetically.
@@ -489,27 +480,30 @@ class Test(unittest.TestCase):
         searchTreeItems = iterate.getTextAsList(items)
         self.assertEqual(["behavior/neurological", "cardiovascular system", "hearing/vestibular/ear", "mortality/aging", "nervous system"], searchTreeItems)
     
-    '''def test_geno_popup_data(self):
-        
+    def test_geno_popup_data(self):
+        '''
         @status this test verifies the data found in a genotype popup page.
-        @bug: Will need changes/Kevin's help to make this test work
-        
+        '''
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("lepr")
         self.driver.find_element_by_class_name("buttonLabel").click()
         self.driver.find_element_by_link_text("Leprdb").click()
-        window_main = self.driver.window_handles[0]
-        print window_main
+        main_window = self.driver.window_handles[0]
         self.driver.find_element_by_link_text('hm1').click()
-        window_popup = self.driver.window_handles[1]
-        print window_popup
-        self.driver.switch_to_window(window_popup)
-        #alleliccomp = self.driver.find_element_by_class_name("genotypeCombo").find_element_by_css_selector('a.text')
-        #print alleliccomp
-        #self.assertEqual('Leprdb/Leprdb', alleliccomp)
-        background = self.driver.find_element_by_class_name('padding').find_element_by_tag_name('td')
-        print background
-        self.assertEqual('B6.BKS(D)-Leprdb/J', background)   
+        
+        wait.forNewWindow(self.driver)
+        page_title = self.driver.find_element_by_class_name('titleBarMainTitle')
+        self.assertEqual(page_title.text, "Phenotypes Associated with This Genotype")
+        mgi_id = self.driver.find_element_by_class_name('genoID')
+        self.assertEqual(mgi_id.text, 'MGI:4429457')
+        geno_type_id = self.driver.find_element_by_css_selector('.hmGeno.genotypeType')
+        self.assertEqual(geno_type_id.text, 'hm1')
+        allelesystems = self.driver.find_elements_by_class_name("mpSystemRow")
+        allelesystems = iterate.getTextAsList(allelesystems)
+        print allelesystems
+        self.assertEqual(allelesystems, ['homeostasis/metabolism', 'behavior/neurological', 'renal/urinary system'])
+  
+        '''
         *** many more tests from AlleleDetailPhenoSummary2.html needed
         '''
     def test_allele_img_suppression(self):
