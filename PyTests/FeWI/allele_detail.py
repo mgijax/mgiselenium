@@ -435,7 +435,7 @@ class Test(unittest.TestCase):
         self.driver.find_element_by_partial_link_text('tm1Tyj').click()
         actualurl = self.driver.find_element_by_link_text('Breast Cancer').get_attribute("href")
         
-        self.assertEqual(actualurl, 'http://firien.informatics.jax.org/disease/114480')
+        self.assertEqual(actualurl, 'http://scrumdog.informatics.jax.org/disease/114480')
         self.driver.get(config.FEWI_URL + "/allele/")
         
         self.driver.find_element_by_name("nomen").clear()
