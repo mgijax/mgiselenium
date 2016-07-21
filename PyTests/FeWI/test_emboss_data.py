@@ -53,13 +53,24 @@ class TestFile(unittest.TestCase):
         print embossIds
     
         for embossId in embossIds:
+            
+            chrLine = None
+            parts = embossId.split(',')
+            if len(parts) > 1:
+                embossId = parts[0]
+                chrLine = parts[1]
     
             self.driver.get(SEQUENCE_URL + embossId)
     
             goButton = self.driver.find_element_by_css_selector("form[name=\"seqPullDownForm\"] input")
             goButton.click()
     
-            self.assertIn(embossId, self.driver.page_source)
+            if chrLine:
+                self.assertIn(chrLine, self.driver.page_source)
+            else:
+                self.assertNotIn("An error occurred", self.driver.page_source)
+                self.assertIn(embossId, self.driver.page_source)
+                
     
     
         

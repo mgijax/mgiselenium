@@ -106,7 +106,7 @@ class TestImageSummary(unittest.TestCase):
         genelist = imagesdata.find_elements_by_class_name('yui-dt-col-gene')
         items = genelist[1].find_elements_by_tag_name("li")
         searchTextItems = iterate.getTextAsList(items)
-        self.assertEqual(searchTextItems, ["Bmp4", "Shh"])
+        self.assertEqual(searchTextItems, ["Arx", "Olig2", "Shh"])
         geneheader = imagesdata.find_element_by_css_selector('th.yui-dt-col-gene')
         #click the gene header column to sort
         geneheader.click()
@@ -114,7 +114,7 @@ class TestImageSummary(unittest.TestCase):
         genelist = driver.find_element_by_id("imagesdata").find_elements_by_class_name('yui-dt-col-gene')
         items = genelist[1].find_elements_by_tag_name("li")
         searchTextItems = iterate.getTextAsList(items)
-        self.assertEqual(searchTextItems, ["Arx", "Shh"])
+        self.assertEqual(searchTextItems, ["Arx", "Olig2", "Shh"])
         
     def test_assaytype_column_sort(self):
         """

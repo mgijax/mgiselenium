@@ -12,9 +12,11 @@ from selenium.webdriver.common.keys import Keys
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
-  os.path.join(os.path.dirname(__file__), '../../config',)
+  os.path.join(os.path.dirname(__file__), '../..',)
 )
 import config
+from util import wait
+import time
 
 
 
@@ -37,9 +39,11 @@ class TestPrivateData(unittest.TestCase):
         brcalink.click()  # Find the all alleles and mutations link and click it
         allallelelink = driver.find_element_by_link_text("89")
         allallelelink.click()
-        allalleles = driver.find_elements_by_id("dynamicdata")
+        time.sleep(.5)
+        wait.forAjax(driver)
+        #allalleles = driver.find_elements_by_id("dynamicdata")
         # assert that there is no link for Brca1<test1>#testallele = driver.find_element_by_link_text('Brca1<sup>test1</sup>')
-        self.assertNotIn(allalleles.text, "test1", "Test1 allele is displaying!")
+        self.assertNotIn("test1", self.driver.page_source,"Test1 allele is displaying!")
 
     def tearDown(self):
         self.driver.close()

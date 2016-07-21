@@ -136,7 +136,7 @@ class TestSnpBuild(unittest.TestCase):
         
         
     def tearDown(self):
-        self.closeAllWindows()
+        self.driver.close()
         
 
 def suite():
