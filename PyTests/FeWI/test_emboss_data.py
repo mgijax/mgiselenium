@@ -2,8 +2,7 @@
 Created on Feb 22, 2016
 
 @author: jeffc
-A work in progress, bringing back data and verifies some, problem is some results have no ID in results, like nib files so need to
-figure out how to handle these.
+This test verifies EMBOSS data is being returned from the EMBOSS server.
 '''
 import unittest
 from selenium import webdriver

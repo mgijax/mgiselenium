@@ -14,9 +14,13 @@ sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../config',)
 )
 import config
+from util import wait
+import time
 
 class TestPrivateAllele(unittest.TestCase):
-
+    """
+    @status: Tests that the dummy private allele Brca1<test1> does not display on public
+    """
 
     def setUp(self):
         self.driver = webdriver.Firefox()
@@ -32,10 +36,11 @@ class TestPrivateAllele(unittest.TestCase):
         brcalink = driver.find_element_by_link_text("Brca1")  # Find the Brca1 link and click it
         brcalink.click()  # Find the all alleles and mutations link and click it
         allallelelink = driver.find_element_by_link_text("89")
-        allallelelink.click()  # assert that there is no link for Brca1<test1>#testallele = driver.find_element_by_link_text('Brca1<sup>test1</sup>')
-        noallelelink = driver.find_element_by_partial_link_text("ash")
-        # self.assertFalse(noallelelink.is_displayed(), "allele link exists!")
-        self.assertTrue(noallelelink.is_displayed())
+        allallelelink.click()  # assert that there is no link for Brca1<test1>
+        time.sleep(.5)
+        wait.forAjax(driver)
+        # assert that there is no link for Brca1<test1>
+        self.assertNotIn("test1", self.driver.page_source,"Test1 allele is displaying!")
 
     def tearDown(self):
         self.driver.close()

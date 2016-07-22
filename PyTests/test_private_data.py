@@ -27,7 +27,7 @@ class TestPrivateData(unittest.TestCase):
 
     def test_hide_private_allele(self):
         """
-        @status: Test is under construction
+        @status: Tests that the dummy private allele Brca1<test1> does not display on public
         """
         driver = self.driver
         driver.get(config.PUBLIC_URL)
@@ -41,7 +41,6 @@ class TestPrivateData(unittest.TestCase):
         allallelelink.click()
         time.sleep(.5)
         wait.forAjax(driver)
-        #allalleles = driver.find_elements_by_id("dynamicdata")
         # assert that there is no link for Brca1<test1>#testallele = driver.find_element_by_link_text('Brca1<sup>test1</sup>')
         self.assertNotIn("test1", self.driver.page_source,"Test1 allele is displaying!")
 
