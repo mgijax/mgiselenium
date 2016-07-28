@@ -44,101 +44,81 @@ class TestAssaySummaryPage(unittest.TestCase):
         searchTextItems = iterate.getTextAsList(items)
         wait.forAjax(driver)
         #verifies all the table headings are correct and in order
-        self.assertEqual(searchTextItems, ['Antibody Fields','Antigen Fields','','MGI ID', 'Name','Type','Alias(es)','Organism','Class','Notes','Name','MGI ID','Organism','Region','Markers','Reference'])
+        self.assertEqual(searchTextItems, ['Antibody Fields','Antigen Fields','','MGI ID', 'Name','Alias(es)','Organism','Type','Class','Notes','MGI ID','Name','Organism','Region','Notes','Markers','Reference'])
         
     def test_page_sort(self):
         """
         @status: Tests that the default page sort is correct
-        sort is ????.
+        sort is by marker symbol, antibody name, antibody ID.
         """
         driver = self.driver
         driver.get(PWI_URL)
-        #opens the PWI reference form
-        driver.find_element_by_link_text("Reference Form").click()
-        accidbox = driver.find_element_by_id('accids')
-        # put your J number in the box
-        accidbox.send_keys("J:208450")
+        #opens the Marker detail page
+        accidbox = driver.find_element_by_id('accessionForm').find_element_by_name('ids')
+        # put your MGI ID number in the box
+        accidbox.send_keys("MGI:97281")
         accidbox.send_keys(Keys.RETURN)
         time.sleep(3)
-        #finds the GXD/CRE Assays link and clicks it
-        driver.find_element_by_link_text("Assays").click()
+        #finds the antibodies link and clicks it
+        driver.find_element_by_link_text("Antibodies").click()
         wait.forAjax(driver)
-        #finds the specimen label column and then the first 12 items
-        resultstable = driver.find_element_by_id("assaySummaryTable")
+        #finds the antibody name column and then the first 12 items
+        resultstable = driver.find_element_by_id("antibodySummary")
         rows = resultstable.find_elements_by_css_selector('tr')
         #displays each row of data for the first 18 rows
-        row1 = rows[1]
-        row2 = rows[2]
-        row3 = rows[3]
-        row4 = rows[4]
-        row5 = rows[5]
-        row6 = rows[6]
-        row7 = rows[7]
-        row8 = rows[8]
-        row9 = rows[9]
-        row10 = rows[10]
-        row11 = rows[11]
-        row12 = rows[12]
-        row13 = rows[13]
-        row14 = rows[14]
-        row15 = rows[15]
-        row16 = rows[16]
-        row17 = rows[17]
-        row18 = rows[18]
+        row1 = rows[2]
+        row2 = rows[3]
+        row3 = rows[4]
+        row4 = rows[5]
+        row5 = rows[6]
+        row6 = rows[7]
+        row7 = rows[8]
+        row8 = rows[9]
+        row9 = rows[10]
+        row10 = rows[11]
+        row11 = rows[12]
+        row12 = rows[13]
+        row13 = rows[14]
+        row14 = rows[15]
+        row15 = rows[16]
+        row16 = rows[17]
+        row17 = rows[18]
+        row18 = rows[19]
         #asserts that the rows of data are correct for the first 18 rows
-        self.assertEqual(row1.text, "MGI:5688746 Agtr2 RNA in situ J:208450 Bundschu K, Dev Dyn 2014 May;243(5):699-711")
-        self.assertEqual(row2.text, "MGI:5688735 Agtr2 RT-PCR J:208450 Bundschu K, Dev Dyn 2014 May;243(5):699-711")
-        self.assertEqual(row3.text, "MGI:5688736 Agtr2 RT-PCR J:208450 Bundschu K, Dev Dyn 2014 May;243(5):699-711")
-        self.assertEqual(row4.text, "MGI:5688737 Agtr2 RT-PCR J:208450 Bundschu K, Dev Dyn 2014 May;243(5):699-711")
-        self.assertEqual(row5.text, "MGI:5688738 Agtr2 RT-PCR J:208450 Bundschu K, Dev Dyn 2014 May;243(5):699-711")
-        self.assertEqual(row6.text, "MGI:5688739 Agtr2 RT-PCR J:208450 Bundschu K, Dev Dyn 2014 May;243(5):699-711")
-        self.assertEqual(row7.text, "MGI:5688740 Agtr2 RT-PCR J:208450 Bundschu K, Dev Dyn 2014 May;243(5):699-711")
-        self.assertEqual(row8.text, "MGI:5688741 Agtr2 RT-PCR J:208450 Bundschu K, Dev Dyn 2014 May;243(5):699-711")
-        self.assertEqual(row9.text, "MGI:5688742 Agtr2 RT-PCR J:208450 Bundschu K, Dev Dyn 2014 May;243(5):699-711")
-        self.assertEqual(row10.text, "MGI:5688754 Mtus1 Immunohistochemistry J:208450 Bundschu K, Dev Dyn 2014 May;243(5):699-711")
-        self.assertEqual(row11.text, "MGI:5688745 Mtus1 RNA in situ J:208450 Bundschu K, Dev Dyn 2014 May;243(5):699-711")
-        self.assertEqual(row12.text, "MGI:5688744 Mtus1 In situ reporter (knock in) J:208450 Bundschu K, Dev Dyn 2014 May;243(5):699-711")
-        self.assertEqual(row13.text, "MGI:5688692 Mtus1 RT-PCR J:208450 Bundschu K, Dev Dyn 2014 May;243(5):699-711")
-        self.assertEqual(row14.text, "MGI:5688694 Mtus1 RT-PCR J:208450 Bundschu K, Dev Dyn 2014 May;243(5):699-711")
-        self.assertEqual(row15.text, "MGI:5688695 Mtus1 RT-PCR J:208450 Bundschu K, Dev Dyn 2014 May;243(5):699-711")
-        self.assertEqual(row16.text, "MGI:5688696 Mtus1 RT-PCR J:208450 Bundschu K, Dev Dyn 2014 May;243(5):699-711")
-        self.assertEqual(row17.text, "MGI:5688697 Mtus1 RT-PCR J:208450 Bundschu K, Dev Dyn 2014 May;243(5):699-711")
-        self.assertEqual(row18.text, "MGI:5688698 Mtus1 RT-PCR J:208450 Bundschu K, Dev Dyn 2014 May;243(5):699-711")
+        self.assertEqual(row1.text, "MGI:4843410 12F8 antibody rat Monoclonal Not Specified MGI:3576666 PSA-NCAM Not Specified polysialic acid portion of NCAM Ncam1 J:71338, Chung WW, J Comp Neurol 1991 Dec 8;314(2):290-305")
+        self.assertEqual(row2.text, "MGI:2683335 5B8 anti-NCAM mouse, laboratory Monoclonal IgG1 Obtained from the Developmental Studies Hybridoma Bank, (T. Jessell and J. Dodd). Recognizes proteins from rat and mouse origin. MGI:2683334 spinal cord membranes rat Ncam1 J:51645, Mansouri A, Mech Dev 1998 Nov;78(1-2):171-8")
+        self.assertEqual(row3.text, "MGI:4843413 8A2 antibody rat Monoclonal Not Specified MGI:4843412 N-CAM (8A2) Not Specified Ncam1 J:71338, Chung WW, J Comp Neurol 1991 Dec 8;314(2):290-305")
+        self.assertEqual(row4.text, "MGI:5468461 Anti-N-CAM rat Monoclonal Not Specified The antibody was obtained from Chemicon. MGI:5468460 N-CAM Not Specified Ncam1 J:29480, Aoki K, Anat Embryol (Berl) 1995 Sep;192(3):211-20")
+        self.assertEqual(row5.text, "MGI:5505540 Anti-N-CAM rabbit Not Specified Not Specified Antibody preparation was described in Rasmussen, S. et al. (1982) Scand J. Immunol. 15:179-85. MGI:5505539 N-CAM Not Specified Ncam1 J:52451, Esni F, J Cell Biol 1999 Jan 25;144(2):325-37")
+        self.assertEqual(row6.text, "MGI:5473599 Anti-NCAM rabbit Polyclonal Not Applicable This antibody was obtained from Chemicon. MGI:5473598 NCAM chicken Ncam1 J:34596, Davis JA, J Neurosci 1996 Aug 15;16(16):5082-94")
+        self.assertEqual(row7.text, "MGI:2676461 E-NCAM antibody mouse, laboratory Not Specified IgG1 Recognizes the polysialylyated embryonic form of the protein. MGI:2676460 E-NCAM Not Specified This represents the sialylated form of NCAM. Ncam1 J:83933, Cheng A, Dev Biol 2003 Jun 15;258(2):319-33")
+        self.assertEqual(row8.text, "MGI:5490822 H28 Not Specified Not Specified Not Specified MGI:5490821 NCAM Not Specified Ncam1 J:30289, Matsunami H, Dev Biol 1995 Dec;172(2):466-78")
+        self.assertEqual(row9.text, "MGI:1934887 H28.123 H28123 rat Monoclonal IgG2a Antibody was purchased from AMAC Inc., Westbrook, ME or Chemicon. MGI:4359385 Neural Cell Adhesion Molecule mouse, laboratory glycoprotein fraction Ncam1 J:2360, Moase CE, Development 1991 Nov;113(3):1049-58")
+        self.assertEqual(row10.text, "MGI:1934839 N-CAM polyclonal antibody rabbit Polyclonal Not Applicable Antibody was provided by Dr. Urs Rutishauser. Antibody detects the various N-CAM isoforms. MGI:1934201 NCAM mouse, laboratory The antigen domain is located near or at the cytoplasmic side of the plasma membrane. Ncam1 J:2360, Moase CE, Development 1991 Nov;113(3):1049-58")
+        self.assertEqual(row11.text, "MGI:1289934 NCAM ab rabbit Polyclonal Not Specified MGI:1277577 neural cell adhesion molecule Not Specified Ncam1 J:49909, Ba-Charvet KT, Development 1998 Nov;125(21):4273-82")
+        self.assertEqual(row12.text, "MGI:3043764 NCAM antibody Not Specified Not Specified Not Specified MGI:1277577 neural cell adhesion molecule Not Specified Ncam1 J:63183, Kramer PR, Mech Dev 2000 Jun;94(1-2):79-94")
+        self.assertEqual(row13.text, "MGI:3578932 NCAM antibody rabbit Polyclonal Not Specified MGI:1277577 neural cell adhesion molecule Not Specified Ncam1 J:90285, Gittenberger-De Groot AC, Dev Dyn 2004 Jun;230(2):378-84")
+        self.assertEqual(row14.text, "MGI:5491181 NCAM antibody Not Specified Monoclonal Not Specified MGI:1277577 neural cell adhesion molecule Not Specified Ncam1 J:25271, Whitesides JG 3rd, Dev Biol 1995 May;169(1):229-41")
+        self.assertEqual(row15.text, "MGI:5556104 NCAM antibody (AB5032) rabbit Polyclonal Not Specified Affinity purified. Obtained from Chemicon. MGI:5556102 NCAM chicken highly purified Ncam1 J:130159, Van den Akker NM, Dev Dyn 2008 Feb;237(2):494-503")
+        self.assertEqual(row16.text, "MGI:3574201 PSA-NCAM anti-Men B mouse, laboratory Monoclonal IgM Antibody can be obtained from Chemicon, clone 2-2B. Reacts with alpha 2-8 linked neuraminic acid (NeuAc-alpha 2-8) n with n>10. MGI:3574200 Viable Meningococcus group B (strain 355) bacteria Ncam1 J:32118, Boisseau S, Development 1991 May;112(1):69-82")
+        self.assertEqual(row17.text, "MGI:3576668 PSA-NCAM (12E3) mouse, laboratory Monoclonal IgM Antibody described in Seki and Arai; Anat Embryol (Berl). 1991;184(4):395-401. MGI:3576666 PSA-NCAM Not Specified polysialic acid portion of NCAM Ncam1 J:95331, Daniel D, Gene Expr Patterns 2005 Feb;5(3):317-22")
+        self.assertEqual(row18.text, "MGI:5467593 anti-N-CAM Not Specified Not Specified Not Specified This antibody recognizes all polypeptide forms. MGI:1277577 neural cell adhesion molecule Not Specified Ncam1 J:21489, Wray S, Dev Biol 1994 Nov;166(1):349-54")
+        
         
         details = resultstable.find_elements_by_css_selector('td:nth-child(1)')
-        detail1 = details[0]
-        detail2 = details[1]
-        detail3 = details[2]
-        detail4 = details[3]
-        detail5 = details[4]
-        detail6 = details[5]
-        detail7 = details[6]
-        detail8 = details[7]
-        detail9 = details[8]
-        detail10 = details[9]
-        detail11 = details[10]
-        detail12 = details[11]
-        detail13 = details[12]
-        detail14 = details[13]
-        detail15 = details[14]
-        detail16 = details[15]
-        #asserts the first 16 specimen labels are correct and in correct order
-        self.assertEqual(detail1.text, "MGI:5688746")
-        self.assertEqual(detail2.text, "MGI:5688735")
-        self.assertEqual(detail3.text, "MGI:5688736")
-        self.assertEqual(detail4.text, "MGI:5688737")
-        self.assertEqual(detail5.text, "MGI:5688738")
-        self.assertEqual(detail6.text, "MGI:5688739")
-        self.assertEqual(detail7.text, "MGI:5688740")
-        self.assertEqual(detail8.text, "MGI:5688741")
-        self.assertEqual(detail9.text, "MGI:5688742")
-        self.assertEqual(detail10.text, "MGI:5688754")
-        self.assertEqual(detail11.text, "MGI:5688745")
-        self.assertEqual(detail12.text, "MGI:5688744")
-        self.assertEqual(detail13.text, "MGI:5688692")
-        self.assertEqual(detail14.text, "MGI:5688694")
-        self.assertEqual(detail15.text, "MGI:5688695")
-        self.assertEqual(detail16.text, "MGI:5688696")
+
+        detail17 = details[17]
+        detail18 = details[18]
+        detail19 = details[19]
+        detail20 = details[20]
+        
+        #asserts the first 4 anti-N-CAM antibodies are listed and in correct sort order
+        
+        self.assertEqual(detail17.text, "MGI:5467593")
+        self.assertEqual(detail18.text, "MGI:5608897")
+        self.assertEqual(detail19.text, "MGI:5758921")
+        self.assertEqual(detail20.text, "MGI:5608904")
+        
         
     def tearDown(self):
         self.driver.close()
