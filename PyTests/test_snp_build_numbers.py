@@ -9,6 +9,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
 import sys,os.path
+from util import wait, iterate
 from config.config import PUBLIC_URL
 # adjust the path to find config
 sys.path.append(
@@ -80,45 +81,38 @@ class TestSnpBuild(unittest.TestCase):
         
     def test_hmdc_build(self):
         """
-        @Status this test works
-        checks the human and mouse build numbers(twice) on the HMDC query page
+        @Status this test has been updated for the new hmdc pages
+        checks the human and mouse build numbers on the HMDC query page
         """
         #displays the HMDC qf
-        self.driver.get(PUBLIC_URL + "/humanDisease.shtml")
-        #finds the human build number
-        humanbuild1 = self.driver.find_element_by_id('organismHuman1')
+        self.driver.get(PUBLIC_URL + "/diseasePortal")
+        #find the pulldown and select Genome Location
+        selectorbox = self.driver.find_element_by_class_name("queryBuilder")
+        pulldown = selectorbox.find_element_by_tag_name("select").find_elements_by_tag_name("option")
+        #print [x.text for x in pulldown]
+        searchTextItems = iterate.getTextAsList(pulldown)
+        #verifies all the items listed in the pulldown are correct and in order
+        self.assertEqual(searchTextItems, ['Please select a field', 'Gene Symbol(s) or ID(s)','Gene Name','Phenotype or Disease Name', 'Phenotype or Disease ID(s)', 'Genome Location', 'Gene File Upload'])
+        #click the Genome Location option
+        pulldown[5].click()
+        #self.assertIn("Genome Location", pulldown[3].Text)
+        #finds the human and mouse genome build numbers
+        buildnumber = self.driver.find_element_by_class_name('radio-group')
         # get the parent element
-        hparent1 = humanbuild1.find_element_by_xpath('..')
+        mainbuild = buildnumber.find_elements_by_tag_name('label')
         wait.forAjax(self.driver)
         #confirms that GRCh38 is displayed
-        self.assertIn("Human(GRCh38)", hparent1.text) 
-        #finds the human build number
-        mousebuild1 = self.driver.find_element_by_id('organismMouse1')
-        # get the parent element
-        mparent1 = mousebuild1.find_element_by_xpath('..')
-        wait.forAjax(self.driver)
-        #confirms that GRCm38 is displayed
-        self.assertIn("Mouse(GRCm38)", mparent1.text)
-        #finds the human build number
-        humanbuild2 = self.driver.find_element_by_id('organismHuman2')
-        # get the parent element
-        hparent2 = humanbuild2.find_element_by_xpath('..')
-        wait.forAjax(self.driver)
-        #confirms that GRCh38 is displayed 
-        self.assertIn("Human(GRCh38)", hparent2.text)
-        #finds the human build number
-        mousebuild2 = self.driver.find_element_by_id('organismMouse2')
-        # get the parent element
-        mparent2 = mousebuild2.find_element_by_xpath('..')
-        wait.forAjax(self.driver)
-        #confirms that GRCm38 is displayed 
-        self.assertIn("Mouse(GRCm38)", mparent2.text) 
+        #print [x.text for x in mainbuild]
+        searchTextItems = iterate.getTextAsList(mainbuild)
+        self.assertEqual(searchTextItems, ['Human (GRCh38)', 'Mouse (GRCm38)'])
+       
+        """
+        def test_hmdc_summary_build(self):
         
-    def test_hmdc_summary_build(self):
-        """
-        @Status this test works
+        
+        @Status this test no longer required with new hmdc pages
         checks the mouse build number on the HMDC result/summary page
-        """
+        
         #displays the HMDC qf
         self.driver.get(PUBLIC_URL + "/humanDisease.shtml")
         self.driver.find_element_by_partial_link_text("Autism AND").click()
@@ -132,7 +126,7 @@ class TestSnpBuild(unittest.TestCase):
         searchTreeItems = iterate.getTextAsList(coorddata)
         #confirms that GRCh38 is displayed somewhere within this field of data
         self.assertIn("GRCm38", searchTreeItems[1])
-        
+        """
         
         
     def tearDown(self):
