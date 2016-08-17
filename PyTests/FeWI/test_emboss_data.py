@@ -48,7 +48,7 @@ class TestFile(unittest.TestCase):
         
     def test_search(self):
     
-        embossIds = self.get_data(os.path.join('../../data','embossdata.txt'))
+        embossIds = self.get_data(os.path.join('..', '..', 'data','embossdata.txt'))
         print embossIds
     
         for embossId in embossIds:
