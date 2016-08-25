@@ -261,7 +261,7 @@ class Test(unittest.TestCase):
         actualurl = self.driver.find_element_by_link_text('incidental mutations').get_attribute("href")
         
         self.assertEqual(mutagenetixlink.text, "incidental mutations")
-        self.assertEqual(actualurl, 'ftp://devftp.informatics.jax.org/pub/datasets/incidental_muts/Mutagenetix.xlsx')
+        self.assertEqual(actualurl, config.WI_URL + '/downloads/datasets/incidental_muts/Mutagenetix.xlsx')
         self.driver.get(config.FEWI_URL + "/allele/")
         
         self.driver.find_element_by_name("nomen").clear()
@@ -272,7 +272,7 @@ class Test(unittest.TestCase):
         actualurl = self.driver.find_element_by_link_text('incidental mutations').get_attribute("href")
         
         self.assertEqual(mutagenetixlink.text, "incidental mutations")
-        self.assertEqual(actualurl, 'ftp://devftp.informatics.jax.org/pub/datasets/incidental_muts/Mutagenetix.xlsx')
+        self.assertEqual(actualurl, config.WI_URL + '/downloads/datasets/incidental_muts/Mutagenetix.xlsx')
         self.driver.get(config.FEWI_URL + "/allele/")
             
         self.driver.find_element_by_name("nomen").clear()
@@ -283,7 +283,7 @@ class Test(unittest.TestCase):
         actualurl = self.driver.find_element_by_link_text('incidental mutations').get_attribute("href")
         
         self.assertEqual(mutagenetixlink.text, "incidental mutations")
-        self.assertEqual(actualurl, 'ftp://devftp.informatics.jax.org/pub/datasets/incidental_muts/Mutagenetix.xlsx')
+        self.assertEqual(actualurl, config.WI_URL + '/downloads/datasets/incidental_muts/Mutagenetix.xlsx')
         self.driver.get(config.FEWI_URL + "/allele/")
         
         self.driver.find_element_by_name("nomen").clear()
@@ -294,7 +294,7 @@ class Test(unittest.TestCase):
         actualurl = self.driver.find_element_by_link_text('incidental mutations').get_attribute("href")
         
         self.assertEqual(mutagenetixlink.text, "incidental mutations")
-        self.assertEqual(actualurl, 'ftp://devftp.informatics.jax.org/pub/datasets/incidental_muts/Mutagenetix.xlsx')
+        self.assertEqual(actualurl, config.WI_URL + '/downloads/datasets/incidental_muts/Mutagenetix.xlsx')
         self.driver.get(config.FEWI_URL + "/allele/")
         
         self.driver.find_element_by_name("nomen").clear()
@@ -305,7 +305,7 @@ class Test(unittest.TestCase):
         actualurl = self.driver.find_element_by_link_text('incidental mutations').get_attribute("href")
         
         self.assertEqual(mutagenetixlink.text, "incidental mutations")
-        self.assertEqual(actualurl, 'ftp://devftp.informatics.jax.org/pub/datasets/incidental_muts/Mutagenetix.xlsx')
+        self.assertEqual(actualurl, config.WI_URL + '/downloads/datasets/incidental_muts/Mutagenetix.xlsx')
         self.driver.get(config.FEWI_URL + "/allele/")
     
     def test_allele_molecular_image_caption(self):
@@ -353,7 +353,7 @@ class Test(unittest.TestCase):
         actualurl = self.driver.find_element_by_link_text('incidental mutations').get_attribute("href")
         
         self.assertEqual(afplink.text, "incidental mutations")
-        self.assertEqual(actualurl, 'ftp://devftp.informatics.jax.org/pub/datasets/incidental_muts/APF.xlsx')
+        self.assertEqual(actualurl, config.WI_URL + '/downloads/datasets/incidental_muts/APF.xlsx')
         self.driver.get(config.FEWI_URL + "/allele/")
         
         self.driver.find_element_by_name("nomen").clear()
@@ -364,7 +364,7 @@ class Test(unittest.TestCase):
         actualurl = self.driver.find_element_by_link_text('incidental mutations').get_attribute("href")
         
         self.assertEqual(afplink.text, "incidental mutations")
-        self.assertEqual(actualurl, 'ftp://devftp.informatics.jax.org/pub/datasets/incidental_muts/APF.xlsx')
+        self.assertEqual(actualurl, config.WI_URL + '/downloads/datasets/incidental_muts/APF.xlsx')
     
     def test_collection_value(self):
         '''
