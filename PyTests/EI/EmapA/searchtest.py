@@ -2,6 +2,7 @@
 '''
 Created on Jan 28, 2016
 This test verifies searching within the EmapA module, Both a term search and a stage search
+Add'l 4 tests added August 2016; jlewis
 @author: jeffc
 '''
 import unittest
@@ -129,6 +130,73 @@ class TestSearch(unittest.TestCase, EmapaBaseClass):
         self.assertIn("brain", searchbox.get_attribute("value"))
         searchbox.send_keys(Keys.ALT + "c")
         self.assertIn("", searchbox.get_attribute("value"))
+        
+    def testComboTermStageSearch(self):
+        """
+        tests that a combined search of term and stage works; also includes wild cards; jlewis
+        """
+        self.performSearch(term="%renal artery%", stage="27")
+        
+        term_result = self.driver.find_element_by_id("termResultList")
+        items = term_result.find_elements_by_tag_name("li")
+        
+        # add all li text to a list for "assertIn" test
+        searchTextItems = iterate.getTextAsList(items)
+        
+        self.assertIn('endothelium of renal artery TS21-28', searchTextItems)
+        
+    def testSpecialCharSearch(self):
+        """
+        tests that a term with a special character works; jlewis
+        """
+        self.performSearch(term="rathke's pouch")
+        
+        term_result = self.driver.find_element_by_id("emapTermArea")
+        items = term_result.find_elements_by_tag_name("li")
+        
+        # add all li text to a list for "assertIn" test
+        searchTextItems = iterate.getTextAsList(items)
+        
+        self.assertIn("Rathke's pouch TS14-19", searchTextItems)        
+        
+
+    def testMultipleTermSearch(self):
+        """
+        tests that a search with multiple terms works; semi-colon is the delimiter; jlewis
+        """
+        self.performSearch(term="liver; brain; heart")
+        
+        term_result = self.driver.find_element_by_id("termResultList")
+        items = term_result.find_elements_by_tag_name("li")
+        
+        # add all li text to a list for "assertIn" test
+        searchTextTerms = self.getOnlyTermNames(items)
+        
+        self.assertIn('brain', searchTextTerms)
+        self.assertIn('heart', searchTextTerms)
+        self.assertIn('liver', searchTextTerms)
+        
+    def testStageRangeSearch(self):
+        """
+        tests that a search for a range of stages works; jlewis
+        """
+        self.performSearch(stage="1-3")
+        
+        term_result = self.driver.find_element_by_id("emapTermArea")
+        items = term_result.find_elements_by_tag_name("li")
+        
+        # add all li text to a list for "assertIn" test
+        searchTextTerms = self.getOnlyTermNames(items)
+        
+        # verify term that exists only at stage 1
+        self.assertIn('first polar body', searchTextTerms)
+        
+        # verify term that only exists at stage 2
+        self.assertIn('2-cell stage conceptus', searchTextTerms)
+        
+        # verify term that only exists at stage 3
+        self.assertIn('8-cell stage embryo', searchTextTerms)
+        
     
     def getOnlyTermNames(self, elements):
         """
