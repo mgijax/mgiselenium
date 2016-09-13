@@ -90,6 +90,13 @@ class TestSearch(unittest.TestCase):
         
         #self.assertIn('brain TS17-28', searchTextItems)
         
+    def testInvalidJnumSearch(self):
+        """
+        @Status tests that an invalid J number search gives an error
+        @bug test needs to be written
+        """
+        
+        
     def testMarkerSearch(self):
         """
         @Status Tests that a marker symbol search works
@@ -142,10 +149,35 @@ class TestSearch(unittest.TestCase):
         
     def testWildcardSearch(self):
         """
-        @Status tests that a wildcard  search works
+        @Status tests that a wildcard search for a marker works
         @bug test needs to be written
         """
         
+    def testWithdrawnMrkSearch(self):
+        """
+        @Status tests that a search for a withdrawn marker gives an error
+        @bug test needs to be written
+        """
+        
+    def testInvalidMrkSearch(self):
+        """
+        @Status tests that an error message is displayed when invalid marker symbol entered
+        @bug test needs to be written
+        """
+        
+    def testQTLErrorMsg(self):
+        """
+        @Status tests that an error message is displayed when selecting a heritable phenotypic marker or QTL
+        @bug test needs to be written
+        """
+        
+    def testMultipleMrkSearch(self):
+        """
+        @Status tests that a multiple marker search works
+        @bug test needs to be written
+        """
+        
+
         
     def closeAllWindows(self):
         """
