@@ -92,6 +92,13 @@ class TestSearch(unittest.TestCase):
         @Status tests that an invalid J number search gives an error
         @bug test needs to be written
         """
+        form = self.form
+        form.enter_value('jnumid', "99999999")
+        form.press_tab()
+        
+        error = form.get_error_message()
+        
+        self.assertEqual("No Reference for J Number=J:99999999", error)
         
         
     def testMarkerSearch(self):

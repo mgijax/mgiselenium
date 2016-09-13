@@ -84,6 +84,14 @@ class ModuleForm(object):
             .find_element_by_css_selector('#%s option:checked' % id)
         
         return option.text
+    
+    def get_error_message(self):
+        """
+        get the displayed error message
+        """
+        error_element = self.driver.find_element_by_id("errorMessage")
+        return error_element.text
+        
         
         
     # Standard EI buttons
