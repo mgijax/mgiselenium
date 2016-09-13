@@ -78,11 +78,23 @@ class TestSearch(unittest.TestCase):
         print condition_result
         self.assertEqual(condition_result.text, 'Conditional')
 
-        #finds the priority field
+        #finds the created by field
         created_user = driver.find_element_by_id('createdby_login')#.find_element_by_css_selector('td')
         
         print created_user
         self.assertEqual(created_user.text, 'jx')
+        
+        #finds the modified by field
+        modified_user = driver.find_element_by_id('modifiedby_login')#.find_element_by_css_selector('td')
+        
+        print modified_user
+        self.assertEqual(modified_user.text, 'jx')
+        
+        #finds the created by date field
+        created_date = driver.find_element_by_id('creation_date')#.find_element_by_css_selector('td')
+        
+        print created_date
+        self.assertEqual(created_date.text, '07/26/2016')
         #term_result = self.driver.find_element_by_id("termResultList")
         #items = term_result.find_elements_by_tag_name("li")
         
