@@ -17,6 +17,7 @@ sys.path.append(
 )
 import config
 from util import iterate, wait
+from util.form import ModuleForm
 
 
 
@@ -30,6 +31,12 @@ class TestSearch(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Firefox() 
+        self.form = ModuleForm(self.driver)
+        self.form.get_module(config.PWI_URL + "/edit/gxdindex")
+    
+    def tearDown(self):
+        self.driver.close()
+        
 
     def testJnumSearch(self):
         """
@@ -37,59 +44,48 @@ class TestSearch(unittest.TestCase):
         @bug: test needs to capture user and dates
         """
         driver = self.driver
-        driver.get(config.PWI_URL + "/edit/gxdindex")
-        wait.forAngular(driver)
+        form = self.form
         
-        jnumbox = driver.find_element_by_id('jnumid')
-        # put your j number
-        jnumbox.send_keys("173543")
-        jnumbox.send_keys(Keys.RETURN)
-        driver.find_element_by_id('searchButton').click()
-        wait.forAngular(driver)
+        form.enter_value('jnumid', '173543')
+        form.click_search()
         
         #finds the citation field
-        cite_result = driver.find_element_by_id('citation').get_attribute('value')
+        citation = form.get_value('citation')
         
-        print cite_result
-        self.assertEqual(cite_result, 'Harper J, Proc Natl Acad Sci U S A 2011 Jun 28;108(26):10585-90')
+        print citation
+        self.assertEqual(citation, 'Harper J, Proc Natl Acad Sci U S A 2011 Jun 28;108(26):10585-90')
 
         #finds the marker field
-        mrk_result = driver.find_element_by_id('marker_symbol').get_attribute('value')
+        marker_symbol = form.get_value('marker_symbol')
         
-        print mrk_result
-        self.assertEqual(mrk_result, '1810065E05Rik')
+        print marker_symbol
+        self.assertEqual(marker_symbol, '1810065E05Rik')
 
         #finds the coded? field
-        coded_result = driver.find_element_by_id('is_coded').get_attribute('value')
+        is_coded = form.get_value('is_coded')
         
-        print coded_result
-        self.assertEqual(coded_result, 'false')
+        print is_coded
+        self.assertEqual(is_coded, 'false')
 
         #finds the priority field
-        priority_result = driver.find_element_by_id('_priority_key').find_element_by_css_selector('#_priority_key option:checked')
+        priority = form.get_selected_text('_priority_key')
         
-        print priority_result
-        self.assertEqual(priority_result.text, 'High')
+        print priority
+        self.assertEqual(priority, 'High')
         
 
-        #finds the priority field
-        condition_result = driver.find_element_by_id('_conditionalmutants_key').find_element_by_css_selector('#_conditionalmutants_key option:checked')
+        #finds the conditional mutants field
+        conditional = form.get_selected_text('_conditionalmutants_key')
         
-        print condition_result
-        self.assertEqual(condition_result.text, 'Conditional')
+        print conditional
+        self.assertEqual(conditional, 'Conditional')
 
         #finds the priority field
-        created_user = driver.find_element_by_id('createdby_login')#.find_element_by_css_selector('td')
+        created_user = driver.find_element_by_id('createdby_login')
         
         print created_user
         self.assertEqual(created_user.text, 'jx')
-        #term_result = self.driver.find_element_by_id("termResultList")
-        #items = term_result.find_elements_by_tag_name("li")
         
-        # add all li text to a list for "assertIn" test
-        #searchTextItems = iterate.getTextAsList(items)
-        
-        #self.assertIn('brain TS17-28', searchTextItems)
         
     def testInvalidJnumSearch(self):
         """
@@ -104,47 +100,42 @@ class TestSearch(unittest.TestCase):
         @bug: test needs to capture user and dates
         """
         driver = self.driver
-        driver.get(config.PWI_URL + "/edit/gxdindex")
-        wait.forAngular(driver)
+        form = self.form
         
-        mrk_field = driver.find_element_by_id('marker_symbol')
-        # put your marker symbol
-        mrk_field.send_keys("Pax6")
-        #mrk_field.send_keys(Keys.RETURN)
-        driver.find_element_by_id('searchButton').click()     
-        wait.forAngular(driver)
+        form.enter_value('marker_symbol', 'Pax6')
+        form.click_search()
         
         #finds the J number field
-        jnum_result = driver.find_element_by_id('jnumid').get_attribute('value')
+        jnumid = form.get_value('jnumid')
         
-        print jnum_result
-        self.assertEqual(jnum_result, 'J:193837')
+        print jnumid
+        self.assertEqual(jnumid, 'J:193837')
         
 
         #finds the citation field
-        cite_result = driver.find_element_by_id('citation').get_attribute('value')
+        citation = form.get_value('citation')
         
-        print cite_result
-        self.assertEqual(cite_result, 'Abdelhamed ZA, Hum Mol Genet 2013 Apr 1;22(7):1358-72')
+        print citation
+        self.assertEqual(citation, 'Abdelhamed ZA, Hum Mol Genet 2013 Apr 1;22(7):1358-72')
 
         #finds the coded? field
-        coded_result = driver.find_element_by_id('is_coded').get_attribute('value')
+        is_coded = form.get_value('is_coded')
         
-        print coded_result
-        self.assertEqual(coded_result, 'false')
+        print is_coded
+        self.assertEqual(is_coded, 'false')
  
         #finds the priority field
-        priority_result = driver.find_element_by_id('_priority_key').find_element_by_css_selector('#_priority_key option:checked')
+        priority = form.get_selected_text('_priority_key')
         
-        print priority_result
-        self.assertEqual(priority_result.text, 'Medium')
+        print priority
+        self.assertEqual(priority, 'Medium')
         
  
-        #finds the priority field
-        condition_result = driver.find_element_by_id('_conditionalmutants_key').find_element_by_css_selector('#_conditionalmutants_key option:checked')
+        #finds the conditional field
+        conditional = form.get_selected_text('_conditionalmutants_key')
         
-        print condition_result
-        self.assertEqual(condition_result.text, 'Not Applicable')
+        print conditional
+        self.assertEqual(conditional, 'Not Applicable')
  
         
     def testWildcardSearch(self):
@@ -176,20 +167,7 @@ class TestSearch(unittest.TestCase):
         @Status tests that a multiple marker search works
         @bug test needs to be written
         """
-        
-
-        
-    def closeAllWindows(self):
-        """
-        close all open windows for the current driver
-        """
-        for window_handle in self.driver.window_handles:
-            self.driver.switch_to_window(window_handle)
-            self.driver.close()
-                
-            
-    def tearDown(self):
-        self.closeAllWindows()
+    
 
 
 def suite():
