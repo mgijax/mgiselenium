@@ -19,8 +19,6 @@ import config
 from util import iterate, wait
 
 
-
-
 # Tests
 
 class TestSearch(unittest.TestCase):
@@ -37,39 +35,36 @@ class TestSearch(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.PWI_URL + "/edit/gxdindex")
-        wait.forAjax(driver)
-        time.sleep(1)
+        wait.forAngular(driver)
+        
         jnumbox = driver.find_element_by_id('jnumid')
         # put your j number
         jnumbox.send_keys("173543")
         jnumbox.send_keys(Keys.RETURN)
         driver.find_element_by_id('searchButton').click()
-        time.sleep(1)
+        wait.forAngular(driver)
+        
         #finds the citation field
         cite_result = driver.find_element_by_id('citation').get_attribute('value')
         
         print cite_result
         self.assertEqual(cite_result, 'Harper J, Proc Natl Acad Sci U S A 2011 Jun 28;108(26):10585-90')
-        time.sleep(1)
         #finds the marker field
         mrk_result = driver.find_element_by_id('marker_symbol').get_attribute('value')
         
         print mrk_result
         self.assertEqual(mrk_result, '1810065E05Rik')
-        time.sleep(1)
         #finds the coded? field
         coded_result = driver.find_element_by_id('is_coded').get_attribute('value')
         
         print coded_result
         self.assertEqual(coded_result, 'false')
-        time.sleep(1)
         #finds the priority field
         priority_result = driver.find_element_by_id('_priority_key').find_element_by_css_selector('#_priority_key option:checked')
         
         print priority_result
         self.assertEqual(priority_result.text, 'High')
         
-        time.sleep(1)
         #finds the priority field
         condition_result = driver.find_element_by_id('_conditionalmutants_key').find_element_by_css_selector('#_conditionalmutants_key option:checked')
         

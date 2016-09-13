@@ -11,11 +11,40 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
+
+
+def forAngular(driver, seconds=10):
+
+    def _angularCheck(driver):
+        script = """var callback = arguments[arguments.length - 1];
+            var el = document.querySelector('body');
+            if (!window.angular) {
+                callback(false);
+            }
+            if (angular.getTestability) {
+                angular.getTestability(el).whenStable(function(){callback(true)});
+            } else {
+                if (!angular.element(el).injector()) {
+                    callback(false);
+                }
+                var browser = angular.element(el).injector().get('$browser');
+                browser.notifyWhenNoOutstandingRequests(function(){callback(true)});
+            };"""
+        
+        try:
+            return driver.execute_async_script(script)
+        except:
+            return False
+        
+    # Define driver and timeout,
+    # then use the condition like so:
+    WebDriverWait(driver, 10).until(_angularCheck)
+
+
+
 def forAjax(driver, seconds=10):
     """
     Wait for all AJAX calls to complete.
-    
-    NOTE: only checks status of jQuery AJAX requests
     """
     
     
