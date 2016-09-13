@@ -61,7 +61,7 @@ class ModuleForm(object):
     
     
     def _get_current_element(self):
-        if self.previous_element:
+        if self.previous_element and self.previous_element.is_displayed():
             return self.previous_element
         return self.driver.find_element_by_tag_name("body")
     

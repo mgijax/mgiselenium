@@ -173,30 +173,111 @@ class TestSearch(unittest.TestCase):
         form.enter_value('marker_symbol', 'Ad%re1')
         form.click_search()
         
+        marker_symbol = form.get_value('marker_symbol')
+        self.assertEqual(marker_symbol, 'Adgre1')
+        
+        
+        
     def testWithdrawnMrkSearch(self):
         """
         @Status tests that a search for a withdrawn marker gives an error
         @bug test needs to be written
         """
+        form = self.form
+        
+        form.enter_value('marker_symbol', 'dw')
+        form.press_tab()
+        
+        error = form.get_error_message()
+        # error message will display current symbol for dw
+        self.assertIn("Pou1f1", error )
+        
+        # marker entry should be cleared
+        marker_symbol = form.get_value('marker_symbol')
+        self.assertEqual(marker_symbol, '')
+        
         
     def testInvalidMrkSearch(self):
         """
         @Status tests that an error message is displayed when invalid marker symbol entered
         @bug test needs to be written
         """
+        form = self.form
+        
+        form.enter_value('marker_symbol', 'test12345')
+        form.press_tab()
+        
+        error = form.get_error_message()
+        self.assertEqual(error, "Invalid marker symbol: test12345")
+        
+        # marker entry should be cleared
+        marker_symbol = form.get_value('marker_symbol')
+        self.assertEqual(marker_symbol, '')
+        
         
     def testQTLErrorMsg(self):
         """
         @Status tests that an error message is displayed when selecting a heritable phenotypic marker or QTL
         @bug test needs to be written
         """
+        form = self.form
+        
+        form.enter_value('marker_symbol', 'iba1')
+        form.press_tab()
+        
+        error = form.get_error_message()
+        self.assertEqual(error, "You selected a QTL type marker: Iba1")
+        
+        # marker should still be selected, even though error is displayed
+        marker_symbol = form.get_value('marker_symbol')
+        self.assertEqual(marker_symbol, 'Iba1')
+        
         
     def testMultipleMrkSearch(self):
         """
         @Status tests that a multiple marker search works
         @bug test needs to be written
         """
+        driver = self.driver
+        form = self.form
+        
+        form.enter_value('marker_symbol', 't')
+        form.press_tab()
+        
+        # verify that display with two markers is shown
+        rows = driver.find_elements_by_css_selector("#markerSelections tr")
+        
+        markers = [r.text for r in rows]
+        self.assertEqual(len(markers), 2)
+        self.assertEqual(markers[0], "T, brachyury, Chr 17, Band")
+        self.assertEqual(markers[1], "t, t-complex, Chr 17, Band")
+        
+        form.press_enter()
+        
+        # marker T should be selected
+        marker_symbol = form.get_value('marker_symbol')
+        self.assertEqual(marker_symbol, 'T')
     
+    
+    def testHeritablePhenotypicMarker(self):
+        """
+        @Status tests that a heritable phenotypic marker displays error/warning
+        @bug test needs to be written
+        """
+        form = self.form
+        
+        form.enter_value('marker_symbol', 't')
+        form.press_tab()
+        
+        form.enter_shortcut(Keys.ARROW_DOWN)
+        form.press_enter()
+        
+        error = form.get_error_message()
+        self.assertEqual(error, "You selected a heritable phenotypic marker: t")
+        
+        # marker t should be selected
+        marker_symbol = form.get_value('marker_symbol')
+        self.assertEqual(marker_symbol, 't')
 
 
 def suite():
