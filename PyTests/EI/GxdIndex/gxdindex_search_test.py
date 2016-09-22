@@ -18,6 +18,7 @@ sys.path.append(
 import config
 from util import iterate, wait
 from util.form import ModuleForm
+from util.table import Table
 
 
 
@@ -278,6 +279,40 @@ class TestSearch(unittest.TestCase):
         # marker t should be selected
         marker_symbol = form.get_value('marker_symbol')
         self.assertEqual(marker_symbol, 't')
+        
+        
+    def testResultsTable(self):
+        """
+        An example of getting data from the results table using
+            Table class
+            
+        NOTE: this is only for example purposes. Not a real test
+        """
+        driver = self.driver
+        form = self.form
+        
+        form.enter_value('jnumid', '121946')
+        form.press_tab()
+        
+        form.click_search()
+        
+        
+        results_table = driver.find_element_by_id("indexGrid")
+        table = Table(results_table)
+        
+        header_cells = table.get_header_cells()
+        print iterate.getTextAsList(header_cells)
+        
+        # print row 1
+        cells = table.get_row_cells(1)
+        print iterate.getTextAsList(cells)
+        
+        # single cell
+        cell = table.get_cell("RNA-WM", "10.5")
+        print cell.text
+        
+        # empty cell
+        cell = table.get_cell("prot-sxn", "A")
 
 
 def suite():
