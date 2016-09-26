@@ -99,12 +99,12 @@ class TestAdd(unittest.TestCase):
         """
         driver = self.driver
         form = self.form
-        wait.forAngular(driver, '5')
-        form.enter_value('jnumid', '225216')
+        wait.forAngular(driver)
+        form.enter_value('jnumid', '144307')
         # click the Tab key
         form.press_tab()
         #finds the marker field
-        form.enter_value('marker_symbol', 'Bmp2')
+        form.enter_value('marker_symbol', 'zyx')
         marker_symbol = form.get_value('marker_symbol')
         form.press_tab()
         print marker_symbol
