@@ -37,8 +37,9 @@ class TestImageSummary(unittest.TestCase):
         #click the image tab
         imagetab.click()
         wait.forAjax(driver)
-        genelist = driver.find_element_by_id("imagesdata").find_elements_by_class_name('yui-dt-col-gene')
-        items = genelist[17].find_elements_by_tag_name("li")
+        time.sleep(.5)
+        genelist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-gene')
+        items = genelist[16].find_elements_by_tag_name("li")
         searchTextItems = iterate.getTextAsList(items)
         self.assertEqual(searchTextItems, ["Gsx2", "Nkx2-1", "Pax6"])
         
@@ -58,8 +59,9 @@ class TestImageSummary(unittest.TestCase):
         #click the image tab
         imagetab.click()
         wait.forAjax(driver)
-        assaylist = driver.find_element_by_id("imagesdata").find_elements_by_class_name('yui-dt-col-assayType')
-        items = assaylist[1].find_elements_by_tag_name("li")
+        time.sleep(.5)
+        assaylist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-assayType')
+        items = assaylist[0].find_elements_by_tag_name("li")
         searchTextItems = iterate.getTextAsList(items)
         self.assertEqual(searchTextItems, ["RNA in situ", "Immunohistochemistry", "Immunohistochemistry"])
         
@@ -79,8 +81,9 @@ class TestImageSummary(unittest.TestCase):
         #click the image tab
         imagetab.click()
         wait.forAjax(driver)
-        typelist = driver.find_element_by_id("imagesdata").find_elements_by_class_name('yui-dt-col-hybridization')
-        items = typelist[1].find_elements_by_tag_name("li")
+        time.sleep(.5)
+        typelist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-hybridization')
+        items = typelist[0].find_elements_by_tag_name("li")
         searchTextItems = iterate.getTextAsList(items)
         self.assertEqual(searchTextItems, ["section", "section from whole mount"])
                 
@@ -101,18 +104,20 @@ class TestImageSummary(unittest.TestCase):
         #click the image tab
         imagetab.click()
         wait.forAjax(driver)
+        time.sleep(.5)
         
         imagesdata = driver.find_element_by_id("imagesdata")
-        genelist = imagesdata.find_elements_by_class_name('yui-dt-col-gene')
-        items = genelist[1].find_elements_by_tag_name("li")
+        genelist = imagesdata.find_elements_by_css_selector('td.yui-dt-col-gene')
+        items = genelist[0].find_elements_by_tag_name("li")
         searchTextItems = iterate.getTextAsList(items)
         self.assertEqual(searchTextItems, ["Arx", "Olig2", "Shh"])
         geneheader = imagesdata.find_element_by_css_selector('th.yui-dt-col-gene')
         #click the gene header column to sort
         geneheader.click()
-        time.sleep(3)
-        genelist = driver.find_element_by_id("imagesdata").find_elements_by_class_name('yui-dt-col-gene')
-        items = genelist[1].find_elements_by_tag_name("li")
+        wait.forAjax(driver)
+        time.sleep(.5)
+        genelist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-gene')
+        items = genelist[0].find_elements_by_tag_name("li")
         searchTextItems = iterate.getTextAsList(items)
         self.assertEqual(searchTextItems, ["Arx", "Olig2", "Shh"])
         
@@ -136,16 +141,18 @@ class TestImageSummary(unittest.TestCase):
         #click the image tab
         imagetab.click()
         wait.forAjax(driver)
-        assaylist = driver.find_element_by_id("imagesdata").find_elements_by_class_name('yui-dt-col-assayType')
-        items = assaylist[1].find_elements_by_tag_name("li")
+        time.sleep(.5)
+        assaylist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-assayType')
+        items = assaylist[0].find_elements_by_tag_name("li")
         searchTextItems = iterate.getTextAsList(items)
         self.assertEqual(searchTextItems, ["Immunohistochemistry", "Immunohistochemistry"])
         assayheader = driver.find_element_by_id("imagesdata").find_element_by_css_selector('th.yui-dt-col-assayType')
         #click the gene header column to sort
         assayheader.click()
-        time.sleep(3)
-        assaylist = driver.find_element_by_id("imagesdata").find_elements_by_class_name('yui-dt-col-assayType')
-        items = assaylist[1].find_elements_by_tag_name("li")
+        wait.forAjax(driver)
+        time.sleep(.5)
+        assaylist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-assayType')
+        items = assaylist[0].find_elements_by_tag_name("li")
         searchTextItems = iterate.getTextAsList(items)
         self.assertEqual(searchTextItems, ["RNase protection"])
     
@@ -179,16 +186,18 @@ class TestImageSummary(unittest.TestCase):
         #click the image tab
         imagetab.click()
         wait.forAjax(driver)
-        typelist = driver.find_element_by_id("imagesdata").find_elements_by_class_name('yui-dt-col-hybridization')
-        items = typelist[1].find_elements_by_tag_name("li")
+        time.sleep(.5)
+        typelist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-hybridization')
+        items = typelist[0].find_elements_by_tag_name("li")
         searchTextItems = iterate.getTextAsList(items)
         self.assertEqual(searchTextItems, ["section", "section"])
         specimenheader = driver.find_element_by_id("imagesdata").find_element_by_css_selector('th.yui-dt-col-hybridization')
         #click the gene header column to sort
         specimenheader.click()
-        time.sleep(3)
-        assaylist = driver.find_element_by_id("imagesdata").find_elements_by_class_name('yui-dt-col-hybridization')
-        items = assaylist[1].find_elements_by_tag_name("li")
+        wait.forAjax(driver)
+        time.sleep(.5)
+        assaylist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-hybridization')
+        items = assaylist[0].find_elements_by_tag_name("li")
         searchTextItems = iterate.getTextAsList(items)
         self.assertEqual(searchTextItems, ["whole mount"])
     
