@@ -24,6 +24,7 @@ class TestPrivateData(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Firefox() 
+        self.driver.implicitly_wait(4)
 
     def test_hide_private_allele(self):
         """
@@ -39,7 +40,6 @@ class TestPrivateData(unittest.TestCase):
         brcalink.click()  # Find the all alleles and mutations link and click it
         allallelelink = driver.find_element_by_link_text("89")
         allallelelink.click()
-        time.sleep(.5)
         wait.forAjax(driver)
         # assert that there is no link for Brca1<test1>#testallele = driver.find_element_by_link_text('Brca1<sup>test1</sup>')
         self.assertNotIn("test1", self.driver.page_source,"Test1 allele is displaying!")
