@@ -16,7 +16,7 @@ sys.path.append(
 import config
 from util import iterate, wait
 from util.form import ModuleForm
-
+from util.table import Table
 
 
 
@@ -28,87 +28,137 @@ class TestAdd(unittest.TestCase):
     """
 
     def setUp(self):
-        self.driver = webdriver.Firefox() 
+        self.driver = webdriver.Firefox()
         self.form = ModuleForm(self.driver)
-        self.form.get_module(config.PWI_URL + "/edit/gxdindex")
+        self.form.get_module(config.PWI_URL + "/edit/gxdindex") 
+        username = self.driver.find_element_by_name('user')#finds the user login box
+        username.send_keys(config.PWI_LOGIN) #enters the username
+        passwd = self.driver.find_element_by_name('password')#finds the password box
+        passwd.send_keys(config.PWI_PASSWORD) #enters a valid password
+        submit = self.driver.find_element_by_name("submit") #Find the Login button
+        submit.click() #click the login button
+        
 
     def testAddIndex(self):
         """
         @Status tests that an index record can be added
-        @bug: test under construction
+        
         """
         driver = self.driver
         form = self.form
         
-        form.enter_value('jnumid', '173543')
+        form.enter_value('jnumid', '225216')
         # click the Tab key
         form.press_tab()
-        
         #finds the citation field
         citation = form.get_value('citation')
-        
         print citation
-        self.assertEqual(citation, 'Harper J, Proc Natl Acad Sci U S A 2011 Jun 28;108(26):10585-90')
-
+        self.assertEqual(citation, 'Alvarez-Saavedra M, Nat Commun 2014;5():4181')
         #finds the marker field
-        form.enter_value('marker_symbol', 'gata1')
+        form.enter_value('marker_symbol', 'Bmp2')
         marker_symbol = form.get_value('marker_symbol')
-        
         form.press_tab()
         print marker_symbol
-        self.assertEqual(marker_symbol, 'gata1')
-
-        #finds the coded? field
-        #is_coded = form.get_value('is_coded')
-        
-        #print is_coded
-        #self.assertEqual(is_coded, 'false')
-
-        #finds the priority field
-        #priority = form.get_selected_text('_priority_key')
-        
-        #print priority
-        #self.assertEqual(priority, 'High')
-        
-
-        #finds the conditional mutants field
-        #conditional = form.get_selected_text('_conditionalmutants_key')
-        
-        #print conditional
-        #self.assertEqual(conditional, 'Conditional')
-
-        #finds the created by field
-        #created_user = driver.find_element_by_id('createdby_login')
-        
-        #print created_user
-        #self.assertEqual(created_user.text, 'jx')
+        self.assertEqual(marker_symbol, 'Bmp2')
+        #find the table field to check
+        table_element = driver.find_element_by_id("indexGrid")
+        table = Table(table_element)
+        #puts an X in the Prot-sxn by age 7.5 box
+        cell = table.get_cell("prot-sxn", "7.5")
+        cell.click()
+        wait.forAngular(driver)
+        self.assertEqual(cell.text, 'X', "the cell is not checked")
 
         
-        #finds the modified by field
-        #modified_user = driver.find_element_by_id('modifiedby_login')#.find_element_by_css_selector('td')
+    def testJnumMrkErrMsgs(self):
+        """
+        @Status tests that the correct error messages are displayed when entering an invalid J number and when entering an invalid Marker
         
-        #print modified_user
-        #self.assertEqual(modified_user.text, 'jx')
+        """
+        driver = self.driver
+        form = self.form
+        form.enter_value('jnumid', '000000')
+        # click the Tab key
+        form.press_tab()
+        #Get the error message that is displayed
+        jnum_error = form.get_error_message()
+        self.assertEqual(jnum_error, "No Reference for J Number=J:000000", 'error message not displayed')
+        #finds the marker field
+        form.enter_value('marker_symbol', 'ffffff')
+        marker_symbol = form.get_value('marker_symbol')
+        form.press_tab()
+        print marker_symbol
+        #Get the error message that is displayed
+        mrk_error = form.get_error_message()
+        self.assertEqual(mrk_error, 'Invalid marker symbol')
+
+    def testPriorityErrMsg(self):
+        """
+        @Status tests that the correct error message is displayed when not selecting a priority
         
-        #finds the created by date field
-        #created_date = form.get_value('creation_date')
+        """
+        driver = self.driver
+        form = self.form
+        wait.forAngular(driver)
+        form.enter_value('jnumid', '144307')
+        # click the Tab key
+        form.press_tab()
+        #finds the marker field
+        form.enter_value('marker_symbol', 'zyx')
+        marker_symbol = form.get_value('marker_symbol')
+        form.press_tab()
+        print marker_symbol
+        #press the enter key
+        driver.find_element_by_id("addButton").click()
+        wait.forAngular(driver)
+        #Get the error message that is displayed
+        priority_error = form.get_error_message()
+        print priority_error
+        self.assertEqual(priority_error, '(psycopg2.InternalError) Priority Required')
+
+    def testStageErrMsg(self):
+        """
+        @Status tests that the correct error message is displayed when not selecting any stage
         
-        #print created_date
-        #self.assertEqual(created_date, '07/26/2011')
-        
-        #finds the created by date field
-        #modified_date = form.get_value('modification_date')
-        
-        #print modified_date
-        #self.assertEqual(modified_date, '12/12/2011')
+        """
+        driver = self.driver
+        form = self.form
+        wait.forAngular(driver, '5')
+        form.enter_value('jnumid', '225216')
+        # click the Tab key
+        form.press_tab()
+        #finds the marker field
+        form.enter_value('marker_symbol', 'Bmp2')
+        marker_symbol = form.get_value('marker_symbol')
+        form.press_tab()
+        print marker_symbol
+        #finds the marker field
+        form.enter_value('_priority_key', 'Low')
+        priority_option = form.get_value('_priority_key')
+        form.press_tab()
+        print priority_option
+        self.assertEqual(priority_option, '74716')
+        #press the enter key
+        driver.find_element_by_id("addButton").click()
+        wait.forAngular(driver, '5')
+        #Get the error message that is displayed
+        stage_error = form.get_error_message()
+        print stage_error
+        self.assertEqual(stage_error, 'No stages have been selected for this record')    
         
 
     
     def tearDown(self):
+        driver = self.driver
+        form = self.form
+        form.click_clear()
+        form.enter_value('jnumid', '225216')
+        form.press_tab()
+        form.enter_value('marker_symbol', 'Bmp2')
+        form.press_tab()
+        form.click_search()
+        form.click_delete()
         self.driver.close()
-       
-       
-       
        
 def suite():
     suite = unittest.TestSuite()
