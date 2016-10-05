@@ -87,8 +87,11 @@ class Table(object):
         rows = self.get_rows()
         
         cells = []
-        for row in rows:
-            cells.append(row[col_index])
+        for row_index in range(len(rows)):
+            row_cells = self.get_row_cells(row_index)
+            cells.append(row_cells[col_index])
+            
+        return cells
     
     
     
