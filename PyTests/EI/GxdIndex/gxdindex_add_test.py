@@ -2,6 +2,7 @@
 Created on Sep 20, 2016
 
 @author: jeffc
+@attention: These tests must only be run against a delevopment environment!!
 '''
 import unittest
 import time

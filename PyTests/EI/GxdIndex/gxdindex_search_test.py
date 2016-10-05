@@ -280,7 +280,42 @@ class TestSearch(unittest.TestCase):
         marker_symbol = form.get_value('marker_symbol')
         self.assertEqual(marker_symbol, 't')
         
+    def testSearchIndex(self):
+        """
+        @Status tests that an index record(s) can be searched
         
+        """
+        driver = self.driver
+        form = self.form
+        
+        #find the table field to check
+        table_element = driver.find_element_by_id("indexGrid")
+        table = Table(table_element)
+        #puts an X in the Prot-sxn by age 7 box
+        cell = table.get_cell("prot-wm", "7")
+        cell.click()
+        #puts an X in the Prot-sxn by age 8 box
+        cell = table.get_cell("prot-wm", "8")
+        cell.click()
+        wait.forAngular(driver)
+        form.click_search()#click the search button
+        
+        results_table = driver.find_element_by_id("resultsTable")
+        table = Table(results_table)
+        
+        header_cells = table.get_header_cells()
+        print iterate.getTextAsList(header_cells)
+        
+        # print row 1
+        cells = table.get_row_cells(1)
+        print iterate.getTextAsList(cells)
+        #print column 1
+        symbols_cells = table.get_column_cells('Marker')
+        print iterate.getTextAsList(symbols_cells)
+        cells = table.get_column_cells(1)
+        print iterate.getTextAsList(cells)
+        
+            
     def testResultsTable(self):
         """
         An example of getting data from the results table using
