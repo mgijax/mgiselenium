@@ -315,11 +315,9 @@ class TestSearch(unittest.TestCase):
     def testSearchIndex(self):
         """
         @Status tests that an index record(s) can be searched
-        
         """
         driver = self.driver
         form = self.form
-        
         #find the Index grid
         table_element = driver.find_element_by_id("indexGrid")
         table = Table(table_element)
@@ -337,7 +335,6 @@ class TestSearch(unittest.TestCase):
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
         print iterate.getTextAsList(header_cells)
-        
         # print row 1
         cells = table.get_row_cells(1)
         print iterate.getTextAsList(cells)
@@ -361,21 +358,17 @@ class TestSearch(unittest.TestCase):
         
         form.click_search()
         
-        
         results_table = driver.find_element_by_id("indexGrid")
         table = Table(results_table)
         
         header_cells = table.get_header_cells()
         print iterate.getTextAsList(header_cells)
-        
         # print row 1
         cells = table.get_row_cells(1)
         print iterate.getTextAsList(cells)
-        
         # single cell
         cell = table.get_cell("RNA-WM", "10.5")
         print cell.text
-        
         # empty cell
         cell = table.get_cell("prot-sxn", "A")
 
