@@ -2,6 +2,7 @@
 Helper for working with html forms
 """
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.select import Select
 from util import wait
 
 class ModuleForm(object):
@@ -32,6 +33,15 @@ class ModuleForm(object):
         
         return input
     
+    def select_value(self, id, value):
+        """
+        Select a text value in a <select> box
+        """
+        select = self.driver.find_element_by_id(id)
+        Select(select).select_by_visible_text(value)
+        
+        return select
+        
     
     def press_enter(self):
         """
