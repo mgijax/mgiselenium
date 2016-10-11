@@ -338,7 +338,53 @@ class TestSearch(unittest.TestCase):
         symbols_cells = table.get_column_cells('Marker')
         symbols = iterate.getTextAsList(symbols_cells)
         self.assertEqual(symbols, ['Marker', 'Acta2', 'Aqp2', 'Clec1b', 'Emcn', 'Fgf8', 'Lmx1b', 'Lyve1', 'Pdpn', 'Postn', 'Tagln', 'Upk1b', 'Upk3a', 'Upk3b', 'Wnt7a'])
-            
+
+    def testCreatededBySearch(self):
+        """
+        @Status tests that searching the Created by user field gives the correct results
+        @bug: need to figure out how to verify this test result!
+        """
+        form = self.form
+        form.enter_value('createdby_login', 'ijm')
+        form.press_tab()
+        form.click_search()#click the search button
+        #find the search results table
+        results_table = self.driver.find_element_by_id("resultsTable")
+        table = Table(results_table)
+        #Iterate and print the search results headers
+        header_cells = table.get_header_cells()
+        print iterate.getTextAsList(header_cells)
+        # print row 1
+        cells = table.get_row_cells(1)
+        print iterate.getTextAsList(cells)
+        #print column 1
+        symbols_cells = table.get_column_cells('Marker')
+        symbols = iterate.getTextAsList(symbols_cells)
+        self.assertEqual(symbols, ['Marker', 'Emp1', 'Gcg', 'Gjb1', 'Gjc1', 'Mbp', 'Sst', 'Zdbf2'])
+                        
+    def testModifiedBySearch(self):
+        """
+        @Status tests that searching the Modified by user field gives the correct results
+        @bug: need to figure out how to verify this test result!
+        """
+        form = self.form
+        form.enter_value('modifiedby_login', 'ijm')
+        form.press_tab()
+        form.click_search()#click the search button
+        #find the search results table
+        results_table = self.driver.find_element_by_id("resultsTable")
+        table = Table(results_table)
+        #Iterate and print the search results headers
+        header_cells = table.get_header_cells()
+        print iterate.getTextAsList(header_cells)
+        # print row 1
+        cells = table.get_row_cells(1)
+        print iterate.getTextAsList(cells)
+        #print column 1
+        symbols_cells = table.get_column_cells('Marker')
+        symbols = iterate.getTextAsList(symbols_cells)
+        self.assertEqual(symbols, ['Marker', 'Emp1', 'Gcg', 'Gjb1', 'Gjc1', 'Mbp', 'Sst', 'Zdbf2'])
+      
     
     def testCreateDateSearch(self):
         """
@@ -389,10 +435,16 @@ class TestSearch(unittest.TestCase):
     def testLessThanDateSearch(self):
         """
         @Status tests that searching by less than created by date gives the correct results
-        @bug: Test not ready yet.
+        
         """
         form = self.form
-        form.enter_value('creation_date', '05/06/2015')
+        form.enter_value('_priority_key', 'Medium')
+        form.press_tab()
+        form.enter_value('_conditionalmutants_key', 'Conditional (minor)')
+        form.press_tab()
+        form.enter_value('is_coded', 'No')
+        form.press_tab()
+        form.enter_value('creation_date', '<05/06/2009')
         form.press_tab()
         form.click_search()#click the search button
         #find the search results table
@@ -407,8 +459,130 @@ class TestSearch(unittest.TestCase):
         #print column 1
         symbols_cells = table.get_column_cells('Marker')
         symbols = iterate.getTextAsList(symbols_cells)
-        self.assertEqual(symbols, ['Marker', 'Emp1', 'Gcg', 'Gjb1', 'Gjc1', 'Mbp', 'Sst', 'Zdbf2'])
+        self.assertEqual(symbols, ['Marker', 'En1', 'En2', 'Fgf17', 'Fgf8', 'Gbx2', 'Otx2', 'Spry1', 'Wnt1'])
             
+    def testLessThanEqualDateSearch(self):
+        """
+        @Status tests that searching by less than created by date gives the correct results
+        
+        """
+        form = self.form
+        form.enter_value('_priority_key', 'Medium')
+        form.press_tab()
+        form.enter_value('_conditionalmutants_key', 'Conditional (minor)')
+        form.press_tab()
+        form.enter_value('is_coded', 'Yes')
+        form.press_tab()
+        form.enter_value('creation_date', "<=09/28/2010")
+        form.press_tab()
+        form.click_search()#click the search button
+        #find the search results table
+        results_table = self.driver.find_element_by_id("resultsTable")
+        table = Table(results_table)
+        #Iterate and print the search results headers
+        header_cells = table.get_header_cells()
+        print iterate.getTextAsList(header_cells)
+        # print row 1
+        cells = table.get_row_cells(1)
+        print iterate.getTextAsList(cells)
+        #print column 1
+        symbols_cells = table.get_column_cells('Marker')
+        symbols = iterate.getTextAsList(symbols_cells)
+        self.assertEqual(symbols, ['Marker', 'Clec1b', 'Fgf8', 'Lmx1b', 'Lyve1', 'Pdpn', 'Wnt7a'])
+            
+            
+    def testGreaterThanDateSearch(self):
+        """
+        @Status tests that searching by greater than created by date gives the correct results
+        
+        """
+        form = self.form
+        form.enter_value('_priority_key', 'Medium')
+        form.press_tab()
+        form.enter_value('_conditionalmutants_key', 'Conditional (minor)')
+        form.press_tab()
+        form.enter_value('is_coded', 'Yes')
+        form.press_tab()
+        form.enter_value('creation_date', ">05/10/2015")
+        form.press_tab()
+        wait.forAngular(self.driver)
+        form.click_search()#click the search button
+        #find the search results table
+        results_table = self.driver.find_element_by_id("resultsTable")
+        table = Table(results_table)
+        #Iterate and print the search results headers
+        header_cells = table.get_header_cells()
+        print iterate.getTextAsList(header_cells)
+        # print row 1
+        cells = table.get_row_cells(1)
+        print iterate.getTextAsList(cells)
+        #print column 1
+        symbols_cells = table.get_column_cells('Marker')
+        symbols = iterate.getTextAsList(symbols_cells)
+        self.assertEqual(symbols, ['Marker', 'Acta2', 'Aqp2', 'Emcn', 'Postn', 'Tagln', 'Upk1b', 'Upk3a', 'Upk3b'])
+            
+    def testGreaterThanEqualDateSearch(self):
+        """
+        @Status tests that searching by greater than or equal to created by date gives the correct results
+        
+        """
+        form = self.form
+        form.enter_value('_priority_key', 'Medium')
+        form.press_tab()
+        form.enter_value('_conditionalmutants_key', 'Conditional (minor)')
+        form.press_tab()
+        form.enter_value('is_coded', 'Yes')
+        form.press_tab()
+        form.enter_value('creation_date', ">=11/10/2015")
+        form.press_tab()
+        wait.forAngular(self.driver)
+        form.click_search()#click the search button
+        #find the search results table
+        results_table = self.driver.find_element_by_id("resultsTable")
+        table = Table(results_table)
+        #Iterate and print the search results headers
+        header_cells = table.get_header_cells()
+        print iterate.getTextAsList(header_cells)
+        # print row 1
+        cells = table.get_row_cells(1)
+        print iterate.getTextAsList(cells)
+        #print column 1
+        symbols_cells = table.get_column_cells('Marker')
+        symbols = iterate.getTextAsList(symbols_cells)
+        self.assertEqual(symbols, ['Marker', 'Acta2', 'Aqp2', 'Emcn', 'Postn', 'Tagln', 'Upk1b', 'Upk3a', 'Upk3b'])
+            
+            
+    def testBetweenDateSearch(self):
+        """
+        @Status tests that searching by inclusive dates gives the correct results
+        
+        """
+        form = self.form
+        form.enter_value('_priority_key', 'Medium')
+        form.press_tab()
+        form.enter_value('_conditionalmutants_key', 'Conditional')
+        form.press_tab()
+        form.enter_value('is_coded', 'Yes')
+        form.press_tab()
+        form.enter_value('creation_date', "10/01/2015..12/01/2015")
+        form.press_tab()
+        wait.forAngular(self.driver)
+        form.click_search()#click the search button
+        #find the search results table
+        results_table = self.driver.find_element_by_id("resultsTable")
+        table = Table(results_table)
+        #Iterate and print the search results headers
+        header_cells = table.get_header_cells()
+        print iterate.getTextAsList(header_cells)
+        # print row 1
+        cells = table.get_row_cells(1)
+        print iterate.getTextAsList(cells)
+        #print column 1
+        symbols_cells = table.get_column_cells('Marker')
+        symbols = iterate.getTextAsList(symbols_cells)
+        self.assertEqual(symbols, ['Marker', 'Flrt3', 'Ntn1', 'Pecam1', 'Slit1', 'Tlx1'])
+            
+          
                   
     def testSearchIndex(self):
         """
