@@ -2,7 +2,7 @@
 Created on Sep 20, 2016
 
 @author: jeffc
-@attention: These tests must only be run against a delevopment environment!!
+@attention: These tests must only be run against a development environment!!
 '''
 import unittest
 import time
@@ -69,7 +69,39 @@ class TestAdd(unittest.TestCase):
         cell.click()
         wait.forAngular(driver)
         self.assertEqual(cell.text, 'X', "the cell is not checked")
+        form.click_add()#click the add button
 
+    def testDeleteIndex(self):
+        """
+        @Status tests that an index record can be deleted
+        
+        """
+        driver = self.driver
+        form = self.form
+        
+        form.enter_value('jnumid', '225216')
+        # click the Tab key
+        form.press_tab()
+        #finds the citation field
+        citation = form.get_value('citation')
+        print citation
+        self.assertEqual(citation, 'Alvarez-Saavedra M, Nat Commun 2014;5():4181')
+        #finds the marker field
+        form.enter_value('marker_symbol', 'Bmp2')
+        marker_symbol = form.get_value('marker_symbol')
+        form.press_tab()
+        print marker_symbol
+        self.assertEqual(marker_symbol, 'Bmp2')
+        #find the table field to check
+        table_element = driver.find_element_by_id("indexGrid")
+        table = Table(table_element)
+        #puts an X in the Prot-sxn by age 7.5 box
+        cell = table.get_cell("prot-sxn", "7.5")
+        cell.click()
+        wait.forAngular(driver)
+        self.assertEqual(cell.text, 'X', "the cell is not checked")
+        form.click_delete()#click the delete button
+        
         
     def testJnumMrkErrMsgs(self):
         """
