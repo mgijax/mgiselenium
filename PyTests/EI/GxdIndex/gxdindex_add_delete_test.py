@@ -123,7 +123,7 @@ class TestAdd(unittest.TestCase):
         print marker_symbol
         #Get the error message that is displayed
         mrk_error = form.get_error_message()
-        self.assertEqual(mrk_error, 'Invalid marker symbol')
+        self.assertEqual(mrk_error, 'Invalid marker symbol ffffff')
 
     def testPriorityErrMsg(self):
         """
@@ -161,7 +161,7 @@ class TestAdd(unittest.TestCase):
         # click the Tab key
         form.press_tab()
         #finds the marker field
-        form.enter_value('marker_symbol', 'Bmp2')
+        form.enter_value('marker_symbol', 'Gata1')
         marker_symbol = form.get_value('marker_symbol')
         form.press_tab()
         print marker_symbol
@@ -170,15 +170,27 @@ class TestAdd(unittest.TestCase):
         priority_option = form.get_value('_priority_key')
         form.press_tab()
         print priority_option
-        self.assertEqual(priority_option, '74716')
+        #self.assertEqual(priority_option, '74716')
         #press the enter key
-        driver.find_element_by_id("addButton").click()
-        wait.forAngular(driver, '5')
+        form.click_add()
+        
+        
         #Get the error message that is displayed
         stage_error = form.get_error_message()
         print stage_error
         self.assertEqual(stage_error, 'No stages have been selected for this record')    
         
+        
+        table = driver.find_element_by_id("resultsTable")
+        table.find_elements_by_tag_name("tr")[1].click()
+        wait.forAngular(driver)
+        form.click_delete()
+        time.sleep(1)
+        alert = driver.switch_to_alert()
+        time.sleep(1)
+        
+        # accept the alert
+        alert.accept()
 
     
     def tearDown(self):
@@ -187,7 +199,7 @@ class TestAdd(unittest.TestCase):
         form.click_clear()
         form.enter_value('jnumid', '225216')
         form.press_tab()
-        form.enter_value('marker_symbol', 'Bmp2')
+        form.enter_value('marker_symbol', 'Gata1')
         form.press_tab()
         form.click_search()
         form.click_delete()
