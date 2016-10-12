@@ -119,11 +119,16 @@ class ModuleForm(object):
         
     def click_modify(self):  
         self.driver.find_element_by_id('modifyButton').click()
-        wait.forAngular(self.driver)
-        
+        wait.forAngular(self.driver)    
+    
     def click_delete(self):  
         self.driver.find_element_by_id('deleteButton').click()
+        alert = self.driver.switch_to_alert()
+        alert.accept()
         wait.forAngular(self.driver)
+        
+    def click_delete_dont_wait(self):
+        self.driver.find_element_by_id('deleteButton').click()
         
         
         
