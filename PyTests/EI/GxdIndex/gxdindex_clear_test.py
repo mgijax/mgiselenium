@@ -73,7 +73,7 @@ class TestModify(unittest.TestCase):
         priority = form.get_selected_text('_priority_key')
         
         print priority
-        self.assertEqual(priority, 'Low')
+        self.assertEqual(priority, 'High')
         
         #finds the conditional mutants field
         conditional = form.get_selected_text('_conditionalmutants_key')
@@ -82,29 +82,29 @@ class TestModify(unittest.TestCase):
         self.assertEqual(conditional, 'Conditional')
 
         #finds the created by field
-        created_user = driver.find_element_by_id('createdby_login')
+        created_user = form.get_value('createdby_login')
         
         print created_user
-        self.assertEqual(created_user.text, 'jfinger')
+        self.assertEqual(created_user, 'jeffc')
 
         
         #finds the modified by field
-        modified_user = driver.find_element_by_id('modifiedby_login')#.find_element_by_css_selector('td')
+        modified_user = form.get_value('modifiedby_login')#.find_element_by_css_selector('td')
         
         print modified_user
-        self.assertEqual(modified_user.text, 'jeffc')
+        self.assertEqual(modified_user, 'jeffc')
         
         #finds the created by date field
         created_date = form.get_value('creation_date')
         
         print created_date
-        self.assertEqual(created_date, '12/11/2015')
+        self.assertEqual(created_date, '10/12/2016')
         
         #finds the created by date field
         modified_date = form.get_value('modification_date')
         
         print modified_date
-        self.assertEqual(modified_date, '10/04/2016')
+        self.assertEqual(modified_date, '10/12/2016')
         
         #find the table field to check
         table_element = driver.find_element_by_id("indexGrid")
@@ -142,16 +142,16 @@ class TestModify(unittest.TestCase):
         self.assertEqual(conditional, 'Search All')
 
         #finds the created by field
-        created_user = driver.find_element_by_id('createdby_login')
+        created_user = form.get_value('createdby_login')
         
         print created_user
-        self.assertEqual(created_user.text, '')
+        self.assertEqual(created_user, '')
         
         #finds the modified by field
-        modified_user = driver.find_element_by_id('modifiedby_login')#.find_element_by_css_selector('td')
+        modified_user = form.get_value('modifiedby_login')#.find_element_by_css_selector('td')
         
         print modified_user
-        self.assertEqual(modified_user.text, '')
+        self.assertEqual(modified_user, '')
         
         #finds the created by date field
         created_date = form.get_value('creation_date')

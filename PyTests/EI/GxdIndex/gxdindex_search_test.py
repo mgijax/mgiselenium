@@ -144,7 +144,7 @@ class TestSearch(unittest.TestCase):
     def testMrkWildcardSearch(self):
         """
         @Status tests that a wildcard search for a marker works
-        @bug test needs to be written
+        
         """
         form = self.form
         
@@ -342,9 +342,12 @@ class TestSearch(unittest.TestCase):
     def testCreatededBySearch(self):
         """
         @Status tests that searching the Created by user field gives the correct results
-        @bug: need to figure out how to verify this test result!
+        
         """
         form = self.form
+        form.enter_value('_priority_key', 'High')
+        form.enter_value('_conditionalmutants_key', 'Conditional')
+        form.enter_value('is_coded', 'Yes')
         form.enter_value('createdby_login', 'ijm')
         form.press_tab()
         form.click_search()#click the search button
@@ -360,14 +363,17 @@ class TestSearch(unittest.TestCase):
         #print column 1
         symbols_cells = table.get_column_cells('Marker')
         symbols = iterate.getTextAsList(symbols_cells)
-        self.assertEqual(symbols, ['Marker', 'Emp1', 'Gcg', 'Gjb1', 'Gjc1', 'Mbp', 'Sst', 'Zdbf2'])
+        self.assertEqual(symbols, ['Marker', 'Hnf1a', 'Runx1', 'Timp1', 'Tnc'])
                         
     def testModifiedBySearch(self):
         """
         @Status tests that searching the Modified by user field gives the correct results
-        @bug: need to figure out how to verify this test result!
+        
         """
         form = self.form
+        form.enter_value('_priority_key', 'Medium')
+        form.enter_value('_conditionalmutants_key', 'Conditional')
+        form.enter_value('is_coded', 'Yes')
         form.enter_value('modifiedby_login', 'ijm')
         form.press_tab()
         form.click_search()#click the search button
@@ -383,7 +389,7 @@ class TestSearch(unittest.TestCase):
         #print column 1
         symbols_cells = table.get_column_cells('Marker')
         symbols = iterate.getTextAsList(symbols_cells)
-        self.assertEqual(symbols, ['Marker', 'Emp1', 'Gcg', 'Gjb1', 'Gjc1', 'Mbp', 'Sst', 'Zdbf2'])
+        self.assertEqual(symbols, ['Marker', 'Acta2', 'Fabp7', 'Hand1', 'Mbp'])
       
     
     def testCreateDateSearch(self):
