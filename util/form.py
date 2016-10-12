@@ -4,6 +4,7 @@ Helper for working with html forms
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
 from util import wait
+import time
 
 class ModuleForm(object):
     """
@@ -50,6 +51,7 @@ class ModuleForm(object):
         current_element = self._get_current_element()
         current_element.send_keys(Keys.RETURN)
         wait.forAngular(self.driver)
+        
         
         
     def press_tab(self):

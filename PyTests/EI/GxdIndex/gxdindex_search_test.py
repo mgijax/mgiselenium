@@ -297,16 +297,19 @@ class TestSearch(unittest.TestCase):
         
         form.enter_value('marker_symbol', 't')
         form.press_tab()
+        wait.forAngular(driver)
         
         # verify that display with two markers is shown
-        mrkrows = driver.find_elements_by_css_selector("#markerSelections td")
+        mrkrows = driver.find_elements_by_css_selector(".markerSelections td")
         print mrkrows
         markers = [r.text for r in mrkrows]
         self.assertEqual(len(markers), 2)
         self.assertEqual(markers[0], "T, brachyury, Chr 17, Band")
         self.assertEqual(markers[1], "t, t-complex, Chr 17, Band")
         
-        form.press_enter()
+        #form.press_enter()
+        mrkrows[0].click()
+        wait.forAngular(driver)
         
         # marker T should be selected
         marker_symbol = form.get_value('marker_symbol')
