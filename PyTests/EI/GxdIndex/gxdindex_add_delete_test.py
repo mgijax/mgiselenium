@@ -185,13 +185,6 @@ class TestAdd(unittest.TestCase):
         table.find_elements_by_tag_name("tr")[1].click()
         wait.forAngular(driver)
         form.click_delete()
-        time.sleep(1)
-        alert = driver.switch_to_alert()
-        time.sleep(1)
-        
-        # accept the alert
-        alert.accept()
-
     
     def tearDown(self):
         driver = self.driver
