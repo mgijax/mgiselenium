@@ -100,6 +100,7 @@ class TestAdd(unittest.TestCase):
         cell.click()
         wait.forAngular(driver)
         self.assertEqual(cell.text, 'X', "the cell is not checked")
+        form.click_modify()
         form.click_delete()#click the delete button
         
         
@@ -196,7 +197,7 @@ class TestAdd(unittest.TestCase):
         form.press_tab()
         form.click_search()
         form.click_delete()
-        self.driver.close()
+        driver.close()
        
 def suite():
     suite = unittest.TestSuite()

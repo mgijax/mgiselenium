@@ -48,13 +48,13 @@ class TestModify(unittest.TestCase):
         driver = self.driver
         form = self.form
         
-        form.enter_value('jnumid', '225216')
+        form.enter_value('jnumid', '74162')
         # click the Tab key
         form.press_tab()
         #finds the citation field
         citation = form.get_value('citation')
         print citation
-        self.assertEqual(citation, 'Alvarez-Saavedra M, Nat Commun 2014;5():4181')
+        self.assertEqual(citation, 'Abdelwahid E, Cell Tissue Res 2001 Jul;305(1):67-78')
         #finds the marker field
         form.enter_value('marker_symbol', 'Bmp2')
         marker_symbol = form.get_value('marker_symbol')
@@ -79,32 +79,32 @@ class TestModify(unittest.TestCase):
         conditional = form.get_selected_text('_conditionalmutants_key')
         
         print conditional
-        self.assertEqual(conditional, 'Conditional')
+        self.assertEqual(conditional, 'Not Specified')
 
         #finds the created by field
         created_user = form.get_value('createdby_login')
         
         print created_user
-        self.assertEqual(created_user, 'jeffc')
+        self.assertEqual(created_user, 'MGI_2.97')
 
         
         #finds the modified by field
         modified_user = form.get_value('modifiedby_login')#.find_element_by_css_selector('td')
         
         print modified_user
-        self.assertEqual(modified_user, 'jeffc')
+        self.assertEqual(modified_user, 'MGI_2.97')
         
         #finds the created by date field
         created_date = form.get_value('creation_date')
         
         print created_date
-        self.assertEqual(created_date, '10/12/2016')
+        self.assertEqual(created_date, '04/23/2002')
         
         #finds the created by date field
         modified_date = form.get_value('modification_date')
         
         print modified_date
-        self.assertEqual(modified_date, '10/12/2016')
+        self.assertEqual(modified_date, '04/23/2002')
         
         #find the table field to check
         table_element = driver.find_element_by_id("indexGrid")
@@ -184,7 +184,7 @@ class TestModify(unittest.TestCase):
         form.press_tab()
         form.click_search()
         form.click_delete()
-        self.driver.close()
+        driver.close()
        
 '''
 These tests should NEVER!!!! be run against a production system!!
