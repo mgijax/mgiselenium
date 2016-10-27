@@ -152,9 +152,9 @@ class TestImageSummary(unittest.TestCase):
         wait.forAjax(driver)
         time.sleep(.5)
         assaylist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-assayType')
-        items = assaylist[0].find_elements_by_tag_name("li")
+        items = assaylist[2].find_elements_by_tag_name("li")
         searchTextItems = iterate.getTextAsList(items)
-        self.assertEqual(searchTextItems, ["RNase protection"])
+        self.assertEqual(searchTextItems, ["RT-PCR"])
     
     def test_specimentype_column_sort(self):
         """
@@ -205,7 +205,7 @@ class TestImageSummary(unittest.TestCase):
         
            
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
 
 def suite():
     suite = unittest.TestSuite()
