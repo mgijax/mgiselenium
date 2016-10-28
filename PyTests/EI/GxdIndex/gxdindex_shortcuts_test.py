@@ -27,7 +27,7 @@ from util.table import Table
 class TestModify(unittest.TestCase):
     """
     @status Test GXD Index browser for the correct fields being cleared
-    @attention: This will only work on the Chrome browser
+    @attention: This will only work on the Chrome browser. Only contains 2 shortcut tests, others can be added later as time permits
     """
 
     def setUp(self):
