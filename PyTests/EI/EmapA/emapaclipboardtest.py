@@ -16,6 +16,7 @@ sys.path.append(
 )
 import config
 from util import iterate, wait
+import time
 
 from base_class import EmapaBaseClass
 
@@ -36,31 +37,32 @@ class TestClipboard(unittest.TestCase, EmapaBaseClass):
         passwd.send_keys(config.PWI_PASSWORD) #enters a valid password
         submit = self.driver.find_element_by_name("submit") #Find the Login button
         submit.click() #click the login button
+        time.sleep(1)
         
 
     def testOutRangeStage(self):        
         """
         @status adding a stage that is out of range for a selected term.
-        """
+        """        
+        wait.forAngular(self.driver)
         self.performSearch(term="brain")
-        
+        wait.forAngular(self.driver)
         result = self.driver.find_element_by_id("termResultList").find_element_by_css_selector("mark")
         result.click()
-        
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
         clear = self.driver.find_element_by_id("clipboardFunctions").find_element_by_id("clipboardClear")
         clear.click()
         
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
         clipbox = self.driver.find_element_by_id("clipboardInput")
         clipbox.send_keys("16")
         clipbox.send_keys(Keys.RETURN)
         
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
-        errdisplay = self.driver.find_element_by_id("clipboardError")
+        errdisplay = self.driver.find_element_by_id("errorMessage")
         self.assertTrue(errdisplay.is_displayed(), "Error message not displaying")
         
     def testDuplicateStage(self):        
@@ -71,16 +73,16 @@ class TestClipboard(unittest.TestCase, EmapaBaseClass):
         
         result = self.driver.find_element_by_id("termResultList").find_element_by_css_selector("mark")
         result.click()
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
         clear = self.driver.find_element_by_id("clipboardFunctions").find_element_by_id("clipboardClear")
         clear.click()
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
         clipbox = self.driver.find_element_by_id("clipboardInput")
         clipbox.send_keys("18,19,20,20,21,22,23,24,25")
         clipbox.send_keys(Keys.RETURN) 
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
         clipsort = self.driver.find_element_by_id("emapClipBoardContent").find_element_by_id("clipboard")       
         items = clipsort.find_elements_by_css_selector("li")
@@ -97,16 +99,16 @@ class TestClipboard(unittest.TestCase, EmapaBaseClass):
         
         result = self.driver.find_element_by_id("termResultList").find_element_by_css_selector("mark")
         result.click()
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
         clear = self.driver.find_element_by_id("clipboardFunctions").find_element_by_id("clipboardClear")
         clear.click()
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
         clipbox = self.driver.find_element_by_id("clipboardInput")
         clipbox.send_keys("18")
         clipbox.send_keys(Keys.RETURN)
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
         clipsort = self.driver.find_element_by_id("emapClipBoardContent").find_element_by_id("clipboard")
         items = clipsort.find_elements_by_css_selector("li")
@@ -122,16 +124,16 @@ class TestClipboard(unittest.TestCase, EmapaBaseClass):
         
         result = self.driver.find_element_by_id("termResultList").find_element_by_css_selector("mark")
         result.click()
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
         clear = self.driver.find_element_by_id("clipboardFunctions").find_element_by_id("clipboardClear")
         clear.click()
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
         clipbox = self.driver.find_element_by_id("clipboardInput")
         clipbox.send_keys("15,16,17,19")
         clipbox.send_keys(Keys.RETURN) 
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
         clipsort = self.driver.find_element_by_id("emapClipBoardContent").find_element_by_id("clipboard")       
         items = clipsort.find_elements_by_css_selector("li")
@@ -148,16 +150,16 @@ class TestClipboard(unittest.TestCase, EmapaBaseClass):
         
         result = self.driver.find_element_by_id("termResultList").find_element_by_css_selector("mark")
         result.click()
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
         clear = self.driver.find_element_by_id("clipboardFunctions").find_element_by_id("clipboardClear")
         clear.click()
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
         clipbox = self.driver.find_element_by_id("clipboardInput")
         clipbox.send_keys("22-25")
         clipbox.send_keys(Keys.RETURN) 
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
         clipsort = self.driver.find_element_by_id("emapClipBoardContent").find_element_by_id("clipboard")       
         items = clipsort.find_elements_by_css_selector("li")
@@ -174,16 +176,16 @@ class TestClipboard(unittest.TestCase, EmapaBaseClass):
         
         result = self.driver.find_element_by_id("termResultList").find_element_by_css_selector("mark")
         result.click()
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
         clear = self.driver.find_element_by_id("clipboardFunctions").find_element_by_id("clipboardClear")
         clear.click()
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
         clipbox = self.driver.find_element_by_id("clipboardInput")
         clipbox.send_keys("*")
         clipbox.send_keys(Keys.RETURN)
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
         clipsort = self.driver.find_element_by_id("emapClipBoardContent").find_element_by_id("clipboard")       
         items = clipsort.find_elements_by_css_selector("li")
@@ -203,9 +205,9 @@ class TestClipboard(unittest.TestCase, EmapaBaseClass):
         clipbox = self.driver.find_element_by_id("clipboardInput")
         clipbox.send_keys("seven")
         clipbox.send_keys(Keys.RETURN)
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
-        errdisplay = self.driver.find_element_by_id("clipboardError")
+        errdisplay = self.driver.find_element_by_id("errorMessage")
         self.assertTrue(errdisplay.is_displayed(), "Error message not displaying")
         
     def testInvalidRange(self):   
@@ -216,14 +218,14 @@ class TestClipboard(unittest.TestCase, EmapaBaseClass):
         
         result = self.driver.find_element_by_id("termResultList").find_element_by_css_selector("mark")
         result.click()
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
         clipbox = self.driver.find_element_by_id("clipboardInput")
         clipbox.send_keys("8-6")
         clipbox.send_keys(Keys.RETURN)
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
 
-        errdisplay = self.driver.find_element_by_id("clipboardError")
+        errdisplay = self.driver.find_element_by_id("errorMessage")
         self.assertTrue(errdisplay.is_displayed(), "Error message not displaying")
         
     def testdeleteoneclipboard(self):   
@@ -235,12 +237,12 @@ class TestClipboard(unittest.TestCase, EmapaBaseClass):
         result = self.driver.find_element_by_id("termResultList").find_elements_by_link_text("embryo")
         clear = self.driver.find_element_by_id("clipboardFunctions").find_element_by_id("clipboardClear")
         clear.click()
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
         clipbox = self.driver.find_element_by_id("clipboardInput")
         clipbox.send_keys("4-5")
         clipbox.send_keys(Keys.RETURN)
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
         clipsort = self.driver.find_element_by_id("emapClipBoardContent").find_element_by_id("clipboard")
         items = clipsort.find_elements_by_css_selector("li")
@@ -250,10 +252,10 @@ class TestClipboard(unittest.TestCase, EmapaBaseClass):
         
         self.assertEqual(["TS4; embryo", "TS5; embryo"], searchTreeItems)
         items[1].click()
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
         self.driver.find_element_by_xpath("//*[@id='clipboard']/li[2]/img").click()
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
         clipsort = self.driver.find_element_by_id("emapClipBoardContent").find_element_by_id("clipboard")
         items = clipsort.find_elements_by_css_selector("li")
@@ -268,12 +270,12 @@ class TestClipboard(unittest.TestCase, EmapaBaseClass):
         
         clear = self.driver.find_element_by_id("clipboardFunctions").find_element_by_id("clipboardClear")
         clear.click()
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
         clipbox = self.driver.find_element_by_id("clipboardInput")
         clipbox.send_keys("23-27")
         clipbox.send_keys(Keys.RETURN)
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
         clipsort = self.driver.find_element_by_id("emapClipBoardContent").find_element_by_id("clipboard")
         items = clipsort.find_elements_by_css_selector("li")
@@ -285,15 +287,15 @@ class TestClipboard(unittest.TestCase, EmapaBaseClass):
         # TS24; neck
         self.driver.find_element_by_xpath("//*[@id='clipboard']/li[2]").click()
         self.driver.find_element_by_xpath("//*[@id='clipboard']/li[2]/img").click()
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         # TS25; neck
         self.driver.find_element_by_xpath("//*[@id='clipboard']/li[2]").click()
         self.driver.find_element_by_xpath("//*[@id='clipboard']/li[2]/img").click()
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         # TS26; neck
         self.driver.find_element_by_xpath("//*[@id='clipboard']/li[2]").click()
         self.driver.find_element_by_xpath("//*[@id='clipboard']/li[2]/img").click()
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
         clipsort = self.driver.find_element_by_id("emapClipBoardContent").find_element_by_id("clipboard")
         items = clipsort.find_elements_by_css_selector("li")
@@ -311,12 +313,12 @@ class TestClipboard(unittest.TestCase, EmapaBaseClass):
         result = self.driver.find_element_by_id("termResultList").find_elements_by_link_text("embryo")
         clear = self.driver.find_element_by_id("clipboardFunctions").find_element_by_id("clipboardClear")
         clear.click()
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
         clipbox = self.driver.find_element_by_id("clipboardInput")
         clipbox.send_keys("5-7")
         clipbox.send_keys(Keys.RETURN)
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
         clipsort = self.driver.find_element_by_id("emapClipBoardContent").find_element_by_id("clipboard")
         items = clipsort.find_elements_by_css_selector("li")
@@ -334,7 +336,7 @@ class TestClipboard(unittest.TestCase, EmapaBaseClass):
         clipbox = self.driver.find_element_by_id("clipboardInput")
         clipbox.send_keys("6-8")
         clipbox.send_keys(Keys.RETURN)
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
         clipsort = self.driver.find_element_by_id("emapClipBoardContent").find_element_by_id("clipboard")
         items = clipsort.find_elements_by_css_selector("li")
@@ -344,7 +346,7 @@ class TestClipboard(unittest.TestCase, EmapaBaseClass):
         self.assertEqual(["TS5; embryo","TS6; embryo","TS7; embryo","TS6; endoderm","TS7; endoderm","TS8; endoderm"], searchTreeItems)
         sort = self.driver.find_element_by_id("clipboardFunctions").find_element_by_id("clipboardSort")
         sort.click()
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
         clipsort = self.driver.find_element_by_id("emapClipBoardContent").find_element_by_id("clipboard")
         items = clipsort.find_elements_by_css_selector("li")
@@ -362,16 +364,16 @@ class TestClipboard(unittest.TestCase, EmapaBaseClass):
         
         result = self.driver.find_element_by_id("termResultList").find_element_by_css_selector("mark")
         result.click()
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         #clear all items in the clipboard
         clear = self.driver.find_element_by_id("clipboardFunctions").find_element_by_id("clipboardClear")
         clear.click()
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         #Add 18 into the add to clipboard field
         clipbox = self.driver.find_element_by_id("clipboardInput")
         clipbox.send_keys("18")
         clipbox.send_keys(Keys.RETURN)
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
         clipdata = self.driver.find_element_by_id("emapClipBoardContent").find_element_by_id("clipboard")
         items = clipdata.find_elements_by_css_selector("li")
@@ -380,18 +382,18 @@ class TestClipboard(unittest.TestCase, EmapaBaseClass):
         self.assertEqual(["TS18; tail"], searchTreeItems)
         #clear the clipboard using the shortcut keys
         clipdata.send_keys(Keys.ALT + "k")
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
          
         clipdata = self.driver.find_element_by_id("emapClipBoardContent")
         items = clipdata.find_elements_by_css_selector("li")
         searchTreeItems = iterate.getTextAsList(items)
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         #Assert that the clipboard is empty
         self.assertEqual([], searchTreeItems)
             
     def tearDown(self):
-        self.closeAllWindows()
-        
+        #self.closeAllWindows()
+        self.driver.quit()
         
 def suite():
     suite = unittest.TestSuite()
