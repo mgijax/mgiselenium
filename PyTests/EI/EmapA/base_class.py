@@ -23,7 +23,7 @@ class EmapaBaseClass(object):
     """
     
     def init(self):
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
         self.driver.get(BROWSER_URL)
         self.driver.implicitly_wait(10)
     

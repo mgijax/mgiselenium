@@ -52,7 +52,7 @@ class TestModify(unittest.TestCase):
         """
         driver = self.driver
         form = self.form
-        actions = ActionChains(self.driver)
+        action = ActionChains(self.driver)
         form.enter_value('jnumid', '74162')
         # click the Tab key
         form.press_tab()
@@ -76,7 +76,7 @@ class TestModify(unittest.TestCase):
             self.report.AppendToReport("gxdIdx1-1", "testctrrlaltc", "marker symbol displays", "correct marker symbol displays", "symbol is ", "Fail", "")
         form.click_search()
         time.sleep(2)
-        actions.key_down(Keys.CONTROL).key_down(Keys.ALT).send_keys('c').key_up(Keys.CONTROL).key_up(Keys.ALT).perform()
+        action.key_down(Keys.CONTROL).key_down(Keys.ALT).send_keys('c').key_up(Keys.CONTROL).key_up(Keys.ALT).perform()
         time.sleep(5)
         #finds the citation field
         citation = form.get_value('citation')

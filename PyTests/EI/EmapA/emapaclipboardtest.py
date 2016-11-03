@@ -7,7 +7,7 @@ import unittest
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-
+from selenium.webdriver.common.action_chains import ActionChains
 import sys,os.path
 
 # adjust the path to find config
@@ -231,6 +231,7 @@ class TestClipboard(unittest.TestCase, EmapaBaseClass):
     def testdeleteoneclipboard(self):   
         """
         @status tests you can delete one item from the clipboard.
+        @bug test is not working
         """
         self.performSearch(term="emb%")
         
@@ -265,6 +266,7 @@ class TestClipboard(unittest.TestCase, EmapaBaseClass):
     def testDeleteMultClipboard(self):    
         """
         @status tests you can delete multiple items from the clipboard.
+        @bug test is not working
         """
         self.performSearch(term="neck")
         
@@ -306,6 +308,7 @@ class TestClipboard(unittest.TestCase, EmapaBaseClass):
     def testClipboardBasicSort(self):
         """
         @status tests that a basic sort works by displaying the clip board results in smart alpha order.
+        @bug test is not working
         """
         
         self.performSearch(term="emb%")
@@ -359,6 +362,7 @@ class TestClipboard(unittest.TestCase, EmapaBaseClass):
         """
         @status confirm the shortcut keys(ALT + k) resets the clipboard input box
         """
+        actions = ActionChains(self.driver)
         #search for the term tail
         self.performSearch(term="tail")
         
@@ -368,12 +372,10 @@ class TestClipboard(unittest.TestCase, EmapaBaseClass):
         #clear all items in the clipboard
         clear = self.driver.find_element_by_id("clipboardFunctions").find_element_by_id("clipboardClear")
         clear.click()
-        wait.forAngular(self.driver)
         #Add 18 into the add to clipboard field
         clipbox = self.driver.find_element_by_id("clipboardInput")
         clipbox.send_keys("18")
         clipbox.send_keys(Keys.RETURN)
-        wait.forAngular(self.driver)
         
         clipdata = self.driver.find_element_by_id("emapClipBoardContent").find_element_by_id("clipboard")
         items = clipdata.find_elements_by_css_selector("li")
@@ -381,13 +383,12 @@ class TestClipboard(unittest.TestCase, EmapaBaseClass):
         #assert that TS18 tail is displayed in the clipboard
         self.assertEqual(["TS18; tail"], searchTreeItems)
         #clear the clipboard using the shortcut keys
-        clipdata.send_keys(Keys.ALT + "k")
-        wait.forAngular(self.driver)
+        actions.key_down(Keys.CONTROL).key_down(Keys.ALT).send_keys('k').key_up(Keys.CONTROL).key_up(Keys.ALT).perform()
+        time.sleep(5)
          
         clipdata = self.driver.find_element_by_id("emapClipBoardContent")
         items = clipdata.find_elements_by_css_selector("li")
         searchTreeItems = iterate.getTextAsList(items)
-        wait.forAngular(self.driver)
         #Assert that the clipboard is empty
         self.assertEqual([], searchTreeItems)
             
