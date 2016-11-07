@@ -1,0 +1,31 @@
+1477318736564	geckodriver	INFO	Listening on 127.0.0.1:50000
+1477318738489	mozprofile::profile	INFO	Using profile path C:\Users\testuser\AppData\Local\Temp\rust_mozprofile.fxhJ96ubN9wL
+1477318738495	geckodriver::marionette	INFO	Starting browser C:\Program Files (x86)\Mozilla Firefox\firefox.exe
+1477318738524	geckodriver::marionette	INFO	Connecting to Marionette on localhost:50007
+1477318739919	Marionette	INFO	Listening on port 50007
+1477318743473	Marionette	INFO	startBrowser 7b782e47-9041-41e3-a790-24e7380a33b6
+1477318743483	Marionette	INFO	sendAsync 7b782e47-9041-41e3-a790-24e7380a33b6
+1477318743878	Marionette	INFO	sendAsync 7b782e47-9041-41e3-a790-24e7380a33b6
+JavaScript warning: http://www.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+1477318744874	Marionette	INFO	sendAsync 7b782e47-9041-41e3-a790-24e7380a33b6
+1477318744882	Marionette	INFO	sendAsync 7b782e47-9041-41e3-a790-24e7380a33b6
+1477318744905	Marionette	INFO	sendAsync 7b782e47-9041-41e3-a790-24e7380a33b6
+1477318744914	Marionette	INFO	sendAsync 7b782e47-9041-41e3-a790-24e7380a33b6
+1477318744943	Marionette	INFO	sendAsync 7b782e47-9041-41e3-a790-24e7380a33b6
+1477318744953	Marionette	INFO	sendAsync 7b782e47-9041-41e3-a790-24e7380a33b6
+1477318746033	Marionette	INFO	sendAsync 7b782e47-9041-41e3-a790-24e7380a33b6
+JavaScript warning: http://www.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+1477318746836	Marionette	INFO	sendAsync 7b782e47-9041-41e3-a790-24e7380a33b6
+JavaScript warning: http://www.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://www.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript error: http://www.informatics.jax.org/webshare/js/jquery-1.10.2.min.js line 4 > eval, line 279: TypeError: document.getElementById(...) is null
+1477318747889	Marionette	INFO	sendAsync 7b782e47-9041-41e3-a790-24e7380a33b6
+1477318747912	Marionette	INFO	sendAsync 7b782e47-9041-41e3-a790-24e7380a33b6
+1477318747934	Marionette	INFO	sendAsync 7b782e47-9041-41e3-a790-24e7380a33b6
+1477318747955	Marionette	INFO	sendAsync 7b782e47-9041-41e3-a790-24e7380a33b6
+1477318747977	Marionette	INFO	sendAsync 7b782e47-9041-41e3-a790-24e7380a33b6
+1477318747998	Marionette	INFO	sendAsync 7b782e47-9041-41e3-a790-24e7380a33b6
+1477318748019	Marionette	INFO	sendAsync 7b782e47-9041-41e3-a790-24e7380a33b6
+1477318748042	Marionette	INFO	sendAsync 7b782e47-9041-41e3-a790-24e7380a33b6
+1477318748063	Marionette	INFO	sendAsync 7b782e47-9041-41e3-a790-24e7380a33b6
+1477318748085	Marionette	INFO	sendAsync 7b782e47-9041-41e3-a790-24e7380a33b6
