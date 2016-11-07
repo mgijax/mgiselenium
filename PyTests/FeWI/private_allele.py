@@ -23,7 +23,7 @@ class TestPrivateAllele(unittest.TestCase):
     """
 
     def setUp(self):
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
         self.driver.implicitly_wait(10)
 
     def test_private(self):
@@ -31,19 +31,19 @@ class TestPrivateAllele(unittest.TestCase):
         driver.get(config.PUBLIC_URL)
         self.assertIn("Informatics", driver.title)
         querytext = driver.find_element_by_name('query')
+        querytext.clear()
         querytext.send_keys("Brca1")  # put your marker symbol
         querytext.send_keys(Keys.RETURN)  # click the submit button
-        brcalink = driver.find_element_by_link_text("Brca1")  # Find the Brca1 link and click it
-        brcalink.click()  # Find the all alleles and mutations link and click it
+        brcalink = driver.find_element_by_link_text("Brca1")# Find the Brca1 link and click it
+        brcalink.click()# Find the all alleles and mutations link and click it
         allallelelink = driver.find_element_by_link_text("89")
         allallelelink.click()  # assert that there is no link for Brca1<test1>
         time.sleep(.5)
-        wait.forAjax(driver)
         # assert that there is no link for Brca1<test1>
         self.assertNotIn("test1", self.driver.page_source,"Test1 allele is displaying!")
 
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
 
 def suite():
     suite = unittest.TestSuite()

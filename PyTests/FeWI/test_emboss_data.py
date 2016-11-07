@@ -42,7 +42,7 @@ class TestFile(unittest.TestCase):
     
         
     def setUp(self):
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
         #self.driver.get(PUBLIC_URL)
         self.driver.implicitly_wait(10)
         

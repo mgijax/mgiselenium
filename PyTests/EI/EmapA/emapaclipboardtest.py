@@ -231,7 +231,6 @@ class TestClipboard(unittest.TestCase, EmapaBaseClass):
     def testdeleteoneclipboard(self):   
         """
         @status tests you can delete one item from the clipboard.
-        @bug test is not working
         """
         self.performSearch(term="emb%")
         
@@ -266,7 +265,6 @@ class TestClipboard(unittest.TestCase, EmapaBaseClass):
     def testDeleteMultClipboard(self):    
         """
         @status tests you can delete multiple items from the clipboard.
-        @bug test is not working
         """
         self.performSearch(term="neck")
         
@@ -308,7 +306,6 @@ class TestClipboard(unittest.TestCase, EmapaBaseClass):
     def testClipboardBasicSort(self):
         """
         @status tests that a basic sort works by displaying the clip board results in smart alpha order.
-        @bug test is not working
         """
         
         self.performSearch(term="emb%")

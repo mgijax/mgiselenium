@@ -159,7 +159,7 @@ class TestImageSummary(unittest.TestCase):
     def test_specimentype_column_sort(self):
         """
         @status: Tests that the specimen type column sort works correctly
-        The order for the spcimen type sort is the order in the EI menu:
+        The order for the specimen type sort is the order in the EI menu:
         *whole mount
         *section
         *section from whole mount
