@@ -12,6 +12,7 @@ sys.path.append(
 )
 import config
 from util import iterate, wait
+import time
 
 # constants
 BROWSER_URL = config.PWI_URL + "/edit/emapaBrowser"
@@ -22,7 +23,7 @@ class EmapaBaseClass(object):
     """
     
     def init(self):
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
         self.driver.get(BROWSER_URL)
         self.driver.implicitly_wait(10)
     
@@ -46,7 +47,7 @@ class EmapaBaseClass(object):
         termSearch = self.driver.find_element_by_id("termSearch")
         termSearch.clear()
         termSearch.send_keys(term)
-            
+        
         stageSearch = self.driver.find_element_by_id("stageSearch")
         stageSearch.clear()
         stageSearch.send_keys(stage)
@@ -54,5 +55,5 @@ class EmapaBaseClass(object):
         stageSearch.send_keys(Keys.RETURN)
         
         # wait for all AJAX behavior to complete
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         

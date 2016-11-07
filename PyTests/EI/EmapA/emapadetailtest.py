@@ -64,11 +64,11 @@ class TestEmapaDetail(unittest.TestCase, EmapaBaseClass):
 
         # click stage 10
         stage10 = detailArea.find_element_by_link_text("10").click()
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)  
         
         #verify EMAPS term is loaded for mouse
         detailItems = self.driver.find_elements_by_css_selector("#termDetailContent dd")
-        self.assertEqual(detailItems[2].text, "EMAPS:2576510")
+        self.assertEqual(detailItems[2].text, "EMAPA:2576510")
         
         # verify stage is active
         activeStage = self.driver.find_element_by_css_selector(".stageSelector.active")
@@ -96,7 +96,7 @@ class TestEmapaDetail(unittest.TestCase, EmapaBaseClass):
         
         # navigate to a term from the tree
         self.driver.find_element_by_css_selector(".mgitreeview").find_element_by_link_text("brain blood vessel").click()
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)  
         
         # verify count of results for the stage specific term2 term
         term2CountTag = self.driver.find_element_by_css_selector(".resultsLink a")
@@ -116,7 +116,7 @@ class TestEmapaDetail(unittest.TestCase, EmapaBaseClass):
         # select specific stage
         activetree = self.driver.find_element_by_css_selector(".mgitreeview .active")
         self.assertEqual(activetree.text,"brain blood vessel")
-        wait.forAjax(self.driver)        
+        wait.forAngular(self.driver)        
         
         
         # verify annotation count exists
@@ -180,7 +180,7 @@ class TestEmapaDetail(unittest.TestCase, EmapaBaseClass):
         
         #verify EMAPS term is loaded for second polar body
         detailItems = self.driver.find_elements_by_css_selector("#termDetailContent dd")
-        self.assertEqual(detailItems[2].text,"EMAPS:1603401")
+        self.assertEqual(detailItems[2].text,"EMAPA:16034")
         
         
         # verify stage is active

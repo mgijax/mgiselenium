@@ -1,4 +1,10 @@
 '''
+Created on Oct 20, 2016
+
+@author: jeffc
+This suite of tests are for marker detail pages
+'''
+'''
 Created on May 23, 2016
 
 @author: jeffc
@@ -18,27 +24,25 @@ sys.path.append(
 from util import wait, iterate
 import config
 from config import PWI_URL
-import time
 
 class Test(unittest.TestCase):
 
 
     def setUp(self):
         self.driver = webdriver.Firefox()
-        self.driver.get(config.FEWI_URL + "/allele/")
+        self.driver.get(config.FEWI_URL + "/marker/")
         self.driver.implicitly_wait(10)
 
     def test_ribbon_locations(self):
         '''
         @status This test verifies the ribbons are being displayed in the correct order on the page.
+        @bug: under construction
         '''
         self.driver.find_element_by_name("nomen").clear()
-        self.driver.find_element_by_name("nomen").send_keys("Pkd1")
+        self.driver.find_element_by_name("nomen").send_keys("Gata1")
         self.driver.find_element_by_class_name("buttonLabel").click()
-        self.driver.find_element_by_partial_link_text("tm2Jzh").click()
-        time.sleep(1)
+        self.driver.find_element_by_link_text("Gata1").click()
         assert "Pkd1<sup>tm2Jzh</sup>" in self.driver.page_source
-        print self.driver.page_source
         assert 'id="nomenclatureHeader"' in self.driver.page_source
         assert 'id="originHeader"' in self.driver.page_source
         assert 'id="descriptionHeader"' in self.driver.page_source
@@ -52,7 +56,7 @@ class Test(unittest.TestCase):
     def test_ribbon_locations2(self):
         '''
         @status This test verifies the ribbons are being displayed in the correct order on the page.
-        This allele had recombinase and phenotype ribbons
+        @bug: under construction
         '''
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Slc6a3")
@@ -73,7 +77,7 @@ class Test(unittest.TestCase):
     def test_ribbon_locations3(self):
         '''
         @status This test verifies the ribbons are being displayed in the correct order on the page.
-        This allele had no disease models so the Expression ribbon should follow the phenotype ribbon
+        @bug: under construction
         '''
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Pax3")
@@ -93,6 +97,7 @@ class Test(unittest.TestCase):
         '''
         @status this test verifies In the Mutation Description section, confirm there are turnstile icons for Mutation Notes, 
         Sequence Tags, and Genome Context Verify clicking the turnstile icon for Mutation Notes, Sequence tags, and Genome context displays the complete information.
+        @bug: under construction
         '''
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Arrdc3")
@@ -143,6 +148,7 @@ class Test(unittest.TestCase):
     def test_no_turnstile(self):
         '''
         @status this test verifies In the Mutation Description section, confirm that no turnstile icon exists because the notes are less than 100 characters.
+        @bug: under construction
         '''
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Kit")
@@ -158,6 +164,7 @@ class Test(unittest.TestCase):
         '''
         @status this test verifies In the Mutation Description section, confirm the turnstile is open for Mutation Notes(large note) and displays the complete information
         (no text is cut off).
+        @bug: under construction
         '''
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Car12")
@@ -181,6 +188,7 @@ class Test(unittest.TestCase):
         '''
         @status this test verifies  Allele subtypes appear in Mutation Description ribbon on Allele Detail Pages
          as a comma separated list following the allele type. 
+         @bug: under construction
         '''
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Kdr")
@@ -211,6 +219,7 @@ class Test(unittest.TestCase):
     def test_allele_nosubtype(self):
         '''
         @status this test verifies Allele Subtypes do not appear when the allele is not assigned to a subtype.
+        @bug: under construction
         '''
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Lith20")
@@ -232,7 +241,7 @@ class Test(unittest.TestCase):
     def test_allele_molecular_image(self):
         '''
         @status this test verifies Allele Detail page displays molecular image in the molecular description ribbon.
-        
+        @bug: under construction
         '''
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Tgm3")
@@ -255,6 +264,7 @@ class Test(unittest.TestCase):
     def test_mutagenetix_link(self):
         '''
         @status this test verifies these Alleles have the Mutagentix link in the Mutation Description ribbon(under Mutation Details) and the link works.
+        @bug under construction
         '''
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Blnk")
@@ -347,6 +357,7 @@ class Test(unittest.TestCase):
     def test_afp_link(self):
         '''
         @status this test verifies these Alleles have the Australian Phenome Facility link in the Mutation Description ribbon(under Mutation Details) and the link works.
+        @bug: under construction
         '''
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Adamts20")
@@ -372,7 +383,7 @@ class Test(unittest.TestCase):
     def test_collection_value(self):
         '''
         @status this test verifies these Alleles have the correct project collection in the Mutation origin ribbon.
-        
+        @bug: under construction
         '''
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("0610037L13Rik")
@@ -431,6 +442,7 @@ class Test(unittest.TestCase):
     def test_pheno_disease_table(self):
         '''
         @status this test verifies these Alleles have the correct Disease models and sorted alphabetically.
+        @bug under construction
         '''
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Trp53")
@@ -456,6 +468,7 @@ class Test(unittest.TestCase):
     def test_pheno_show_hide(self):
         '''
         @status this test verifies these Alleles with phenotypes ribbon show/hide affected systems properly.
+        @bug under construction
         '''
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Tg(ACTFLPe)9205Dym")
@@ -486,6 +499,7 @@ class Test(unittest.TestCase):
     def test_geno_popup_data(self):
         '''
         @status this test verifies the data found in a genotype popup page.
+        @bug under construction
         '''
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("lepr")
@@ -512,6 +526,7 @@ class Test(unittest.TestCase):
     def test_allele_img_suppression(self):
         '''
         @status this test verifies that Molecular images are not included on allele detail pages. Verifies only 3 rows of data returned for this allele.
+        @bug under construction
         '''
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Ecscr")
@@ -537,7 +552,7 @@ class Test(unittest.TestCase):
         '''
         
     def tearDown(self):
-        self.driver.quit()
+        self.driver.close()
 
 def suite():
     suite = unittest.TestSuite()

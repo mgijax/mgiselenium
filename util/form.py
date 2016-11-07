@@ -95,7 +95,7 @@ class ModuleForm(object):
         option = self.driver.find_element_by_id(id) \
             .find_element_by_css_selector('#%s option:checked' % id)
         
-        return option.text
+        return option.text.strip()
     
     def get_error_message(self):
         """

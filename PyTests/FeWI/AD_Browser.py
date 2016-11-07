@@ -58,7 +58,7 @@ class TestADBrowser(unittest.TestCase):
         
         
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
 
 def suite():
     suite = unittest.TestSuite()
