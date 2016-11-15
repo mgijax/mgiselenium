@@ -124,10 +124,6 @@ class TestModify(unittest.TestCase):
         wait.forAngular(driver)
         self.assertEqual(cell.text, '', "the cell is checked")
         
-    def test_empty(self):
-        print "this is just an empty test"
-        self.report.AppendToReport("gxdIdx1-2", "Empty Test", "Empty Test", "empty test", "empty test", "Fail", "")
-        
     def testCtrlAlts(self):
         """
         @Status tests that when a reference is entered then Ctrl+Alt+s is pressed the correct results are returned
@@ -142,7 +138,11 @@ class TestModify(unittest.TestCase):
         #finds the citation field
         citation = form.get_value('citation')
         print citation
-        self.assertEqual(citation, 'Cheong N, J Biol Chem 2007 Aug 17;282(33):23811-7')
+        try:
+            self.assertEqual(citation, 'Cheong N, J Biol Chem 2007 Aug 17;282(33):23811-7')
+            self.report.AppendToReport("gxdIdx1-2", "testctrrlalts", "Citation is displayed", "correct citation displays", "citation is ", "Pass", "")
+        except Exception:
+            self.report.AppendToReport("gxdIdx1-2", "testctrrlalts", "Citation is displayed", "correct citation displays", "citation is ", "Fail", "")
         actions.key_down(Keys.CONTROL).key_down(Keys.ALT).send_keys('s').key_up(Keys.CONTROL).key_up(Keys.ALT).perform()
         time.sleep(5)
         #finds the citation field

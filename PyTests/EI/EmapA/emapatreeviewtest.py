@@ -35,7 +35,7 @@ class TestTreeView(unittest.TestCase, EmapaBaseClass):
         """
         self.performSearch(term="mouse")
         
-        treesort = self.driver.find_element_by_id("emapTree").find_element_by_class_name("mgitreeview")
+        treesort = self.driver.find_element_by_id("emapaTree").find_element_by_class_name("mgitreeview")
         items = treesort.find_elements_by_css_selector(".node")
         
         # add all li text to a list for "assertIn" test
@@ -54,7 +54,7 @@ class TestTreeView(unittest.TestCase, EmapaBaseClass):
         # select specific stage
         stage20 = self.driver.find_element_by_id("stageList").find_element_by_link_text("20")
         stage20.click()
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
         term_det = self.driver.find_element_by_id("termDetailContent")
         items = term_det.find_elements_by_tag_name("dd")
@@ -81,7 +81,7 @@ class TestTreeView(unittest.TestCase, EmapaBaseClass):
         
         stage24 = self.driver.find_element_by_id("stageList").find_element_by_link_text("24")
         stage24.click()
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
         term_det = self.driver.find_element_by_id("termDetailContent")
         items = term_det.find_elements_by_tag_name("dd")
@@ -93,7 +93,7 @@ class TestTreeView(unittest.TestCase, EmapaBaseClass):
         
         stage22 = self.driver.find_element_by_id("stageList").find_element_by_link_text("22")
         stage22.click()
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
         term_det = self.driver.find_element_by_id("termDetailContent")
         items = term_det.find_elements_by_tag_name("dd")
@@ -122,7 +122,7 @@ class TestTreeView(unittest.TestCase, EmapaBaseClass):
         
         stage15 = self.driver.find_element_by_id("stageList").find_element_by_link_text("15")
         stage15.click()
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
         term_det = self.driver.find_element_by_id("termDetailContent")
         items = term_det.find_elements_by_tag_name("dd")
@@ -134,7 +134,7 @@ class TestTreeView(unittest.TestCase, EmapaBaseClass):
         
         parent = self.driver.find_element_by_id("termDetailContent").find_element_by_class_name("detailPageListData")
         parent.find_element_by_link_text("diencephalon").click()
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
         term_det = self.driver.find_element_by_id("termDetailContent")
         items = term_det.find_elements_by_tag_name("dd")
@@ -155,10 +155,10 @@ class TestTreeView(unittest.TestCase, EmapaBaseClass):
         self.performSearch(term="mouse")
         
         # click tissue node in tree
-        tree = self.driver.find_element_by_id("emapTree")
+        tree = self.driver.find_element_by_id("emapaTree")
         tissueNode = tree.find_element_by_link_text("tissue")
         tissueNode.click()
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
         # verify term detail changed
         detail = self.driver.find_element_by_id("termDetailContent")
@@ -167,7 +167,7 @@ class TestTreeView(unittest.TestCase, EmapaBaseClass):
         self.assertEqual(ddItems[2].text, "EMAPA:35868")
         
         # verify tree has expanded to include children of tissue
-        tree = self.driver.find_element_by_id("emapTree")
+        tree = self.driver.find_element_by_id("emapaTree")
         self.assertTrue("epithelium" in tree.text, "epithelium should be in tree view")
         self.assertTrue("muscle tissue" in tree.text, "muscle tissue should be in tree view")
              

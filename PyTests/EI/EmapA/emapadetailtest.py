@@ -208,7 +208,7 @@ class TestEmapaDetail(unittest.TestCase, EmapaBaseClass):
         
         # navigate to a child term from the tree
         self.driver.find_element_by_css_selector(".mgitreeview").find_element_by_link_text("urinary space of mature renal corpuscle").click()
-        wait.forAjax(self.driver)
+        wait.forAngular(self.driver)
         
         # verify count of results for the stage specific term2 term
         term2CountTag = self.driver.find_element_by_css_selector(".resultsLink a")

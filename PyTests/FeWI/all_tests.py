@@ -27,13 +27,13 @@ def master_suite():
     suites.append(QTL_allele_detail.suite())
     suites.append(gxd_image_summary.suite())
     suites.append(test_emboss_data.suite())
-	
+
     master_suite = unittest.TestSuite(suites)
     return master_suite
 
 if __name__ == '__main__':
-	test_suite = master_suite()
-	runner = unittest.TextTestRunner()
-	
-	ret = not runner.run(test_suite).wasSuccessful()
-	sys.exit(ret)
+    test_suite = master_suite()
+    runner = unittest.TextTestRunner()
+
+    ret = not runner.run(test_suite).wasSuccessful()
+    sys.exit(ret)

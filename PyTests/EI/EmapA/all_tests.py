@@ -15,8 +15,8 @@ import unittest
 import emapaclipboardtest
 import emapadetailtest
 import emapatreeviewtest
-import modifytest
-import searchtest
+from EI.EmapA import emapamodifytest
+from EI.EmapA import emapasearchtest
 
 # add the test suites
 def master_suite():
@@ -24,8 +24,8 @@ def master_suite():
         suites.append(emapaclipboardtest.suite())
         suites.append(emapadetailtest.suite())
         suites.append(emapatreeviewtest.suite())
-        suites.append(modifytest.suite())
-        suites.append(searchtest.suite())
+        suites.append(emapamodifytest.suite())
+        suites.append(emapasearchtest.suite())
         
         master_suite = unittest.TestSuite(suites)
         return master_suite

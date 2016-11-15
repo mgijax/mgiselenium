@@ -357,7 +357,7 @@ class TestClipboard(unittest.TestCase, EmapaBaseClass):
         
     def testClipboardShortcut(self):   
         """
-        @status confirm the shortcut keys(ALT + k) resets the clipboard input box
+        @status confirm the shortcut keys(CTRL + ALT + k) resets the clipboard input box
         """
         actions = ActionChains(self.driver)
         #search for the term tail
