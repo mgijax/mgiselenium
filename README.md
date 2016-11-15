@@ -11,6 +11,17 @@ These must all be installed locally
     
     or
     ``easy_install --upgrade selenium``
+ * geckodriver on system PATH (when running Firefox tests)
+ 
+    Download latest geckodriver here:
+    [https://github.com/mozilla/geckodriver/releases](https://github.com/mozilla/geckodriver/releases)
+    Ensure directory where geckodriver/geckodriver.exe file is on your system PATH.
+ * chromedriver on system PATH (when running Chrome tests)
+ 
+    Download latest chromedriver here:
+    [https://sites.google.com/a/chromium.org/chromedriver/downloads](https://sites.google.com/a/chromium.org/chromedriver/downloads)
+    Ensure directory where chromedriver/chromedriver.exe file is on your system PATH.
+    
  * You must create a config/config.py file.
 
     Use config.py.default as a template
