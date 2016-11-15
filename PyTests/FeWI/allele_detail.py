@@ -18,6 +18,7 @@ sys.path.append(
 from util import wait, iterate
 import config
 from config import PWI_URL
+import time
 
 class Test(unittest.TestCase):
 
@@ -35,7 +36,9 @@ class Test(unittest.TestCase):
         self.driver.find_element_by_name("nomen").send_keys("Pkd1")
         self.driver.find_element_by_class_name("buttonLabel").click()
         self.driver.find_element_by_partial_link_text("tm2Jzh").click()
+        time.sleep(1)
         assert "Pkd1<sup>tm2Jzh</sup>" in self.driver.page_source
+        print self.driver.page_source
         assert 'id="nomenclatureHeader"' in self.driver.page_source
         assert 'id="originHeader"' in self.driver.page_source
         assert 'id="descriptionHeader"' in self.driver.page_source
@@ -534,7 +537,7 @@ class Test(unittest.TestCase):
         '''
         
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
 
 def suite():
     suite = unittest.TestSuite()
