@@ -11,14 +11,14 @@ from selenium.webdriver.common.keys import Keys
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
-  os.path.join(os.path.dirname(__file__), '../../config',)
+  os.path.join(os.path.dirname(__file__), '../../..',)
 )
 import config
 
 class TestMarkerDetailLinks(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Firefox() 
+        self.driver = webdriver.Chrome() 
         self.driver.get(config.WIKI_URL + "sw:WI_Pages_by_Software_Product#Python_WI-postgres")
 
     def test_mrk_detail_links(self):
@@ -488,15 +488,14 @@ class TestMarkerDetailLinks(unittest.TestCase):
     def test_fasta_links(self):  # tests a FASTA sequence gets returned
         self.driver.find_element_by_link_text("OTTMUST00000035645")
         assert "No results found" not in self.driver.page_source
-
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
     def tearDown(self):
         self.driver.close()
         
 def suite():
-    	suite = unittest.TestSuite()
-    	suite.addTest(unittest.makeSuite(TestMarkerDetailLinks))
-    	return suite
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(TestMarkerDetailLinks))
+    return suite
 
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']

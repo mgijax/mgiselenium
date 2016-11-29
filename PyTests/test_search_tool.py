@@ -21,7 +21,7 @@ from config import FEWI_URL
 class TestSearchTool(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Firefox() 
+        self.driver = webdriver.Chrome() 
 
     def test_gene_id(self):
         """
@@ -887,7 +887,7 @@ class TestSearchTool(unittest.TestCase):
         wait.forAjax(driver) 
         
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
         
 def suite():
     suite = unittest.TestSuite()

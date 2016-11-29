@@ -1,6 +1,7 @@
 '''
 Created on Nov 15, 2016
-
+This test should check the column headers for correct display and order. It currently verifies the returned diseases and their order and the DO IDs in correct order, 
+tests for the other columns need to be added later.
 @author: jeffc
 '''
 import unittest
@@ -49,8 +50,8 @@ class Test(unittest.TestCase):
         print disease_tab.text
         self.assertEqual(disease_tab.text, "Diseases (3)", "Diseases tab is not visible!")
         disease_tab.click()
-        gene_table_headers = self.driver.find_element_by_id("diseaseTable").find_element_by_css_selector("tr")
-        items = gene_table_headers.find_elements_by_tag_name("th")
+        disease_table_headers = self.driver.find_element_by_id("diseaseTable").find_element_by_css_selector("tr")
+        items = disease_table_headers.find_elements_by_tag_name("th")
         searchTermItems = iterate.getTextAsList(items)
         self.assertEqual(searchTermItems[0], "Disease")
         self.assertEqual(searchTermItems[1], "DO ID")
@@ -98,7 +99,6 @@ class Test(unittest.TestCase):
     def test_genes_tab_doids(self):
         '''
         @status this test verifies the correct DO IDs are returned for this query.
-        @bug: under construction
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
