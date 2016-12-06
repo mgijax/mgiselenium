@@ -63,7 +63,7 @@ class Test(unittest.TestCase):
         
     def test_diseases_tab_diseases(self):
         '''
-        @status this test verifies the correct diseases are returned for this query.
+        @status this test verifies the correct diseases are returned for this query. This query uses search option Gene Symbol(s) or ID(s)
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -76,14 +76,14 @@ class Test(unittest.TestCase):
         self.driver.find_element_by_id("searchButton").click()
         wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
-        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
-        print gene_tab.text
-        self.assertEqual(gene_tab.text, "Diseases (3)", "Diseases tab is not visible!")
-        gene_tab.click()
+        disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
+        print disease_tab.text
+        self.assertEqual(disease_tab.text, "Diseases (3)", "Diseases tab is not visible!")
+        disease_tab.click()
         
-        gene_table = Table(self.driver.find_element_by_id("diseaseTable"))
+        disease_table = Table(self.driver.find_element_by_id("diseaseTable"))
         
-        cells = gene_table.get_column_cells("Disease")
+        cells = disease_table.get_column_cells("Disease")
         
         print iterate.getTextAsList(cells)
         #displays each row of gene data
@@ -96,9 +96,45 @@ class Test(unittest.TestCase):
         self.assertEqual(disease2.text, 'myelofibrosis')
         self.assertEqual(disease3.text, 'thrombocytopenia')
         
+    def test_diseases_tab_diseases2(self):
+        '''
+        @status this test verifies the correct diseases are returned for this query. This query uses search option Phenotype or Disease Name
+        @bug: test u8nder construction
+        '''
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements_by_tag_name("option"):
+            if option.text == 'Phenotype or Disease Name':
+                option.click()
+                break
+        
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("Gata1")#identifies the input field and enters gata1
+        wait.forAngular(self.driver)
+        self.driver.find_element_by_id("searchButton").click()
+        wait.forAngular(self.driver)
+        #identify the Genes tab and verify the tab's text
+        disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
+        print disease_tab.text
+        self.assertEqual(disease_tab.text, "Diseases (3)", "Diseases tab is not visible!")
+        disease_tab.click()
+        
+        disease_table = Table(self.driver.find_element_by_id("diseaseTable"))
+        
+        cells = disease_table.get_column_cells("Disease")
+        
+        print iterate.getTextAsList(cells)
+        #displays each row of gene data
+        disease1 = cells[1]
+        disease2 = cells[2]
+        
+        
+        #asserts that the correct genes in the correct order are returned
+        self.assertEqual(disease1.text, 'Jumping Frenchmen of Maine')
+        self.assertEqual(disease2.text, 'Microphthalmia, Syndromic 13; MCOPS13')
+                
+        
     def test_genes_tab_doids(self):
         '''
-        @status this test verifies the correct DO IDs are returned for this query.
+        @status this test verifies the correct DO IDs are returned for this query. This query uses search option Gene Symbol(s) or ID(s)
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
