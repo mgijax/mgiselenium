@@ -22,7 +22,8 @@ class Test(unittest.TestCase):
 
 
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Chrome('C:/Users/testuser/Downloads/chromedriver')
+        #self.driver = webdriver.Chrome()
         self.driver.get(config.FEWI_URL + "/allele/")
         self.driver.implicitly_wait(10)
 

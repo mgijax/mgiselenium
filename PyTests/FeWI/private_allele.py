@@ -23,7 +23,8 @@ class TestPrivateAllele(unittest.TestCase):
     """
 
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Chrome('C:/Users/testuser/Downloads/chromedriver')
+        #self.driver = webdriver.Chrome()
         self.driver.implicitly_wait(10)
 
     def test_private(self):
