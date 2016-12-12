@@ -34,8 +34,9 @@ class TestImageSummary(unittest.TestCase):
         genebox.send_keys(Keys.RETURN)
         #find the Image tab
         imagetab = driver.find_element_by_id("imagestab")
+        time.sleep(1)
         #click the image tab
-        #imagetab.click()
+        imagetab.click()
         wait.forAjax(driver)
         time.sleep(.5)
         genelist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-gene')
@@ -56,10 +57,11 @@ class TestImageSummary(unittest.TestCase):
         genebox.send_keys(Keys.RETURN)
         #find the Image tab
         imagetab = driver.find_element_by_id("imagestab")
+        time.sleep(1)
         #click the image tab
         imagetab.click()
         wait.forAjax(driver)
-        time.sleep(.5)
+        time.sleep(1)
         assaylist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-assayType')
         items = assaylist[0].find_elements_by_tag_name("li")
         searchTextItems = iterate.getTextAsList(items)
@@ -78,10 +80,11 @@ class TestImageSummary(unittest.TestCase):
         genebox.send_keys(Keys.RETURN)
         #find the Image tab
         imagetab = driver.find_element_by_id("imagestab")
+        time.sleep(1)
         #click the image tab
         imagetab.click()
         wait.forAjax(driver)
-        time.sleep(.5)
+        time.sleep(1)
         typelist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-hybridization')
         items = typelist[0].find_elements_by_tag_name("li")
         searchTextItems = iterate.getTextAsList(items)
@@ -101,10 +104,11 @@ class TestImageSummary(unittest.TestCase):
         genebox.send_keys(Keys.RETURN)
         #find the Image tab
         imagetab = driver.find_element_by_id("imagestab")
+        time.sleep(1)
         #click the image tab
         imagetab.click()
         wait.forAjax(driver)
-        time.sleep(.5)
+        time.sleep(1)
         
         imagesdata = driver.find_element_by_id("imagesdata")
         genelist = imagesdata.find_elements_by_css_selector('td.yui-dt-col-gene')
@@ -138,10 +142,11 @@ class TestImageSummary(unittest.TestCase):
         genebox.send_keys(Keys.RETURN)
         #find the Image tab
         imagetab = driver.find_element_by_id("imagestab")
+        time.sleep(1)
         #click the image tab
         imagetab.click()
         wait.forAjax(driver)
-        time.sleep(.5)
+        time.sleep(1)
         assaylist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-assayType')
         items = assaylist[0].find_elements_by_tag_name("li")
         searchTextItems = iterate.getTextAsList(items)
@@ -150,7 +155,7 @@ class TestImageSummary(unittest.TestCase):
         #click the gene header column to sort
         assayheader.click()
         wait.forAjax(driver)
-        time.sleep(.5)
+        time.sleep(1)
         assaylist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-assayType')
         items = assaylist[2].find_elements_by_tag_name("li")
         searchTextItems = iterate.getTextAsList(items)
@@ -183,10 +188,11 @@ class TestImageSummary(unittest.TestCase):
         genebox.send_keys(Keys.RETURN)
         #find the Image tab
         imagetab = driver.find_element_by_id("imagestab")
+        time.sleep(1)
         #click the image tab
         imagetab.click()
         wait.forAjax(driver)
-        time.sleep(.5)
+        time.sleep(1)
         typelist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-hybridization')
         items = typelist[0].find_elements_by_tag_name("li")
         searchTextItems = iterate.getTextAsList(items)
@@ -195,7 +201,7 @@ class TestImageSummary(unittest.TestCase):
         #click the gene header column to sort
         specimenheader.click()
         wait.forAjax(driver)
-        time.sleep(.5)
+        time.sleep(1)
         assaylist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-hybridization')
         items = assaylist[0].find_elements_by_tag_name("li")
         searchTextItems = iterate.getTextAsList(items)
