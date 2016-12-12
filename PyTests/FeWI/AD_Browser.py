@@ -19,7 +19,7 @@ from config import PUBLIC_URL
 class TestADBrowser(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Firefox() 
+        self.driver = webdriver.Chrome('C:/Users/testuser/Downloads/chromedriver') 
 
     def test_parent_data(self):
         """
@@ -58,6 +58,7 @@ class TestADBrowser(unittest.TestCase):
         
         
     def tearDown(self):
+        pass
         self.driver.quit()
 
 def suite():

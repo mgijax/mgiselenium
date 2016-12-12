@@ -42,8 +42,9 @@ class TestFile(unittest.TestCase):
     
         
     def setUp(self):
-        self.driver = webdriver.Chrome()
-        #self.driver.get(PUBLIC_URL)
+        self.driver = webdriver.Chrome('C:/Users/testuser/Downloads/chromedriver')
+        #self.driver = webdriver.Chrome()
+        self.driver.get(PUBLIC_URL)
         self.driver.implicitly_wait(10)
         
     def test_search(self):

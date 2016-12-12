@@ -19,7 +19,7 @@ import config
 class TestImageSummary(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Firefox() 
+        self.driver = webdriver.Chrome('C:/Users/testuser/Downloads/chromedriver') 
 
 
     def test_default_sort_genes(self):

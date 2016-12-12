@@ -24,7 +24,7 @@ class TestSnpBuild(unittest.TestCase):
 
 
     def setUp(self):
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
         self.driver.implicitly_wait(4)
         self.driver.get(config.PUBLIC_URL)
         
