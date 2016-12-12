@@ -352,11 +352,11 @@ class TestMarkerDetailLinks(unittest.TestCase):
     def test_mapdetailtextgenetic_links(self):
         self.driver.find_element_by_link_text("TEXT-Genetic Cross")
         assert "No results found" not in self.driver.page_source
-
+'''This test is obsolete
     def test_linkagemap_links(self):
         self.driver.find_element_by_link_text("Pax2")
         assert "No results found" not in self.driver.page_source
-
+'''
     def test_gobrowser_links(self):
         self.driver.find_element_by_link_text("GO Browser Form")
         assert "No results found" not in self.driver.page_source

@@ -1,5 +1,5 @@
 '''
-Created on Feb 22, 2016
+Created on Dec 12, 2016
 
 @author: jeffc
 A work in progress, bringing back data but now need to figure how to apply it.
@@ -18,9 +18,9 @@ import config
 
 class TestImageSummary(unittest.TestCase):
 
-    def setUp(self):
-        self.driver = webdriver.Chrome('C:/Users/testuser/Downloads/chromedriver') 
 
+    def setUp(self):
+        self.driver = webdriver.Chrome()
 
     def test_default_sort_genes(self):
         """
@@ -35,7 +35,7 @@ class TestImageSummary(unittest.TestCase):
         #find the Image tab
         imagetab = driver.find_element_by_id("imagestab")
         #click the image tab
-        imagetab.click()
+        #imagetab.click()
         wait.forAjax(driver)
         time.sleep(.5)
         genelist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-gene')
@@ -200,18 +200,17 @@ class TestImageSummary(unittest.TestCase):
         items = assaylist[0].find_elements_by_tag_name("li")
         searchTextItems = iterate.getTextAsList(items)
         self.assertEqual(searchTextItems, ["whole mount"])
-    
-        
-        
-           
+            
+                
     def tearDown(self):
         self.driver.quit()
 
-def suite():
-    suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestImageSummary))
-    return suite
+    def suite(self):
+        suite = unittest.TestSuite()
+        suite.addTest(unittest.makeSuite(TestImageSummary))
+        return suite
         
+
 if __name__ == "__main__":
-    unittest.main() 
-    
+    #import sys;sys.argv = ['', 'Test.testName']
+    unittest.main()
