@@ -16,7 +16,7 @@ sys.path.append(
 from util import wait, iterate
 import config
 
-class TestImageSummary(unittest.TestCase):
+class TestGXDImageSummary(unittest.TestCase):
 
 
     def setUp(self):
@@ -88,6 +88,7 @@ class TestImageSummary(unittest.TestCase):
         typelist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-hybridization')
         items = typelist[0].find_elements_by_tag_name("li")
         searchTextItems = iterate.getTextAsList(items)
+        time.sleep(1)
         self.assertEqual(searchTextItems, ["section", "section from whole mount"])
                 
     def test_gene_column_sort(self):
@@ -121,6 +122,7 @@ class TestImageSummary(unittest.TestCase):
         wait.forAjax(driver)
         time.sleep(.5)
         genelist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-gene')
+        time.sleep(1)
         items = genelist[0].find_elements_by_tag_name("li")
         searchTextItems = iterate.getTextAsList(items)
         self.assertEqual(searchTextItems, ["Arx", "Olig2", "Shh"])
@@ -211,12 +213,13 @@ class TestImageSummary(unittest.TestCase):
     def tearDown(self):
         self.driver.quit()
 
-    def suite(self):
-        suite = unittest.TestSuite()
-        suite.addTest(unittest.makeSuite(TestImageSummary))
-        return suite
+def suite():
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(TestGXDImageSummary))
+    return suite
         
 
 if __name__ == "__main__":
-    #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()
+    
+    
