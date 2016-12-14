@@ -136,12 +136,12 @@ class TestModify(unittest.TestCase):
         self.driver.close()
        
 '''
-These tests should NEVER!!!! be run against a production system!!
+These tests should NEVER!!!! be run against a production system!!'''
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestAdd))
+    suite.addTest(unittest.makeSuite(TestModify))
     return suite
-'''
+
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
     unittest.main() 

@@ -23,7 +23,7 @@ from util.table import Table
 
 # Tests
 
-class TestModify(unittest.TestCase):
+class TestClear(unittest.TestCase):
     """
     @status Test GXD Index browser for the correct fields being cleared
     """
@@ -187,12 +187,12 @@ class TestModify(unittest.TestCase):
         driver.close()
        
 '''
-These tests should NEVER!!!! be run against a production system!!
+These tests should NEVER!!!! be run against a production system!!'''
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestAdd))
+    suite.addTest(unittest.makeSuite(TestClear))
     return suite
-'''
+
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
     unittest.main() 
