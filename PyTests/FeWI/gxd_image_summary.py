@@ -190,7 +190,7 @@ class TestGXDImageSummary(unittest.TestCase):
         genebox.send_keys(Keys.RETURN)
         #find the Image tab
         imagetab = driver.find_element_by_id("imagestab")
-        time.sleep(1)
+        time.sleep(3)
         #click the image tab
         imagetab.click()
         wait.forAjax(driver)
