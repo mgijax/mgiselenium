@@ -194,7 +194,7 @@ class TestGXDImageSummary(unittest.TestCase):
         #click the image tab
         imagetab.click()
         wait.forAjax(driver)
-        time.sleep(1)
+        time.sleep(3)
         typelist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-hybridization')
         items = typelist[0].find_elements_by_tag_name("li")
         searchTextItems = iterate.getTextAsList(items)
@@ -203,7 +203,7 @@ class TestGXDImageSummary(unittest.TestCase):
         #click the gene header column to sort
         specimenheader.click()
         wait.forAjax(driver)
-        time.sleep(1)
+        time.sleep(2)
         assaylist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-hybridization')
         items = assaylist[0].find_elements_by_tag_name("li")
         searchTextItems = iterate.getTextAsList(items)
