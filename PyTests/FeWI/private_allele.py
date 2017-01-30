@@ -14,6 +14,7 @@ sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../config',)
 )
 import config
+from config import PUBLIC_URL
 from util import wait
 import time
 
@@ -23,8 +24,8 @@ class TestPrivateAllele(unittest.TestCase):
     """
 
     def setUp(self):
-        self.driver = webdriver.Chrome('C:/Users/testuser/Downloads/chromedriver')
-        #self.driver = webdriver.Chrome()
+        self.driver = webdriver.Chrome()
+        #self.driver = webdriver.Firefox()
         self.driver.implicitly_wait(10)
 
     def test_private(self):

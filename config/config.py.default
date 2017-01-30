@@ -5,23 +5,25 @@
 ### URLS ###
 
 # url for tests that hit the pwi
-PWI_URL = "http://scrumdog.informatics.jax.org/pwi"
+TEST_PWI_URL = "http://scrumdog.informatics.jax.org/pwi"
 # Uncomment for different servers
-#PWI_URL = "http://firien.informatics.jax.org/pwi"
+#TEST_PWI_URL = "http://test.informatics.jax.org/pwi"
 
 
 PUBLIC_URL = "http://www.informatics.jax.org"
 # Uncomment for different servers
-#PUBLIC_URL = "http://firien.informatics.jax.org"
+#PUBLIC_URL = "http://test.informatics.jax.org"
 #PUBLIC_URL = "http://scrumbob.informatics.jax.org"
 #PUBLIC_URL = "http://scrumdog.informatics.jax.org"
-
-
+#TEST_URL = "http://redbob.informatics.jax.org"
+#TEST_URL = "http://bluebob.informatics.jax.org"
+#TEST_URL = "http://scrumdogdev.informatics.jax.org"
+TEST_URL = "http://scrumdog.informatics.jax.org"
 # set if fewi url is different than root of public
 FEWI_URL = PUBLIC_URL
 
 
-WIKI_URL = "http://mgiwiki.jax.org/mediawiki/index.php/"
+WIKI_URL = "http://mgiprodwiki.jax.org/mediawiki/index.php/"
 
 
 

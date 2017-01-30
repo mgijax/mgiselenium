@@ -8,7 +8,7 @@ import time
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
-
+import HTMLTestRunner
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -23,11 +23,11 @@ from util.table import Table
 
 # Tests
 
-class Test(unittest.TestCase):
+class TestHMDCAutocomplete(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Chrome()
-        self.driver.get(config.FEWI_URL + "/humanDisease.shtml")
+        self.driver.get(config.TEST_URL + "/humanDisease.shtml")
         self.driver.implicitly_wait(10)
         
     def test_index_tab_headers(self):
@@ -70,4 +70,4 @@ class Test(unittest.TestCase):
         '''
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main() 
+    HTMLTestRunner.main() 

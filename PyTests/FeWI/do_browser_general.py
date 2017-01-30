@@ -1,0 +1,92 @@
+'''
+Created on Jan 18, 2017
+These tests are for verifying the correct data get returned for the heading section, along with default sorts and settings for the data returned.
+The default tab to be displayed is the Term tab.
+@author: jeffc
+'''
+import unittest
+import time
+from selenium import webdriver
+from selenium.webdriver.support.ui import Select
+from selenium.webdriver.common.keys import Keys
+import HTMLTestRunner
+import sys,os.path
+# adjust the path to find config
+sys.path.append(
+  os.path.join(os.path.dirname(__file__), '../../..',)
+)
+import config
+from util import iterate, wait
+from util.form import ModuleForm
+from util.table import Table
+
+
+class TestDoBrowserGeneral(unittest.TestCase):
+
+    def setUp(self):
+        self.driver = webdriver.Chrome()
+        self.driver.get(config.TEST_URL)
+        self.driver.implicitly_wait(10)
+        
+    def test_dobrowser_header(self):
+        '''
+        @status this test verifies the term line in the header section on the DO browser page is correct.
+        '''
+        searchbox = self.driver.find_element_by_id('searchToolTextArea')
+        # put your Gene ID in the quick search box
+        searchbox.send_keys("DOID:1700")
+        searchbox.send_keys(Keys.RETURN)
+        time.sleep(3)
+        self.driver.find_element_by_link_text('X-linked ichthyosis').click()
+        wait.forAjax(self.driver)
+        header = self.driver.find_element_by_id('diseaseNameID')#identifies the header section of the DO Browser page
+        print header.text
+        time.sleep(1)
+        self.assertEqual(header.text, "X-linked ichthyosis (DOID:1700)")
+        
+    def test_dobrowser_mult_syn(self):
+        '''
+        @status this test verifies the synonym data is correctly displayed when multiple synonyms exist
+        '''
+        searchbox = self.driver.find_element_by_id('searchToolTextArea')
+        # put your Gene ID in the quick search box
+        searchbox.send_keys("DOID:1700")
+        searchbox.send_keys(Keys.RETURN)
+        time.sleep(3)
+        self.driver.find_element_by_link_text('X-linked ichthyosis').click()
+        wait.forAjax(self.driver)
+        syn = self.driver.find_element_by_id('diseaseSynonym')#identifies the synonym line in the header section of the DO Browser page
+        print syn.text
+        time.sleep(1)
+        self.assertEqual(syn.text, "X-linked ichthyosis with steryl-sulphatase deficiency; X-linked placental steryl-sulphatase deficiency; X-linked recessive ichthyosis")
+        
+    def test_dobrowser_id_sort(self):
+        '''
+        @status this test verifies that the alternate IDs are sorted correctly. Rule is OMIM ids come first followed by all other in smart alpha order.
+        '''
+        searchbox = self.driver.find_element_by_id('searchToolTextArea')
+        # put your Gene ID in the quick search box
+        searchbox.send_keys("DOID:1700")
+        searchbox.send_keys(Keys.RETURN)
+        time.sleep(3)
+        self.driver.find_element_by_link_text('X-linked ichthyosis').click()
+        wait.forAjax(self.driver)
+        alt_id = self.driver.find_element_by_id('diseaseSecondaryIDs')#identifies the alternate IDs line of the header section of the DO Browser page
+        print alt_id.text
+        time.sleep(1)
+        self.assertEqual(alt_id.text, "OMIM:308100, ICD10CM:Q80.1, MESH:D016114, NCI:C84779, UMLS_CUI:C0079588")
+        
+
+    def tearDown(self):
+        self.driver.close()
+       
+        '''
+        These tests should NEVER!!!! be run against a production system!!
+        def suite():
+        suite = unittest.TestSuite()
+        suite.addTest(unittest.makeSuite(TestAdd))
+        return suite
+        '''
+if __name__ == "__main__":
+    # import sys;sys.argv = ['', 'Test.testName']
+    HTMLTestRunner.main() 

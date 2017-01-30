@@ -15,15 +15,16 @@ sys.path.append(
   os.path.join(os.path.dirname(__file__), '../..',)
 )
 from util import wait, iterate
+from util.table import Table
 import config
-from config import PWI_URL
+from config import TEST_URL
 
 class Test(unittest.TestCase):
 
 
     def setUp(self):
         self.driver = webdriver.Firefox()
-        self.driver.get(config.FEWI_URL + "/allele/")
+        self.driver.get(config.TEST_URL + "/allele/")
         self.driver.implicitly_wait(10)
 
     def test_ribbon_locations(self):
@@ -41,8 +42,26 @@ class Test(unittest.TestCase):
         print categories.text
         self.assertEquals(categories.text, 'Categories', "heading is incorrect")
      
+    def test_doids_search(self):
+        '''
+        @status this test verifies  you can search by a DOID in the phenotypes box of the allele query form.
+        @bug under construction, need the summary table to have an ID or Name
+        '''
+        self.driver.find_element_by_name("phenotype").clear()
+        self.driver.find_element_by_name("phenotype").send_keys("DOID:2582")
+        self.driver.find_element_by_class_name("buttonLabel").click()
+        self.assertTrue(self.driver.page_source, 'Phenotypes/Diseases: including text DOID:2582')       
+        disease_table = self.driver.find_element_by_id('')
+        table = Table(disease_table)
+        #Iterate and print the search results headers
+        header_cells = table.get_header_cells()
+        print iterate.getTextAsList(header_cells)
         
-        
+        # print row 1
+        cells = table.get_column_cells("Human Diseases")
+        disease_cells = iterate.getTextAsList(cells)
+        print disease_cells
+        self.assertEquals(disease_cells[1], 'myelofibrosis   DOID:4971')
         
         
         

@@ -16,7 +16,7 @@ sys.path.append(
 )
 from util import wait, iterate
 import config
-from config import PWI_URL
+from config import TEST_URL
 
 class Test(unittest.TestCase):
 
@@ -24,7 +24,7 @@ class Test(unittest.TestCase):
     def setUp(self):
     
         self.driver = webdriver.Firefox()
-        self.driver.get(config.FEWI_URL + "/gxd/")
+        self.driver.get(config.TEST_URL + "/gxd/")
         self.driver.implicitly_wait(10)
 
     def test_ribbon_locations(self):

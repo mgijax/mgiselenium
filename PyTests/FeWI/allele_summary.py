@@ -16,15 +16,17 @@ sys.path.append(
   os.path.join(os.path.dirname(__file__), '../..',)
 )
 from util import wait, iterate
+from util.table import Table
 import config
-from config import PWI_URL
+from config import TEST_URL
 
 class Test(unittest.TestCase):
 
 
     def setUp(self):
         self.driver = webdriver.Firefox()
-        self.driver.get(config.FEWI_URL + "/allele/")
+        #self.driver.get(config.DOG_URL + "/allele/")
+        self.driver.get("http://scrumdogdev.informatics.jax.org/allele/")
         self.driver.implicitly_wait(10)
         
     def test_column_headings(self):
@@ -39,13 +41,40 @@ class Test(unittest.TestCase):
         assert 'id="nomenclatureHeader"' in self.driver.page_source
         assert 'id="originHeader"' in self.driver.page_source    
         
+    def test_disease_doids_byallele(self):
+        '''
+        @status this test verifies In the Disease models section, that after each disease in the disease table is it's corresponding DO ID.
+        '''
+        self.driver.find_element_by_name("nomen").clear()
+        self.driver.find_element_by_name("nomen").send_keys("Gata1")
+        self.driver.find_element_by_class_name("buttonLabel").click()
+        self.driver.find_element_by_partial_link_text('tm2Sho').click()
+        disease_table = self.driver.find_element_by_id('diseasetable_id')
+        table = Table(disease_table)
+        #Iterate and print the search results headers
+        header_cells = table.get_header_cells()
+        print iterate.getTextAsList(header_cells)
         
+        # print row 1
+        cells = table.get_column_cells("Human Diseases")
+        disease_cells = iterate.getTextAsList(cells)
+        print disease_cells
+        self.assertEquals(disease_cells[1], 'myelofibrosis   DOID:4971')
         
-        
-        
-        
-        
-        
+    def test_disease_doids_bymarker(self):
+        '''
+        @status this test verifies on the Phenotypes, Alleles & Disease Models Search summary page, that after each disease in the Human Disease Models column is it's corresponding DO ID.
+        '''
+        self.driver.find_element_by_name("nomen").clear()
+        self.driver.find_element_by_name("nomen").send_keys("shh")
+        self.driver.find_element_by_class_name("buttonLabel").click()
+        data_table = self.driver.find_element_by_css_selector("#dynamicdata").find_element_by_css_selector("table > tbody.yui-dt-data")
+        #this is finding all the cells in every row so you need to count cells to find the item you want
+        cells = data_table.find_elements_by_tag_name("td")
+        searchTextItems = iterate.getTextAsList(cells)
+        print searchTextItems
+        #this is the 11th cell which corresponds to the Human Disease odel result for the second allele 
+        self.assertEqual(searchTextItems[11], 'brachydactyly DOID:0050581')
         
         
     def tearDown(self):

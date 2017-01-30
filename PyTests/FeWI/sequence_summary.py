@@ -10,13 +10,13 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import sys,os.path
 from util import wait, iterate
-from config.config import FEWI_URL
+from config.config import TEST_URL
 # adjust the path to find config
 sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../config',)
 )
 import config
-from config import FEWI_URL
+from config import TEST_URL
 
 class TestSequenceSummaryPage(unittest.TestCase):
 
@@ -29,7 +29,7 @@ class TestSequenceSummaryPage(unittest.TestCase):
         Headers are: Select, Sequence, Type, Length, Strain/Species, Description from Sequence Provider, Clone Collection, Marker Symbol
         """
         driver = self.driver
-        driver.get(config.FEWI_URL + "/marker")
+        driver.get(config.TEST_URL + "/marker")
         genebox = driver.find_element_by_name('nomen')
         # put your marker symbol
         genebox.send_keys("Bloc1s2")
@@ -65,7 +65,7 @@ class TestSequenceSummaryPage(unittest.TestCase):
         @attention: While this test still works, it might need revisting later to figure out a better way of confirming sort is correct
         """
         driver = self.driver
-        driver.get(config.FEWI_URL + "/marker")
+        driver.get(config.TEST_URL + "/marker")
         genebox = driver.find_element_by_name('nomen')
         # put your marker symbol
         genebox.send_keys("Gabarap")

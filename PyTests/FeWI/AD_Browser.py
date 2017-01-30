@@ -19,7 +19,7 @@ from config import PUBLIC_URL
 class TestADBrowser(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Chrome('C:/Users/testuser/Downloads/chromedriver') 
+        self.driver = webdriver.Chrome() 
 
     def test_parent_data(self):
         """

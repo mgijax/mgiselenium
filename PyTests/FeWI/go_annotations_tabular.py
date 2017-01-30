@@ -9,13 +9,13 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import sys,os.path
 from util import wait, iterate
-from config.config import FEWI_URL
+from config.config import TEST_URL
 # adjust the path to find config
 sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../config',)
 )
 import config
-from config import FEWI_URL
+from config import TEST_URL
 
 class TestGoAnnotationsPage(unittest.TestCase):
 
@@ -28,7 +28,7 @@ class TestGoAnnotationsPage(unittest.TestCase):
         Headers are: Aspect, Category, Classification Term, Context, Proteoform, Evidence, Inferred From, Reference(s)
         """
         driver = self.driver
-        driver.get(config.FEWI_URL + "/marker")
+        driver.get(config.TEST_URL + "/marker")
         genebox = driver.find_element_by_name('nomen')
         # put your marker symbol
         genebox.send_keys("Ccdc40")
@@ -55,7 +55,7 @@ class TestGoAnnotationsPage(unittest.TestCase):
         @status: Tests that the correct items are displayed in the Context column, also that items that should not display are hidden(like lego-model-id, orchid id, ECO id)
         """
         driver = self.driver
-        driver.get(config.FEWI_URL + "/marker")
+        driver.get(config.TEST_URL + "/marker")
         genebox = driver.find_element_by_name('nomen')
         # put your marker symbol
         genebox.send_keys("Cxcl17")

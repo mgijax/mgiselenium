@@ -16,16 +16,19 @@ sys.path.append(
   os.path.join(os.path.dirname(__file__), '../..',)
 )
 from util import wait, iterate
+from util.table import Table
 import config
-from config import PWI_URL
+from config import TEST_URL
 import time
 
 class Test(unittest.TestCase):
 
 
     def setUp(self):
-        self.driver = webdriver.Firefox()
-        self.driver.get(config.FEWI_URL + "/allele/")
+        #self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
+        #self.driver.get(config.DOG_URL + "/allele/")
+        self.driver.get('http://scrumdogdev.informatics.jax.org/allele')
         self.driver.implicitly_wait(10)
 
     def test_ribbon_locations(self):
@@ -36,7 +39,7 @@ class Test(unittest.TestCase):
         self.driver.find_element_by_name("nomen").send_keys("Pkd1")
         self.driver.find_element_by_class_name("buttonLabel").click()
         self.driver.find_element_by_partial_link_text("tm2Jzh").click()
-        time.sleep(1)
+        time.sleep(2)
         assert "Pkd1<sup>tm2Jzh</sup>" in self.driver.page_source
         print self.driver.page_source
         assert 'id="nomenclatureHeader"' in self.driver.page_source
@@ -48,7 +51,6 @@ class Test(unittest.TestCase):
         assert 'id="imsrHeader"' in self.driver.page_source
         assert 'id="referencesHeader"' in self.driver.page_source
         
-        
     def test_ribbon_locations2(self):
         '''
         @status This test verifies the ribbons are being displayed in the correct order on the page.
@@ -58,6 +60,7 @@ class Test(unittest.TestCase):
         self.driver.find_element_by_name("nomen").send_keys("Slc6a3")
         self.driver.find_element_by_class_name("buttonLabel").click()
         self.driver.find_element_by_partial_link_text("tm1(cre)Xz").click()
+        time.sleep(2)
         assert "Slc6a3<sup>tm1(cre)Xz</sup>" in self.driver.page_source
         assert 'id="nomenclatureHeader"' in self.driver.page_source
         assert 'id="originHeader"' in self.driver.page_source
@@ -69,7 +72,6 @@ class Test(unittest.TestCase):
         assert 'id="imsrHeader"' in self.driver.page_source
         assert 'id="referencesHeader"' in self.driver.page_source
         
-
     def test_ribbon_locations3(self):
         '''
         @status This test verifies the ribbons are being displayed in the correct order on the page.
@@ -79,6 +81,7 @@ class Test(unittest.TestCase):
         self.driver.find_element_by_name("nomen").send_keys("Pax3")
         self.driver.find_element_by_class_name("buttonLabel").click()
         self.driver.find_element_by_partial_link_text("tm1(cre)Joe").click()
+        time.sleep(2)
         assert "Pax3<sup>tm1(cre)Joe</sup>" in self.driver.page_source
         assert 'id="nomenclatureHeader"' in self.driver.page_source
         assert 'id="originHeader"' in self.driver.page_source
@@ -93,6 +96,7 @@ class Test(unittest.TestCase):
         '''
         @status this test verifies In the Mutation Description section, confirm there are turnstile icons for Mutation Notes, 
         Sequence Tags, and Genome Context Verify clicking the turnstile icon for Mutation Notes, Sequence tags, and Genome context displays the complete information.
+        @bug clicking the turnstiles was not working, traced to firefox, works fine using Chrome
         '''
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Arrdc3")
@@ -100,43 +104,29 @@ class Test(unittest.TestCase):
         self.driver.find_element_by_partial_link_text('Gt(CSE151)Byg').click()
         mutationDownArrow = self.driver.find_element_by_id('downArrowMutationDescription')
         mutationRightArrow = self.driver.find_element_by_id('rightArrowMutationDescription')
-        
         self.assertTrue(mutationDownArrow.is_displayed())
         self.assertFalse( mutationRightArrow.is_displayed())
-        
         mutationDownArrow.click()
-        
         mutationDownArrow = self.driver.find_element_by_id('downArrowMutationDescription')
         mutationRightArrow = self.driver.find_element_by_id('rightArrowMutationDescription')
-        
         self.assertFalse( mutationDownArrow.is_displayed())
         self.assertTrue( mutationRightArrow.is_displayed())
-        
         sequenceDownArrow = self.driver.find_element_by_id('downArrowSeqTag')
         sequenceRightArrow = self.driver.find_element_by_id('rightArrowSeqTag')
-         
         self.assertFalse( sequenceDownArrow.is_displayed())
         self.assertTrue( sequenceRightArrow.is_displayed())
-        
         sequenceRightArrow.click()
-        
         sequenceDownArrow = self.driver.find_element_by_id('downArrowSeqTag')
         sequenceRightArrow = self.driver.find_element_by_id('rightArrowSeqTag')
-        
         self.assertTrue( sequenceDownArrow.is_displayed())
         self.assertFalse( sequenceRightArrow.is_displayed())
-
         genomeDownArrow = self.driver.find_element_by_id('downArrowGenome')
         genomeRightArrow = self.driver.find_element_by_id('rightArrowGenome')
-         
         self.assertFalse( genomeDownArrow.is_displayed())
         self.assertTrue( genomeRightArrow.is_displayed())
-        
         genomeRightArrow.click()
-        
         genomeDownArrow = self.driver.find_element_by_id('downArrowGenome')
         genomeRightArrow = self.driver.find_element_by_id('rightArrowGenome')
-        
         self.assertTrue( genomeDownArrow.is_displayed())
         self.assertFalse( genomeRightArrow.is_displayed())
         
@@ -189,7 +179,7 @@ class Test(unittest.TestCase):
         alleleType = self.driver.find_element_by_id('alleleTypeDisplay')
         
         self.assertEqual(alleleType.text, "Targeted (Null/knockout, Reporter)")
-        self.driver.get(config.FEWI_URL + "/allele/")
+        self.driver.get(config.TEST_URL + "/allele/")
         
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Olig2")
@@ -198,7 +188,7 @@ class Test(unittest.TestCase):
         alleleType = self.driver.find_element_by_id('alleleTypeDisplay')
         
         self.assertEqual(alleleType.text, "Targeted (Inducible, Recombinase)")
-        self.driver.get(config.FEWI_URL + "/allele/")
+        self.driver.get(config.TEST_URL + "/allele/")
         
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Tg(BCL2)1Tsk")
@@ -219,7 +209,7 @@ class Test(unittest.TestCase):
         alleleType = self.driver.find_element_by_id('alleleTypeDisplay')
         
         self.assertEqual(alleleType.text, "QTL")
-        self.driver.get(config.FEWI_URL + "/allele/")
+        self.driver.get(config.TEST_URL + "/allele/")
         
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Tg(Id1*-lacZ)1C10Oxb")
@@ -241,12 +231,12 @@ class Test(unittest.TestCase):
         
         image = self.driver.find_element_by_id('mutationDescriptionTable').find_element_by_css_selector('a img')
         self.assertTrue(image.is_displayed(), 'the image is not displaying')
-        self.driver.get(config.FEWI_URL + "/allele/")
+        self.driver.get(config.TEST_URL + "/allele/")
         
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Dock2")
         self.driver.find_element_by_class_name("buttonLabel").click()
-        self.driver.find_element_by_partial_link_text('Hsd').click()
+        self.driver.find_element_by_partial_link_text('m1Hsd').click()
         
         image = self.driver.find_element_by_id('mutationDescriptionTable').find_element_by_css_selector('a img')
         self.assertTrue(image.is_displayed(), 'the image is not displaying')
@@ -255,6 +245,7 @@ class Test(unittest.TestCase):
     def test_mutagenetix_link(self):
         '''
         @status this test verifies these Alleles have the Mutagentix link in the Mutation Description ribbon(under Mutation Details) and the link works.
+        @bug Mutagenetix file missing, so link is not there, once file is there this test will work
         '''
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Blnk")
@@ -264,8 +255,8 @@ class Test(unittest.TestCase):
         actualurl = self.driver.find_element_by_link_text('incidental mutations').get_attribute("href")
         
         self.assertEqual(mutagenetixlink.text, "incidental mutations")
-        self.assertEqual(actualurl, config.WI_URL + '/downloads/datasets/incidental_muts/Mutagenetix.xlsx')
-        self.driver.get(config.FEWI_URL + "/allele/")
+        self.assertEqual(actualurl, config.PUBLIC_URL + '/downloads/datasets/incidental_muts/Mutagenetix.xlsx')
+        self.driver.get(config.PUBLIC_URL + "/allele/")
         
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Irf7")
@@ -275,8 +266,8 @@ class Test(unittest.TestCase):
         actualurl = self.driver.find_element_by_link_text('incidental mutations').get_attribute("href")
         
         self.assertEqual(mutagenetixlink.text, "incidental mutations")
-        self.assertEqual(actualurl, config.WI_URL + '/downloads/datasets/incidental_muts/Mutagenetix.xlsx')
-        self.driver.get(config.FEWI_URL + "/allele/")
+        self.assertEqual(actualurl, config.PUBLIC_URL + '/downloads/datasets/incidental_muts/Mutagenetix.xlsx')
+        self.driver.get(config.PUBLIC_URL + "/allele/")
             
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Col4a4")
@@ -286,8 +277,8 @@ class Test(unittest.TestCase):
         actualurl = self.driver.find_element_by_link_text('incidental mutations').get_attribute("href")
         
         self.assertEqual(mutagenetixlink.text, "incidental mutations")
-        self.assertEqual(actualurl, config.WI_URL + '/downloads/datasets/incidental_muts/Mutagenetix.xlsx')
-        self.driver.get(config.FEWI_URL + "/allele/")
+        self.assertEqual(actualurl, config.PUBLIC_URL + '/downloads/datasets/incidental_muts/Mutagenetix.xlsx')
+        self.driver.get(config.PUBLIC_URL + "/allele/")
         
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Nfkbid")
@@ -297,8 +288,8 @@ class Test(unittest.TestCase):
         actualurl = self.driver.find_element_by_link_text('incidental mutations').get_attribute("href")
         
         self.assertEqual(mutagenetixlink.text, "incidental mutations")
-        self.assertEqual(actualurl, config.WI_URL + '/downloads/datasets/incidental_muts/Mutagenetix.xlsx')
-        self.driver.get(config.FEWI_URL + "/allele/")
+        self.assertEqual(actualurl, config.PUBLIC_URL + '/downloads/datasets/incidental_muts/Mutagenetix.xlsx')
+        self.driver.get(config.PUBLIC_URL + "/allele/")
         
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Unc93b1")
@@ -308,8 +299,8 @@ class Test(unittest.TestCase):
         actualurl = self.driver.find_element_by_link_text('incidental mutations').get_attribute("href")
         
         self.assertEqual(mutagenetixlink.text, "incidental mutations")
-        self.assertEqual(actualurl, config.WI_URL + '/downloads/datasets/incidental_muts/Mutagenetix.xlsx')
-        self.driver.get(config.FEWI_URL + "/allele/")
+        self.assertEqual(actualurl, config.PUBLIC_URL + '/downloads/datasets/incidental_muts/Mutagenetix.xlsx')
+        self.driver.get(config.PUBLIC_URL + "/allele/")
     
     def test_allele_molecular_image_caption(self):
         '''
@@ -323,7 +314,7 @@ class Test(unittest.TestCase):
         
         caption = self.driver.find_element_by_id('mutationDescriptionTable').find_element_by_css_selector('span.small')
         self.assertTrue(caption.is_displayed(), 'the caption is not displaying')
-        self.driver.get(config.FEWI_URL + "/allele/")
+        self.driver.get(config.PUBLIC_URL + "/allele/")
         
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Supv3l1")
@@ -332,7 +323,7 @@ class Test(unittest.TestCase):
         
         caption = self.driver.find_element_by_id('mutationDescriptionTable').find_element_by_css_selector('span')
         self.assertTrue(caption.is_displayed(), 'the caption is not displaying')
-        self.driver.get(config.FEWI_URL + "/allele/")
+        self.driver.get(config.PUBLIC_URL + "/allele/")
         
         #6.The correct image/caption is displayed to the left of the molecular image in the molecular description ribbon when more than one thumbnail exists for an allele.
         self.driver.find_element_by_name("nomen").clear()
@@ -356,8 +347,8 @@ class Test(unittest.TestCase):
         actualurl = self.driver.find_element_by_link_text('incidental mutations').get_attribute("href")
         
         self.assertEqual(afplink.text, "incidental mutations")
-        self.assertEqual(actualurl, config.WI_URL + '/downloads/datasets/incidental_muts/APF.xlsx')
-        self.driver.get(config.FEWI_URL + "/allele/")
+        self.assertEqual(actualurl, config.PUBLIC_URL + '/downloads/datasets/incidental_muts/APF.xlsx')
+        self.driver.get(config.PUBLIC_URL + "/allele/")
         
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Nphp3")
@@ -367,7 +358,7 @@ class Test(unittest.TestCase):
         actualurl = self.driver.find_element_by_link_text('incidental mutations').get_attribute("href")
         
         self.assertEqual(afplink.text, "incidental mutations")
-        self.assertEqual(actualurl, config.WI_URL + '/downloads/datasets/incidental_muts/APF.xlsx')
+        self.assertEqual(actualurl, config.PUBLIC_URL + '/downloads/datasets/incidental_muts/APF.xlsx')
     
     def test_collection_value(self):
         '''
@@ -381,7 +372,7 @@ class Test(unittest.TestCase):
         collection = self.driver.find_element_by_id('mutationOriginTable').find_elements_by_css_selector('td.padded')
         collitem = collection[5]
         self.assertEqual(collitem.text, "KOMP-Regeneron")
-        self.driver.get(config.FEWI_URL + "/allele/")
+        self.driver.get(config.PUBLIC_URL + "/allele/")
         
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Acan")
@@ -390,7 +381,7 @@ class Test(unittest.TestCase):
         collection = self.driver.find_element_by_id('mutationOriginTable').find_elements_by_css_selector('td.padded')
         collitem = collection[2]
         self.assertEqual(collitem.text, "B2B/CvDC")
-        self.driver.get(config.FEWI_URL + "/allele/")
+        self.driver.get(config.PUBLIC_URL + "/allele/")
         
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Adamts20")
@@ -399,7 +390,7 @@ class Test(unittest.TestCase):
         collection = self.driver.find_element_by_id('mutationOriginTable').find_elements_by_css_selector('td.padded')
         collitem = collection[2]
         self.assertEqual(collitem.text, "APF ENU Mutagenesis")
-        self.driver.get(config.FEWI_URL + "/allele/")
+        self.driver.get(config.PUBLIC_URL + "/allele/")
         
         
         self.driver.find_element_by_name("nomen").clear()
@@ -409,7 +400,7 @@ class Test(unittest.TestCase):
         collection = self.driver.find_element_by_id('mutationOriginTable').find_elements_by_css_selector('td.padded')
         collitem = collection[4]
         self.assertEqual(collitem.text, "Neuroscience Blueprint cre")
-        self.driver.get(config.FEWI_URL + "/allele/")
+        self.driver.get(config.PUBLIC_URL + "/allele/")
         
         
         self.driver.find_element_by_name("nomen").clear()
@@ -419,7 +410,7 @@ class Test(unittest.TestCase):
         collection = self.driver.find_element_by_id('mutationOriginTable').find_elements_by_css_selector('td.padded')
         collitem = collection[2]
         self.assertEqual(collitem.text, "GENSAT")
-        self.driver.get(config.FEWI_URL + "/allele/")
+        self.driver.get(config.PUBLIC_URL + "/allele/")
         
         #Collection does not appear when the allele is not assigned to a collection. 
         self.driver.find_element_by_name("nomen").clear()
@@ -431,6 +422,7 @@ class Test(unittest.TestCase):
     def test_pheno_disease_table(self):
         '''
         @status this test verifies these Alleles have the correct Disease models and sorted alphabetically.
+        @Bug needs modification for DOIDs change
         '''
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Trp53")
@@ -438,8 +430,8 @@ class Test(unittest.TestCase):
         self.driver.find_element_by_partial_link_text('tm1Tyj').click()
         actualurl = self.driver.find_element_by_link_text('Breast Cancer').get_attribute("href")
         
-        self.assertEqual(actualurl, 'http://scrumdog.informatics.jax.org/disease/114480')
-        self.driver.get(config.FEWI_URL + "/allele/")
+        self.assertEqual(actualurl, 'http://scrumdog.informatics.jax.org/disease/DOID:1612')
+        self.driver.get(config.PUBLIC_URL + "/allele/")
         
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Trp53")
@@ -461,7 +453,7 @@ class Test(unittest.TestCase):
         self.driver.find_element_by_name("nomen").send_keys("Tg(ACTFLPe)9205Dym")
         self.driver.find_element_by_class_name("buttonLabel").click()
         self.driver.find_element_by_partial_link_text('Tg(ACTFLPe)9205Dym').click()
-        self.driver.find_element_by_link_text('show').click()
+        self.driver.find_element_by_id('showPhenoButton').click()
         phenotypesort = self.driver.find_element_by_id("phenotable_id")
         items = phenotypesort.find_elements_by_css_selector(".phenoSummarySystemRow td:first-child, .phenoSummaryTermRow td:first-child")
         
@@ -469,7 +461,7 @@ class Test(unittest.TestCase):
         searchTreeItems = iterate.getTextAsList(items)
         
         self.assertEqual(["behavior/neurological", "tremors", "impaired balance", "impaired coordination", "abnormal gait", "short stride length", "cardiovascular system", "cardiovascular system phenotype", "hearing/vestibular/ear", "abnormal ear physiology", "mortality/aging", "perinatal lethality", "nervous system", "abnormal synaptic vesicle recycling", "abnormal excitatory postsynaptic currents"], searchTreeItems)
-        self.driver.get(config.FEWI_URL + "/allele/")    
+        self.driver.get(config.PUBLIC_URL + "/allele/")    
         
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Tg(ACTFLPe)9205Dym")
@@ -522,7 +514,7 @@ class Test(unittest.TestCase):
         row_count = len(self.driver.find_elements_by_xpath("//table[@class='borderedTable']/tbody/tr"))
         #NOTE: 2 rows are  used for the header, so actual data rows would be 3
         self.assertEqual(5, row_count)
-        self.driver.get(config.FEWI_URL + "/allele/")
+        self.driver.get(config.PUBLIC_URL + "/allele/")
         '''
         @todo Table needs an id to finish this test
         self.driver.find_element_by_name("nomen").clear()
@@ -535,6 +527,29 @@ class Test(unittest.TestCase):
         #NOTE: 2 rows are  used for the header, so actual data rows would be 3
         self.assertEqual("5", row_count)
         '''
+        
+    def test_disease_doids(self):
+        '''
+        @status this test verifies In the Disease models section, that after each disease in the disease table is it's corresponding DO ID.
+        @bug once DOIDs added need to retest
+        '''
+        self.driver.find_element_by_name("nomen").clear()
+        self.driver.find_element_by_name("nomen").send_keys("Gata1")
+        self.driver.find_element_by_class_name("buttonLabel").click()
+        self.driver.find_element_by_partial_link_text('tm2Sho').click()
+        disease_table = self.driver.find_element_by_id('diseasetable_id')
+        table = Table(disease_table)
+        #Iterate and print the search results headers
+        header_cells = table.get_header_cells()
+        print iterate.getTextAsList(header_cells)
+        
+        # print row 1
+        cells = table.get_column_cells("Human Diseases")
+        disease_cells = iterate.getTextAsList(cells)
+        print disease_cells
+        self.assertEquals(disease_cells[1], 'myelofibrosis   DOID:4971')
+        
+        
         
     def tearDown(self):
         self.driver.quit()
