@@ -53,6 +53,11 @@ class TestDoBrowserTermTab(unittest.TestCase):
         print alt_id.text
         time.sleep(1)
         self.assertEqual(alt_id.text, "OMIM:211980, OMIM:608935, OMIM:612571, OMIM:612593, OMIM:614210, DOID:13075, DOID:1322, DOID:9881, ICD10CM:C34.1, ICD10CM:C34.2, ICD10CM:C34.3, ICD9CM:162.3, ICD9CM:162.4, ICD9CM:162.5, ICD9CM:162.8, UMLS_CUI:C0024624, UMLS_CUI:C0153491, UMLS_CUI:C0153492, UMLS_CUI:C0153493")
+        #locates and verifies the definition
+        definition = self.driver.find_element_by_id('diseaseDefinition')#identifies the Definition line of the header section of the DO Browser page
+        print definition.text
+        time.sleep(1)
+        self.assertEqual(definition.text, "A respiratory system cancer that is located_in the lung.")
         
     def test_dobrowser_siblings(self):
         '''
