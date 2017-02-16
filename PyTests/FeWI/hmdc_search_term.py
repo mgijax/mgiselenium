@@ -7,6 +7,7 @@ These tests should cover searching by different terms and verify the results
 import unittest
 import time
 from selenium import webdriver
+
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
 import HTMLTestRunner
@@ -20,13 +21,12 @@ from util import iterate, wait
 from util.form import ModuleForm
 from util.table import Table
 
-
-
 # Tests
 
 class TestSearchTerm(unittest.TestCase):
 
     def setUp(self):
+        
         self.driver = webdriver.Chrome()
         self.driver.get(config.TEST_URL + "/humanDisease.shtml")
         self.driver.implicitly_wait(10)
@@ -55,7 +55,7 @@ class TestSearchTerm(unittest.TestCase):
         self.assertEqual(human_header.text, 'Human Gene', 'The human gene header is missing')
         mouse_header = self.driver.find_element_by_class_name('mgHeader')
         self.assertEqual(mouse_header.text, 'Mouse Gene', 'The mouse gene header is missing')
-        
+        #self.driver.execute_script(script)
     def test_do_term_name(self):
         '''
         @status this test verifies the correct diseases are returned for this query. This term should
@@ -72,6 +72,7 @@ class TestSearchTerm(unittest.TestCase):
         #identify the Grid tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         wait.forAngular(self.driver)
+        time.sleep(3)
         print grid_tab.text
         self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (1 x 18)", "Grid tab is not visible!")
         grid_tab.click()
@@ -350,16 +351,16 @@ class TestSearchTerm(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         print grid_tab.text
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (61 x 25)", "Grid tab is not visible!")
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (61 x 24)", "Grid tab is not visible!")
         grid_tab.click()
         #cells captures every field from Human Gene heading to the last disease angled, this test only captures the diseases, which are items 25,26,27
         cells = self.driver.find_elements_by_css_selector("div.ngc.cell-content.ngc-custom-html.ng-binding.ng-scope")
         
         print iterate.getTextAsList(cells) #if you want to see what it captures uncomment this
         #displays each row of gene data
-        disease1 = cells[25]
-        disease2 = cells[26]
-        disease3 = cells[27]
+        disease1 = cells[24]
+        disease2 = cells[25]
+        disease3 = cells[26]
         #asserts that the correct diseases(at angle) display in the correct order
         self.assertEqual(disease1.text, 'inherited metabolic disorder')
         self.assertEqual(disease2.text, 'musculoskeletal system disease')
@@ -423,6 +424,7 @@ class TestSearchTerm(unittest.TestCase):
         
         self.driver.find_element_by_name("formly_3_autocomplete_input_0").send_keys("ciliopathy")#identifies the input field and enters term/ID
         wait.forAngular(self.driver)
+        time.sleep(3)
         self.driver.find_element_by_id("searchButton").click()
         wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
@@ -540,7 +542,309 @@ class TestSearchTerm(unittest.TestCase):
         self.assertEqual(disease39.text, 'Stromme syndrome')
         self.assertEqual(disease40.text, 'tetralogy of Fallot')
         self.assertEqual(disease41.text, 'visceral heterotaxy')
-                    
+
+    def test_mp_term_normal_models(self):
+        '''
+        @status this test verifies that normal model genes are returned for this query, should return the genes Magel2, Mest, Peg3, Snord116 and Snrpn which have
+        Normal models.
+        '''
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements_by_tag_name("option"):
+            if option.text == 'Phenotype or Disease Name':
+                option.click()
+                break
+        #breast inflammation is an MP synonym of mastitis
+        self.driver.find_element_by_name("formly_3_autocomplete_input_0").send_keys("maternal imprinting")#identifies the input field and enters gata1
+        wait.forAngular(self.driver)
+        self.driver.find_element_by_id("searchButton").click()
+        wait.forAngular(self.driver)
+        #identify the Genes tab and verify the tab's text
+        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (30 x 30)", "Grid tab is not visible!")
+        grid_tab.click()
+        
+        hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
+        print hgenes
+        searchTermItems = iterate.getTextAsList(hgenes)
+        self.assertEqual(searchTermItems[15], 'MAGEL2')
+        self.assertEqual(searchTermItems[17], 'MEST')
+        self.assertEqual(searchTermItems[20], 'PEG3')
+        self.assertEqual(searchTermItems[25], '')
+        self.assertEqual(searchTermItems[26], 'SNRPN')
+        mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
+        print mgenes
+        
+        searchTermItems = iterate.getTextAsList(mgenes)
+     
+        self.assertEqual(searchTermItems[15], "Magel2")
+        self.assertEqual(searchTermItems[17], "Mest")
+        self.assertEqual(searchTermItems[20], "Peg3")
+        self.assertEqual(searchTermItems[25], "Snord116")
+        self.assertEqual(searchTermItems[26], "Snrpn")
+        
+    def test_mp_term_simple_Homozygous(self):
+        '''
+        @status this test verifies that genes with a simple homozygous genotype annotated to an MP term are returned for this query. 
+        Should return the gene Aars to verify
+        '''
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements_by_tag_name("option"):
+            if option.text == 'Phenotype or Disease Name':
+                option.click()
+                break
+        #breast inflammation is an MP synonym of mastitis
+        self.driver.find_element_by_name("formly_3_autocomplete_input_0").send_keys("tremors")#identifies the input field and enters gata1
+        wait.forAngular(self.driver)
+        self.driver.find_element_by_id("searchButton").click()
+        wait.forAngular(self.driver)
+        #identify the Genes tab and verify the tab's text
+        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (396 x 42)", "Grid tab is not visible!")
+        grid_tab.click()
+        
+        hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
+        print hgenes
+        searchTermItems = iterate.getTextAsList(hgenes)
+        self.assertEqual(searchTermItems[0], 'AARS')
+        
+        mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
+        print mgenes
+        searchTermItems = iterate.getTextAsList(mgenes)
+        self.assertEqual(searchTermItems[0], "Aars")
+        
+    def test_mp_term_simple_Hemizygous(self):
+        '''
+        @status this test verifies that genes with a simple hemizygous genotype annotated to an MP term are returned for this query. 
+        Should return the gene Tg(Camk2a-tTA)1Mmay to verify
+        '''
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements_by_tag_name("option"):
+            if option.text == 'Phenotype or Disease Name':
+                option.click()
+                break
+        #breast inflammation is an MP synonym of mastitis
+        self.driver.find_element_by_name("formly_3_autocomplete_input_0").send_keys("hippocampal neuron degeneration")#identifies the input field and enters gata1
+        wait.forAngular(self.driver)
+        self.driver.find_element_by_id("searchButton").click()
+        wait.forAngular(self.driver)
+        #identify the Genes tab and verify the tab's text
+        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (40 x 29)", "Grid tab is not visible!")
+        grid_tab.click()
+        
+        hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
+        print hgenes
+        searchTermItems = iterate.getTextAsList(hgenes)
+        self.assertEqual(searchTermItems[23], '')
+        
+        mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
+        print mgenes
+        searchTermItems = iterate.getTextAsList(mgenes)
+        self.assertEqual(searchTermItems[23], "Tg(Camk2a-tTA)1Mmay")
+
+    def test_mp_term_simple_Indeterminate(self):
+        '''
+        @status this test verifies that genes with a simple indeterminate genotype annotated to an MP term are returned for this query. 
+        Should return the gene Eda to verify
+        '''
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements_by_tag_name("option"):
+            if option.text == 'Phenotype or Disease Name':
+                option.click()
+                break
+        #breast inflammation is an MP synonym of mastitis
+        self.driver.find_element_by_name("formly_3_autocomplete_input_0").send_keys("increased incidence of corneal inflammation")#identifies the input field and enters gata1
+        wait.forAngular(self.driver)
+        self.driver.find_element_by_id("searchButton").click()
+        wait.forAngular(self.driver)
+        #identify the Genes tab and verify the tab's text
+        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (21 x 29)", "Grid tab is not visible!")
+        grid_tab.click()
+        
+        hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
+        searchTermItems = iterate.getTextAsList(hgenes)
+        self.assertEqual(searchTermItems[7], 'EDA')
+        print searchTermItems
+        mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
+        searchTermItems = iterate.getTextAsList(mgenes)
+        print searchTermItems
+        self.assertEqual(searchTermItems[7], "Eda")
+
+    def test_mp_term_Cond_Recomb(self):
+        '''
+        @status Simple Genotype: Conditional Recombinase: When there are only 2 markers in the genotype, the genotype is 
+        conditional, and one marker's allele is "recombinase" (has a Driver note), return the non-recombinase marker for 
+        the disease. Do NOT return the recombinase marker.
+        '''
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements_by_tag_name("option"):
+            if option.text == 'Phenotype or Disease Name':
+                option.click()
+                break
+        #breast inflammation is an MP synonym of mastitis
+        self.driver.find_element_by_name("formly_3_autocomplete_input_0").send_keys("abnormal liver morphology")#identifies the input field and enters gata1
+        wait.forAngular(self.driver)
+        self.driver.find_element_by_id("searchButton").click()
+        wait.forAngular(self.driver)
+        #identify the Genes tab and verify the tab's text
+        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (1231 x 57)", "Grid tab is not visible!")
+        grid_tab.click()
+        
+        hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
+        print hgenes
+        searchTermItems = iterate.getTextAsList(hgenes)
+        self.assertEqual(searchTermItems[4], 'ABCB7')
+        
+        mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
+        print mgenes
+        searchTermItems = iterate.getTextAsList(mgenes)
+        self.assertEqual(searchTermItems[4], "Abcb7")
+        self.assertIsNot(searchTermItems, "Tg(Alb-cre)21Mgn", 'this transgene is being returned, it should not!')
+
+    def test_mp_term_Cond_Recomb_1(self):
+        '''
+        @status Simple Genotype: Conditional Recombinase: When there are only 2 markers in the genotype, the genotype is 
+        conditional, and one marker's allele is "recombinase" (has a Driver note), return the non-recombinase marker for 
+        the disease. Do NOT return the recombinase marker.
+        (Genotype MGI:5314535 has Hesx1 recombinase and Ctnnb1 alleles, but is not Conditional, so whole genotype should 
+        be excluded. Hesx1 comes back in due to other alleles and genotypes.) 
+        '''
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements_by_tag_name("option"):
+            if option.text == 'Phenotype or Disease Name':
+                option.click()
+                break
+        #breast inflammation is an MP synonym of mastitis
+        self.driver.find_element_by_name("formly_3_autocomplete_input_0").send_keys("small embryonic telencephalon")#identifies the input field and enters gata1
+        wait.forAngular(self.driver)
+        self.driver.find_element_by_id("searchButton").click()
+        wait.forAngular(self.driver)
+        #identify the Genes tab and verify the tab's text
+        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (18 x 26)", "Grid tab is not visible!")
+        grid_tab.click()
+        
+        hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
+        print hgenes
+        searchTermItems = iterate.getTextAsList(hgenes)
+        self.assertEqual(searchTermItems[4], 'HESX1')
+        
+        mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
+        print mgenes
+        searchTermItems = iterate.getTextAsList(mgenes)
+        self.assertEqual(searchTermItems[4], "Hesx1")
+        self.assertIsNot(searchTermItems, "Ctnnb1", 'this gene is being returned, it should not!')
+
+    def test_mp_term_Cond_Recomb_2(self):
+        '''
+        @status Simple Genotype: Conditional Recombinase: When there are only 2 markers in the genotype, the genotype is 
+        conditional, and one marker's allele is "recombinase" (has a Driver note), return the non-recombinase marker for 
+        the disease. Do NOT return the recombinase marker.
+        (Genotype MGI:5304807MGI:5304807 has Kras alleles and is Conditional, but has no recombinase alleles, so it should NOT be excluded.) 
+        '''
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements_by_tag_name("option"):
+            if option.text == 'Phenotype or Disease Name':
+                option.click()
+                break
+        #breast inflammation is an MP synonym of mastitis
+        self.driver.find_element_by_name("formly_3_autocomplete_input_0").send_keys("increased lung adenoma incidence")#identifies the input field and enters gata1
+        wait.forAngular(self.driver)
+        self.driver.find_element_by_id("searchButton").click()
+        wait.forAngular(self.driver)
+        #identify the Genes tab and verify the tab's text
+        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (53 x 31)", "Grid tab is not visible!")
+        grid_tab.click()
+        
+        hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
+        print hgenes
+        searchTermItems = iterate.getTextAsList(hgenes)
+        self.assertEqual(searchTermItems[12], 'KRAS')
+        
+        mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
+        print mgenes
+        searchTermItems = iterate.getTextAsList(mgenes)
+        self.assertEqual(searchTermItems[12], "Kras")
+
+    def test_mp_term_Trans_Reporter(self):
+        '''
+        @status Simple Genotype: Transgenic Reporter: When there are only 2 markers in the genotype, and one marker's allele is of 
+        type "Transgenic (Reporter)", return the non-Transgenic (Reporter) marker for the disease. Do NOT return 
+        the Transgenic (Reporter) marker. 
+        '''
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements_by_tag_name("option"):
+            if option.text == 'Phenotype or Disease Name':
+                option.click()
+                break
+        #
+        self.driver.find_element_by_name("formly_3_autocomplete_input_0").send_keys("abnormal cerebral cortex pyramidal cell")#identifies the input field and enters term
+        wait.forAngular(self.driver)
+        self.driver.find_element_by_id("searchButton").click()
+        wait.forAngular(self.driver)
+        #identify the Genes tab and verify the tab's text
+        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (40 x 30)", "Grid tab is not visible!")
+        grid_tab.click()
+        wait.forAngular(self.driver)
+        hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
+        print hgenes
+        searchTermItems = iterate.getTextAsList(hgenes)
+        self.assertEqual(searchTermItems[27], 'NRP1')
+        
+        mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
+        print mgenes
+        searchTermItems = iterate.getTextAsList(mgenes)
+        self.assertEqual(searchTermItems[27], "Nrp1")
+        self.assertIsNot(searchTermItems, "Tg(Thy1-YFP)16Jrs", 'this transgene is being returned, it should not!')
+
+    def test_mp_term_Large_Complex_Geno(self):
+        '''
+        @status Large, Complex Genotypes: A marker is not returned for a disease if it participates only in genotypes having 3 markers (3 allele "pairs") that do 
+        not meet the "Conditional + Reporter" or "Tet-Induced Conditional" rules above. 
+        @bug having problems collecting the genes after row 26
+        '''
+        #self.setUpPost("gridQuery")
+        
+        #self.driver = webdriver.Chrome()
+        #self.driver.get(config.TEST_URL + "/humanDisease.shtml")
+        #self.driver.implicitly_wait(10)
+        
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements_by_tag_name("option"):
+            if option.text == 'Phenotype or Disease Name':
+                option.click()
+                break
+        #breast inflammation is an MP synonym of mastitis
+        self.driver.find_element_by_name("formly_3_autocomplete_input_0").send_keys("dermatitis")#identifies the input field and enters gata1
+        wait.forAngular(self.driver)
+        self.driver.find_element_by_id("searchButton").click()
+        wait.forAngular(self.driver)
+        #identify the Grid tab and verify the tab's text
+        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (348 x 44)", "Grid tab is not visible!")
+        grid_tab.click()
+        mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
+        searchTermItems = iterate.getTextAsList(mgenes)
+        searchTermItems.location_once_scrolled_into_view
+        print searchTermItems
+        self.assertIsNot(searchTermItems, "Agreg", 'this gene is being returned, it should not!')
+        self.assertIsNot(searchTermItems, "Egf", 'this gene is being returned, it should not!')
+        self.assertIsNot(searchTermItems, "Aga", 'this gene is being returned, it should not!')
+        
+
     def tearDown(self):
         self.driver.close()
        

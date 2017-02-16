@@ -54,8 +54,8 @@ class TestHMDCAutocomplete(unittest.TestCase):
         self.assertEqual(items[3].text, "SLE - Lupus Erythematosus, systemic", "Term 3 is not visible!")
         self.assertEqual(items[4].text, "decreased susceptibility to systemic lupus erythematosus", "Term 4 is not visible!")
         self.assertEqual(items[5].text, "increased resistance to systemic lupus erythematosus", "Term 5 is not visible!")
-        self.assertEqual(items[6].text, "reduced susceptibility to systemic lupus erythematosus", "Term 6 is not visible!")                                                                                                                                 
-        self.assertEqual(items[7].text, "increased susceptibility to systemic lupus erythematosus", "Term 7 is not visible!")
+        self.assertEqual(items[6].text, "increased susceptibility to systemic lupus erythematosus", "Term 6 is not visible!")                                                                                                                                 
+        self.assertEqual(items[7].text, "reduced susceptibility to systemic lupus erythematosus", "Term 7 is not visible!")
         self.assertEqual(items[8].text, "decreased resistance to systemic lupus erythematosus", "Term 8 is not visible!")
         
     def tearDown(self):
