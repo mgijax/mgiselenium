@@ -1,26 +1,28 @@
-1477577207415	geckodriver	INFO	Listening on 127.0.0.1:62524
-1477577209376	mozprofile::profile	INFO	Using profile path C:\Users\jeffc\AppData\Local\Temp\rust_mozprofile.dmRtovylFt5h
-1477577209378	geckodriver::marionette	INFO	Starting browser C:\Program Files\Mozilla Firefox\firefox.exe
-1477577209383	geckodriver::marionette	INFO	Connecting to Marionette on localhost:62535
-1477577210117	Marionette	INFO	Listening on port 62535
-1477577211382	Marionette	INFO	startBrowser f4d32a12-2cbe-4505-bc8c-00ec71e60d5d
+1481114516467	geckodriver	INFO	Listening on 127.0.0.1:50220
+1481113072291	mozprofile::profile	INFO	Using profile path C:\Users\testuser\AppData\Local\Temp\rust_mozprofile.saNoCG9mtKqA
+1481113072297	geckodriver::marionette	INFO	Starting browser C:\Program Files (x86)\Mozilla Firefox\firefox.exe
+1481113072312	geckodriver::marionette	INFO	Connecting to Marionette on localhost:49940
+1481113073379	Marionette	INFO	Listening on port 49940
+1480425898266	Marionette	INFO	startBrowser a1ee284f-075d-4aa3-a69b-55047f6d8f8b
 JavaScript warning: http://www.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
-[Child 4844] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
-ead
-[Child 7324] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
-[Child 7324] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
-[Child 8024] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
-e 346
-.jax.org/webshare/js/jquery-1.10.2.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
-#!!! [Child][OnMaybeDequeueOne] Error: Channel closing: too late to send/recv, messages will be lost
+[GFX1-]: [D2D1.1] 4CreateBitmap failure Size(18,8888) Code: 0x80070057 format 0
+[GFX1-]: [D2D1.1] 4CreateBitmap failure Size(18,8888) Code: 0x80070057 format 0
+[Child 27968] ###!!! ABORT: Aborting on channel error.: file c:/builds/moz2_slave/m-rel-w32-00000000000000000000/build/src/ipc/glue/MessageChannel.cpp, line 2052
+0000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x460112,name=PContent::Msg_AsyncMessage) Channel closing: too late to send/recv, messages will be lost
+
+[Child 17212] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w32-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+JavaScript error: chrome://global/content/process-content.js, line 30: NS_ERROR_UNEXPECTED: Component returned failure code: 0x8000ffff (NS_ERROR_UNEXPECTED) [nsIMessageSender.sendAsyncMessage]
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x2C0043,name=PBrowser::Msg___delete__) Channel closing: too late to send/recv, messages will be lost
 
 
 ###!!! [Child][OnMaybeDequeueOne] Error: Channel closing: too late to send/recv, messages will be lost
 
 
-###!!! [Child][OnMaybeDequeueOne] Error: Channel closing: too late to send/recv, messages will be lost
+###!!! [Child][MessageChannel] Error: (msgtype=0x4600BB,name=PContent::Msg_ConsoleMessage) Channel closing: too late to send/recv, messages will be lost
 
-JavaScript warning: http://scrumdog.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
-JavaScript warning: http://scrumdog.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+.10.2.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
 [GFX1]: [D3D9] Failed to create the device, code: 0x8876086a
 [GFX1]: [D3D9] Could not Initialize the DeviceManagerD3D9
