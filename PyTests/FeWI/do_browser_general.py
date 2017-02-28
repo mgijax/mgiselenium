@@ -25,8 +25,8 @@ class TestDoBrowserGeneral(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Chrome()
-        #self.driver.get(config.TEST_URL)
-        self.driver.get("http://scrumdogdev.informatics.jax.org")
+        self.driver.get(config.TEST_URL)
+        #self.driver.get("http://scrumdogdev.informatics.jax.org")
         self.driver.implicitly_wait(10)
         
     def test_dobrowser_header(self):
@@ -107,7 +107,7 @@ class TestDoBrowserGeneral(unittest.TestCase):
         time.sleep(1)
         self.driver.switch_to_window(self.driver.window_handles[-1])
         print (self.driver.current_url)
-        self.assertEqual(self.driver.current_url, 'https://www.nlm.nih.gov/cgi/mesh/2011/MB_cgi?exact&field=uid&term=D010300', 'The MESH link is broken!')
+        self.assertEqual(self.driver.current_url, 'https://www.ncbi.nlm.nih.gov/mesh/D010300', 'The MESH link is broken!')
         self.driver.switch_to_window(self.driver.window_handles[0])
         time.sleep(1)
         self.driver.find_element_by_link_text('ORDO:2828').click()

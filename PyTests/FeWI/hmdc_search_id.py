@@ -47,6 +47,7 @@ class TestHmdcSearchID(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         print grid_tab.text
+        time.sleep(2)
         self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (4 x 24)", "Grid tab is not visible!")
         grid_tab.click()
         human_header = self.driver.find_element_by_class_name('hgHeader')
@@ -144,7 +145,7 @@ class TestHmdcSearchID(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (24 x 33)", "Grid tab is not visible!")
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (24 x 32)", "Grid tab is not visible!")
         grid_tab.click()
         
         hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
@@ -441,7 +442,7 @@ class TestHmdcSearchID(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         print grid_tab.text
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (6 x 24)", "Grid tab is not visible!")
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (7 x 24)", "Grid tab is not visible!")
         grid_tab.click()
         #cells captures every field from Human Gene heading to the last disease angled, this test only captures the diseases, which are items 25,26,27
         cells = self.driver.find_elements_by_css_selector("div.ngc.cell-content.ngc-custom-html.ng-binding.ng-scope")
@@ -456,7 +457,7 @@ class TestHmdcSearchID(unittest.TestCase):
         #identify the Diseases tab and verify the tab's text
         disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         print disease_tab.text
-        self.assertEqual(disease_tab.text, "Diseases (3)", "Diseases tab is not visible!")
+        self.assertEqual(disease_tab.text, "Diseases (7)", "Diseases tab is not visible!")
         disease_tab.click()
         
         disease_table = Table(self.driver.find_element_by_id("diseaseTable"))
@@ -468,10 +469,18 @@ class TestHmdcSearchID(unittest.TestCase):
         disease1 = cells[1]
         disease2 = cells[2]
         disease3 = cells[3]
+        disease4 = cells[4]
+        disease5 = cells[5]
+        disease6 = cells[6]
+        disease7 = cells[7]
         #asserts that the correct genes in the correct order are returned
         self.assertEqual(disease1.text, 'chondrodysplasia punctata')
         self.assertEqual(disease2.text, 'rhizomelic chondrodysplasia punctata')
-        self.assertEqual(disease3.text, 'X-linked chondrodysplasia punctata')
+        self.assertEqual(disease3.text, 'rhizomelic chondrodysplasia punctata type 1')
+        self.assertEqual(disease4.text, 'rhizomelic chondrodysplasia punctata type 2')
+        self.assertEqual(disease5.text, 'rhizomelic chondrodysplasia punctata type 3')
+        self.assertEqual(disease6.text, 'rhizomelic chondrodysplasia punctata type 5')
+        self.assertEqual(disease7.text, 'X-linked chondrodysplasia punctata')
         
                     
     def tearDown(self):
