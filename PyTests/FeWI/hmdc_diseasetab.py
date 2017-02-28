@@ -38,12 +38,12 @@ class TestDiseaseTab(unittest.TestCase):
                 break
         
         self.driver.find_element_by_name("formly_3_input_input_0").send_keys("Gata1")#indentifies the input field and enters gata1
-        #wait.forAngular(self.driver)
-        time.sleep(1)
+        wait.forAngular(self.driver)
         self.driver.find_element_by_id("searchButton").click()
         #identify the Genes tab and verify the tab's text
         disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         print disease_tab.text
+        time.sleep(2)
         self.assertEqual(disease_tab.text, "Diseases (3)", "Diseases tab is not visible!")
         disease_tab.click()
         disease_table_headers = self.driver.find_element_by_id("diseaseTable").find_element_by_css_selector("tr")
@@ -115,7 +115,7 @@ class TestDiseaseTab(unittest.TestCase):
         disease2 = cells[2]
         #asserts that the correct genes in the correct order are returned
         self.assertEqual(disease1.text, 'erythropoietic protoporphyria')
-        self.assertEqual(disease2.text, 'xeroderma pigmentosum')
+        self.assertEqual(disease2.text, 'xeroderma pigmentosum group G')
                 
         
     def test_diseases_tab_doids(self):

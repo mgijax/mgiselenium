@@ -45,6 +45,7 @@ class TestGeneTab(unittest.TestCase):
         self.driver.find_element_by_id("searchButton").click()
         #identify the Genes tab and verify the tab's text
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        time.sleep(2)
         print gene_tab.text
         self.assertEqual(gene_tab.text, "Genes (6)", "Genes tab is not visible!")
         gene_tab.click()

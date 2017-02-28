@@ -47,6 +47,7 @@ class TestGenesSearch(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         print grid_tab.text
+        time.sleep(2)
         self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (4 x 24)", "Grid tab is not visible!")
         grid_tab.click()
         human_header = self.driver.find_element_by_class_name('hgHeader')
@@ -364,7 +365,7 @@ class TestGenesSearch(unittest.TestCase):
         '''
         @status this test verifies the correct genes are returned for this query, both human and mouse. The is one of 2 tests
         because the results are different if you search by gene symbols/IDs or by 
-        Gene Name. This test is for searching by gene name. TGene Name query returns the KITL/Kitl row and transgenes with
+        Gene Name. This test is for searching by gene name. The Gene Name query returns the KITL/Kitl row and transgenes with
         EC of Kitl (as expected)
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option

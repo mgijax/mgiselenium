@@ -1056,7 +1056,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Diseases tab and verify the tab's text
         disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         print disease_tab.text
-        self.assertEqual(disease_tab.text, "Diseases (8)", "Diseases tab is not visible!")
+        self.assertEqual(disease_tab.text, "Diseases (9)", "Diseases tab is not visible!")
         disease_tab.click()
         disease_table = Table(self.driver.find_element_by_id("diseaseTable"))
         cells = disease_table.get_column_cells("Disease")
@@ -1070,6 +1070,7 @@ class TestGeneid(unittest.TestCase):
         disease6 = cells[6]
         disease7 = cells[7]
         disease8 = cells[8]
+        disease9 = cells[9]
         #asserts that the correct diseases in the correct order are returned
         self.assertEqual(disease1.text, 'hepatocellular carcinoma')
         self.assertEqual(disease2.text, 'lung cancer')
@@ -1078,7 +1079,8 @@ class TestGeneid(unittest.TestCase):
         self.assertEqual(disease5.text, 'obesity')
         self.assertEqual(disease6.text, 'permanent neonatal diabetes mellitus')
         self.assertEqual(disease7.text, 'type 1 diabetes mellitus')
-        self.assertEqual(disease8.text, 'type 2 diabetes mellitus')
+        self.assertEqual(disease8.text, 'type 1 diabetes mellitus 2')        
+        self.assertEqual(disease9.text, 'type 2 diabetes mellitus')
 
     def test_gene_id_multiples(self):
         '''
@@ -1219,7 +1221,8 @@ class TestGeneid(unittest.TestCase):
         #identify the Diseases tab and verify the tab's text
         disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         print disease_tab.text
-        self.assertEqual(disease_tab.text, "Diseases (8)", "Diseases tab is not visible!")
+        time.sleep(2)
+        self.assertEqual(disease_tab.text, "Diseases (9)", "Diseases tab is not visible!")
         disease_tab.click()
         disease_table = Table(self.driver.find_element_by_id("diseaseTable"))
         cells = disease_table.get_column_cells("Disease")
@@ -1233,6 +1236,7 @@ class TestGeneid(unittest.TestCase):
         disease6 = cells[6]
         disease7 = cells[7]
         disease8 = cells[8]
+        disease9 = cells[9]
         #asserts that the correct diseases in the correct order are returned
         self.assertEqual(disease1.text, 'hepatocellular carcinoma')
         self.assertEqual(disease2.text, 'lung cancer')
@@ -1241,7 +1245,8 @@ class TestGeneid(unittest.TestCase):
         self.assertEqual(disease5.text, 'obesity')
         self.assertEqual(disease6.text, 'permanent neonatal diabetes mellitus')
         self.assertEqual(disease7.text, 'type 1 diabetes mellitus')
-        self.assertEqual(disease8.text, 'type 2 diabetes mellitus')
+        self.assertEqual(disease8.text, 'type 1 diabetes mellitus 2')
+        self.assertEqual(disease9.text, 'type 2 diabetes mellitus')
 
 
 

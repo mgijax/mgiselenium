@@ -1,6 +1,6 @@
 '''
 Created on Feb 7, 2017
-These tests are for verifying information found on the MOdels tab of the Disease Ontology Browser
+These tests are for verifying information found on the Models tab of the Disease Ontology Browser
 @author: jeffc
 '''
 import unittest
@@ -313,7 +313,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         row15 = cells[16]
         row16 = cells[17]
         row17 = cells[18]
-        self.assertEqual(row1.text, '         rheumatoid arthritis Dnase2atm1Osa/Dnase2atm1Osa\nIfnar1tm1Agt/Ifnar1tm1Agt involves: 129S1/Sv * 129S2/SvPas * 129X1/SvJ * C57BL/6 J:114982 View')
+        self.assertEqual(row1.text, '         rheumatoid arthritis Dnase2atm1Osa/Dnase2atm1Osa\nIfnar1tm1Agt/Ifnar1tm1Agt involves: 129S1/Sv * 129S2/SvPas * 129X1/SvJ * C57BL/6 J:114982, J:238323 View')
         self.assertEqual(row2.text, 'rheumatoid arthritis Dnase2atm1Osa/Dnase2atm2Osa\nTg(Mx1-cre)1Cgn/0 involves: 129S1/Sv * 129S2/SvPas * 129X1/SvJ * C57BL/6 * CBA J:114982 View')
         self.assertEqual(row3.text, 'rheumatoid arthritis Il6sttm1Thir/Il6sttm1Thir involves: 129 * C57BL/6 J:133059 View')
         self.assertEqual(row4.text, 'rheumatoid arthritis Mmp14tm1Hbh/Mmp14tm1Hbh involves: 129P2/OlaHsd * Black Swiss J:57969 View')

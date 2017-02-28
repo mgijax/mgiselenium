@@ -199,7 +199,7 @@ class TestDoBrowserTermTab(unittest.TestCase):
         #locate the siblings terms box
         siblings = self.driver.find_elements_by_id("termTabTermWrapper")
         searchTermItems = iterate.getTextAsList(siblings)
-        self.assertEquals(searchTermItems[0], "tauopathy +\n\ndemyelinating disease +\neye degenerative disease +\neyelid degenerative disease +\nfamilial encephalopathy with neuroserpin inclusion bodies\nhereditary ataxia +\nHuntington's disease\ninfantile cerebellar-retinal degeneration\nLafora disease\nmotor neuron disease +\nmyoclonic cerebellar dyssynergia\nneuroacanthocytosis +\nolivopontocerebellar atrophy\npantothenate kinase-associated neurodegeneration\nPick's disease\nplexopathy\npontocerebellar hypoplasia +\nprimary cerebellar degeneration\nsecondary Parkinson disease +\nSPOAN syndrome\nsynucleinopathy +")
+        self.assertEquals(searchTermItems[0], "tauopathy +\n\ndemyelinating disease +\neye degenerative disease +\neyelid degenerative disease +\nfamilial encephalopathy with neuroserpin inclusion bodies\nhereditary ataxia +\nHuntington's disease\ninfantile cerebellar-retinal degeneration\nLafora disease\nmotor neuron disease +\nmyoclonic cerebellar dyssynergia\nneuroacanthocytosis +\nneurodegeneration with brain iron accumulation +\nolivopontocerebellar atrophy\nPick's disease\nplexopathy\npontocerebellar hypoplasia +\nprimary cerebellar degeneration\nsecondary Parkinson disease +\nSPOAN syndrome\nsynucleinopathy +")
         print searchTermItems
         #locate the children terms box
         children = self.driver.find_elements_by_id("termTabChildWrapper")

@@ -184,7 +184,7 @@ class TestSearchTerm(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         print grid_tab.text
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (6 x 24)", "Grid tab is not visible!")
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (6 x 25)", "Grid tab is not visible!")
         grid_tab.click()
         
         #firstcell captures all the table data blocks of phenotypes on the first row of data
@@ -351,16 +351,16 @@ class TestSearchTerm(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         print grid_tab.text
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (61 x 24)", "Grid tab is not visible!")
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (57 x 23)", "Grid tab is not visible!")
         grid_tab.click()
         #cells captures every field from Human Gene heading to the last disease angled, this test only captures the diseases, which are items 25,26,27
         cells = self.driver.find_elements_by_css_selector("div.ngc.cell-content.ngc-custom-html.ng-binding.ng-scope")
         
         print iterate.getTextAsList(cells) #if you want to see what it captures uncomment this
         #displays each row of gene data
-        disease1 = cells[24]
-        disease2 = cells[25]
-        disease3 = cells[26]
+        disease1 = cells[23]
+        disease2 = cells[24]
+        disease3 = cells[25]
         #asserts that the correct diseases(at angle) display in the correct order
         self.assertEqual(disease1.text, 'inherited metabolic disorder')
         self.assertEqual(disease2.text, 'musculoskeletal system disease')
@@ -404,9 +404,9 @@ class TestSearchTerm(unittest.TestCase):
         self.assertEqual(disease8.text, 'autosomal recessive limb-girdle muscular dystrophy type 2P')
         self.assertEqual(disease9.text, 'autosomal recessive limb-girdle muscular dystrophy type 2Q')
         self.assertEqual(disease10.text, 'centronuclear myopathy')
-        self.assertEqual(disease11.text, 'congenital muscular dystrophy')
-        self.assertEqual(disease12.text, 'congenital myasthenic syndrome')
-        self.assertEqual(disease13.text, 'Duchenne muscular dystrophy')
+        self.assertEqual(disease11.text, 'congenital myasthenic syndrome')
+        self.assertEqual(disease12.text, 'Duchenne muscular dystrophy')
+        self.assertEqual(disease13.text, 'megaconial type congenital muscular dystrophy')
         self.assertEqual(disease14.text, 'mitochondrial DNA depletion syndrome 2')
         self.assertEqual(disease15.text, 'muscular dystrophy-dystroglycanopathy')
         self.assertEqual(disease16.text, 'nemaline myopathy')
@@ -601,7 +601,7 @@ class TestSearchTerm(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (396 x 42)", "Grid tab is not visible!")
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (418 x 42)", "Grid tab is not visible!")
         grid_tab.click()
         
         hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
@@ -688,13 +688,14 @@ class TestSearchTerm(unittest.TestCase):
                 break
         #breast inflammation is an MP synonym of mastitis
         self.driver.find_element_by_name("formly_3_autocomplete_input_0").send_keys("abnormal liver morphology")#identifies the input field and enters gata1
-        wait.forAngular(self.driver)
+        #wait.forAngular(self.driver)
+        time.sleep(5)
         self.driver.find_element_by_id("searchButton").click()
-        wait.forAngular(self.driver)
+        time.sleep(10)
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
-        
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (1231 x 57)", "Grid tab is not visible!")
+        time.sleep(5)
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (1257 x 58)", "Grid tab is not visible!")
         grid_tab.click()
         
         hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
@@ -723,13 +724,14 @@ class TestSearchTerm(unittest.TestCase):
                 break
         #breast inflammation is an MP synonym of mastitis
         self.driver.find_element_by_name("formly_3_autocomplete_input_0").send_keys("small embryonic telencephalon")#identifies the input field and enters gata1
-        wait.forAngular(self.driver)
+        #wait.forAngular(self.driver)
+        time.sleep(5)
         self.driver.find_element_by_id("searchButton").click()
         wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
-        
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (18 x 26)", "Grid tab is not visible!")
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (18 x 27)", "Grid tab is not visible!")
+        time.sleep(2)
         grid_tab.click()
         
         hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
@@ -757,13 +759,14 @@ class TestSearchTerm(unittest.TestCase):
                 break
         #breast inflammation is an MP synonym of mastitis
         self.driver.find_element_by_name("formly_3_autocomplete_input_0").send_keys("increased lung adenoma incidence")#identifies the input field and enters gata1
-        wait.forAngular(self.driver)
+        #wait.forAngular(self.driver)
+        time.sleep(5)
         self.driver.find_element_by_id("searchButton").click()
         wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
-        
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (53 x 31)", "Grid tab is not visible!")
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (53 x 32)", "Grid tab is not visible!")
+        time.sleep(2)
         grid_tab.click()
         
         hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
@@ -781,6 +784,7 @@ class TestSearchTerm(unittest.TestCase):
         @status Simple Genotype: Transgenic Reporter: When there are only 2 markers in the genotype, and one marker's allele is of 
         type "Transgenic (Reporter)", return the non-Transgenic (Reporter) marker for the disease. Do NOT return 
         the Transgenic (Reporter) marker. 
+        @bug: This test has a known issue that it does not capture genes past the 26th one, so 27th item is not found!!!
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -789,13 +793,14 @@ class TestSearchTerm(unittest.TestCase):
                 break
         #
         self.driver.find_element_by_name("formly_3_autocomplete_input_0").send_keys("abnormal cerebral cortex pyramidal cell")#identifies the input field and enters term
-        wait.forAngular(self.driver)
+        #wait.forAngular(self.driver)
+        time.sleep(5)
         self.driver.find_element_by_id("searchButton").click()
         wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (40 x 30)", "Grid tab is not visible!")
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (40 x 31)", "Grid tab is not visible!")
         grid_tab.click()
         wait.forAngular(self.driver)
         hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
@@ -813,7 +818,7 @@ class TestSearchTerm(unittest.TestCase):
         '''
         @status Large, Complex Genotypes: A marker is not returned for a disease if it participates only in genotypes having 3 markers (3 allele "pairs") that do 
         not meet the "Conditional + Reporter" or "Tet-Induced Conditional" rules above. 
-        @bug having problems collecting the genes after row 26
+        @bug having problems collecting the genes after row 26, no answer to this issue as of yet
         '''
         #self.setUpPost("gridQuery")
         
@@ -828,17 +833,18 @@ class TestSearchTerm(unittest.TestCase):
                 break
         #breast inflammation is an MP synonym of mastitis
         self.driver.find_element_by_name("formly_3_autocomplete_input_0").send_keys("dermatitis")#identifies the input field and enters gata1
-        wait.forAngular(self.driver)
+        #wait.forAngular(self.driver)
+        time.sleep(5)
         self.driver.find_element_by_id("searchButton").click()
         wait.forAngular(self.driver)
         #identify the Grid tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
-        
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (348 x 44)", "Grid tab is not visible!")
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (352 x 44)", "Grid tab is not visible!")
+        time.sleep(2)
         grid_tab.click()
         mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
         searchTermItems = iterate.getTextAsList(mgenes)
-        searchTermItems.location_once_scrolled_into_view
+        #searchTermItems.location_once_scrolled_into_view
         print searchTermItems
         self.assertIsNot(searchTermItems, "Agreg", 'this gene is being returned, it should not!')
         self.assertIsNot(searchTermItems, "Egf", 'this gene is being returned, it should not!')
