@@ -224,7 +224,7 @@ class TestHmdcSearchID(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         print grid_tab.text
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (4 x 11)", "Grid tab is not visible!")
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (4 x 10)", "Grid tab is not visible!")
         grid_tab.click()
         #firstcell captures all the table data blocks of phenotypes on the first row of data
         phenocells = self.driver.find_elements_by_css_selector("div.ngc.cell-content.ngc-custom-html.ng-binding.ng-scope")
@@ -239,18 +239,15 @@ class TestHmdcSearchID(unittest.TestCase):
         pheno6 = phenocells[7]
         pheno7 = phenocells[8]
         pheno8 = phenocells[9]
-        pheno9 = phenocells[10]
-        
         #asserts that the correct phenotypess(at angle) display in the correct order
         self.assertEqual(pheno1.text, 'craniofacial')
         self.assertEqual(pheno2.text, 'endocrine/exocrine glands')
         self.assertEqual(pheno3.text, 'growth/size/body')
-        self.assertEqual(pheno4.text, 'hearing/vestibular/ear')
-        self.assertEqual(pheno5.text, 'homeostasis/metabolism')
-        self.assertEqual(pheno6.text, 'limbs/digits/tail')
-        self.assertEqual(pheno7.text, 'nervous system')
-        self.assertEqual(pheno8.text, 'renal/urinary system')
-        self.assertEqual(pheno9.text, 'skeleton')
+        self.assertEqual(pheno4.text, 'homeostasis/metabolism')
+        self.assertEqual(pheno5.text, 'limbs/digits/tail')
+        self.assertEqual(pheno6.text, 'nervous system')
+        self.assertEqual(pheno7.text, 'renal/urinary system')
+        self.assertEqual(pheno8.text, 'skeleton')
                 
     def test_do_term_xref_id(self):
         '''
@@ -343,14 +340,14 @@ class TestHmdcSearchID(unittest.TestCase):
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("HP:0008529, HP:0100735, HP:0012232")#identifies the input field and enters gata1
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("HP:0008529, HP:0100739, HP:0012232")#identifies the input field and enters gata1
         wait.forAngular(self.driver)
         self.driver.find_element_by_id("searchButton").click()
         wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         print grid_tab.text
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (10 x 25)", "Grid tab is not visible!")
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (8 x 7)", "Grid tab is not visible!")
         grid_tab.click()
         
         #firstcell captures all the table data blocks of phenotypes on the first row of data
@@ -362,43 +359,11 @@ class TestHmdcSearchID(unittest.TestCase):
         pheno2 = phenocells[3]
         pheno3 = phenocells[4]
         pheno4 = phenocells[5]
-        pheno5 = phenocells[6]
-        pheno6 = phenocells[7]
-        pheno7 = phenocells[8]
-        pheno8 = phenocells[9]
-        pheno9 = phenocells[10]
-        pheno10 = phenocells[11]
-        pheno11 = phenocells[12]
-        pheno12 = phenocells[13]
-        pheno13 = phenocells[14]
-        pheno14 = phenocells[15]
-        pheno15 = phenocells[16]
-        pheno16 = phenocells[17]
-        pheno17 = phenocells[18]
-        pheno18 = phenocells[19]
-        pheno19 = phenocells[20]
-        pheno20 = phenocells[21]
         #asserts that the correct phenotypess(at angle) display in the correct order
         self.assertEqual(pheno1.text, 'behavior/neurological')
         self.assertEqual(pheno2.text, 'cardiovascular system')
-        self.assertEqual(pheno3.text, 'craniofacial')
-        self.assertEqual(pheno4.text, 'digestive/alimentary system')
-        self.assertEqual(pheno5.text, 'endocrine/exocrine glands')
-        self.assertEqual(pheno6.text, 'growth/size/body')
-        self.assertEqual(pheno7.text, 'hearing/vestibular/ear')
-        self.assertEqual(pheno8.text, 'hematopoietic system')
-        self.assertEqual(pheno9.text, 'homeostasis/metabolism')
-        self.assertEqual(pheno10.text, 'immune system')
-        self.assertEqual(pheno11.text, 'integument')
-        self.assertEqual(pheno12.text, 'liver/biliary system')
-        self.assertEqual(pheno13.text, 'muscle')
-        self.assertEqual(pheno14.text, 'neoplasm')
-        self.assertEqual(pheno15.text, 'nervous system')
-        self.assertEqual(pheno16.text, 'renal/urinary system')
-        self.assertEqual(pheno17.text, 'reproductive system')
-        self.assertEqual(pheno18.text, 'respiratory system')
-        self.assertEqual(pheno19.text, 'skeleton')
-        self.assertEqual(pheno20.text, 'vision/eye')
+        self.assertEqual(pheno3.text, 'hearing/vestibular/ear')
+        self.assertEqual(pheno4.text, 'nervous system')
 
     def test_mixed_term_multi_id(self):
         '''
