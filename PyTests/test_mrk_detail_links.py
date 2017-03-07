@@ -429,9 +429,9 @@ class TestMarkerDetailLinks(unittest.TestCase):
         self.driver.find_element_by_link_text("cDNA Oxt")
         assert "No results found" not in self.driver.page_source
 
-    def test_adbrowser_links(self):
-        self.driver.find_element_by_link_text("AD Browser Form")
-        assert "No results found" not in self.driver.page_source
+    #def test_adbrowser_links(self):
+    #    self.driver.find_element_by_link_text("AD Browser Form")
+    #    assert "No results found" not in self.driver.page_source
 
     def test_adbrowserresults_links(self):
         self.driver.find_element_by_link_text("Query results for Brain")

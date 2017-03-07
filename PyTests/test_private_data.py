@@ -41,7 +41,7 @@ class TestPrivateData(unittest.TestCase):
         querytext.send_keys(Keys.RETURN)  # click the submit button
         brcalink = driver.find_element_by_link_text("Brca1")  # Find the Brca1 link and click it
         brcalink.click()  # Find the all alleles and mutations link and click it
-        allallelelink = driver.find_element_by_link_text("89")
+        allallelelink = driver.find_element_by_link_text("91")
         allallelelink.click()
         wait.forAjax(driver)
         # assert that there is no link for Brca1<test1>#testallele = driver.find_element_by_link_text('Brca1<sup>test1</sup>')
