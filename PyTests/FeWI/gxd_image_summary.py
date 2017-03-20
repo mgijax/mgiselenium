@@ -40,7 +40,7 @@ class TestGXDImageSummary(unittest.TestCase):
         wait.forAjax(driver)
         time.sleep(.5)
         genelist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-gene')
-        items = genelist[16].find_elements_by_tag_name("li")
+        items = genelist[20].find_elements_by_tag_name("li")
         searchTextItems = iterate.getTextAsList(items)
         self.assertEqual(searchTextItems, ["Gsx2", "Nkx2-1", "Pax6"])
         

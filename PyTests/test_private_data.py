@@ -25,7 +25,7 @@ class TestPrivateData(unittest.TestCase):
 
     def setUp(self):
 
-        self.driver = webdriver.Chrome('/eclipse/chromedriver') 
+        self.driver = webdriver.Chrome() 
         self.driver.implicitly_wait(4)
 
     def test_hide_private_allele(self):
