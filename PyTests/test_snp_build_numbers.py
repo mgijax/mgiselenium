@@ -24,7 +24,7 @@ class TestSnpBuild(unittest.TestCase):
 
 
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox()
         self.driver.implicitly_wait(4)
         self.driver.get(config.PUBLIC_URL)
         
@@ -43,7 +43,8 @@ class TestSnpBuild(unittest.TestCase):
         #enters pax6 in the Gene Symbol/Name box
         genebox.send_keys("pax6")
         genebox.send_keys(Keys.RETURN)
-        wait.forAjax(self.driver)
+        #wait.forAjax(self.driver)
+        time.sleep(2)
         #finds the snp build number in the heading of SNP ID column
         snpidLabel = self.driver.find_element_by_id("snpSummaryTable").find_element_by_id("snp_id")
         self.assertIn("(dbSNP Build 142)", snpidLabel.text)

@@ -1,13 +1,14 @@
-1487699169418	geckodriver	INFO	Listening on 127.0.0.1:55390
-1487699171391	mozprofile::profile	INFO	Using profile path C:\Users\jeffc\AppData\Local\Temp\rust_mozprofile.85XNtqAwAop9
-1487699171394	geckodriver::marionette	INFO	Starting browser C:\Program Files\Mozilla Firefox\firefox.exe
-1487699171398	geckodriver::marionette	INFO	Connecting to Marionette on localhost:55396
-1487699172027	Marionette	INFO	Listening on port 55396
-[Child 4672] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
-[Child 4672] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
-on/ipc_channel_win.cc, line 346
-[Child 10032] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
-ild 9624] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+1488475420933	geckodriver	INFO	Listening on 127.0.0.1:56965
+1488475422912	mozprofile::profile	INFO	Using profile path C:\Users\jeffc\AppData\Local\Temp\rust_mozprofile.UCO5POSitHQo
+1488475422915	geckodriver::marionette	INFO	Starting browser C:\Program Files\Mozilla Firefox\firefox.exe
+1488475422919	geckodriver::marionette	INFO	Connecting to Marionette on localhost:56976
+1488475423534	Marionette	INFO	Listening on port 56976
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+1488475426141	Marionette	WARN	Using deprecated data structure for setting timeouts
+[Child 3180] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 3180] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+e 346
+-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
 ed. Use //# instead
 JavaScript error: http://scrumdogdev.informatics.jax.org/webshare/js/jquery-1.10.2.min.js line 4 > eval, line 477: TypeError: document.getElementById(...) is null
 JavaScript warning: http://www.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead

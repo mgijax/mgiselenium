@@ -1,19 +1,17 @@
-1481114516467	geckodriver	INFO	Listening on 127.0.0.1:50220
-1481113072291	mozprofile::profile	INFO	Using profile path C:\Users\testuser\AppData\Local\Temp\rust_mozprofile.saNoCG9mtKqA
-1481113072297	geckodriver::marionette	INFO	Starting browser C:\Program Files (x86)\Mozilla Firefox\firefox.exe
-1481113072312	geckodriver::marionette	INFO	Connecting to Marionette on localhost:49940
-1481113073379	Marionette	INFO	Listening on port 49940
-1480425898266	Marionette	INFO	startBrowser a1ee284f-075d-4aa3-a69b-55047f6d8f8b
+1489421380363	geckodriver	INFO	Listening on 127.0.0.1:53565
+1489421382336	mozprofile::profile	INFO	Using profile path C:\Users\jeffc\AppData\Local\Temp\rust_mozprofile.PPazkI2dRBjs
+1489421382338	geckodriver::marionette	INFO	Starting browser C:\Program Files\Mozilla Firefox\firefox.exe with args []
+1489421382343	geckodriver::marionette	INFO	Connecting to Marionette on localhost:53572
+1489421383016	Marionette	INFO	Listening on port 53572
+1489421383366	Marionette	WARN	TLS certificate errors will be ignored for this session
 JavaScript warning: http://www.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
-[GFX1-]: [D2D1.1] 4CreateBitmap failure Size(18,8888) Code: 0x80070057 format 0
-[GFX1-]: [D2D1.1] 4CreateBitmap failure Size(18,8888) Code: 0x80070057 format 0
-[Child 27968] ###!!! ABORT: Aborting on channel error.: file c:/builds/moz2_slave/m-rel-w32-00000000000000000000/build/src/ipc/glue/MessageChannel.cpp, line 2052
-0000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
-
-###!!! [Child][MessageChannel] Error: (msgtype=0x460112,name=PContent::Msg_AsyncMessage) Channel closing: too late to send/recv, messages will be lost
-
-[Child 17212] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w32-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
-JavaScript error: chrome://global/content/process-content.js, line 30: NS_ERROR_UNEXPECTED: Component returned failure code: 0x8000ffff (NS_ERROR_UNEXPECTED) [nsIMessageSender.sendAsyncMessage]
+JavaScript warning: http://www.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://www.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+1489421391410	Marionette	INFO	New connections will no longer be accepted
+[Child 11720] ###!!! ABORT: Aborting on channel error.: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/glue/MessageChannel.cpp, line 2143
+512
+[Child 15020] ###!!! ABORT: Aborting on channel error.: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/glue/MessageChannel.cpp, line 2143
+r: chrome://global/content/process-content.js, line 30: NS_ERROR_UNEXPECTED: Component returned failure code: 0x8000ffff (NS_ERROR_UNEXPECTED) [nsIMessageSender.sendAsyncMessage]
 
 ###!!! [Child][MessageChannel] Error: (msgtype=0x2C0043,name=PBrowser::Msg___delete__) Channel closing: too late to send/recv, messages will be lost
 
