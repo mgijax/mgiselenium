@@ -414,7 +414,7 @@ class TestMarkerDetailLinks(unittest.TestCase):
         assert "No results found" not in self.driver.page_source
 
     def test_prbsummrker_links(self):
-        self.driver.find_element_by_link_text("probe Oxt")
+        self.driver.find_element_by_link_text("probes Oxt")
         assert "No results found" not in self.driver.page_source
 
     def test_prbsumref_links(self):
@@ -433,11 +433,11 @@ class TestMarkerDetailLinks(unittest.TestCase):
     #    self.driver.find_element_by_link_text("AD Browser Form")
     #    assert "No results found" not in self.driver.page_source
 
-    def test_adbrowserresults_links(self):
+    def test_amabrowserresults_links(self):
         self.driver.find_element_by_link_text("Query results for Brain")
         assert "No results found" not in self.driver.page_source
 
-    def test_adtermdetail_links(self):
+    def test_amatermdetail_links(self):
         self.driver.find_element_by_link_text("Forebrain")
         assert "No results found" not in self.driver.page_source
 
