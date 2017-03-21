@@ -16,14 +16,14 @@ sys.path.append(
 )
 from util import wait, iterate
 import config
-from config import TEST_URL
+from config import PUBLIC_URL
 
 class Test(unittest.TestCase):
 
 
     def setUp(self):
         self.driver = webdriver.Chrome()
-        self.driver.get(config.TEST_URL + "/allele/")
+        self.driver.get(config.PUBLIC_URL + "/allele/")
         self.driver.implicitly_wait(10)
 
     def test_variant_note(self):
