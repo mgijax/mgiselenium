@@ -1,10 +1,10 @@
-1489421380363	geckodriver	INFO	Listening on 127.0.0.1:53565
-1489421382336	mozprofile::profile	INFO	Using profile path C:\Users\jeffc\AppData\Local\Temp\rust_mozprofile.PPazkI2dRBjs
-1489421382338	geckodriver::marionette	INFO	Starting browser C:\Program Files\Mozilla Firefox\firefox.exe with args []
-1489421382343	geckodriver::marionette	INFO	Connecting to Marionette on localhost:53572
-1489421383016	Marionette	INFO	Listening on port 53572
-1489421383366	Marionette	WARN	TLS certificate errors will be ignored for this session
-JavaScript warning: http://www.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+1490028122277	geckodriver	INFO	Listening on 127.0.0.1:60037
+1490028124267	mozprofile::profile	INFO	Using profile path C:\Users\testuser\AppData\Local\Temp\rust_mozprofile.NoCH7yQ7edLv
+1490028124283	geckodriver::marionette	INFO	Starting browser C:\Program Files (x86)\Mozilla Firefox\firefox.exe
+1490028124291	geckodriver::marionette	INFO	Connecting to Marionette on localhost:60044
+1490028125691	Marionette	INFO	Listening on port 60044
+[Child 14992] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w32-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+n.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
 JavaScript warning: http://www.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
 JavaScript warning: http://www.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
 1489421391410	Marionette	INFO	New connections will no longer be accepted

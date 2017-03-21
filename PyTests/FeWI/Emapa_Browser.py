@@ -16,7 +16,7 @@ from util import wait, iterate
 import config
 from config import PUBLIC_URL
 
-class TestADBrowser(unittest.TestCase):
+class TestEmapaBrowser(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Chrome() 
@@ -48,7 +48,7 @@ class TestADBrowser(unittest.TestCase):
         driver.get(config.PUBLIC_URL + "/vocab/gxd/anatomy/EMAPA:16042")
         
         wait.forAjax(driver)
-        time.sleep(1)
+        time.sleep(2)
         termList = driver.find_elements_by_class_name("ygtvlabel")
         terms = iterate.getTextAsList(termList)
         print [x.text for x in termList]
@@ -63,7 +63,7 @@ class TestADBrowser(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestADBrowser))
+    suite.addTest(unittest.makeSuite(TestEmapaBrowser))
     return suite
         
 if __name__ == "__main__":

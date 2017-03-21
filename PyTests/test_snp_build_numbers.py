@@ -24,7 +24,7 @@ class TestSnpBuild(unittest.TestCase):
 
 
     def setUp(self):
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
         self.driver.implicitly_wait(4)
         self.driver.get(config.PUBLIC_URL)
         
@@ -37,7 +37,7 @@ class TestSnpBuild(unittest.TestCase):
         self.driver.get(PUBLIC_URL + "/snp/")
         #finds the build number at the top of the snp QF page
         formLabel = self.driver.find_element_by_css_selector("#form1 > div:nth-child(2)")
-        self.assertIn("dbSNP Build 142", formLabel.text)
+        self.assertIn("from dbSNP Build 142", formLabel.text)
 
         genebox = self.driver.find_element_by_id("nomen")
         #enters pax6 in the Gene Symbol/Name box
