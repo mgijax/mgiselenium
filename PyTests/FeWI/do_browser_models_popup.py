@@ -23,7 +23,7 @@ from util.table import Table
 
 # Tests
 
-class TestDoBrowserTermTab(unittest.TestCase):
+class TestDoBrowserModelsPopup(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Chrome()
@@ -212,114 +212,6 @@ class TestDoBrowserTermTab(unittest.TestCase):
         row3 = table2.get_row(3)
         self.assertEquals(row3.text, 'Ighmtm1Cgn/Ighmtm1Cgn\nTg(IghelMD4)4Ccg/Tg(IghelMD4)4Ccg NOD.Cg-Ighmtm1Cgn Tg(IghelMD4)4Ccg/DvsJ J:80859 View', 'Wrong data displayed for row 3!')
         
-        
-        
-        
-        
-    def test_dobrowser_children(self):
-        '''
-        @status this test verifies the correct Parent Terms, Siblings, and Children are returned for this query. This test example has children
-        '''
-        searchbox = self.driver.find_element_by_id('searchToolTextArea')
-        # put your Gene ID in the quick search box
-        searchbox.send_keys("DOID:12365")
-        searchbox.send_keys(Keys.RETURN)
-        time.sleep(3)
-        self.driver.find_element_by_link_text('malaria').click()
-        wait.forAjax(self.driver)
-        #locate the Parent Term box
-        parent = self.driver.find_elements_by_id("termTabParentWrapper")#identifies all the parents found in the Parents term box
-        searchTermItems = iterate.getTextAsList(parent)
-        self.assertEqual(searchTermItems[0], "parasitic protozoa infectious disease +")
-        print searchTermItems
-        #locate the siblings terms box
-        siblings = self.driver.find_elements_by_id("termTabTermWrapper")
-        searchTermItems = iterate.getTextAsList(siblings)
-        self.assertEquals(searchTermItems[0], "malaria +\n\namebiasis\nbabesiosis\nbalantidiasis\ncoccidiosis +\ndientamoebiasis\ngiardiasis\ngranulomatous amebic encephalitis\nleishmaniasis +\nprimary amebic meningoencephalitis\ntheileriasis\ntrichomoniasis\ntrypanosomiasis +")
-        print searchTermItems
-        #locate the children terms box
-        children = self.driver.find_elements_by_id("termTabChildWrapper")
-        searchTermItems = iterate.getTextAsList(children)
-        self.assertEquals(searchTermItems[0], "blackwater fever\ncerebral malaria\nmixed malaria\nPlasmodium falciparum malaria\nPlasmodium malariae malaria\nPlasmodium ovale malaria\nPlasmodium vivax malaria")
-        print searchTermItems
-
-    def test_dobrowser_many_children(self):
-        '''
-        @status this test verifies the correct Parent Terms, Siblings, and Children are returned for this query. This test example has many children(shows no rollup used)
-        '''
-        searchbox = self.driver.find_element_by_id('searchToolTextArea')
-        # put your Gene ID in the quick search box
-        searchbox.send_keys("DOID:9562")
-        searchbox.send_keys(Keys.RETURN)
-        time.sleep(3)
-        self.driver.find_element_by_link_text('primary ciliary dyskinesia').click()
-        wait.forAjax(self.driver)
-        #locate the Parent Term box
-        parent = self.driver.find_elements_by_id("termTabParentWrapper")#identifies all the parents found in the Parents term box
-        searchTermItems = iterate.getTextAsList(parent)
-        self.assertEqual(searchTermItems[0], "ciliopathy +")
-        print searchTermItems
-        #locate the siblings terms box
-        siblings = self.driver.find_elements_by_id("termTabTermWrapper")
-        searchTermItems = iterate.getTextAsList(siblings)
-        self.assertEquals(searchTermItems[0], "primary ciliary dyskinesia +\n\nJoubert syndrome +\nMeckel syndrome")
-        print searchTermItems
-        #locate the children terms box
-        children = self.driver.find_elements_by_id("termTabChildWrapper")
-        searchTermItems = iterate.getTextAsList(children)
-        self.assertEquals(searchTermItems[0], "Kartagener syndrome\nprimary ciliary dyskinesia 1\nprimary ciliary dyskinesia 10\nprimary ciliary dyskinesia 11\nprimary ciliary dyskinesia 12\nprimary ciliary dyskinesia 13\nprimary ciliary dyskinesia 14\nprimary ciliary dyskinesia 15\nprimary ciliary dyskinesia 16\nprimary ciliary dyskinesia 17\nprimary ciliary dyskinesia 18\nprimary ciliary dyskinesia 19\nprimary ciliary dyskinesia 2\nprimary ciliary dyskinesia 20\nprimary ciliary dyskinesia 21\nprimary ciliary dyskinesia 22\nprimary ciliary dyskinesia 23\nprimary ciliary dyskinesia 24\nprimary ciliary dyskinesia 25\nprimary ciliary dyskinesia 26\nprimary ciliary dyskinesia 27\nprimary ciliary dyskinesia 28\nprimary ciliary dyskinesia 29\nprimary ciliary dyskinesia 3\nprimary ciliary dyskinesia 30\nprimary ciliary dyskinesia 32\nprimary ciliary dyskinesia 33\nprimary ciliary dyskinesia 34\nprimary ciliary dyskinesia 35\nprimary ciliary dyskinesia 4\nprimary ciliary dyskinesia 5\nprimary ciliary dyskinesia 6\nprimary ciliary dyskinesia 7\nprimary ciliary dyskinesia 8\nprimary ciliary dyskinesia 9\nStromme syndrome")
-        print searchTermItems
-
-    def test_dobrowser_noomim(self):
-        '''
-        @status this test verifies the correct Parent Terms and Siblings are returned for this query. This test example has no children because it has no OMIM
-        and no annotations
-        '''
-        searchbox = self.driver.find_element_by_id('searchToolTextArea')
-        # put your Gene ID in the quick search box
-        searchbox.send_keys("DOID:14332")
-        searchbox.send_keys(Keys.RETURN)
-        time.sleep(3)
-        self.driver.find_element_by_link_text('postencephalitic Parkinson disease').click()
-        wait.forAjax(self.driver)
-        #locate the Parent Term box
-        parent = self.driver.find_elements_by_id("termTabParentWrapper")#identifies all the parents found in the Parents term box
-        searchTermItems = iterate.getTextAsList(parent)
-        self.assertEqual(searchTermItems[0], "secondary Parkinson disease +")
-        print searchTermItems
-        #locate the siblings terms box
-        siblings = self.driver.find_elements_by_id("termTabTermWrapper")
-        searchTermItems = iterate.getTextAsList(siblings)
-        self.assertEquals(searchTermItems[0], "postencephalitic Parkinson disease")
-        print searchTermItems
-
-    def test_dobrowser_child_of_children(self):
-        '''
-        @status this test verifies the correct Parent Terms, Siblings, and Children are returned for this query. This test example verifies
-        that when a child term has children it's followed by a + sign
-        '''
-        searchbox = self.driver.find_element_by_id('searchToolTextArea')
-        # put your Gene ID in the quick search box
-        searchbox.send_keys("DOID:680")
-        searchbox.send_keys(Keys.RETURN)
-        time.sleep(3)
-        self.driver.find_element_by_link_text('tauopathy').click()
-        wait.forAjax(self.driver)
-        #locate the Parent Term box
-        parent = self.driver.find_elements_by_id("termTabParentWrapper")#identifies all the parents found in the Parents term box
-        searchTermItems = iterate.getTextAsList(parent)
-        self.assertEqual(searchTermItems[0], "neurodegenerative disease +")
-        print searchTermItems
-        #locate the siblings terms box
-        siblings = self.driver.find_elements_by_id("termTabTermWrapper")
-        searchTermItems = iterate.getTextAsList(siblings)
-        self.assertEquals(searchTermItems[0], "tauopathy +\n\ndemyelinating disease +\neye degenerative disease +\neyelid degenerative disease +\nfamilial encephalopathy with neuroserpin inclusion bodies\nhereditary ataxia +\nHuntington's disease\ninfantile cerebellar-retinal degeneration\nLafora disease\nmotor neuron disease +\nmyoclonic cerebellar dyssynergia\nneuroacanthocytosis +\nneurodegeneration with brain iron accumulation +\nolivopontocerebellar atrophy\nPick's disease\nplexopathy\npontocerebellar hypoplasia +\nprimary cerebellar degeneration\nsecondary Parkinson disease +\nSPOAN syndrome\nsynucleinopathy +")
-        print searchTermItems
-        #locate the children terms box
-        children = self.driver.find_elements_by_id("termTabChildWrapper")
-        searchTermItems = iterate.getTextAsList(children)
-        self.assertEquals(searchTermItems[0], "Alzheimer's disease +")
-        print searchTermItems
             
         def tearDown(self):
             self.driver.close()
