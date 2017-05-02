@@ -1,6 +1,7 @@
 '''
 Created on Dec 12, 2016
-This test verifies all public links found on the wiki page mgiwiki/mediawiki/index.php/sw:WI_Pages_by_Software_Product
+This test verifies all public links found on the wiki page mgiwiki/mediawiki/index.php/sw:WI_Pages_by_Software_Product.
+It does not test what is found for data on each page.
 @author: jeffc
 '''
 import unittest
