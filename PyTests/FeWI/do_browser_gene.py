@@ -55,6 +55,24 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         time.sleep(1)
         self.assertEqual(definition.text, "A respiratory system cancer that is located_in the lung.")
         
+    def test_dobrowser_genestab_modelstab_text(self):
+        '''
+        @status this test verifies the genes tab has the correct number of genes by verifying the tab's text and the models tab has the correct number
+        of models by verifying the tab's text
+        '''
+        searchbox = self.driver.find_element_by_id('searchToolTextArea')
+        # put your Gene ID in the quick search box
+        searchbox.send_keys("DOID:11198")
+        searchbox.send_keys(Keys.RETURN)
+        time.sleep(2)
+        self.driver.find_element_by_link_text('DiGeorge syndrome').click()
+        gene_tab = self.driver.find_element_by_link_text('Genes (18)')#identifies the Genes tab.
+        print gene_tab.text
+        self.assertEqual(gene_tab.text, "Genes (18)", "The Genes Tab number is not correct")
+        model_tab = self.driver.find_element_by_link_text('Models (40)')#identifies the Genes tab.
+        print model_tab.text
+        self.assertEqual(model_tab.text, "Models (40)", "The Models Tab number is not correct")#time.sleep(2)   
+        
     def test_dobrowser_genestab_m_hmht(self):
         '''
         @status this test verifies the correct genes, models and source are returned. This test example displays a disease that returns

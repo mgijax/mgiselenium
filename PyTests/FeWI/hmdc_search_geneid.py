@@ -5,6 +5,7 @@ Created on Jan 9, 2017
 '''
 import unittest
 import time
+import requests
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
@@ -934,6 +935,7 @@ class TestGeneid(unittest.TestCase):
         wait.forAngular(self.driver)
         self.driver.find_element_by_id("searchButton").click()
         wait.forAngular(self.driver)
+        #r = requests.post
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (9 x 33)", "Grid tab is not visible!")

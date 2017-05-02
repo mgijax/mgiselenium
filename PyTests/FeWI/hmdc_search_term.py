@@ -63,7 +63,7 @@ class TestSearchTerm(unittest.TestCase):
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
-            if option.text == 'Phenotype or Disease Name':
+            if option.text == 'Disease or Phenotype Name':
                 option.click()
                 break
         self.driver.find_element_by_name("formly_3_autocomplete_input_0").send_keys("mucosulfatidosis")#identifies the input field and enters term/ID
@@ -92,7 +92,7 @@ class TestSearchTerm(unittest.TestCase):
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
-            if option.text == 'Phenotype or Disease Name':
+            if option.text == 'Disease or Phenotype Name':
                 option.click()
                 break
         
@@ -173,7 +173,7 @@ class TestSearchTerm(unittest.TestCase):
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
-            if option.text == 'Phenotype or Disease Name':
+            if option.text == 'Disease or Phenotype Name':
                 option.click()
                 break
         
@@ -228,7 +228,7 @@ class TestSearchTerm(unittest.TestCase):
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
-            if option.text == 'Phenotype or Disease Name':
+            if option.text == 'Disease or Phenotype Name':
                 option.click()
                 break
         
@@ -281,7 +281,7 @@ class TestSearchTerm(unittest.TestCase):
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
-            if option.text == 'Phenotype or Disease Name':
+            if option.text == 'Disease or Phenotype Name':
                 option.click()
                 break
         #breast inflammation is an MP synonym of mastitis
@@ -340,7 +340,7 @@ class TestSearchTerm(unittest.TestCase):
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
-            if option.text == 'Phenotype or Disease Name':
+            if option.text == 'Disease or Phenotype Name':
                 option.click()
                 break
         
@@ -418,7 +418,7 @@ class TestSearchTerm(unittest.TestCase):
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
-            if option.text == 'Phenotype or Disease Name':
+            if option.text == 'Disease or Phenotype Name':
                 option.click()
                 break
         
@@ -550,7 +550,7 @@ class TestSearchTerm(unittest.TestCase):
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
-            if option.text == 'Phenotype or Disease Name':
+            if option.text == 'Disease or Phenotype Name':
                 option.click()
                 break
         #breast inflammation is an MP synonym of mastitis
@@ -590,7 +590,7 @@ class TestSearchTerm(unittest.TestCase):
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
-            if option.text == 'Phenotype or Disease Name':
+            if option.text == 'Disease or Phenotype Name':
                 option.click()
                 break
         #breast inflammation is an MP synonym of mastitis
@@ -621,7 +621,7 @@ class TestSearchTerm(unittest.TestCase):
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
-            if option.text == 'Phenotype or Disease Name':
+            if option.text == 'Disease or Phenotype Name':
                 option.click()
                 break
         #breast inflammation is an MP synonym of mastitis
@@ -652,7 +652,7 @@ class TestSearchTerm(unittest.TestCase):
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
-            if option.text == 'Phenotype or Disease Name':
+            if option.text == 'Disease or Phenotype Name':
                 option.click()
                 break
         #breast inflammation is an MP synonym of mastitis
@@ -683,7 +683,7 @@ class TestSearchTerm(unittest.TestCase):
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
-            if option.text == 'Phenotype or Disease Name':
+            if option.text == 'Disease or Phenotype Name':
                 option.click()
                 break
         #breast inflammation is an MP synonym of mastitis
@@ -719,7 +719,7 @@ class TestSearchTerm(unittest.TestCase):
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
-            if option.text == 'Phenotype or Disease Name':
+            if option.text == 'Disease or Phenotype Name':
                 option.click()
                 break
         #breast inflammation is an MP synonym of mastitis
@@ -754,7 +754,7 @@ class TestSearchTerm(unittest.TestCase):
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
-            if option.text == 'Phenotype or Disease Name':
+            if option.text == 'Disease or Phenotype Name':
                 option.click()
                 break
         #breast inflammation is an MP synonym of mastitis
@@ -788,7 +788,7 @@ class TestSearchTerm(unittest.TestCase):
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
-            if option.text == 'Phenotype or Disease Name':
+            if option.text == 'Disease or Phenotype Name':
                 option.click()
                 break
         #
@@ -828,7 +828,7 @@ class TestSearchTerm(unittest.TestCase):
         
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
-            if option.text == 'Phenotype or Disease Name':
+            if option.text == 'Disease or Phenotype Name':
                 option.click()
                 break
         #breast inflammation is an MP synonym of mastitis
