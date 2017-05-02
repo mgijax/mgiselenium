@@ -16,10 +16,10 @@ import config
 
 class TestMarkerDetailLinks(unittest.TestCase):
 
-
+#Genes, Genome Features & Maps
     def setUp(self):
         self.driver = webdriver.Chrome() 
-        self.driver.get(config.WIKI_URL + "sw:WI_Pages_by_Software_Product#Python_WI-postgres")
+        self.driver.get(config.WIKI_URL + "sw:WI_Pages_by_Software_Product")
 
     def test_mrk_detail_links(self):
         self.driver.find_element_by_link_text("Pax*")
@@ -52,7 +52,32 @@ class TestMarkerDetailLinks(unittest.TestCase):
     def test_intexplorer_links(self):
         self.driver.find_element_by_partial_link_text("Bmp4")
         assert "No results found" not in self.driver.page_source
+
+    def test_mappingsummrker_links(self):
+        self.driver.find_element_by_link_text("Sry")
+        assert "No results found" not in self.driver.page_source
+
+    def test_mappingsumref_links(self):
+        self.driver.find_element_by_link_text("J:2945")
+        assert "No results found" not in self.driver.page_source
+
+    def test_mapdetailcross_links(self):
+        self.driver.find_element_by_link_text("Cross")
+        assert "No results found" not in self.driver.page_source
+
+    def test_mapdetailri_links(self):
+        self.driver.find_element_by_link_text("RI")
+        assert "No results found" not in self.driver.page_source
+
+    def test_mapdetailtext_links(self):
+        self.driver.find_element_by_link_text("TEXT")
+        assert "No results found" not in self.driver.page_source
+
+    def test_mapdetailtextgenetic_links(self):
+        self.driver.find_element_by_link_text("TEXT-Genetic Cross")
+        assert "No results found" not in self.driver.page_source
         
+#GO                
     def test_goannotmrk_links(self):
         self.driver.find_element_by_partial_link_text("Pax6")
         assert "No results found" not in self.driver.page_source
@@ -69,6 +94,19 @@ class TestMarkerDetailLinks(unittest.TestCase):
         self.driver.find_element_by_link_text("digestion")
         assert "No results found" not in self.driver.page_source
 
+    def test_markergograph_links(self):
+        self.driver.find_element_by_link_text("Graph for Kit")
+        assert "No results found" not in self.driver.page_source
+
+    def test_gobrowser_link(self):
+        self.driver.find_element_by_partial_link_text("Gene Ontology Browser")
+        assert "No results found" not in self.driver.page_source
+
+    def test_gotermdetail_links(self):
+        self.driver.find_element_by_link_text("gastric motility")
+        assert "No results found" not in self.driver.page_source
+
+#Phenotypes Alleles & Disease Models
     def test_alleleqf_links(self):
         self.driver.find_element_by_partial_link_text("Allele Query")
         assert "No results found" not in self.driver.page_source 
@@ -108,7 +146,15 @@ class TestMarkerDetailLinks(unittest.TestCase):
     def test_phenoimagemrk2_links(self):
         self.driver.find_element_by_partial_link_text("Dnaic1")
         assert "No results found" not in self.driver.page_source
+        
+    def test_phenoimagedetail2_links(self):
+        self.driver.find_element_by_link_text("Pheno Image for agouti yellow")
+        assert "No results found" not in self.driver.page_source
 
+    def test_phenoimageallele_links(self):
+        self.driver.find_element_by_partial_link_text("Pheno Image DNaic 1 allele (CvDC example)")
+        assert "No results found" not in self.driver.page_source
+        
     def test_phenodetailgeno1_links(self):
         self.driver.find_element_by_partial_link_text("pop-up for ht2")
         assert "No results found" not in self.driver.page_source
@@ -145,6 +191,23 @@ class TestMarkerDetailLinks(unittest.TestCase):
         self.driver.find_element_by_partial_link_text("hormone level")
         assert "No results found" not in self.driver.page_source
 
+    def test_mpbrowser_links(self):
+        self.driver.find_element_by_link_text("Mammalian Phenotype Browser")
+        assert "No results found" not in self.driver.page_source
+
+    def test_mptermdetail_links(self):
+        self.driver.find_element_by_link_text("Absent coat pigmentation")
+        assert "No results found" not in self.driver.page_source
+
+    def test_hpbrowser_links(self):
+        self.driver.find_element_by_link_text("Human Phenotype Ontology Browser")
+        assert "No results found" not in self.driver.page_source
+
+    def test_hpotermdetail_links(self):
+        self.driver.find_element_by_link_text("Gowers sign")
+        assert "No results found" not in self.driver.page_source
+        
+#Human Mouse Disease Connection (Disease Portal)
     def test_diseaseqf_links(self):
         self.driver.find_element_by_link_text("Disease Connection")
         assert "No results found" not in self.driver.page_source
@@ -176,7 +239,8 @@ class TestMarkerDetailLinks(unittest.TestCase):
     def test_diseasetab_links(self):
         self.driver.find_element_by_partial_link_text("disease tab")
         assert "No results found" not in self.driver.page_source
-
+        
+#References
     def test_refqf_links(self):
         self.driver.find_element_by_link_text("Ref QF")
         assert "No results found" not in self.driver.page_source
@@ -204,7 +268,29 @@ class TestMarkerDetailLinks(unittest.TestCase):
     def test_refdetail1ref_links(self):
         self.driver.find_element_by_link_text("J:181372")
         assert "No results found" not in self.driver.page_source
+        
+#Recombinase
+    def test_creqf_links(self):
+        self.driver.find_element_by_link_text("Minihome")
+        assert "No results found" not in self.driver.page_source
 
+    def test_cresummary_links(self):
+        self.driver.find_element_by_link_text("Muscle")
+        assert "No results found" not in self.driver.page_source
+
+    def test_cresummary1_links(self):
+        self.driver.find_element_by_link_text("Calb2")
+        assert "No results found" not in self.driver.page_source
+        
+    def test_crespecificity_links(self):
+        self.driver.find_element_by_partial_link_text("Foxg1")
+        assert "No results found" not in self.driver.page_source
+
+    def test_crespecificitynotdetected_links(self):
+        self.driver.find_element_by_partial_link_text("Not detected")
+        assert "No results found" not in self.driver.page_source
+        
+#Gene Expression
     def test_gxdqf_links(self):
         self.driver.find_element_by_link_text("GXD Query Form")
         assert "No results found" not in self.driver.page_source
@@ -233,8 +319,12 @@ class TestMarkerDetailLinks(unittest.TestCase):
         self.driver.find_element_by_link_text("Northern Blot")
         assert "No results found" not in self.driver.page_source
 
+    def test_gxdimagedetail_links(self):
+        self.driver.find_element_by_link_text("Image for Lep")
+        assert "No results found" not in self.driver.page_source
+
     def test_gxdlitsummary_links(self):
-        self.driver.find_element_by_partial_link_text("Lit Sum")
+        self.driver.find_element_by_partial_link_text("Lit Sum for Brca1")
         assert "No results found" not in self.driver.page_source
 
     def test_gxdlitsumage_links(self):
@@ -265,6 +355,31 @@ class TestMarkerDetailLinks(unittest.TestCase):
         self.driver.find_element_by_link_text("MGI:2137372")
         assert "No results found" not in self.driver.page_source
 
+    def test_prbsummrker_links(self):
+        self.driver.find_element_by_link_text("probes Oxt")
+        assert "No results found" not in self.driver.page_source
+
+    def test_prbsumref_links(self):
+        self.driver.find_element_by_link_text("J:2945")
+        assert "No results found" not in self.driver.page_source
+
+    def test_prbdetail_links(self):
+        self.driver.find_element_by_link_text("MGI:901759")
+        assert "No results found" not in self.driver.page_source
+
+    def test_cdnasummrker_links(self):
+        self.driver.find_element_by_link_text("cDNA Oxt")
+        assert "No results found" not in self.driver.page_source
+
+    def test_amabrowserresults_links(self):
+        self.driver.find_element_by_link_text("Adult Mouse Anatomy Browser")
+        assert "No results found" not in self.driver.page_source
+
+    def test_amatermdetail_links(self):
+        self.driver.find_element_by_link_text("Forebrain")
+        assert "No results found" not in self.driver.page_source
+        
+#Homology
     def test_verthomology_links(self):
         self.driver.find_element_by_link_text("Homology Class 36030")
         assert "No results found" not in self.driver.page_source
@@ -276,7 +391,8 @@ class TestMarkerDetailLinks(unittest.TestCase):
     def test_pirsf_links(self):
         self.driver.find_element_by_link_text("Paired box Protein Superfamily")
         assert "No results found" not in self.driver.page_source
-
+        
+#Sequences
     def test_seqsum_links(self):
         self.driver.find_element_by_link_text("T")
         assert "No results found" not in self.driver.page_source
@@ -300,7 +416,33 @@ class TestMarkerDetailLinks(unittest.TestCase):
     def test_seqdetailrefseq_links(self):
         self.driver.find_element_by_link_text("RefSeq sequence")
         assert "No results found" not in self.driver.page_source
+        
+#SNPs & Polymorphisms
+    def test_snpqf_links(self):
+        self.driver.find_element_by_link_text("SNP Query Form")
+        assert "No results found" not in self.driver.page_source
 
+    def test_snpdetail_links(self):
+        self.driver.find_element_by_link_text("rs51119329")
+        assert "No results found" not in self.driver.page_source
+
+    def test_snpsummary_links(self):
+        self.driver.find_element_by_link_text("Query by Fmr1")
+        assert "No results found" not in self.driver.page_source
+
+    def test_snpsummarymarker_links(self):
+        self.driver.find_element_by_link_text("Fmr1")
+        assert "No results found" not in self.driver.page_source
+
+    def test_polymorphsummrker_links(self):
+        self.driver.find_element_by_link_text("Summary for Trp53")
+        assert "No results found" not in self.driver.page_source
+
+    def test_polymorphdetail_links(self):
+        self.driver.find_element_by_link_text("RFLP Summary for Trp53")
+        assert "No results found" not in self.driver.page_source
+        
+#Miscellaneous    
     def test_accreport1_links(self):
         self.driver.find_element_by_link_text("ID=36030")
         assert "No results found" not in self.driver.page_source
@@ -317,70 +459,7 @@ class TestMarkerDetailLinks(unittest.TestCase):
         self.driver.find_element_by_link_text("Boolean")
         assert "No results found" not in self.driver.page_source
 
-    def test_markergograph_links(self):
-        self.driver.find_element_by_link_text("Graph for Kit")
-        assert "No results found" not in self.driver.page_source
-
-    def test_snpqf_links(self):
-        self.driver.find_element_by_link_text("SNP Query Form")
-        assert "No results found" not in self.driver.page_source
-
-    def test_snpdetail_links(self):
-        self.driver.find_element_by_link_text("rs51119329")
-        assert "No results found" not in self.driver.page_source
-
-    def test_mappingsummrker_links(self):
-        self.driver.find_element_by_link_text("Sry")
-        assert "No results found" not in self.driver.page_source
-
-    def test_mappingsumref_links(self):
-        self.driver.find_element_by_link_text("J:2945")
-        assert "No results found" not in self.driver.page_source
-
-    def test_mapdetailcross_links(self):
-        self.driver.find_element_by_link_text("Cross")
-        assert "No results found" not in self.driver.page_source
-
-    def test_mapdetailri_links(self):
-        self.driver.find_element_by_link_text("RI")
-        assert "No results found" not in self.driver.page_source
-
-    def test_mapdetailtext_links(self):
-        self.driver.find_element_by_link_text("TEXT")
-        assert "No results found" not in self.driver.page_source
-
-    def test_mapdetailtextgenetic_links(self):
-        self.driver.find_element_by_link_text("TEXT-Genetic Cross")
-        assert "No results found" not in self.driver.page_source
-#This test is obsolete
-#    def test_linkagemap_links(self):
-#        self.driver.find_element_by_link_text("Pax2")
-#        assert "No results found" not in self.driver.page_source
-
-    def test_gobrowser_links(self):
-        self.driver.find_element_by_link_text("GO Browser Form")
-        assert "No results found" not in self.driver.page_source
-
-    def test_goresults_links(self):
-        self.driver.find_element_by_link_text("Query results for Motility")
-        assert "No results found" not in self.driver.page_source
-
-    def test_gotermdetail_links(self):
-        self.driver.find_element_by_link_text("gastric motility")
-        assert "No results found" not in self.driver.page_source
-
-    def test_mpbrowser_links(self):
-        self.driver.find_element_by_link_text("MP Browser Form")
-        assert "No results found" not in self.driver.page_source
-
-    def test_mpresults_links(self):
-        self.driver.find_element_by_link_text("Query results for Albino")
-        assert "No results found" not in self.driver.page_source
-
-    def test_mptermdetail_links(self):
-        self.driver.find_element_by_link_text("Absent coat pigmentation")
-        assert "No results found" not in self.driver.page_source
-
+#Python WI
     def test_knockoutsum_links(self):
         self.driver.find_element_by_link_text("Knockout Summary")
         assert "No results found" not in self.driver.page_source
@@ -405,40 +484,34 @@ class TestMarkerDetailLinks(unittest.TestCase):
         self.driver.find_element_by_link_text("About the Deltagen Download")
         assert "No results found" not in self.driver.page_source
 
-    def test_polymorphsummrker_links(self):
-        self.driver.find_element_by_link_text("Summary for Trp53")
+    def test_Festing_links(self):
+        self.driver.find_element_by_link_text("Festing Menu Page")
+        assert "No results found" not in self.driver.page_source
+        
+#Quick Search
+    def test_quicksearch_links(self):  # returns all buckets
+        self.driver.find_element_by_link_text("Search for curly whiskers")
         assert "No results found" not in self.driver.page_source
 
-    def test_polymorphdetail_links(self):
-        self.driver.find_element_by_link_text("RFLP Detail")
+    def test_quicksearch100mrk_links(self):  # returns the first 100 results for the marker/allele bucket
+        self.driver.find_element_by_link_text("first 100 results for curly whiskers")
         assert "No results found" not in self.driver.page_source
 
-    def test_prbsummrker_links(self):
-        self.driver.find_element_by_link_text("probes Oxt")
+    def test_quicksearch100voc_links(self):  # returns the first 100 results for the vocabulary bucket
+        self.driver.find_element_by_link_text("first 100 results for tail")
         assert "No results found" not in self.driver.page_source
 
-    def test_prbsumref_links(self):
-        self.driver.find_element_by_link_text("J:2945")
+    def test_quicksearchallmatches_links(self):  # all matches for a marker/allele
+        self.driver.find_element_by_partial_link_text("Eny2")
+        assert "No results found" not in self.driver.page_source
+        
+#MGI home
+    def test_mgistats_links(self):
+        self.driver.find_element_by_link_text("MGI Stats page")
         assert "No results found" not in self.driver.page_source
 
-    def test_prbdetail_links(self):
-        self.driver.find_element_by_link_text("MGI:901759")
-        assert "No results found" not in self.driver.page_source
-
-    def test_cdnasummrker_links(self):
-        self.driver.find_element_by_link_text("cDNA Oxt")
-        assert "No results found" not in self.driver.page_source
-
-    #def test_adbrowser_links(self):
-    #    self.driver.find_element_by_link_text("AD Browser Form")
-    #    assert "No results found" not in self.driver.page_source
-
-    def test_amabrowserresults_links(self):
-        self.driver.find_element_by_link_text("Query results for Brain")
-        assert "No results found" not in self.driver.page_source
-
-    def test_amatermdetail_links(self):
-        self.driver.find_element_by_link_text("Forebrain")
+    def test_inputwelcomepage_links(self):  # Displays the Your Input Welcome form for Pax6
+        self.driver.find_element_by_link_text("Your Input Welcome for Pax6")
         assert "No results found" not in self.driver.page_source
 
     def test_allsearchtoolpage_links(self):
@@ -460,31 +533,8 @@ class TestMarkerDetailLinks(unittest.TestCase):
     def test_submitdatapage_links(self):
         self.driver.find_element_by_link_text("Submit Data")
         assert "No results found" not in self.driver.page_source
-
-    def test_quicksearch_links(self):  # returns all buckets
-        self.driver.find_element_by_link_text("Search for curly whiskers")
-        assert "No results found" not in self.driver.page_source
-
-    def test_quicksearch100mrk_links(self):  # returns the first 100 results for the marker/allele bucket
-        self.driver.find_element_by_link_text("first 100 results for curly whiskers")
-        assert "No results found" not in self.driver.page_source
-
-    def test_quicksearch100voc_links(self):  # returns the first 100 results for the vocabulary bucket
-        self.driver.find_element_by_link_text("first 100 results for tail")
-        assert "No results found" not in self.driver.page_source
-
-    def test_quicksearchallmatches_links(self):  # all matches for a marker/allele
-        self.driver.find_element_by_partial_link_text("Eny2")
-        assert "No results found" not in self.driver.page_source
-
-    def test_mgistatspage_links(self):  # displays the MGI stats page
-        self.driver.find_element_by_link_text("MGI Stats page")
-        assert "No results found" not in self.driver.page_source
-
-    def test_inputwelcomepage_links(self):  # Displays the Your Input Welcome form for Pax6
-        self.driver.find_element_by_link_text("Your Input Welcome for Pax6")
-        assert "No results found" not in self.driver.page_source
-
+        
+#SeqFetch
     def test_fasta_links(self):  # tests a FASTA sequence gets returned
         self.driver.find_element_by_link_text("OTTMUST00000035645")
         assert "No results found" not in self.driver.page_source
