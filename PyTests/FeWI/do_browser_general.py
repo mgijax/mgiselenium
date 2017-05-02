@@ -51,7 +51,7 @@ class TestDoBrowserGeneral(unittest.TestCase):
         alt_id = self.driver.find_element_by_id('diseaseSecondaryIDs')#identifies the alternate IDs line of the header section of the DO Browser page
         print alt_id.text
         time.sleep(1)
-        self.assertEqual(alt_id.text, "OMIM:168600, OMIM:260300, OMIM:300557, OMIM:556500, OMIM:602404, OMIM:605543, OMIM:606324, OMIM:606852, OMIM:607060, OMIM:607688, OMIM:610297, OMIM:612953, OMIM:613164, OMIM:613643, OMIM:614203, OMIM:614251, OMIM:615528, OMIM:615530, EFO:0002508, ICD10CM:G20, ICD9CM:332, ICD9CM:332.0, KEGG:05012, MESH:D010300, NCI:C26845, ORDO:2828, UMLS_CUI:C0030567")
+        self.assertEqual(alt_id.text, "OMIM:168600, OMIM:300557, OMIM:556500, OMIM:602404, OMIM:606852, OMIM:607688, OMIM:610297, OMIM:613164, OMIM:613643, OMIM:614251, EFO:0002508, ICD10CM:G20, ICD9CM:332, ICD9CM:332.0, KEGG:05012, MESH:D010300, NCI:C26845, ORDO:2828, UMLS_CUI:C0030567")
 
         #locates and verifies the definition
         definition = self.driver.find_element_by_id('diseaseDefinition')#identifies the Definition line of the header section of the DO Browser page
@@ -81,7 +81,7 @@ class TestDoBrowserGeneral(unittest.TestCase):
         alt_id = self.driver.find_element_by_id('diseaseSecondaryIDs')#identifies the alternate IDs line of the header section of the DO Browser page
         print alt_id.text
         time.sleep(1)
-        self.assertEqual(alt_id.text, "OMIM:168600, OMIM:260300, OMIM:300557, OMIM:556500, OMIM:602404, OMIM:605543, OMIM:606324, OMIM:606852, OMIM:607060, OMIM:607688, OMIM:610297, OMIM:612953, OMIM:613164, OMIM:613643, OMIM:614203, OMIM:614251, OMIM:615528, OMIM:615530, EFO:0002508, ICD10CM:G20, ICD9CM:332, ICD9CM:332.0, KEGG:05012, MESH:D010300, NCI:C26845, ORDO:2828, UMLS_CUI:C0030567")
+        self.assertEqual(alt_id.text, "OMIM:168600, OMIM:300557, OMIM:556500, OMIM:602404, OMIM:606852, OMIM:607688, OMIM:610297, OMIM:613164, OMIM:613643, OMIM:614251, EFO:0002508, ICD10CM:G20, ICD9CM:332, ICD9CM:332.0, KEGG:05012, MESH:D010300, NCI:C26845, ORDO:2828, UMLS_CUI:C0030567")
         self.driver.find_element_by_link_text('OMIM:168600').click()
         time.sleep(1)
         self.driver.switch_to_window(self.driver.window_handles[-1])

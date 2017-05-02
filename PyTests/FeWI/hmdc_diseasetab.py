@@ -94,7 +94,7 @@ class TestDiseaseTab(unittest.TestCase):
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
-            if option.text == 'Phenotype or Disease Name':
+            if option.text == 'Disease or Phenotype Name':
                 option.click()
                 break
         
@@ -125,7 +125,7 @@ class TestDiseaseTab(unittest.TestCase):
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
-            if option.text == 'Phenotype or Disease ID(s)':
+            if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
         
