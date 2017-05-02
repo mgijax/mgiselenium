@@ -94,7 +94,7 @@ class TestSnpBuild(unittest.TestCase):
         #print [x.text for x in pulldown]
         searchTextItems = iterate.getTextAsList(pulldown)
         #verifies all the items listed in the pulldown are correct and in order
-        self.assertEqual(searchTextItems, ['Please select a field', 'Gene Symbol(s) or ID(s)','Gene Name','Phenotype or Disease Name', 'Phenotype or Disease ID(s)', 'Genome Location', 'Gene File Upload'])
+        self.assertEqual(searchTextItems, ['Please select a field', 'Gene Symbol(s) or ID(s)','Gene Name','Disease or Phenotype Name', 'Disease or Phenotype ID(s)', 'Genome Location', 'Gene File Upload'])
         #click the Genome Location option
         pulldown[5].click()
         #self.assertIn("Genome Location", pulldown[3].Text)
