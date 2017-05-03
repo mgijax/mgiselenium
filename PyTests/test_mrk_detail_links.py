@@ -149,11 +149,11 @@ class TestMarkerDetailLinks(unittest.TestCase):
         assert "No results found" not in self.driver.page_source
         
     def test_phenoimagedetail2_links(self):
-        self.driver.find_element_by_link_text("Pheno Image for agouti yellow")
+        self.driver.find_element_by_link_text("Pheno Image agouti yellow")
         assert "No results found" not in self.driver.page_source
 
     def test_phenoimageallele_links(self):
-        self.driver.find_element_by_partial_link_text("Pheno Image DNaic 1 allele (CvDC example)")
+        self.driver.find_element_by_link_text("Pheno Image Dnaic1 allele (CvDC example)")
         assert "No results found" not in self.driver.page_source
         
     def test_phenodetailgeno1_links(self):
@@ -428,7 +428,7 @@ class TestMarkerDetailLinks(unittest.TestCase):
         assert "No results found" not in self.driver.page_source
 
     def test_snpsummary_links(self):
-        self.driver.find_element_by_link_text("Query by Fmr1")
+        self.driver.find_element_by_link_text("query by Fmr1")
         assert "No results found" not in self.driver.page_source
 
     def test_snpsummarymarker_links(self):
