@@ -468,7 +468,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         self.assertEqual(row2.text, 'keratoconus Vsx1tm2Mci/Vsx1tm2Mci either: (involves: 129S1/Sv * 129S1/SvImJ * 129X1/SvJ) or (involves: 129S1/Sv * 129X1/SvJ * Black Swiss) J:88182 View')
         
         def tearDown(self):
-            self.driver.close()
+            self.driver.quit()
         '''
         def suite():
             suite = unittest.TestSuite()
