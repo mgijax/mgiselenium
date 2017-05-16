@@ -78,6 +78,7 @@ class TestGeneTab(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         print gene_tab.text
+        time.sleep(2)
         self.assertEqual(gene_tab.text, "Genes (6)", "Genes tab is not visible!")
         gene_tab.click()
         gene_table = Table(self.driver.find_element_by_id("geneTable"))
@@ -115,6 +116,7 @@ class TestGeneTab(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         print gene_tab.text
+        time.sleep(2)
         self.assertEqual(gene_tab.text, "Genes (1)", "Genes tab is not visible!")
         gene_tab.click()
         gene_table = Table(self.driver.find_element_by_id("geneTable"))
@@ -141,6 +143,7 @@ class TestGeneTab(unittest.TestCase):
         wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        time.sleep(2)
         self.assertEqual(gene_tab.text, "Genes (6)", "Genes tab is not visible!")
         gene_tab.click()
         gene_table = Table(self.driver.find_element_by_id("geneTable"))

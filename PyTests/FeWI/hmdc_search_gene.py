@@ -48,7 +48,7 @@ class TestGenesSearch(unittest.TestCase):
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         print grid_tab.text
         time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (4 x 24)", "Grid tab is not visible!")
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (4 x 25)", "Grid tab is not visible!")
         grid_tab.click()
         human_header = self.driver.find_element_by_class_name('hgHeader')
         self.assertEqual(human_header.text, 'Human Gene', 'The human gene header is missing')
@@ -73,6 +73,7 @@ class TestGenesSearch(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         print grid_tab.text
+        time.sleep(2)
         self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (1 x 13)", "Grid tab is not visible!")
         grid_tab.click()
         
@@ -110,6 +111,7 @@ class TestGenesSearch(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         print grid_tab.text
+        time.sleep(2)
         self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (8 x 17)", "Grid tab is not visible!")
         grid_tab.click()
         
@@ -161,6 +163,7 @@ class TestGenesSearch(unittest.TestCase):
         wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        time.sleep(2)
         self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (1 x 6)", "Grid tab is not visible!")
         grid_tab.click()
         
@@ -208,6 +211,7 @@ class TestGenesSearch(unittest.TestCase):
         wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        time.sleep(2)
         self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (2 x 5)", "Grid tab is not visible!")
         grid_tab.click()
         
@@ -255,6 +259,7 @@ class TestGenesSearch(unittest.TestCase):
         wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        time.sleep(2)
         self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (4 x 26)", "Grid tab is not visible!")
         grid_tab.click()
         
@@ -309,6 +314,7 @@ class TestGenesSearch(unittest.TestCase):
         wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        time.sleep(2)
         self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (4 x 28)", "Grid tab is not visible!")
         grid_tab.click()
         
@@ -333,7 +339,7 @@ class TestGenesSearch(unittest.TestCase):
         disease2 = cells[30]
         #asserts that the correct diseases(at angle) display in the correct order
         self.assertEqual(disease1.text, 'autosomal genetic disease')
-        self.assertEqual(disease2.text, 'gastrointestinal system cancer')
+        self.assertEqual(disease2.text, 'gastrointestinal system disease')
         #identify the Genes tab and verify the tab's text
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         print gene_tab.text
@@ -354,8 +360,8 @@ class TestGenesSearch(unittest.TestCase):
         gene7 = cells[7]
         #asserts that the correct genes in the correct order are returned
         self.assertEqual(gene1.text, 'Gt(ROSA)26Sor')
-        self.assertEqual(gene2.text, 'KIT')
-        self.assertEqual(gene3.text, 'Kit')
+        self.assertEqual(gene2.text, 'Kit')
+        self.assertEqual(gene3.text, 'KIT')
         self.assertEqual(gene4.text, 'Tg(Kit*D814V)1Roer')
         self.assertEqual(gene5.text, 'Tg(Kit*D814V)2Roer')
         self.assertEqual(gene6.text, 'Tg(Kit*D814V)3Roer')
@@ -380,6 +386,7 @@ class TestGenesSearch(unittest.TestCase):
         wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        time.sleep(2)
         self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (2 x 22)", "Grid tab is not visible!")
         grid_tab.click()
         hgenes = self.driver.find_element_by_css_selector("td.ngc.left.middle.cell.first")
@@ -441,6 +448,7 @@ class TestGenesSearch(unittest.TestCase):
         wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        time.sleep(2)
         self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (0 x 0)", "Grid tab is not visible!")
         grid_tab.click()
         
@@ -477,6 +485,7 @@ class TestGenesSearch(unittest.TestCase):
         wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        time.sleep(2)
         self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (1 x 6)", "Grid tab is not visible!")
         grid_tab.click()
         
@@ -522,6 +531,7 @@ class TestGenesSearch(unittest.TestCase):
         wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        time.sleep(2)
         self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (4 x 26)", "Grid tab is not visible!")
         grid_tab.click()
         hgenes = self.driver.find_element_by_css_selector("td.ngc.left.middle.cell.first")
@@ -571,6 +581,7 @@ class TestGenesSearch(unittest.TestCase):
         wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        time.sleep(2)
         self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (0 x 0)", "Grid tab is not visible!")
         grid_tab.click()
         #identify the Genes tab and verify the tab's text
@@ -604,6 +615,7 @@ class TestGenesSearch(unittest.TestCase):
         wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        time.sleep(2)
         self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (3 x 16)", "Grid tab is not visible!")
         grid_tab.click()
         #identify the Genes tab and verify the tab's text
@@ -641,6 +653,7 @@ class TestGenesSearch(unittest.TestCase):
         wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        time.sleep(2)
         self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (3 x 29)", "Grid tab is not visible!")
         grid_tab.click()
         hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
@@ -700,6 +713,7 @@ class TestGenesSearch(unittest.TestCase):
         wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        time.sleep(2)
         self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (1 x 1)", "Grid tab is not visible!")
         grid_tab.click()
         
@@ -736,7 +750,7 @@ class TestGenesSearch(unittest.TestCase):
         ref1 = cells2[1]
         ref2 = cells2[2]
         #asserts that the References in MGI column displays a Disease Relevant link since the is a NOT disease
-        self.assertEqual(ref1.text, 'All Mouse: 39\nDisease Relevant: 1')
+        self.assertEqual(ref1.text, 'All Mouse: 38\nDisease Relevant: 1')
         self.assertEqual(ref2.text, '')
 
     def test_gene_name_gtrosa(self):
@@ -756,6 +770,7 @@ class TestGenesSearch(unittest.TestCase):
         wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        time.sleep(2)
         self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (5 x 10)", "Grid tab is not visible!")
         grid_tab.click()
         
@@ -804,6 +819,7 @@ class TestGenesSearch(unittest.TestCase):
         wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        time.sleep(2)
         self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (9 x 27)", "Grid tab is not visible!")
         grid_tab.click()
         hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
@@ -874,7 +890,8 @@ class TestGenesSearch(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         print grid_tab.text
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (4 x 24)", "Grid tab is not visible!")
+        time.sleep(2)
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (4 x 25)", "Grid tab is not visible!")
         grid_tab.click()
         #firstcell captures all the table data blocks of phenotypes on the first row of data
         phenocells = self.driver.find_elements_by_css_selector("td.ngc.center.cell.middle")
