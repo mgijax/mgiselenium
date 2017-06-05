@@ -33,7 +33,7 @@ class TestGenesSearch(unittest.TestCase):
     def test_index_tab_headers(self):
         '''
         @status this test verifies the headings on the Gene Homologs x Phenotypes/Diseases tab( or Index tab) are correct and in the correct order.
-        
+        @see: HMDC-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -58,7 +58,7 @@ class TestGenesSearch(unittest.TestCase):
     def test_gene_symbol(self):
         '''
         @status this test verifies the correct results are returned when searching by a gene symbol with both mouse and human phenotypes.
-        
+        @see: HMDC-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -97,6 +97,7 @@ class TestGenesSearch(unittest.TestCase):
         '''
         @status this test verifies the correct results are returned when searching by a gene symbol with multiple human genes.
         Search returning 8/21/4 instead of expected 6/20/4. This includes genes (Smg6 & Grm7) that are being returned by Expressed Components that do not pass the roll-up rules.(known issue)
+        @see: HMDC-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -150,6 +151,7 @@ class TestGenesSearch(unittest.TestCase):
     def test_gene_symbol_nodiseases(self):
         '''
         @status this test verifies the correct genes are returned for this query, both human and mouse. The results will have phenotypes but no diseases
+        @see: HMDC-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -198,6 +200,7 @@ class TestGenesSearch(unittest.TestCase):
         '''
         @status this test verifies the correct genes are returned for this query, both human and mouse. The results will have phenotypes and 1 disease
         This test is unique, 2 rows returned (via homology union). Human annotations on proper row not in Tomt row.
+        @see: HMDC-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -246,6 +249,7 @@ class TestGenesSearch(unittest.TestCase):
         '''
         @status this test verifies the correct genes are returned for this query, both human and mouse. The results will have phenotypes and diseases
         This test is a standard gene name search result.
+        @see: HMDC-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -300,7 +304,8 @@ class TestGenesSearch(unittest.TestCase):
         @status this test verifies the correct genes are returned for this query, both human and mouse. The is one of 2 tests
         because the results are different if you search by gene symbols/IDs or by 
         Gene Name. This test is for searching by gene symbol or ID. Treated as a list by Gene ID/Symbol query and returns matches 
-        to Kit results=4/7/2. Note: returns Gt(ROSA) in Genes tab due to a bug with EC return. (known Issue)
+        to Kit results=4/7/3. Note: returns Gt(ROSA) in Genes tab due to a bug with EC return. (known Issue)
+        @see: HMDC-
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -315,7 +320,7 @@ class TestGenesSearch(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (4 x 28)", "Grid tab is not visible!")
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (4 x 29)", "Grid tab is not visible!")
         grid_tab.click()
         
         hgenes = self.driver.find_element_by_css_selector("td.ngc.left.middle.cell.first")
@@ -337,9 +342,11 @@ class TestGenesSearch(unittest.TestCase):
         #displays each row of phenotype/disease data
         disease1 = cells[29]
         disease2 = cells[30]
+        disease3 = cells[31]
         #asserts that the correct diseases(at angle) display in the correct order
         self.assertEqual(disease1.text, 'autosomal genetic disease')
         self.assertEqual(disease2.text, 'gastrointestinal system disease')
+        self.assertEqual(disease3.text, 'hematopoietic system disease')
         #identify the Genes tab and verify the tab's text
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         print gene_tab.text
@@ -373,6 +380,7 @@ class TestGenesSearch(unittest.TestCase):
         because the results are different if you search by gene symbols/IDs or by 
         Gene Name. This test is for searching by gene name. The Gene Name query returns the KITL/Kitl row and transgenes with
         EC of Kitl (as expected)
+        @see: HMDC-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -435,6 +443,7 @@ class TestGenesSearch(unittest.TestCase):
     def test_gene_symbol_only_genes(self):
         '''
         @status this test verifies the correct genes are returned for this query, The symbol is unique because it has no grid or diseases, only genes.
+        @see: HMDC-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -472,6 +481,7 @@ class TestGenesSearch(unittest.TestCase):
     def test_gene_name_no_disease(self):
         '''
         @status this test verifies the correct genes are returned for this query, both human and mouse. The results will have phenotypes and genes, no diseases!
+        @see: HMDC-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -518,6 +528,7 @@ class TestGenesSearch(unittest.TestCase):
         '''
         @status this test verifies the correct genes are returned for this query, both human and mouse. 
         This test is a multi token synonym search, matches by gene name, but not by gene symbol.
+        @see: HMDC-
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -568,6 +579,7 @@ class TestGenesSearch(unittest.TestCase):
     def test_gene_syn_only_genestab(self):
         '''
         @status this test verifies the correct genes are returned for this query, A synonym match, it has no grid or diseases, only genes.
+        @see: HMDC-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -602,6 +614,7 @@ class TestGenesSearch(unittest.TestCase):
     def test_gene_syn_no_diseasestab(self):
         '''
         @status this test verifies the correct genes are returned for this query, A synonym match, it has a grid and genes, no diseases.
+        @see: HMDC-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -640,6 +653,7 @@ class TestGenesSearch(unittest.TestCase):
     def test_gene_name_superscript(self):
         '''
         @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by gene name when the name contains superscript.
+        @see: HMDC-GQ-49?
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -700,6 +714,7 @@ class TestGenesSearch(unittest.TestCase):
     def test_gene_name_not_disease(self):
         '''
         @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by gene name when the result has a NOT disease.
+        @see: HMDC-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -757,6 +772,7 @@ class TestGenesSearch(unittest.TestCase):
         '''
         @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  gene name when results would have the Gt(ROSA)26Sor,
         Gt(ROSA)26Sor should not display on the grid(Gt(Rosa) transgenes are fine to display on the grid) but is fine displaying in the Genes tab.
+        @see: HMDC-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -806,6 +822,7 @@ class TestGenesSearch(unittest.TestCase):
         '''
         @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by gene name when grid 
         returns synonym to a mouse in a multi-gene homology class(C4A, C4B)
+        @see: HMDC-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -876,6 +893,7 @@ class TestGenesSearch(unittest.TestCase):
         '''
         @status this test verifies the correct genotypes are returned when clicking on a particular phenotype cell.
         under construction!, does not test the genotype popup yet other than the page heading
+        @see: HMDC-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):

@@ -30,6 +30,7 @@ class TestHmdcIndex(unittest.TestCase):
     def test_index_tab_headers(self):
         '''
         @status this test verifies the headings on the Gene Homologs x Phenotypes/Diseases tab( or Index tab) are correct and in the correct order.
+        @see: HMDC-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -54,6 +55,7 @@ class TestHmdcIndex(unittest.TestCase):
     def test_index_tab_diseases(self):
         '''
         @status this test verifies the correct diseases are returned for this query.
+        @see: HMDC-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -86,6 +88,7 @@ class TestHmdcIndex(unittest.TestCase):
     def test_index_tab_genes(self):
         '''
         @status this test verifies the correct genes are returned for this query, both human and mouse.
+        @see: HMDC-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -117,6 +120,7 @@ class TestHmdcIndex(unittest.TestCase):
     def test_index_tab_genes_Unique_symbol(self):
         '''
         @status this test verifies the correct genes are returned for this query, The symbol used has several unusual characters.
+        @see: HMDC-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -143,6 +147,7 @@ class TestHmdcIndex(unittest.TestCase):
         '''
         @status this test verifies the correct genotypes are returned when clicking on a particular phenotype cell.
         In this case we are clicking the liver/biliary system box and verifying the correct Mouse Genotypes are listed in the popup
+        @see: HMDC-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):

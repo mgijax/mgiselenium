@@ -33,6 +33,7 @@ class TestHMDCAutocomplete(unittest.TestCase):
     def test_index_tab_headers(self):
         '''
         @status this test verifies the auto complete list is displaying the terms associated to the text you entered.
+        @see HMDC-DQ-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):

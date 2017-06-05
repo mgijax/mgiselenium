@@ -34,6 +34,7 @@ class TestGeneid(unittest.TestCase):
         '''
         @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
         by Gene ID using an MGI ID
+        @see: HMDC-GQ-16
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -66,6 +67,7 @@ class TestGeneid(unittest.TestCase):
         '''
         @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
         by Gene ID using an Entrez gene ID, should only  have 1 gene(AA960008), no grid or disease
+        @see: HMDC-GQ-17
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -99,6 +101,7 @@ class TestGeneid(unittest.TestCase):
         '''
         @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
         by Gene ID using an NCBI Gene Model ID
+        @see: HMDC-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -152,6 +155,7 @@ class TestGeneid(unittest.TestCase):
         '''
         @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
         by Gene ID using a Vega Gene Model ID
+        @see: HMDC-GQ-19
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -209,6 +213,7 @@ class TestGeneid(unittest.TestCase):
         '''
         @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
         by Gene ID using a swiss-prot ID
+        @see: HMDC-GQ-20
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -247,6 +252,7 @@ class TestGeneid(unittest.TestCase):
         '''
         @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  gene name when results would have the Gt(ROSA)26Sor,
         Gt(ROSA)26Sor should not display on the grid(in this case  no grid at all) but, is fine displaying in the Genes tab.
+        @see: HMDC-Grid-1
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -282,6 +288,7 @@ class TestGeneid(unittest.TestCase):
         '''
         @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
         by Gene symbol using a non-mouse marker nomenclature term with results for all 3 tabs
+        @see: HMDC-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -355,6 +362,7 @@ class TestGeneid(unittest.TestCase):
         '''
         @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
         by Gene symbol using a non-mouse marker nomenclature term with results for just the gene tab
+        @see: HMDC-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -387,6 +395,7 @@ class TestGeneid(unittest.TestCase):
         '''
         @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
         by Gene symbol using a non-mouse marker nomenclature term with results for just the grid and gene tabs
+        @see: HMDC-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -453,6 +462,7 @@ class TestGeneid(unittest.TestCase):
         '''
         @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
         by Gene symbol using a symbol that matches multiple gene homology class (ie. Smn1)
+        @see: HMDC-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -572,6 +582,7 @@ class TestGeneid(unittest.TestCase):
         '''
         @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
         by Gene symbol using a symbol that has a special character in it.(ie. -)
+        @see: HMDC-GQ-6
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -682,6 +693,7 @@ class TestGeneid(unittest.TestCase):
         '''
         @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
         by Gene symbol using a symbol that has a human symbol match and a human synonym match (Trp53, Trp53bp1)
+        @see: HMDC-GQ-3
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -733,6 +745,7 @@ class TestGeneid(unittest.TestCase):
         '''
         @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
         by Gene symbol using a symbol that is a human synonym(LFS1 is a human synonym of Trp53)
+        @see: HMDC-GQ-5
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -782,6 +795,7 @@ class TestGeneid(unittest.TestCase):
         '''
         @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
         by Gene ID for human Entrez gene(729991 is an ID for Borcs8)
+        @see: HMDC-GQ-30
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -817,6 +831,7 @@ class TestGeneid(unittest.TestCase):
         '''
         @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
         by OMIM ID(human)(191150 is associated to marker Trp53)
+        @see: HMDC-GQ-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -866,6 +881,7 @@ class TestGeneid(unittest.TestCase):
         '''
         @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
         by HGNC ID(human)(HGNC:6554 is associated to marker Lepr)
+        @see: HGNC-GQ-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -905,6 +921,7 @@ class TestGeneid(unittest.TestCase):
         '''
         @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
         by RGD ID for a rat gene(RGD:2466 is associated to marker Cyp2b10 )
+        @see: HGNC-GQ-37
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -941,6 +958,7 @@ class TestGeneid(unittest.TestCase):
         @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
         by multiple Gene symbols (Foxm1, Lep, Ins2). There are 2 issues with this test, first selenium seems unable to locate the last 4 diseases in the grid so
         they have been commented out. The order of genes on the genes tab has Human symbols first, should be Mouse symbol first.
+        @see HGNC-GQ-7
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -1105,6 +1123,7 @@ class TestGeneid(unittest.TestCase):
         @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
         by multiple Gene IDs (MGI:1347487, MGI:104663, MGI:96573). There are 2 issues with this test, first selenium seems unable to locate the last 4 diseases in the grid so
         they have been commented out. The order of genes on the genes tab has Human symbols first, should be Mouse symbol first.
+        @see: HGNC-GQ-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):

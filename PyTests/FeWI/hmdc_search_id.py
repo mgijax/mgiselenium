@@ -34,6 +34,7 @@ class TestHmdcSearchID(unittest.TestCase):
     def test_index_tab_headers(self):
         '''
         @status this test verifies the headings on the Gene Homologs x Phenotypes/Diseases tab( or Index tab) are correct and in the correct order.
+        @see: HGNC-
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -58,6 +59,7 @@ class TestHmdcSearchID(unittest.TestCase):
     def test_do_term_id(self):
         '''
         @status this test verifies the correct diseases are returned for this query. This term has both DO, MP and HP results
+        @see: HDMC-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -89,6 +91,7 @@ class TestHmdcSearchID(unittest.TestCase):
     def test_mp_term_id(self):
         '''
         @status this test verifies the correct diseases are returned for this query, should return the MP term using an MP ID.
+        @see: HDMC-PQ-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -125,6 +128,7 @@ class TestHmdcSearchID(unittest.TestCase):
     def test_mp_term_altid(self):
         '''
         @status this test verifies the correct diseases are returned for this query, should return the MP term using an alternate ID.
+        @see: HDMC-PQ-18
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -207,6 +211,7 @@ class TestHmdcSearchID(unittest.TestCase):
         '''
         @status this test verifies the correct phenotypes are returned for this query. Should return the HP term
         This test verifies the phenotypes displayed at an angle in correct sort order.
+        @see: HDMC-PQ-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -250,7 +255,8 @@ class TestHmdcSearchID(unittest.TestCase):
     def test_do_term_xref_id(self):
         '''
         @status this test verifies the correct diseases are returned for this query. This is an alternate ID search 
-        This test verifies the correct diseases are displayed on an agle in correct sort order.
+        This test verifies the correct diseases are displayed on an angle in correct sort order.
+        @see: HMDC-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -283,7 +289,7 @@ class TestHmdcSearchID(unittest.TestCase):
     def test_mp_term_multi_id(self):
         '''
         @status this test verifies the correct genes are returned for this query, should return multiple MP terms results.
-        
+        @see: HDMC-PQ-21?
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -332,6 +338,7 @@ class TestHmdcSearchID(unittest.TestCase):
         '''
         @status this test verifies the correct phenotypess are returned for this query. Should return multiple HP terms
         This test verifies the correct phenotypes return at an angle in the correct sort order.
+        @see: HDMC-PQ-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -369,6 +376,7 @@ class TestHmdcSearchID(unittest.TestCase):
         '''
         @status this test verifies the correct diseases are returned for this query, should return data for multiple terms with a mix of HP, MP, and DO terms.
         This test uses an HP and an MP term, The HP term is  connected to markers DIAPH3 and OTOF.
+        @see: HDMC-PQ-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -427,6 +435,7 @@ class TestHmdcSearchID(unittest.TestCase):
         '''
         @status this test verifies the correct diseases are returned for this query down the dag.
         This test verifies the disease listed on the grid and then switches to the disease tab and verifies the 3 diseases listed there.
+        @see: HDMC-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):

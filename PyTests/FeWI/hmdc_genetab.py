@@ -33,6 +33,7 @@ class TestGeneTab(unittest.TestCase):
     def test_genes_tab_headers(self):
         '''
         @status this test verifies all the table headers on the genes tab are correct and in the correct order.
+        @see HMDC-genetab-1
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -63,7 +64,8 @@ class TestGeneTab(unittest.TestCase):
         
     def test_genes_tab_genes(self):
         '''
-        @status this test verifies the correct genes are returned for this query.
+        @status this test verifies the correct genes are returned for a gene symbol query.
+        @see HMDC-QC-1 ??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -102,6 +104,7 @@ class TestGeneTab(unittest.TestCase):
     def test_uniquegenes_tab_genes(self):
         '''
         @status this test verifies the correct genes are returned for this query, in particular genes with special characters in their symbol.
+        @see HMDC-GQ-2
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -130,6 +133,7 @@ class TestGeneTab(unittest.TestCase):
     def test_genes_tab_diseases(self):
         '''
         @status this test verifies the correct diseases are returned for this query.
+        @attention: combine with test_genes_tab_genes test??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):

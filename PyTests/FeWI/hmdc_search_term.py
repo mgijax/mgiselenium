@@ -6,6 +6,7 @@ These tests should cover searching by different terms and verify the results
 
 import unittest
 import time
+import requests
 from selenium import webdriver
 
 from selenium.webdriver.support.ui import Select
@@ -34,7 +35,7 @@ class TestSearchTerm(unittest.TestCase):
     def test_index_tab_headers(self):
         '''
         @status this test verifies the headings on the Gene Homologs x Phenotypes/Diseases tab( or Index tab) are correct and in the correct order.
-        
+        @see: HMDC-
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -61,6 +62,7 @@ class TestSearchTerm(unittest.TestCase):
         '''
         @status this test verifies the correct diseases are returned for this query. This term should
         only bring back the disease inherited metabolic disorder which is connected to disease mucosulfatidosis
+        @see: HMDC-DQ-1?
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -91,6 +93,7 @@ class TestSearchTerm(unittest.TestCase):
         '''
         @status this test verifies the correct diseases are returned for this query, should return the MP term.
         This test is verifying the correct human and mouse genes are returned.
+        @see: HMDC-PQ-1?
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -172,6 +175,7 @@ class TestSearchTerm(unittest.TestCase):
         '''
         @status this test verifies the correct diseases are returned for this query. Should return the HP term
         This test is verifying the correct phenotypes are coming back on the grid tab.
+        @see: HMDC-PQ-7?
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -195,9 +199,6 @@ class TestSearchTerm(unittest.TestCase):
         
         searchTermItems = iterate.getTextAsList(phenocells)
         print searchTermItems #if you want to see what it captures uncomment this
-        
-        
-        
         #asserts that the correct diseases(at angle) display in the correct order
         self.assertEqual(searchTermItems[2], 'behavior/neurological')
         self.assertEqual(searchTermItems[3], 'cardiovascular system')
@@ -228,6 +229,7 @@ class TestSearchTerm(unittest.TestCase):
         '''
         @status this test verifies the correct diseases are returned for this query. This is a synonym term 
         This test verifies the diseases on the grid tab and then verifies the diseases on the disease tab.
+        @see: HMDC-DQ-2?
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -282,6 +284,7 @@ class TestSearchTerm(unittest.TestCase):
         '''
         @status this test verifies the correct diseases are returned for this query, should return the MP synonym term.
         This test verifies the mouse genes returned on the grid tab and then goes to the disease tab to verify the diseases.
+        @see: HMDC-PQ-2?
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -341,6 +344,7 @@ class TestSearchTerm(unittest.TestCase):
         '''
         @status this test verifies the correct diseases are returned for this query. Should return the HP synonym term
         This test verifies the diseases on the grid tab and then on the disease tab
+        @see: HMDC-PQ-8?
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -432,6 +436,7 @@ class TestSearchTerm(unittest.TestCase):
         '''
         @status this test verifies the correct diseases are returned for this query down the dag.
         This test verifies that the diseases on the grid tab and on the diseases tab are correct and sorted correctly
+        @see: HMDC-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -565,6 +570,7 @@ class TestSearchTerm(unittest.TestCase):
         '''
         @status this test verifies that normal model genes are returned for this query, should return the genes Magel2, Mest, Peg3, Snord116 and Snrpn which have
         Normal models.
+        @see: HMDC-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -605,6 +611,7 @@ class TestSearchTerm(unittest.TestCase):
         '''
         @status this test verifies that genes with a simple homozygous genotype annotated to an MP term are returned for this query. 
         Should return the gene Aars to verify
+        @see: HMDC-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -636,6 +643,7 @@ class TestSearchTerm(unittest.TestCase):
         '''
         @status this test verifies that genes with a simple hemizygous genotype annotated to an MP term are returned for this query. 
         Should return the gene Tg(Camk2a-tTA)1Mmay to verify
+        @see: HMDC-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -667,6 +675,7 @@ class TestSearchTerm(unittest.TestCase):
         '''
         @status this test verifies that genes with a simple indeterminate genotype annotated to an MP term are returned for this query. 
         Should return the gene Eda to verify
+        @see: HMDC-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -698,6 +707,7 @@ class TestSearchTerm(unittest.TestCase):
         @status Simple Genotype: Conditional Recombinase: When there are only 2 markers in the genotype, the genotype is 
         conditional, and one marker's allele is "recombinase" (has a Driver note), return the non-recombinase marker for 
         the disease. Do NOT return the recombinase marker.
+        @see: HMDC-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -734,6 +744,7 @@ class TestSearchTerm(unittest.TestCase):
         the disease. Do NOT return the recombinase marker.
         (Genotype MGI:5314535 has Hesx1 recombinase and Ctnnb1 alleles, but is not Conditional, so whole genotype should 
         be excluded. Hesx1 comes back in due to other alleles and genotypes.) 
+        @see: HMDC-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -769,7 +780,8 @@ class TestSearchTerm(unittest.TestCase):
         @status Simple Genotype: Conditional Recombinase: When there are only 2 markers in the genotype, the genotype is 
         conditional, and one marker's allele is "recombinase" (has a Driver note), return the non-recombinase marker for 
         the disease. Do NOT return the recombinase marker.
-        (Genotype MGI:5304807MGI:5304807 has Kras alleles and is Conditional, but has no recombinase alleles, so it should NOT be excluded.) 
+        (Genotype MGI:5304807MGI:5304807 has Kras alleles and is Conditional, but has no recombinase alleles, so it should NOT be excluded.)
+        @see: HMDC-?? 
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -804,6 +816,7 @@ class TestSearchTerm(unittest.TestCase):
         type "Transgenic (Reporter)", return the non-Transgenic (Reporter) marker for the disease. Do NOT return 
         the Transgenic (Reporter) marker. 
         @bug: This test has a known issue that it does not capture genes past the 26th one, so 27th item is not found!!!
+        @see: HMDC-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -839,6 +852,7 @@ class TestSearchTerm(unittest.TestCase):
         @status Large, Complex Genotypes: A marker is not returned for a disease if it participates only in genotypes having 3 markers (3 allele "pairs") that do 
         not meet the "Conditional + Reporter" or "Tet-Induced Conditional" rules above. 
         @bug having problems collecting the genes after row 26, no answer to this issue as of yet
+        @see: HMDC-??
         '''
         #self.setUpPost("gridQuery")
         
@@ -860,9 +874,17 @@ class TestSearchTerm(unittest.TestCase):
         #identify the Grid tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (278 x 43)", "Grid tab is not visible!")
-        time.sleep(2)
+        #self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (278 x 43)", "Grid tab is not visible!")
+        time.sleep(5)
         grid_tab.click()
+        
+       
+        payload = {"operator":"AND","queries":[{"field":"tsDtext","condition":{"parameters":[],"input":"dermatitis"}}]}
+        diseaseresult = requests.post('http://www.informatics.jax.org/diseasePortal/gridQuery', json=payload)
+        #print(diseaseresult.json())
+        data = diseaseresult.json()
+        print data['gridDiseaseHeaders']
+        
         mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
         searchTermItems = iterate.getTextAsList(mgenes)
         #searchTermItems.location_once_scrolled_into_view

@@ -30,6 +30,7 @@ class TestDiseaseTab(unittest.TestCase):
     def test_diseases_tab_headers(self):
         '''
         @status this test verifies the headings on the disease tab are correct and in the correct order.
+        @see HMDC-diesease-?
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -60,6 +61,7 @@ class TestDiseaseTab(unittest.TestCase):
     def test_diseases_tab_diseases(self):
         '''
         @status this test verifies the correct diseases are returned for this query. This query uses search option Gene Symbol(s) or ID(s)
+        @see HMDC-GQ-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -92,6 +94,7 @@ class TestDiseaseTab(unittest.TestCase):
     def test_diseases_tab_diseases2(self):
         '''
         @status this test verifies the correct diseases are returned for this query. This query uses search option Phenotype or Disease Name
+        @see HMDC-??-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -124,6 +127,7 @@ class TestDiseaseTab(unittest.TestCase):
         '''
         @status this test verifies the correct DO IDs are returned for this query. This query uses search option Phenotype or Disease ID(s)
         this ID  should bring back the disease Carney complex
+        @see HMDC-DQ-9
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
