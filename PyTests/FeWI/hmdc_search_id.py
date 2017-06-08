@@ -128,7 +128,7 @@ class TestHmdcSearchID(unittest.TestCase):
     def test_mp_term_altid(self):
         '''
         @status this test verifies the correct diseases are returned for this query, should return the MP term using an alternate ID.
-        @see: HDMC-PQ-18
+        @see: HMDC-PQ-18
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -289,7 +289,7 @@ class TestHmdcSearchID(unittest.TestCase):
     def test_mp_term_multi_id(self):
         '''
         @status this test verifies the correct genes are returned for this query, should return multiple MP terms results.
-        @see: HDMC-PQ-21?
+        @see: HMDC-PQ-21?
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):

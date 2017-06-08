@@ -14,7 +14,6 @@ sys.path.append(
 )
 from util import wait, iterate
 import config
-from config import PUBLIC_URL
 
 class TestEmapaBrowser(unittest.TestCase):
 
@@ -27,7 +26,7 @@ class TestEmapaBrowser(unittest.TestCase):
         In this case all 3 parent terms should be part-of
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL + "/vocab/gxd/anatomy/EMAPA:16042")
+        driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:16042")
         
         wait.forAjax(driver)
         time.sleep(1)
@@ -45,7 +44,7 @@ class TestEmapaBrowser(unittest.TestCase):
         The default sort for the tree view is smart alpha
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL + "/vocab/gxd/anatomy/EMAPA:16042")
+        driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:16042")
         
         wait.forAjax(driver)
         time.sleep(2)

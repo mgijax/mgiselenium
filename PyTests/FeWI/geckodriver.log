@@ -1,17 +1,24 @@
-1488475420933	geckodriver	INFO	Listening on 127.0.0.1:56965
-1488475422912	mozprofile::profile	INFO	Using profile path C:\Users\jeffc\AppData\Local\Temp\rust_mozprofile.UCO5POSitHQo
-1488475422915	geckodriver::marionette	INFO	Starting browser C:\Program Files\Mozilla Firefox\firefox.exe
-1488475422919	geckodriver::marionette	INFO	Connecting to Marionette on localhost:56976
-1488475423534	Marionette	INFO	Listening on port 56976
+1496926373683	geckodriver	INFO	Listening on 127.0.0.1:60652
+1496926374170	mozprofile::profile	INFO	Using profile path C:\Users\jeffc\AppData\Local\Temp\rust_mozprofile.UftAQcKmc9dq
+1496926374173	geckodriver::marionette	INFO	Starting browser C:\Program Files\Mozilla Firefox\firefox.exe with args []
+1496926374178	geckodriver::marionette	INFO	Connecting to Marionette on localhost:60656
+1496926376209	Marionette	INFO	Listening on port 60656
+[GPU 9648] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+1496926376294	Marionette	WARN	TLS certificate errors will be ignored for this session
 JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
-1488475426141	Marionette	WARN	Using deprecated data structure for setting timeouts
-[Child 3180] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
-[Child 3180] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+*************************
+A coding exception was thrown and uncaught in a Task.
+
+Full message: TypeError: NetworkError when attempting to fetch resource.
+Full stack: 
+*************************
+109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 1776] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
 e 346
--rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
-ed. Use //# instead
-JavaScript error: http://scrumdogdev.informatics.jax.org/webshare/js/jquery-1.10.2.min.js line 4 > eval, line 477: TypeError: document.getElementById(...) is null
-JavaScript warning: http://www.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+cated. Use //# instead
 JavaScript warning: http://www.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
 JavaScript warning: http://www.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
 JavaScript warning: http://www.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead

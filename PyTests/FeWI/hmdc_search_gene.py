@@ -74,7 +74,7 @@ class TestGenesSearch(unittest.TestCase):
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         print grid_tab.text
         time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (1 x 13)", "Grid tab is not visible!")
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (1 x 8)", "Grid tab is not visible!")
         grid_tab.click()
         
         hgenes = self.driver.find_element_by_css_selector("td.ngc.left.middle.cell.first")
@@ -87,8 +87,8 @@ class TestGenesSearch(unittest.TestCase):
         cells = self.driver.find_elements_by_css_selector("div.ngc.cell-content.ngc-custom-html.ng-binding.ng-scope")
         #print iterate.getTextAsList(cells) #if you want to see what it captures uncomment this
         #displays each row of disease data
-        disease1 = cells[14]
-        disease2 = cells[15]
+        disease1 = cells[9]
+        disease2 = cells[10]
         #asserts that the correct diseases(at angle) display in the correct order
         self.assertEqual(disease1.text, 'acquired metabolic disease')
         self.assertEqual(disease2.text, 'maturity-onset diabetes of the young')
@@ -201,6 +201,7 @@ class TestGenesSearch(unittest.TestCase):
         @status this test verifies the correct genes are returned for this query, both human and mouse. The results will have phenotypes and 1 disease
         This test is unique, 2 rows returned (via homology union). Human annotations on proper row not in Tomt row.
         @see: HMDC-??
+        @bug: this test is going to need a new example because Lrrc51 and Tomt are nor merged
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -215,7 +216,7 @@ class TestGenesSearch(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (2 x 5)", "Grid tab is not visible!")
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (1 x 5)", "Grid tab is not visible!")
         grid_tab.click()
         
         hgenes = self.driver.find_element_by_css_selector("td.ngc.left.middle.cell.first")
@@ -765,7 +766,7 @@ class TestGenesSearch(unittest.TestCase):
         ref1 = cells2[1]
         ref2 = cells2[2]
         #asserts that the References in MGI column displays a Disease Relevant link since the is a NOT disease
-        self.assertEqual(ref1.text, 'All Mouse: 38\nDisease Relevant: 1')
+        self.assertEqual(ref1.text, 'All Mouse: 39\nDisease Relevant: 1')
         self.assertEqual(ref2.text, '')
 
     def test_gene_name_gtrosa(self):

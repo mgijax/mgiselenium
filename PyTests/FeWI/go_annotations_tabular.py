@@ -20,8 +20,8 @@ from config import TEST_URL
 class TestGoAnnotationsPage(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Firefox() 
-
+        #self.driver = webdriver.Firefox() 
+        self.driver = webdriver.Chrome()
     def test_table_headers(self):
         """
         @status: Tests that the Gene Ontology Classifications page in Tabular view, table headers are correct
@@ -38,7 +38,7 @@ class TestGoAnnotationsPage(unittest.TestCase):
         driver.find_element_by_link_text("Ccdc40").click()
         wait.forAjax(driver)
         #Finds the All sequences link and clicks it
-        driver.find_element_by_class_name("goRibbon").find_element_by_link_text("26").click()
+        driver.find_element_by_class_name("goRibbon").find_element_by_link_text("25").click()
         wait.forAjax(driver)
         #Locates the marker header table and finds the table headings
         tabularheaderlist = driver.find_element_by_id("dynamicdata")
@@ -65,7 +65,7 @@ class TestGoAnnotationsPage(unittest.TestCase):
         driver.find_element_by_link_text("Cxcl17").click()
         wait.forAjax(driver)
         #Finds the All sequences link and clicks it
-        driver.find_element_by_class_name("goRibbon").find_element_by_link_text("9").click()
+        driver.find_element_by_class_name("goRibbon").find_element_by_link_text("16").click()
         wait.forAjax(driver)
         #finds the Type column and then iterates through all items
         contextlist = driver.find_elements_by_css_selector("td.yui-dt-col-annotationExtensions .yui-dt-liner")
@@ -73,7 +73,7 @@ class TestGoAnnotationsPage(unittest.TestCase):
         wait.forAjax(driver)
         print searchTextItems
         #asserts that the rows of Context data are in correct order and displayed correctly
-        self.assertEqual(searchTextItems, ['','','','','','','happens in lung\nhappens in larynx mucous membrane\nresults in the movement of macrophage','',''])
+        self.assertEqual(searchTextItems, [], ['','','','','','','','happens in lung\nhappens in larynx mucous membrane\nresults in the movement of macrophage','','','','','','',''])
         
         
     def tearDown(self):

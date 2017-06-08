@@ -62,7 +62,7 @@ class TestSequenceSummaryPage(unittest.TestCase):
         sort is by type, sequence provider, length
         """
         """
-        @attention: While this test still works, it might need revisting later to figure out a better way of confirming sort is correct
+        @attention: While this test still works, it might need revisiting later to figure out a better way of confirming sort is correct
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/marker")

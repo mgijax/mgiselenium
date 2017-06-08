@@ -65,7 +65,7 @@ class TestGeneTab(unittest.TestCase):
     def test_genes_tab_genes(self):
         '''
         @status this test verifies the correct genes are returned for a gene symbol query.
-        @see HMDC-QC-1 ??
+        @see HMDC-GQ-1 ??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):

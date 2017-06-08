@@ -24,9 +24,10 @@ class Test(unittest.TestCase):
 
 
     def setUp(self):
-        self.driver = webdriver.Firefox()
-        #self.driver.get(config.DOG_URL + "/allele/")
-        self.driver.get("http://scrumdogdev.informatics.jax.org/allele/")
+        #self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
+        self.driver.get(config.TEST_URL + "/allele/")
+        #self.driver.get("http://scrumdogdev.informatics.jax.org/allele/")
         self.driver.implicitly_wait(10)
         
     def test_column_headings(self):
@@ -59,7 +60,7 @@ class Test(unittest.TestCase):
         cells = table.get_column_cells("Human Diseases")
         disease_cells = iterate.getTextAsList(cells)
         print disease_cells
-        self.assertEquals(disease_cells[1], 'myelofibrosis   DOID:4971')
+        self.assertEquals(disease_cells[1], 'myelofibrosis\nIDs')
         
     def test_disease_doids_bymarker(self):
         '''
@@ -74,7 +75,7 @@ class Test(unittest.TestCase):
         searchTextItems = iterate.getTextAsList(cells)
         print searchTextItems
         #this is the 11th cell which corresponds to the Human Disease odel result for the second allele 
-        self.assertEqual(searchTextItems[11], 'brachydactyly DOID:0050581')
+        self.assertEqual(searchTextItems[11], 'brachydactyly type A1 (IDs)')
         
         
     def tearDown(self):

@@ -13,7 +13,7 @@ import sys,os.path
 from genericpath import exists
 # adjust the path to find config
 sys.path.append(
-  os.path.join(os.path.dirname(__file__), '../..',)
+  os.path.join(os.path.dirname(__file__), '../../..',)
 )
 from util import wait, iterate
 from util.table import Table
@@ -24,7 +24,8 @@ class Test(unittest.TestCase):
 
 
     def setUp(self):
-        self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
         self.driver.get(config.TEST_URL + "/marker/")
         self.driver.implicitly_wait(10)
 
@@ -157,16 +158,16 @@ class Test(unittest.TestCase):
         cells = table.get_column_cells("Human Disease")
         disease_cells = iterate.getTextAsList(cells)
         print disease_cells
-        self.assertEquals(disease_cells[1], 'maturity-onset diabetes of the young   DOID:0050524')
-        #self.assertEquals(disease_cells[2], 'permanent neonatal diabetes mellitus   DOID:0060639')
-        #self.assertEquals(disease_cells[3], 'type 1 diabetes mellitus   DOID:9744')
-        self.assertEquals(disease_cells[4], 'type 2 diabetes mellitus   DOID:9352')
+        self.assertEquals(disease_cells[1], 'permanent neonatal diabetes mellitus\nIDs')
+        #self.assertEquals(disease_cells[2], 'maturity-onset diabetes of the young\nIDs')
+        #self.assertEquals(disease_cells[3], 'type 1 diabetes mellitus\nIDs')
+        self.assertEquals(disease_cells[4], 'type 2 diabetes mellitus\nIDs')
         '''
     def test_allele_nosubtype(self):
-        '''
+        
         @status this is just a placeholder test for now.
         @bug: under construction
-        '''
+        
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Lith20")
         self.driver.find_element_by_class_name("buttonLabel").click()
@@ -185,10 +186,10 @@ class Test(unittest.TestCase):
         self.assertEqual(alleleType.text, "Transgenic")
         
     def test_allele_molecular_image(self):
-        '''
+        
         @status this is just a placeholder test for now.
         @bug: under construction
-        '''
+        
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Tgm3")
         self.driver.find_element_by_class_name("buttonLabel").click()
@@ -208,10 +209,10 @@ class Test(unittest.TestCase):
         
         
     def test_mutagenetix_link(self):
-        '''
+        
         @status this is just a placeholder test for now
         @bug under construction
-        '''
+        
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Blnk")
         self.driver.find_element_by_class_name("buttonLabel").click()
@@ -268,10 +269,10 @@ class Test(unittest.TestCase):
         self.driver.get(config.FEWI_URL + "/allele/")
     
     def test_allele_molecular_image_caption(self):
-        '''
+        
         @status this is just a placeholder test for now
         @bug: This page needs the table to have an ID before a test can really be written
-        '''
+        
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Stk11")
         self.driver.find_element_by_class_name("buttonLabel").click()

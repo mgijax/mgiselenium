@@ -49,7 +49,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (4 x 28)", "Grid tab is not visible!")
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (4 x 29)", "Grid tab is not visible!")
         grid_tab.click()
         hgenes = self.driver.find_element_by_css_selector("td.ngc.left.middle.cell.first")
         print hgenes.text
@@ -228,7 +228,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (1 x 3)", "Grid tab is not visible!")
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (1 x 14)", "Grid tab is not visible!")
         grid_tab.click()
         hgenes = self.driver.find_element_by_css_selector("td.ngc.left.middle.cell.first")
         print hgenes.text
@@ -303,7 +303,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (2 x 5)", "Grid tab is not visible!")
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (1 x 5)", "Grid tab is not visible!")
         grid_tab.click()
         hgenes = self.driver.find_element_by_css_selector("td.ngc.left.middle.cell.first")
         print hgenes.text
@@ -630,6 +630,7 @@ class TestGeneid(unittest.TestCase):
         pheno19 = cells[20]
         pheno20 = cells[21]
         pheno21 = cells[22]
+        pheno22 = cells[23]
         disease1 = cells[24]
         disease2 = cells[25]
         disease3 = cells[26]
@@ -648,13 +649,14 @@ class TestGeneid(unittest.TestCase):
         self.assertEqual(pheno12.text, 'limbs/digits/tail')
         self.assertEqual(pheno13.text, 'mortality/aging')
         self.assertEqual(pheno14.text, 'muscle')
-        self.assertEqual(pheno15.text, 'nervous system')
-        self.assertEqual(pheno16.text, 'pigmentation')
-        self.assertEqual(pheno17.text, 'renal/urinary system')
-        self.assertEqual(pheno18.text, 'reproductive system')
-        self.assertEqual(pheno19.text, 'respiratory system')
-        self.assertEqual(pheno20.text, 'skeleton')
-        self.assertEqual(pheno21.text, 'vision/eye')
+        self.assertEqual(pheno15.text, 'neoplasm')
+        self.assertEqual(pheno16.text, 'nervous system')
+        self.assertEqual(pheno17.text, 'pigmentation')
+        self.assertEqual(pheno18.text, 'renal/urinary system')
+        self.assertEqual(pheno19.text, 'reproductive system')
+        self.assertEqual(pheno20.text, 'respiratory system')
+        self.assertEqual(pheno21.text, 'skeleton')
+        self.assertEqual(pheno22.text, 'vision/eye')
         self.assertEqual(disease1.text, 'autosomal genetic disease')
         self.assertEqual(disease2.text, "gastrointestinal system disease")
         self.assertEqual(disease3.text, "integumentary system disease")
@@ -738,7 +740,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Diseases tab and verify the tab's text
         disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         print disease_tab.text
-        self.assertEqual(disease_tab.text, "Diseases (13)", "Diseases tab is not visible!")
+        self.assertEqual(disease_tab.text, "Diseases (14)", "Diseases tab is not visible!")
         disease_tab.click()
         
     def test_gene_symbol_human_syn(self):
@@ -788,7 +790,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Diseases tab and verify the tab's text
         disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         print disease_tab.text
-        self.assertEqual(disease_tab.text, "Diseases (13)", "Diseases tab is not visible!")
+        self.assertEqual(disease_tab.text, "Diseases (14)", "Diseases tab is not visible!")
         disease_tab.click()
 
     def test_gene_ID_human_entrez(self):
@@ -839,7 +841,7 @@ class TestGeneid(unittest.TestCase):
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("191170")#identifies the input field and enters gata1
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("OMIM:191170")#identifies the input field and enters gata1
         wait.forAngular(self.driver)
         self.driver.find_element_by_id("searchButton").click()
         wait.forAngular(self.driver)
@@ -881,7 +883,7 @@ class TestGeneid(unittest.TestCase):
         '''
         @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
         by HGNC ID(human)(HGNC:6554 is associated to marker Lepr)
-        @see: HGNC-GQ-??
+        @see: HMDC-GQ-??
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -921,7 +923,7 @@ class TestGeneid(unittest.TestCase):
         '''
         @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
         by RGD ID for a rat gene(RGD:2466 is associated to marker Cyp2b10 )
-        @see: HGNC-GQ-37
+        @see: HMDC-GQ-37
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -958,7 +960,7 @@ class TestGeneid(unittest.TestCase):
         @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
         by multiple Gene symbols (Foxm1, Lep, Ins2). There are 2 issues with this test, first selenium seems unable to locate the last 4 diseases in the grid so
         they have been commented out. The order of genes on the genes tab has Human symbols first, should be Mouse symbol first.
-        @see HGNC-GQ-7
+        @see HMDC-GQ-7
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -1092,7 +1094,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Diseases tab and verify the tab's text
         disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         print disease_tab.text
-        self.assertEqual(disease_tab.text, "Diseases (9)", "Diseases tab is not visible!")
+        self.assertEqual(disease_tab.text, "Diseases (10)", "Diseases tab is not visible!")
         disease_tab.click()
         disease_table = Table(self.driver.find_element_by_id("diseaseTable"))
         cells = disease_table.get_column_cells("Disease")
@@ -1107,16 +1109,18 @@ class TestGeneid(unittest.TestCase):
         disease7 = cells[7]
         disease8 = cells[8]
         disease9 = cells[9]
+        disease10 = cells[10]
         #asserts that the correct diseases in the correct order are returned
         self.assertEqual(disease1.text, 'hepatocellular carcinoma')
         self.assertEqual(disease2.text, 'lung cancer')
         self.assertEqual(disease3.text, 'maturity-onset diabetes of the young')
-        self.assertEqual(disease4.text, 'metabolic syndrome X')
-        self.assertEqual(disease5.text, 'obesity')
-        self.assertEqual(disease6.text, 'permanent neonatal diabetes mellitus')
-        self.assertEqual(disease7.text, 'type 1 diabetes mellitus')
-        self.assertEqual(disease8.text, 'type 1 diabetes mellitus 2')        
-        self.assertEqual(disease9.text, 'type 2 diabetes mellitus')
+        self.assertEqual(disease4.text, 'maturity-onset diabetes of the young type 10')
+        self.assertEqual(disease5.text, 'metabolic syndrome X')
+        self.assertEqual(disease6.text, 'obesity')
+        self.assertEqual(disease7.text, 'permanent neonatal diabetes mellitus')
+        self.assertEqual(disease8.text, 'type 1 diabetes mellitus')
+        self.assertEqual(disease9.text, 'type 1 diabetes mellitus 2')        
+        self.assertEqual(disease10.text, 'type 2 diabetes mellitus')
 
     def test_gene_id_multiples(self):
         '''
@@ -1257,7 +1261,7 @@ class TestGeneid(unittest.TestCase):
         disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         print disease_tab.text
         time.sleep(2)
-        self.assertEqual(disease_tab.text, "Diseases (9)", "Diseases tab is not visible!")
+        self.assertEqual(disease_tab.text, "Diseases (10)", "Diseases tab is not visible!")
         disease_tab.click()
         disease_table = Table(self.driver.find_element_by_id("diseaseTable"))
         cells = disease_table.get_column_cells("Disease")
@@ -1272,16 +1276,18 @@ class TestGeneid(unittest.TestCase):
         disease7 = cells[7]
         disease8 = cells[8]
         disease9 = cells[9]
+        disease10 = cells[10]
         #asserts that the correct diseases in the correct order are returned
         self.assertEqual(disease1.text, 'hepatocellular carcinoma')
         self.assertEqual(disease2.text, 'lung cancer')
         self.assertEqual(disease3.text, 'maturity-onset diabetes of the young')
-        self.assertEqual(disease4.text, 'metabolic syndrome X')
-        self.assertEqual(disease5.text, 'obesity')
-        self.assertEqual(disease6.text, 'permanent neonatal diabetes mellitus')
-        self.assertEqual(disease7.text, 'type 1 diabetes mellitus')
-        self.assertEqual(disease8.text, 'type 1 diabetes mellitus 2')
-        self.assertEqual(disease9.text, 'type 2 diabetes mellitus')
+        self.assertEqual(disease4.text, 'maturity-onset diabetes of the young type 10')
+        self.assertEqual(disease5.text, 'metabolic syndrome X')
+        self.assertEqual(disease6.text, 'obesity')
+        self.assertEqual(disease7.text, 'permanent neonatal diabetes mellitus')
+        self.assertEqual(disease8.text, 'type 1 diabetes mellitus')
+        self.assertEqual(disease9.text, 'type 1 diabetes mellitus 2')
+        self.assertEqual(disease10.text, 'type 2 diabetes mellitus')
 
 
 

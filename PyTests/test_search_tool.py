@@ -11,27 +11,27 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import sys,os.path
 from util import wait, iterate
-from config.config import PUBLIC_URL
+from config.config import TEST_URL
 # adjust the path to find config
 sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../config',)
 )
 import config
-from config import PUBLIC_URL
+from config import TEST_URL
 
 class TestSearchTool(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Chrome()
         #self.driver.get("http://www.informatics.jax.org")
-        self.driver.get(PUBLIC_URL) 
+        self.driver.get(TEST_URL) 
 
     def test_gene_id(self):
         """
         @status: Tests that a Gene ID search brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your Gene ID in the quick search box
         searchbox.send_keys("MGI:87895")
@@ -52,7 +52,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that a Reference ID brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your Reference ID in the quick search box
         searchbox.send_keys("J:14135")
@@ -74,7 +74,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that an GO ID brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your GO ID in the quick search box
         searchbox.send_keys("GO:0005892")
@@ -95,7 +95,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that an Old Gene ID search brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your Old Gene ID in the quick search box
         searchbox.send_keys("MGD-MRK-1672")
@@ -117,7 +117,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that a Gene Trap ID search brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your Gene Trap ID in the quick search box
         searchbox.send_keys("FHCRC-GT-S15-11C1")
@@ -138,7 +138,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that a Gene Assay ID brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your Gene Assay ID in the quick search box
         searchbox.send_keys("MGI:1339505")
@@ -159,7 +159,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that an Ensembl ID brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your Ensembl ID in the quick search box
         searchbox.send_keys("ENSMUSG00000005672")
@@ -180,7 +180,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that an Entrezgene ID brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your EntrezGene ID in the quick search box
         searchbox.send_keys("11539")
@@ -201,7 +201,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that an Ensembl ID brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your UniGene ID in the quick search box
         searchbox.send_keys("181490")
@@ -222,7 +222,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that an Ensembl ID brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your UniProt ID in the quick search box
         searchbox.send_keys("Q9ER73")
@@ -243,7 +243,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that an Ensembl ID brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your UniSTS ID in the quick search box
         searchbox.send_keys("125993")
@@ -264,7 +264,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that an Ensembl ID brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your VEGA ID in the quick search box
         searchbox.send_keys("OTTMUSG00000010935")
@@ -285,7 +285,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that an OMIM ID brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your OMIM ID in the quick search box
         searchbox.send_keys("168600")
@@ -306,7 +306,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that an HomoloGene ID brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your HomoloGene ID in the quick search box
         searchbox.send_keys("20151")
@@ -327,7 +327,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that an HGNC ID brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your HGNC ID in the quick search box
         searchbox.send_keys("HGNC:28837")
@@ -348,7 +348,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that a RefSeq ID brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your RegSeq ID in the quick search box
         searchbox.send_keys("NM_023876")
@@ -369,7 +369,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that a PDB ID brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your PDB ID in the quick search box
         searchbox.send_keys("1HU8")
@@ -390,7 +390,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that an ATCC clone ID brings back the proper information 
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your ATCC clone ID in the quick search box
         searchbox.send_keys("719230")
@@ -411,7 +411,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that an Image clone ID brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your Image clone ID in the quick search box
         searchbox.send_keys("MGI:200469")
@@ -432,7 +432,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that an MGC ID brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your MGC ID in the quick search box
         searchbox.send_keys("14049")
@@ -453,7 +453,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that a RIKEN clone ID brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your RIKEN clone ID in the quick search box
         searchbox.send_keys("MGI:2420147")
@@ -474,7 +474,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that an RPCI ID brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your RPCI ID in the quick search box
         searchbox.send_keys("RP23-100A23")
@@ -495,7 +495,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that an Interpro ID brings back the proper information 
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your InterPro ID in the quick search box
         searchbox.send_keys("IPR003599")
@@ -516,7 +516,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that a PIRSF ID brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your PIRSF ID in the quick search box
         searchbox.send_keys("PIRSF038195")
@@ -537,7 +537,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that a PubMed ID brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your PubMed ID in the quick search box
         searchbox.send_keys("8825637")
@@ -558,7 +558,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that an MGI Reference ID brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your MGI Reference ID in the quick search box
         searchbox.send_keys("MGI:3716133")
@@ -579,7 +579,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that a dbSNP ID brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your dbSNP ID in the quick search box
         searchbox.send_keys("rs3021544")
@@ -600,7 +600,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that a GenBank ID brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your Genbank ID in the quick search box
         searchbox.send_keys("S40294")
@@ -621,7 +621,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that a EC ID brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your EC ID in the quick search box
         searchbox.send_keys("3.4.21.6")
@@ -642,7 +642,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that a miRBase ID brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your mirBasee ID in the quick search box
         searchbox.send_keys("MI0000248")
@@ -663,7 +663,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that an allele ID(knockout) brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your Allele ID in the quick search box
         searchbox.send_keys("MGI:2156651")
@@ -684,7 +684,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that an ES Cell Line ID(IGTC) brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your ES Cell Line ID in the quick search box
         searchbox.send_keys("BGB069")
@@ -705,7 +705,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that an ES Cell Line ID(Lexicon) brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your ES Cell Line ID in the quick search box
         searchbox.send_keys("OST2298")
@@ -726,7 +726,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that a NCBI ID brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your NCBI ID in the quick search box
         searchbox.send_keys("20423")
@@ -747,7 +747,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that a Probe ID brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your Probe ID in the quick search box
         searchbox.send_keys("MGI:10980")
@@ -768,7 +768,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that an MGC Clone ID brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your MGC clone ID in the quick search box
         searchbox.send_keys("MGI:1414340")
@@ -789,7 +789,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that a Mapping Experiment ID brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your Mapping Experiment ID in the quick search box
         searchbox.send_keys("MGD-CREX-2835")
@@ -810,7 +810,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that an Adult Mouse Anatomy ID brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your Adult Mouse Anatomy ID in the quick search box
         searchbox.send_keys("MA:0000168")
@@ -831,7 +831,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that an MP ID brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your MP ID in the quick search box
         searchbox.send_keys("MP:0002089")
@@ -852,7 +852,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that an Antibody ID brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your Antibody ID in the quick search box
         searchbox.send_keys("MGI:4438078")
@@ -873,7 +873,7 @@ class TestSearchTool(unittest.TestCase):
         @status: Tests that a Proteoform ID brings back the proper information
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
+        driver.get(config.TEST_URL)
         searchbox = driver.find_element_by_id('searchToolTextArea')
         # put your Proteoform ID in the quick search box
         searchbox.send_keys("PR:Q80YE4-2")

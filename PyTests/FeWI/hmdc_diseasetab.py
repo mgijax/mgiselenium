@@ -142,7 +142,7 @@ class TestDiseaseTab(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         time.sleep(2)
-        self.assertEqual(disease_tab.text, "Diseases (1)", "Diseases tab is not visible!")
+        self.assertEqual(disease_tab.text, "Diseases (2)", "Diseases tab is not visible!")
         disease_tab.click()
         disease_table = Table(self.driver.find_element_by_id("diseaseTable"))
         cells = disease_table.get_column_cells("DO ID")
