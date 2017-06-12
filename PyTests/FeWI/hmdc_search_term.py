@@ -60,9 +60,10 @@ class TestSearchTerm(unittest.TestCase):
         #self.driver.execute_script(script)
     def test_do_term_name(self):
         '''
-        @status this test verifies the correct diseases are returned for this query. This term should
-        only bring back the disease inherited metabolic disorder which is connected to disease mucosulfatidosis
-        @see: HMDC-DQ-1?
+        @status this test verifies the correct diseases are returned for this query. This Disease term Heading should
+        only bring back the disease mucosulfatidosis. Verified by clicking the genotype popup and confirming this is the only disease
+        @bug: Need to figure out how to capture disease heading on genotype popup page!!!
+        @see: HMDC-DQ-1
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -88,20 +89,54 @@ class TestSearchTerm(unittest.TestCase):
         disease1 = cells[20]
         #asserts that the correct diseases(at angle) display in the correct order
         self.assertEqual(disease1.text, 'inherited metabolic disorder')
+        #firstcell captures all the table data blocks of phenotypes on the first row of data
+        phenocells = self.driver.find_elements_by_css_selector("td.ngc.center.cell.middle")
+        
+        print iterate.getTextAsList(phenocells) #if you want to see what it captures uncomment this
+        phenocells[18].click()#clicks the second phenotype data cell to open up the genotype popup page
+        self.driver.switch_to_window(self.driver.window_handles[1])#switches focus to the genotype popup page
+        #time.sleep(5)
+        matching_text = "Human Genes and Mouse Models for inherited metabolic disorder and SUMF1/Sumf1"
+        #asserts the heading text is correct in page source
+        self.assertIn(matching_text, self.driver.page_source, 'matching text not displayed')
+        #Identify the table
+        mouse_geno_table = self.driver.find_elements_by_css_selector("p > table.popupTable")
+        
+        disease_data = mouse_geno_table.find_element_by_css_selector("td.popupHeader > div > span > a")
+        print disease_data.text
+        #find all the TR tags in the table and iterate through them
+        #cells = mouse_geno_table.find_elements_by_tag_name("tr")
+        #print iterate.getTextAsList(cells)
+        #print cells
+        #displays each row of mouse genotype data
+        #genotype1 = cells[2]
+        
+        #asserts that the correct genotypes in the correct order are returned
+        #self.assertEqual(genotype1.text, 'Sumf1Gt(RST760)Byg/Sumf1Gt(RST760)Byg')
         
     def test_mp_term_name(self):
         '''
         @status this test verifies the correct diseases are returned for this query, should return the MP term.
-        This test is verifying the correct human and mouse genes are returned.
-        @see: HMDC-PQ-1?
+        This test is verifying the correct mouse genes are returned.
+        @bug: need to figure out how to identify second search by option field.
+        @see: HMDC-PQ-1
         '''
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element_by_xpath("(//select[starts-with(@id, 'field_0_')][1])")#identifies the select field and picks the phenotype name option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Disease or Phenotype Name':
                 option.click()
                 break
         
         self.driver.find_element_by_name("formly_3_autocomplete_input_0").send_keys("meteorism")#identifies the input field and enters gata1
+        wait.forAngular(self.driver)
+        self.driver.find_element_by_id("addConditionButton").click()
+        my_select1 = self.driver.find_element_by_xpath("(//select[starts-with(@id, 'field_0_')][2])")#identifies the select field and picks the gene symbols option
+        for option in my_select1.find_elements_by_tag_name("option"):
+            if option.text == 'Gene Symbol(s) or ID(s)':
+                option.click()
+                break
+        
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("Celsr3")#identifies the input field and enters gata1
         wait.forAngular(self.driver)
         self.driver.find_element_by_id("searchButton").click()
         wait.forAngular(self.driver)
@@ -173,9 +208,9 @@ class TestSearchTerm(unittest.TestCase):
 
     def test_hp_term_name(self):
         '''
-        @status this test verifies the correct diseases are returned for this query. Should return the HP term
-        This test is verifying the correct phenotypes are coming back on the grid tab.
-        @see: HMDC-PQ-7?
+        @status this test  Should return the HP term
+        This test is verifying the correct phenotypes(for Human) are coming back on the grid tab.
+        @see: HMDC-PQ-9
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -201,26 +236,20 @@ class TestSearchTerm(unittest.TestCase):
         print searchTermItems #if you want to see what it captures uncomment this
         #asserts that the correct diseases(at angle) display in the correct order
         self.assertEqual(searchTermItems[2], 'behavior/neurological')
-        self.assertEqual(searchTermItems[3], 'cardiovascular system')
-        self.assertEqual(searchTermItems[4], 'cellular')
         self.assertEqual(searchTermItems[5], 'craniofacial')
         self.assertEqual(searchTermItems[6], 'digestive/alimentary system')
-        self.assertEqual(searchTermItems[7], 'embryo')
         self.assertEqual(searchTermItems[8], 'endocrine/exocrine glands')
         self.assertEqual(searchTermItems[9], 'growth/size/body')
         self.assertEqual(searchTermItems[10], 'hearing/vestibular/ear')
-        self.assertEqual(searchTermItems[11], 'hematopoietic system')
         self.assertEqual(searchTermItems[12], 'homeostasis/metabolism')
         self.assertEqual(searchTermItems[13], 'immune system')
         self.assertEqual(searchTermItems[14], 'integument')
         self.assertEqual(searchTermItems[15], 'limbs/digits/tail')
-        self.assertEqual(searchTermItems[16], 'mortality/aging')
         self.assertEqual(searchTermItems[17], 'muscle')
         self.assertEqual(searchTermItems[18], 'neoplasm')
         self.assertEqual(searchTermItems[19], 'nervous system')
         self.assertEqual(searchTermItems[20], 'renal/urinary system')
         self.assertEqual(searchTermItems[21], 'reproductive system')
-        self.assertEqual(searchTermItems[22], 'respiratory system')
         self.assertEqual(searchTermItems[23], 'skeleton')
         self.assertEqual(searchTermItems[24], 'vision/eye')
         
@@ -229,7 +258,7 @@ class TestSearchTerm(unittest.TestCase):
         '''
         @status this test verifies the correct diseases are returned for this query. This is a synonym term 
         This test verifies the diseases on the grid tab and then verifies the diseases on the disease tab.
-        @see: HMDC-DQ-2?
+        @see: HMDC-DQ-4
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -283,8 +312,9 @@ class TestSearchTerm(unittest.TestCase):
     def test_mp_term_syn_name(self):
         '''
         @status this test verifies the correct diseases are returned for this query, should return the MP synonym term.
-        This test verifies the mouse genes returned on the grid tab and then goes to the disease tab to verify the diseases.
-        @see: HMDC-PQ-2?
+        This test verifies the mouse genes returned on the grid tab and then goes to the disease tab to verify the diseases. Breat Cancer due to
+        common genocluster(HMDC-disease-11) and Mastitis is a DO synonym (HMDC-disease-10)
+        @see: HMDC-PQ-4, HMDC-disease-11, HMDC-disease-10
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -311,15 +341,7 @@ class TestSearchTerm(unittest.TestCase):
         searchTermItems = iterate.getTextAsList(mgenes)
      
         self.assertEqual(searchTermItems[0], "Mfge8")
-        self.assertEqual(searchTermItems[1], "Tg(MMTV-ENPP2)#Gbm")
-        self.assertEqual(searchTermItems[2], "Tg(MMTV-LPAR1)2Gbm")
-        self.assertEqual(searchTermItems[3], "Tg(MMTV-LPAR1)7Gbm")
-        self.assertEqual(searchTermItems[4], "Tg(MMTV-LPAR1)#Gbm")
-        self.assertEqual(searchTermItems[5], "Tg(MMTV-LPAR2)3Gbm")
-        self.assertEqual(searchTermItems[6], "Tg(MMTV-LPAR2)6Gbm")
-        self.assertEqual(searchTermItems[7], "Tg(MMTV-LPAR2)#Gbm")
-        self.assertEqual(searchTermItems[8], "Tg(MMTV-LPAR3)3Gbm")
-        self.assertEqual(searchTermItems[9], "Tg(MMTV-LPAR3)#Gbm")
+        
         print searchTermItems
         #identify the Disease tab and verify the tab's text
         disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
@@ -344,7 +366,7 @@ class TestSearchTerm(unittest.TestCase):
         '''
         @status this test verifies the correct diseases are returned for this query. Should return the HP synonym term
         This test verifies the diseases on the grid tab and then on the disease tab
-        @see: HMDC-PQ-8?
+        @see: HMDC-PQ-9, HMDC-disease-16
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -436,7 +458,7 @@ class TestSearchTerm(unittest.TestCase):
         '''
         @status this test verifies the correct diseases are returned for this query down the dag.
         This test verifies that the diseases on the grid tab and on the diseases tab are correct and sorted correctly
-        @see: HMDC-??
+        @see: HMDC-Grid-18, HMDC-disease-15
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -568,44 +590,36 @@ class TestSearchTerm(unittest.TestCase):
 
     def test_mp_term_normal_models(self):
         '''
-        @status this test verifies that normal model genes are returned for this query, should return the genes Magel2, Mest, Peg3, Snord116 and Snrpn which have
+        @status this test verifies that normal model genes are returned for this query, should return the gene Pax6 and 3 transgenes
         Normal models.
-        @see: HMDC-??
+        @see: HMDC-grid-7
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
-            if option.text == 'Disease or Phenotype Name':
+            if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
         #breast inflammation is an MP synonym of mastitis
-        self.driver.find_element_by_name("formly_3_autocomplete_input_0").send_keys("maternal imprinting")#identifies the input field and enters gata1
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("Pax6")#identifies the input field and enters gata1
         wait.forAngular(self.driver)
         self.driver.find_element_by_id("searchButton").click()
         wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (30 x 30)", "Grid tab is not visible!")
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (4 x 26)", "Grid tab is not visible!")
         grid_tab.click()
         
-        hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
+        hgenes = self.driver.find_element_by_css_selector("td.ngc.left.middle.cell.first")
         print hgenes
-        searchTermItems = iterate.getTextAsList(hgenes)
-        self.assertEqual(searchTermItems[15], 'MAGEL2')
-        self.assertEqual(searchTermItems[17], 'MEST')
-        self.assertEqual(searchTermItems[20], 'PEG3')
-        self.assertEqual(searchTermItems[25], '')
-        self.assertEqual(searchTermItems[26], 'SNRPN')
+        #searchTermItems = iterate.getTextAsList(hgenes)
+        self.assertEqual(hgenes.text, 'PAX6')
         mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
         print mgenes
         
         searchTermItems = iterate.getTextAsList(mgenes)
      
-        self.assertEqual(searchTermItems[15], "Magel2")
-        self.assertEqual(searchTermItems[17], "Mest")
-        self.assertEqual(searchTermItems[20], "Peg3")
-        self.assertEqual(searchTermItems[25], "Snord116")
-        self.assertEqual(searchTermItems[26], "Snrpn")
+        self.assertEqual(searchTermItems[0], "Pax6")
         
     def test_mp_term_simple_Homozygous(self):
         '''
