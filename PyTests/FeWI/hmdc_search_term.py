@@ -62,7 +62,6 @@ class TestSearchTerm(unittest.TestCase):
         '''
         @status this test verifies the correct diseases are returned for this query. This Disease term Heading should
         only bring back the disease mucosulfatidosis. Verified by clicking the genotype popup and confirming this is the only disease
-        @bug: Need to figure out how to capture disease heading on genotype popup page!!!
         @see: HMDC-DQ-1
         '''
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
@@ -99,20 +98,13 @@ class TestSearchTerm(unittest.TestCase):
         matching_text = "Human Genes and Mouse Models for inherited metabolic disorder and SUMF1/Sumf1"
         #asserts the heading text is correct in page source
         self.assertIn(matching_text, self.driver.page_source, 'matching text not displayed')
-        #Identify the table
-        mouse_geno_table = self.driver.find_elements_by_css_selector("p > table.popupTable")
+        #Identify the table that contains the disease angled text
+        popup_table = self.driver.find_element_by_class_name("popupTable")
         
-        disease_data = mouse_geno_table.find_element_by_css_selector("td.popupHeader > div > span > a")
+        disease_data = popup_table.find_element_by_css_selector("span > a")
         print disease_data.text
-        #find all the TR tags in the table and iterate through them
-        #cells = mouse_geno_table.find_elements_by_tag_name("tr")
-        #print iterate.getTextAsList(cells)
-        #print cells
-        #displays each row of mouse genotype data
-        #genotype1 = cells[2]
-        
-        #asserts that the correct genotypes in the correct order are returned
-        #self.assertEqual(genotype1.text, 'Sumf1Gt(RST760)Byg/Sumf1Gt(RST760)Byg')
+        #asserts that the correct disease is displayed
+        self.assertEqual(disease_data.text, 'mucosulfatidosis')
         
     def test_mp_term_name(self):
         '''
@@ -145,34 +137,6 @@ class TestSearchTerm(unittest.TestCase):
         time.sleep(2)
         self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (24 x 29)", "Grid tab is not visible!")
         grid_tab.click()
-        
-        hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
-        print hgenes
-        searchTermItems = iterate.getTextAsList(hgenes)
-        self.assertEqual(searchTermItems[0], "")
-        self.assertEqual(searchTermItems[1], "BNC2")
-        self.assertEqual(searchTermItems[2], "CDKN1C")
-        self.assertEqual(searchTermItems[3], "CELSR3")
-        self.assertEqual(searchTermItems[4], "DLG1")
-        self.assertEqual(searchTermItems[5], "DLX2")
-        self.assertEqual(searchTermItems[6], "DLX5")
-        self.assertEqual(searchTermItems[7], "DSG3")
-        self.assertEqual(searchTermItems[8], "")
-        self.assertEqual(searchTermItems[9], "FGFR2")
-        self.assertEqual(searchTermItems[10], "FOXD1")
-        self.assertEqual(searchTermItems[11], "FOXF2")
-        self.assertEqual(searchTermItems[12], "GAD1")
-        self.assertEqual(searchTermItems[13], "GLG1")
-        self.assertEqual(searchTermItems[14], "HOXA2")
-        self.assertEqual(searchTermItems[15], "HOXA5")
-        self.assertEqual(searchTermItems[16], "KIT")
-        self.assertEqual(searchTermItems[17], "LMNA")
-        self.assertEqual(searchTermItems[18], "NPR2")
-        self.assertEqual(searchTermItems[19], "OTX1")
-        self.assertEqual(searchTermItems[20], "SIM2")
-        self.assertEqual(searchTermItems[21], "SMAD1")
-        self.assertEqual(searchTermItems[22], "SOX9")
-        self.assertEqual(searchTermItems[23], "ZEB1")
         
         mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
         print mgenes

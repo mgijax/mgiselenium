@@ -33,7 +33,7 @@ class TestSearch(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox() 
         self.form = ModuleForm(self.driver)
-        self.form.get_module(config.PWI_URL + "/edit/gxdindex")
+        self.form.get_module(config.TEST_PWI_URL + "/edit/gxdindex")
     
     def tearDown(self):
         self.driver.close()
