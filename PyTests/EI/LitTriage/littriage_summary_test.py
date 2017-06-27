@@ -8,7 +8,7 @@ import unittest
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-
+import HTMLTestRunner
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -18,9 +18,6 @@ import config
 from util import iterate, wait
 from util.form import ModuleForm
 from util.table import Table
-
-
-
 
 # Tests
 
@@ -240,12 +237,12 @@ class TestLitSummarySearch(unittest.TestCase):
         title = iterate.getTextAsList(title_cells)
         self.assertEqual(title, ['Title',''])
            
-
-#def suite():
+'''
+def suite():
     #suite = unittest.TestSuite()
     #suite.addTest(unittest.makeSuite(TestLitSummarySearch))
     #return suite
-
+'''
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
     HTMLTestRunner.main()

@@ -9,7 +9,7 @@ import unittest
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-
+import HTMLTestRunner
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -293,12 +293,12 @@ class TestLitSearch(unittest.TestCase):
         self.assertEqual(jnums, ['J:#','J:63615'])
      
 
-
+'''
 def suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(TestSearch))
     return suite
-
+'''
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main()
+    HTMLTestRunner.main()
