@@ -1,11 +1,11 @@
-1496926373683	geckodriver	INFO	Listening on 127.0.0.1:60652
-1496926374170	mozprofile::profile	INFO	Using profile path C:\Users\jeffc\AppData\Local\Temp\rust_mozprofile.UftAQcKmc9dq
-1496926374173	geckodriver::marionette	INFO	Starting browser C:\Program Files\Mozilla Firefox\firefox.exe with args []
-1496926374178	geckodriver::marionette	INFO	Connecting to Marionette on localhost:60656
-1496926376209	Marionette	INFO	Listening on port 60656
-[GPU 9648] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
-1496926376294	Marionette	WARN	TLS certificate errors will be ignored for this session
+1498743819764	geckodriver	INFO	Listening on 127.0.0.1:54211
+1498743820255	geckodriver::marionette	INFO	Starting browser C:\Program Files\Mozilla Firefox\firefox.exe with args ["-marionette"]
+1498743822136	Marionette	INFO	Listening on port 54217
+1498743822379	Marionette	WARN	TLS certificate errors will be ignored for this session
 JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript error: http://test.informatics.jax.org/webshare/js/mgi_template01.js, line 1: ReferenceError: YAHOO is not defined
+1498743825653	Marionette	INFO	New connections will no longer be accepted
+ning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
 *************************
 A coding exception was thrown and uncaught in a Task.
 
