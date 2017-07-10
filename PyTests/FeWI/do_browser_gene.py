@@ -322,12 +322,14 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         row4 = cells[5]
         row5 = cells[6]
         row6 = cells[7]
-        self.assertEqual(row1.text, '       hemochromatosis HAMP* Hamp* 1 model HGNC')
-        self.assertEqual(row2.text, 'hemochromatosis HFE* Hfe* 13 models HomoloGene and HGNC')
-        self.assertEqual(row3.text, 'hemochromatosis HFE2* Hfe2* 2 models HomoloGene and HGNC')
-        self.assertEqual(row4.text, 'hemochromatosis SLC40A1* Slc40a1* 3 models HomoloGene and HGNC')
-        self.assertEqual(row5.text, 'hemochromatosis TFR2* Tfr2* 2 models HomoloGene and HGNC')
-        self.assertEqual(row6.text, '       hemochromatosis BMP2* Bmp2   HomoloGene and HGNC')
+        row7 = cells[8]
+        self.assertEqual(row1.text, '       hemochromatosis type 1 HFE* Hfe* 13 model HomoloGene and HGNC')
+        self.assertEqual(row2.text, 'hemochromatosis type 2A HFE2* Hfe2* 2 models HomoloGene and HGNC')
+        self.assertEqual(row3.text, 'hemochromatosis type 2B HAMP* Hamp* 1 models HGNC')
+        self.assertEqual(row4.text, 'hemochromatosis type 3 TFR2* Tfr2* 2 models HomoloGene and HGNC')
+        self.assertEqual(row5.text, 'hemochromatosis type 4 SLC40A1* Slc40a1* 3 models HomoloGene and HGNC')
+        self.assertEqual(row6.text, '       hemochromatosis B2M B2m* 1 model HomoloGene and HGNC')
+        self.assertEqual(row7.text, 'hemochromatosis type 1 BMP2* Bmp2   HomoloGene and HGNC')
         
     def test_dobrowser_genestab_mult_homolog(self):
         '''
