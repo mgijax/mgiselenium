@@ -161,7 +161,7 @@ class TestGeneTab(unittest.TestCase):
         disease5 = cells[5]
         disease6 = cells[6]
         #asserts that the correct genes in the correct order are returned
-        self.assertEqual(disease1.text, 'myelofibrosis\nthrombocytopenia')
+        self.assertEqual(disease1.text, 'myelodysplastic syndrome\nmyelofibrosis\nthrombocytopenia')
         self.assertEqual(disease2.text, 'Down syndrome\nthrombocytopenia')
         self.assertEqual(disease3.text, '')
         self.assertEqual(disease4.text, '')

@@ -45,7 +45,7 @@ class TestDiseaseTab(unittest.TestCase):
         disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         print disease_tab.text
         time.sleep(2)
-        self.assertEqual(disease_tab.text, "Diseases (3)", "Diseases tab is not visible!")
+        self.assertEqual(disease_tab.text, "Diseases (4)", "Diseases tab is not visible!")
         disease_tab.click()
         disease_table_headers = self.driver.find_element_by_id("diseaseTable").find_element_by_css_selector("tr")
         items = disease_table_headers.find_elements_by_tag_name("th")
@@ -77,7 +77,7 @@ class TestDiseaseTab(unittest.TestCase):
         disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         print disease_tab.text
         time.sleep(2)
-        self.assertEqual(disease_tab.text, "Diseases (3)", "Diseases tab is not visible!")
+        self.assertEqual(disease_tab.text, "Diseases (4)", "Diseases tab is not visible!")
         disease_tab.click()
         disease_table = Table(self.driver.find_element_by_id("diseaseTable"))
         cells = disease_table.get_column_cells("Disease")
@@ -86,10 +86,12 @@ class TestDiseaseTab(unittest.TestCase):
         disease1 = cells[1]
         disease2 = cells[2]
         disease3 = cells[3]
+        disease4 = cells[4]
         #asserts that the correct genes in the correct order are returned
         self.assertEqual(disease1.text, 'Down syndrome')
-        self.assertEqual(disease2.text, 'myelofibrosis')
-        self.assertEqual(disease3.text, 'thrombocytopenia')
+        self.assertEqual(disease2.text, 'myelodysplastic syndrome')
+        self.assertEqual(disease3.text, 'myelofibrosis')
+        self.assertEqual(disease4.text, 'thrombocytopenia')
         
     def test_diseases_tab_diseases2(self):
         '''
