@@ -37,6 +37,7 @@ class TestSearchTerm(unittest.TestCase):
         @status this test verifies the headings on the Gene Homologs x Phenotypes/Diseases tab( or Index tab) are correct and in the correct order.
         @see: HMDC-
         '''
+        print ("BEGIN test_index_tab_headers")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
@@ -58,12 +59,14 @@ class TestSearchTerm(unittest.TestCase):
         mouse_header = self.driver.find_element_by_class_name('mgHeader')
         self.assertEqual(mouse_header.text, 'Mouse Gene', 'The mouse gene header is missing')
         #self.driver.execute_script(script)
+        
     def test_do_term_name(self):
         '''
         @status this test verifies the correct diseases are returned for this query. This Disease term Heading should
         only bring back the disease mucosulfatidosis. Verified by clicking the genotype popup and confirming this is the only disease
         @see: HMDC-DQ-1
         '''
+        print("BEGIN test_do_term_name")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Disease or Phenotype Name':
@@ -106,6 +109,7 @@ class TestSearchTerm(unittest.TestCase):
         #asserts that the correct disease is displayed
         self.assertEqual(disease_data.text, 'mucosulfatidosis')
         
+        
     def test_mp_term_name(self):
         '''
         @status this test verifies the correct diseases are returned for this query, should return the MP term.
@@ -113,7 +117,8 @@ class TestSearchTerm(unittest.TestCase):
         @bug: need to figure out how to identify second search by option field.
         @see: HMDC-PQ-1
         '''
-        my_select = self.driver.find_element_by_xpath("(//select[starts-with(@id, 'field_0_')][1])")#identifies the select field and picks the phenotype name option
+        print("BEGIN test_mp_term_name")
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the phenotype name option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Disease or Phenotype Name':
                 option.click()
@@ -121,21 +126,22 @@ class TestSearchTerm(unittest.TestCase):
         
         self.driver.find_element_by_name("formly_3_autocomplete_input_0").send_keys("meteorism")#identifies the input field and enters gata1
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("addConditionButton").click()
-        my_select1 = self.driver.find_element_by_xpath("(//select[starts-with(@id, 'field_0_')][2])")#identifies the select field and picks the gene symbols option
+        #self.driver.find_element_by_id("addConditionButton").click()
+        self.driver.find_element_by_class_name("ng-scope").click()
+        my_select1 = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select1.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("Celsr3")#identifies the input field and enters gata1
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("Celsr3")#identifies the input field and enters Celsr3
         wait.forAngular(self.driver)
         self.driver.find_element_by_id("searchButton").click()
         wait.forAngular(self.driver)
         #identify the Grid tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (24 x 29)", "Grid tab is not visible!")
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (1 x 1)", "Grid tab is not visible!")
         grid_tab.click()
         
         mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
@@ -143,31 +149,12 @@ class TestSearchTerm(unittest.TestCase):
         
         searchTermItems = iterate.getTextAsList(mgenes)
      
-        self.assertEqual(searchTermItems[0], "bd")
-        self.assertEqual(searchTermItems[1], "Bnc2")
-        self.assertEqual(searchTermItems[2], "Cdkn1c")
-        self.assertEqual(searchTermItems[3], "Celsr3")
-        self.assertEqual(searchTermItems[4], "Dlg1")
-        self.assertEqual(searchTermItems[5], "Dlx2")
-        self.assertEqual(searchTermItems[6], "Dlx5")
-        self.assertEqual(searchTermItems[7], "Dsg3")
-        self.assertEqual(searchTermItems[8], "Eh")
-        self.assertEqual(searchTermItems[9], "Fgfr2")
-        self.assertEqual(searchTermItems[10], "Foxd1")
-        self.assertEqual(searchTermItems[11], "Foxf2")
-        self.assertEqual(searchTermItems[12], "Gad1")
-        self.assertEqual(searchTermItems[13], "Glg1")
-        self.assertEqual(searchTermItems[14], "Hoxa2")
-        self.assertEqual(searchTermItems[15], "Hoxa5")
-        self.assertEqual(searchTermItems[16], "Kit")
-        self.assertEqual(searchTermItems[17], "Lmna")
-        self.assertEqual(searchTermItems[18], "Npr2")
-        self.assertEqual(searchTermItems[19], "Otx1")
-        self.assertEqual(searchTermItems[20], "Sim2")
-        self.assertEqual(searchTermItems[21], "Smad1")
-        self.assertEqual(searchTermItems[22], "Sox9")
-        self.assertEqual(searchTermItems[23], "Zeb1")
+        self.assertEqual(searchTermItems[0], "Celsr3")
+        
         print searchTermItems
+        
+        # Add checks for Phenotype Categories returned
+        
         
 
     def test_hp_term_name(self):
@@ -176,6 +163,7 @@ class TestSearchTerm(unittest.TestCase):
         This test is verifying the correct phenotypes(for Human) are coming back on the grid tab.
         @see: HMDC-PQ-9
         '''
+        print("BEGIN test_hp_term_name")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Disease or Phenotype Name':
@@ -217,6 +205,8 @@ class TestSearchTerm(unittest.TestCase):
         self.assertEqual(searchTermItems[23], 'skeleton')
         self.assertEqual(searchTermItems[24], 'vision/eye')
         
+        
+        
                 
     def test_do_term_syn_name(self):
         '''
@@ -224,6 +214,7 @@ class TestSearchTerm(unittest.TestCase):
         This test verifies the diseases on the grid tab and then verifies the diseases on the disease tab.
         @see: HMDC-DQ-4
         '''
+        print("BEGIN test_do_term_syn_name")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Disease or Phenotype Name':
@@ -280,6 +271,7 @@ class TestSearchTerm(unittest.TestCase):
         common genocluster(HMDC-disease-11) and Mastitis is a DO synonym (HMDC-disease-10)
         @see: HMDC-PQ-4, HMDC-disease-11, HMDC-disease-10
         '''
+        print("BEGIN test_mp_term_syn_name")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Disease or Phenotype Name':
@@ -332,6 +324,7 @@ class TestSearchTerm(unittest.TestCase):
         This test verifies the diseases on the grid tab and then on the disease tab
         @see: HMDC-PQ-9, HMDC-disease-16
         '''
+        print("BEGIN test_hp_term_syn_name")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Disease or Phenotype Name':
@@ -363,109 +356,13 @@ class TestSearchTerm(unittest.TestCase):
         #identify the Disease tab and verify the tab's text
         disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         print disease_tab.text
-        self.assertEqual(disease_tab.text, "Diseases (22)", "Diseases tab is not visible!")
+        self.assertEqual(disease_tab.text, "Diseases (23)", "Diseases tab is not visible!")
         disease_tab.click()
         
         disease_table = Table(self.driver.find_element_by_id("diseaseTable"))
         
         cells = disease_table.get_column_cells("Disease")
-        
-        print iterate.getTextAsList(cells)
-        #displays each row of gene data
-        disease1 = cells[1]
-        disease2 = cells[2]
-        disease3 = cells[3]
-        disease4 = cells[4]
-        disease5 = cells[5]
-        disease6 = cells[6]
-        disease7 = cells[7]
-        disease8 = cells[8]
-        disease9 = cells[9]
-        disease10 = cells[10]
-        disease11 = cells[11]
-        disease12 = cells[12]
-        disease13 = cells[13]
-        disease14 = cells[14]
-        disease15 = cells[15]
-        disease16 = cells[16]
-        disease17 = cells[17]
-        disease18 = cells[18]
-        disease19 = cells[19]
-        disease20 = cells[20]
-        disease21 = cells[21]
-        disease22 = cells[22]
-        #asserts that the correct genes in the correct order are returned
-        self.assertEqual(disease1.text, 'AGAT deficiency')
-        self.assertEqual(disease2.text, 'autosomal dominant limb-girdle muscular dystrophy type 1C')
-        self.assertEqual(disease3.text, 'autosomal dominant limb-girdle muscular dystrophy type 1E')
-        self.assertEqual(disease4.text, 'autosomal recessive limb-girdle muscular dystrophy type 2C')
-        self.assertEqual(disease5.text, 'autosomal recessive limb-girdle muscular dystrophy type 2H')
-        self.assertEqual(disease6.text, 'autosomal recessive limb-girdle muscular dystrophy type 2M')
-        self.assertEqual(disease7.text, 'autosomal recessive limb-girdle muscular dystrophy type 2O')
-        self.assertEqual(disease8.text, 'autosomal recessive limb-girdle muscular dystrophy type 2P')
-        self.assertEqual(disease9.text, 'autosomal recessive limb-girdle muscular dystrophy type 2Q')
-        self.assertEqual(disease10.text, 'centronuclear myopathy')
-        self.assertEqual(disease11.text, 'congenital myasthenic syndrome 1B')
-        self.assertEqual(disease12.text, 'congenital myasthenic syndrome 4C')
-        self.assertEqual(disease13.text, 'congenital myasthenic syndrome 9')
-        self.assertEqual(disease14.text, 'congenital myasthenic syndrome 10')
-        self.assertEqual(disease15.text, 'congenital myasthenic syndrome 11')
-        self.assertEqual(disease16.text, 'congenital myasthenic syndrome 12')
-        self.assertEqual(disease17.text, 'congenital myasthenic syndrome 14')
-        self.assertEqual(disease18.text, 'Duchenne muscular dystrophy')
-        self.assertEqual(disease19.text, 'megaconial type congenital muscular dystrophy')
-        self.assertEqual(disease20.text, 'mitochondrial DNA depletion syndrome 2')
-        self.assertEqual(disease21.text, 'muscular dystrophy-dystroglycanopathy')
-        self.assertEqual(disease22.text, 'nemaline myopathy')
-        
-    def test_do_term_down_dag(self):
-        '''
-        @status this test verifies the correct diseases are returned for this query down the dag.
-        This test verifies that the diseases on the grid tab and on the diseases tab are correct and sorted correctly
-        @see: HMDC-Grid-18, HMDC-disease-15
-        '''
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
-            if option.text == 'Disease or Phenotype Name':
-                option.click()
-                break
-        
-        self.driver.find_element_by_name("formly_3_autocomplete_input_0").send_keys("ciliopathy")#identifies the input field and enters term/ID
-        wait.forAngular(self.driver)
-        time.sleep(3)
-        self.driver.find_element_by_id("searchButton").click()
-        wait.forAngular(self.driver)
-        #identify the Genes tab and verify the tab's text
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
-        print grid_tab.text
-        time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (62 x 28)", "Grid tab is not visible!")
-        grid_tab.click()
-        
-        #cells captures every field from Human Gene heading to the last disease angled, this test only captures the diseases, which are items 25,26,27
-        cells = self.driver.find_elements_by_css_selector("div.ngc.cell-content.ngc-custom-html.ng-binding.ng-scope")
-        time.sleep(1)
-        print iterate.getTextAsList(cells) #if you want to see what it captures uncomment this
-        
-        #displays each row of gene data
-        disease1 = cells[27]
-        disease2 = cells[28]
-        disease3 = cells[29]
-        disease4 = cells[30]
-        #asserts that the correct diseases(at angle) display in the correct order
-        self.assertEqual(disease1.text, 'cardiovascular system disease')
-        self.assertEqual(disease2.text, 'ciliopathy')
-        self.assertEqual(disease3.text, 'nervous system disease')
-        self.assertEqual(disease4.text, 'physical disorder')
-        #identify the Disease tab and verify the tab's text
-        disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
-        print disease_tab.text
-        disease_tab.click()
-        self.assertEqual(disease_tab.text, "Diseases (41)", "Diseases tab is not visible!")
-        disease_table = Table(self.driver.find_element_by_id("diseaseTable"))
-        
-        cells = disease_table.get_column_cells("Disease")
-        
+    
         print iterate.getTextAsList(cells)
         #displays each row of gene data
         disease1 = cells[1]
@@ -491,66 +388,109 @@ class TestSearchTerm(unittest.TestCase):
         disease21 = cells[21]
         disease22 = cells[22]
         disease23 = cells[23]
-        disease24 = cells[24]
-        disease25 = cells[25]
-        disease26 = cells[26]
-        disease27 = cells[27]
-        disease28 = cells[28]
-        disease29 = cells[29]
-        disease30 = cells[30]
-        disease31 = cells[31]
-        disease32 = cells[32]
-        disease33 = cells[33]
-        disease34 = cells[34]
-        disease35 = cells[35]
-        disease36 = cells[36]
-        disease37 = cells[37]
-        disease38 = cells[38]
-        disease39 = cells[39]
-        disease40 = cells[40]
-        disease41 = cells[41]
         #asserts that the correct genes in the correct order are returned
-        self.assertEqual(disease1.text, 'ciliopathy')
-        self.assertEqual(disease2.text, 'Joubert syndrome')
-        self.assertEqual(disease3.text, 'Joubert syndrome with orofaciodigital defect')
-        self.assertEqual(disease4.text, 'Meckel syndrome')
-        self.assertEqual(disease5.text, 'otitis media')
-        self.assertEqual(disease6.text, 'primary ciliary dyskinesia')
-        self.assertEqual(disease7.text, 'primary ciliary dyskinesia 1')
-        self.assertEqual(disease8.text, 'primary ciliary dyskinesia 2')
-        self.assertEqual(disease9.text, 'primary ciliary dyskinesia 3')
-        self.assertEqual(disease10.text, 'primary ciliary dyskinesia 5')
-        self.assertEqual(disease11.text, 'primary ciliary dyskinesia 6')
-        self.assertEqual(disease12.text, 'primary ciliary dyskinesia 7')
-        self.assertEqual(disease13.text, 'primary ciliary dyskinesia 9')
-        self.assertEqual(disease14.text, 'primary ciliary dyskinesia 10')
-        self.assertEqual(disease15.text, 'primary ciliary dyskinesia 11')
-        self.assertEqual(disease16.text, 'primary ciliary dyskinesia 12')
-        self.assertEqual(disease17.text, 'primary ciliary dyskinesia 13')
-        self.assertEqual(disease18.text, 'primary ciliary dyskinesia 14')
-        self.assertEqual(disease19.text, 'primary ciliary dyskinesia 15')
-        self.assertEqual(disease20.text, 'primary ciliary dyskinesia 16')
-        self.assertEqual(disease21.text, 'primary ciliary dyskinesia 17')
-        self.assertEqual(disease22.text, 'primary ciliary dyskinesia 18')
-        self.assertEqual(disease23.text, 'primary ciliary dyskinesia 19')
-        self.assertEqual(disease24.text, 'primary ciliary dyskinesia 20')
-        self.assertEqual(disease25.text, 'primary ciliary dyskinesia 21')
-        self.assertEqual(disease26.text, 'primary ciliary dyskinesia 22')
-        self.assertEqual(disease27.text, 'primary ciliary dyskinesia 23')
-        self.assertEqual(disease28.text, 'primary ciliary dyskinesia 24')
-        self.assertEqual(disease29.text, 'primary ciliary dyskinesia 25')
-        self.assertEqual(disease30.text, 'primary ciliary dyskinesia 26')
-        self.assertEqual(disease31.text, 'primary ciliary dyskinesia 27')
-        self.assertEqual(disease32.text, 'primary ciliary dyskinesia 28')
-        self.assertEqual(disease33.text, 'primary ciliary dyskinesia 29')
-        self.assertEqual(disease34.text, 'primary ciliary dyskinesia 30')
-        self.assertEqual(disease35.text, 'primary ciliary dyskinesia 32')
-        self.assertEqual(disease36.text, 'primary ciliary dyskinesia 33')
-        self.assertEqual(disease37.text, 'primary ciliary dyskinesia 34')
-        self.assertEqual(disease38.text, 'primary ciliary dyskinesia 35')
-        self.assertEqual(disease39.text, 'Stromme syndrome')
-        self.assertEqual(disease40.text, 'tetralogy of Fallot')
-        self.assertEqual(disease41.text, 'visceral heterotaxy')
+        self.assertEqual(disease1.text, 'AGAT deficiency')
+        self.assertEqual(disease2.text, 'autosomal dominant limb-girdle muscular dystrophy type 1C')
+        self.assertEqual(disease3.text, 'autosomal dominant limb-girdle muscular dystrophy type 1E')
+        self.assertEqual(disease4.text, 'autosomal recessive limb-girdle muscular dystrophy type 2C')
+        self.assertEqual(disease5.text, 'autosomal recessive limb-girdle muscular dystrophy type 2H')
+        self.assertEqual(disease6.text, 'autosomal recessive limb-girdle muscular dystrophy type 2M')
+        self.assertEqual(disease7.text, 'autosomal recessive limb-girdle muscular dystrophy type 2O')
+        self.assertEqual(disease8.text, 'autosomal recessive limb-girdle muscular dystrophy type 2P')
+        self.assertEqual(disease9.text, 'autosomal recessive limb-girdle muscular dystrophy type 2Q')
+        self.assertEqual(disease10.text, 'centronuclear myopathy')
+        self.assertEqual(disease11.text, 'congenital myasthenic syndrome 1B')
+        self.assertEqual(disease12.text, 'congenital myasthenic syndrome 4C')
+        self.assertEqual(disease13.text, 'congenital myasthenic syndrome 9')
+        self.assertEqual(disease14.text, 'congenital myasthenic syndrome 10')
+        self.assertEqual(disease15.text, 'congenital myasthenic syndrome 11')
+        self.assertEqual(disease16.text, 'congenital myasthenic syndrome 12')
+        self.assertEqual(disease17.text, 'congenital myasthenic syndrome 14')
+        self.assertEqual(disease18.text, 'Duchenne muscular dystrophy')
+        self.assertEqual(disease19.text, 'megaconial type congenital muscular dystrophy')
+        self.assertEqual(disease20.text, 'mitochondrial DNA depletion syndrome 2')
+        self.assertEqual(disease21.text, 'muscular dystrophy-dystroglycanopathy')
+        self.assertEqual(disease22.text, 'nemaline myopathy 4')
+        self.assertEqual(disease23.text, 'nemaline myopathy 7')
+        
+    def test_do_term_down_dag(self):
+        '''
+        @status this test verifies the correct diseases are returned for this query down the dag.
+        This test verifies that the diseases on the grid tab and on the diseases tab are correct and sorted correctly
+        @see: HMDC-Grid-18, HMDC-disease-15
+        '''
+        print("BEGIN test_do_term_down_dag")
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements_by_tag_name("option"):
+            if option.text == 'Disease or Phenotype Name':
+                option.click()
+                break
+        
+        self.driver.find_element_by_name("formly_3_autocomplete_input_0").send_keys("ciliopathy")#identifies the input field and enters term/ID
+        wait.forAngular(self.driver)
+        time.sleep(3)
+        self.driver.find_element_by_id("searchButton").click()
+        wait.forAngular(self.driver)
+        #identify the Genes tab and verify the tab's text
+        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        print grid_tab.text
+        time.sleep(2)
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (81 x 31)", "Grid tab is not visible!")
+        grid_tab.click()
+        
+        #cells captures every field from Human Gene heading to the last disease angled, this test only captures the diseases, which are items 25,26,27
+        cells = self.driver.find_elements_by_css_selector("div.ngc.cell-content.ngc-custom-html.ng-binding.ng-scope")
+        time.sleep(1)
+        print iterate.getTextAsList(cells) #if you want to see what it captures uncomment this
+        
+        #displays each row of gene data
+        disease1 = cells[27]
+        disease2 = cells[28]
+        disease3 = cells[29]
+        disease4 = cells[30]
+        disease5 = cells[31]
+        disease6 = cells[32]
+        disease7 = cells[33]
+        #asserts that the correct diseases(at angle) display in the correct order
+        self.assertEqual(disease1.text, 'autosomal genetic disease')
+        self.assertEqual(disease2.text, 'cardiovascular system disease')
+        self.assertEqual(disease3.text, 'ciliopathy')
+        self.assertEqual(disease4.text, 'nervous system disease')
+        self.assertEqual(disease5.text, 'physical disorder')
+        self.assertEqual(disease6.text, 'syndrome')
+        self.assertEqual(disease7.text, 'urinary system disease')
+        #identify the Disease tab and verify the tab's text
+        disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
+        print disease_tab.text
+        disease_tab.click()
+        self.assertEqual(disease_tab.text, "Diseases (74)", "Diseases tab is not visible!")
+        disease_table = Table(self.driver.find_element_by_id("diseaseTable"))
+        
+        cells = disease_table.get_column_cells("Disease")
+        
+        print iterate.getTextAsList(cells)
+        #displays each row of diseases
+        disease1 = cells[1]
+        disease2 = cells[2]
+        disease3 = cells[3]
+        disease4 = cells[4]
+        disease5 = cells[5]
+        disease6 = cells[6]
+        disease7 = cells[7]
+        disease8 = cells[8]
+        disease9 = cells[9]
+       
+        #asserts that the correct genes in the correct order are returned
+        self.assertEqual(disease1.text, 'acrocallosal syndrome')
+        self.assertEqual(disease2.text, 'Bardet-Biedl syndrome')
+        self.assertEqual(disease3.text, 'ciliopathy')
+        self.assertEqual(disease4.text, 'cystic kidney disease')
+        self.assertEqual(disease5.text, 'heart disease')
+        self.assertEqual(disease6.text, 'hydrocephalus')
+        self.assertEqual(disease7.text, 'hydrolethalus syndrome')
+        self.assertEqual(disease8.text, 'Joubert syndrome')
+        self.assertEqual(disease9.text, 'Joubert syndrome 1')
+        
 
     def test_mp_term_normal_models(self):
         '''
@@ -558,6 +498,7 @@ class TestSearchTerm(unittest.TestCase):
         Normal models.
         @see: HMDC-grid-7
         '''
+        print("BEGIN test_mp_term_normal_models")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
@@ -591,6 +532,7 @@ class TestSearchTerm(unittest.TestCase):
         Should return the gene Aars to verify
         @see: HMDC-??
         '''
+        print("BEGIN test_mp_term_simple_Homozygous")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Disease or Phenotype Name':
@@ -604,7 +546,7 @@ class TestSearchTerm(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(4)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (628 x 45)", "Grid tab is not visible!")
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (639 x 46)", "Grid tab is not visible!")
         grid_tab.click()
         
         hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
@@ -623,6 +565,7 @@ class TestSearchTerm(unittest.TestCase):
         Should return the gene Tg(Camk2a-tTA)1Mmay to verify
         @see: HMDC-??
         '''
+        print("BEGIN test_mp_term_simple_Hemizygous")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Disease or Phenotype Name':
@@ -655,6 +598,7 @@ class TestSearchTerm(unittest.TestCase):
         Should return the gene Eda to verify
         @see: HMDC-??
         '''
+        print("BEGIN test_mp_term_simple_Indeterminate")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Disease or Phenotype Name':
@@ -687,6 +631,7 @@ class TestSearchTerm(unittest.TestCase):
         the disease. Do NOT return the recombinase marker.
         @see: HMDC-??
         '''
+        print("BEGIN test_mp_term_Cond_Recomb")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Disease or Phenotype Name':
@@ -701,7 +646,7 @@ class TestSearchTerm(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(5)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (1313 x 57)", "Grid tab is not visible!")
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (1316 x 56)", "Grid tab is not visible!")
         grid_tab.click()
         
         hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
@@ -724,6 +669,7 @@ class TestSearchTerm(unittest.TestCase):
         be excluded. Hesx1 comes back in due to other alleles and genotypes.) 
         @see: HMDC-??
         '''
+        print("BEGIN test_mp_term_Cond_Recomb_1")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Disease or Phenotype Name':
@@ -738,7 +684,7 @@ class TestSearchTerm(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (18 x 27)", "Grid tab is not visible!")
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (18 x 28)", "Grid tab is not visible!")
         time.sleep(2)
         grid_tab.click()
         
@@ -761,6 +707,7 @@ class TestSearchTerm(unittest.TestCase):
         (Genotype MGI:5304807MGI:5304807 has Kras alleles and is Conditional, but has no recombinase alleles, so it should NOT be excluded.)
         @see: HMDC-?? 
         '''
+        print("BEGIN test_mp_term_Cond_Recomb_2")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Disease or Phenotype Name':
@@ -796,6 +743,7 @@ class TestSearchTerm(unittest.TestCase):
         @bug: This test has a known issue that it does not capture genes past the 26th one, so 27th item is not found!!!
         @see: HMDC-??
         '''
+        print("BEGIN test_mp_term_Trans_Reporter")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Disease or Phenotype Name':
@@ -832,6 +780,7 @@ class TestSearchTerm(unittest.TestCase):
         @bug having problems collecting the genes after row 26, no answer to this issue as of yet
         @see: HMDC-??
         '''
+        print("BEGIN test_mp_term_Large_Complex_Geno")
         #self.setUpPost("gridQuery")
         
         #self.driver = webdriver.Chrome()
