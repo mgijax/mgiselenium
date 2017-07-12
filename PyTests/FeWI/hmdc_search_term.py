@@ -124,16 +124,19 @@ class TestSearchTerm(unittest.TestCase):
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_autocomplete_input_0").send_keys("meteorism")#identifies the input field and enters gata1
+        self.driver.find_element_by_name("formly_3_autocomplete_input_0").send_keys("meteorism")#identifies the input field and enters term
         wait.forAngular(self.driver)
         #self.driver.find_element_by_id("addConditionButton").click()
-        self.driver.find_element_by_class_name("ng-scope").click()
-        my_select1 = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        print self.driver.find_element_by_xpath("//*[contains(text(), 'Add')]")
+        self.driver.find_element_by_xpath("//*[contains(text(), 'Add')]").click()
+        my_select1 = self.driver.find_element_by_xpath("//*[contains(text(), 'Please select')]")#identifies the select field and picks the gene symbols option
         for option in my_select1.find_elements_by_tag_name("option"):
+            print option.text
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
         
+        self.driver.find_element_by_id("formly_3_input_input_0").clear()
         self.driver.find_element_by_name("formly_3_input_input_0").send_keys("Celsr3")#identifies the input field and enters Celsr3
         wait.forAngular(self.driver)
         self.driver.find_element_by_id("searchButton").click()
@@ -141,7 +144,8 @@ class TestSearchTerm(unittest.TestCase):
         #identify the Grid tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (1 x 1)", "Grid tab is not visible!")
+        print ("grid tab counts =", grid_tab.text)
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (1 x 8)", "Grid tab is not visible!")
         grid_tab.click()
         
         mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")

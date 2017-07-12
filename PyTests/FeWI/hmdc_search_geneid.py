@@ -36,6 +36,7 @@ class TestGeneid(unittest.TestCase):
         by Gene ID using an MGI ID
         @see: HMDC-GQ-16
         '''
+        print ("BEGIN testGeneIDMgiid")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
@@ -69,6 +70,7 @@ class TestGeneid(unittest.TestCase):
         by Gene ID using an Entrez gene ID, should only  have 1 gene(AA960008), no grid or disease
         @see: HMDC-GQ-17
         '''
+        print ("BEGIN test_gene_id_entrez")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
@@ -103,6 +105,7 @@ class TestGeneid(unittest.TestCase):
         by Gene ID using an NCBI Gene Model ID
         @see: HMDC-??
         '''
+        print ("BEGIN test_gene_id_ncbi_model")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
@@ -157,6 +160,7 @@ class TestGeneid(unittest.TestCase):
         by Gene ID using a Vega Gene Model ID
         @see: HMDC-GQ-19
         '''
+        print ("BEGIN test_gene_id_vega_model")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
@@ -215,6 +219,7 @@ class TestGeneid(unittest.TestCase):
         by Gene ID using a swiss-prot ID
         @see: HMDC-GQ-20
         '''
+        print ("BEGIN test_gene_id_swiss_prot")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
@@ -254,6 +259,7 @@ class TestGeneid(unittest.TestCase):
         Gt(ROSA)26Sor should not display on the grid(in this case  no grid at all) but, is fine displaying in the Genes tab.
         @see: HMDC-Grid-1
         '''
+        print ("BEGIN test_gene_id_gtrosa")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
@@ -290,6 +296,7 @@ class TestGeneid(unittest.TestCase):
         by Gene symbol using a non-mouse marker nomenclature term with results for all 3 tabs
         @see: HMDC-??
         '''
+        print ("BEGIN test_gene_symbol_non_mouseall")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
@@ -364,6 +371,7 @@ class TestGeneid(unittest.TestCase):
         by Gene symbol using a non-mouse marker nomenclature term with results for just the gene tab
         @see: HMDC-??
         '''
+        print ("BEGIN test_gene_symbol_non_mousegenetab")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
@@ -397,6 +405,7 @@ class TestGeneid(unittest.TestCase):
         by Gene symbol using a non-mouse marker nomenclature term with results for just the grid and gene tabs
         @see: HMDC-??
         '''
+        print ("BEGIN test_gene_symbol_non_mousegridgene")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
@@ -464,6 +473,7 @@ class TestGeneid(unittest.TestCase):
         by Gene symbol using a symbol that matches multiple gene homology class (ie. Smn1)
         @see: HMDC-??
         '''
+        print ("BEGIN test_gene_symbol_mult_homo_class")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
@@ -584,6 +594,7 @@ class TestGeneid(unittest.TestCase):
         by Gene symbol using a symbol that has a special character in it.(ie. -)
         @see: HMDC-GQ-6
         '''
+        print ("BEGIN test_gene_symbol_with_special_char")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
@@ -695,6 +706,7 @@ class TestGeneid(unittest.TestCase):
         by Gene symbol using a symbol that has a human symbol match and a human synonym match (Trp53, Trp53bp1)
         @see: HMDC-GQ-3
         '''
+        print ("BEGIN test_gene_symbol_dual_match")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
@@ -747,6 +759,7 @@ class TestGeneid(unittest.TestCase):
         by Gene symbol using a symbol that is a human synonym(LFS1 is a human synonym of Trp53)
         @see: HMDC-GQ-5
         '''
+        print ("BEGIN test_gene_symbol_human_syn")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
@@ -797,6 +810,7 @@ class TestGeneid(unittest.TestCase):
         by Gene ID for human Entrez gene(729991 is an ID for Borcs8)
         @see: HMDC-GQ-30
         '''
+        print ("BEGIN test_gene_ID_human_entrez")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
@@ -833,6 +847,7 @@ class TestGeneid(unittest.TestCase):
         by OMIM ID(human)(191150 is associated to marker Trp53)
         @see: HMDC-GQ-??
         '''
+        print ("BEGIN test_gene_ID_OMIM")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
@@ -883,6 +898,7 @@ class TestGeneid(unittest.TestCase):
         by HGNC ID(human)(HGNC:6554 is associated to marker Lepr)
         @see: HMDC-GQ-??
         '''
+        print ("BEGIN test_gene_ID_hgnc")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
@@ -923,6 +939,7 @@ class TestGeneid(unittest.TestCase):
         by RGD ID for a rat gene(RGD:2466 is associated to marker Cyp2b10 )
         @see: HMDC-GQ-37
         '''
+        print ("BEGIN test_gene_ID_rgd")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
@@ -960,6 +977,7 @@ class TestGeneid(unittest.TestCase):
         they have been commented out. The order of genes on the genes tab has Human symbols first, should be Mouse symbol first.
         @see HMDC-GQ-7
         '''
+        print ("BEGIN test_gene_symbol_multiples")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
@@ -984,7 +1002,8 @@ class TestGeneid(unittest.TestCase):
         self.assertEqual(searchTermItems[1], "INS")
         self.assertEqual(searchTermItems[2], "LEP")
         mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
-        #print mgenes
+        print ("Grid: Human genes check done")
+        
         searchTermItems1 = iterate.getTextAsList(mgenes)
         self.assertEqual(searchTermItems1[0], "Foxm1")
         self.assertEqual(searchTermItems1[1], "Ins2")
@@ -995,7 +1014,8 @@ class TestGeneid(unittest.TestCase):
         self.assertEqual(searchTermItems1[6], "Tg(H2-Ea-Ins2)1Wehi")
         self.assertEqual(searchTermItems1[7], "Tg(Ins2*Y16A)1Ell")
         self.assertEqual(searchTermItems1[8], "Tg(Ins2*Y16A)3Ell")#cells = mgenes.get_all()
-        #print searchTermItems
+        print ("Grid: Mouse genes check done")
+    
         #cells captures every field from Human Gene heading to the last disease angled, this test captures the phenotypes and 1 disease
         cells = self.driver.find_elements_by_css_selector("div.ngc.cell-content.ngc-custom-html.ng-binding.ng-scope")
         print iterate.getTextAsList(cells) #if you want to see what it captures uncomment this
@@ -1031,8 +1051,8 @@ class TestGeneid(unittest.TestCase):
         disease2 = cells[30]
         disease3 = cells[31]
         disease4 = cells[32]
-        #disease5 = cells[33]Selenium is not recognizing these last 2 diseases, maybe because not displayed in browser window?
-        #disease6 = cells[34]
+        disease5 = cells[33]
+        disease6 = cells[34]
         #asserts that the correct phenotypes/diseases(at angle) display in the correct order
         self.assertEqual(pheno1.text, 'adipose tissue')
         self.assertEqual(pheno2.text, 'behavior/neurological')
@@ -1064,16 +1084,19 @@ class TestGeneid(unittest.TestCase):
         self.assertEqual(disease2.text, 'cell type cancer')
         self.assertEqual(disease3.text, 'endocrine system disease')
         self.assertEqual(disease4.text, 'gastrointestinal system disease')
-        #self.assertEqual(disease5.text, 'maturity-onset diabetes of the young')
-        #self.assertEqual(disease6.text, 'respiratory system disease')
+        self.assertEqual(disease5.text, 'maturity-onset diabetes of the young')
+        self.assertEqual(disease6.text, 'respiratory system disease')
+        print ("Grid: phenotypes & diseases check done")
+        
         #identify the Genes tab and verify the tab's text
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
-        print gene_tab.text
+        #print gene_tab.text
         self.assertEqual(gene_tab.text, "Genes (17)", "Genes tab is not visible!")
         gene_tab.click()
         gene_table = Table(self.driver.find_element_by_id("geneTable"))
         cells = gene_table.get_column_cells("Gene Symbol")
         print iterate.getTextAsList(cells)
+        
         #displays each row of gene data
         gene1 = cells[1]
         gene2 = cells[2]
@@ -1127,6 +1150,7 @@ class TestGeneid(unittest.TestCase):
         they have been commented out. The order of genes on the genes tab has Human symbols first, should be Mouse symbol first.
         @see: HGNC-GQ-??
         '''
+        print ("BEGIN test_gene_id_multiples")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
