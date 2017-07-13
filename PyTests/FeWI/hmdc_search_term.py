@@ -432,13 +432,13 @@ class TestSearchTerm(unittest.TestCase):
         
         self.driver.find_element_by_name("formly_3_autocomplete_input_0").send_keys("ciliopathy")#identifies the input field and enters term/ID
         wait.forAngular(self.driver)
-        time.sleep(3)
+        time.sleep(4)
         self.driver.find_element_by_id("searchButton").click()
         wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         print grid_tab.text
-        time.sleep(2)
+        time.sleep(3)
         self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (66 x 28)", "Grid tab is not visible!")
         grid_tab.click()
         
@@ -686,7 +686,7 @@ class TestSearchTerm(unittest.TestCase):
         wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
-        time.sleep(2)
+        time.sleep(4)
         self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (18 x 27)", "Grid tab is not visible!")
         time.sleep(2)
         grid_tab.click()
