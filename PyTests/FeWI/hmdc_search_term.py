@@ -129,7 +129,7 @@ class TestSearchTerm(unittest.TestCase):
         #self.driver.find_element_by_id("addConditionButton").click()
         print self.driver.find_element_by_xpath("//*[contains(text(), 'Add')]")
         self.driver.find_element_by_xpath("//*[contains(text(), 'Add')]").click()
-        my_select1 = self.driver.find_element_by_xpath("//*[contains(text(), 'Please select')]")#identifies the select field and picks the gene symbols option
+        my_select1 = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_4')]")#identifies the select field and picks the phenotype name option
         for option in my_select1.find_elements_by_tag_name("option"):
             print option.text
             if option.text == 'Gene Symbol(s) or ID(s)':
@@ -439,7 +439,7 @@ class TestSearchTerm(unittest.TestCase):
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         print grid_tab.text
         time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (81 x 31)", "Grid tab is not visible!")
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (66 x 28)", "Grid tab is not visible!")
         grid_tab.click()
         
         #cells captures every field from Human Gene heading to the last disease angled, this test only captures the diseases, which are items 25,26,27
@@ -452,22 +452,18 @@ class TestSearchTerm(unittest.TestCase):
         disease2 = cells[28]
         disease3 = cells[29]
         disease4 = cells[30]
-        disease5 = cells[31]
-        disease6 = cells[32]
-        disease7 = cells[33]
+        
         #asserts that the correct diseases(at angle) display in the correct order
-        self.assertEqual(disease1.text, 'autosomal genetic disease')
-        self.assertEqual(disease2.text, 'cardiovascular system disease')
-        self.assertEqual(disease3.text, 'ciliopathy')
-        self.assertEqual(disease4.text, 'nervous system disease')
-        self.assertEqual(disease5.text, 'physical disorder')
-        self.assertEqual(disease6.text, 'syndrome')
-        self.assertEqual(disease7.text, 'urinary system disease')
+        self.assertEqual(disease1.text, 'cardiovascular system disease')
+        self.assertEqual(disease2.text, 'ciliopathy')
+        self.assertEqual(disease3.text, 'nervous system disease')
+        self.assertEqual(disease4.text, 'physical disorder')
+
         #identify the Disease tab and verify the tab's text
         disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         print disease_tab.text
         disease_tab.click()
-        self.assertEqual(disease_tab.text, "Diseases (74)", "Diseases tab is not visible!")
+        self.assertEqual(disease_tab.text, "Diseases (67)", "Diseases tab is not visible!")
         disease_table = Table(self.driver.find_element_by_id("diseaseTable"))
         
         cells = disease_table.get_column_cells("Disease")
@@ -485,16 +481,15 @@ class TestSearchTerm(unittest.TestCase):
         disease9 = cells[9]
        
         #asserts that the correct genes in the correct order are returned
-        self.assertEqual(disease1.text, 'acrocallosal syndrome')
-        self.assertEqual(disease2.text, 'Bardet-Biedl syndrome')
-        self.assertEqual(disease3.text, 'ciliopathy')
-        self.assertEqual(disease4.text, 'cystic kidney disease')
-        self.assertEqual(disease5.text, 'heart disease')
-        self.assertEqual(disease6.text, 'hydrocephalus')
-        self.assertEqual(disease7.text, 'hydrolethalus syndrome')
-        self.assertEqual(disease8.text, 'Joubert syndrome')
-        self.assertEqual(disease9.text, 'Joubert syndrome 1')
-        
+        self.assertEqual(disease1.text, 'ciliopathy')
+        self.assertEqual(disease2.text, 'Joubert syndrome')
+        self.assertEqual(disease3.text, 'Joubert syndrome 1')
+        self.assertEqual(disease4.text, 'Joubert syndrome 2')
+        self.assertEqual(disease5.text, 'Joubert syndrome 3')
+        self.assertEqual(disease6.text, 'Joubert syndrome 4')
+        self.assertEqual(disease7.text, 'Joubert syndrome 5')
+        self.assertEqual(disease8.text, 'Joubert syndrome 6')
+        self.assertEqual(disease9.text, 'Joubert syndrome 7')
 
     def test_mp_term_normal_models(self):
         '''
@@ -503,19 +498,23 @@ class TestSearchTerm(unittest.TestCase):
         @see: HMDC-grid-7
         '''
         print("BEGIN test_mp_term_normal_models")
+        
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
+            
         #breast inflammation is an MP synonym of mastitis
         self.driver.find_element_by_name("formly_3_input_input_0").send_keys("Pax6")#identifies the input field and enters gata1
         wait.forAngular(self.driver)
         self.driver.find_element_by_id("searchButton").click()
         wait.forAngular(self.driver)
+        
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
+        print grid_tab.text
         self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (4 x 26)", "Grid tab is not visible!")
         grid_tab.click()
         
@@ -550,7 +549,7 @@ class TestSearchTerm(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(4)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (639 x 46)", "Grid tab is not visible!")
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (628 x 45)", "Grid tab is not visible!")
         grid_tab.click()
         
         hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
@@ -650,7 +649,7 @@ class TestSearchTerm(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(5)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (1316 x 56)", "Grid tab is not visible!")
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (1313 x 56)", "Grid tab is not visible!")
         grid_tab.click()
         
         hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
@@ -688,7 +687,7 @@ class TestSearchTerm(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (18 x 28)", "Grid tab is not visible!")
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (18 x 27)", "Grid tab is not visible!")
         time.sleep(2)
         grid_tab.click()
         

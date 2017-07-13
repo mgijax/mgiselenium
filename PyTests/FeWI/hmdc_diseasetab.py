@@ -32,6 +32,7 @@ class TestDiseaseTab(unittest.TestCase):
         @status this test verifies the headings on the disease tab are correct and in the correct order.
         @see HMDC-diesease-?
         '''
+        print ("BEGIN test_diseases_tab_headers")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
@@ -45,7 +46,7 @@ class TestDiseaseTab(unittest.TestCase):
         disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         print disease_tab.text
         time.sleep(2)
-        self.assertEqual(disease_tab.text, "Diseases (4)", "Diseases tab is not visible!")
+        self.assertEqual(disease_tab.text, "Diseases (3)", "Diseases tab is not visible!")
         disease_tab.click()
         disease_table_headers = self.driver.find_element_by_id("diseaseTable").find_element_by_css_selector("tr")
         items = disease_table_headers.find_elements_by_tag_name("th")
@@ -63,6 +64,7 @@ class TestDiseaseTab(unittest.TestCase):
         @status this test verifies the correct diseases are returned for this query. This query uses search option Gene Symbol(s) or ID(s)
         @see HMDC-GQ-??
         '''
+        print ("BEGIN test_diseases_tab_diseases")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
@@ -77,7 +79,7 @@ class TestDiseaseTab(unittest.TestCase):
         disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         print disease_tab.text
         time.sleep(2)
-        self.assertEqual(disease_tab.text, "Diseases (4)", "Diseases tab is not visible!")
+        self.assertEqual(disease_tab.text, "Diseases (3)", "Diseases tab is not visible!")
         disease_tab.click()
         disease_table = Table(self.driver.find_element_by_id("diseaseTable"))
         cells = disease_table.get_column_cells("Disease")
@@ -86,18 +88,17 @@ class TestDiseaseTab(unittest.TestCase):
         disease1 = cells[1]
         disease2 = cells[2]
         disease3 = cells[3]
-        disease4 = cells[4]
         #asserts that the correct genes in the correct order are returned
         self.assertEqual(disease1.text, 'Down syndrome')
-        self.assertEqual(disease2.text, 'myelodysplastic syndrome')
-        self.assertEqual(disease3.text, 'myelofibrosis')
-        self.assertEqual(disease4.text, 'thrombocytopenia')
+        self.assertEqual(disease2.text, 'myelofibrosis')
+        self.assertEqual(disease3.text, 'thrombocytopenia')
         
     def test_diseases_tab_diseases2(self):
         '''
         @status this test verifies the correct diseases are returned for this query. This query uses search option Phenotype or Disease Name
         @see HMDC-??-??
         '''
+        print ("BEGIN test_diseases_tab_diseases2")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Disease or Phenotype Name':
@@ -131,6 +132,7 @@ class TestDiseaseTab(unittest.TestCase):
         this ID  should bring back the disease Carney complex
         @see HMDC-DQ-9
         '''
+        print ("BEGIN test_diseases_tab_doids")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Disease or Phenotype ID(s)':

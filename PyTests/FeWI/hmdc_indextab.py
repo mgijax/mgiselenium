@@ -32,6 +32,7 @@ class TestHmdcIndex(unittest.TestCase):
         @status this test verifies the headings on the Gene Homologs x Phenotypes/Diseases tab( or Index tab) are correct and in the correct order.
         @see: HMDC-??
         '''
+        print ("BEGIN test_index_tab_headers")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
@@ -57,6 +58,7 @@ class TestHmdcIndex(unittest.TestCase):
         @status this test verifies the correct diseases are returned for this query.
         @see: HMDC-??
         '''
+        print ("BEGIN test_index_tab_diseases")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
@@ -90,6 +92,7 @@ class TestHmdcIndex(unittest.TestCase):
         @status this test verifies the correct genes are returned for this query, both human and mouse.
         @see: HMDC-??
         '''
+        print ("BEGIN test_index_tab_genes")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
@@ -122,6 +125,7 @@ class TestHmdcIndex(unittest.TestCase):
         @status this test verifies the correct genes are returned for this query, The symbol used has several unusual characters.
         @see: HMDC-??
         '''
+        print ("BEGIN test_index_tab_genes_Unique_symbol")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
@@ -149,6 +153,7 @@ class TestHmdcIndex(unittest.TestCase):
         In this case we are clicking the liver/biliary system box and verifying the correct Mouse Genotypes are listed in the popup
         @see: HMDC-??
         '''
+        print ("BEGIN test_genotype_popup")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':

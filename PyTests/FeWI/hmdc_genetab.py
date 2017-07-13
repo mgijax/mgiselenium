@@ -35,6 +35,7 @@ class TestGeneTab(unittest.TestCase):
         @status this test verifies all the table headers on the genes tab are correct and in the correct order.
         @see HMDC-genetab-1
         '''
+        print ("BEGIN test_genes_tab_headers")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
@@ -67,6 +68,7 @@ class TestGeneTab(unittest.TestCase):
         @status this test verifies the correct genes are returned for a gene symbol query.
         @see HMDC-GQ-1 ??
         '''
+        print ("BEGIN test_genes_tab_genes")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
@@ -106,6 +108,7 @@ class TestGeneTab(unittest.TestCase):
         @status this test verifies the correct genes are returned for this query, in particular genes with special characters in their symbol.
         @see HMDC-GQ-2
         '''
+        print ("BEGIN test_uniquegenes_tab_genes")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
@@ -135,6 +138,7 @@ class TestGeneTab(unittest.TestCase):
         @status this test verifies the correct diseases are returned for this query.
         @attention: combine with test_genes_tab_genes test??
         '''
+        print ("BEGIN test_genes_tab_diseases")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
@@ -161,7 +165,7 @@ class TestGeneTab(unittest.TestCase):
         disease5 = cells[5]
         disease6 = cells[6]
         #asserts that the correct genes in the correct order are returned
-        self.assertEqual(disease1.text, 'myelodysplastic syndrome\nmyelofibrosis\nthrombocytopenia')
+        self.assertEqual(disease1.text, 'myelofibrosis\nthrombocytopenia')
         self.assertEqual(disease2.text, 'Down syndrome\nthrombocytopenia')
         self.assertEqual(disease3.text, '')
         self.assertEqual(disease4.text, '')

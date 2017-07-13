@@ -36,6 +36,7 @@ class TestHmdcSearchID(unittest.TestCase):
         @status this test verifies the headings on the Gene Homologs x Phenotypes/Diseases tab( or Index tab) are correct and in the correct order.
         @see: HGNC-
         '''
+        print ("BEGIN test_index_tab_headers")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
@@ -61,6 +62,7 @@ class TestHmdcSearchID(unittest.TestCase):
         @status this test verifies the correct diseases are returned for this query. This term has both DO, MP and HP results
         @see: HDMC-??
         '''
+        print ("BEGIN test_do_term_id")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Disease or Phenotype ID(s)':
@@ -93,6 +95,7 @@ class TestHmdcSearchID(unittest.TestCase):
         @status this test verifies the correct diseases are returned for this query, should return the MP term using an MP ID.
         @see: HDMC-PQ-??
         '''
+        print ("BEGIN test_mp_term_id")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Disease or Phenotype ID(s)':
@@ -130,6 +133,7 @@ class TestHmdcSearchID(unittest.TestCase):
         @status this test verifies the correct diseases are returned for this query, should return the MP term using an alternate ID.
         @see: HMDC-PQ-18
         '''
+        print ("BEGIN test_mp_term_altid")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Disease or Phenotype ID(s)':
@@ -213,6 +217,7 @@ class TestHmdcSearchID(unittest.TestCase):
         This test verifies the phenotypes displayed at an angle in correct sort order.
         @see: HDMC-PQ-??
         '''
+        print ("BEGIN test_hp_term_id")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Disease or Phenotype ID(s)':
@@ -258,6 +263,7 @@ class TestHmdcSearchID(unittest.TestCase):
         This test verifies the correct diseases are displayed on an angle in correct sort order.
         @see: HMDC-??
         '''
+        print ("BEGIN test_do_term_xref_id")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Disease or Phenotype ID(s)':
@@ -291,6 +297,7 @@ class TestHmdcSearchID(unittest.TestCase):
         @status this test verifies the correct genes are returned for this query, should return multiple MP terms results.
         @see: HMDC-PQ-21?
         '''
+        print ("BEGIN test_mp_term_multi_id")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Disease or Phenotype ID(s)':
@@ -340,6 +347,7 @@ class TestHmdcSearchID(unittest.TestCase):
         This test verifies the correct phenotypes return at an angle in the correct sort order.
         @see: HDMC-PQ-??
         '''
+        print ("BEGIN test_hp_term_multi_id")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Disease or Phenotype ID(s)':
@@ -378,6 +386,7 @@ class TestHmdcSearchID(unittest.TestCase):
         This test uses an HP and an MP term, The HP term is  connected to markers DIAPH3 and OTOF.
         @see: HDMC-PQ-??
         '''
+        print ("BEGIN test_mixed_term_multi_id")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Disease or Phenotype ID(s)':
@@ -437,6 +446,7 @@ class TestHmdcSearchID(unittest.TestCase):
         This test verifies the disease listed on the grid and then switches to the disease tab and verifies the 3 diseases listed there.
         @see: HDMC-??
         '''
+        print ("BEGIN test_do_term_id_down_dag")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Disease or Phenotype ID(s)':

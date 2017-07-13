@@ -720,7 +720,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (7 x 40)", "Grid tab is not visible!")
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (7 x 38)", "Grid tab is not visible!")
         grid_tab.click()
         hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
         print hgenes
@@ -750,7 +750,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Diseases tab and verify the tab's text
         disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         print disease_tab.text
-        self.assertEqual(disease_tab.text, "Diseases (16)", "Diseases tab is not visible!")
+        self.assertEqual(disease_tab.text, "Diseases (14)", "Diseases tab is not visible!")
         disease_tab.click()
         
     def test_gene_symbol_human_syn(self):
@@ -773,7 +773,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (6 x 40)", "Grid tab is not visible!")
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (6 x 38)", "Grid tab is not visible!")
         grid_tab.click()
         hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
         print hgenes
@@ -801,7 +801,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Diseases tab and verify the tab's text
         disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         print disease_tab.text
-        self.assertEqual(disease_tab.text, "Diseases (16)", "Diseases tab is not visible!")
+        self.assertEqual(disease_tab.text, "Diseases (14)", "Diseases tab is not visible!")
         disease_tab.click()
 
     def test_gene_ID_human_entrez(self):
@@ -861,7 +861,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (6 x 40)", "Grid tab is not visible!")
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (6 x 38)", "Grid tab is not visible!")
         grid_tab.click()
         hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
         print hgenes
@@ -889,7 +889,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Diseases tab and verify the tab's text
         disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         print disease_tab.text
-        self.assertEqual(disease_tab.text, "Diseases (16)", "Diseases tab is not visible!")
+        self.assertEqual(disease_tab.text, "Diseases (14)", "Diseases tab is not visible!")
         disease_tab.click()
 
     def test_gene_ID_hgnc(self):
@@ -1091,7 +1091,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         #print gene_tab.text
-        self.assertEqual(gene_tab.text, "Genes (17)", "Genes tab is not visible!")
+        self.assertEqual(gene_tab.text, "Genes (16)", "Genes tab is not visible!")
         gene_tab.click()
         gene_table = Table(self.driver.find_element_by_id("geneTable"))
         cells = gene_table.get_column_cells("Gene Symbol")
@@ -1220,9 +1220,8 @@ class TestGeneid(unittest.TestCase):
         disease2 = cells[30]
         disease3 = cells[31]
         disease4 = cells[32]
-        #these last 4 diseases can not be picked up by selenium, exactly why is unknown
-        #disease5 = cells[33]
-        #disease6 = cells[34]
+        disease5 = cells[33]
+        disease6 = cells[34]
         #asserts that the correct phenotypes/diseases(at angle) display in the correct order
         self.assertEqual(pheno1.text, 'adipose tissue')
         self.assertEqual(pheno2.text, 'behavior/neurological')
@@ -1254,12 +1253,12 @@ class TestGeneid(unittest.TestCase):
         self.assertEqual(disease2.text, 'cell type cancer')
         self.assertEqual(disease3.text, 'endocrine system disease')
         self.assertEqual(disease4.text, 'gastrointestinal system disease')
-        #self.assertEqual(disease5.text, 'maturity-onset diabetes of the young')
-        #self.assertEqual(disease6.text, 'respiratory system disease')
+        self.assertEqual(disease5.text, 'maturity-onset diabetes of the young')
+        self.assertEqual(disease6.text, 'respiratory system disease')
         #identify the Genes tab and verify the tab's text
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         print gene_tab.text
-        self.assertEqual(gene_tab.text, "Genes (17)", "Genes tab is not visible!")
+        self.assertEqual(gene_tab.text, "Genes (16)", "Genes tab is not visible!")
         gene_tab.click()
         gene_table = Table(self.driver.find_element_by_id("geneTable"))
         cells = gene_table.get_column_cells("Gene Symbol")
@@ -1272,8 +1271,8 @@ class TestGeneid(unittest.TestCase):
         gene5 = cells[5]
         gene6 = cells[6]
         #asserts that the correct genes in the correct order are returned
-        self.assertEqual(gene1.text, 'FOXM1')
-        self.assertEqual(gene2.text, 'Foxm1')
+        self.assertEqual(gene1.text, 'Foxm1')
+        self.assertEqual(gene2.text, 'FOXM1')
         self.assertEqual(gene3.text, 'INS')
         self.assertEqual(gene4.text, 'Ins2')
         self.assertEqual(gene5.text, 'LEP')
