@@ -2,7 +2,7 @@
 Created on Sep 14, 2016
 This test is for searches using the quick search feature of the WI
 @author: jeffc
-@attention: Need to add DOIDs once software is released to public!!!!!
+
 '''
 
 import unittest
@@ -888,6 +888,28 @@ class TestSearchTool(unittest.TestCase):
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[7], 'Proteoform : mAATK/iso:2 (PR:Q80YE4-2)   and more detail...')
         wait.forAjax(driver) 
+        
+    def test_do_id(self):
+        """
+        @status: Tests that a Disease Ontology ID brings back the proper information
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL)
+        searchbox = driver.find_element_by_id('searchToolTextArea')
+        # put your Proteoform ID in the quick search box
+        searchbox.send_keys("DOID:1700")
+        searchbox.send_keys(Keys.RETURN)
+        time.sleep(3)
+        #finds the Best Match information
+        buckets = driver.find_elements_by_class_name("qsBucket")
+        match_info = buckets[1].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        searchTextItems = iterate.getTextAsList(match_info)
+        wait.forAjax(driver)
+        print searchTextItems
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(searchTextItems[3], 'ID : DOID:1700')
+        wait.forAjax(driver) 
+                
         
     def tearDown(self):
         self.driver.quit()

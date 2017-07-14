@@ -15,6 +15,9 @@ sys.path.append(
 )
 import config
 
+'''
+@Attention: This file does not have tests yet. Need to add them
+'''
 
 class GxdTest(unittest.TestCase):
 
@@ -24,10 +27,8 @@ class GxdTest(unittest.TestCase):
 
     def test_gxd_Name(self):
         driver = self.driver
-        driver.get(config.FEWI_URL + "/gxd")
+        driver.get(config.TEST_URL + "/gxd")
         self.assertIn("Mouse Gene Expression", driver.title, "page not found")
-
-
 
     def tearDown(self):
         self.driver.close()

@@ -1,4 +1,5 @@
 '''
+
 Created on Apr 18, 2016
 This page is linked to from the References page
 @author: jeffc
@@ -45,7 +46,7 @@ class TestAssaySummaryPage(unittest.TestCase):
         wait.forAjax(driver)
         #verifies all the table headings are correct and in order
         self.assertEqual(searchTextItems, ['Result Details','Gene','Assay Type','Reference'])
-        
+
     def test_page_sort(self):
         """
         @status: Tests that the default page sort is correct
@@ -150,4 +151,4 @@ def suite():
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testSpecSumByRef']
-    unittest.main()
+    unittest.main()                
