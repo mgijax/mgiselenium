@@ -1,6 +1,7 @@
 '''
 Created on Nov 8, 2016
 These tests cover the the data and layout of the Genes tab results
+pdated: July 2017 (jlewis) - updates to make Gene Tab tests more tolerant to changes in annotations.  e.g. removing counts
 @author: jeffc
 '''
 import unittest
@@ -33,7 +34,7 @@ class TestGeneTab(unittest.TestCase):
     def test_genes_tab_headers(self):
         '''
         @status this test verifies all the table headers on the genes tab are correct and in the correct order.
-        @see HMDC-genetab-1
+        @see HMDC-GQ-1 (single token mouse symbol); HMDC-genetab-1 (column headings)
         '''
         print ("BEGIN test_genes_tab_headers")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
@@ -42,14 +43,14 @@ class TestGeneTab(unittest.TestCase):
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("Gata1")#indentifies the input field and enters gata1
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("Gata1")#identifies the input field and enters gata1
         wait.forAngular(self.driver)
         self.driver.find_element_by_id("searchButton").click()
         #identify the Genes tab and verify the tab's text
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
         print gene_tab.text
-        self.assertEqual(gene_tab.text, "Genes (6)", "Genes tab is not visible!")
+        
         gene_tab.click()
         gene_table_headers = self.driver.find_element_by_id("geneTable").find_element_by_css_selector("tr")
         items = gene_table_headers.find_elements_by_tag_name("th")
@@ -66,7 +67,7 @@ class TestGeneTab(unittest.TestCase):
     def test_genes_tab_genes(self):
         '''
         @status this test verifies the correct genes are returned for a gene symbol query.
-        @see HMDC-GQ-1 ??
+        @see HMDC-GQ-1 (single token mouse symbol); HMDC-genetab-2 (return matches by Gene symbol: mouse and human)
         '''
         print ("BEGIN test_genes_tab_genes")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
@@ -83,25 +84,23 @@ class TestGeneTab(unittest.TestCase):
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         print gene_tab.text
         time.sleep(2)
-        self.assertEqual(gene_tab.text, "Genes (6)", "Genes tab is not visible!")
+        
         gene_tab.click()
         gene_table = Table(self.driver.find_element_by_id("geneTable"))
         cells = gene_table.get_column_cells("Gene Symbol")
         print iterate.getTextAsList(cells)
-        #displays each row of gene data
-        gene1 = cells[1]
-        gene2 = cells[2]
-        gene3 = cells[3]
-        gene4 = cells[4]
-        gene5 = cells[5]
-        gene6 = cells[6]
-        #asserts that the correct genes in the correct order are returned
-        self.assertEqual(gene1.text, 'Gata1')
-        self.assertEqual(gene2.text, 'GATA1')
-        self.assertEqual(gene3.text, 'Tg(Gata1)#Mym')
-        self.assertEqual(gene4.text, 'Tg(Gata1*)#Mym')
-        self.assertEqual(gene5.text, 'Tg(Gata1*V205G)1Mym')
-        self.assertEqual(gene6.text, 'Tg(HBB-Gata1)G4Phi')
+       
+        geneSymbolsReturned = iterate.getTextAsList(cells)
+       
+        #asserts that the matching genes are returned
+        self.assertIn('Gata1', geneSymbolsReturned)
+        self.assertEqual('GATA1', geneSymbolsReturned)
+        
+        #check for Expressed Component/Transgene matches???  verify requirement first
+        #self.assertEqual(gene3.text, 'Tg(Gata1)#Mym')
+        #self.assertEqual(gene4.text, 'Tg(Gata1*)#Mym')
+        #self.assertEqual(gene5.text, 'Tg(Gata1*V205G)1Mym')
+        #self.assertEqual(gene6.text, 'Tg(HBB-Gata1)G4Phi')
         
     def test_uniquegenes_tab_genes(self):
         '''

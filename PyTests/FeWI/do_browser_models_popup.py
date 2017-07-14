@@ -35,6 +35,7 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
 @status this test verifies the header section on the DO browser mouse models popup page is correct, this is for the 
         headings Human Disease Modeled and Associated Mouse Gene.
         '''
+        print ("BEGIN test_dobrowser_modelspopup_tableheaders")
         searchbox = self.driver.find_element_by_id('searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:1324")
@@ -71,6 +72,7 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         @status this test verifies the header section on the DO browser mouse models popup page is correct, this is for the 
         headings Human Disease Modeled and Associated Mouse Gene. This second test is to verify when the disease name has changed
         '''
+        print ("BEGIN test_dobrowser_modelspopup_tableheaders2")
         searchbox = self.driver.find_element_by_id('searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:1324")
@@ -83,7 +85,7 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         gene_table = self.driver.find_element_by_id("geneTabTable")
         table = Table(gene_table)
         #cells = table.get_rows()
-        cell = table.get_cell(8, 3)
+        cell = table.get_cell(7, 3)
         #Identify the data found in the Mouse Models column for the second row(for marker Fgf9)
         print cell.text
         cell.find_element_by_link_text("1 model").click()
@@ -106,6 +108,7 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         '''
         @status this test verifies the display of disease model popup when only NOTs are returned.
         '''
+        print ("BEGIN test_dobrowser_modelspopup_onlynots")
         searchbox = self.driver.find_element_by_id('searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:0050581")
@@ -135,6 +138,7 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         '''
         @status this test verifies the display of disease model popup when only human data is returned.
         '''
+        print ("BEGIN test_dobrowser_modelspopup_onlyhuman")
         searchbox = self.driver.find_element_by_id('searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:10652")
@@ -165,6 +169,7 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         '''
         @status this test verifies the display of disease model popup when you have mouse and NOTs returned.
         '''
+        print ("BEGIN test_dobrowser_modelspopup_mouse_nots")
         searchbox = self.driver.find_element_by_id('searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:9744")
