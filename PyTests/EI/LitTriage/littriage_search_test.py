@@ -81,9 +81,9 @@ class TestLitSearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
-        jnum_cells = table.get_column_cells('J:#')
+        jnum_cells = table.get_column_cells(2)
         jnums = iterate.getTextAsList(jnum_cells)
-        self.assertEqual(jnums, ['J:#'])
+        self.assertEqual(jnums, [''])
         
     def testMultiJnumCommaSearch(self):
         """
@@ -97,9 +97,9 @@ class TestLitSearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
-        jnum_cells = table.get_column_cells('J:#')
+        jnum_cells = table.get_column_cells(2)
         jnums = iterate.getTextAsList(jnum_cells)
-        self.assertEqual(jnums, ['J:#','J:182573','J:173534','J:155845','J:151466','J:136110','J:134667','J:109968','J:75187','J:43743','J:23392','J:23389'])
+        self.assertEqual(jnums, ['','J:182573','J:173534','J:155845','J:151466','J:136110','J:134667','J:109968','J:75187','J:43743','J:23392','J:23389'])
             
     def testMultiJnumSpaceSearch(self):
         """
@@ -113,9 +113,10 @@ class TestLitSearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
-        jnum_cells = table.get_column_cells('J:#')
+        jnum_cells = table.get_column_cells(2)
         jnums = iterate.getTextAsList(jnum_cells)
-        self.assertEqual(jnums, ['J:#','J:182573','J:173534','J:155845','J:151466','J:136110','J:134667','J:109968','J:75187','J:43743','J:23392','J:23389'])
+        print jnums
+        self.assertEqual(jnums, ['','J:182573','J:173534','J:155845','J:151466','J:136110','J:134667','J:109968','J:75187','J:43743','J:23392','J:23389'])
                        
             
     def testPubMedSearch(self):
@@ -130,9 +131,9 @@ class TestLitSearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
-        jnum_cells = table.get_column_cells('J:#')
-        jnums = iterate.getTextAsList(jnum_cells)
-        self.assertEqual(jnums, ['J:#','J:54446'])
+        jnum_cell = table.get_cell(1,2)
+        #jnum = iterate.getTextAsList(jnum_cells)
+        self.assertEqual(jnum_cell.text, 'J:54446')
               
     def testMGIIDSearch(self):
         """
@@ -146,9 +147,9 @@ class TestLitSearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
-        jnum_cells = table.get_column_cells('J:#')
-        jnums = iterate.getTextAsList(jnum_cells)
-        self.assertEqual(jnums, ['J:#','J:14223'])
+        jnum_cell = table.get_cell(1,2)
+        #jnum = iterate.getTextAsList(jnum_cells)
+        self.assertEqual(jnum_cell.text, 'J:14223')
             
     def testDOIIDSearch(self):
         """
@@ -162,9 +163,9 @@ class TestLitSearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
-        jnum_cells = table.get_column_cells('J:#')
-        jnums = iterate.getTextAsList(jnum_cells)
-        self.assertEqual(jnums, ['J:#','J:212979'])
+        jnum_cell = table.get_cell(1,2)
+        #jnum = iterate.getTextAsList(jnum_cells)
+        self.assertEqual(jnum_cell.text, 'J:212979')
               
     def testGOIDSearch(self):
         """
@@ -178,10 +179,9 @@ class TestLitSearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
-        jnum_cells = table.get_column_cells('J:#')
-        jnums = iterate.getTextAsList(jnum_cells)
-        self.assertEqual(jnums, ['J:#','J:161428'])
-            
+        jnum_cell = table.get_cell(1,2)
+        #jnum = iterate.getTextAsList(jnum_cells)
+        self.assertEqual(jnum_cell.text, 'J:161428')
 
     def testTitleExactSearch(self):
         """
@@ -195,9 +195,9 @@ class TestLitSearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
-        jnum_cells = table.get_column_cells('J:#')
-        jnums = iterate.getTextAsList(jnum_cells)
-        self.assertEqual(jnums, ['J:#','J:19279'])
+        jnum_cell = table.get_cell(1,2)
+        #jnum = iterate.getTextAsList(jnum_cells)
+        self.assertEqual(jnum_cell.text, 'J:19279')
         
     def testTypeAbstractSearch(self):
         """
@@ -213,9 +213,9 @@ class TestLitSearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
-        jnum_cells = table.get_column_cells('J:#')
-        jnums = iterate.getTextAsList(jnum_cells)
-        self.assertEqual(jnums, ['J:#','J:28109'])
+        jnum_cell = table.get_cell(1,2)
+        #jnum = iterate.getTextAsList(jnum_cells)
+        self.assertEqual(jnum_cell.text, 'J:28109')
     
     def testTitleAuthorNoteSearch(self):
         """
@@ -231,9 +231,9 @@ class TestLitSearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
-        jnum_cells = table.get_column_cells('J:#')
-        jnums = iterate.getTextAsList(jnum_cells)
-        self.assertEqual(jnums, ['J:#','J:41368'])
+        jnum_cell = table.get_cell(1,2)
+        #jnum = iterate.getTextAsList(jnum_cells)
+        self.assertEqual(jnum_cell.text, 'J:41368')
     
     def testJournalYearVolumeIssuePagesSearch(self):
         """
@@ -251,9 +251,9 @@ class TestLitSearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
-        jnum_cells = table.get_column_cells('J:#')
-        jnums = iterate.getTextAsList(jnum_cells)
-        self.assertEqual(jnums, ['J:#','J:183831'])
+        jnum_cell = table.get_cell(1,2)
+        #jnum = iterate.getTextAsList(jnum_cells)
+        self.assertEqual(jnum_cell.text, 'J:183831')
 
     def testAuthorJournalDateSearch(self):
         """
@@ -269,9 +269,9 @@ class TestLitSearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
-        jnum_cells = table.get_column_cells('J:#')
-        jnums = iterate.getTextAsList(jnum_cells)
-        self.assertEqual(jnums, ['J:#','J:128739'])
+        jnum_cell = table.get_cell(1,2)
+        #jnum = iterate.getTextAsList(jnum_cells)
+        self.assertEqual(jnum_cell.text, 'J:128739')
 
     def testYearAuthorReviewTitleSearch(self):
         """
@@ -288,11 +288,106 @@ class TestLitSearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
-        jnum_cells = table.get_column_cells('J:#')
-        jnums = iterate.getTextAsList(jnum_cells)
-        self.assertEqual(jnums, ['J:#','J:63615'])
+        jnum_cell = table.get_cell(1,2)
+        #jnum = iterate.getTextAsList(jnum_cells)
+        self.assertEqual(jnum_cell.text, 'J:63615')
      
-
+    def testAPStatusSearch(self):
+        """
+        @Status Tests that a search for a single AP status returns the correct results
+        @See MBIB-search-23,25 (63)
+        """
+        self.driver.find_element_by_id('status_AP_Rejected').click()
+        form = self.form
+        form.enter_value('title', 'diabetes%')
+        form.enter_value('journal', '%diab%')
+        form.click_search()
+        #finds the results table and iterates through the table
+        table_element = self.driver.find_element_by_id("resultsTable")
+        table = Table(table_element)
+        #finds the J number column and returns all of this columns results
+        jnum_cells = table.get_column_cells(2)
+        jnums = iterate.getTextAsList(jnum_cells)
+        print jnums
+        self.assertEqual(jnums, ['', 'J:120220', 'J:107890', 'J:45421'])
+        
+    def testMultiTumorStatusSearch(self):
+        """
+        @Status Tests that a search for multple Tumor statuses returns the correct results
+        @See MBIB-search-24,25 (70)
+        """
+        self.driver.find_element_by_id('status_Tumor_Indexed').click()
+        self.driver.find_element_by_id('status_Tumor_Fully_curated').click()
+        form = self.form
+        form.enter_value('year', '1957')
+        form.click_search()
+        #finds the results table and iterates through the table
+        table_element = self.driver.find_element_by_id("resultsTable")
+        table = Table(table_element)
+        #finds the J number column and returns all of this columns results
+        jnum_cells = table.get_column_cells(2)
+        jnums = iterate.getTextAsList(jnum_cells)
+        print jnums
+        self.assertEqual(jnums, ['', 'J:27973', 'J:2403'])        
+        
+    def testStatusAllareasSearch(self):
+        """
+        @Status Tests that a search for results with a status in each group returns the correct results
+        @See MBIB-search-24,25 (73)
+        """
+        self.driver.find_element_by_id('status_AP_Rejected').click()
+        self.driver.find_element_by_id('status_GO_Rejected').click()
+        self.driver.find_element_by_id('status_GXD_Rejected').click()
+        self.driver.find_element_by_id('status_QTL_Rejected').click()
+        self.driver.find_element_by_id('status_Tumor_Rejected').click()
+        form = self.form
+        form.enter_value('title', '%night blindness%')
+        form.click_search()
+        #finds the results table and iterates through the table
+        table_element = self.driver.find_element_by_id("resultsTable")
+        table = Table(table_element)
+        #finds the J number column and returns all of this columns results
+        jnum_cells = table.get_column_cells(2)
+        jnums = iterate.getTextAsList(jnum_cells)
+        print jnums               
+        JnumbersReturned = iterate.getTextAsList(jnum_cells)
+        
+        #asserts that the following J number is returned
+        self.assertIn('J:63277', JnumbersReturned) # All workflow groups are rejected
+        
+    def testStatusComboSearch(self):
+        """
+        @Status Tests that a search for results with multiple status with other fields combined returns the correct results
+        @See MBIB-search-24,25 (76)
+        """
+        self.driver.find_element_by_id('status_AP_Chosen').click()
+        self.driver.find_element_by_id('status_GO_Chosen').click()
+        self.driver.find_element_by_id('status_GXD_Chosen').click()
+        self.driver.find_element_by_id('status_QTL_Chosen').click()
+        self.driver.find_element_by_id('status_Tumor_Chosen').click()
+        self.driver.find_element_by_id('status_AP_Indexed').click()
+        self.driver.find_element_by_id('status_GO_Indexed').click()
+        self.driver.find_element_by_id('status_GXD_Indexed').click()
+        self.driver.find_element_by_id('status_QTL_Indexed').click()
+        self.driver.find_element_by_id('status_Tumor_Indexed').click()
+        self.driver.find_element_by_id('status_Tumor_Fully_curated').click()
+        form = self.form
+        form.enter_value('title', '%quantitative trait loci%')
+        form.enter_value('year', '2016')
+        form.click_search()
+        #finds the results table and iterates through the table
+        table_element = self.driver.find_element_by_id("resultsTable")
+        table = Table(table_element)
+        #finds the J number column and returns all of this columns results
+        jnum_cells = table.get_column_cells(2)
+        jnums = iterate.getTextAsList(jnum_cells)
+        print jnums               
+        JnumbersReturned = iterate.getTextAsList(jnum_cells)
+        
+        #asserts that the following J number is returned
+        self.assertIn('J:237788', JnumbersReturned) # Matches to both QTL statuses selected.
+        self.assertIn('J:237571', JnumbersReturned)
+        self.assertIn('J:231948', JnumbersReturned)
 '''
 def suite():
     suite = unittest.TestSuite()

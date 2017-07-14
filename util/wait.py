@@ -13,7 +13,7 @@ import time
 
 
 
-def forAngular(driver, seconds=10):
+def forAngular(driver, seconds=20):
 
     def _angularCheck(driver):
         script = """var callback = arguments[arguments.length - 1];
@@ -38,7 +38,7 @@ def forAngular(driver, seconds=10):
         
     # Define driver and timeout,
     # then use the condition like so:
-    WebDriverWait(driver, 10).until(_angularCheck)
+    WebDriverWait(driver, 20).until(_angularCheck)
 
 
 
