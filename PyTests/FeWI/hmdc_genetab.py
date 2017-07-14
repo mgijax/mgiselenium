@@ -1,7 +1,7 @@
 '''
 Created on Nov 8, 2016
 These tests cover the the data and layout of the Genes tab results
-pdated: July 2017 (jlewis) - updates to make Gene Tab tests more tolerant to changes in annotations.  e.g. removing counts
+updated: July 2017 (jlewis) - updates to make Gene Tab tests more tolerant to changes in annotations.  e.g. removing counts
 @author: jeffc
 '''
 import unittest
@@ -82,8 +82,8 @@ class TestGeneTab(unittest.TestCase):
         wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
-        print gene_tab.text
         time.sleep(2)
+        print gene_tab.text
         
         gene_tab.click()
         gene_table = Table(self.driver.find_element_by_id("geneTable"))
@@ -92,20 +92,16 @@ class TestGeneTab(unittest.TestCase):
        
         geneSymbolsReturned = iterate.getTextAsList(cells)
        
-        #asserts that the matching genes are returned
+        #asserts that the matching mouse and human genes are returned
         self.assertIn('Gata1', geneSymbolsReturned)
-        self.assertEqual('GATA1', geneSymbolsReturned)
+        self.assertIn('GATA1', geneSymbolsReturned)
         
-        #check for Expressed Component/Transgene matches???  verify requirement first
-        #self.assertEqual(gene3.text, 'Tg(Gata1)#Mym')
-        #self.assertEqual(gene4.text, 'Tg(Gata1*)#Mym')
-        #self.assertEqual(gene5.text, 'Tg(Gata1*V205G)1Mym')
-        #self.assertEqual(gene6.text, 'Tg(HBB-Gata1)G4Phi')
         
     def test_uniquegenes_tab_genes(self):
         '''
-        @status this test verifies the correct genes are returned for this query, in particular genes with special characters in their symbol.
-        @see HMDC-GQ-2
+        @status this test verifies the correct genes are returned for this query, in particular genes with special 
+                characters in their symbol.
+        @see HMDC-GQ-2 (symbol w/ special characters)
         '''
         print ("BEGIN test_uniquegenes_tab_genes")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
@@ -120,9 +116,9 @@ class TestGeneTab(unittest.TestCase):
         wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
-        print gene_tab.text
         time.sleep(2)
-        self.assertEqual(gene_tab.text, "Genes (1)", "Genes tab is not visible!")
+        print gene_tab.text
+        
         gene_tab.click()
         gene_table = Table(self.driver.find_element_by_id("geneTable"))
         cells = gene_table.get_column_cells("Gene Symbol")
@@ -135,7 +131,7 @@ class TestGeneTab(unittest.TestCase):
     def test_genes_tab_diseases(self):
         '''
         @status this test verifies the correct diseases are returned for this query.
-        @attention: combine with test_genes_tab_genes test??
+        @see: HMDC-genetab-15, 16 (Associated Human Diseases column)
         '''
         print ("BEGIN test_genes_tab_diseases")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
@@ -151,25 +147,17 @@ class TestGeneTab(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        self.assertEqual(gene_tab.text, "Genes (6)", "Genes tab is not visible!")
+        print gene_tab.text 
+        
         gene_tab.click()
         gene_table = Table(self.driver.find_element_by_id("geneTable"))
         cells = gene_table.get_column_cells("Associated Human Diseases (Source)")
-        print iterate.getTextAsList(cells)
-        #displays each row of gene data
-        disease1 = cells[1]
-        disease2 = cells[2]
-        disease3 = cells[3]
-        disease4 = cells[4]
-        disease5 = cells[5]
-        disease6 = cells[6]
-        #asserts that the correct genes in the correct order are returned
-        self.assertEqual(disease1.text, 'myelofibrosis\nthrombocytopenia')
-        self.assertEqual(disease2.text, 'Down syndrome\nthrombocytopenia')
-        self.assertEqual(disease3.text, '')
-        self.assertEqual(disease4.text, '')
-        self.assertEqual(disease5.text, 'thrombocytopenia')
-        self.assertEqual(disease6.text, '')        
+        assocHumanDiseases = iterate.getTextAsList(cells)
+       
+        #asserts that the expected diseases are returned for these genes
+        self.assertIn('myelofibrosis\nthrombocytopenia', assocHumanDiseases) #diseases associated to Gata1
+        self.assertIn('Down syndrome\nthrombocytopenia', assocHumanDiseases) #diseases associated to GATA1
+        
         
     
     def tearDown(self):
