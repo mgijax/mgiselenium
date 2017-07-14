@@ -289,7 +289,6 @@ class TestLitSearch(unittest.TestCase):
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
         jnum_cell = table.get_cell(1,2)
-        #jnum = iterate.getTextAsList(jnum_cells)
         self.assertEqual(jnum_cell.text, 'J:63615')
      
     def testAPStatusSearch(self):
@@ -309,7 +308,11 @@ class TestLitSearch(unittest.TestCase):
         jnum_cells = table.get_column_cells(2)
         jnums = iterate.getTextAsList(jnum_cells)
         print jnums
-        self.assertEqual(jnums, ['', 'J:120220', 'J:107890', 'J:45421'])
+        JnumbersReturned = iterate.getTextAsList(jnum_cells)
+        #asserts that the following J numbers are returned
+        self.assertIn('J:120220', JnumbersReturned)
+        self.assertIn('J:107890', JnumbersReturned)
+        self.assertIn('J:45421', JnumbersReturned)
         
     def testMultiTumorStatusSearch(self):
         """
@@ -328,7 +331,11 @@ class TestLitSearch(unittest.TestCase):
         jnum_cells = table.get_column_cells(2)
         jnums = iterate.getTextAsList(jnum_cells)
         print jnums
-        self.assertEqual(jnums, ['', 'J:27973', 'J:2403'])        
+        JnumbersReturned = iterate.getTextAsList(jnum_cells)
+        #asserts that the following J numbers are returned
+        self.assertIn('J:27973', JnumbersReturned)
+        self.assertIn('J:2403', JnumbersReturned)
+                
         
     def testStatusAllareasSearch(self):
         """
