@@ -32,7 +32,7 @@ class TestDiseaseTab(unittest.TestCase):
         '''
         @status This test verifies the column headings on the Disease Tab are correct and in the correct order.  Updated July 2017 to be 
                 more tolerant of data changes by removing disease count.
-        @see HMDC-disease-1,2,3,4,5,7,8 (column headings)
+        @see HMDC-disease-17 (column headings on Diseaes Tab)
         '''
         print ("BEGIN test_diseases_tab_headers")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
