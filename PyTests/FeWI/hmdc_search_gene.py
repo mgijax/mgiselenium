@@ -749,83 +749,64 @@ class TestGenesSearch(unittest.TestCase):
         geneList = iterate.getTextAsList(cells)
         self.assertIn('Gt(ROSA)26Sor', geneList)
 
-    def test_gene_name_mltgene_homolog(self):
+    def test_gene_mltgene_homology(self):
         '''
-        @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by gene name when grid 
-        returns synonym to a mouse in a multi-gene homology class(C4A, C4B)
-        @see: HMDC-??
+        @status this test verifies the correct genes are returned for this query, both human and mouse. 
+        This test is for searching by gene name when grid returns synonym to a mouse in a multi-gene 
+        homology class(C4A, C4B)
+        @see: HMDC-GQ-4 (mouse synonym); HMDC-grid-3,4 (row w/ multiple mouse/human genes);
+              HMDC-genetab-2 (orthologs and homologs returned)
         '''
-        print ("BEGIN test_gene_name_mltgene_homolog")
+        print ("BEGIN test_gene_mltgene_homology")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
-            if option.text == 'Gene Name':
+            if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("Slp")#identifies the input field and enters gata1
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("Slp")#identifies the input field and enters mouse synonym for C4a
         wait.forAngular(self.driver)
         self.driver.find_element_by_id("searchButton").click()
         wait.forAngular(self.driver)
-        #identify the Genes tab and verify the tab's text
+        
+        #identify the Grid tab and click on it
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (9 x 27)", "Grid tab is not visible!")
+        print grid_tab.text
         grid_tab.click()
+        
+        #get human and mouse genes on the grid and verify C4a/C4b/C4A/C4B homology class
         hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
-        print hgenes
-        searchTermItems = iterate.getTextAsList(hgenes)
-        self.assertEqual(searchTermItems[0], "BLNK")
-        self.assertEqual(searchTermItems[1], "C4A, C4B")
-        self.assertEqual(searchTermItems[2], "LCP2")
-        self.assertEqual(searchTermItems[3], "")
-        self.assertEqual(searchTermItems[4], "SCIMP")
-        self.assertEqual(searchTermItems[5], "STOML1")
-        self.assertEqual(searchTermItems[6], "STOML2")
-        self.assertEqual(searchTermItems[7], "SYTL1")
-        self.assertEqual(searchTermItems[8], "VPS54")#cells = mgenes.get_all()
-        print searchTermItems
+        humanGeneList = iterate.getTextAsList(hgenes)
+        self.assertIn("C4A, C4B", humanGeneList)
+        
         mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
-        print mgenes
-        searchTermItems = iterate.getTextAsList(mgenes)
-        self.assertEqual(searchTermItems[0], "Blnk")
-        self.assertEqual(searchTermItems[1], "C4a, C4b")
-        self.assertEqual(searchTermItems[2], "Lcp2")
-        self.assertEqual(searchTermItems[3], "rsl")
-        self.assertEqual(searchTermItems[4], "Scimp")
-        self.assertEqual(searchTermItems[5], "Stoml1")
-        self.assertEqual(searchTermItems[6], "Stoml2")
-        self.assertEqual(searchTermItems[7], "Sytl1")
-        self.assertEqual(searchTermItems[8], "Vps54")#cells = mgenes.get_all()
-        print searchTermItems
-        #identify the Genes tab and verify the tab's text
+        mouseGeneList = iterate.getTextAsList(mgenes)
+        self.assertIn("C4a, C4b", mouseGeneList)
+        
+        #identify the Genes tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         print gene_tab.text
-        self.assertEqual(gene_tab.text, "Genes (23)", "Genes tab is not visible!")
         gene_tab.click()
+        
+        #get the list of genes and verify the multiple gene homology class
         gene_table = Table(self.driver.find_element_by_id("geneTable"))
         cells = gene_table.get_column_cells("Gene Symbol")
-        print iterate.getTextAsList(cells)
-        #displays each row of gene data
-        gene1 = cells[1]
-        gene2 = cells[2]
-        gene3 = cells[3]
-        gene4 = cells[4]
-        gene5 = cells[5]
-        gene6 = cells[6]
-        #asserts that the correct genes in the correct order are returned
-        self.assertEqual(gene1.text, 'Blnk')
-        self.assertEqual(gene2.text, 'BLNK')
-        self.assertEqual(gene3.text, 'C4A')
-        self.assertEqual(gene4.text, 'C4a')
-        self.assertEqual(gene5.text, 'C4B')
-        self.assertEqual(gene6.text, 'C4b')
-        '''plus 17 more genes'''
+        geneList = iterate.getTextAsList(cells)
+    
+        self.assertIn('C4A', geneList)
+        self.assertIn('C4a', geneList)
+        self.assertIn('C4B', geneList)
+        self.assertIn('C4b', geneList)
 
     def test_genotype_popup(self):
         '''
         @status this test verifies the correct genotypes are returned when clicking on a particular phenotype cell.
-        under construction!, does not test the genotype popup yet other than the page heading
-        @see: HMDC-??
+                Checks for a normal MP annotation; 1-marker genocluster (OMG); Conditional genocluster that passes roll-up
+        @see: HMDC-GQ-1 (mouse symbol)
+              HMDC-grid-7, 8, 9 (Return row with Normal MP annotations; Return row with one marker genoclusters;
+                 Return row with conditional genocluster that pass roll-up rules)
+              HMDC-popup-11 (1 row per genocluster); HMDC-popup-13 (Normal annotation)
         '''
         print ("BEGIN test_genotype_popup")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
@@ -834,50 +815,41 @@ class TestGenesSearch(unittest.TestCase):
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("Gata1")#identifies the input field and enters gata1
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("Foxm1")#identifies the input field and enters a mouse symbol
         wait.forAngular(self.driver)
         self.driver.find_element_by_id("searchButton").click()
         wait.forAngular(self.driver)
-        #identify the Genes tab and verify the tab's text
+        
+        #identify the Grid tab and click on it
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
-        print grid_tab.text
         time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (4 x 25)", "Grid tab is not visible!")
+        print grid_tab.text
         grid_tab.click()
+        
         #firstcell captures all the table data blocks of phenotypes on the first row of data
         phenocells = self.driver.find_elements_by_css_selector("td.ngc.center.cell.middle")
-        
-        print iterate.getTextAsList(phenocells) #if you want to see what it captures uncomment this
-        phenocells[1].click()#clicks the second phenotype data cell to open up the genotype popup page
+         
+        phenocells[0].click()#clicks the second phenotype data cell to open up the genotype popup page
         self.driver.switch_to_window(self.driver.window_handles[1])#switches focus to the genotype popup page
-        matching_text = "Human and Mouse cellular abnormalities for GATA1/Gata1"
-        #asserts the heading text is correct in page source
-        self.assertIn(matching_text, self.driver.page_source, 'matching text not displayed')
+        
+        #asserts the heading text is correct in page title
+        self.assertEqual("Mouse cardiovascular system abnormalities for FOXM1/Foxm1", self.driver.title)
+        
+        #asserts the special "normal" text is in the legend
+        self.assertIn("Aspects of the system are reported to show a normal phenotype", self.driver.page_source)
+        
         #Identify the table
         mouse_geno_table = self.driver.find_element_by_css_selector("p > table.popupTable ")
         data = mouse_geno_table.find_element_by_tag_name("td")
         print data.text
         #find all the TR tags in the table and iterate through them
         cells = mouse_geno_table.find_elements_by_tag_name("tr")
-        print iterate.getTextAsList(cells)
-        print cells
-        #displays each row of mouse genotype data
-        genotype1 = cells[2]
-        genotype2 = cells[3]
-        genotype3 = cells[4]
-        genotype4 = cells[5]
-        genotype5 = cells[6]
-        genotype6 = cells[7]
-        genotype7 = cells[8]
+        genoClusterList = iterate.getTextAsList(cells)
         
         #asserts that the correct genotypes in the correct order are returned
-        self.assertEqual(genotype1.text, 'Gata1Plt13/Gata1+')
-        self.assertEqual(genotype2.text, 'Gata1tm2.1Sho/Gata1+')
-        self.assertEqual(genotype3.text, 'Gata1tm2Sho/Gata1+')
-        self.assertEqual(genotype4.text, 'Gata1tm1Mym/Y\nTg(Gata1*V205G)1Mym/0')
-        self.assertEqual(genotype5.text, 'Gata1tm2.1Sho/Y')
-        self.assertEqual(genotype6.text, 'Gata1tm2Sho/Y')
-        self.assertEqual(genotype7.text, 'Gata1tm4Sho/Y')
+        self.assertIn('Foxm1tm1.1Rhc/Foxm1tm1.1Rhc', genoClusterList) #test case for 1-marker genoclusters - this one has multiple genotypes
+        self.assertIn('Foxm1tm1Rhc/Foxm1tm1Rhc\nTg(Tek-cre)1Ywa/0  (conditional) *', genoClusterList) #test case for conditional genotype and normal annotation
+        
     
     def tearDown(self):
         self.driver.close()
