@@ -1,5 +1,10 @@
 '''
 Created on Jan 9, 2017
+Updated: July 2017 (jlewis).  Updates to be more tolerant of data changes.  Cross-reference requirements with test cases. Remove assertions
+in tests that are outside scope of requirement being tested.
+
+This file contains the tests for Gene IDs (mouse and human) that are entered via the Gene Symbol(s)/ID(s) query field.  
+Tests are organized in this order in the file:  Mouse gene ID tests, Human gene ID tests, and multiple ID tests
 
 @author: jeffc
 '''
@@ -28,49 +33,74 @@ class TestGeneid(unittest.TestCase):
         self.driver.implicitly_wait(10)
         
 
-
-
-    def testGeneIDMgiid(self):
+    def test_gene_mgi_id(self):
         '''
-        @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
-        by Gene ID using an MGI ID
-        @see: HMDC-GQ-16
+        @status This test verifies the correct genes are returned for query by mouse MGI ID in the Gene Symbol/ID field.  Return the mouse
+                gene and its human ortholog.
+                Also verifies that IDs are not accepted in the Gene Name field.
+        
+        @see: HMDC-GQ-16 (query by MGI ID); HMDC-GQ-50 (don't accept IDs for query by Gene Name); 
         '''
-        print ("BEGIN testGeneIDMgiid")
+        print ("BEGIN test_gene_mgi_id")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("MGI:96677")#identifies the input field and enters gata1
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("MGI:96677")#identifies the input field and enters an MGI ID
+        wait.forAngular(self.driver)
+        self.driver.find_element_by_id("searchButton").click()
+        wait.forAngular(self.driver)
+        
+        #identify the Grid tab and click on it
+        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        time.sleep(2)
+        print grid_tab.text
+        grid_tab.click()
+        
+        #Grab the human genes displayed on the Grid and verify that KIT is returned (ortholog of gene matched by ID entered)
+        hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
+        humanGeneList = iterate.getTextAsList(hgenes)
+        self.assertIn("KIT", humanGeneList)
+
+        #Grab the mouse genes displayed on the Grid and verify that Kit is returned (gene matching ID entered)
+        mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
+        mouseGeneList = iterate.getTextAsList(mgenes)
+        self.assertIn("Kit", mouseGeneList)
+        
+        #Start over and attempt to query by ID with the Gene Name option -- expect this to return no results
+        #Open up the query form again (click on "Click to modify search" button
+        self.driver.find_element_by_xpath("//*[contains(text(), 'Click to modify search')]").click()
+        
+        #Repeat query using the Gene Name field
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")
+        for option in my_select.find_elements_by_tag_name("option"):
+            if option.text == 'Gene Name':
+                option.click()
+                break
+        
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("MGI:96677")
         wait.forAngular(self.driver)
         self.driver.find_element_by_id("searchButton").click()
         wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (4 x 29)", "Grid tab is not visible!")
+        print grid_tab.text
         grid_tab.click()
-        hgenes = self.driver.find_element_by_css_selector("td.ngc.left.middle.cell.first")
-        print hgenes.text
-        self.assertEqual(hgenes.text, "KIT")
-        mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
-        print mgenes
-        searchTermItems = iterate.getTextAsList(mgenes)
-        self.assertEqual(searchTermItems[0], "Kit")
-        self.assertEqual(searchTermItems[1], "Tg(Kit*D814V)1Roer")
-        self.assertEqual(searchTermItems[2], "Tg(Kit*D814V)2Roer")
-        self.assertEqual(searchTermItems[3], "Tg(Kit*D814V)3Roer")#cells = mgenes.get_all()
-        print searchTermItems
         
-    def test_gene_id_entrez(self):
+        #Look for no results message
+        self.assertIn('No data available for your query', self.driver.page_source)
+        
+        
+    def test_gene_ncbi_id_1(self):
         '''
-        @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
-        by Gene ID using an Entrez gene ID, should only  have 1 gene(AA960008), no grid or disease
-        @see: HMDC-GQ-17
+        @status This test is for searching by Gene ID using NCBI mouse gene ID.  Expect only results in the Gene Tab for a mouse gene with
+        no human ortholog.
+        @see: HMDC-GQ-17 (query by mouse NCBI ID)
         '''
-        print ("BEGIN test_gene_id_entrez")
+        print ("BEGIN test_gene_ncbi_id_1")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
@@ -81,773 +111,894 @@ class TestGeneid(unittest.TestCase):
         wait.forAngular(self.driver)
         self.driver.find_element_by_id("searchButton").click()
         wait.forAngular(self.driver)
-        #identify the Genes tab and verify the tab's text
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
-        time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (0 x 0)", "Grid tab is not visible!")
-        grid_tab.click()
-        #identify the Genes tab and verify the tab's text
+        
+        #identify the Genes tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        time.sleep(2)
         print gene_tab.text
-        self.assertEqual(gene_tab.text, "Genes (1)", "Genes tab is not visible!")
         gene_tab.click()
+        
+        #Grab the list of genes and check for the gene with this ID.
         gene_table = Table(self.driver.find_element_by_id("geneTable"))
         cells = gene_table.get_column_cells("Gene Symbol")
-        print iterate.getTextAsList(cells)
-        #displays each row of gene data
         gene1 = cells[1]
         #asserts that the correct genes in the correct order are returned
         self.assertEqual(gene1.text, 'AA960008')
 
-    def test_gene_id_ncbi_model(self):
+    def test_gene_ncbi_id_2(self):
         '''
-        @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
-        by Gene ID using an NCBI Gene Model ID
-        @see: HMDC-??
+        @status This test is for searching by Gene ID using NCBI gene ID.  Expect mouse gene returned plus human ortholog on Grid 
+        and Gene Tabs.  Diseases rolled up for this gene returned to Disease Tab.
+        @see: HMDC-GQ-17 (query by mouse NCBI ID)  HMDC-genetab-2 (return genes matching ID plus their ortholog); 
+              HMDC-disease-9 (return diseases that roll-up to mouse gene and its human ortholog)
         '''
-        print ("BEGIN test_gene_id_ncbi_model")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        print ("BEGIN test_gene_ncbi_id_2")
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("14460")#identifies the input field and enters gata1
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("14460")#identifies the input field and enters ID for Gata1
         wait.forAngular(self.driver)
         self.driver.find_element_by_id("searchButton").click()
         wait.forAngular(self.driver)
-        #identify the Genes tab and verify the tab's text
+        
+        #identify the Grid Tab and click on it
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (4 x 25)", "Grid tab is not visible!")
+        print grid_tab.text
         grid_tab.click()
-        hgenes = self.driver.find_element_by_css_selector("td.ngc.left.middle.cell.first")
-        print hgenes.text
-        self.assertEqual(hgenes.text, "GATA1")
-        mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
-        print mgenes
-        searchTermItems = iterate.getTextAsList(mgenes)
-        self.assertEqual(searchTermItems[0], "Gata1")
-        self.assertEqual(searchTermItems[1], "Tg(Gata1)#Mym")
-        self.assertEqual(searchTermItems[2], "Tg(Gata1*V205G)1Mym")
-        self.assertEqual(searchTermItems[3], "Tg(HBB-Gata1)G4Phi")#cells = mgenes.get_all()
-        print searchTermItems
-        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
-        print gene_tab.text
-        self.assertEqual(gene_tab.text, "Genes (6)", "Genes tab is not visible!")
-        gene_tab.click()
-        gene_table = Table(self.driver.find_element_by_id("geneTable"))
-        cells = gene_table.get_column_cells("Gene Symbol")
-        print iterate.getTextAsList(cells)
-        #displays each row of gene data
-        gene1 = cells[1]
-        gene2 = cells[2]
-        gene3 = cells[3]
-        gene4 = cells[4]
-        gene5 = cells[5]
-        gene6 = cells[6]
-        #asserts that the correct genes in the correct order are returned
-        self.assertEqual(gene1.text, 'Gata1')
-        self.assertEqual(gene2.text, 'GATA1')
-        self.assertEqual(gene3.text, 'Tg(Gata1)#Mym')
-        self.assertEqual(gene4.text, 'Tg(Gata1*)#Mym')
-        self.assertEqual(gene5.text, 'Tg(Gata1*V205G)1Mym')
-        self.assertEqual(gene6.text, 'Tg(HBB-Gata1)G4Phi')
         
-    def test_gene_id_vega_model(self):
-        '''
-        @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
-        by Gene ID using a Vega Gene Model ID
-        @see: HMDC-GQ-19
-        '''
-        print ("BEGIN test_gene_id_vega_model")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
-            if option.text == 'Gene Symbol(s) or ID(s)':
-                option.click()
-                break
-        
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("OTTMUSG00000005850")#identifies the input field and enters gata1
-        wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
-        wait.forAngular(self.driver)
-        #identify the Genes tab and verify the tab's text
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
-        time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (1 x 6)", "Grid tab is not visible!")
-        grid_tab.click()
-        hgenes = self.driver.find_element_by_css_selector("td.ngc.left.middle.cell.first")
-        print hgenes.text
-        self.assertEqual(hgenes.text, "TTC19")
-        mgenes = self.driver.find_element_by_css_selector("td.ngc.left.middle.cell.last")
-        print mgenes.text
-        self.assertEqual(mgenes.text, "Ttc19")
-        #cells captures every field from Human Gene heading to the last disease angled, this test captures the phenotypes and 1 disease
-        cells = self.driver.find_elements_by_css_selector("div.ngc.cell-content.ngc-custom-html.ng-binding.ng-scope")
-        #print iterate.getTextAsList(cells) #if you want to see what it captures uncomment this
-        #displays each row of phenotype/disease data
-        pheno1 = cells[2]
-        pheno2 = cells[3]
-        pheno3 = cells[4]
-        pheno4 = cells[5]
-        pheno5 = cells[6]
-        disease1 = cells[8]
-        #asserts that the correct diseases(at angle) display in the correct order
-        self.assertEqual(pheno1.text, 'behavior/neurological')
-        self.assertEqual(pheno2.text, 'hearing/vestibular/ear')
-        self.assertEqual(pheno3.text, 'muscle')
-        self.assertEqual(pheno4.text, 'nervous system')
-        self.assertEqual(pheno5.text, 'vision/eye')
-        self.assertEqual(disease1.text, 'inherited metabolic disorder')
-        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
-        print gene_tab.text
-        self.assertEqual(gene_tab.text, "Genes (2)", "Genes tab is not visible!")
-        gene_tab.click()
-        gene_table = Table(self.driver.find_element_by_id("geneTable"))
-        cells = gene_table.get_column_cells("Gene Symbol")
-        print iterate.getTextAsList(cells)
-        #displays each row of gene data
-        gene1 = cells[1]
-        gene2 = cells[2]
-        #asserts that the correct genes in the correct order are returned
-        self.assertEqual(gene1.text, 'Ttc19')
-        self.assertEqual(gene2.text, 'TTC19')
-        
-    def test_gene_id_swiss_prot(self):
-        '''
-        @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
-        by Gene ID using a swiss-prot ID
-        @see: HMDC-GQ-20
-        '''
-        print ("BEGIN test_gene_id_swiss_prot")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
-            if option.text == 'Gene Symbol(s) or ID(s)':
-                option.click()
-                break
-        
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("Q61838")#identifies the input field and enters gata1
-        wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
-        wait.forAngular(self.driver)
-        #identify the Genes tab and verify the tab's text
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
-        time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (1 x 14)", "Grid tab is not visible!")
-        grid_tab.click()
-        hgenes = self.driver.find_element_by_css_selector("td.ngc.left.middle.cell.first")
-        print hgenes.text
-        self.assertEqual(hgenes.text, "")
-        mgenes = self.driver.find_element_by_css_selector("td.ngc.left.middle.cell.last")
-        print mgenes.text
-        self.assertEqual(mgenes.text, "Pzp")
-        #cells captures every field from Human Gene heading to the last disease angled, this test captures the phenotypes and 1 disease
-        cells = self.driver.find_elements_by_css_selector("div.ngc.cell-content.ngc-custom-html.ng-binding.ng-scope")
-        #print iterate.getTextAsList(cells) #if you want to see what it captures uncomment this
-        #displays each row of phenotype/disease data
-        pheno1 = cells[2]
-        pheno2 = cells[3]
-        pheno3 = cells[4]
-        #asserts that the correct phenotypes/diseases(at angle) display in the correct order
-        self.assertEqual(pheno1.text, 'behavior/neurological')
-        self.assertEqual(pheno2.text, 'cardiovascular system')
-        self.assertEqual(pheno3.text, 'digestive/alimentary system')
-        
-    def test_gene_id_gtrosa(self):
-        '''
-        @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  gene name when results would have the Gt(ROSA)26Sor,
-        Gt(ROSA)26Sor should not display on the grid(in this case  no grid at all) but, is fine displaying in the Genes tab.
-        @see: HMDC-Grid-1
-        '''
-        print ("BEGIN test_gene_id_gtrosa")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
-            if option.text == 'Gene Symbol(s) or ID(s)':
-                option.click()
-                break
-        
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("MGI:104735")#identifies the input field and enters gata1
-        wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
-        wait.forAngular(self.driver)
-        #identify the Genes tab and verify the tab's text
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
-        time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (0 x 0)", "Grid tab is not visible!")
-        grid_tab.click()
-        #identify the Genes tab and verify the tab's text
-        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
-        print gene_tab.text
-        self.assertEqual(gene_tab.text, "Genes (2)", "Genes tab is not visible!")
-        gene_tab.click()
-        gene_table = Table(self.driver.find_element_by_id("geneTable"))
-        cells = gene_table.get_column_cells("Gene Symbol")
-        print iterate.getTextAsList(cells)
-        #displays each row of gene data
-        gene1 = cells[1]
-        gene2 = cells[2]
-        #asserts that the correct genes in the correct order are returned
-        self.assertEqual(gene1.text, 'Gt(ROSA)26Sor')
-        self.assertEqual(gene2.text, 'THUMPD3-AS1')
-        
-    def test_gene_symbol_non_mouseall(self):
-        '''
-        @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
-        by Gene symbol using a non-mouse marker nomenclature term with results for all 3 tabs
-        @see: HMDC-??
-        '''
-        print ("BEGIN test_gene_symbol_non_mouseall")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
-            if option.text == 'Gene Symbol(s) or ID(s)':
-                option.click()
-                break
-        
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("LRTOMT")#identifies the input field and enters gata1
-        wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
-        wait.forAngular(self.driver)
-        #identify the Genes tab and verify the tab's text
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
-        time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (1 x 5)", "Grid tab is not visible!")
-        grid_tab.click()
-        hgenes = self.driver.find_element_by_css_selector("td.ngc.left.middle.cell.first")
-        print hgenes.text
-        self.assertEqual(hgenes.text, "LRTOMT")
-        mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
-        print mgenes
-        searchTermItems = iterate.getTextAsList(mgenes)
-        self.assertEqual(searchTermItems[0], "Lrrc51, Tomt")
-        # self.assertEqual(searchTermItems[1], "Tomt")#cells = mgenes.get_all()
-        print searchTermItems
-        #cells captures every field from Human Gene heading to the last disease angled, this test captures the phenotypes and 1 disease
-        cells = self.driver.find_elements_by_css_selector("div.ngc.cell-content.ngc-custom-html.ng-binding.ng-scope")
-        #print iterate.getTextAsList(cells) #if you want to see what it captures uncomment this
-        #displays each row of phenotype/disease data
-        pheno1 = cells[2]
-        pheno2 = cells[3]
-        pheno3 = cells[4]
-        pheno4 = cells[5]
-        disease1 = cells[7]
-        #asserts that the correct phenotypes/diseases(at angle) display in the correct order
-        self.assertEqual(pheno1.text, 'behavior/neurological')
-        self.assertEqual(pheno2.text, 'growth/size/body')
-        self.assertEqual(pheno3.text, 'hearing/vestibular/ear')
-        self.assertEqual(pheno4.text, 'nervous system')
-        self.assertEqual(disease1.text, 'nervous system disease')
-        #identify the Genes tab and verify the tab's text
-        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
-        print gene_tab.text
-        self.assertEqual(gene_tab.text, "Genes (3)", "Genes tab is not visible!")
-        gene_tab.click()
-        gene_table = Table(self.driver.find_element_by_id("geneTable"))
-        cells = gene_table.get_column_cells("Gene Symbol")
-        print iterate.getTextAsList(cells)
-        #displays each row of gene data
-        gene1 = cells[1]
-        gene2 = cells[2]
-        gene3 = cells[3]
-        #asserts that the correct genes in the correct order are returned
-        self.assertEqual(gene1.text, 'Lrrc51')
-        self.assertEqual(gene2.text, 'LRTOMT')
-        self.assertEqual(gene3.text, 'Tomt')
-        #identify the Genes tab and verify the tab's text
-        disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
-        print disease_tab.text
-        self.assertEqual(disease_tab.text, "Diseases (1)", "Diseases tab is not visible!")
-        disease_tab.click()
-        disease_table = Table(self.driver.find_element_by_id("diseaseTable"))
-        cells = disease_table.get_column_cells("Disease")
-        print iterate.getTextAsList(cells)
-        #displays each row of gene data
-        disease1 = cells[1]
-        #asserts that the correct diseases in the correct order are returned
-        self.assertEqual(disease1.text, 'autosomal recessive nonsyndromic deafness 63')
-        
-    def test_gene_symbol_non_mousegenetab(self):
-        '''
-        @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
-        by Gene symbol using a non-mouse marker nomenclature term with results for just the gene tab
-        @see: HMDC-??
-        '''
-        print ("BEGIN test_gene_symbol_non_mousegenetab")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
-            if option.text == 'Gene Symbol(s) or ID(s)':
-                option.click()
-                break
-        
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("BMP2KL")#identifies the input field and enters gata1
-        wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
-        wait.forAngular(self.driver)
-        #identify the Genes tab and verify the tab's text
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
-        time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (0 x 0)", "Grid tab is not visible!")
-        #identify the Genes tab and verify the tab's text
-        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
-        print gene_tab.text
-        self.assertEqual(gene_tab.text, "Genes (1)", "Genes tab is not visible!")
-        gene_tab.click()
-        gene_table = Table(self.driver.find_element_by_id("geneTable"))
-        cells = gene_table.get_column_cells("Gene Symbol")
-        print iterate.getTextAsList(cells)
-        #displays each row of gene data
-        gene1 = cells[1]
-        #asserts that the correct genes in the correct order are returned
-        self.assertEqual(gene1.text, 'BMP2KL')
-        
-    def test_gene_symbol_non_mousegridgene(self):
-        '''
-        @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
-        by Gene symbol using a non-mouse marker nomenclature term with results for just the grid and gene tabs
-        @see: HMDC-??
-        '''
-        print ("BEGIN test_gene_symbol_non_mousegridgene")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
-            if option.text == 'Gene Symbol(s) or ID(s)':
-                option.click()
-                break
-        
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("ZNF366")#identifies the input field and enters gata1
-        wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
-        wait.forAngular(self.driver)
-        #identify the Genes tab and verify the tab's text
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
-        time.sleep(1)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (1 x 12)", "Grid tab is not visible!")
-        grid_tab.click()
-        hgenes = self.driver.find_element_by_css_selector("td.ngc.left.middle.cell.first")
-        print hgenes.text
-        self.assertEqual(hgenes.text, "ZNF366")
-        mgenes = self.driver.find_element_by_css_selector("td.ngc.left.middle.cell.last")
-        print mgenes.text
-        self.assertEqual(mgenes.text, "Zfp366")
-        #cells captures every field from Human Gene heading to the last disease angled, this test captures the phenotypes and 1 disease
-        cells = self.driver.find_elements_by_css_selector("div.ngc.cell-content.ngc-custom-html.ng-binding.ng-scope")
-        #print iterate.getTextAsList(cells) #if you want to see what it captures uncomment this
-        #displays each row of phenotype/disease data
-        pheno1 = cells[2]
-        pheno2 = cells[3]
-        pheno3 = cells[4]
-        pheno4 = cells[5]
-        pheno5 = cells[6]
-        pheno6 = cells[7]
-        pheno7 = cells[8]
-        pheno8 = cells[9]
-        pheno9 = cells[10]
-        pheno10 = cells[11]
-        #asserts that the correct phenotypes/diseases(at angle) display in the correct order
-        self.assertEqual(pheno1.text, 'cardiovascular system')
-        self.assertEqual(pheno2.text, 'craniofacial')
-        self.assertEqual(pheno3.text, 'endocrine/exocrine glands')
-        self.assertEqual(pheno4.text, 'growth/size/body')
-        self.assertEqual(pheno5.text, 'hematopoietic system')
-        self.assertEqual(pheno6.text, 'immune system')
-        self.assertEqual(pheno7.text, 'limbs/digits/tail')
-        self.assertEqual(pheno8.text, 'renal/urinary system')
-        self.assertEqual(pheno9.text, 'skeleton')
-        self.assertEqual(pheno10.text, 'vision/eye')
-        #identify the Genes tab and verify the tab's text
-        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
-        print gene_tab.text
-        self.assertEqual(gene_tab.text, "Genes (2)", "Genes tab is not visible!")
-        gene_tab.click()
-        gene_table = Table(self.driver.find_element_by_id("geneTable"))
-        cells = gene_table.get_column_cells("Gene Symbol")
-        print iterate.getTextAsList(cells)
-        #displays each row of gene data
-        gene1 = cells[1]
-        gene2 = cells[2]
-        #asserts that the correct genes in the correct order are returned
-        self.assertEqual(gene1.text, 'Zfp366')
-        self.assertEqual(gene2.text, 'ZNF366')
-        
-    def test_gene_symbol_mult_homo_class(self):
-        '''
-        @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
-        by Gene symbol using a symbol that matches multiple gene homology class (ie. Smn1)
-        @see: HMDC-??
-        '''
-        print ("BEGIN test_gene_symbol_mult_homo_class")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
-            if option.text == 'Gene Symbol(s) or ID(s)':
-                option.click()
-                break
-        
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("SMN2")#identifies the input field and enters gata1
-        wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
-        wait.forAngular(self.driver)
-        #identify the Genes tab and verify the tab's text
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
-        time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (8 x 17)", "Grid tab is not visible!")
-        grid_tab.click()
+        #Grab the human genes and verify the human homolog is in the list (GATA1)
         hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
-        print hgenes
-        searchTermItems = iterate.getTextAsList(hgenes)
-        self.assertEqual(searchTermItems[0], "GRM7")
-        self.assertEqual(searchTermItems[1], "SMG6")
-        self.assertEqual(searchTermItems[2], "SMN1, SMN2")
+        humanGeneList = iterate.getTextAsList(hgenes)
+        self.assertIn("GATA1", humanGeneList)
+        
+        #Grab the mouse genes and verify the mouse gene is in the list (Gata1)
         mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
-        print mgenes
-        searchTermItems = iterate.getTextAsList(mgenes)
-        self.assertEqual(searchTermItems[0], "Grm7")
-        self.assertEqual(searchTermItems[1], "Smg6")
-        self.assertEqual(searchTermItems[2], "Smn1")
-        self.assertEqual(searchTermItems[3], "Tg(ACTA1-SMN)63Ahmb")
-        self.assertEqual(searchTermItems[4], "Tg(ACTA1-SMN)69Ahmb")
-        self.assertEqual(searchTermItems[5], "Tg(Prnp-SMN)92Ahmb")
-        self.assertEqual(searchTermItems[6], "Tg(SMN2)11Tro")
-        self.assertEqual(searchTermItems[7], "Tg(SMN2)46Tro")#cells = mgenes.get_all()
-        print searchTermItems
-        #cells captures every field from Human Gene heading to the last disease angled, this test captures the phenotypes and 1 disease
-        cells = self.driver.find_elements_by_css_selector("div.ngc.cell-content.ngc-custom-html.ng-binding.ng-scope")
-        #print iterate.getTextAsList(cells) #if you want to see what it captures uncomment this
-        #displays each row of phenotype/disease data
-        pheno1 = cells[2]
-        pheno2 = cells[3]
-        pheno3 = cells[4]
-        pheno4 = cells[5]
-        pheno5 = cells[6]
-        pheno6 = cells[7]
-        pheno7 = cells[8]
-        pheno8 = cells[9]
-        pheno9 = cells[10]
-        pheno10 = cells[11]
-        pheno11 = cells[12]
-        pheno12 = cells[13]
-        pheno13 = cells[14]
-        pheno14 = cells[15]
-        pheno15 = cells[16]
-        pheno16 = cells[17]
-        disease1 = cells[19]
-        #asserts that the correct phenotypes/diseases(at angle) display in the correct order
-        self.assertEqual(pheno1.text, 'behavior/neurological')
-        self.assertEqual(pheno2.text, 'cardiovascular system')
-        self.assertEqual(pheno3.text, 'cellular')
-        self.assertEqual(pheno4.text, 'craniofacial')
-        self.assertEqual(pheno5.text, 'embryo')
-        self.assertEqual(pheno6.text, 'growth/size/body')
-        self.assertEqual(pheno7.text, 'homeostasis/metabolism')
-        self.assertEqual(pheno8.text, 'immune system')
-        self.assertEqual(pheno9.text, 'integument')
-        self.assertEqual(pheno10.text, 'limbs/digits/tail')
-        self.assertEqual(pheno11.text, 'mortality/aging')
-        self.assertEqual(pheno12.text, 'muscle')
-        self.assertEqual(pheno13.text, 'nervous system')
-        self.assertEqual(pheno14.text, 'respiratory system')
-        self.assertEqual(pheno15.text, 'skeleton')
-        self.assertEqual(pheno16.text, 'normal phenotype')
-        self.assertEqual(disease1.text, 'nervous system disease')
-        #identify the Genes tab and verify the tab's text
+        mouseGeneList = iterate.getTextAsList(mgenes)
+        self.assertIn("Gata1", mouseGeneList)
+        
+        #Switch to the Genes Tab and verify genes are there too
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         print gene_tab.text
-        self.assertEqual(gene_tab.text, "Genes (23)", "Genes tab is not visible!")
         gene_tab.click()
+        
+        #Grab the list of genes and verify both mouse and human genes are present
         gene_table = Table(self.driver.find_element_by_id("geneTable"))
         cells = gene_table.get_column_cells("Gene Symbol")
-        print iterate.getTextAsList(cells)
-        #displays each row of gene data
-        gene1 = cells[1]
-        gene2 = cells[2]
-        gene3 = cells[3]
-        gene4 = cells[4]
-        gene5 = cells[5]
-        gene6 = cells[6]
-        #asserts that the correct genes in the correct order are returned
-        self.assertEqual(gene1.text, 'GRM7')
-        self.assertEqual(gene2.text, 'Grm7')
-        self.assertEqual(gene3.text, 'Smg6')
-        self.assertEqual(gene4.text, 'SMN1')
-        self.assertEqual(gene5.text, 'Smn1')
-        self.assertEqual(gene6.text, 'SMN2')
-        '''plus 17 more genes, all transgenes'''
-        #identify the Diseases tab and verify the tab's text
+        geneList = iterate.getTextAsList(cells)
+        self.assertIn('Gata1', geneList)
+        self.assertIn('GATA1', geneList)
+        
+        #Switch to the Disease Tab and verify diseases for mouse and human are present
         disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         print disease_tab.text
-        self.assertEqual(disease_tab.text, "Diseases (4)", "Diseases tab is not visible!")
         disease_tab.click()
+        
+        #Get the list of diseases (by DOID)
         disease_table = Table(self.driver.find_element_by_id("diseaseTable"))
-        cells = disease_table.get_column_cells("Disease")
-        print iterate.getTextAsList(cells)
-        #displays each row of gene data
-        disease1 = cells[1]
-        disease2 = cells[2]
-        disease3 = cells[3]
-        disease4 = cells[4]
-        #asserts that the correct diseases in the correct order are returned
-        self.assertEqual(disease1.text, 'adult spinal muscular atrophy')
-        self.assertEqual(disease2.text, 'intermediate spinal muscular atrophy')
-        self.assertEqual(disease3.text, 'juvenile spinal muscular atrophy')
-        self.assertEqual(disease4.text, 'Werdnig-Hoffmann disease')
-
-    def test_gene_symbol_with_special_char(self):
+        cells = disease_table.get_column_cells("DO ID")
+        diseaseList = iterate.getTextAsList(cells)
+        self.assertIn('DOID:14250', diseaseList) #ID for Down Syndrome (annotated to GATA1)
+        self.assertIn('DOID:4971', diseaseList) #ID for myelofibrosis (annotated to Gata1)
+        self.assertIn('DOID:1588', diseaseList) #ID for thrombocytopenia (annotated to both GATA1 and Gata1)
+        
+       
+        
+    def test_gene_all_vega_ids(self):
         '''
-        @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
-        by Gene symbol using a symbol that has a special character in it.(ie. -)
-        @see: HMDC-GQ-6
+        @status This test is for searching by a mouse gene ID using a VEGA Gene Model ID, Transcript ID, and Protein ID.  All these queries 
+                return the mouse gene and its human ortholog.
+        @see: HMDC-GQ-19 (VEGA gene model ID, transcript ID, protein ID)
         '''
-        print ("BEGIN test_gene_symbol_with_special_char")
+        print ("BEGIN test_gene_all_vega_ids")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("ET-BR")#identifies the input field and enters gata1
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("OTTMUSG00000005850")# enter VEGA gene model ID
         wait.forAngular(self.driver)
         self.driver.find_element_by_id("searchButton").click()
         wait.forAngular(self.driver)
-        #identify the Genes tab and verify the tab's text
+        
+        #identify the Genes Tab and click on it
+        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        time.sleep(2)
+        print gene_tab.text
+        gene_tab.click()
+        
+        #Grab the list of genes and verify both mouse and human genes are present
+        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        cells = gene_table.get_column_cells("Gene Symbol")
+        geneList = iterate.getTextAsList(cells)
+        self.assertIn('Ttc19', geneList)
+        self.assertIn('TTC19', geneList)
+        
+        #Open up the query form again (click on "Click to modify search" button
+        self.driver.find_element_by_xpath("//*[contains(text(), 'Click to modify search')]").click()
+        
+        #Redo the search using the VEGA transcript ID
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements_by_tag_name("option"):
+            if option.text == 'Gene Symbol(s) or ID(s)':
+                option.click()
+                break
+        
+        self.driver.find_element_by_name("formly_3_input_input_0").clear()
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("OTTMUST00000013013")# enter VEGA transcript ID
+        wait.forAngular(self.driver)
+        self.driver.find_element_by_id("searchButton").click()
+        wait.forAngular(self.driver)
+        
+        #identify the Genes Tab and click on it
+        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        time.sleep(2)
+        print gene_tab.text
+        gene_tab.click()
+        
+        #Grab the list of genes and verify both mouse and human genes are present
+        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        cells = gene_table.get_column_cells("Gene Symbol")
+        geneList = iterate.getTextAsList(cells)
+        self.assertIn('Ttc19', geneList)
+        self.assertIn('TTC19', geneList)
+        
+        #Open up the query form again (click on "Click to modify search" button
+        self.driver.find_element_by_xpath("//*[contains(text(), 'Click to modify search')]").click()
+        
+        #Redo the search using the VEGA protein ID
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")
+        for option in my_select.find_elements_by_tag_name("option"):
+            if option.text == 'Gene Symbol(s) or ID(s)':
+                option.click()
+                break
+        
+        self.driver.find_element_by_name("formly_3_input_input_0").clear()
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("OTTMUSP00000006049")# enter VEGA protein ID
+        wait.forAngular(self.driver)
+        self.driver.find_element_by_id("searchButton").click()
+        wait.forAngular(self.driver)
+        
+        #identify the Genes Tab and click on it
+        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        time.sleep(2)
+        print gene_tab.text
+        gene_tab.click()
+        
+        #Grab the list of genes and verify both mouse and human genes are present
+        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        cells = gene_table.get_column_cells("Gene Symbol")
+        geneList = iterate.getTextAsList(cells)
+        self.assertIn('Ttc19', geneList)
+        self.assertIn('TTC19', geneList)
+        
+        
+    def test_gene_all_ensembl_ids(self):
+        '''
+        @status This test is for searching by a mouse gene ID using an Ensembl Gene Model ID, Transcript ID, and Protein ID.  All these queries 
+                return the mouse gene and its human ortholog.
+        @see: HMDC-GQ-18 (Ensembl gene model ID, transcript ID, protein ID)
+        '''
+        print ("BEGIN test_gene_all_ensembl_ids")
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements_by_tag_name("option"):
+            if option.text == 'Gene Symbol(s) or ID(s)':
+                option.click()
+                break
+        
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("ENSMUSG00000022098")# enter Ensembl gene model ID
+        wait.forAngular(self.driver)
+        self.driver.find_element_by_id("searchButton").click()
+        wait.forAngular(self.driver)
+        
+        #identify the Genes Tab and click on it
+        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        time.sleep(2)
+        print gene_tab.text
+        gene_tab.click()
+        
+        #Grab the list of genes and verify both mouse and human genes are present
+        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        cells = gene_table.get_column_cells("Gene Symbol")
+        geneList = iterate.getTextAsList(cells)
+        self.assertIn('Bmp1', geneList)
+        self.assertIn('BMP1', geneList)
+        
+        #Open up the query form again (click on "Click to modify search" button
+        self.driver.find_element_by_xpath("//*[contains(text(), 'Click to modify search')]").click()
+        
+        #Redo the search using the VEGA transcript ID
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements_by_tag_name("option"):
+            if option.text == 'Gene Symbol(s) or ID(s)':
+                option.click()
+                break
+        
+        self.driver.find_element_by_name("formly_3_input_input_0").clear()
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("ENSMUST00000022693")# enter Ensembl transcript ID
+        wait.forAngular(self.driver)
+        self.driver.find_element_by_id("searchButton").click()
+        wait.forAngular(self.driver)
+        
+        #identify the Genes Tab and click on it
+        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        time.sleep(2)
+        print gene_tab.text
+        gene_tab.click()
+        
+        #Grab the list of genes and verify both mouse and human genes are present
+        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        cells = gene_table.get_column_cells("Gene Symbol")
+        geneList = iterate.getTextAsList(cells)
+        self.assertIn('Bmp1', geneList)
+        self.assertIn('BMP1', geneList)
+        
+        #Open up the query form again (click on "Click to modify search" button
+        self.driver.find_element_by_xpath("//*[contains(text(), 'Click to modify search')]").click()
+        
+        #Redo the search using the Ensembl protein ID
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")
+        for option in my_select.find_elements_by_tag_name("option"):
+            if option.text == 'Gene Symbol(s) or ID(s)':
+                option.click()
+                break
+        
+        self.driver.find_element_by_name("formly_3_input_input_0").clear()
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("ENSMUSP00000022693")# enter VEGA protein ID
+        wait.forAngular(self.driver)
+        self.driver.find_element_by_id("searchButton").click()
+        wait.forAngular(self.driver)
+        
+        #identify the Genes Tab and click on it
+        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        time.sleep(2)
+        print gene_tab.text
+        gene_tab.click()
+        
+        #Grab the list of genes and verify both mouse and human genes are present
+        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        cells = gene_table.get_column_cells("Gene Symbol")
+        geneList = iterate.getTextAsList(cells)
+        self.assertIn('Bmp1', geneList)
+        self.assertIn('BMP1', geneList)
+        
+        
+    def test_gene_all_uniprot_ids(self):
+        '''
+        @status This test is for searching for genes by the UniProt mouse ID types: SWISS-PROT and TrEMBL.  Verify that the mouse gene is returned 
+                and its human ortholog on the Gene Tab.
+        @see: HMDC-GQ-20 (SWISS-PROT and TrEMBL ID searches)
+        '''
+        print ("BEGIN test_gene_all_uniprot_ids")
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements_by_tag_name("option"):
+            if option.text == 'Gene Symbol(s) or ID(s)':
+                option.click()
+                break
+        
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("P32115") #enter the SWISS-PROT ID for Pax4
+        wait.forAngular(self.driver)
+        self.driver.find_element_by_id("searchButton").click()
+        wait.forAngular(self.driver)
+        
+        #identify the Genes tab and click on it
+        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        time.sleep(2)
+        print gene_tab.text
+        gene_tab.click()
+        
+        #Grab the list of genes and verify both mouse and human genes are present
+        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        cells = gene_table.get_column_cells("Gene Symbol")
+        geneList = iterate.getTextAsList(cells)
+        self.assertIn('PAX4', geneList)
+        self.assertIn('Pax4', geneList)
+        
+        #Open up the query form again (click on "Click to modify search" button
+        self.driver.find_element_by_xpath("//*[contains(text(), 'Click to modify search')]").click()
+        
+        #Redo the search using a TrEMBL ID for Pax4
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")
+        for option in my_select.find_elements_by_tag_name("option"):
+            if option.text == 'Gene Symbol(s) or ID(s)':
+                option.click()
+                break
+        
+        self.driver.find_element_by_name("formly_3_input_input_0").clear()
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("G3UZE8")# enter VEGA protein ID
+        wait.forAngular(self.driver)
+        self.driver.find_element_by_id("searchButton").click()
+        wait.forAngular(self.driver)
+        
+        #identify the Genes Tab and click on it
+        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        time.sleep(2)
+        print gene_tab.text
+        gene_tab.click()
+        
+        #Grab the list of genes and verify both mouse and human genes are present
+        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        cells = gene_table.get_column_cells("Gene Symbol")
+        geneList = iterate.getTextAsList(cells)
+        self.assertIn('Pax4', geneList)
+        self.assertIn('PAX4', geneList)
+        
+        
+    def test_gene_protein_ids(self):
+        '''
+        @status This test is for searching for genes by the PDB and Protein Ontology mouse IDs.  Verify that the mouse gene is returned 
+                and its human ortholog on the Gene Tab.
+        @see: HMDC-GQ-21 (PDB ID search); HMDC-GQ-22 (Protein Ontology ID search)
+        '''
+        print ("BEGIN test_gene_protein_ids")
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements_by_tag_name("option"):
+            if option.text == 'Gene Symbol(s) or ID(s)':
+                option.click()
+                break
+        
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("PR:000004804") #enter the Protein Ontology ID for Brca2
+        wait.forAngular(self.driver)
+        self.driver.find_element_by_id("searchButton").click()
+        wait.forAngular(self.driver)
+        
+        #identify the Genes tab and click on it
+        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        time.sleep(2)
+        print gene_tab.text
+        gene_tab.click()
+        
+        #Grab the list of genes and verify both mouse and human genes are present
+        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        cells = gene_table.get_column_cells("Gene Symbol")
+        geneList = iterate.getTextAsList(cells)
+        self.assertIn('BRCA2', geneList)
+        self.assertIn('Brca2', geneList)
+        
+        #Open up the query form again (click on "Click to modify search" button
+        self.driver.find_element_by_xpath("//*[contains(text(), 'Click to modify search')]").click()
+        
+        #Redo the search using a TrEMBL ID for Pax4
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")
+        for option in my_select.find_elements_by_tag_name("option"):
+            if option.text == 'Gene Symbol(s) or ID(s)':
+                option.click()
+                break
+        
+        self.driver.find_element_by_name("formly_3_input_input_0").clear()
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("1MJE")# enter PDB ID for Brca2
+        wait.forAngular(self.driver)
+        self.driver.find_element_by_id("searchButton").click()
+        wait.forAngular(self.driver)
+        
+        #identify the Genes Tab and click on it
+        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        time.sleep(2)
+        print gene_tab.text
+        gene_tab.click()
+        
+        #Grab the list of genes and verify both mouse and human genes are present
+        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        cells = gene_table.get_column_cells("Gene Symbol")
+        geneList = iterate.getTextAsList(cells)
+        self.assertIn('Brca2', geneList)
+        self.assertIn('BRCA2', geneList)
+      
+        
+    def test_gene_genbank_ids(self):
+        '''
+        @status This test is for searching for genes by a GenBank sequence mouse ID.  Verify that the mouse gene is returned 
+                and its human ortholog on the Gene Tab.
+        @see: HMDC-GQ-24 (Search by GenBank mouse sequence IDs: genomic and transcripts)
+        '''
+        print ("BEGIN test_gene_genbank_ids")
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements_by_tag_name("option"):
+            if option.text == 'Gene Symbol(s) or ID(s)':
+                option.click()
+                break
+        
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("BC111528") #enter a GenBank RNA sequence ID for Sry
+        wait.forAngular(self.driver)
+        self.driver.find_element_by_id("searchButton").click()
+        wait.forAngular(self.driver)
+        
+        #identify the Genes tab and click on it
+        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        time.sleep(2)
+        print gene_tab.text
+        gene_tab.click()
+        
+        #Grab the list of genes and verify both mouse and human genes are present
+        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        cells = gene_table.get_column_cells("Gene Symbol")
+        geneList = iterate.getTextAsList(cells)
+        self.assertIn('SRY', geneList)
+        self.assertIn('Sry', geneList)
+        
+        #Open up the query form again (click on "Click to modify search" button
+        self.driver.find_element_by_xpath("//*[contains(text(), 'Click to modify search')]").click()
+        
+        #Redo the search using a genomic GenBank DNA sequence for Sry
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")
+        for option in my_select.find_elements_by_tag_name("option"):
+            if option.text == 'Gene Symbol(s) or ID(s)':
+                option.click()
+                break
+        
+        self.driver.find_element_by_name("formly_3_input_input_0").clear()
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("AF068054")# enter GenBank DNA sequence for Sry
+        wait.forAngular(self.driver)
+        self.driver.find_element_by_id("searchButton").click()
+        wait.forAngular(self.driver)
+        
+        #identify the Genes Tab and click on it
+        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        time.sleep(2)
+        print gene_tab.text
+        gene_tab.click()
+        
+        #Grab the list of genes and verify both mouse and human genes are present
+        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        cells = gene_table.get_column_cells("Gene Symbol")
+        geneList = iterate.getTextAsList(cells)
+        self.assertIn('SRY', geneList)
+        self.assertIn('Sry', geneList)
+        
+    def test_gene_affy_ids(self):
+        '''
+        @status This test is for searching for genes by Affy mouse IDs.  Verify that the mouse gene is returned 
+                and its human ortholog on the Gene Tab.
+        @see: HMDC-GQ-25 (Search by Affy IDs: 3 sets: Affy 1.0 ST; Affy 430 2.0; Affy U74)
+        '''
+        print ("BEGIN test_gene_affy_ids")
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements_by_tag_name("option"):
+            if option.text == 'Gene Symbol(s) or ID(s)':
+                option.click()
+                break
+        
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("10565422") #enter a Affy 1.0 ST id
+        wait.forAngular(self.driver)
+        self.driver.find_element_by_id("searchButton").click()
+        wait.forAngular(self.driver)
+        
+        #identify the Genes tab and click on it
+        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        time.sleep(2)
+        print gene_tab.text
+        gene_tab.click()
+        
+        #Grab the list of genes and verify both mouse and human genes are present
+        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        cells = gene_table.get_column_cells("Gene Symbol")
+        geneList = iterate.getTextAsList(cells)
+        self.assertIn('TYR', geneList)
+        self.assertIn('Tyr', geneList)
+        
+        #Open up the query form again (click on "Click to modify search" button
+        self.driver.find_element_by_xpath("//*[contains(text(), 'Click to modify search')]").click()
+        
+        #Redo the search for another Affy ID type
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")
+        for option in my_select.find_elements_by_tag_name("option"):
+            if option.text == 'Gene Symbol(s) or ID(s)':
+                option.click()
+                break
+        
+        self.driver.find_element_by_name("formly_3_input_input_0").clear()
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("1417717_a_at")# enter Affy 430 2.0 id
+        wait.forAngular(self.driver)
+        self.driver.find_element_by_id("searchButton").click()
+        wait.forAngular(self.driver)
+        
+        #identify the Genes Tab and click on it
+        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        time.sleep(2)
+        print gene_tab.text
+        gene_tab.click()
+        
+        #Grab the list of genes and verify both mouse and human genes are present
+        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        cells = gene_table.get_column_cells("Gene Symbol")
+        geneList = iterate.getTextAsList(cells)
+        self.assertIn('TYR', geneList)
+        self.assertIn('Tyr', geneList)
+        
+        #Open up the query form again (click on "Click to modify search" button
+        self.driver.find_element_by_xpath("//*[contains(text(), 'Click to modify search')]").click()
+        
+        #Redo the search for another Affy ID type
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")
+        for option in my_select.find_elements_by_tag_name("option"):
+            if option.text == 'Gene Symbol(s) or ID(s)':
+                option.click()
+                break
+        
+        self.driver.find_element_by_name("formly_3_input_input_0").clear()
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("102666_at")# enter Affy U74 id
+        wait.forAngular(self.driver)
+        self.driver.find_element_by_id("searchButton").click()
+        wait.forAngular(self.driver)
+        
+        #identify the Genes Tab and click on it
+        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        time.sleep(2)
+        print gene_tab.text
+        gene_tab.click()
+        
+        #Grab the list of genes and verify both mouse and human genes are present
+        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        cells = gene_table.get_column_cells("Gene Symbol")
+        geneList = iterate.getTextAsList(cells)
+        self.assertIn('TYR', geneList)
+        self.assertIn('Tyr', geneList)
+        
+    def test_gene_ec_id(self):
+        '''
+        @status This test is for searching by Gene ID using EC mouse gene ID.  Verify that the mouse gene is returned 
+                and its human ortholog on the Gene Tab.
+        @see: HMDC-GQ-26 (query by mouse EC IDs)
+        '''
+        print ("BEGIN test_gene_ec_id")
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements_by_tag_name("option"):
+            if option.text == 'Gene Symbol(s) or ID(s)':
+                option.click()
+                break
+        
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("1.11.1.6") #enter EC id for Cat
+        wait.forAngular(self.driver)
+        self.driver.find_element_by_id("searchButton").click()
+        wait.forAngular(self.driver)
+        
+        #identify the Genes tab and click on it
+        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        time.sleep(2)
+        print gene_tab.text
+        gene_tab.click()
+        
+        #Grab the list of genes and check for the gene with this ID.
+        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        cells = gene_table.get_column_cells("Gene Symbol")
+        geneList = iterate.getTextAsList(cells)
+        
+        #asserts that the correct genes in the correct order are returned
+        self.assertIn('Cat', geneList)
+        self.assertIn('CAT', geneList)
+        
+    def test_gene_miRBase_id(self):
+        '''
+        @status This test is for searching by Gene ID using miRBase mouse gene ID.  Verify that the mouse gene is returned 
+                and its human ortholog on the Gene Tab.
+        @see: HMDC-GQ-27 (query by mouse miRBase IDs)
+        '''
+        print ("BEGIN test_gene_miRBase_id")
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements_by_tag_name("option"):
+            if option.text == 'Gene Symbol(s) or ID(s)':
+                option.click()
+                break
+        
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("MI0000570") #enter miRBase ID for Mir22
+        wait.forAngular(self.driver)
+        self.driver.find_element_by_id("searchButton").click()
+        wait.forAngular(self.driver)
+        
+        #identify the Genes tab and click on it
+        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        time.sleep(2)
+        print gene_tab.text
+        gene_tab.click()
+        
+        #Grab the list of genes and check for the gene with this ID.
+        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        cells = gene_table.get_column_cells("Gene Symbol")
+        geneList = iterate.getTextAsList(cells)
+        
+        #asserts that the correct genes are returned
+        self.assertIn('Mir22', geneList)
+       
+    
+    def test_gene_ccds_id(self):
+        '''
+        @status This test is for searching by Gene ID using CCDS mouse gene ID.  Verify that the mouse gene is returned 
+                and its human ortholog on the Gene Tab.
+        @see: HMDC-GQ-28 (query by mouse Consensus CDS Project IDs)
+        '''
+        print ("BEGIN test_gene_ccds_id")
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements_by_tag_name("option"):
+            if option.text == 'Gene Symbol(s) or ID(s)':
+                option.click()
+                break
+        
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("CCDS36046.1") #enter CCDS id for Kitl
+        wait.forAngular(self.driver)
+        self.driver.find_element_by_id("searchButton").click()
+        wait.forAngular(self.driver)
+        
+        #identify the Genes tab and click on it
+        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        time.sleep(2)
+        print gene_tab.text
+        gene_tab.click()
+        
+        #Grab the list of genes and check for the gene with this ID.
+        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        cells = gene_table.get_column_cells("Gene Symbol")
+        geneList = iterate.getTextAsList(cells)
+        
+        #asserts that the correct genes in the correct order are returned
+        self.assertIn('Kitl', geneList)
+        self.assertIn('KITLG', geneList)
+        
+    def test_gene_gtrosa_id(self):
+        '''
+        @status  The marker Gt(ROSA)26Sor is a special case in the HMDC.  This marker should not be returned to the Grid Tab, but is valid to be
+                 returned on the Gene Tab.  This test is a search by its MGI ID.
+
+        @see: HMDC-Grid-1 (don't return Gt(ROSA)26Sor to the Grid)
+        '''
+        print ("BEGIN test_gene_gtrosa_id")
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements_by_tag_name("option"):
+            if option.text == 'Gene Symbol(s) or ID(s)':
+                option.click()
+                break
+        
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("MGI:104735")#identifies the input field and enters Gt(ROSA)26Sor MGI id
+        wait.forAngular(self.driver)
+        self.driver.find_element_by_id("searchButton").click()
+        wait.forAngular(self.driver)
+        
+        #identify the Grid tab and click on it.
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (1 x 24)", "Grid tab is not visible!")
+        print grid_tab.text
         grid_tab.click()
-        hgenes = self.driver.find_element_by_css_selector("td.ngc.left.middle.cell.first")
-        print hgenes.text
-        self.assertEqual(hgenes.text, "EDNRB")
-        mgenes = self.driver.find_element_by_css_selector("td.ngc.left.middle.cell.last")
-        print mgenes.text
-        self.assertEqual(mgenes.text, "Ednrb")
-        #cells captures every field from Human Gene heading to the last disease angled, this test captures the phenotypes and 1 disease
-        cells = self.driver.find_elements_by_css_selector("div.ngc.cell-content.ngc-custom-html.ng-binding.ng-scope")
-        #print iterate.getTextAsList(cells) #if you want to see what it captures uncomment this
-        #displays each row of phenotype/disease data
-        pheno1 = cells[2]
-        pheno2 = cells[3]
-        pheno3 = cells[4]
-        pheno4 = cells[5]
-        pheno5 = cells[6]
-        pheno6 = cells[7]
-        pheno7 = cells[8]
-        pheno8 = cells[9]
-        pheno9 = cells[10]
-        pheno10 = cells[11]
-        pheno11 = cells[12]
-        pheno12 = cells[13]
-        pheno13 = cells[14]
-        pheno14 = cells[15]
-        pheno15 = cells[16]
-        pheno16 = cells[17]
-        pheno17 = cells[18]
-        pheno18 = cells[19]
-        pheno19 = cells[20]
-        pheno20 = cells[21]
-        pheno21 = cells[22]
-        disease1 = cells[24]
-        disease2 = cells[25]
-        disease3 = cells[26]
-        #asserts that the correct phenotypes/diseases(at angle) display in the correct order
-        self.assertEqual(pheno1.text, 'behavior/neurological')
-        self.assertEqual(pheno2.text, 'cardiovascular system')
-        self.assertEqual(pheno3.text, 'cellular')
-        self.assertEqual(pheno4.text, 'craniofacial')
-        self.assertEqual(pheno5.text, 'digestive/alimentary system')
-        self.assertEqual(pheno6.text, 'endocrine/exocrine glands')
-        self.assertEqual(pheno7.text, 'growth/size/body')
-        self.assertEqual(pheno8.text, 'hearing/vestibular/ear')
-        self.assertEqual(pheno9.text, 'homeostasis/metabolism')
-        self.assertEqual(pheno10.text, 'immune system')
-        self.assertEqual(pheno11.text, 'integument')
-        self.assertEqual(pheno12.text, 'limbs/digits/tail')
-        self.assertEqual(pheno13.text, 'mortality/aging')
-        self.assertEqual(pheno14.text, 'muscle')
-        self.assertEqual(pheno15.text, 'neoplasm')
-        self.assertEqual(pheno16.text, 'nervous system')
-        self.assertEqual(pheno17.text, 'pigmentation')
-        self.assertEqual(pheno18.text, 'renal/urinary system')
-        self.assertEqual(pheno19.text, 'respiratory system')
-        self.assertEqual(pheno20.text, 'skeleton')
-        self.assertEqual(pheno21.text, 'vision/eye')
-        self.assertEqual(disease1.text, 'autosomal genetic disease')
-        self.assertEqual(disease2.text, "gastrointestinal system disease")
-        self.assertEqual(disease3.text, "integumentary system disease")
+        
+        #Look for no results message
+        self.assertIn('No data available for your query', self.driver.page_source)
+        
         #identify the Genes tab and verify the tab's text
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         print gene_tab.text
-        self.assertEqual(gene_tab.text, "Genes (2)", "Genes tab is not visible!")
         gene_tab.click()
+        
         gene_table = Table(self.driver.find_element_by_id("geneTable"))
         cells = gene_table.get_column_cells("Gene Symbol")
-        print iterate.getTextAsList(cells)
-        #displays each row of gene data
-        gene1 = cells[1]
-        gene2 = cells[2]
-        #asserts that the correct genes in the correct order are returned
-        self.assertEqual(gene1.text, 'Ednrb')
-        self.assertEqual(gene2.text, 'EDNRB')
-        #identify the Diseases tab and verify the tab's text
+        geneList = iterate.getTextAsList(cells)
+        
+        #asserts that Gt(ROSA)26Sor is returned
+        self.assertIn('Gt(ROSA)26Sor', geneList)
+        
+    def test_allele_id_fails(self):
+        '''
+        @status This test checks to make sure MGI allele IDs are not accepted in this field in the HMDC.
+        
+        @see: HMDC-GQ-29 (don't match Allele IDs)
+        '''
+        print ("BEGIN test_allele_id_fails")
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements_by_tag_name("option"):
+            if option.text == 'Gene Symbol(s) or ID(s)':
+                option.click()
+                break
+        
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("MGI:1856798") #enter allele MGI ID for A<y>; should return 0 results
+        wait.forAngular(self.driver)
+        self.driver.find_element_by_id("searchButton").click()
+        wait.forAngular(self.driver)
+        
+        #identify the Genes tab and click on it
+        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        time.sleep(2)
+        print gene_tab.text
+        gene_tab.click()
+        
+        #Look for no results message
+        self.assertIn('No Matching Genes', self.driver.page_source)
+        
+    #
+    #  HUMAN gene ID tests start here
+    #
+    
+    
+    def test_gene_human_ncbi_id(self):
+        '''
+       @status This test is for searching by Gene ID using NCBI human gene ID.  Expect human gene returned plus mouse ortholog on Grid 
+        and Gene Tabs.  Diseases rolled up for these genes returned to Disease Tab.
+        @see: HMDC-GQ-30 (query by human NCBI ID)  HMDC-genetab-2 (return genes matching ID plus their ortholog); 
+              HMDC-disease-9 (return diseases annotated to human gene and rolled up to its mouse ortholog)
+        '''
+        print ("BEGIN test_gene_human_ncbi_id")
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements_by_tag_name("option"):
+            if option.text == 'Gene Symbol(s) or ID(s)':
+                option.click()
+                break
+        
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("5083")#identifies the input field: enter NCBI ID for human PAX9
+        wait.forAngular(self.driver)
+        self.driver.find_element_by_id("searchButton").click()
+        wait.forAngular(self.driver)
+        
+        #identify the Grid Tab and click on it
+        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        time.sleep(2)
+        print grid_tab.text
+        grid_tab.click()
+        
+        #Grab the human genes and verify the human gene is in the list (PAX9)
+        hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
+        humanGeneList = iterate.getTextAsList(hgenes)
+        self.assertIn("PAX9", humanGeneList)
+        
+        #Grab the mouse genes and verify the mouse ortholog is in the list (Pax9)
+        mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
+        mouseGeneList = iterate.getTextAsList(mgenes)
+        self.assertIn("Pax9", mouseGeneList)
+        
+        #Switch to the Genes Tab and verify genes are there too
+        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        print gene_tab.text
+        gene_tab.click()
+        
+        #Grab the list of genes and verify both mouse and human genes are present
+        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        cells = gene_table.get_column_cells("Gene Symbol")
+        geneList = iterate.getTextAsList(cells)
+        self.assertIn('Pax9', geneList)
+        self.assertIn('PAX9', geneList)
+        
+        #Switch to the Disease Tab and verify diseases for mouse and human are present
         disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         print disease_tab.text
-        self.assertEqual(disease_tab.text, "Diseases (3)", "Diseases tab is not visible!")
         disease_tab.click()
+        
+        #Get the list of diseases (by DOID)
         disease_table = Table(self.driver.find_element_by_id("diseaseTable"))
-        cells = disease_table.get_column_cells("Disease")
-        print iterate.getTextAsList(cells)
-        #displays each row of gene data
-        disease1 = cells[1]
-        disease2 = cells[2]
-        disease3 = cells[3]
-        #asserts that the correct diseases in the correct order are returned
-        self.assertEqual(disease1.text, 'ABCD syndrome')
-        self.assertEqual(disease2.text, "Hirschsprung's disease")
-        self.assertEqual(disease3.text, "Waardenburg syndrome type 4A")
-
-    def test_gene_symbol_dual_match(self):
+        cells = disease_table.get_column_cells("DO ID")
+        diseaseList = iterate.getTextAsList(cells)
+        self.assertIn('DOID:0050591', diseaseList) #ID for tooth agenesis (annotated to PAX9 and Pax9)
+        
+        
+    def test_gene_human_uniprot_id(self):
         '''
-        @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
-        by Gene symbol using a symbol that has a human symbol match and a human synonym match (Trp53, Trp53bp1)
-        @see: HMDC-GQ-3
+        @status This test is for searching for genes by the UniProt human sequence id.  Verify that the human gene is returned 
+                and its mouse ortholog on the Gene Tab.
+        @see: HMDC-GQ-31 (human UniProt sequence id searches)
         '''
-        print ("BEGIN test_gene_symbol_dual_match")
+        print ("BEGIN test_gene_human_uniprot_id")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("TP53")#identifies the input field and enters gata1
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("P01116") #enter human uniprot id
         wait.forAngular(self.driver)
         self.driver.find_element_by_id("searchButton").click()
         wait.forAngular(self.driver)
-        #identify the Genes tab and verify the tab's text
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
-        time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (7 x 38)", "Grid tab is not visible!")
-        grid_tab.click()
-        hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
-        print hgenes
-        searchTermItems = iterate.getTextAsList(hgenes)
-        self.assertEqual(searchTermItems[0], "")
-        self.assertEqual(searchTermItems[1], "")
-        self.assertEqual(searchTermItems[2], "")
-        self.assertEqual(searchTermItems[3], "")
-        self.assertEqual(searchTermItems[4], "")
-        self.assertEqual(searchTermItems[5], "TP53BP1")
-        self.assertEqual(searchTermItems[6], "TP53")
-        mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
-        print mgenes
-        searchTermItems = iterate.getTextAsList(mgenes)
-        self.assertEqual(searchTermItems[0], "Tg(Trp53)1Srn")
-        self.assertEqual(searchTermItems[1], "Tg(Trp53)bSrn")
-        self.assertEqual(searchTermItems[2], "Tg(Trp53A135V)L3Ber")
-        self.assertEqual(searchTermItems[3], "Tg(Trp53R172H)8512Jmr")
-        self.assertEqual(searchTermItems[4], "Tg(Trp53R172L)4491Jmr")
-        self.assertEqual(searchTermItems[5], "Trp53bp1")
-        self.assertEqual(searchTermItems[6], "Trp53")
-        #identify the Genes tab and verify the tab's text
-        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
-        print gene_tab.text
-        self.assertEqual(gene_tab.text, "Genes (19)", "Genes tab is not visible!")
-        gene_tab.click()
-        #identify the Diseases tab and verify the tab's text
-        disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
-        print disease_tab.text
-        self.assertEqual(disease_tab.text, "Diseases (14)", "Diseases tab is not visible!")
-        disease_tab.click()
         
-    def test_gene_symbol_human_syn(self):
-        '''
-        @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
-        by Gene symbol using a symbol that is a human synonym(LFS1 is a human synonym of Trp53)
-        @see: HMDC-GQ-5
-        '''
-        print ("BEGIN test_gene_symbol_human_syn")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
-            if option.text == 'Gene Symbol(s) or ID(s)':
-                option.click()
-                break
-        
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("LFS1")#identifies the input field and enters gata1
-        wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
-        wait.forAngular(self.driver)
-        #identify the Genes tab and verify the tab's text
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
-        time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (6 x 38)", "Grid tab is not visible!")
-        grid_tab.click()
-        hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
-        print hgenes
-        searchTermItems = iterate.getTextAsList(hgenes)
-        self.assertEqual(searchTermItems[0], "")
-        self.assertEqual(searchTermItems[1], "")
-        self.assertEqual(searchTermItems[2], "")
-        self.assertEqual(searchTermItems[3], "")
-        self.assertEqual(searchTermItems[4], "")
-        self.assertEqual(searchTermItems[5], "TP53")
-        mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
-        print mgenes
-        searchTermItems = iterate.getTextAsList(mgenes)
-        self.assertEqual(searchTermItems[0], "Tg(Trp53)1Srn")
-        self.assertEqual(searchTermItems[1], "Tg(Trp53)bSrn")
-        self.assertEqual(searchTermItems[2], "Tg(Trp53A135V)L3Ber")
-        self.assertEqual(searchTermItems[3], "Tg(Trp53R172H)8512Jmr")
-        self.assertEqual(searchTermItems[4], "Tg(Trp53R172L)4491Jmr")
-        self.assertEqual(searchTermItems[5], "Trp53")
-        #identify the Genes tab and verify the tab's text
+        #identify the Genes tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
-        print gene_tab.text
-        self.assertEqual(gene_tab.text, "Genes (17)", "Genes tab is not visible!")
-        gene_tab.click()
-        #identify the Diseases tab and verify the tab's text
-        disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
-        print disease_tab.text
-        self.assertEqual(disease_tab.text, "Diseases (14)", "Diseases tab is not visible!")
-        disease_tab.click()
-
-    def test_gene_ID_human_entrez(self):
-        '''
-        @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
-        by Gene ID for human Entrez gene(729991 is an ID for Borcs8)
-        @see: HMDC-GQ-30
-        '''
-        print ("BEGIN test_gene_ID_human_entrez")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
-            if option.text == 'Gene Symbol(s) or ID(s)':
-                option.click()
-                break
-        
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("729991")#identifies the input field and enters gata1
-        wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
-        wait.forAngular(self.driver)
-        #identify the Genes tab and verify the tab's text
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (0 x 0)", "Grid tab is not visible!")
-        grid_tab.click()
-        #identify the Genes tab and verify the tab's text
-        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         print gene_tab.text
-        self.assertEqual(gene_tab.text, "Genes (2)", "Genes tab is not visible!")
         gene_tab.click()
+        
+        #Grab the list of genes and verify both mouse and human genes are present
         gene_table = Table(self.driver.find_element_by_id("geneTable"))
         cells = gene_table.get_column_cells("Gene Symbol")
-        print iterate.getTextAsList(cells)
-        #displays each row of gene data
-        gene1 = cells[1]
-        gene2 = cells[2]
-        #asserts that the correct genes in the correct order are returned
-        self.assertEqual(gene1.text, 'Borcs8')
-        self.assertEqual(gene2.text, 'BORCS8')
+        geneList = iterate.getTextAsList(cells)
+        self.assertIn('KRAS', geneList)
+        self.assertIn('Kras', geneList)
+        
+    def test_gene_human_nextprot_id(self):
+        '''
+        @status This test is for searching for genes by the NeXtProt id.  Verify that the human gene is returned 
+                and its mouse ortholog on the Gene Tab.
+        @see: HMDC-GQ-32 (human NeXtProt id searches)
+        '''
+        print ("BEGIN test_gene_human_nextprot_id")
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements_by_tag_name("option"):
+            if option.text == 'Gene Symbol(s) or ID(s)':
+                option.click()
+                break
+        
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("NX_Q99884") #enter human NeXtProt id
+        wait.forAngular(self.driver)
+        self.driver.find_element_by_id("searchButton").click()
+        wait.forAngular(self.driver)
+        
+        #identify the Genes tab and click on it
+        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        time.sleep(2)
+        print gene_tab.text
+        gene_tab.click()
+        
+        #Grab the list of genes and verify both mouse and human genes are present
+        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        cells = gene_table.get_column_cells("Gene Symbol")
+        geneList = iterate.getTextAsList(cells)
+        self.assertIn('Slc6a7', geneList)
+        self.assertIn('SLC6A7', geneList)
+        
+    def test_gene_human_refseq_id(self):
+        '''
+        @status This test is for searching for genes by the RefSeq sequence id.  Verify that the human gene is returned 
+                and its mouse ortholog on the Gene Tab.
+        @see: HMDC-GQ-33 (human RefSeq sequence id searches)
+        '''
+        print ("BEGIN test_gene_human_refseq_id")
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements_by_tag_name("option"):
+            if option.text == 'Gene Symbol(s) or ID(s)':
+                option.click()
+                break
+        
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("NM_001672") #enter human RefSeq sequence id
+        wait.forAngular(self.driver)
+        self.driver.find_element_by_id("searchButton").click()
+        wait.forAngular(self.driver)
+        
+        #identify the Genes tab and click on it
+        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        time.sleep(2)
+        print gene_tab.text
+        gene_tab.click()
+        
+        #Grab the list of genes and verify both mouse and human genes are present
+        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        cells = gene_table.get_column_cells("Gene Symbol")
+        geneList = iterate.getTextAsList(cells)
+        self.assertIn('a', geneList)
+        self.assertIn('ASIP', geneList)
+    
+    def test_gene_human_genbank_id(self):
+        '''
+        @status This test is for searching for genes by the GenBank sequence id.  Verify that the human gene is returned 
+                and its mouse ortholog on the Gene Tab.
+        @see: HMDC-GQ-34 (human GenBank sequence id searches)
+        '''
+        print ("BEGIN test_gene_human_refseq_id")
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements_by_tag_name("option"):
+            if option.text == 'Gene Symbol(s) or ID(s)':
+                option.click()
+                break
+        
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("AK131274") #enter human GenBank sequence id
+        wait.forAngular(self.driver)
+        self.driver.find_element_by_id("searchButton").click()
+        wait.forAngular(self.driver)
+        
+        #identify the Genes tab and click on it
+        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        time.sleep(2)
+        print gene_tab.text
+        gene_tab.click()
+        
+        #Grab the list of genes and verify both mouse and human genes are present
+        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        cells = gene_table.get_column_cells("Gene Symbol")
+        geneList = iterate.getTextAsList(cells)
+        self.assertIn('Zfp704', geneList)
+        self.assertIn('ZNF704', geneList)
+    
 
-    def test_gene_ID_OMIM(self):
+    def test_gene_human_OMIM_id(self):
         '''
-        @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
-        by OMIM ID(human)(191150 is associated to marker Trp53)
-        @see: HMDC-GQ-??
+        @status This tests that an OMIM ID for a human gene returns that gene and its mouse ortholog.
+        @see: HMDC-GQ-35 (OMIM gene IDs); HMDC-GQ-38 (do NOT return matches to OMIM Disease IDs)
         '''
-        print ("BEGIN test_gene_ID_OMIM")
+        print ("BEGIN test_gene_human_OMIM_id")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
@@ -858,47 +1009,52 @@ class TestGeneid(unittest.TestCase):
         wait.forAngular(self.driver)
         self.driver.find_element_by_id("searchButton").click()
         wait.forAngular(self.driver)
-        #identify the Genes tab and verify the tab's text
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
-        time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (6 x 38)", "Grid tab is not visible!")
-        grid_tab.click()
-        hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
-        print hgenes
-        searchTermItems = iterate.getTextAsList(hgenes)
-        self.assertEqual(searchTermItems[0], "")
-        self.assertEqual(searchTermItems[1], "")
-        self.assertEqual(searchTermItems[2], "")
-        self.assertEqual(searchTermItems[3], "")
-        self.assertEqual(searchTermItems[4], "")
-        self.assertEqual(searchTermItems[5], "TP53")
-        mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
-        print mgenes
-        searchTermItems = iterate.getTextAsList(mgenes)
-        self.assertEqual(searchTermItems[0], "Tg(Trp53)1Srn")
-        self.assertEqual(searchTermItems[1], "Tg(Trp53)bSrn")
-        self.assertEqual(searchTermItems[2], "Tg(Trp53A135V)L3Ber")
-        self.assertEqual(searchTermItems[3], "Tg(Trp53R172H)8512Jmr")
-        self.assertEqual(searchTermItems[4], "Tg(Trp53R172L)4491Jmr")
-        self.assertEqual(searchTermItems[5], "Trp53")
-        #identify the Genes tab and verify the tab's text
+        
+        #identify the Genes Tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        time.sleep(2)
         print gene_tab.text
-        self.assertEqual(gene_tab.text, "Genes (17)", "Genes tab is not visible!")
         gene_tab.click()
-        #identify the Diseases tab and verify the tab's text
-        disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
-        print disease_tab.text
-        self.assertEqual(disease_tab.text, "Diseases (14)", "Diseases tab is not visible!")
-        disease_tab.click()
+        
+        #Grab the list of genes and verify both mouse and human genes are present
+        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        cells = gene_table.get_column_cells("Gene Symbol")
+        geneList = iterate.getTextAsList(cells)
+        self.assertIn('Trp53', geneList)
+        self.assertIn('TP53', geneList)
+        
+        #Open up the query form again (click on "Click to modify search" button
+        self.driver.find_element_by_xpath("//*[contains(text(), 'Click to modify search')]").click()
+        
+        #Redo the search for an OMIM disease ID -- should return no results using this query field
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")
+        for option in my_select.find_elements_by_tag_name("option"):
+            if option.text == 'Gene Symbol(s) or ID(s)':
+                option.click()
+                break
+        
+        self.driver.find_element_by_name("formly_3_input_input_0").clear()
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("OMIM:222100")# OMIM disease ID
+        wait.forAngular(self.driver)
+        self.driver.find_element_by_id("searchButton").click()
+        wait.forAngular(self.driver)
+        
+        #identify the Genes Tab and click on it
+        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        time.sleep(2)
+        print gene_tab.text
+        gene_tab.click()
+        
+        #Look for no results message
+        self.assertIn('No Matching Genes', self.driver.page_source)
+        
 
-    def test_gene_ID_hgnc(self):
+    def test_gene_human_hgnc_id(self):
         '''
-        @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
-        by HGNC ID(human)(HGNC:6554 is associated to marker Lepr)
-        @see: HMDC-GQ-??
+        @status This tests that a HGNC ID for a human gene returns that gene and its mouse ortholog.
+        @see: HMDC-GQ-36 (query by human HGNC id)
         '''
-        print ("BEGIN test_gene_ID_hgnc")
+        print ("BEGIN test_gene_human_hgnc_id")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
@@ -909,35 +1065,25 @@ class TestGeneid(unittest.TestCase):
         wait.forAngular(self.driver)
         self.driver.find_element_by_id("searchButton").click()
         wait.forAngular(self.driver)
-        #identify the Genes tab and verify the tab's text
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
-        time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (2 x 25)", "Grid tab is not visible!")
-        grid_tab.click()
-        hgenes = self.driver.find_element_by_css_selector("td.ngc.left.middle.cell.first")
-        print hgenes.text
-        self.assertEqual(hgenes.text, "LEPR")
-        mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
-        print mgenes
-        searchTermItems = iterate.getTextAsList(mgenes)
-        self.assertEqual(searchTermItems[0], "Lepr")
-        self.assertEqual(searchTermItems[1], "Tg(Apoe-Lepr)1Kry")
-        #identify the Genes tab and verify the tab's text
+        
+        #identify the Genes Tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        time.sleep(2)
         print gene_tab.text
-        self.assertEqual(gene_tab.text, "Genes (4)", "Genes tab is not visible!")
         gene_tab.click()
-        #identify the Diseases tab and verify the tab's text
-        disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
-        print disease_tab.text
-        self.assertEqual(disease_tab.text, "Diseases (2)", "Diseases tab is not visible!")
-        disease_tab.click()
+        
+        #Grab the list of genes and verify both mouse and human genes are present
+        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        cells = gene_table.get_column_cells("Gene Symbol")
+        geneList = iterate.getTextAsList(cells)
+        self.assertIn('Lepr', geneList)
+        self.assertIn('LEPR', geneList)
 
     def test_gene_ID_rgd(self):
         '''
         @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
         by RGD ID for a rat gene(RGD:2466 is associated to marker Cyp2b10 )
-        @see: HMDC-GQ-37
+        @see: HMDC-GQ-37 (search by RGD id)
         '''
         print ("BEGIN test_gene_ID_rgd")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
@@ -946,209 +1092,31 @@ class TestGeneid(unittest.TestCase):
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("RGD:2466")#identifies the input field and enters gata1
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("RGD:2466") 
         wait.forAngular(self.driver)
         self.driver.find_element_by_id("searchButton").click()
         wait.forAngular(self.driver)
-        #identify the Genes tab and verify the tab's text
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
-        time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (0 x 0)", "Grid tab is not visible!")
-        grid_tab.click()
-        #identify the Genes tab and verify the tab's text
+        
+        #identify the Genes tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        time.sleep(2)
         print gene_tab.text
-        self.assertEqual(gene_tab.text, "Genes (2)", "Genes tab is not visible!")
         gene_tab.click()
+        
         gene_table = Table(self.driver.find_element_by_id("geneTable"))
         cells = gene_table.get_column_cells("Gene Symbol")
-        print iterate.getTextAsList(cells)
-        #displays each row of gene data
-        gene1 = cells[1]
-        gene2 = cells[2]
-        #asserts that the correct genes in the correct order are returned
-        self.assertEqual(gene1.text, 'CYP2B6')
-        self.assertEqual(gene2.text, 'Cyp2b10')
+        geneList = iterate.getTextAsList(cells)
+        
+        #asserts that the correct genes are returned
+        self.assertIn('CYP2B6', geneList)
+        self.assertIn('Cyp2b10', geneList)
 
-    def test_gene_symbol_multiples(self):
-        '''
-        @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
-        by multiple Gene symbols (Foxm1, Lep, Ins2). There are 2 issues with this test, first selenium seems unable to locate the last 4 diseases in the grid so
-        they have been commented out. The order of genes on the genes tab has Human symbols first, should be Mouse symbol first.
-        @see HMDC-GQ-7
-        '''
-        print ("BEGIN test_gene_symbol_multiples")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
-            if option.text == 'Gene Symbol(s) or ID(s)':
-                option.click()
-                break
-            
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys('Foxm1, Lep, Ins2')#identifies the input field and enters gata1
-        wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
-        wait.forAngular(self.driver)
-        #r = requests.post
-        #identify the Genes tab and verify the tab's text
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
-        time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (9 x 32)", "Grid tab is not visible!")
-        grid_tab.click()
-        #time.sleep(10)
-        hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
-        #print hgenes
-        searchTermItems = iterate.getTextAsList(hgenes)
-        self.assertEqual(searchTermItems[0], "FOXM1")
-        self.assertEqual(searchTermItems[1], "INS")
-        self.assertEqual(searchTermItems[2], "LEP")
-        mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
-        print ("Grid: Human genes check done")
-        
-        searchTermItems1 = iterate.getTextAsList(mgenes)
-        self.assertEqual(searchTermItems1[0], "Foxm1")
-        self.assertEqual(searchTermItems1[1], "Ins2")
-        self.assertEqual(searchTermItems1[2], "Lep")
-        self.assertEqual(searchTermItems1[3], "Tg(Apcs-Lep)1Yog")
-        self.assertEqual(searchTermItems1[4], "Tg(Apoe-Lep)1Kry")
-        self.assertEqual(searchTermItems1[5], "Tg(Fabp4-LEP)F8Ffc")
-        self.assertEqual(searchTermItems1[6], "Tg(H2-Ea-Ins2)1Wehi")
-        self.assertEqual(searchTermItems1[7], "Tg(Ins2*Y16A)1Ell")
-        self.assertEqual(searchTermItems1[8], "Tg(Ins2*Y16A)3Ell")#cells = mgenes.get_all()
-        print ("Grid: Mouse genes check done")
-    
-        #cells captures every field from Human Gene heading to the last disease angled, this test captures the phenotypes and 1 disease
-        cells = self.driver.find_elements_by_css_selector("div.ngc.cell-content.ngc-custom-html.ng-binding.ng-scope")
-        print iterate.getTextAsList(cells) #if you want to see what it captures uncomment this
-        time.sleep(8)
-        #displays each row of phenotype/disease data
-        pheno1 = cells[2]
-        pheno2 = cells[3]
-        pheno3 = cells[4]
-        pheno4 = cells[5]
-        pheno5 = cells[6]
-        pheno6 = cells[7]
-        pheno7 = cells[8]
-        pheno8 = cells[9]
-        pheno9 = cells[10]
-        pheno10 = cells[11]
-        pheno11 = cells[12]
-        pheno12 = cells[13]
-        pheno13 = cells[14]
-        pheno14 = cells[15]
-        pheno15 = cells[16]
-        pheno16 = cells[17]
-        pheno17 = cells[18]
-        pheno18 = cells[19]
-        pheno19 = cells[20]
-        pheno20 = cells[21]
-        pheno21 = cells[22]
-        pheno22 = cells[23]
-        pheno23 = cells[24]
-        pheno24 = cells[25]
-        pheno25 = cells[26]
-        pheno26 = cells[27]
-        disease1 = cells[29]
-        disease2 = cells[30]
-        disease3 = cells[31]
-        disease4 = cells[32]
-        disease5 = cells[33]
-        disease6 = cells[34]
-        #asserts that the correct phenotypes/diseases(at angle) display in the correct order
-        self.assertEqual(pheno1.text, 'adipose tissue')
-        self.assertEqual(pheno2.text, 'behavior/neurological')
-        self.assertEqual(pheno3.text, 'cardiovascular system')
-        self.assertEqual(pheno4.text, 'cellular')
-        self.assertEqual(pheno5.text, 'craniofacial')
-        self.assertEqual(pheno6.text, 'digestive/alimentary system')
-        self.assertEqual(pheno7.text, 'embryo')
-        self.assertEqual(pheno8.text, 'endocrine/exocrine glands')
-        self.assertEqual(pheno9.text, 'growth/size/body')
-        self.assertEqual(pheno10.text, 'hearing/vestibular/ear')
-        self.assertEqual(pheno11.text, 'hematopoietic system')
-        self.assertEqual(pheno12.text, 'homeostasis/metabolism')
-        self.assertEqual(pheno13.text, 'immune system')
-        self.assertEqual(pheno14.text, 'integument')
-        self.assertEqual(pheno15.text, 'limbs/digits/tail')
-        self.assertEqual(pheno16.text, 'liver/biliary system')
-        self.assertEqual(pheno17.text, 'mortality/aging')
-        self.assertEqual(pheno18.text, 'muscle')
-        self.assertEqual(pheno19.text, 'neoplasm')
-        self.assertEqual(pheno20.text, 'nervous system')
-        self.assertEqual(pheno21.text, 'renal/urinary system')
-        self.assertEqual(pheno22.text, 'reproductive system')
-        self.assertEqual(pheno23.text, 'respiratory system')
-        self.assertEqual(pheno24.text, 'skeleton')
-        self.assertEqual(pheno25.text, 'vision/eye')
-        self.assertEqual(pheno26.text, 'normal phenotype')
-        self.assertEqual(disease1.text, 'acquired metabolic disease')
-        self.assertEqual(disease2.text, 'cell type cancer')
-        self.assertEqual(disease3.text, 'endocrine system disease')
-        self.assertEqual(disease4.text, 'gastrointestinal system disease')
-        self.assertEqual(disease5.text, 'maturity-onset diabetes of the young')
-        self.assertEqual(disease6.text, 'respiratory system disease')
-        print ("Grid: phenotypes & diseases check done")
-        
-        #identify the Genes tab and verify the tab's text
-        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
-        #print gene_tab.text
-        self.assertEqual(gene_tab.text, "Genes (16)", "Genes tab is not visible!")
-        gene_tab.click()
-        gene_table = Table(self.driver.find_element_by_id("geneTable"))
-        cells = gene_table.get_column_cells("Gene Symbol")
-        print iterate.getTextAsList(cells)
-        
-        #displays each row of gene data
-        gene1 = cells[1]
-        gene2 = cells[2]
-        gene3 = cells[3]
-        gene4 = cells[4]
-        gene5 = cells[5]
-        gene6 = cells[6]
-        #asserts that the correct genes in the correct order are returned
-        self.assertEqual(gene1.text, 'Foxm1')
-        self.assertEqual(gene2.text, 'FOXM1')
-        self.assertEqual(gene3.text, 'INS')
-        self.assertEqual(gene4.text, 'Ins2')
-        self.assertEqual(gene5.text, 'LEP')
-        self.assertEqual(gene6.text, 'Lep')
-        '''plus 11 more genes, all transgenes'''
-        #identify the Diseases tab and verify the tab's text
-        disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
-        print disease_tab.text
-        self.assertEqual(disease_tab.text, "Diseases (10)", "Diseases tab is not visible!")
-        disease_tab.click()
-        disease_table = Table(self.driver.find_element_by_id("diseaseTable"))
-        cells = disease_table.get_column_cells("Disease")
-        print iterate.getTextAsList(cells)
-        #displays each row of gene data
-        disease1 = cells[1]
-        disease2 = cells[2]
-        disease3 = cells[3]
-        disease4 = cells[4]
-        disease5 = cells[5]
-        disease6 = cells[6]
-        disease7 = cells[7]
-        disease8 = cells[8]
-        disease9 = cells[9]
-        disease10 = cells[10]
-        #asserts that the correct diseases in the correct order are returned
-        self.assertEqual(disease1.text, 'hepatocellular carcinoma')
-        self.assertEqual(disease2.text, 'lung cancer')
-        self.assertEqual(disease3.text, 'maturity-onset diabetes of the young')
-        self.assertEqual(disease4.text, 'maturity-onset diabetes of the young type 10')
-        self.assertEqual(disease5.text, 'metabolic syndrome X')
-        self.assertEqual(disease6.text, 'obesity')
-        self.assertEqual(disease7.text, 'permanent neonatal diabetes mellitus')
-        self.assertEqual(disease8.text, 'type 1 diabetes mellitus')
-        self.assertEqual(disease9.text, 'type 1 diabetes mellitus 2')        
-        self.assertEqual(disease10.text, 'type 2 diabetes mellitus')
 
     def test_gene_id_multiples(self):
         '''
-        @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
-        by multiple Gene IDs (MGI:1347487, MGI:104663, MGI:96573). There are 2 issues with this test, first selenium seems unable to locate the last 4 diseases in the grid so
-        they have been commented out. The order of genes on the genes tab has Human symbols first, should be Mouse symbol first.
-        @see: HGNC-GQ-??
+        @status This is a test of a list of IDs in one query of Gene Symbols/IDs.  This is a mix of mouse gene IDs and human gene IDs.  The gene matching the ID
+                is expected in the results plus their mouse or human ortholog.
+        @see: HGNC-GQ-39 (list of IDs -- comma separated and space separated tests
         '''
         print ("BEGIN test_gene_id_multiples")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
@@ -1157,171 +1125,67 @@ class TestGeneid(unittest.TestCase):
                 option.click()
                 break
 
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys('MGI:1347487, MGI:104663, MGI:96573')#identifies the input field and enters gata1
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys('MGI:1347487, HGNC:6553, MGI:96573') #IDs for Foxm1, LEP, Ins2
         wait.forAngular(self.driver)
         self.driver.find_element_by_id("searchButton").click()
         wait.forAngular(self.driver)
-        #identify the Genes tab and verify the tab's text
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
-        time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (9 x 32)", "Grid tab is not visible!")
-        grid_tab.click()
-        #time.sleep(10)
-        hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
-        #print hgenes
-        searchTermItems = iterate.getTextAsList(hgenes)
-        self.assertEqual(searchTermItems[0], "FOXM1")
-        self.assertEqual(searchTermItems[1], "INS")
-        self.assertEqual(searchTermItems[2], "LEP")
-        mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
-        #print mgenes
-        searchTermItems1 = iterate.getTextAsList(mgenes)
-        self.assertEqual(searchTermItems1[0], "Foxm1")
-        self.assertEqual(searchTermItems1[1], "Ins2")
-        self.assertEqual(searchTermItems1[2], "Lep")
-        self.assertEqual(searchTermItems1[3], "Tg(Apcs-Lep)1Yog")
-        self.assertEqual(searchTermItems1[4], "Tg(Apoe-Lep)1Kry")
-        self.assertEqual(searchTermItems1[5], "Tg(Fabp4-LEP)F8Ffc")
-        self.assertEqual(searchTermItems1[6], "Tg(H2-Ea-Ins2)1Wehi")
-        self.assertEqual(searchTermItems1[7], "Tg(Ins2*Y16A)1Ell")
-        self.assertEqual(searchTermItems1[8], "Tg(Ins2*Y16A)3Ell")#cells = mgenes.get_all()
-        #print searchTermItems
-        #cells captures every field from Human Gene heading to the last disease angled, this test captures the phenotypes and 1 disease
-        cells = self.driver.find_elements_by_css_selector("div.ngc.cell-content.ngc-custom-html.ng-binding.ng-scope")
-        print iterate.getTextAsList(cells) #if you want to see what it captures uncomment this
-        #displays each row of phenotype/disease data
-        pheno1 = cells[2]
-        pheno2 = cells[3]
-        pheno3 = cells[4]
-        pheno4 = cells[5]
-        pheno5 = cells[6]
-        pheno6 = cells[7]
-        pheno7 = cells[8]
-        pheno8 = cells[9]
-        pheno9 = cells[10]
-        pheno10 = cells[11]
-        pheno11 = cells[12]
-        pheno12 = cells[13]
-        pheno13 = cells[14]
-        pheno14 = cells[15]
-        pheno15 = cells[16]
-        pheno16 = cells[17]
-        pheno17 = cells[18]
-        pheno18 = cells[19]
-        pheno19 = cells[20]
-        pheno20 = cells[21]
-        pheno21 = cells[22]
-        pheno22 = cells[23]
-        pheno23 = cells[24]
-        pheno24 = cells[25]
-        pheno25 = cells[26]
-        pheno26 = cells[27]
-        disease1 = cells[29]
-        disease2 = cells[30]
-        disease3 = cells[31]
-        disease4 = cells[32]
-        disease5 = cells[33]
-        disease6 = cells[34]
-        #asserts that the correct phenotypes/diseases(at angle) display in the correct order
-        self.assertEqual(pheno1.text, 'adipose tissue')
-        self.assertEqual(pheno2.text, 'behavior/neurological')
-        self.assertEqual(pheno3.text, 'cardiovascular system')
-        self.assertEqual(pheno4.text, 'cellular')
-        self.assertEqual(pheno5.text, 'craniofacial')
-        self.assertEqual(pheno6.text, 'digestive/alimentary system')
-        self.assertEqual(pheno7.text, 'embryo')
-        self.assertEqual(pheno8.text, 'endocrine/exocrine glands')
-        self.assertEqual(pheno9.text, 'growth/size/body')
-        self.assertEqual(pheno10.text, 'hearing/vestibular/ear')
-        self.assertEqual(pheno11.text, 'hematopoietic system')
-        self.assertEqual(pheno12.text, 'homeostasis/metabolism')
-        self.assertEqual(pheno13.text, 'immune system')
-        self.assertEqual(pheno14.text, 'integument')
-        self.assertEqual(pheno15.text, 'limbs/digits/tail')
-        self.assertEqual(pheno16.text, 'liver/biliary system')
-        self.assertEqual(pheno17.text, 'mortality/aging')
-        self.assertEqual(pheno18.text, 'muscle')
-        self.assertEqual(pheno19.text, 'neoplasm')
-        self.assertEqual(pheno20.text, 'nervous system')
-        self.assertEqual(pheno21.text, 'renal/urinary system')
-        self.assertEqual(pheno22.text, 'reproductive system')
-        self.assertEqual(pheno23.text, 'respiratory system')
-        self.assertEqual(pheno24.text, 'skeleton')
-        self.assertEqual(pheno25.text, 'vision/eye')
-        self.assertEqual(pheno26.text, 'normal phenotype')
-        self.assertEqual(disease1.text, 'acquired metabolic disease')
-        self.assertEqual(disease2.text, 'cell type cancer')
-        self.assertEqual(disease3.text, 'endocrine system disease')
-        self.assertEqual(disease4.text, 'gastrointestinal system disease')
-        self.assertEqual(disease5.text, 'maturity-onset diabetes of the young')
-        self.assertEqual(disease6.text, 'respiratory system disease')
-        #identify the Genes tab and verify the tab's text
+        
+        #identify the Genes Tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        time.sleep(2)
         print gene_tab.text
-        self.assertEqual(gene_tab.text, "Genes (16)", "Genes tab is not visible!")
         gene_tab.click()
+        
+        #Grab the list of genes and verify both mouse and human genes are present
         gene_table = Table(self.driver.find_element_by_id("geneTable"))
         cells = gene_table.get_column_cells("Gene Symbol")
-        print iterate.getTextAsList(cells)
-        #displays each row of gene data
-        gene1 = cells[1]
-        gene2 = cells[2]
-        gene3 = cells[3]
-        gene4 = cells[4]
-        gene5 = cells[5]
-        gene6 = cells[6]
-        #asserts that the correct genes in the correct order are returned
-        self.assertEqual(gene1.text, 'Foxm1')
-        self.assertEqual(gene2.text, 'FOXM1')
-        self.assertEqual(gene3.text, 'INS')
-        self.assertEqual(gene4.text, 'Ins2')
-        self.assertEqual(gene5.text, 'LEP')
-        self.assertEqual(gene6.text, 'Lep')
-        '''plus 10 more genes, all transgenes'''
-        #identify the Diseases tab and verify the tab's text
-        disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
-        print disease_tab.text
+        geneList = iterate.getTextAsList(cells)
+        self.assertIn('Foxm1', geneList)
+        self.assertIn('FOXM1', geneList)
+        self.assertIn('Ins2', geneList)
+        self.assertIn('INS', geneList)
+        self.assertIn('Lep', geneList)
+        self.assertIn('LEP', geneList)
+        
+        #Open up the query form again (click on "Click to modify search" button
+        self.driver.find_element_by_xpath("//*[contains(text(), 'Click to modify search')]").click()
+        
+        #Do this search again -- this time space delimit the IDs
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements_by_tag_name("option"):
+            if option.text == 'Gene Symbol(s) or ID(s)':
+                option.click()
+                break
+      
+        self.driver.find_element_by_name("formly_3_input_input_0").clear()
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys('MGI:1347487 HGNC:6553 MGI:96573') #IDs for Foxm1, LEP, Ins2
+        wait.forAngular(self.driver)
+        self.driver.find_element_by_id("searchButton").click()
+        wait.forAngular(self.driver)
+        
+        #identify the Genes Tab and click on it
+        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        self.assertEqual(disease_tab.text, "Diseases (10)", "Diseases tab is not visible!")
-        disease_tab.click()
-        disease_table = Table(self.driver.find_element_by_id("diseaseTable"))
-        cells = disease_table.get_column_cells("Disease")
-        print iterate.getTextAsList(cells)
-        #displays each row of gene data
-        disease1 = cells[1]
-        disease2 = cells[2]
-        disease3 = cells[3]
-        disease4 = cells[4]
-        disease5 = cells[5]
-        disease6 = cells[6]
-        disease7 = cells[7]
-        disease8 = cells[8]
-        disease9 = cells[9]
-        disease10 = cells[10]
-        #asserts that the correct diseases in the correct order are returned
-        self.assertEqual(disease1.text, 'hepatocellular carcinoma')
-        self.assertEqual(disease2.text, 'lung cancer')
-        self.assertEqual(disease3.text, 'maturity-onset diabetes of the young')
-        self.assertEqual(disease4.text, 'maturity-onset diabetes of the young type 10')
-        self.assertEqual(disease5.text, 'metabolic syndrome X')
-        self.assertEqual(disease6.text, 'obesity')
-        self.assertEqual(disease7.text, 'permanent neonatal diabetes mellitus')
-        self.assertEqual(disease8.text, 'type 1 diabetes mellitus')
-        self.assertEqual(disease9.text, 'type 1 diabetes mellitus 2')
-        self.assertEqual(disease10.text, 'type 2 diabetes mellitus')
+        print gene_tab.text
+        gene_tab.click()
+        
+        #Grab the list of genes and verify both mouse and human genes are present
+        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        cells = gene_table.get_column_cells("Gene Symbol")
+        geneList = iterate.getTextAsList(cells)
+        self.assertIn('Foxm1', geneList)
+        self.assertIn('FOXM1', geneList)
+        self.assertIn('Ins2', geneList)
+        self.assertIn('INS', geneList)
+        self.assertIn('Lep', geneList)
+        self.assertIn('LEP', geneList)
 
 
 
     def tearDown(self):
         self.driver.close()
        
-        '''
-        These tests should NEVER!!!! be run against a production system!!
-        def suite():
-        suite = unittest.TestSuite()
-        suite.addTest(unittest.makeSuite(TestAdd))
-        return suite
-        '''
+    
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
     HTMLTestRunner.main() 
