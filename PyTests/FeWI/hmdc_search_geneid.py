@@ -107,7 +107,7 @@ class TestGeneid(unittest.TestCase):
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("105763")#identifies the input field and enters gata1
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("105763")#identifies the input field and enters an NCBI ID
         wait.forAngular(self.driver)
         self.driver.find_element_by_id("searchButton").click()
         wait.forAngular(self.driver)
@@ -122,7 +122,7 @@ class TestGeneid(unittest.TestCase):
         gene_table = Table(self.driver.find_element_by_id("geneTable"))
         cells = gene_table.get_column_cells("Gene Symbol")
         gene1 = cells[1]
-        #asserts that the correct genes in the correct order are returned
+        #asserts that the correct genes are returned
         self.assertEqual(gene1.text, 'AA960008')
 
     def test_gene_ncbi_id_2(self):
@@ -462,7 +462,7 @@ class TestGeneid(unittest.TestCase):
         #Open up the query form again (click on "Click to modify search" button
         self.driver.find_element_by_xpath("//*[contains(text(), 'Click to modify search')]").click()
         
-        #Redo the search using a TrEMBL ID for Pax4
+        #Redo the search using a PDB ID
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
@@ -733,7 +733,7 @@ class TestGeneid(unittest.TestCase):
         cells = gene_table.get_column_cells("Gene Symbol")
         geneList = iterate.getTextAsList(cells)
         
-        #asserts that the correct genes in the correct order are returned
+        #asserts that the correct genes are returned
         self.assertIn('Kitl', geneList)
         self.assertIn('KITLG', geneList)
         
@@ -1005,7 +1005,7 @@ class TestGeneid(unittest.TestCase):
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("OMIM:191170")#identifies the input field and enters gata1
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("OMIM:191170")#identifies the input field and enters an OMIM gene ID
         wait.forAngular(self.driver)
         self.driver.find_element_by_id("searchButton").click()
         wait.forAngular(self.driver)
@@ -1023,7 +1023,7 @@ class TestGeneid(unittest.TestCase):
         self.assertIn('Trp53', geneList)
         self.assertIn('TP53', geneList)
         
-        #Open up the query form again (click on "Click to modify search" button
+        #Open up the query form again (click on "Click to modify search" button)
         self.driver.find_element_by_xpath("//*[contains(text(), 'Click to modify search')]").click()
         
         #Redo the search for an OMIM disease ID -- should return no results using this query field
@@ -1061,7 +1061,7 @@ class TestGeneid(unittest.TestCase):
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("HGNC:6554")#identifies the input field and enters gata1
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("HGNC:6554")#identifies the input field and enters an HGNC ID for LEPR
         wait.forAngular(self.driver)
         self.driver.find_element_by_id("searchButton").click()
         wait.forAngular(self.driver)
@@ -1116,7 +1116,7 @@ class TestGeneid(unittest.TestCase):
         '''
         @status This is a test of a list of IDs in one query of Gene Symbols/IDs.  This is a mix of mouse gene IDs and human gene IDs.  The gene matching the ID
                 is expected in the results plus their mouse or human ortholog.
-        @see: HGNC-GQ-39 (list of IDs -- comma separated and space separated tests
+        @see: HGNC-GQ-39 (list of IDs -- comma separated and space separated tests)
         '''
         print ("BEGIN test_gene_id_multiples")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
