@@ -26,6 +26,7 @@ class TestPrivateData(unittest.TestCase):
     def setUp(self):
 
         self.driver = webdriver.Chrome() 
+        self.driver.get(config.PUBLIC_URL)
         self.driver.implicitly_wait(4)
 
     def test_hide_private_allele(self):
@@ -33,7 +34,6 @@ class TestPrivateData(unittest.TestCase):
         @status: Tests that the dummy private allele Brca1<test1> does not display on public
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
         self.assertIn("Informatics", driver.title)
         querytext = driver.find_element_by_name('query')
         querytext.clear()
@@ -52,7 +52,6 @@ class TestPrivateData(unittest.TestCase):
         @status: Tests that the dummy private allele Brca1<test1> does not display on public
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL)
         self.assertIn("Informatics", driver.title)
         querytext = driver.find_element_by_name('query')
         querytext.clear()
