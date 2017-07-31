@@ -6,6 +6,7 @@ Created on Jan 27, 2017
 import unittest
 from littriage_search_test import TestLitSearch
 from littriage_summary_test import TestLitSummarySearch
+from littriage_detail_test import TestLitDetail
 
 import HTMLTestRunner
 
@@ -13,9 +14,10 @@ import HTMLTestRunner
 def main():
     littriage_search_test = unittest.TestLoader().loadTestsFromTestCase(TestLitSearch)
     littriage_summary_test = unittest.TestLoader().loadTestsFromTestCase(TestLitSummarySearch)
+    littriage_detail_test = unittest.TestLoader().loadTestsFromTestCase(TestLitDetail)
 
 #Put them in an Array
-    littriage_tests = unittest.TestSuite([littriage_search_test, littriage_summary_test])
+    littriage_tests = unittest.TestSuite([littriage_search_test, littriage_summary_test, littriage_detail_test])
 #file
     dir = os.getcwd()
     outfile = open(r"C:\WebdriverTests\LitTriagetestreport.html", "w")
