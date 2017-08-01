@@ -94,21 +94,20 @@ class TestDoBrowserModelTab(unittest.TestCase):
         row11 = cells[12]
         row12 = cells[13]
         row13 = cells[14]
-        row14 = cells[15]
+        
         self.assertEqual(row1.text, '         achondroplasia Tg(Col2a1-Fgfr3/GH)BDor/0 FVB/N-Tg(Col2a1-Fgfr3/GH)BDor J:50292 View')
         self.assertEqual(row2.text, 'achondroplasia Fgfr3tm2Wei/Fgfr3+ involves: 129S1/Sv * 129X1/SvJ * MF1 J:54829 View')
         self.assertEqual(row3.text, 'achondroplasia Fgfr3tm1Llm/Fgfr3+ involves: 129S2/SvPas J:203653 View')
         self.assertEqual(row4.text, 'achondroplasia Fgfr3tm3.1Cxd/Fgfr3tm3.1Cxd involves: 129S6/SvEvTac J:69849 View')
         self.assertEqual(row5.text, 'achondroplasia Fgfr3tm3.1Cxd/Fgfr3+ involves: 129S6/SvEvTac J:69849 View')
         self.assertEqual(row6.text, 'achondroplasia Fgfr3tm5.1Cxd/Fgfr3+ involves: 129S6/SvEvTac J:67780 View')
-        self.assertEqual(row7.text, 'achondroplasia Fgfr3tm1.1Iwa/Fgfr3+ involves: 129S6/SvEvTac * FVB/N * NIH Black Swiss J:70061 View')
-        self.assertEqual(row8.text, 'achondroplasia Fgfr3tm1Cxd/Fgfr3tm1Cxd involves: 129S6/SvEvTac * NIH Black Swiss J:52438 View')
-        self.assertEqual(row9.text, '         achondroplasia Npr2cn/Npr2cn AKR/J J:26341 View')
-        self.assertEqual(row10.text, 'achondroplasia Npr2cn-2J/Npr2cn-2J B6;CBACa-Aw-J/A-Kcnj6wv/+ J:72465 View')
-        self.assertEqual(row11.text, 'achondroplasia Pthlhtm1Hmk/Pthlhtm1Hmk either: (involves: 129S2/SvPas) or (involves: 129S2/SvPas * C57BL/6) J:16911 View')
-        self.assertEqual(row12.text, 'achondroplasia Spred2Gt(XB228)Byg/Spred2Gt(XB228)Byg involves: 129P2/OlaHsd * C57BL/6 J:100826 View')
-        self.assertEqual(row13.text, 'achondroplasia Acancmd/Acancmd involves: STOCK T tlow Itpr3tf J:5952, J:30795 View')
-        self.assertEqual(row14.text, 'achondroplasia Npr2cn-3J/Npr2cn-3J MRL/MpJ-Npr2cn-3J/GrsrJ J:170669 View')
+        self.assertEqual(row7.text, 'achondroplasia Fgfr3tm1Cxd/Fgfr3tm1Cxd involves: 129S6/SvEvTac * NIH Black Swiss J:52438 View')
+        self.assertEqual(row8.text, '         achondroplasia Npr2cn/Npr2cn AKR/J J:26341 View')
+        self.assertEqual(row9.text, 'achondroplasia Npr2cn-2J/Npr2cn-2J B6;CBACa-Aw-J/A-Kcnj6wv/+ J:72465 View')
+        self.assertEqual(row10.text, 'achondroplasia Pthlhtm1Hmk/Pthlhtm1Hmk either: (involves: 129S2/SvPas) or (involves: 129S2/SvPas * C57BL/6) J:16911 View')
+        self.assertEqual(row11.text, 'achondroplasia Spred2Gt(XB228)Byg/Spred2Gt(XB228)Byg involves: 129P2/OlaHsd * C57BL/6 J:100826 View')
+        self.assertEqual(row12.text, 'achondroplasia Acancmd/Acancmd involves: STOCK T tlow Itpr3tf J:5952, J:30795 View')
+        self.assertEqual(row13.text, 'achondroplasia Npr2cn-3J/Npr2cn-3J MRL/MpJ-Npr2cn-3J/GrsrJ J:170669 View')
         time.sleep(2)
         notmodel_table = self.driver.find_element_by_id("modelTabNotTable")
         table = Table(notmodel_table)
@@ -437,7 +436,13 @@ class TestDoBrowserModelTab(unittest.TestCase):
         row16 = cells[17]
         row17 = cells[18]
         row18 = cells[19]
-       
+        row19 = cells[20]
+        row20 = cells[21]
+        row21 = cells[22]
+        row22 = cells[23]
+        row23 = cells[24]
+        row24 = cells[25]
+        row25 = cells[26]
         
         self.assertEqual(row1.text, '         osteogenesis imperfecta type 1 Col1a1Mov13/Col1a1+ involves: C57BL/6 J:107045 View')
         self.assertEqual(row2.text, 'osteogenesis imperfecta type 1 Tg(COL1A1)73Prc/0 involves: FVB/N J:146429 View')
@@ -449,21 +454,21 @@ class TestDoBrowserModelTab(unittest.TestCase):
         self.assertEqual(row8.text, 'osteogenesis imperfecta type 4 Col1a1tm1.1Jcm/Col1a1+ either: (involves: 129X1/SvJ * C3H/HeJ) or (involves: 129X1/SvJ * CD-1) J:59168 View')
         #self.assertEqual(row9.text, 'osteogenesis imperfecta type 4 Col1a1M1Jrt/Col1a1+ involves: C3H/HeJ * C57BL/6J * FVB/NJ J:216423 View')
         #self.assertEqual(row10.text, 'osteogenesis imperfecta type 4 Col1a1M1Jrt/Col1a1+ involves: C57BL/6 * FVB/N J:228439 View')
-        self.assertEqual(row9.text, 'osteogenesis imperfecta type 6 Serpinf1tm1Craw/Serpinf1tm1Craw Not Specified J:230409 View')
-        self.assertEqual(row10.text, 'osteogenesis imperfecta type 7 Crtaptm1Brle/Crtaptm1Brle involves: 129S7/SvEvBrd J:116096 View')
-        self.assertEqual(row11.text, 'osteogenesis imperfecta type 8 P3h1tm1Dgen/P3h1tm1Dgen involves: C57BL/6 J:163884 View')
-        self.assertEqual(row12.text, 'osteogenesis imperfecta type 9 PpibGt(RST139)Byg/PpibGt(RST139)Byg involves: 129P2/OlaHsd * C57BL/6 J:226318 View')
-        self.assertEqual(row13.text, 'osteogenesis imperfecta type 9 Ppibtm1.1Rjb/Ppibtm1.1Rjb Not Specified J:161748 View')
-        self.assertEqual(row14.text, 'osteogenesis imperfecta type 10 Serpinh1tm2Kzn/Serpinh1tm2Kzn\nTg(Col2a1-cre)1Bhr/0 involves: 129S6/SvEvTac * C57BL/6 * C57BL/6J * SJL J:197791 View')
+        self.assertEqual(row11.text, 'osteogenesis imperfecta type 6 Serpinf1tm1Craw/Serpinf1tm1Craw Not Specified J:230409 View')
+        self.assertEqual(row12.text, 'osteogenesis imperfecta type 7 Crtaptm1Brle/Crtaptm1Brle involves: 129S7/SvEvBrd J:116096 View')
+        self.assertEqual(row13.text, 'osteogenesis imperfecta type 8 P3h1tm1Dgen/P3h1tm1Dgen involves: C57BL/6 J:163884 View')
+        self.assertEqual(row14.text, 'osteogenesis imperfecta type 9 PpibGt(RST139)Byg/PpibGt(RST139)Byg involves: 129P2/OlaHsd * C57BL/6 J:226318 View')
+        self.assertEqual(row15.text, 'osteogenesis imperfecta type 9 Ppibtm1.1Rjb/Ppibtm1.1Rjb Not Specified J:161748 View')
+        self.assertEqual(row16.text, 'osteogenesis imperfecta type 10 Serpinh1tm2Kzn/Serpinh1tm2Kzn\nTg(Col2a1-cre)1Bhr/0 involves: 129S6/SvEvTac * C57BL/6 * C57BL/6J * SJL J:197791 View')
         #self.assertEqual(row17.text, '         osteogenesis imperfecta Col1a2tm1.1Mcbr/Col1a2+ (A/J x B6.129-Col1a2tm1.1Mcbr)F1 J:178743 View')
         #self.assertEqual(row18.text, 'osteogenesis imperfecta Col1a2tm1.1Mcbr/Col1a2+ (BALB/cByJ x B6.129-Col1a2tm1.1Mcbr)F1 J:178743 View')
         #self.assertEqual(row19.text, 'osteogenesis imperfecta Col1a2tm1.1Mcbr/Col1a2+ (C3H/HeJ x B6.129-Col1a2tm1.1Mcbr)F1 J:178743 View')
         #self.assertEqual(row20.text, 'osteogenesis imperfecta Col1a2tm1.1Mcbr/Col1a2+ (FVB/NJ x B6.129-Col1a2tm1.1Mcbr)F1 J:178743 View')
         #self.assertEqual(row21.text, 'osteogenesis imperfecta Col1a2oim/Col1a2+ B6C3Fe a/a-Col1a2oim/J J:38013 View')
-        self.assertEqual(row15.text, '         osteogenesis imperfecta Smad4tm2.1Cxd/Smad4tm2.1Cxd\nTg(Sp7-tTA,tetO-EGFP/cre)1Amc/0 involves: 129S6/SvEvTac * C57BL/6J * CD-1 J:211171 View')
-        self.assertEqual(row16.text, 'osteogenesis imperfecta type 2 Smpd3fro/Smpd3fro Not Specified J:3906 View')
-        self.assertEqual(row17.text, 'osteogenesis imperfecta type 3 Smpd3fro/Smpd3fro Not Specified J:3906 View')
-        self.assertEqual(row18.text, 'osteogenesis imperfecta type 5 SucoGt(KST050)Byg/SucoGt(KST050)Byg involves: 129P2/OlaHsd * C57BL/6 * CD-1 J:159823 View')
+        self.assertEqual(row22.text, 'osteogenesis imperfecta Smad4tm2.1Cxd/Smad4tm2.1Cxd\nTg(Sp7-tTA,tetO-EGFP/cre)1Amc/0 involves: 129S6/SvEvTac * C57BL/6J * CD-1 J:211171 View')
+        self.assertEqual(row23.text, 'osteogenesis imperfecta type 2 Smpd3fro/Smpd3fro Not Specified J:3906 View')
+        self.assertEqual(row24.text, 'osteogenesis imperfecta type 3 Smpd3fro/Smpd3fro Not Specified J:3906 View')
+        self.assertEqual(row25.text, 'osteogenesis imperfecta type 5 SucoGt(KST050)Byg/SucoGt(KST050)Byg involves: 129P2/OlaHsd * C57BL/6 * CD-1 J:159823 View')
 
 
     def test_dobrowser_modelstab_not_only(self):

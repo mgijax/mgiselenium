@@ -86,7 +86,7 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         table = Table(gene_table)
         #cells = table.get_rows()
         cell = table.get_cell(7, 3)
-        #Identify the data found in the Mouse Models column for the second row(for marker Fgf9)
+        #Identify the data found in the Mouse Models column for the second row(for marker Yy1)
         print cell.text
         cell.find_element_by_link_text("1 model").click()
         time.sleep(2)
@@ -102,7 +102,7 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         print assoc_gene_heading.text
         time.sleep(1)
         #assert that the Associated Mouse Gene heading above the table is correct
-        self.assertEquals(assoc_gene_heading.text, "Fgf9")        
+        self.assertEquals(assoc_gene_heading.text, "Yy1")        
         
     def test_dobrowser_modelspopup_onlynots(self):
         '''
