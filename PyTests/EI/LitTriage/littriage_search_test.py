@@ -99,8 +99,8 @@ class TestLitSearch(unittest.TestCase):
         #finds the J number column and returns all of this columns results
         jnum_cells = table.get_column_cells(2)
         jnums = iterate.getTextAsList(jnum_cells)
-        self.assertEqual(jnums, ['','J:182573','J:173534','J:155845','J:151466','J:136110','J:134667','J:109968','J:75187','J:43743','J:23392','J:23389'])
-            
+        self.assertEquals(jnums, ['','J:136110','J:75187','J:151466','J:23392','J:109968','J:134667','J:155845','J:182573','J:43743','J:173534','J:23389'])
+        
     def testMultiJnumSpaceSearch(self):
         """
         @Status Tests that a list of multiple space separated J numbers returns the correct J number results
@@ -116,7 +116,7 @@ class TestLitSearch(unittest.TestCase):
         jnum_cells = table.get_column_cells(2)
         jnums = iterate.getTextAsList(jnum_cells)
         print jnums
-        self.assertEqual(jnums, ['','J:182573','J:173534','J:155845','J:151466','J:136110','J:134667','J:109968','J:75187','J:43743','J:23392','J:23389'])
+        self.assertEquals(jnums, ['','J:136110','J:75187','J:151466','J:23392','J:109968','J:134667','J:155845','J:182573','J:43743','J:173534','J:23389'])
                        
             
     def testPubMedSearch(self):

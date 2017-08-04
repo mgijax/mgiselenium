@@ -48,11 +48,10 @@ class TestLitSummarySearch(unittest.TestCase):
         #finds the results table and iterates through the table
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
-        #finds the J number column and returns all of this columns results
-        journal_cells = table.get_column_cells('Journal')
-        journal_result = iterate.getTextAsList(journal_cells)
-        #asserts the link text found in the journals column is correct
-        self.assertEqual(journal_result, ['Journal','10.1073/pnas.0706671104'])
+        #finds the DOI ID cell
+        doi_cell = table.get_cell(1,0)
+        #asserts the link text found in the DOI ID column is correct
+        self.assertEqual(doi_cell.text, '10.1073/pnas.0706671104')
         driver.find_element_by_link_text('10.1073/pnas.0706671104').click()
         #switches focus to the newly opened tab
         driver.switch_to_window(driver.window_handles[-1])
@@ -72,11 +71,10 @@ class TestLitSummarySearch(unittest.TestCase):
         #finds the results table and iterates through the table
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
-        #finds the J number column and returns all of this columns results
-        journal_cells = table.get_column_cells('Journal')
-        journal_result = iterate.getTextAsList(journal_cells)
-        #asserts the link text found in the journals column is correct
-        self.assertEqual(journal_result, ['Journal',''])
+        #finds the DOI ID column
+        doi_cell = table.get_cell(1,0)
+        #asserts the link text found in the DOI ID column is correct
+        self.assertEqual(doi_cell.text, '')
         
     def testPubmedFieldLinkSearch(self):
         """
@@ -90,11 +88,10 @@ class TestLitSummarySearch(unittest.TestCase):
         #finds the results table and iterates through the table
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
-        #finds the J number column and returns all of this columns results
-        journal_cells = table.get_column_cells('PMID')
-        journal_result = iterate.getTextAsList(journal_cells)
-        #asserts the link text found in the journals column is correct
-        self.assertEqual(journal_result, ['PMID', '18042720'])
+        #finds the PMID column
+        pmid_cell = table.get_cell(1,1)
+        #asserts the link text found in the PMID column is correct
+        self.assertEqual(pmid_cell.text, '18042720')
         driver.find_element_by_link_text('18042720').click()
         #switches focus to the newly opened tab
         driver.switch_to_window(driver.window_handles[-1])
@@ -114,11 +111,10 @@ class TestLitSummarySearch(unittest.TestCase):
         #finds the results table and iterates through the table
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
-        #finds the J number column and returns all of this columns results
-        pmid_cells = table.get_column_cells('PMID')
-        pmid_result = iterate.getTextAsList(pmid_cells)
-        #asserts the link text found in the journals column is correct
-        self.assertEqual(pmid_result, ['PMID',''])
+        #finds the PMID column
+        pmid_cell = table.get_cell(1,1)
+        #asserts the link text found in the PMID column is correct
+        self.assertEqual(pmid_cell.text, '')
 
     def testJNumResultSearch(self):
         """
@@ -131,11 +127,10 @@ class TestLitSummarySearch(unittest.TestCase):
         #finds the results table and iterates through the table
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
-        #finds the J number column and returns all of this columns results
-        jnum_cells = table.get_column_cells('J:#')
-        jnum_result = iterate.getTextAsList(jnum_cells)
-        #asserts the link text found in the journals column is correct
-        self.assertEqual(jnum_result, ['J:#', 'J:197100'])
+        #finds the J number column
+        jnum_cell = table.get_cell(1,2)
+        #asserts the link text found in the J:# column is correct
+        self.assertEqual(jnum_cell.text, 'J:197100')
 
     def testShortCiteSearch(self):
         """
@@ -148,11 +143,10 @@ class TestLitSummarySearch(unittest.TestCase):
         #finds the results table and iterates through the table
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
-        #finds the J number column and returns all of this columns results
-        cite_cells = table.get_column_cells('Short Citation')
-        cite_result = iterate.getTextAsList(cite_cells)
-        #asserts the link text found in the journals column is correct
-        self.assertEqual(cite_result, ['Short Citation', 'Iwai-Takekoshi L, J Comp Neurol 2016 Dec 15;524(18):3696-3716'])
+        #finds the Short Citation column
+        cite_cell = table.get_cell(1,3)
+        #asserts the link text found in the short citation column is correct
+        self.assertEqual(cite_cell.text, 'Iwai-Takekoshi L, J Comp Neurol 2016 Dec 15;524(18):3696-3716')
     
     def testShortCiteNoPagesSearch(self):
         """
@@ -165,11 +159,10 @@ class TestLitSummarySearch(unittest.TestCase):
         #finds the results table and iterates through the table
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
-        #finds the J number column and returns all of this columns results
-        cite_cells = table.get_column_cells('Short Citation')
-        cite_result = iterate.getTextAsList(cite_cells)
-        #asserts the link text found in the journals column is correct
-        self.assertEqual(cite_result, ['Short Citation', 'Boles MK, BMC Genet 2009;10():12'])
+        #finds the short citation column
+        cite_cell = table.get_cell(1,3)
+        #asserts the link text found in the short citation column is correct
+        self.assertEqual(cite_cell.text, 'Boles MK, BMC Genet 2009;10():12')
     
     def testShortCiteBookSearch(self):
         """
@@ -182,11 +175,10 @@ class TestLitSummarySearch(unittest.TestCase):
         #finds the results table and iterates through the table
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
-        #finds the J number column and returns all of this columns results
-        cite_cells = table.get_column_cells('Short Citation')
-        cite_result = iterate.getTextAsList(cite_cells)
-        #asserts the link text found in the journals column is correct
-        self.assertEqual(cite_result, ['Short Citation', 'Lyon MF, 1996;():'])
+        #finds the short citation column
+        cite_cell = table.get_cell(1,3)
+        #asserts the link text found in the short citation column is correct
+        self.assertEqual(cite_cell.text, 'Lyon MF, 1996;():')
     
     def testShortCiteNonLitSearch(self):
         """
@@ -199,11 +191,10 @@ class TestLitSummarySearch(unittest.TestCase):
         #finds the results table and iterates through the table
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
-        #finds the J number column and returns all of this columns results
-        cite_cells = table.get_column_cells('Short Citation')
-        cite_result = iterate.getTextAsList(cite_cells)
-        #asserts the link text found in the journals column is correct
-        self.assertEqual(cite_result, ['Short Citation', 'Mouse Genome Informatics and the Wellcome Trust Sanger Insti, Database Release 2011;():'])
+        #finds the short citation column
+        cite_cell = table.get_cell(1,3)
+        #asserts the link text found in the short citation column is correct
+        self.assertEqual(cite_cell.text, 'Mouse Genome Informatics and the Wellcome Trust Sanger Insti, Database Release 2011;():')
     
     def testTitleResultSearch(self):
         """
@@ -216,10 +207,10 @@ class TestLitSummarySearch(unittest.TestCase):
         #finds the results table and iterates through the table
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
-        #finds the J number column and returns all of this columns results
-        title_cells = table.get_column_cells('Title')
-        title = iterate.getTextAsList(title_cells)
-        self.assertEqual(title, ['Title','Retinal pigment epithelial integrity is compromised in the developing albino mouse retina.'])
+        #finds the Title column
+        title_cell = table.get_cell(1,4)
+        #asserts the link text found in the title column is correct
+        self.assertEqual(title_cell.text, 'Retinal pigment epithelial integrity is compromised in the developing albino mouse retina.')
         
     def testTitleNoResultSearch(self):
         """
@@ -232,10 +223,10 @@ class TestLitSummarySearch(unittest.TestCase):
         #finds the results table and iterates through the table
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
-        #finds the J number column and returns all of this columns results
-        title_cells = table.get_column_cells('Title')
-        title = iterate.getTextAsList(title_cells)
-        self.assertEqual(title, ['Title',''])
+        #finds the Title column
+        title_cell = table.get_cell(1,4)
+        #asserts the link text found in the title column is correct
+        self.assertEqual(title_cell.text, '')
            
 '''
 def suite():

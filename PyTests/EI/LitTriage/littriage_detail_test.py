@@ -38,7 +38,7 @@ class TestLitDetail(unittest.TestCase):
         @Status tests that detail results for a result w/ GO Ref ID is correct
         @see MBIB-detail-1 (2)
         """
-        driver = self.driver
+        #driver = self.driver
         form = self.form
         form.enter_value('accids', 'J:161428')
         form.click_search()
@@ -76,7 +76,7 @@ class TestLitDetail(unittest.TestCase):
         @Status tests that detail results for a result w/ Reference Type, pubmed ID, DOID is correct
         @see MBIB-detail-2,3,4,5,7 (5)
         """
-        driver = self.driver
+        #driver = self.driver
         form = self.form
         form.enter_value('accids', 'J:148145')
         form.click_search()
@@ -125,7 +125,7 @@ class TestLitDetail(unittest.TestCase):
         @Status tests that detail results for a result w/ isReview set to yes is correct
         @see MBIB-detail-3 (6)
         """
-        driver = self.driver
+        #driver = self.driver
         form = self.form
         form.enter_value('accids', 'J:228427')
         form.click_search()
@@ -155,7 +155,7 @@ class TestLitDetail(unittest.TestCase):
         @Status tests that detail results for a result w/ a note entry is correct
         @see MBIB-detail-6 (8)
         """
-        driver = self.driver
+        #driver = self.driver
         form = self.form
         form.enter_value('accids', 'J:233396')
         form.click_search()
