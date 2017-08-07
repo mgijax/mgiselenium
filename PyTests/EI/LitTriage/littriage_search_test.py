@@ -203,7 +203,6 @@ class TestLitSearch(unittest.TestCase):
         """
         @Status Tests that a search of Reference Type and a partial text abstract with wildcard returns the correct J number results
         @See MBIB-search-22 (58)
-        @bug: Test no complete yet, need the Type field added first.
         """
         form = self.form
         form.enter_value('reference_type', 'book')
