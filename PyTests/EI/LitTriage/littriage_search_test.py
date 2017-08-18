@@ -319,7 +319,7 @@ class TestLitSearch(unittest.TestCase):
         @See MBIB-search-24,25 (70)
         """
         self.driver.find_element_by_id('status_Tumor_Indexed').click()
-        self.driver.find_element_by_id('status_Tumor_Fully_curated').click()
+        self.driver.find_element_by_id('status_Tumor_Full_coded').click()
         form = self.form
         form.enter_value('year', '1957')
         form.click_search()
@@ -376,7 +376,7 @@ class TestLitSearch(unittest.TestCase):
         self.driver.find_element_by_id('status_GXD_Indexed').click()
         self.driver.find_element_by_id('status_QTL_Indexed').click()
         self.driver.find_element_by_id('status_Tumor_Indexed').click()
-        self.driver.find_element_by_id('status_Tumor_Fully_curated').click()
+        self.driver.find_element_by_id('status_Tumor_Full_coded').click()
         form = self.form
         form.enter_value('title', '%quantitative trait loci%')
         form.enter_value('year', '2016')
