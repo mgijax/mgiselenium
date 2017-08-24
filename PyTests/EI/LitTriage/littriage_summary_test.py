@@ -49,7 +49,7 @@ class TestLitSummarySearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the DOI ID cell
-        doi_cell = table.get_cell(1,0)
+        doi_cell = table.get_cell(1,1)
         #asserts the link text found in the DOI ID column is correct
         self.assertEqual(doi_cell.text, '10.1073/pnas.0706671104')
         driver.find_element_by_link_text('10.1073/pnas.0706671104').click()
@@ -72,7 +72,7 @@ class TestLitSummarySearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the DOI ID column
-        doi_cell = table.get_cell(1,0)
+        doi_cell = table.get_cell(1,1)
         #asserts the link text found in the DOI ID column is correct
         self.assertEqual(doi_cell.text, '')
         
@@ -89,7 +89,7 @@ class TestLitSummarySearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the PMID column
-        pmid_cell = table.get_cell(1,1)
+        pmid_cell = table.get_cell(1,2)
         #asserts the link text found in the PMID column is correct
         self.assertEqual(pmid_cell.text, '18042720')
         driver.find_element_by_link_text('18042720').click()
@@ -112,7 +112,7 @@ class TestLitSummarySearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the PMID column
-        pmid_cell = table.get_cell(1,1)
+        pmid_cell = table.get_cell(1,2)
         #asserts the link text found in the PMID column is correct
         self.assertEqual(pmid_cell.text, '')
 
@@ -128,7 +128,7 @@ class TestLitSummarySearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the J number column
-        jnum_cell = table.get_cell(1,2)
+        jnum_cell = table.get_cell(1,3)
         #asserts the link text found in the J:# column is correct
         self.assertEqual(jnum_cell.text, 'J:197100')
 
@@ -144,7 +144,7 @@ class TestLitSummarySearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the Short Citation column
-        cite_cell = table.get_cell(1,3)
+        cite_cell = table.get_cell(1,4)
         #asserts the link text found in the short citation column is correct
         self.assertEqual(cite_cell.text, 'Iwai-Takekoshi L, J Comp Neurol 2016 Dec 15;524(18):3696-3716')
     
@@ -160,7 +160,7 @@ class TestLitSummarySearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the short citation column
-        cite_cell = table.get_cell(1,3)
+        cite_cell = table.get_cell(1,4)
         #asserts the link text found in the short citation column is correct
         self.assertEqual(cite_cell.text, 'Boles MK, BMC Genet 2009;10():12')
     
@@ -176,7 +176,7 @@ class TestLitSummarySearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the short citation column
-        cite_cell = table.get_cell(1,3)
+        cite_cell = table.get_cell(1,4)
         #asserts the link text found in the short citation column is correct
         self.assertEqual(cite_cell.text, 'Lyon MF, 1996;():')
     
@@ -192,7 +192,7 @@ class TestLitSummarySearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the short citation column
-        cite_cell = table.get_cell(1,3)
+        cite_cell = table.get_cell(1,4)
         #asserts the link text found in the short citation column is correct
         self.assertEqual(cite_cell.text, 'Mouse Genome Informatics and the Wellcome Trust Sanger Insti, Database Release 2011;():')
     
@@ -208,7 +208,7 @@ class TestLitSummarySearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the Title column
-        title_cell = table.get_cell(1,4)
+        title_cell = table.get_cell(1,5)
         #asserts the link text found in the title column is correct
         self.assertEqual(title_cell.text, 'Retinal pigment epithelial integrity is compromised in the developing albino mouse retina.')
         
@@ -224,7 +224,7 @@ class TestLitSummarySearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the Title column
-        title_cell = table.get_cell(1,4)
+        title_cell = table.get_cell(1,5)
         #asserts the link text found in the title column is correct
         self.assertEqual(title_cell.text, '')
            
