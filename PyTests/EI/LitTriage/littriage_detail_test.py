@@ -62,10 +62,7 @@ class TestLitDetail(unittest.TestCase):
         #finds the J number column and returns all of this columns results
         id_col = table.get_column_cells(1)
         ids = iterate.getTextAsList(id_col)
-        print ids
-        #asserts that the following J number & MGI number are returned
-        self.assertIn('J:161428', ids)
-        self.assertIn('MGI:4459044', ids)
+        
         #finds the GO-REF field and return it's ID value
         go_ref = self.driver.find_element_by_id("editTabGorefid").get_attribute('value')
         print go_ref
@@ -103,10 +100,7 @@ class TestLitDetail(unittest.TestCase):
         #finds the J number column and returns all of this columns results
         id_col = table.get_column_cells(1)
         ids = iterate.getTextAsList(id_col)
-        print ids
-        #asserts that the following J number & MGI number are returned
-        self.assertIn('J:148145', ids)
-        self.assertIn('MGI:3843587', ids)
+        
         #finds the Pubmed field and return it's ID value
         pub_med = self.driver.find_element_by_id("editTabPubmedid").get_attribute('value')
         print pub_med
@@ -138,17 +132,7 @@ class TestLitDetail(unittest.TestCase):
         journal = self.driver.find_element_by_id("editTabJournal").get_attribute('value')
         print journal
         self.assertEqual(journal, 'Cell Metab')
-        
-        #finds the Reference IDs table and iterates through the table
-        table_element = self.driver.find_element_by_id("editRefIdTable")
-        table = Table(table_element)
-        #finds the J number column and returns all of this columns results
-        id_col = table.get_column_cells(1)
-        ids = iterate.getTextAsList(id_col)
-        print ids
-        #asserts that the following J number & MGI number are returned
-        self.assertIn('J:228427', ids)
-        self.assertIn('MGI:5707085', ids)
+    
         
     def testhasNoteResult(self):
         """
@@ -168,17 +152,6 @@ class TestLitDetail(unittest.TestCase):
         note = self.driver.find_element_by_id("editTabRefNote").get_attribute('value')
         print note
         self.assertEqual(note, 'disease= diabetes')
-        
-        #finds the Reference IDs table and iterates through the table
-        table_element = self.driver.find_element_by_id("editRefIdTable")
-        table = Table(table_element)
-        #finds the J number column and returns all of this columns results
-        id_col = table.get_column_cells(1)
-        ids = iterate.getTextAsList(id_col)
-        print ids
-        #asserts that the following J number & MGI number are returned
-        self.assertIn('J:233396', ids)
-        self.assertIn('MGI:5784588', ids)        
         
     def testMultiFieldResult(self):
         """
