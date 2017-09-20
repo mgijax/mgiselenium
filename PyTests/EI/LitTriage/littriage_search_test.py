@@ -9,7 +9,9 @@ import unittest
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
 import HTMLTestRunner
+import json
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -394,12 +396,128 @@ class TestLitSearch(unittest.TestCase):
         self.assertIn('J:237788', JnumbersReturned) # Matches to both QTL statuses selected.
         self.assertIn('J:237571', JnumbersReturned)
         self.assertIn('J:231948', JnumbersReturned)
+        
+    def testDiscardSearch(self):
+        """
+        @Status Tests that a search for results with Only Discard returns the correct results
+        @See MBIB-search-26 (78)
+        """
+        #This finds the pull down menu for Discard? and then selects the second option
+        dl = self.driver.find_element_by_id('is_discard')
+        for option in dl.find_elements_by_tag_name("option"):
+            if option.text == 'Only Discard':
+                option.click()
+                break
+        form = self.form
+        form.click_search() 
+        #Confirms that the MGI Discard box is checked(selected)
+        self.driver.find_element_by_id("editTabIsDiscard").is_selected()
+
+    def testSingleTagSearch(self):
+        """
+        @Status Tests that a search of a single workflow tag returns the correct results
+        @See MBIB-search-27 (81)
+        """
+        form = self.form
+        form.enter_value('year', '2003')
+        form.enter_value('workflow_tag1', 'MGI:nomen')
+        form.enter_value('title', '%anemia%')
+        form.click_search()
+        #finds the Tag list and verifies the required tag is listed.
+        table_element = self.driver.find_element_by_id("editTabTags")
+        table = Table(table_element)
+        #finds the selected tags column and verified it contains the added tag
+        sel_tags = table.get_column_cells(1)
+        used_tags = iterate.getTextAsList(sel_tags)
+        print used_tags
+        #asserts that the following J numbers are returned
+        self.assertIn('MGI:nomen', used_tags)
+        ''' 
+    def testMultiStatusORSearch(self):
+        """
+        @Status tests that searching for multiple statuses on multple workflows(OR) returns correct results
+        @attention: This OR feature has not yet been implemented!
+        @see MBIB-search-28 (87)
+        """
+        form = self.form
+        time.sleep(5)
+        form.enter_value('title', '%cancer%')
+        self.driver.find_element_by_id("status_AP_Routed").click()
+        self.driver.find_element_by_id("status_AP_Full_coded").click()
+        self.driver.find_element_by_id("status_GO_Routed").click()
+        self.driver.find_element_by_id("status_GO_Full_coded").click()
+        #placeholder line for the OR option(not implemented yet)
+        form.click_search()
+        #finds the results table and iterates through the table
+        table_element = self.driver.find_element_by_id("editTabWorkFlowStatus")
+        table = Table(table_element)
+        #finds the Not Routed column for AP and returns it's status of selected
+        not_route = table.get_cell(1,2)
+        self.assertTrue(not_route.is_selected, "Not Routed for AP is not selected")
+        #select the chosen status for AP
+        #chosen = table.get_cell("AP", "Chosen").click()
+        self.driver.find_element_by_xpath("//input[@name='8' and @value='Chosen']").click()
+        #click the Modify button
+        self.driver.find_element_by_id('modifyEditTabButton').click()
+        chosen = self.driver.find_element_by_xpath("//input[@name='8' and @value='Chosen']")
+        #Verifies Chosen status is selected for AP
+        self.assertTrue(chosen.is_selected, "Chosen for AP is not selected")
+        time.sleep(2)
+        #finds the Reference J: field of the Reference ID table and return it's text value
+        table_element1 = self.driver.find_element_by_id("editRefIdTable")
+        table1 = Table(table_element1)
+        jnum_cell = table1.get_cell(0,1)
+        time.sleep(1)
+        print jnum_cell.text
+        #Need to find an assert that works
+        #self.assertTrue(jnum_cell,'J number field is empty')        
+        
+    def testMultiStatusANDSearch(self):
+        """
+        @Status tests that searching for multiple statuses on multple workflows(OR) returns correct results
+        @attention: This AND feature has not yet been implemented!
+        @see MBIB-search-28 (88)
+        """
+        form = self.form
+        time.sleep(5)
+        form.enter_value('title', '%cancer%')
+        self.driver.find_element_by_id("status_AP_Routed").click()
+        self.driver.find_element_by_id("status_AP_Full_coded").click()
+        self.driver.find_element_by_id("status_GO_Routed").click()
+        self.driver.find_element_by_id("status_GO_Full_coded").click()
+        #placeholder line for the OR option(not implemented yet)
+        form.click_search()
+        #finds the results table and iterates through the table
+        table_element = self.driver.find_element_by_id("editTabWorkFlowStatus")
+        table = Table(table_element)
+        #finds the Not Routed column for AP and returns it's status of selected
+        not_route = table.get_cell(1,2)
+        self.assertTrue(not_route.is_selected, "Not Routed for AP is not selected")
+        #select the chosen status for AP
+        #chosen = table.get_cell("AP", "Chosen").click()
+        self.driver.find_element_by_xpath("//input[@name='8' and @value='Chosen']").click()
+        #click the Modify button
+        self.driver.find_element_by_id('modifyEditTabButton').click()
+        chosen = self.driver.find_element_by_xpath("//input[@name='8' and @value='Chosen']")
+        #Verifies Chosen status is selected for AP
+        self.assertTrue(chosen.is_selected, "Chosen for AP is not selected")
+        time.sleep(2)
+        #finds the Reference J: field of the Reference ID table and return it's text value
+        table_element1 = self.driver.find_element_by_id("editRefIdTable")
+        table1 = Table(table_element1)
+        jnum_cell = table1.get_cell(0,1)
+        time.sleep(1)
+        print jnum_cell.text
+        #Need to find an assert that works
+        #self.assertTrue(jnum_cell,'J number field is empty')        
+                
 '''
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestSearch))
+    suite.addTest(unittest.makeSuite(TestLitSearch))
     return suite
 '''
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
     HTMLTestRunner.main()
+    '''

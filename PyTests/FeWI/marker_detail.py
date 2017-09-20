@@ -89,63 +89,24 @@ class Test(unittest.TestCase):
         self.driver.find_element_by_class_name("buttonLabel").click()
         self.driver.find_element_by_link_text('Shh').click()
         time.sleep(8)#long timeout to compensate for intermittent lagging
-        #clicks the More toggle(turnstile) to display the nhuman disease table
+        #clicks the More toggle(turnstile) to display the human disease table
         self.driver.find_element_by_css_selector("div.row.diseaseRibbon > div.detail.detailData2 > div.toggleImage.hdExpand").click()
         time.sleep(2)
         diseasetable = self.driver.find_element_by_id('humanDiseaseTable')
         self.assertTrue(diseasetable.is_displayed())
-        
-    def test_no_turnstile(self):
-        '''
-        @status this test verifies In the Mutation Description section, confirm that no turnstile icon exists because the notes are less than 100 characters.
-        @bug: under construction, might be an obsolete test.
-        '''
-        self.driver.find_element_by_name("nomen").clear()
-        self.driver.find_element_by_name("nomen").send_keys("Kit")
-        self.driver.find_element_by_class_name("buttonLabel").click()
-        self.driver.find_element_by_partial_link_text('Ssm').click()
-        #mutationDownArrow = self.driver.find_element_by_id('downArrowMutationDescription').
-        #mutationRightArrow = self.driver.find_element_by_id('rightArrowMutationDescription')
-        
-        assert 'id= "downArrowMutationDescription"' not in self.driver.page_source
-        assert 'id= "rightArrowMutationDescription"' not in self.driver.page_source
-        
-    def test_turnstile_largenote(self):
-        '''
-        @status this test verifies In the Mutation Description section, confirm the turnstile is open for Mutation Notes(large note) and displays the complete information
-        (no text is cut off).
-        @bug: under construction. this test might be obsolete
-        '''
-        self.driver.find_element_by_name("nomen").clear()
-        self.driver.find_element_by_name("nomen").send_keys("Car12")
-        self.driver.find_element_by_class_name("buttonLabel").click()
-        self.driver.find_element_by_partial_link_text('4563.1Dla').click()
-        mutationDownArrow = self.driver.find_element_by_id('downArrowMutationDescription')
-        mutationRightArrow = self.driver.find_element_by_id('rightArrowMutationDescription')
-        
-        self.assertTrue(mutationDownArrow.is_displayed())
-        self.assertFalse( mutationRightArrow.is_displayed())
-        
-        mutationDownArrow.click()
-        
-        mutationDownArrow = self.driver.find_element_by_id('downArrowMutationDescription')
-        mutationRightArrow = self.driver.find_element_by_id('rightArrowMutationDescription')
-        
-        self.assertFalse( mutationDownArrow.is_displayed())
-        self.assertTrue( mutationRightArrow.is_displayed())
     
     def test_disease_tbl_doids(self):
         '''
         @status this test verifies that the disease table in the Human Diseases ribbon now displays the DOID beside
          each disease instead of the OMIM ID
-         @bug need to ask Olin why would only the first and last diseases get captured from the table?
+         @bug need to ask Olin why would only certain diseases get captured from the table?
         '''
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Ins2")
         self.driver.find_element_by_class_name("buttonLabel").click()
         self.driver.find_element_by_link_text('Ins2').click()
         time.sleep(8)#long timeout to compensate for intermittent lagging
-        #clicks the More toggle(turnstile) to display the nhuman disease table
+        #clicks the More toggle(turnstile) to display the human disease table
         self.driver.find_element_by_css_selector("div.row.diseaseRibbon > div.detail.detailData2 > div.toggleImage.hdExpand").click()
         time.sleep(2)
         disease_table = self.driver.find_element_by_id('humanDiseaseTable')
@@ -161,9 +122,10 @@ class Test(unittest.TestCase):
         self.assertEquals(disease_cells[1], 'permanent neonatal diabetes mellitus\nIDs')
         #self.assertEquals(disease_cells[2], 'maturity-onset diabetes of the young\nIDs')
         #self.assertEquals(disease_cells[3], 'type 1 diabetes mellitus\nIDs')
-        self.assertEquals(disease_cells[4], 'type 2 diabetes mellitus\nIDs')
+        #self.assertEquals(disease_cells[4], 'type 2 diabetes mellitus\nIDs')
+        self.assertEquals(disease_cells[5], 'maturity-onset diabetes of the young type 10\nIDs')
         '''
-    def test_allele_nosubtype(self):
+    def test_????(self):
         
         @status this is just a placeholder test for now.
         @bug: under construction
@@ -171,6 +133,7 @@ class Test(unittest.TestCase):
         self.driver.find_element_by_name("nomen").clear()
         self.driver.find_element_by_name("nomen").send_keys("Lith20")
         self.driver.find_element_by_class_name("buttonLabel").click()
+        alleleLink = self.driver.find_element_by_id('alleleAnnotationLink').click()
         self.driver.find_element_by_partial_link_text('SM/J').click()
         alleleType = self.driver.find_element_by_id('alleleTypeDisplay')
         
@@ -185,7 +148,7 @@ class Test(unittest.TestCase):
         
         self.assertEqual(alleleType.text, "Transgenic")
         
-    def test_allele_molecular_image(self):
+    def test_????(self):
         
         @status this is just a placeholder test for now.
         @bug: under construction
@@ -208,7 +171,7 @@ class Test(unittest.TestCase):
         self.assertTrue(image.is_displayed(), 'the image is not displaying')
         
         
-    def test_mutagenetix_link(self):
+    def test_???(self):
         
         @status this is just a placeholder test for now
         @bug under construction
@@ -268,7 +231,7 @@ class Test(unittest.TestCase):
         self.assertEqual(actualurl, config.WI_URL + '/downloads/datasets/incidental_muts/Mutagenetix.xlsx')
         self.driver.get(config.FEWI_URL + "/allele/")
     
-    def test_allele_molecular_image_caption(self):
+    def test_???(self):
         
         @status this is just a placeholder test for now
         @bug: This page needs the table to have an ID before a test can really be written
