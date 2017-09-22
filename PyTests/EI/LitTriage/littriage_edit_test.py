@@ -59,10 +59,10 @@ class TestLitEdit(unittest.TestCase):
         self.assertTrue(not_route.is_selected, "Not Routed for AP is not selected")
         #select the chosen status for AP
         #chosen = table.get_cell("AP", "Chosen").click()
-        self.driver.find_element_by_xpath("//input[@name='8' and @value='Chosen']").click()
+        self.driver.find_element_by_xpath("//input[@name='10' and @value='Chosen']").click()
         #click the Modify button
         self.driver.find_element_by_id('modifyEditTabButton').click()
-        chosen = self.driver.find_element_by_xpath("//input[@name='8' and @value='Chosen']")
+        chosen = self.driver.find_element_by_xpath("//input[@name='10' and @value='Chosen']")
         #Verifies Chosen status is selected for AP
         self.assertTrue(chosen.is_selected, "Chosen for AP is not selected")
         time.sleep(2)
@@ -96,7 +96,11 @@ class TestLitEdit(unittest.TestCase):
         #finds the Reference Type field and return it's text value
         ref_type = self.driver.find_element_by_id("editTabRefType").get_attribute('value')
         self.assertEqual(ref_type, 'Unreviewed Article')      
-        
+        #finds the Reference type field and modify its value
+        select = Select(self.driver.find_element_by_id("editTabRefType"))
+        select.select_by_visible_text('MGI Curation Record')
+        #click the Modify button to set the Reference Type back to MGI Curation Record.
+        self.driver.find_element_by_id('modifyEditTabButton').click()
     def testDiscardEdit(self):
         """
         @Status tests the setting of the MGI Discard flag
