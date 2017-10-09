@@ -120,7 +120,7 @@ class TestGXDImageSummary(unittest.TestCase):
         #click the gene header column to sort
         geneheader.click()
         wait.forAjax(driver)
-        time.sleep(.5)
+        time.sleep(1)
         genelist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-gene')
         time.sleep(2)
         items = genelist[0].find_elements_by_tag_name("li")
