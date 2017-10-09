@@ -8,6 +8,8 @@ import unittest
 import time
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
+from selenium.webdriver.common.keys import Keys 
+from selenium.webdriver.common.action_chains import ActionChains
 import HTMLTestRunner
 import sys,os.path
 # adjust the path to find config
@@ -78,7 +80,7 @@ class TestLitEdit(unittest.TestCase):
     def testReftypeEdit(self):
         """
         @Status tests the modifying of a Reference Type by using the pulldown list
-        @see MBIB-edit-4 (9)
+        @see MBIB-edit-4 (9), MBIB-edit-32 (47)
         """
         #driver = self.driver
         form = self.form
@@ -91,6 +93,15 @@ class TestLitEdit(unittest.TestCase):
         #finds the Reference type field and modify its value
         select = Select(self.driver.find_element_by_id("editTabRefType"))
         select.select_by_visible_text('Unreviewed Article')
+        #presses the Tab key
+        actions = ActionChains(self.driver)
+        actions.send_keys(Keys.TAB)
+        actions.perform()
+        #Identifies the background color of the Reference type field
+        bgColor = self.driver.find_element_by_id("editTabRefType").value_of_css_property('background-color')
+        print bgColor
+        #asserts the background color is orange before the field is modified
+        self.assertEquals(bgColor, 'rgba(255, 165, 0, 1)', "The background color is not orange")
         #click the Modify button
         self.driver.find_element_by_id('modifyEditTabButton').click()
         #finds the Reference Type field and return it's text value
