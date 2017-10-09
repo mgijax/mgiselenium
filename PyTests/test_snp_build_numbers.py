@@ -44,7 +44,7 @@ class TestSnpBuild(unittest.TestCase):
         genebox.send_keys("pax6")
         genebox.send_keys(Keys.RETURN)
         #wait.forAjax(self.driver)
-        time.sleep(2)
+        time.sleep(5)
         #finds the snp build number in the heading of SNP ID column
         snpidLabel = self.driver.find_element_by_id("snpSummaryTable").find_element_by_id("snp_id")
         self.assertIn("(dbSNP Build 142)", snpidLabel.text)
