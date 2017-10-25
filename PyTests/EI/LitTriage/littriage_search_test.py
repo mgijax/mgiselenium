@@ -432,11 +432,10 @@ class TestLitSearch(unittest.TestCase):
         print used_tags
         #asserts that the following J numbers are returned
         self.assertIn('MGI:nomen', used_tags)
-        ''' 
+         
     def testMultiStatusORSearch(self):
         """
-        @Status tests that searching for multiple statuses on multple workflows(OR) returns correct results
-        @attention: This OR feature has not yet been implemented!
+        @Status tests that searching for multiple statuses on multiple workflows(OR) returns correct results
         @see MBIB-search-28 (87)
         """
         form = self.form
@@ -446,36 +445,39 @@ class TestLitSearch(unittest.TestCase):
         self.driver.find_element_by_id("status_AP_Full_coded").click()
         self.driver.find_element_by_id("status_GO_Routed").click()
         self.driver.find_element_by_id("status_GO_Full_coded").click()
-        #placeholder line for the OR option(not implemented yet)
+        #Do not need to click the OR option because that is the default selection.
         form.click_search()
         #finds the results table and iterates through the table
         table_element = self.driver.find_element_by_id("editTabWorkFlowStatus")
         table = Table(table_element)
-        #finds the Not Routed column for AP and returns it's status of selected
-        not_route = table.get_cell(1,2)
-        self.assertTrue(not_route.is_selected, "Not Routed for AP is not selected")
-        #select the chosen status for AP
-        #chosen = table.get_cell("AP", "Chosen").click()
-        self.driver.find_element_by_xpath("//input[@name='8' and @value='Chosen']").click()
-        #click the Modify button
-        self.driver.find_element_by_id('modifyEditTabButton').click()
-        chosen = self.driver.find_element_by_xpath("//input[@name='8' and @value='Chosen']")
-        #Verifies Chosen status is selected for AP
-        self.assertTrue(chosen.is_selected, "Chosen for AP is not selected")
-        time.sleep(2)
-        #finds the Reference J: field of the Reference ID table and return it's text value
-        table_element1 = self.driver.find_element_by_id("editRefIdTable")
-        table1 = Table(table_element1)
-        jnum_cell = table1.get_cell(0,1)
+        #finds the Routed column for AP and returns it's status of selected
+        ap_routed = table.get_cell(1,3)
+        self.assertTrue(ap_routed.is_selected, "Routed for AP is not selected")
+        #finds the Full Coded column for AP and returns it's status of selected
+        ap_full_coded = table.get_cell(1,6)
+        self.assertTrue(ap_full_coded.is_selected, "Full Coded for AP is not selected")
+        #finds the Routed column for GO and returns it's status of selected
+        go_routed = table.get_cell(2,3)
+        self.assertTrue(go_routed.is_selected, "Routed for GO is not selected")     
+        #finds the Full Coded column for GO and returns it's status of selected
+        go_full_coded = table.get_cell(2,6)
+        self.assertTrue(go_full_coded.is_selected, "Full Coded for GO is not selected")
+        #finds the 1st and 6th fields of the summary table for AP and GO routed and Full-coded columns and returns text value
+        table_element = self.driver.find_element_by_id("resultsTable")
+        table = Table(table_element)
+        ap_cell1 = table.get_cell(1,6)
+        ap_cell2 = table.get_cell(6,6)
+        go_cell1 = table.get_cell(1,7)
+        go_cell2 = table.get_cell(6,7)
         time.sleep(1)
-        print jnum_cell.text
-        #Need to find an assert that works
-        #self.assertTrue(jnum_cell,'J number field is empty')        
+        self.assertEquals(ap_cell1.text, "Rejected", 'AP is not routed')
+        self.assertEquals(ap_cell2.text, "Full-coded", 'AP is not full-coded')
+        self.assertEquals(go_cell1.text, "Full-coded", 'GO is not routed')
+        self.assertEquals(go_cell2.text, "Rejected", 'GO is not full-coded')
         
     def testMultiStatusANDSearch(self):
         """
-        @Status tests that searching for multiple statuses on multple workflows(OR) returns correct results
-        @attention: This AND feature has not yet been implemented!
+        @Status tests that searching for multiple statuses on multiple workflows(OR) returns correct results
         @see MBIB-search-28 (88)
         """
         form = self.form
@@ -485,32 +487,42 @@ class TestLitSearch(unittest.TestCase):
         self.driver.find_element_by_id("status_AP_Full_coded").click()
         self.driver.find_element_by_id("status_GO_Routed").click()
         self.driver.find_element_by_id("status_GO_Full_coded").click()
-        #placeholder line for the OR option(not implemented yet)
+        #click the AND option
+        self.driver.find_element_by_xpath("//input[@value='AND']").click()
+        
         form.click_search()
         #finds the results table and iterates through the table
         table_element = self.driver.find_element_by_id("editTabWorkFlowStatus")
         table = Table(table_element)
-        #finds the Not Routed column for AP and returns it's status of selected
-        not_route = table.get_cell(1,2)
-        self.assertTrue(not_route.is_selected, "Not Routed for AP is not selected")
-        #select the chosen status for AP
-        #chosen = table.get_cell("AP", "Chosen").click()
-        self.driver.find_element_by_xpath("//input[@name='8' and @value='Chosen']").click()
-        #click the Modify button
-        self.driver.find_element_by_id('modifyEditTabButton').click()
-        chosen = self.driver.find_element_by_xpath("//input[@name='8' and @value='Chosen']")
-        #Verifies Chosen status is selected for AP
-        self.assertTrue(chosen.is_selected, "Chosen for AP is not selected")
-        time.sleep(2)
-        #finds the Reference J: field of the Reference ID table and return it's text value
-        table_element1 = self.driver.find_element_by_id("editRefIdTable")
-        table1 = Table(table_element1)
-        jnum_cell = table1.get_cell(0,1)
+        #finds the Routed column for AP and returns it's status of selected
+        ap_routed = table.get_cell(1,3)
+        self.assertTrue(ap_routed.is_selected, "Routed for AP is not selected")
+        #finds the Full Coded column for AP and returns it's status of selected
+        ap_full_coded = table.get_cell(1,6)
+        self.assertTrue(ap_full_coded.is_selected, "Full Coded for AP is not selected")
+        #finds the Routed column for GO and returns it's status of selected
+        go_routed = table.get_cell(2,3)
+        self.assertTrue(go_routed.is_selected, "Routed for GO is not selected")     
+        #finds the Full Coded column for GO and returns it's status of selected
+        go_full_coded = table.get_cell(2,6)
+        self.assertTrue(go_full_coded.is_selected, "Full Coded for GO is not selected")
+        #finds the 1st and 6th fields of the summary table for AP and GO routed and Full-coded columns and returns text value
+        table_element = self.driver.find_element_by_id("resultsTable")
+        table = Table(table_element)
+        ap_cell1 = table.get_cell(1,6)
+        ap_cell2 = table.get_cell(6,6)
+        go_cell1 = table.get_cell(1,7)
+        go_cell2 = table.get_cell(6,7)
         time.sleep(1)
-        print jnum_cell.text
-        #Need to find an assert that works
-        #self.assertTrue(jnum_cell,'J number field is empty')        
-                
+        self.assertEquals(ap_cell1.text, "Routed", 'AP is not routed')
+        self.assertEquals(ap_cell2.text, "Full-coded", 'AP is not full-coded')
+        self.assertEquals(go_cell1.text, "Routed", 'GO is not routed')
+        self.assertEquals(go_cell2.text, "Full-coded", 'GO is not full-coded')
+        #print ap_cell1.text
+        #print ap_cell2.text
+        #print go_cell1.text
+        #print go_cell2.text        
+        
 '''
 def suite():
     suite = unittest.TestSuite()
@@ -520,4 +532,4 @@ def suite():
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
     HTMLTestRunner.main()
-    '''
+    

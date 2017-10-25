@@ -9,6 +9,5 @@
 
 <pydev_pathproperty name="org.python.pydev.PROJECT_EXTERNAL_SOURCE_PATH">
 <path>C:\selenium-requests-1.3</path>
-<path>/Users/jlewis/git/mgiselenium/lib</path>
 </pydev_pathproperty>
 </pydev_project>

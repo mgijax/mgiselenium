@@ -31,14 +31,14 @@ class TestGoAnnotationsPage(unittest.TestCase):
         driver.get(config.TEST_URL + "/marker")
         genebox = driver.find_element_by_name('nomen')
         # put your marker symbol
-        genebox.send_keys("Ccdc40")
+        genebox.send_keys("Ccr3")
         genebox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the correct marker link and clicks it
-        driver.find_element_by_link_text("Ccdc40").click()
-        wait.forAjax(driver)
+        driver.find_element_by_link_text("Ccr3").click()
+        time.sleep(3)
         #Finds the All sequences link and clicks it
-        driver.find_element_by_class_name("goRibbon").find_element_by_link_text("25").click()
+        driver.find_element_by_class_name("goRibbon").find_element_by_link_text("27").click()
         wait.forAjax(driver)
         #Locates the marker header table and finds the table headings
         tabularheaderlist = driver.find_element_by_id("dynamicdata")
@@ -48,11 +48,10 @@ class TestGoAnnotationsPage(unittest.TestCase):
         print searchTextItems
         #verifies all the table headings are correct and in order
         self.assertEqual(searchTextItems, ['Aspect','Category','Classification Term', 'Context', 'Proteoform', 'Evidence', 'Inferred From', 'Reference(s)'])
-        wait.forAjax(driver)
 
     def test_context_display(self):
         """
-        @status: Tests that the correct items are displayed in the Context column, also that items that should not display are hidden(like lego-model-id, orchid id, ECO id)
+        @status: Tests that the correct items are displayed in the Context column, also that items that should not display are hidden(like noctua-model-id, orchid id, ECO id)
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/marker")
@@ -72,8 +71,9 @@ class TestGoAnnotationsPage(unittest.TestCase):
         searchTextItems = iterate.getTextAsList(contextlist)
         wait.forAjax(driver)
         print searchTextItems
+        time.sleep(5)
         #asserts that the rows of Context data are in correct order and displayed correctly
-        self.assertEqual(searchTextItems, [], ['','','','','','','','happens in lung\nhappens in larynx mucous membrane\nresults in the movement of macrophage','','','','','','',''])
+        self.assertEqual(searchTextItems, [u'', u'', u'', u'', u'', u'', u'', u'', u'happens in lung\nhappens in larynx mucous membrane\nresults in the movement of macrophage', u'', u'', u'', u'', u'', u'', u''])
         
         
     def tearDown(self):
