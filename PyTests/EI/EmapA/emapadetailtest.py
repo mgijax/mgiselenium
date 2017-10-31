@@ -68,7 +68,7 @@ class TestEmapaDetail(unittest.TestCase, EmapaBaseClass):
         
         #verify EMAPS term is loaded for mouse
         detailItems = self.driver.find_elements_by_css_selector("#termDetailContent dd")
-        self.assertEqual(detailItems[2].text, "EMAPA:2576510")
+        self.assertEqual(detailItems[2].text, "EMAPS:2576510")
         
         # verify stage is active
         activeStage = self.driver.find_element_by_css_selector(".stageSelector.active")

@@ -20,7 +20,8 @@ from config import TEST_PWI_URL
 class TestAssaySummaryPage(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Firefox() 
+        self.driver = webdriver.Chrome() 
+        #self.driver = webdriver.Firefox()
 
     def test_table_headers(self):
         """
@@ -53,7 +54,7 @@ class TestAssaySummaryPage(unittest.TestCase):
         sort is by marker, assay type, first reference author, and MGI ID.
         """
         driver = self.driver
-        driver.get(PWI_URL)
+        driver.get(TEST_PWI_URL)
         #opens the PWI reference form
         driver.find_element_by_link_text("Reference Form").click()
         accidbox = driver.find_element_by_id('accids')

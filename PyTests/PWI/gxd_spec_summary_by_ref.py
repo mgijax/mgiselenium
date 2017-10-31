@@ -19,7 +19,8 @@ from config import TEST_PWI_URL
 class TestSpecSumByRef(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Firefox() 
+        self.driver = webdriver.Chrome() 
+        #self.driver = webdriver.Firefox()
 
     def test_table_headers(self):
         """
@@ -53,7 +54,7 @@ class TestSpecSumByRef(unittest.TestCase):
         sort is by ascii so 10 would come before 4 or 5, or 6, etc.
         """
         driver = self.driver
-        driver.get(PWI_URL)
+        driver.get(TEST_PWI_URL)
         #opens the PWI reference form
         driver.find_element_by_link_text("Reference Form").click()
         accidbox = driver.find_element_by_id('accids')
@@ -99,7 +100,7 @@ class TestSpecSumByRef(unittest.TestCase):
         an age note is represented by a asterisk.
         """
         driver = self.driver
-        driver.get(PWI_URL)
+        driver.get(TEST_PWI_URL)
         #opens the PWI reference form
         driver.find_element_by_link_text("Reference Form").click()
         accidbox = driver.find_element_by_id('accids')
@@ -136,7 +137,7 @@ class TestSpecSumByRef(unittest.TestCase):
         specimen notes should be fully displayed
         """
         driver = self.driver
-        driver.get(PWI_URL)
+        driver.get(TEST_PWI_URL)
         #opens the PWI reference form
         driver.find_element_by_link_text("Reference Form").click()
         accidbox = driver.find_element_by_id('accids')
@@ -173,7 +174,7 @@ class TestSpecSumByRef(unittest.TestCase):
         
         """
         driver = self.driver
-        driver.get(PWI_URL)
+        driver.get(TEST_PWI_URL)
         #opens the PWI reference form
         driver.find_element_by_link_text("Reference Form").click()
         accidbox = driver.find_element_by_id('accids')
@@ -203,7 +204,7 @@ class TestSpecSumByRef(unittest.TestCase):
         cre assays are Recombinase reporter and  In situ reporter (transgenic)
         """
         driver = self.driver
-        driver.get(PWI_URL)
+        driver.get(TEST_PWI_URL)
         #opens the PWI reference form
         driver.find_element_by_link_text("Reference Form").click()
         accidbox = driver.find_element_by_id('accids')

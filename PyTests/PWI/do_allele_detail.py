@@ -25,6 +25,7 @@ class TestLitIndexByMrk(unittest.TestCase):
     def test_disease_annotations(self):
         """
         @status: Tests that the disease annotations section is correct, this section now has both OMIM and DO annotations. Does not capture  the term NOT setting.
+        @bug data has changed so the results are now no longer the same, needs verification of data and then test changes!!!
         """
         driver = self.driver
         #opens the PWI marker form
@@ -110,7 +111,7 @@ class TestLitIndexByMrk(unittest.TestCase):
         """
         driver = self.driver
         #opens the PWI marker form
-        driver.get(PWI_URL + '/#markerForm')
+        driver.get(TEST_PWI_URL + '/#markerForm')
         
         nomenbox = driver.find_element_by_id('nomen')
         # put your marker symbol in the box
@@ -120,7 +121,7 @@ class TestLitIndexByMrk(unittest.TestCase):
         #finds the marker link and clicks it
         driver.find_element_by_link_text("Gata1").click()
         wait.forAjax(driver)
-        driver.find_element_by_link_text("GXD Lit Index").click()
+        driver.find_element_by_link_text("Lit Index").click()
         wait.forAjax(driver)
         #finds the coded column and then the first 10 items
         refindextable = driver.find_element_by_id("indexRefsTable")
@@ -142,10 +143,10 @@ class TestLitIndexByMrk(unittest.TestCase):
         self.assertEqual(code4.text, "")
         self.assertEqual(code5.text, "")
         self.assertEqual(code6.text, "")
-        self.assertEqual(code7.text, "*")
-        self.assertEqual(code8.text, "")
+        self.assertEqual(code7.text, "")
+        self.assertEqual(code8.text, "*")
         self.assertEqual(code9.text, "")
-        self.assertEqual(code10.text, "*")
+        self.assertEqual(code10.text, "")
         #finds the priority column and then the first 10 items
         refindextable = driver.find_element_by_id("indexRefsTable")
         priority = refindextable.find_elements_by_css_selector('td:nth-child(3)')
@@ -164,12 +165,12 @@ class TestLitIndexByMrk(unittest.TestCase):
         self.assertEqual(pri2.text, "Low")
         self.assertEqual(pri3.text, "High")
         self.assertEqual(pri4.text, "High")
-        self.assertEqual(pri5.text, "Medium")
+        self.assertEqual(pri5.text, "High")
         self.assertEqual(pri6.text, "Medium")
-        self.assertEqual(pri7.text, "Low")
-        self.assertEqual(pri8.text, "Medium")
-        self.assertEqual(pri9.text, "High")
-        self.assertEqual(pri10.text, "Low")
+        self.assertEqual(pri7.text, "Medium")
+        self.assertEqual(pri8.text, "Low")
+        self.assertEqual(pri9.text, "Medium")
+        self.assertEqual(pri10.text, "High")
         
         #finds the conditional column and then the first 10 items
         refindextable = driver.find_element_by_id("indexRefsTable")
@@ -188,13 +189,13 @@ class TestLitIndexByMrk(unittest.TestCase):
         self.assertEqual(con1.text, "Not Specified")
         self.assertEqual(con2.text, "Not Specified")
         self.assertEqual(con3.text, "Conditional")
-        self.assertEqual(con4.text, "Conditional")
-        self.assertEqual(con5.text, "Not Specified")
+        self.assertEqual(con4.text, "Not Applicable")
+        self.assertEqual(con5.text, "Conditional")
         self.assertEqual(con6.text, "Not Specified")
         self.assertEqual(con7.text, "Not Specified")
-        self.assertEqual(con8.text, "Not Applicable")
+        self.assertEqual(con8.text, "Not Specified")
         self.assertEqual(con9.text, "Not Applicable")
-        self.assertEqual(con10.text, "Not Specified")
+        self.assertEqual(con10.text, "Not Applicable")
         
 
     def tearDown(self):

@@ -20,7 +20,8 @@ from config import TEST_PWI_URL
 class TestAssaySummaryPage(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Firefox() 
+        self.driver = webdriver.Chrome()
+        #self.driver = webdriver.Firefox() 
 
     def test_table_headers(self):
         """
@@ -52,7 +53,7 @@ class TestAssaySummaryPage(unittest.TestCase):
         sort is by marker symbol, antibody name, antibody ID.
         """
         driver = self.driver
-        driver.get(PWI_URL)
+        driver.get(TEST_PWI_URL)
         #opens the Marker detail page
         accidbox = driver.find_element_by_id('accessionForm').find_element_by_name('ids')
         # put your MGI ID number in the box
