@@ -36,7 +36,7 @@ class TestModify(unittest.TestCase):
         self.report.WriteReportHeader()
         self.driver = webdriver.Chrome()
         self.form = ModuleForm(self.driver)
-        self.form.get_module(config.PWI_URL + "/edit/gxdindex") 
+        self.form.get_module(config.TEST_PWI_URL + "/edit/gxdindex") 
         username = self.driver.find_element_by_name('user')#finds the user login box
         username.send_keys(config.PWI_LOGIN) #enters the username
         passwd = self.driver.find_element_by_name('password')#finds the password box

@@ -14,7 +14,7 @@ sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../config',)
 )
 import config
-from config import PWI_URL
+from config import TEST_PWI_URL
 
 class TestSpecSumByRef(unittest.TestCase):
 
@@ -26,7 +26,7 @@ class TestSpecSumByRef(unittest.TestCase):
         @status: Tests that the summaries table headers are correct
         """
         driver = self.driver
-        driver.get(PWI_URL)
+        driver.get(TEST_PWI_URL)
         #opens the PWI reference form
         driver.find_element_by_link_text("Reference Form").click()
         accidbox = driver.find_element_by_id('accids')

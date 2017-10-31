@@ -15,7 +15,7 @@ sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../config',)
 )
 import config
-from config import PWI_URL
+from config import TEST_PWI_URL
 
 class TestLitIndexByMrk(unittest.TestCase):
 
@@ -28,7 +28,7 @@ class TestLitIndexByMrk(unittest.TestCase):
         """
         driver = self.driver
         #opens the PWI marker form
-        driver.get(PWI_URL + '/#markerForm')
+        driver.get(TEST_PWI_URL + '/#markerForm')
         
         nomenbox = driver.find_element_by_id('nomen')
         # put your marker symbol in the box
