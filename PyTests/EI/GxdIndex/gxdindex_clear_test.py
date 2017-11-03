@@ -8,6 +8,7 @@ import unittest
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+import HTMLTestRunner
 
 import sys,os.path
 # adjust the path to find config
@@ -29,9 +30,9 @@ class TestClear(unittest.TestCase):
     """
 
     def setUp(self):
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
         self.form = ModuleForm(self.driver)
-        self.form.get_module(config.PWI_URL + "/edit/gxdindex") 
+        self.form.get_module(config.TEST_PWI_URL + "/edit/gxdindex") 
         username = self.driver.find_element_by_name('user')#finds the user login box
         username.send_keys(config.PWI_LOGIN) #enters the username
         passwd = self.driver.find_element_by_name('password')#finds the password box
@@ -109,8 +110,8 @@ class TestClear(unittest.TestCase):
         #find the table field to check
         table_element = driver.find_element_by_id("indexGrid")
         table = Table(table_element)
-        #puts an X in the Prot-sxn by age 7.5 box
-        cell = table.get_cell("RT-PCR", "A")
+        #get a cell that has been selected for this index record
+        cell = table.get_cell(2,21)
         #cell.click()
         wait.forAngular(driver)
         self.assertEqual(cell.text, 'X', "the cell is not checked")
@@ -168,22 +169,14 @@ class TestClear(unittest.TestCase):
         #find the table field to check
         table_element = driver.find_element_by_id("indexGrid")
         table = Table(table_element)
-        #puts an X in the Prot-sxn by age 7.5 box
-        cell = table.get_cell("RT-PCR", "A")
-        #cell.click()
+        #look for an X in the first assay/age cell
+        cell = table.get_cell(2,21)
+  
         wait.forAngular(driver)
-        self.assertNotEqual(cell.text, 'X', "the cell is not checked")
+        self.assertEqual(cell.text, '', "the cell is checked - clear didn't work")
 
     def tearDown(self):
         driver = self.driver
-        form = self.form
-        form.click_clear()
-        form.enter_value('jnumid', '225216')
-        form.press_tab()
-        form.enter_value('marker_symbol', 'Bmp2')
-        form.press_tab()
-        form.click_search()
-        form.click_delete()
         driver.close()
        
 '''
@@ -195,4 +188,4 @@ def suite():
 
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main() 
+    HTMLTestRunner.main() 

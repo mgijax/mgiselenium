@@ -155,7 +155,7 @@ class TestGeneTab(unittest.TestCase):
         assocHumanDiseases = iterate.getTextAsList(cells)
         print assocHumanDiseases
         #asserts that the expected diseases are returned for these genes
-        self.assertIn('myelofibrosis\nthrombocytopenia', assocHumanDiseases) #diseases associated to Gata1
+        self.assertIn('myelodysplastic syndrome\nmyelofibrosis\nthrombocytopenia', assocHumanDiseases) #diseases associated to Gata1
         self.assertIn('Down syndrome\nthrombocytopenia', assocHumanDiseases) #diseases associated to GATA1
         
         

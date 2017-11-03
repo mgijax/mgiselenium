@@ -9,6 +9,7 @@ import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
+import HTMLTestRunner
 
 
 import sys,os.path
@@ -25,7 +26,7 @@ from util.TestResultUtility import Report
 
 # Tests
 
-class TestModify(unittest.TestCase):
+class TestShort(unittest.TestCase):
     """
     @status Test GXD Index browser for the correct fields being cleared
     @attention: This will only work on the Chrome browser. Only contains 2 shortcut tests, others can be added later as time permits
@@ -36,7 +37,7 @@ class TestModify(unittest.TestCase):
         self.report.WriteReportHeader()
         self.driver = webdriver.Chrome()
         self.form = ModuleForm(self.driver)
-        self.form.get_module(config.PWI_URL + "/edit/gxdindex") 
+        self.form.get_module(config.TEST_PWI_URL + "/edit/gxdindex") 
         username = self.driver.find_element_by_name('user')#finds the user login box
         username.send_keys(config.PWI_LOGIN) #enters the username
         passwd = self.driver.find_element_by_name('password')#finds the password box
@@ -53,7 +54,7 @@ class TestModify(unittest.TestCase):
         driver = self.driver
         form = self.form
         action = ActionChains(self.driver)
-        form.enter_value('jnumid', '74162')
+        form.enter_value('jnumid','74162')
         # click the Tab key
         form.press_tab()
         #finds the citation field
@@ -204,13 +205,11 @@ class TestModify(unittest.TestCase):
         self.report.WriteToFile("GXDIndexEITestResults.html")
         self.driver.quit()
        
-'''
-These tests should NEVER!!!! be run against a production system!!
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestAdd))
+    suite.addTest(unittest.makeSuite(TestShort))
     return suite
-'''
+
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main() 
+    HTMLTestRunner.main() 

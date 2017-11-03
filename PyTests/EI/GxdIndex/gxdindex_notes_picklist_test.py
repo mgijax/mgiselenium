@@ -10,6 +10,7 @@ Test uses for notes picklist items
 import unittest
 import time
 from selenium import webdriver
+import HTMLTestRunner
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 import sys,os.path
@@ -26,21 +27,24 @@ from util.table import Table
 
 # Tests
 
-class Test(unittest.TestCase):
+class TestNotes(unittest.TestCase):
     """
     @status Test GXD Index browser for ability to modify marker and notes data, later will need to verify created and modified by/dates
     """
 
     def setUp(self):
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
         self.form = ModuleForm(self.driver)
-        self.form.get_module(config.PWI_URL + "/edit/gxdindex") 
+        self.form.get_module(config.TEST_PWI_URL + "/edit/gxdindex") 
         username = self.driver.find_element_by_name('user')#finds the user login box
         username.send_keys(config.PWI_LOGIN) #enters the username
         passwd = self.driver.find_element_by_name('password')#finds the password box
         passwd.send_keys(config.PWI_PASSWORD) #enters a valid password
         submit = self.driver.find_element_by_name("submit") #Find the Login button
         submit.click() #click the login button
+        
+    def tearDown(self):
+        self.driver.close()    
         
 
     def testSelectedNotes(self):
@@ -224,25 +228,13 @@ class Test(unittest.TestCase):
         self.assertEqual(agenote, "Age assigned by curator based on morphological criteria supplied by authors.", "The note is incorrect")
         
 
-    def tearDown(self):
-        driver = self.driver
-        form = self.form
-        #form.click_clear()
-        #form.enter_value('jnumid', '225216')
-        #form.press_tab()
-        #form.enter_value('marker_symbol', 'Bmp2')
-        #form.press_tab()
-        #form.click_search()
-        #form.click_delete()
-        self.driver.quit()
+    
        
-'''
-These tests should NEVER!!!! be run against a production system!!
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestAdd))
+    suite.addTest(unittest.makeSuite(TestNotes))
     return suite
-'''
+
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main() 
+    HTMLTestRunner.main() 

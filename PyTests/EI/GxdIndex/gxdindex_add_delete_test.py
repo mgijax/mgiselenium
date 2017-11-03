@@ -8,6 +8,7 @@ import unittest
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+import HTMLTestRunner
 
 import sys,os.path
 # adjust the path to find config
@@ -29,7 +30,7 @@ class TestAdd(unittest.TestCase):
     """
 
     def setUp(self):
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
         self.form = ModuleForm(self.driver)
         self.form.get_module(config.TEST_PWI_URL + "/edit/gxdindex") 
         username = self.driver.find_element_by_name('user')#finds the user login box
@@ -40,7 +41,7 @@ class TestAdd(unittest.TestCase):
         submit.click() #click the login button
         
 
-    def testAddIndex(self):
+    def testAddDeleteIndex(self):
         """
         @Status tests that an index record can be added
         
@@ -48,6 +49,8 @@ class TestAdd(unittest.TestCase):
         driver = self.driver
         form = self.form
         
+        print("BEGIN testAddIndex")
+        
         form.enter_value('jnumid', '225216')
         # click the Tab key
         form.press_tab()
@@ -64,18 +67,15 @@ class TestAdd(unittest.TestCase):
         #find the table field to check
         table_element = driver.find_element_by_id("indexGrid")
         table = Table(table_element)
-        #puts an X in the Prot-sxn by age 7.5 box
-        cell = table.get_cell("prot-sxn", "7.5")
+        #puts an X in the first assay/age cell
+        cell = table.get_cell(1,1)
         cell.click()
         wait.forAngular(driver)
         self.assertEqual(cell.text, 'X', "the cell is not checked")
         form.click_add()#click the add button
-
-    def testDeleteIndex(self):
-        """
-        @Status tests that an index record can be deleted
+        print("Index record added - now delete it")
         
-        """
+        form.click_clear() #clear the form and start over for delete
         driver = self.driver
         form = self.form
         
@@ -95,13 +95,14 @@ class TestAdd(unittest.TestCase):
         #find the table field to check
         table_element = driver.find_element_by_id("indexGrid")
         table = Table(table_element)
-        #puts an X in the Prot-sxn by age 7.5 box
-        cell = table.get_cell("prot-sxn", "7.5")
+        #puts an X in the first assay/age cell
+        cell = table.get_cell(1,1)
         cell.click()
         wait.forAngular(driver)
         self.assertEqual(cell.text, 'X', "the cell is not checked")
-        form.click_modify()
+        form.click_search() # get the record
         form.click_delete()#click the delete button
+        print("Index record deleted")
         
         
     def testJnumMrkErrMsgs(self):
@@ -190,13 +191,6 @@ class TestAdd(unittest.TestCase):
     def tearDown(self):
         driver = self.driver
         form = self.form
-        form.click_clear()
-        form.enter_value('jnumid', '225216')
-        form.press_tab()
-        form.enter_value('marker_symbol', 'Gata1')
-        form.press_tab()
-        form.click_search()
-        form.click_delete()
         driver.close()
        
 def suite():
@@ -206,4 +200,4 @@ def suite():
 
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main() 
+    HTMLTestRunner.main() 

@@ -110,7 +110,7 @@ class TestDiseaseTab(unittest.TestCase):
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_autocomplete_input_0").send_keys("phototoxicity")#identifies the input field and enters gata1
+        self.driver.find_element_by_name("formly_3_autocomplete_input_0").send_keys("phototoxicity")#selects phototoxicity from the autocomplete list
         wait.forAngular(self.driver)
         self.driver.find_element_by_id("searchButton").click()
         wait.forAngular(self.driver)

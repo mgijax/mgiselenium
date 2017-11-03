@@ -9,6 +9,7 @@ import unittest
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+import HTMLTestRunner
 
 import sys,os.path
 # adjust the path to find config
@@ -20,9 +21,6 @@ from util import iterate, wait
 from util.form import ModuleForm
 from util.table import Table
 
-
-
-
 # Tests
 
 class TestSearch(unittest.TestCase):
@@ -31,7 +29,7 @@ class TestSearch(unittest.TestCase):
     """
 
     def setUp(self):
-        self.driver = webdriver.Firefox() 
+        self.driver = webdriver.Chrome()
         self.form = ModuleForm(self.driver)
         self.form.get_module(config.TEST_PWI_URL + "/edit/gxdindex")
     
@@ -602,11 +600,11 @@ class TestSearch(unittest.TestCase):
         #find the Index grid
         table_element = driver.find_element_by_id("indexGrid")
         table = Table(table_element)
-        #puts an X in the Prot-wm by age 7 box
-        cell = table.get_cell("prot-wm", "7")
+        #puts an X in the first assay/age cell
+        cell = table.get_cell(1,1)
         cell.click()
-        #puts an X in the Prot-wm by age 8 box
-        cell = table.get_cell("prot-wm", "8")
+        #puts an X in the second assay/first age cell
+        cell = table.get_cell(2,1)
         cell.click()
         wait.forAngular(driver)
         form.click_search()#click the search button
@@ -622,36 +620,38 @@ class TestSearch(unittest.TestCase):
         #print column 1
         symbols_cells = table.get_column_cells('Marker')
         symbols = iterate.getTextAsList(symbols_cells)
-        self.assertEqual(symbols, ['Marker','Adgre1', 'Cdh5', 'Cdx4', 'Eng', 'Fgf8', 'Foxa2', 'Gata6', 'Itga2b', 'Kdr', 'Kdr', 'Kdr', 'Kdr', 'Lrp2', 'Nanog', 'Pdgfra', 'Pecam1', 'Pou3f1', 'Ptprc', 'T', 'T', 'Tal1', 'Tek'])
+        self.assertIn("Stx2",symbols)
+        
+        
             
-    def testResultsTable(self):
+    #def testResultsTable(self):
         """
         An example of getting data from the results table using
             Table class
             
         NOTE: this is only for example purposes. Not a real test
         """
-        driver = self.driver
-        form = self.form
+        #   driver = self.driver
+        #  form = self.form
         
-        form.enter_value('jnumid', '121946')
-        form.press_tab()
+        #   form.enter_value('jnumid', '121946')
+        #   form.press_tab()
         
-        form.click_search()
+        #   form.click_search()
         
-        results_table = driver.find_element_by_id("indexGrid")
-        table = Table(results_table)
+        #   results_table = driver.find_element_by_id("indexGrid")
+        #   table = Table(results_table)
         
-        header_cells = table.get_header_cells()
-        print iterate.getTextAsList(header_cells)
+        #   header_cells = table.get_header_cells()
+        #   print iterate.getTextAsList(header_cells)
         # print row 1
-        cells = table.get_row_cells(1)
-        print iterate.getTextAsList(cells)
+        #   cells = table.get_row_cells(1)
+        #   print iterate.getTextAsList(cells)
         # single cell
-        cell = table.get_cell("RNA-WM", "10.5")
-        print cell.text
+        #   cell = table.get_cell("RNA-WM", "10.5")
+        #   print cell.text
         # empty cell
-        cell = table.get_cell("prot-sxn", "A")
+        #   cell = table.get_cell("prot-sxn", "A")
 
 
 def suite():
@@ -661,4 +661,4 @@ def suite():
 
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main()
+    HTMLTestRunner.main() 
