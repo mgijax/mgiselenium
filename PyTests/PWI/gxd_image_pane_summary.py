@@ -14,12 +14,13 @@ sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../config',)
 )
 import config
-from config import PWI_URL
+from config import TEST_PWI_URL
 
 class TestImagePanePage(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Firefox() 
+        self.driver = webdriver.Chrome() 
+        #self.driver = webdriver.Firefox()
 
     def test_table_headers(self):
         """
@@ -27,7 +28,7 @@ class TestImagePanePage(unittest.TestCase):
         Image, Figure Label, Pane Label, Assay (Gene), Specimen label
         """
         driver = self.driver
-        driver.get(PWI_URL)
+        driver.get(TEST_PWI_URL)
         #opens the PWI reference form
         driver.find_element_by_link_text("Reference Form").click()
         accidbox = driver.find_element_by_id('accids')
@@ -53,7 +54,7 @@ class TestImagePanePage(unittest.TestCase):
         @attention: This test also tests specimens align with their correct assay type
         """
         driver = self.driver
-        driver.get(PWI_URL)
+        driver.get(TEST_PWI_URL)
         #opens the PWI reference form
         driver.find_element_by_link_text("Reference Form").click()
         accidbox = driver.find_element_by_id('accids')
@@ -166,7 +167,7 @@ class TestImagePanePage(unittest.TestCase):
         each specimen/assay should have it's own row per image
         """
         driver = self.driver
-        driver.get(PWI_URL)
+        driver.get(TEST_PWI_URL)
         #opens the PWI reference form
         driver.find_element_by_link_text("Reference Form").click()
         accidbox = driver.find_element_by_id('accids')
@@ -227,7 +228,7 @@ class TestImagePanePage(unittest.TestCase):
         all the specimens should be displayed on the same row
         """
         driver = self.driver
-        driver.get(PWI_URL)
+        driver.get(TEST_PWI_URL)
         #opens the PWI reference form
         driver.find_element_by_link_text("Reference Form").click()
         accidbox = driver.find_element_by_id('accids')
@@ -302,7 +303,7 @@ class TestImagePanePage(unittest.TestCase):
         each specimen should have it's own row
         """
         driver = self.driver
-        driver.get(PWI_URL)
+        driver.get(TEST_PWI_URL)
         #opens the PWI reference form
         driver.find_element_by_link_text("Reference Form").click()
         accidbox = driver.find_element_by_id('accids')
@@ -351,7 +352,7 @@ class TestImagePanePage(unittest.TestCase):
         each image and figure displayed but no assay or specimen
         """
         driver = self.driver
-        driver.get(PWI_URL)
+        driver.get(TEST_PWI_URL)
         #opens the PWI reference form
         driver.find_element_by_link_text("Reference Form").click()
         accidbox = driver.find_element_by_id('accids')
@@ -407,7 +408,7 @@ class TestImagePanePage(unittest.TestCase):
         each image, figure label, pane label, and assay displayed but no specimen label
         """
         driver = self.driver
-        driver.get(PWI_URL)
+        driver.get(TEST_PWI_URL)
         #opens the PWI reference form
         driver.find_element_by_link_text("Reference Form").click()
         accidbox = driver.find_element_by_id('accids')

@@ -15,12 +15,13 @@ sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../config',)
 )
 import config
-from config import PWI_URL
+from config import TEST_PWI_URL
 
 class TestLitIndexByMrk(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Firefox() 
+        self.driver = webdriver.Chrome() 
+        #self.driver = webdriver.Firefox()
 
     def test_table_headers(self):
         """
@@ -28,7 +29,7 @@ class TestLitIndexByMrk(unittest.TestCase):
         """
         driver = self.driver
         #opens the PWI marker form
-        driver.get(PWI_URL + '/#markerForm')
+        driver.get(TEST_PWI_URL + '/#markerForm')
         
         nomenbox = driver.find_element_by_id('nomen')
         # put your marker symbol in the box
@@ -55,7 +56,7 @@ class TestLitIndexByMrk(unittest.TestCase):
         """
         driver = self.driver
         #opens the PWI marker form
-        driver.get(PWI_URL + '/#markerForm')
+        driver.get(TEST_PWI_URL + '/#markerForm')
         
         nomenbox = driver.find_element_by_id('nomen')
         # put your marker symbol in the box
@@ -65,7 +66,7 @@ class TestLitIndexByMrk(unittest.TestCase):
         #finds the marker link and clicks it
         driver.find_element_by_link_text("Gata1").click()
         wait.forAjax(driver)
-        driver.find_element_by_link_text("GXD Lit Index").click()
+        driver.find_element_by_link_text("Lit Index").click()
         wait.forAjax(driver)
         #finds the coded column and then the first 10 items
         refindextable = driver.find_element_by_id("indexRefsTable")

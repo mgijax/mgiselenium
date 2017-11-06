@@ -15,12 +15,13 @@ sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../config',)
 )
 import config
-from config import PWI_URL
+from config import TEST_PWI_URL
 
 class TestAssaySummaryPage(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Firefox() 
+        self.driver = webdriver.Chrome()
+        #self.driver = webdriver.Firefox() 
 
     def test_table_headers(self):
         """
@@ -28,7 +29,7 @@ class TestAssaySummaryPage(unittest.TestCase):
         Headers are: MGI ID, Name, Type, Alias, Organism, Class, Notes, Name, MGI ID, Organism, Region, Markers, Reference
         """
         driver = self.driver
-        driver.get(PWI_URL)
+        driver.get(TEST_PWI_URL)
         #opens the Marker detail page
         accidbox = driver.find_element_by_id('accessionForm').find_element_by_name('ids')
         # put your MGI ID number in the box
@@ -52,7 +53,7 @@ class TestAssaySummaryPage(unittest.TestCase):
         sort is by marker symbol, antibody name, antibody ID.
         """
         driver = self.driver
-        driver.get(PWI_URL)
+        driver.get(TEST_PWI_URL)
         #opens the Marker detail page
         accidbox = driver.find_element_by_id('accessionForm').find_element_by_name('ids')
         # put your MGI ID number in the box

@@ -23,7 +23,7 @@ class Test(unittest.TestCase):
 
     def testLoginNoPwd(self):#verifies entering no password gives error
         driver = self.driver
-        driver.get(config.PWI_URL)#get the P-WI main page
+        driver.get(config.TEST_PWI_URL)#get the P-WI main page
         self.assertIn("P-WI", driver.page_source)#verifies your on the correct page
         username = driver.find_element_by_name('user')#finds the user login box
         username.send_keys(config.PWI_LOGIN) #enters the username

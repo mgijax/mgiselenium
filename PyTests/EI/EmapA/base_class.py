@@ -15,7 +15,7 @@ from util import iterate, wait
 import time
 
 # constants
-BROWSER_URL = config.PWI_URL + "/edit/emapaBrowser"
+BROWSER_URL = config.TEST_PWI_URL + "/edit/emapaBrowser"
 
 class EmapaBaseClass(object):
     """
