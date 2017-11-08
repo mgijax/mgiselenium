@@ -7,7 +7,9 @@ import unittest
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as ec
 import sys,os.path
 from util import wait, iterate
 from config.config import PUBLIC_URL
@@ -25,7 +27,7 @@ class TestSnpBuild(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Chrome()
-        self.driver.implicitly_wait(4)
+        #self.driver.implicitly_wait(4)
         self.driver.get(config.PUBLIC_URL)
         
 
@@ -36,20 +38,21 @@ class TestSnpBuild(unittest.TestCase):
         """
         self.driver.get(PUBLIC_URL + "/snp/")
         #finds the build number at the top of the snp QF page
-        formLabel = self.driver.find_element_by_css_selector("#form1 > div:nth-child(2)")
+        formLabel = self.driver.find_element(By.CSS_SELECTOR, '#form1 > div:nth-child(2)')
         self.assertIn("from dbSNP Build 142", formLabel.text)
 
-        genebox = self.driver.find_element_by_id("nomen")
+        genebox = self.driver.find_element(By.ID, 'nomen')
         #enters pax6 in the Gene Symbol/Name box
         genebox.send_keys("pax6")
         genebox.send_keys(Keys.RETURN)
-        #wait.forAjax(self.driver)
-        time.sleep(5)
+        #Does a webdriver wait until the export buttons are present so we know the page is loaded
+        if WebDriverWait(self.driver, 5).until(ec.presence_of_element_located((By.ID, 'exportButtons'))):
+            print('page loaded')
         #finds the snp build number in the heading of SNP ID column
-        snpidLabel = self.driver.find_element_by_id("snpSummaryTable").find_element_by_id("snp_id")
+        snpidLabel = self.driver.find_element(By.ID, 'snpSummaryTable').find_element(By.ID, 'snp_id')
         self.assertIn("(dbSNP Build 142)", snpidLabel.text)
         #finds the GRC build number in the heading of Map Position column
-        mapLabel = self.driver.find_element_by_id("snpSummaryTable").find_element_by_id("map_position")
+        mapLabel = self.driver.find_element(By.ID, 'snpSummaryTable').find_element(By.ID, 'map_position')
         self.assertIn("(GRCm38)", mapLabel.text)
         
     def test_mrk_detail_build(self):
@@ -60,10 +63,9 @@ class TestSnpBuild(unittest.TestCase):
         #displays the marker detail page for pax6
         self.driver.get(PUBLIC_URL + "/marker/MGI:1096368")
         #opens the Location & Maps section
-        self.driver.find_element_by_class_name("toggleImage").click()
-        wait.forAjax(self.driver)
+        self.driver.find_element(By.CLASS_NAME, 'toggleImage').click()
         #finds the build number at the top of the snp QF page
-        seqmapLabel = self.driver.find_element_by_class_name("detailData2").find_element_by_class_name("closed").find_element_by_css_selector("div.value")
+        seqmapLabel = self.driver.find_element(By.CLASS_NAME, 'detailData2').find_element(By.CLASS_NAME, 'closed').find_element(By.CSS_SELECTOR, 'div.value')
         #verifies GRCm38 is displayed in this section
         self.assertIn("GRCm38", seqmapLabel.text)
 
@@ -75,9 +77,9 @@ class TestSnpBuild(unittest.TestCase):
         #displays the marker qf
         self.driver.get(PUBLIC_URL + "/marker")
         #finds the genome coordinates link
-        genocoord = self.driver.find_element_by_link_text('Genome Coordinates')
+        genocoord = self.driver.find_element(By.LINK_TEXT, 'Genome Coordinates')
         # get the parent element
-        gcParent = genocoord.find_element_by_xpath('..')
+        gcParent = genocoord.find_element(By.XPATH, '..')
         #confirms  that GRCm38 is displayed
         self.assertIn("GRCm38", gcParent.text)
         
@@ -89,8 +91,8 @@ class TestSnpBuild(unittest.TestCase):
         #displays the HMDC qf
         self.driver.get(PUBLIC_URL + "/diseasePortal")
         #find the pulldown and select Genome Location
-        selectorbox = self.driver.find_element_by_class_name("queryBuilder")
-        pulldown = selectorbox.find_element_by_tag_name("select").find_elements_by_tag_name("option")
+        selectorbox = self.driver.find_element(By.CLASS_NAME, 'queryBuilder')
+        pulldown = selectorbox.find_element(By.TAG_NAME, 'select').find_elements(By.TAG_NAME, 'option')
         #print [x.text for x in pulldown]
         searchTextItems = iterate.getTextAsList(pulldown)
         #verifies all the items listed in the pulldown are correct and in order
@@ -99,12 +101,10 @@ class TestSnpBuild(unittest.TestCase):
         pulldown[5].click()
         #self.assertIn("Genome Location", pulldown[3].Text)
         #finds the human and mouse genome build numbers
-        buildnumber = self.driver.find_element_by_class_name('radio-group')
+        buildnumber = self.driver.find_element(By.CLASS_NAME, 'radio-group')
         # get the parent element
-        mainbuild = buildnumber.find_elements_by_tag_name('label')
-        wait.forAjax(self.driver)
+        mainbuild = buildnumber.find_elements(By.TAG_NAME, 'label')
         #confirms that GRCh38 is displayed
-        #print [x.text for x in mainbuild]
         searchTextItems = iterate.getTextAsList(mainbuild)
         self.assertEqual(searchTextItems, ['Human (GRCh38)', 'Mouse (GRCm38)'])
        
