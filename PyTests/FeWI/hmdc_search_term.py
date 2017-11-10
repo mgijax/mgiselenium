@@ -34,7 +34,8 @@ class TestSearchTerm(unittest.TestCase):
         
     def test_index_tab_headers(self):
         '''
-        @status this test verifies the headings on the Gene Homologs x Phenotypes/Diseases tab( or Index tab) are correct and in the correct order.
+        @status this test verifies the headings on the Gene Homologs x Phenotypes/Diseases tab
+                ( or Index tab) are correct and in the correct order.
         @see: HMDC-
         '''
         print ("BEGIN test_index_tab_headers")
@@ -52,7 +53,7 @@ class TestSearchTerm(unittest.TestCase):
         wait.forAngular(self.driver)
         print grid_tab.text
         time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (4 x 25)", "Grid tab is not visible!")
+        self.assertIn("Gene Homologs x Phenotypes/Diseases", grid_tab.text, "Grid tab is not visible!")
         grid_tab.click()
         human_header = self.driver.find_element_by_class_name('hgHeader')
         self.assertEqual(human_header.text, 'Human Gene', 'The human gene header is missing')
@@ -63,7 +64,8 @@ class TestSearchTerm(unittest.TestCase):
     def test_do_term_name(self):
         '''
         @status this test verifies the correct diseases are returned for this query. This Disease term Heading should
-        only bring back the disease mucosulfatidosis. Verified by clicking the genotype popup and confirming this is the only disease
+        only bring back the disease mucosulfatidosis. Verified by clicking the disease pop-up and confirming this is the only disease.  Add'l annotations that return
+        a new phenotype column will break this test.  
         @see: HMDC-DQ-1
         '''
         print("BEGIN test_do_term_name")
@@ -81,26 +83,27 @@ class TestSearchTerm(unittest.TestCase):
         time.sleep(3)
         print grid_tab.text
         time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (1 x 18)", "Grid tab is not visible!")
+        self.assertIn(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (1 x 18)", "Data has changed for this test - update may be needed")
         grid_tab.click()
         
-        #cells captures every field from Human Gene heading to the last disease angled, this test only captures the diseases.
+        #cells captures every field from Human Gene heading to the last disease angled, this test is only testing the disease.
         cells = self.driver.find_elements_by_css_selector("div.ngc.cell-content.ngc-custom-html.ng-binding.ng-scope")
         #print iterate.getTextAsList(cells) #if you want to see what it captures uncomment this
         #displays each angled column of disease heading, note that there is 1 blank field between pheno headings and disease headings.
         disease1 = cells[20]
         #asserts that the correct diseases(at angle) display in the correct order
         self.assertEqual(disease1.text, 'inherited metabolic disorder')
-        #firstcell captures all the table data blocks of phenotypes on the first row of data
+        
+        #phenocells captures all the table data cells on the first row of data
         phenocells = self.driver.find_elements_by_css_selector("td.ngc.center.cell.middle")
         
-        print iterate.getTextAsList(phenocells) #if you want to see what it captures uncomment this
-        phenocells[18].click()#clicks the second phenotype data cell to open up the genotype popup page
+        phenocells[18].click() #clicks the disease cell (last one in list) to open up the genotype popup page
         self.driver.switch_to_window(self.driver.window_handles[1])#switches focus to the genotype popup page
         #time.sleep(5)
         matching_text = "Human Genes and Mouse Models for inherited metabolic disorder and SUMF1/Sumf1"
         #asserts the heading text is correct in page source
         self.assertIn(matching_text, self.driver.page_source, 'matching text not displayed')
+        
         #Identify the table that contains the disease angled text
         popup_table = self.driver.find_element_by_class_name("popupTable")
         
@@ -126,8 +129,7 @@ class TestSearchTerm(unittest.TestCase):
         
         self.driver.find_element_by_name("formly_3_autocomplete_input_0").send_keys("meteorism")#identifies the input field and enters term
         wait.forAngular(self.driver)
-        #self.driver.find_element_by_id("addConditionButton").click()
-        print self.driver.find_element_by_xpath("//*[contains(text(), 'Add')]")
+        
         self.driver.find_element_by_xpath("//*[contains(text(), 'Add')]").click()
         my_select1 = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_4')]")#identifies the select field and picks the phenotype name option
         for option in my_select1.find_elements_by_tag_name("option"):
@@ -149,22 +151,25 @@ class TestSearchTerm(unittest.TestCase):
         grid_tab.click()
         
         mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
-        print mgenes
         
         searchTermItems = iterate.getTextAsList(mgenes)
      
         self.assertEqual(searchTermItems[0], "Celsr3")
-        
         print searchTermItems
         
         # Add checks for Phenotype Categories returned
-        
-        
+        #cells captures every field from Human Gene heading to the last angled term -- this test checks that the 2 MP headers associated with this term are displayed
+        cells = self.driver.find_elements_by_css_selector("div.ngc.cell-content.ngc-custom-html.ng-binding.ng-scope")
+        cellHeadings = iterate.getTextAsList(cells)
+       
+        self.assertIn('digestive/alimentary system', cellHeadings, "expected MP header not found")
+        self.assertIn('growth/size/body', cellHeadings, "expected MP header not found")
 
     def test_hp_term_name(self):
         '''
-        @status this test  Should return the HP term
-        This test is verifying the correct phenotypes(for Human) are coming back on the grid tab.
+        @status this test  Should return the HP term queried for in the results of the Grid and also the pop-up genotype.
+        This test is verifying the correct phenotypes(for Human) are coming back on the grid tab.  Include a specific
+        gene in the search so that only human annotations are returned.
         @see: HMDC-PQ-9
         '''
         print("BEGIN test_hp_term_name")
@@ -176,46 +181,59 @@ class TestSearchTerm(unittest.TestCase):
         
         self.driver.find_element_by_name("formly_3_autocomplete_input_0").send_keys("fusion of middle ear ossicles")#identifies the input field and enters gata1
         wait.forAngular(self.driver)
+        
+        self.driver.find_element_by_xpath("//*[contains(text(), 'Add')]").click()
+        my_select1 = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_4')]")#identifies the select field and picks the phenotype name option
+        for option in my_select1.find_elements_by_tag_name("option"):
+            print option.text
+            if option.text == 'Gene Symbol(s) or ID(s)':
+                option.click()
+                break
+        
+        self.driver.find_element_by_id("formly_3_input_input_0").clear()
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("TFAP2A")#identifies the input field and enters Celsr3
+        wait.forAngular(self.driver)
         self.driver.find_element_by_id("searchButton").click()
         wait.forAngular(self.driver)
-        #identify the Genes tab and verify the tab's text
+        
+        
+        #Identify the grid tab and click on it
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         print grid_tab.text
         time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (6 x 25)", "Grid tab is not visible!")
         grid_tab.click()
         
-        #firstcell captures all the table data blocks of phenotypes on the first row of data
-        phenocells = self.driver.find_elements_by_css_selector("div.ngc.cell-content.ngc-custom-html.ng-binding.ng-scope")
+        #headingcells captures all column headings of the grid
+        headingcells = self.driver.find_elements_by_css_selector("div.ngc.cell-content.ngc-custom-html.ng-binding.ng-scope")
         
-        searchTermItems = iterate.getTextAsList(phenocells)
+        searchTermItems = iterate.getTextAsList(headingcells)
         print searchTermItems #if you want to see what it captures uncomment this
-        #asserts that the correct diseases(at angle) display in the correct order
-        self.assertEqual(searchTermItems[2], 'behavior/neurological')
-        self.assertEqual(searchTermItems[5], 'craniofacial')
-        self.assertEqual(searchTermItems[6], 'digestive/alimentary system')
-        self.assertEqual(searchTermItems[8], 'endocrine/exocrine glands')
-        self.assertEqual(searchTermItems[9], 'growth/size/body')
-        self.assertEqual(searchTermItems[10], 'hearing/vestibular/ear')
-        self.assertEqual(searchTermItems[12], 'homeostasis/metabolism')
-        self.assertEqual(searchTermItems[13], 'immune system')
-        self.assertEqual(searchTermItems[14], 'integument')
-        self.assertEqual(searchTermItems[15], 'limbs/digits/tail')
-        self.assertEqual(searchTermItems[17], 'muscle')
-        self.assertEqual(searchTermItems[18], 'neoplasm')
-        self.assertEqual(searchTermItems[19], 'nervous system')
-        self.assertEqual(searchTermItems[20], 'renal/urinary system')
-        self.assertEqual(searchTermItems[21], 'reproductive system')
-        self.assertEqual(searchTermItems[23], 'skeleton')
-        self.assertEqual(searchTermItems[24], 'vision/eye')
         
+        #verify that the correct MP header terms for this phenotype term are included in the grid
+         
+        self.assertIn('hearing/vestibular/ear', searchTermItems, "expected MP header not returned")
+        self.assertIn('skeleton', searchTermItems, "expected MP header not returned")
         
+        #Verify that the actual term is displayed in the genotype pop-up
+        
+        #phenocells captures all the table data cells on the first row of data
+        phenocells = self.driver.find_elements_by_css_selector("td.ngc.center.cell.middle")
+        
+        phenocells[5].click() #clicks the cell for hearing/vestibular/ear (new data could break this)
+        self.driver.switch_to_window(self.driver.window_handles[1])#switches focus to the genotype popup page
+        time.sleep(2)
+        matching_text = "Human hearing/vestibular/ear abnormalities for TFAP2A/Tfap2a"
+        #asserts the heading text is correct in page source
+        self.assertIn(matching_text, self.driver.page_source, 'expected pop-up box heading not displayed')
+        
+        #asserts that the HP term queried for has been returned
+        self.assertIn("Fusion of middle ear ossicles", self.driver.page_source, "expected HP term not found")
         
                 
     def test_do_term_syn_name(self):
         '''
         @status this test verifies the correct diseases are returned for this query. This is a synonym term 
-        This test verifies the diseases on the grid tab and then verifies the diseases on the disease tab.
+        This test verifies the disease header on the grid tab and then verifies the specific DO ID is returned in the Disease Tab.
         @see: HMDC-DQ-4
         '''
         print("BEGIN test_do_term_syn_name")
@@ -225,101 +243,114 @@ class TestSearchTerm(unittest.TestCase):
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_autocomplete_input_0").send_keys("rickets, vitamin D-resistant")#identifies the input field and enters term/ID
+        self.driver.find_element_by_name("formly_3_autocomplete_input_0").send_keys("rickets, vitamin D-resistant")#synonym for DOID:0050445; X-linked hypophosphatemic
         wait.forAngular(self.driver)
         self.driver.find_element_by_id("searchButton").click()
         wait.forAngular(self.driver)
-        #identify the Genes tab and verify the tab's text
+        #identify the grid tab and click on it
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
-        print grid_tab.text
-        time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (4 x 20)", "Grid tab is not visible!")
         grid_tab.click()
         
         #cells captures every field from Human Gene heading to the last disease angled, this test only captures the diseases, which are items 25,26,27
         cells = self.driver.find_elements_by_css_selector("div.ngc.cell-content.ngc-custom-html.ng-binding.ng-scope")
         
-        print iterate.getTextAsList(cells) #if you want to see what it captures uncomment this
-        #displays each row of gene data
-        disease1 = cells[21]
-        disease2 = cells[22]
+        cellheadings = iterate.getTextAsList(cells)
+        print cellheadings
+        
         #asserts that the correct diseases(at angle) display in the correct order
-        self.assertEqual(disease1.text, 'musculoskeletal system disease')
-        self.assertEqual(disease2.text, 'nervous system disease')
-        #identify the Disease tab and verify the tab's text
+        self.assertIn('musculoskeletal system disease', cellheadings, "expected disease header not displayed")
+        
+        #identify the Disease tab, print it, and click it
         disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         print disease_tab.text
-        self.assertEqual(disease_tab.text, "Diseases (4)", "Diseases tab is not visible!")
         disease_tab.click()
         
         disease_table = Table(self.driver.find_element_by_id("diseaseTable"))
         
-        cells = disease_table.get_column_cells("Disease")
+        cells = disease_table.get_column_cells("DO ID")
         
         print iterate.getTextAsList(cells)
-        #displays each row of gene data
-        disease1 = cells[1]
-        disease2 = cells[2]
-        disease3 = cells[3]
-        disease4 = cells[4]
-        #asserts that the correct genes in the correct order are returned
-        self.assertEqual(disease1.text, 'autosomal dominant hypophosphatemic rickets')
-        self.assertEqual(disease2.text, 'autosomal recessive hypophosphatemic rickets')
-        self.assertEqual(disease3.text, 'otitis media')
-        self.assertEqual(disease4.text, 'X-linked hypophosphatemic rickets')
+        ids = iterate.getTextAsList(cells)
+        
+        #asserts that the expected disease is returned
+        self.assertIn('DOID:0050445', ids, "expected DO ID is not returned")
         
     def test_mp_term_syn_name(self):
         '''
-        @status this test verifies the correct diseases are returned for this query, should return the MP synonym term.
-        This test verifies the mouse genes returned on the grid tab and then goes to the disease tab to verify the diseases. Breat Cancer due to
-        common genocluster(HMDC-disease-11) and Mastitis is a DO synonym (HMDC-disease-10)
-        @see: HMDC-PQ-4, HMDC-disease-11, HMDC-disease-10
+        @status this test verifies the correct results are returned for a query by MP synonyms.  The synonym "albino coat" is a synonym for 
+        "absent coat pigmentation".  This test verifies the mouse phenotype returned on the grid tab.   The disease tab is checked to verify a 
+        disease associated to a common genocluster is returned.  (HMDC-disease-11)
+        @see: HMDC-PQ-4, HMDC-disease-11
         '''
         print("BEGIN test_mp_term_syn_name")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the Phenotype Name option.
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Disease or Phenotype Name':
                 option.click()
                 break
-        #breast inflammation is an MP synonym of mastitis
-        self.driver.find_element_by_name("formly_3_autocomplete_input_0").send_keys("breast inflammation")#identifies the input field and enters gata1
+        #albino coat is a MP synonym for 'absent coat pigmentation'
+        self.driver.find_element_by_name("formly_3_autocomplete_input_0").send_keys("albino coat") #identifies the input field and enters the MP synonym
+        wait.forAngular(self.driver)
+        
+        self.driver.find_element_by_xpath("//*[contains(text(), 'Add')]").click()
+        my_select1 = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_4')]")#identifies the select field and picks the phenotype name option
+        for option in my_select1.find_elements_by_tag_name("option"):
+            print option.text
+            if option.text == 'Gene Symbol(s) or ID(s)':
+                option.click()
+                break
+        
+        self.driver.find_element_by_id("formly_3_input_input_0").clear()
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("Mitf")#identifies the input field and enters a specific gene symbol
         wait.forAngular(self.driver)
         self.driver.find_element_by_id("searchButton").click()
         wait.forAngular(self.driver)
-        #identify the Genes tab and verify the tab's text
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
-        time.sleep(2)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (10 x 10)", "Grid tab is not visible!")
-        grid_tab.click()
         
-        hgenes = self.driver.find_element_by_css_selector("td.ngc.left.middle.cell.first")
-        print hgenes.text
-        self.assertEqual(hgenes.text, 'MFGE8')
-        mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
-        print mgenes
-        
-        searchTermItems = iterate.getTextAsList(mgenes)
-     
-        self.assertEqual(searchTermItems[0], "Mfge8")
-        
-        print searchTermItems
-        #identify the Disease tab and verify the tab's text
+        #identify the Disease tab and click it
         disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
-        print disease_tab.text
-        self.assertEqual(disease_tab.text, "Diseases (2)", "Diseases tab is not visible!")
+        time.sleep(2)
         disease_tab.click()
         
         disease_table = Table(self.driver.find_element_by_id("diseaseTable"))
         
-        cells = disease_table.get_column_cells("Disease")
+        cells = disease_table.get_column_cells("DO ID")
+        ids = iterate.getTextAsList(cells)
         
-        print iterate.getTextAsList(cells)
-        #displays each row of gene data
-        disease1 = cells[1]
-        disease2 = cells[2]
-        #asserts that the correct genes in the correct order are returned
-        self.assertEqual(disease1.text, 'breast cancer')
-        self.assertEqual(disease2.text, 'mastitis')
+        #asserts that the correct disease is returned
+        #Disease is returned because it is annotated to the same genotype as the term "absent coat pigmentation"
+        self.assertIn("DOID:4997", ids, "expected disease not returned")
+         
+        
+        #identify the grid tab and click it
+        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        time.sleep(2)
+        grid_tab.click()
+        
+        #headingcells captures all column headings of the grid
+        headingcells = self.driver.find_elements_by_css_selector("div.ngc.cell-content.ngc-custom-html.ng-binding.ng-scope")
+        
+        searchTermItems = iterate.getTextAsList(headingcells)
+        print searchTermItems #if you want to see what it captures uncomment this
+        
+        #verify that the correct MP header terms for this phenotype term are included in the grid
+         
+        self.assertIn('integument', searchTermItems, "expected MP header not returned")
+        self.assertIn('pigmentation', searchTermItems, "expected MP header not returned")
+        
+        #Verify that the actual term is displayed in the genotype pop-up
+        
+        #phenocells captures all the table data cells on the first row of data
+        phenocells = self.driver.find_elements_by_css_selector("td.ngc.center.cell.middle")
+        
+        phenocells[10].click() #clicks the cell for hearing/vestibular/ear (new data could break this)
+        self.driver.switch_to_window(self.driver.window_handles[1])#switches focus to the genotype popup page
+        time.sleep(2)
+        matching_text = "Mouse integument abnormalities for MITF/Mitf"
+        #asserts the heading text is correct in page source
+        self.assertIn(matching_text, self.driver.page_source, 'expected pop-up box heading not displayed')
+        
+        #asserts that the HP term queried for has been returned
+        self.assertIn("absent coat pigmentation", self.driver.page_source, "expected MP term not found")
         
 
     def test_hp_term_syn_name(self):

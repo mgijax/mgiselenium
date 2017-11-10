@@ -64,13 +64,7 @@ class TestHMDCAutocomplete(unittest.TestCase):
     def tearDown(self):
         self.driver.close()
        
-        '''
-        These tests should NEVER!!!! be run against a production system!!
-        def suite():
-        suite = unittest.TestSuite()
-        suite.addTest(unittest.makeSuite(TestAdd))
-        return suite
-        '''
+        
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
     HTMLTestRunner.main() 
