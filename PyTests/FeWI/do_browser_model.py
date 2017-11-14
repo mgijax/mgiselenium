@@ -8,6 +8,7 @@ import time
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 import HTMLTestRunner
 import sys,os.path
 # adjust the path to find config
@@ -33,32 +34,31 @@ class TestDoBrowserModelTab(unittest.TestCase):
     def test_dobrowser_header(self):
         '''
         @status this test verifies the term line in the header section on the DO browser page is correct.
-        @bug under construction - new'''
-        
+        '''
         print ("BEGIN test_dobrowser_header")
-        searchbox = self.driver.find_element_by_id('searchToolTextArea')
+        searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene ID in the quick search box
         searchbox.send_keys("DOID:1324")
         searchbox.send_keys(Keys.RETURN)
-        time.sleep(3)
-        self.driver.find_element_by_link_text('lung cancer').click()
-        wait.forAjax(self.driver)
-        header = self.driver.find_element_by_id('diseaseNameID')#identifies the header section of the DO Browser page
+        
+        self.driver.find_element(By.LINK_TEXT, 'lung cancer').click()
+        
+        header = self.driver.find_element(By.ID, 'diseaseNameID')#identifies the header section of the DO Browser page
         print header.text
-        time.sleep(1)
+        
         self.assertEqual(header.text, "lung cancer (DOID:1324)")
-        syn = self.driver.find_element_by_id('diseaseSynonym')#identifies the synonym line in the header section of the DO Browser page
+        syn = self.driver.find_element(By.ID, 'diseaseSynonym')#identifies the synonym line in the header section of the DO Browser page
         print syn.text
-        time.sleep(1)
+        
         self.assertEqual(syn.text, "lung neoplasm")
-        alt_id = self.driver.find_element_by_id('diseaseSecondaryIDs')#identifies the alternate IDs line of the header section of the DO Browser page
+        alt_id = self.driver.find_element(By.ID, 'diseaseSecondaryIDs')#identifies the alternate IDs line of the header section of the DO Browser page
         print alt_id.text
-        time.sleep(1)
+        
         self.assertEqual(alt_id.text, "OMIM:211980, OMIM:608935, OMIM:612571, OMIM:612593, OMIM:614210, DOID:13075, DOID:1322, DOID:9881, ICD10CM:C34.1, ICD10CM:C34.2, ICD10CM:C34.3, ICD9CM:162.3, ICD9CM:162.4, ICD9CM:162.5, ICD9CM:162.8, UMLS_CUI:C0024624, UMLS_CUI:C0153491, UMLS_CUI:C0153492, UMLS_CUI:C0153493")
         #locates and verifies the definition
-        definition = self.driver.find_element_by_id('diseaseDefinition')#identifies the Definition line of the header section of the DO Browser page
+        definition = self.driver.find_element(By.ID, 'diseaseDefinition')#identifies the Definition line of the header section of the DO Browser page
         print definition.text
-        time.sleep(1)
+        
         self.assertEqual(definition.text, "A respiratory system cancer that is located_in the lung.")
         
     def test_dobrowser_modeltab_mh_m_not(self):
@@ -67,16 +67,16 @@ class TestDoBrowserModelTab(unittest.TestCase):
         results for associations to mouse/human(8), just mouse(6), and 1 NOT model
         '''
         print ("BEGIN test_dobrowser_modeltab_mh_m_not")
-        searchbox = self.driver.find_element_by_id('searchToolTextArea')
+        searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene ID in the quick search box
         searchbox.send_keys("DOID:4480")
         searchbox.send_keys(Keys.RETURN)
-        time.sleep(3)
-        self.driver.find_element_by_link_text('achondroplasia').click()
+        
+        self.driver.find_element(By.LINK_TEXT, 'achondroplasia').click()
 
-        self.driver.find_element_by_id('modelsTabButton').click()#identifies the Models tab and clicks it.
+        self.driver.find_element(By.ID, 'modelsTabButton').click()#identifies the Models tab and clicks it.
         time.sleep(2)
-        model_table = self.driver.find_element_by_id("modelTabTable")
+        model_table = self.driver.find_element(By.ID, "modelTabTable")
         table = Table(model_table)
         cells = table.get_rows()
         print iterate.getTextAsList(cells)
@@ -109,7 +109,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         self.assertEqual(row12.text, 'achondroplasia Acancmd/Acancmd involves: STOCK T tlow Itpr3tf J:5952, J:30795 View')
         self.assertEqual(row13.text, 'achondroplasia Npr2cn-3J/Npr2cn-3J MRL/MpJ-Npr2cn-3J/GrsrJ J:170669 View')
         time.sleep(2)
-        notmodel_table = self.driver.find_element_by_id("modelTabNotTable")
+        notmodel_table = self.driver.find_element(By.ID, 'modelTabNotTable')
         table = Table(notmodel_table)
         cells = table.get_rows()
         print iterate.getTextAsList(cells)
@@ -123,24 +123,24 @@ class TestDoBrowserModelTab(unittest.TestCase):
         results for associations to Transgenes and other mutations model(1) and 1 NOT model
         '''
         print ("BEGIN test_dobrowser_modeltab_trans_not")
-        searchbox = self.driver.find_element_by_id('searchToolTextArea')
+        searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:14748")
         searchbox.send_keys(Keys.RETURN)
-        time.sleep(2)
-        self.driver.find_element_by_link_text('Sotos syndrome').click()
+        
+        self.driver.find_element(By.LINK_TEXT, 'Sotos syndrome').click()
 
-        self.driver.find_element_by_id('modelsTabButton').click()#identifies the Models tab and clicks it.
-        time.sleep(2)
-        model_table = self.driver.find_element_by_id("modelTabTable")
+        self.driver.find_element(By.ID, 'modelsTabButton').click()#identifies the Models tab and clicks it.
+        
+        model_table = self.driver.find_element(By.ID, 'modelTabTable')
         table = Table(model_table)
         cells = table.get_rows()
         print iterate.getTextAsList(cells)
         #displays each row of disease model data
         row1 = cells[2]
         self.assertEqual(row1.text, 'Transgenes and\nOther Mutations        Sotos syndrome Del(13Simc1-B4galt7)2Dja/+ involves: 129P2/OlaHad * 129S7/SvEvBrd * C57BL/6J J:190741 View')
-        time.sleep(2)
-        notmodel_table = self.driver.find_element_by_id("modelTabNotTable")
+        
+        notmodel_table = self.driver.find_element(By.ID, 'modelTabNotTable')
         table = Table(notmodel_table)
         cells = table.get_rows()
         print iterate.getTextAsList(cells)
@@ -154,16 +154,16 @@ class TestDoBrowserModelTab(unittest.TestCase):
         results for associations to mouse/human(8) and NOTs(4)
         '''
         print ("BEGIN test_dobrowser_modeltab_mh_nots")
-        searchbox = self.driver.find_element_by_id('searchToolTextArea')
+        searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:11949")
         searchbox.send_keys(Keys.RETURN)
-        time.sleep(3)
-        self.driver.find_element_by_link_text('Creutzfeldt-Jakob disease').click()
+        
+        self.driver.find_element(By.LINK_TEXT, 'Creutzfeldt-Jakob disease').click()
 
-        self.driver.find_element_by_id('modelsTabButton').click()#identifies the Models tab and clicks it.
-        time.sleep(2)
-        model_table = self.driver.find_element_by_id("modelTabTable")
+        self.driver.find_element(By.ID, 'modelsTabButton').click()#identifies the Models tab and clicks it.
+        
+        model_table = self.driver.find_element(By.ID, 'modelTabTable')
         table = Table(model_table)
         cells = table.get_rows()
         print iterate.getTextAsList(cells)
@@ -185,8 +185,8 @@ class TestDoBrowserModelTab(unittest.TestCase):
         self.assertEqual(row6.text, 'Creutzfeldt-Jakob disease Tg(Prnp*D177N*M128V)A21Rchi/Tg(Prnp*D177N*M128V)A21Rchi involves: C57BL/6 * CBA J:142098 View')
         self.assertEqual(row7.text, 'Creutzfeldt-Jakob disease Tg(Prnp*)#Rgab/0 involves: C57BL/6 * FVB/N J:183170 View')
         self.assertEqual(row8.text, 'Creutzfeldt-Jakob disease Prnptm1(PRNP)Tkit/Prnptm1(PRNP)Tkit Not Specified J:86603 View')
-        time.sleep(2)
-        notmodel_table = self.driver.find_element_by_id("modelTabNotTable")
+        
+        notmodel_table = self.driver.find_element(By.ID, 'modelTabNotTable')
         table = Table(notmodel_table)
         cells = table.get_rows()
         print iterate.getTextAsList(cells)
@@ -207,15 +207,15 @@ class TestDoBrowserModelTab(unittest.TestCase):
         @bug currently not displaying human associations
         '''
         print ("BEGIN test_dobrowser_modeltab_mh_m_h_nots")
-        searchbox = self.driver.find_element_by_id('searchToolTextArea')
+        searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:5572")
         searchbox.send_keys(Keys.RETURN)
-        time.sleep(2)
-        self.driver.find_element_by_link_text('Beckwith-Wiedemann syndrome').click()
-        self.driver.find_element_by_id('modelsTabButton').click()#identifies the Models tab and clicks it.
-        time.sleep(2)
-        model_table = self.driver.find_element_by_id("modelTabTable")
+        
+        self.driver.find_element(By.LINK_TEXT, 'Beckwith-Wiedemann syndrome').click()
+        self.driver.find_element(By.ID, 'modelsTabButton').click()#identifies the Models tab and clicks it.
+        
+        model_table = self.driver.find_element(By.ID, 'modelTabTable')
         table = Table(model_table)
         cells = table.get_rows()
         print iterate.getTextAsList(cells)
@@ -237,8 +237,8 @@ class TestDoBrowserModelTab(unittest.TestCase):
         #self.assertEqual(row6.text, '')
         #self.assertEqual(row7.text, '')
         #self.assertEqual(row8.text, '')
-        time.sleep(2)
-        notmodel_table = self.driver.find_element_by_id("modelTabNotTable")
+        
+        notmodel_table = self.driver.find_element(By.ID, 'modelTabNotTable')
         table = Table(notmodel_table)
         cells = table.get_rows()
         print iterate.getTextAsList(cells)
@@ -256,16 +256,16 @@ class TestDoBrowserModelTab(unittest.TestCase):
         results for associations to mouse/human, human and 1 NOT
         '''
         print ("BEGIN test_dobrowser_modeltab_mh_h_not")
-        searchbox = self.driver.find_element_by_id('searchToolTextArea')
+        searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:0050771")
         searchbox.send_keys(Keys.RETURN)
-        time.sleep(2)
-        self.driver.find_element_by_link_text("phaeochromocytoma").click()
+        
+        self.driver.find_element(By.LINK_TEXT, 'phaeochromocytoma').click()
 
-        self.driver.find_element_by_id('modelsTabButton').click()#identifies the Models tab and clicks it.
-        time.sleep(2)
-        model_table = self.driver.find_element_by_id("modelTabTable")
+        self.driver.find_element(By.ID, 'modelsTabButton').click()#identifies the Models tab and clicks it.
+        
+        model_table = self.driver.find_element(By.ID, 'modelTabTable')
         table = Table(model_table)
         cells = table.get_rows()
         print iterate.getTextAsList(cells)
@@ -275,8 +275,8 @@ class TestDoBrowserModelTab(unittest.TestCase):
         
         self.assertEqual(row1.text, '         phaeochromocytoma Rettm2.1Cos/Rettm2.1Cos involves: 129S1/Sv * C57BL/6J * FVB/N J:60659 View')
         self.assertEqual(row2.text, '         phaeochromocytoma Ptentm1Mro/Ptentm1Mro\nSdhbtm1.1Ics/Sdhb+\nTg(KLK3-cre)D4Trp/0 involves: 129S2/SvPas * FVB J:236514 View')
-        time.sleep(2)
-        notmodel_table = self.driver.find_element_by_id("modelTabNotTable")
+        
+        notmodel_table = self.driver.find_element(By.ID, 'modelTabNotTable')
         table = Table(notmodel_table)
         cells = table.get_rows()
         print iterate.getTextAsList(cells)
@@ -290,15 +290,15 @@ class TestDoBrowserModelTab(unittest.TestCase):
         results for associations to mouse, transgenes, and complex, also has 1 NOT
         '''
         print ("BEGIN test_dobrowser_modeltab_m_trans_complex_not")
-        searchbox = self.driver.find_element_by_id('searchToolTextArea')
+        searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:7148")
         searchbox.send_keys(Keys.RETURN)
-        time.sleep(2)
-        self.driver.find_element_by_link_text("rheumatoid arthritis").click()
-        self.driver.find_element_by_id('modelsTabButton').click()#identifies the Models tab and clicks it.
-        time.sleep(2)
-        model_table = self.driver.find_element_by_id("modelTabTable")
+        
+        self.driver.find_element(By.LINK_TEXT, 'rheumatoid arthritis').click()
+        self.driver.find_element(By.ID, 'modelsTabButton').click()#identifies the Models tab and clicks it.
+        
+        model_table = self.driver.find_element(By.ID, 'modelTabTable')
         table = Table(model_table)
         cells = table.get_rows()
         print iterate.getTextAsList(cells)
@@ -337,8 +337,8 @@ class TestDoBrowserModelTab(unittest.TestCase):
         self.assertEqual(row15.text, 'rheumatoid arthritis Tg(TcraR28,TcrbR28)KRNDim/0 involves: C57BL/6 * NOD * SJL J:36815 View')
         self.assertEqual(row16.text, 'rheumatoid arthritis Tg(FCGR2A)11Mkz/Tg(FCGR2A)11Mkz involves: C57BL/6 * SJL J:136516 View')
         self.assertEqual(row17.text, 'Additional\nComplex\nModels        rheumatoid arthritis H2q/?\nNcf1m1J/Ncf1m1J B6.Cg-Ncf1m1J H2q J:92437 View')
-        time.sleep(2)
-        notmodel_table = self.driver.find_element_by_id("modelTabNotTable")
+        
+        notmodel_table = self.driver.find_element(By.ID, 'modelTabNotTable')
         table = Table(notmodel_table)
         cells = table.get_rows()
         print iterate.getTextAsList(cells)
@@ -353,29 +353,30 @@ class TestDoBrowserModelTab(unittest.TestCase):
         results for associations to mouse, human and transgene, can be better used as a Genes Tab test.
         '''
         print ("BEGIN test_dobrowser_modeltab_m_h_trans")
-        searchbox = self.driver.find_element_by_id('searchToolTextArea')
+        searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:633")
         searchbox.send_keys(Keys.RETURN)
-        time.sleep(2)
-        self.driver.find_element_by_link_text("myositis").click()
-        self.driver.find_element_by_id('modelsTabButton').click()#identifies the Models tab and clicks it.
-        time.sleep(2)
-        model_table = self.driver.find_element_by_id("modelTabTable")
+        
+        self.driver.find_element(By.LINK_TEXT, 'myositis').click()
+        self.driver.find_element(By.ID, 'modelsTabButton').click()#identifies the Models tab and clicks it.
+        
+        model_table = self.driver.find_element(By.ID, 'modelTabTable')
         table = Table(model_table)
         cells = table.get_rows()
         print iterate.getTextAsList(cells)
-        #disp
-        #lays each row of gene data
+        #displays each row of gene data
         row1 = cells[2]
         row2 = cells[3]
         row3 = cells[4]
         row4 = cells[5]
+        row5 = cells[6]
         
-        self.assertEqual(row1.text, '         myositis Tg(CKMM-tTA)A3Rhvh/0\nTg(tetO-H2-K1)#Papl/0 B6.Cg-Tg(CKMM-tTA)A3Rhvh Tg(tetO-H2-K1)#Papl J:205907 View')
-        self.assertEqual(row2.text, '         inclusion body myositis Gnetm1Sngi/Gnetm1Sngi\nTg(ACTB-GNE*D176V)9Sngi/0 involves: C57BL/6 J:117854 View')
-        self.assertEqual(row3.text, 'Transgenes and\nOther Mutations        inclusion body myositis Tg(Ckm-APPSw)A2Lfa/0 involves: C57BL/6 * SJL J:76338 View')
-        self.assertEqual(row4.text, 'inclusion body myositis Tg(Ckm-APPSw)A6Lfa/0 involves: C57BL/6 * SJL J:76338 View')
+        self.assertEqual(row1.text, '         dermatomyositis Tg(Krt14-Angptl2)1Yo/0 C.Cg-Tg(Krt14-Angptl2)1Yo J:181261 View')
+        self.assertEqual(row2.text, 'myositis Tg(CKMM-tTA)A3Rhvh/0\nTg(tetO-H2-K1)#Papl/0 B6.Cg-Tg(CKMM-tTA)A3Rhvh Tg(tetO-H2-K1)#Papl J:205907 View')
+        self.assertEqual(row3.text, '         inclusion body myositis Gnetm1Sngi/Gnetm1Sngi\nTg(ACTB-GNE*D176V)9Sngi/0 involves: C57BL/6 J:117854 View')
+        self.assertEqual(row4.text, 'Transgenes and\nOther Mutations        inclusion body myositis Tg(Ckm-APPSw)A2Lfa/0 involves: C57BL/6 * SJL J:76338 View')
+        self.assertEqual(row5.text, 'inclusion body myositis Tg(Ckm-APPSw)A6Lfa/0 involves: C57BL/6 * SJL J:76338 View')
         
     def test_dobrowser_modelstab_h(self):
         '''
@@ -383,15 +384,15 @@ class TestDoBrowserModelTab(unittest.TestCase):
         results for associations to just human
         '''
         print ("BEGIN test_dobrowser_modeltab_h")
-        searchbox = self.driver.find_element_by_id('searchToolTextArea')
+        searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:3132")
         searchbox.send_keys(Keys.RETURN)
-        time.sleep(2)
-        self.driver.find_element_by_link_text('porphyria cutanea tarda').click()
-        self.driver.find_element_by_id('modelsTabButton').click()#identifies the Models tab and clicks it.
-        time.sleep(2)
-        model_table = self.driver.find_element_by_id("modelTabTable")
+        
+        self.driver.find_element(By.LINK_TEXT, 'porphyria cutanea tarda').click()
+        self.driver.find_element(By.ID, 'modelsTabButton').click()#identifies the Models tab and clicks it.
+        
+        model_table = self.driver.find_element(By.ID, 'modelTabTable')
         table = Table(model_table)
         cells = table.get_rows()
         print iterate.getTextAsList(cells)
@@ -405,15 +406,15 @@ class TestDoBrowserModelTab(unittest.TestCase):
         results for associations to mouse/human and mouse. Genes COL1A1 and COL1A2 are attached multiple times
         '''
         print ("BEGIN test_dobrowser_modeltab_same_gene_mult_subtypes")
-        searchbox = self.driver.find_element_by_id('searchToolTextArea')
+        searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:12347")
         searchbox.send_keys(Keys.RETURN)
-        time.sleep(2)
-        self.driver.find_element_by_link_text("osteogenesis imperfecta").click()
-        self.driver.find_element_by_id('modelsTabButton').click()#identifies the Models tab and clicks it.
-        time.sleep(2)
-        model_table = self.driver.find_element_by_id("modelTabTable")
+        
+        self.driver.find_element(By.LINK_TEXT, 'osteogenesis imperfecta').click()
+        self.driver.find_element(By.ID, 'modelsTabButton').click()#identifies the Models tab and clicks it.
+        
+        model_table = self.driver.find_element(By.ID, 'modelTabTable')
         table = Table(model_table)
         cells = table.get_rows()
         print iterate.getTextAsList(cells)
@@ -443,6 +444,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         row23 = cells[24]
         row24 = cells[25]
         row25 = cells[26]
+        row26 = cells[27]
         
         self.assertEqual(row1.text, '         osteogenesis imperfecta type 1 Col1a1Mov13/Col1a1+ involves: C57BL/6 J:107045 View')
         self.assertEqual(row2.text, 'osteogenesis imperfecta type 1 Tg(COL1A1)73Prc/0 involves: FVB/N J:146429 View')
@@ -466,9 +468,10 @@ class TestDoBrowserModelTab(unittest.TestCase):
         #self.assertEqual(row20.text, 'osteogenesis imperfecta Col1a2tm1.1Mcbr/Col1a2+ (FVB/NJ x B6.129-Col1a2tm1.1Mcbr)F1 J:178743 View')
         #self.assertEqual(row21.text, 'osteogenesis imperfecta Col1a2oim/Col1a2+ B6C3Fe a/a-Col1a2oim/J J:38013 View')
         self.assertEqual(row22.text, 'osteogenesis imperfecta Smad4tm2.1Cxd/Smad4tm2.1Cxd\nTg(Sp7-tTA,tetO-EGFP/cre)1Amc/0 involves: 129S6/SvEvTac * C57BL/6J * CD-1 J:211171 View')
-        self.assertEqual(row23.text, 'osteogenesis imperfecta type 2 Smpd3fro/Smpd3fro Not Specified J:3906 View')
-        self.assertEqual(row24.text, 'osteogenesis imperfecta type 3 Smpd3fro/Smpd3fro Not Specified J:3906 View')
-        self.assertEqual(row25.text, 'osteogenesis imperfecta type 5 SucoGt(KST050)Byg/SucoGt(KST050)Byg involves: 129P2/OlaHsd * C57BL/6 * CD-1 J:159823 View')
+        self.assertEqual(row23.text, 'osteogenesis imperfecta Smpd3fro/Smpd3fro Not Specified J:100158 View')
+        self.assertEqual(row24.text, 'osteogenesis imperfecta type 2 Smpd3fro/Smpd3fro Not Specified J:3906 View')
+        self.assertEqual(row25.text, 'osteogenesis imperfecta type 3 Smpd3fro/Smpd3fro Not Specified J:3906 View')
+        self.assertEqual(row26.text, 'osteogenesis imperfecta type 5 SucoGt(KST050)Byg/SucoGt(KST050)Byg involves: 129P2/OlaHsd * C57BL/6 * CD-1 J:159823 View')
 
 
     def test_dobrowser_modelstab_not_only(self):
@@ -477,15 +480,15 @@ class TestDoBrowserModelTab(unittest.TestCase):
         results for associations to only a NOT
         '''
         print ("BEGIN test_dobrowser_modeltab_not_only")
-        searchbox = self.driver.find_element_by_id('searchToolTextArea')
+        searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:10126")
         searchbox.send_keys(Keys.RETURN)
-        time.sleep(2)
-        self.driver.find_element_by_link_text("keratoconus").click()
-        self.driver.find_element_by_id('modelsTabButton').click()#identifies the Models tab and clicks it.
-        time.sleep(2)
-        notmodel_table = self.driver.find_element_by_id("modelTabNotTable")
+        
+        self.driver.find_element(By.LINK_TEXT, 'keratoconus').click()
+        self.driver.find_element(By.ID, 'modelsTabButton').click()#identifies the Models tab and clicks it.
+        
+        notmodel_table = self.driver.find_element(By.ID, 'modelTabNotTable')
         table = Table(notmodel_table)
         cells = table.get_rows()
         print iterate.getTextAsList(cells)

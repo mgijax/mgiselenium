@@ -36,6 +36,7 @@ class TestSnpBuild(unittest.TestCase):
         @Status this test works
         Checks the dbSNp and mouse build numbers on the snp query form and snp summary page
         """
+        print ("BEGIN test_snp_qf")
         self.driver.get(PUBLIC_URL + "/snp/")
         #finds the build number at the top of the snp QF page
         formLabel = self.driver.find_element(By.CSS_SELECTOR, '#form1 > div:nth-child(2)')
@@ -46,7 +47,7 @@ class TestSnpBuild(unittest.TestCase):
         genebox.send_keys("pax6")
         genebox.send_keys(Keys.RETURN)
         #Does a webdriver wait until the export buttons are present so we know the page is loaded
-        if WebDriverWait(self.driver, 5).until(ec.presence_of_element_located((By.ID, 'exportButtons'))):
+        if WebDriverWait(self.driver, 10).until(ec.presence_of_element_located((By.ID, 'exportButtons'))):
             print('page loaded')
         #finds the snp build number in the heading of SNP ID column
         snpidLabel = self.driver.find_element(By.ID, 'snpSummaryTable').find_element(By.ID, 'snp_id')
@@ -60,6 +61,7 @@ class TestSnpBuild(unittest.TestCase):
         @Status this test works
         Checks the mouse build number on a marker detail page
         """
+        print ("BEGIN test_mrk_detail_build")
         #displays the marker detail page for pax6
         self.driver.get(PUBLIC_URL + "/marker/MGI:1096368")
         #opens the Location & Maps section
@@ -74,6 +76,7 @@ class TestSnpBuild(unittest.TestCase):
         @Status this test works
         Checks the mouse build number on the marker query form
         """
+        print ("BEGIN test_mrk_qf_build")
         #displays the marker qf
         self.driver.get(PUBLIC_URL + "/marker")
         #finds the genome coordinates link
@@ -88,6 +91,7 @@ class TestSnpBuild(unittest.TestCase):
         @Status this test has been updated for the new hmdc pages
         checks the human and mouse build numbers on the HMDC query page
         """
+        print ("BEGIN test_hmdc_build")
         #displays the HMDC qf
         self.driver.get(PUBLIC_URL + "/diseasePortal")
         #find the pulldown and select Genome Location

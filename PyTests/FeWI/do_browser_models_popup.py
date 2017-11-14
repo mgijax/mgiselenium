@@ -8,6 +8,7 @@ import time
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 import HTMLTestRunner
 import sys,os.path
 # adjust the path to find config
@@ -36,34 +37,34 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         headings Human Disease Modeled and Associated Mouse Gene.
         '''
         print ("BEGIN test_dobrowser_modelspopup_tableheaders")
-        searchbox = self.driver.find_element_by_id('searchToolTextArea')
+        searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:1324")
         searchbox.send_keys(Keys.RETURN)
-        time.sleep(3)
-        self.driver.find_element_by_link_text('lung cancer').click()
-        wait.forAjax(self.driver)
-        self.driver.find_element_by_id('genesTabButton').click()#identifies the Genes tab and clicks it.
-        time.sleep(2)
-        gene_table = self.driver.find_element_by_id("geneTabTable")
+        
+        self.driver.find_element(By.LINK_TEXT, 'lung cancer').click()
+        
+        self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Genes tab and clicks it.
+        
+        gene_table = self.driver.find_element(By.ID, 'geneTabTable')
         table = Table(gene_table)
         #cells = table.get_rows()
         cell = table.get_cell(3, 6)
         #Identify the data found in the Mouse Models column for the second row(for marker Fgf9)
         print cell.text
-        cell.find_element_by_link_text("1 model").click()
-        time.sleep(2)
+        cell.find_element(By.LINK_TEXT, '1 model').click()
+        
         self.driver.switch_to_window(self.driver.window_handles[-1])
-        header = self.driver.find_element_by_id('diseaseBrowserModelsPopup')
-        model_heading = header.find_element_by_id('diseaseDisplay')
+        header = self.driver.find_element(By.ID, 'diseaseBrowserModelsPopup')
+        model_heading = header.find_element(By.ID, 'diseaseDisplay')
         print model_heading.text
-        time.sleep(1)
+        
         #assert that the Human Disease Modeled heading above the table is correct
         self.assertEquals(model_heading.text, "lung cancer")
         
-        assoc_gene_heading = header.find_element_by_id('markerDisplay')
+        assoc_gene_heading = header.find_element(By.ID, 'markerDisplay')
         print assoc_gene_heading.text
-        time.sleep(1)
+        
         #assert that the Associated Mouse Gene heading above the table is correct
         self.assertEquals(assoc_gene_heading.text, "Fgf9")
         
@@ -73,34 +74,34 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         headings Human Disease Modeled and Associated Mouse Gene. This second test is to verify when the disease name has changed
         '''
         print ("BEGIN test_dobrowser_modelspopup_tableheaders2")
-        searchbox = self.driver.find_element_by_id('searchToolTextArea')
+        searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:1324")
         searchbox.send_keys(Keys.RETURN)
-        time.sleep(3)
-        self.driver.find_element_by_link_text('lung cancer').click()
-        wait.forAjax(self.driver)
-        self.driver.find_element_by_id('genesTabButton').click()#identifies the Genes tab and clicks it.
-        time.sleep(2)
-        gene_table = self.driver.find_element_by_id("geneTabTable")
+        
+        self.driver.find_element(By.LINK_TEXT, 'lung cancer').click()
+        
+        self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Genes tab and clicks it.
+        
+        gene_table = self.driver.find_element(By.ID, 'geneTabTable')
         table = Table(gene_table)
         #cells = table.get_rows()
         cell = table.get_cell(7, 3)
         #Identify the data found in the Mouse Models column for the second row(for marker Yy1)
         print cell.text
-        cell.find_element_by_link_text("1 model").click()
-        time.sleep(2)
+        cell.find_element(By.LINK_TEXT, '1 model').click()
+        
         self.driver.switch_to_window(self.driver.window_handles[-1])
-        header = self.driver.find_element_by_id('diseaseBrowserModelsPopup')
-        model_heading = header.find_element_by_id('diseaseDisplay')
+        header = self.driver.find_element(By.ID, 'diseaseBrowserModelsPopup')
+        model_heading = header.find_element(By.ID, 'diseaseDisplay')
         print model_heading.text
-        time.sleep(1)
+        
         #assert that the Human Disease Modeled heading above the table is correct
         self.assertEquals(model_heading.text, "pleuropulmonary blastoma")
         
-        assoc_gene_heading = header.find_element_by_id('markerDisplay')
+        assoc_gene_heading = header.find_element(By.ID, 'markerDisplay')
         print assoc_gene_heading.text
-        time.sleep(1)
+        
         #assert that the Associated Mouse Gene heading above the table is correct
         self.assertEquals(assoc_gene_heading.text, "Yy1")        
         
@@ -109,24 +110,24 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         @status this test verifies the display of disease model popup when only NOTs are returned.
         '''
         print ("BEGIN test_dobrowser_modelspopup_onlynots")
-        searchbox = self.driver.find_element_by_id('searchToolTextArea')
+        searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:0050581")
         searchbox.send_keys(Keys.RETURN)
-        time.sleep(3)
-        self.driver.find_element_by_link_text('brachydactyly').click()
-        wait.forAjax(self.driver)
-        self.driver.find_element_by_id('genesTabButton').click()#identifies the Genes tab and clicks it.
-        time.sleep(2)
-        gene_table = self.driver.find_element_by_id("geneTabTable")
+        
+        self.driver.find_element(By.LINK_TEXT, 'brachydactyly').click()
+        
+        self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Genes tab and clicks it.
+        
+        gene_table = self.driver.find_element(By.ID, 'geneTabTable')
         table = Table(gene_table)
         cell = table.get_cell(10, 3)
         #Identify the data found in the Mouse Models column for the ninth row(for marker ROR2)
         print cell.text
-        cell.find_element_by_link_text('1 "NOT" model').click()
-        time.sleep(2)
+        cell.find_element(By.LINK_TEXT, '1 "NOT" model').click()
+        
         self.driver.switch_to_window(self.driver.window_handles[-1])
-        model_table = self.driver.find_element_by_id('diseaseBrowserNotModelPopupTable')
+        model_table = self.driver.find_element(By.ID, 'diseaseBrowserNotModelPopupTable')
         table1 = Table(model_table)
         #print table1
         row1 = table1.get_row(1)
@@ -139,25 +140,25 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         @status this test verifies the display of disease model popup when only human data is returned.
         '''
         print ("BEGIN test_dobrowser_modelspopup_onlyhuman")
-        searchbox = self.driver.find_element_by_id('searchToolTextArea')
+        searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:10652")
         searchbox.send_keys(Keys.RETURN)
-        time.sleep(3)
-        self.driver.find_element_by_link_text("Alzheimer's disease").click()
-        wait.forAjax(self.driver)
-        self.driver.find_element_by_id('genesTabButton').click()#identifies the Genes tab and clicks it.
-        time.sleep(2)
-        gene_table = self.driver.find_element_by_id("geneTabTable")
+        
+        self.driver.find_element(By.LINK_TEXT, "Alzheimer's disease").click()
+        
+        self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Genes tab and clicks it.
+        
+        gene_table = self.driver.find_element(By.ID, 'geneTabTable')
         table = Table(gene_table)
         #cells = table.get_rows()
         cell = table.get_cell(20, 3)
         #Identify the data found in the Mouse Models column for the twenth row(for marker SORL1)
         print cell.text
-        cell.find_element_by_link_text('1 model').click()
-        time.sleep(2)
+        cell.find_element(By.LINK_TEXT, '1 model').click()
+        
         self.driver.switch_to_window(self.driver.window_handles[-1])
-        model_table = self.driver.find_element_by_id('diseaseBrowserModelPopupTable')
+        model_table = self.driver.find_element(By.ID, 'diseaseBrowserModelPopupTable')
         table1 = Table(model_table)
         #print table1
         row1 = table1.get_row(1)
@@ -170,31 +171,31 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         @status this test verifies the display of disease model popup when you have mouse and NOTs returned.
         '''
         print ("BEGIN test_dobrowser_modelspopup_mouse_nots")
-        searchbox = self.driver.find_element_by_id('searchToolTextArea')
+        searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:9744")
         searchbox.send_keys(Keys.RETURN)
-        time.sleep(3)
-        self.driver.find_element_by_link_text("type 1 diabetes mellitus").click()
-        wait.forAjax(self.driver)
-        self.driver.find_element_by_id('genesTabButton').click()#identifies the Genes tab and clicks it.
-        time.sleep(2)
-        gene_table = self.driver.find_element_by_id("geneTabTable")
+        
+        self.driver.find_element(By.LINK_TEXT, 'type 1 diabetes mellitus').click()
+        
+        self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Genes tab and clicks it.
+        
+        gene_table = self.driver.find_element(By.ID, 'geneTabTable')
         table = Table(gene_table)
         cell = table.get_cell(11, 3)
         #Identify the data found in the Mouse Models column for the tenth row(for marker Ighm)
         print cell.text
-        cell.find_element_by_link_text('5 models').click()
-        time.sleep(2)
+        cell.find_element(By.LINK_TEXT, '5 models').click()
+        
         self.driver.switch_to_window(self.driver.window_handles[-1])
-        model_table = self.driver.find_element_by_id('diseaseBrowserModelPopupTable')
+        model_table = self.driver.find_element(By.ID, 'diseaseBrowserModelPopupTable')
         table1 = Table(model_table)
         #print table1
         #asserts that each row of data in the table is correct
         row1 = table1.get_row(1)
-        self.assertEquals(row1.text, 'Tg(Igh-6/Igh-V281)3Jwt/0 NOD.B6-Tg(Igh-6/Igh-V281)3Jwt J:91865 View', 'Wrong data displayed for row 1!')
+        self.assertEquals(row1.text, 'Ighmtm1Cgn/Ighmtm1Cgn\nTg(Igh-VB1-8/Igh-6m)1Mjsk/? NODCaj.Cg-Ighmtm1Cgn Tg(Igh-VB1-8/Igh-6m)1Mjsk/FswJ J:93190 View', 'Wrong data displayed for row 2!')
         row2 = table1.get_row(2)
-        self.assertEquals(row2.text, 'Ighmtm1Cgn/Ighmtm1Cgn\nTg(Igh-VB1-8/Igh-6m)1Mjsk/? NODCaj.Cg-Ighmtm1Cgn Tg(Igh-VB1-8/Igh-6m)1Mjsk/FswJ J:93190 View', 'Wrong data displayed for row 2!')
+        self.assertEquals(row2.text, 'Tg(Igh-6/Igh-V281)3Jwt/0 NOD.B6-Tg(Igh-6/Igh-V281)3Jwt J:91865 View', 'Wrong data displayed for row 1!')
         row3 = table1.get_row(3)
         self.assertEquals(row3.text, 'Tg(Igh-6/Igh-V125)2Jwt/0\nTg(Igk-C/Igk-V125)1Jwt/0 NOD.B6-Tg(Igh-6/Igh-V125)2Jwt Tg(Igk-C/Igk-V125)1Jwt J:91865 View', 'Wrong data displayed for row 3!')
         row4 = table1.get_row(4)
@@ -202,9 +203,8 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         row5 = table1.get_row(5)
         self.assertEquals(row5.text, 'Ighmtm1Cgn/Ighm+ NOD.129S2-Ighmtm1Cgn J:37287 View', 'Wrong data displayed for row 5!')
         
-        time.sleep(1)
         
-        notmodel_table = self.driver.find_element_by_id('diseaseBrowserNotModelPopupTable')
+        notmodel_table = self.driver.find_element(By.ID, 'diseaseBrowserNotModelPopupTable')
         table2 = Table(notmodel_table)
         #print table2
         #asserts that each row of data for NOTs is correct

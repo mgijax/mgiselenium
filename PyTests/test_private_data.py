@@ -34,6 +34,7 @@ class TestPrivateData(unittest.TestCase):
         """
         @status: Tests that the dummy private allele Brca1<test1> does not display on public
         """
+        print ("BEGIN test_hide_private_allele")
         driver = self.driver
         self.assertIn("Informatics", driver.title)
         querytext = driver.find_element(By.NAME,'query')
@@ -52,6 +53,7 @@ class TestPrivateData(unittest.TestCase):
         """
         @status: Tests that the dummy private allele Brca1<test1> does not display on public
         """
+        print ("BEGIN test_hide_private_marker")
         driver = self.driver
         self.assertIn("Informatics", driver.title)
         querytext = driver.find_element(By.NAME, 'query')

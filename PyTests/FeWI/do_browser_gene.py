@@ -8,6 +8,9 @@ import time
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as ec
 import HTMLTestRunner
 import sys,os.path
 # adjust the path to find config
@@ -30,29 +33,27 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         '''
         @status this test verifies the term line in the header section on the DO browser page is correct.
         '''
-        searchbox = self.driver.find_element_by_id('searchToolTextArea')
+        print ("BEGIN test_dobrowser_header")
+        searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene ID in the quick search box
         searchbox.send_keys("DOID:1324")
         searchbox.send_keys(Keys.RETURN)
-        time.sleep(2)
-        self.driver.find_element_by_link_text('lung cancer').click()
-        wait.forAjax(self.driver)
-        header = self.driver.find_element_by_id('diseaseNameID')#identifies the header section of the DO Browser page
+        self.driver.find_element(By.LINK_TEXT, 'lung cancer').click()
+        #Does a webdriver wait until the disease name is present so we know the page is loaded
+        if WebDriverWait(self.driver, 5).until(ec.presence_of_element_located((By.ID, 'diseaseNameID'))):
+            print('page loaded')
+        header = self.driver.find_element(By.ID, 'diseaseNameID')#identifies the header section of the DO Browser page
         print header.text
-        time.sleep(1)
         self.assertEqual(header.text, "lung cancer (DOID:1324)")
-        syn = self.driver.find_element_by_id('diseaseSynonym')#identifies the synonym line in the header section of the DO Browser page
+        syn = self.driver.find_element(By.ID, 'diseaseSynonym')#identifies the synonym line in the header section of the DO Browser page
         print syn.text
-        time.sleep(1)
         self.assertEqual(syn.text, "lung neoplasm")
-        alt_id = self.driver.find_element_by_id('diseaseSecondaryIDs')#identifies the alternate IDs line of the header section of the DO Browser page
+        alt_id = self.driver.find_element(By.ID, 'diseaseSecondaryIDs')#identifies the alternate IDs line of the header section of the DO Browser page
         print alt_id.text
-        time.sleep(1)
         self.assertEqual(alt_id.text, "OMIM:211980, OMIM:608935, OMIM:612571, OMIM:612593, OMIM:614210, DOID:13075, DOID:1322, DOID:9881, ICD10CM:C34.1, ICD10CM:C34.2, ICD10CM:C34.3, ICD9CM:162.3, ICD9CM:162.4, ICD9CM:162.5, ICD9CM:162.8, UMLS_CUI:C0024624, UMLS_CUI:C0153491, UMLS_CUI:C0153492, UMLS_CUI:C0153493")
         #locates and verifies the definition
-        definition = self.driver.find_element_by_id('diseaseDefinition')#identifies the Definition line of the header section of the DO Browser page
+        definition = self.driver.find_element(By.ID, 'diseaseDefinition')#identifies the Definition line of the header section of the DO Browser page
         print definition.text
-        time.sleep(1)
         self.assertEqual(definition.text, "A respiratory system cancer that is located_in the lung.")
         
     def test_dobrowser_genestab_modelstab_text(self):
@@ -60,16 +61,16 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         @status this test verifies the genes tab has the correct number of genes by verifying the tab's text and the models tab has the correct number
         of models by verifying the tab's text
         '''
-        searchbox = self.driver.find_element_by_id('searchToolTextArea')
+        print ("BEGIN test_dobrowser_genestab_modelstab_text")
+        searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene ID in the quick search box
         searchbox.send_keys("DOID:11198")
         searchbox.send_keys(Keys.RETURN)
-        time.sleep(2)
-        self.driver.find_element_by_link_text('DiGeorge syndrome').click()
-        gene_tab = self.driver.find_element_by_link_text('Genes (21)')#identifies the Genes tab.
+        self.driver.find_element(By.LINK_TEXT, 'DiGeorge syndrome').click()
+        gene_tab = self.driver.find_element(By.LINK_TEXT, 'Genes (21)')#identifies the Genes tab.
         print gene_tab.text
         self.assertEqual(gene_tab.text, "Genes (21)", "The Genes Tab number is not correct")
-        model_tab = self.driver.find_element_by_link_text('Models (44)')#identifies the Genes tab.
+        model_tab = self.driver.find_element(By.LINK_TEXT, 'Models (44)')#identifies the Genes tab.
         print model_tab.text
         self.assertEqual(model_tab.text, "Models (44)", "The Models Tab number is not correct")#time.sleep(2)   
         
@@ -78,15 +79,16 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         @status this test verifies the correct genes, models and source are returned. This test example displays a disease that returns
         results for associations to mouse/human(TBX1), just mouse, and just human(DGCR) plus  Transgenes
         '''
-        searchbox = self.driver.find_element_by_id('searchToolTextArea')
+        print ("BEGIN test_dobrowser_genestab_m_hmht")
+        searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene ID in the quick search box
         searchbox.send_keys("DOID:11198")
         searchbox.send_keys(Keys.RETURN)
-        time.sleep(2)
-        self.driver.find_element_by_link_text('DiGeorge syndrome').click()
-        self.driver.find_element_by_id('genesTabButton').click()#identifies the Genes tab and clicks it.
-        time.sleep(2)
-        gene_table = self.driver.find_element_by_id("geneTabTable")
+        
+        self.driver.find_element(By.LINK_TEXT, 'DiGeorge syndrome').click()
+        self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Genes tab and clicks it.
+        
+        gene_table = self.driver.find_element(By.ID, "geneTabTable")
         table = Table(gene_table)
         cells = table.get_rows()
         print iterate.getTextAsList(cells)
@@ -132,8 +134,8 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         self.assertEqual(row18.text, 'DiGeorge syndrome VEGFA Vegfa* 2 models HomoloGene and HGNC')
         self.assertEqual(row19.text, 'DiGeorge syndrome ZNF366 Zfp366* 1 model HomoloGene and HGNC')
         self.assertEqual(row20.text, '       DiGeorge syndrome DGCR*   HGNC')
-        time.sleep(2)
-        transgene_table = self.driver.find_element_by_id("transgeneTable")
+        
+        transgene_table = self.driver.find_element(By.ID, "transgeneTable")
         table = Table(transgene_table)
         cells = table.get_rows()
         print iterate.getTextAsList(cells)
@@ -151,15 +153,16 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         @status this test verifies the correct genes, models and source are returned. This test example displays a disease that returns
         results for associations to mouse/human(CDKN1C), just mouse(Sptbn1), and just human(H19, H19-ICR, IGF2, KCNQ1, KCNQ1OT1, NSD1).
         '''
-        searchbox = self.driver.find_element_by_id('searchToolTextArea')
+        print ("BEGIN test_dobrowser_genestab_m_hmh")
+        searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:5572")
         searchbox.send_keys(Keys.RETURN)
-        time.sleep(2)
-        self.driver.find_element_by_link_text('Beckwith-Wiedemann syndrome').click()
-        self.driver.find_element_by_id('genesTabButton').click()#identifies the Genes tab and clicks it.
-        time.sleep(2)
-        gene_table = self.driver.find_element_by_id("geneTabTable")
+        
+        self.driver.find_element(By.LINK_TEXT, 'Beckwith-Wiedemann syndrome').click()
+        self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Genes tab and clicks it.
+        
+        gene_table = self.driver.find_element(By.ID, "geneTabTable")
         table = Table(gene_table)
         cells = table.get_rows()
         print iterate.getTextAsList(cells)
@@ -181,7 +184,7 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         self.assertEqual(row7.text, 'Beckwith-Wiedemann syndrome KCNQ1OT1* Kcnq1ot1   HGNC')
         self.assertEqual(row8.text, 'Beckwith-Wiedemann syndrome NSD1* Nsd1   HomoloGene and HGNC')
         time.sleep(2)
-        transgene_table = self.driver.find_element_by_id("transgeneTable")
+        transgene_table = self.driver.find_element(By.ID, "transgeneTable")
         table = Table(transgene_table)
         cells = table.get_rows()
         print iterate.getTextAsList(cells)
@@ -194,15 +197,16 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         @status this test verifies the correct genes, models and source are returned. This test example displays a disease that returns
         results for associations to mouse/human(GALC) and just mouse(Psap)
         '''
-        searchbox = self.driver.find_element_by_id('searchToolTextArea')
+        print ("BEGIN test_dobrowser_genestab_m_hm")
+        searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:10587")
         searchbox.send_keys(Keys.RETURN)
-        time.sleep(2)
-        self.driver.find_element_by_link_text('Krabbe disease').click()
-        self.driver.find_element_by_id('genesTabButton').click()#identifies the Genes tab and clicks it.
-        time.sleep(2)
-        gene_table = self.driver.find_element_by_id("geneTabTable")
+        
+        self.driver.find_element(By.LINK_TEXT, 'Krabbe disease').click()
+        self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Genes tab and clicks it.
+        
+        gene_table = self.driver.find_element(By.ID, "geneTabTable")
         table = Table(gene_table)
         cells = table.get_rows()
         print iterate.getTextAsList(cells)
@@ -217,15 +221,16 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         @status this test verifies the correct genes, models and source are returned. This test example displays a disease that returns
         results for associations to just mouse(Tfam)
         '''
-        searchbox = self.driver.find_element_by_id('searchToolTextArea')
+        print ("BEGIN test_dobrowser_genestab_m")
+        searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:12934")
         searchbox.send_keys(Keys.RETURN)
-        time.sleep(2)
-        self.driver.find_element_by_link_text('Kearns-Sayre syndrome').click()
-        self.driver.find_element_by_id('genesTabButton').click()#identifies the Genes tab and clicks it.
-        time.sleep(2)
-        gene_table = self.driver.find_element_by_id("geneTabTable")
+        
+        self.driver.find_element(By.LINK_TEXT, 'Kearns-Sayre syndrome').click()
+        self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Genes tab and clicks it.
+        
+        gene_table = self.driver.find_element(By.ID, "geneTabTable")
         table = Table(gene_table)
         cells = table.get_rows()
         print iterate.getTextAsList(cells)
@@ -238,23 +243,24 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         @status this test verifies the correct genes, models and source are returned. This test example displays a disease that returns
         results for associations to just human(IL6) Plus Transgene
         '''
-        searchbox = self.driver.find_element_by_id('searchToolTextArea')
+        print ("BEGIN test_dobrowser_genestab_ht")
+        searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:8632")
         searchbox.send_keys(Keys.RETURN)
-        time.sleep(2)
-        self.driver.find_element_by_link_text("Kaposi's sarcoma").click()
-        self.driver.find_element_by_id('genesTabButton').click()#identifies the Genes tab and clicks it.
-        time.sleep(2)
-        gene_table = self.driver.find_element_by_id("geneTabTable")
+        
+        self.driver.find_element(By.LINK_TEXT, "Kaposi's sarcoma").click()
+        self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Genes tab and clicks it.
+        
+        gene_table = self.driver.find_element(By.ID, 'geneTabTable')
         table = Table(gene_table)
         cells = table.get_rows()
         print iterate.getTextAsList(cells)
         #displays each row of gene data
         row1 = cells[2]
         self.assertEqual(row1.text, "       Kaposi's sarcoma IL6* Il6   HomoloGene and HGNC")
-        time.sleep(2)
-        transgene_table = self.driver.find_element_by_id("transgeneTable")
+        
+        transgene_table = self.driver.find_element(By.ID, 'transgeneTable')
         table = Table(transgene_table)
         cells = table.get_rows()
         print iterate.getTextAsList(cells)
@@ -267,16 +273,17 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         @status this test verifies the correct genes, models and source are returned. This test example displays a disease that returns
         results for associations to just human
         '''
-        searchbox = self.driver.find_element_by_id('searchToolTextArea')
+        print ("BEGIN test_dobrowser_genestab_h")
+        searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:0050807")
         searchbox.send_keys(Keys.RETURN)
-        time.sleep(2)
-        self.driver.find_element_by_link_text("Kahrizi syndrome").click()
+        
+        self.driver.find_element(By.LINK_TEXT, "Kahrizi syndrome").click()
 
-        self.driver.find_element_by_id('genesTabButton').click()#identifies the Genes tab and clicks it.
-        time.sleep(2)
-        gene_table = self.driver.find_element_by_id("geneTabTable")
+        self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Genes tab and clicks it.
+        
+        gene_table = self.driver.find_element(By.ID, 'geneTabTable')
         table = Table(gene_table)
         cells = table.get_rows()
         print iterate.getTextAsList(cells)
@@ -289,15 +296,16 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         @status this test verifies the correct genes, models and source are returned. This test example displays a disease that returns
         results for associations to just mouse/human(UBR1)
         '''
-        searchbox = self.driver.find_element_by_id('searchToolTextArea')
+        print ("BEGIN test_dobrowser_genestab_m_h")
+        searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:14694")
         searchbox.send_keys(Keys.RETURN)
-        time.sleep(2)
-        self.driver.find_element_by_link_text("Johanson-Blizzard syndrome").click()
-        self.driver.find_element_by_id('genesTabButton').click()#identifies the Genes tab and clicks it.
-        time.sleep(2)
-        gene_table = self.driver.find_element_by_id("geneTabTable")
+        
+        self.driver.find_element(By.LINK_TEXT, 'Johanson-Blizzard syndrome').click()
+        self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Genes tab and clicks it.
+        
+        gene_table = self.driver.find_element(By.ID, 'geneTabTable')
         table = Table(gene_table)
         cells = table.get_rows()
         print iterate.getTextAsList(cells)
@@ -310,15 +318,16 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         @status this test verifies the correct genes, models and source are returned. This test example displays a disease that returns
         results for associations to mouse/human(HAMP, HFE, HFE2, SLC40A1, TFR2) and just human(Bmp2)
         '''
-        searchbox = self.driver.find_element_by_id('searchToolTextArea')
+        print ("BEGIN test_dobrowser_genestab_m_hh")
+        searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:2352")
         searchbox.send_keys(Keys.RETURN)
-        time.sleep(2)
-        self.driver.find_element_by_link_text('hemochromatosis').click()
-        self.driver.find_element_by_id('genesTabButton').click()#identifies the Genes tab and clicks it.
-        time.sleep(2)
-        gene_table = self.driver.find_element_by_id("geneTabTable")
+        
+        self.driver.find_element(By.LINK_TEXT, 'hemochromatosis').click()
+        self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Genes tab and clicks it.
+        
+        gene_table = self.driver.find_element(By.ID, "geneTabTable")
         table = Table(gene_table)
         cells = table.get_rows()
         print iterate.getTextAsList(cells)
@@ -347,15 +356,16 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         @status this test verifies the correct genes, models and source are returned. This test example displays a disease that returns
         results for associations to mouse and human but has multiple Mouse Homologs
         '''
-        searchbox = self.driver.find_element_by_id('searchToolTextArea')
+        print ("BEGIN test_dobrowser_genestab_multi_homolog")
+        searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:633")
         searchbox.send_keys(Keys.RETURN)
-        time.sleep(2)
-        self.driver.find_element_by_link_text('myositis').click()
-        self.driver.find_element_by_id('genesTabButton').click()#identifies the Genes tab and clicks it.
-        time.sleep(2)
-        gene_table = self.driver.find_element_by_id("geneTabTable")
+        
+        self.driver.find_element(By.LINK_TEXT, 'myositis').click()
+        self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Genes tab and clicks it.
+        
+        gene_table = self.driver.find_element(By.ID, 'geneTabTable')
         table = Table(gene_table)
         cells = table.get_rows()
         print iterate.getTextAsList(cells)
@@ -363,9 +373,11 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         row1 = cells[2]
         row2 = cells[3]
         row3 = cells[4]
-        self.assertEqual(row1.text, '       myositis HLA-A H2-K1*, Gm8909, Gm10499, H2-Bl, H2-D1, H2-Q1, H2-Q2, H2-Q4, H2-Q6, H2-Q7, H2-Q10 1 model HomoloGene and HGNC')
-        self.assertEqual(row2.text, '       inclusion body myositis GNE* Gne 1 model HomoloGene and HGNC')
-        self.assertEqual(row3.text, 'inclusion body myositis MYH2* Myh2   HomoloGene and HGNC')
+        row4 = cells[5]
+        self.assertEqual(row1.text, '       dermatomyositis ANGPTL2 Angptl2* 1 model HomoloGene and HGNC')
+        self.assertEqual(row2.text, 'myositis HLA-A H2-K1*, Gm8909, Gm10499, H2-Bl, H2-D1, H2-Q1, H2-Q2, H2-Q4, H2-Q6, H2-Q7, H2-Q10 1 model HomoloGene and HGNC')
+        self.assertEqual(row3.text, '       inclusion body myositis MYH2* Myh2   HomoloGene and HGNC')
+        self.assertEqual(row4.text, 'inclusion body myositis GNE* Gne 1 model HomoloGene and HGNC')
         transgene_table = self.driver.find_element_by_id("transgeneTable")
         table = Table(transgene_table)
         cells = table.get_rows()
@@ -374,24 +386,27 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         row1 = cells[2]
         row2 = cells[3]
         row3 = cells[4]
-        self.assertEqual(row1.text, '  inclusion body myositis Tg(Ckm-APPSw)A2Lfa 1 model')
+        row4 = cells[5]
+        self.assertEqual(row1.text, '  dermatomyositis Tg(Krt14-Angptl2)1Yo 1 model')
         self.assertEqual(row2.text, '  inclusion body myositis Tg(Ckm-APPSw)A6Lfa 1 model')
-        self.assertEqual(row3.text, '  myositis Tg(tetO-H2-K1)#Papl 1 model')
+        self.assertEqual(row3.text, '  inclusion body myositis Tg(Ckm-APPSw)A2Lfa 1 model')
+        self.assertEqual(row4.text, '  myositis Tg(tetO-H2-K1)#Papl 1 model')
 
     def test_dobrowser_genestab_same_gene_mult_subtypes(self):
         '''
         @status this test verifies the correct genes, models and source are returned. This test example displays a disease that returns
         results for associations to mouse/human, mouse, and human. Genes COL1A1 and COL1A2 are attached multiple times
         '''
-        searchbox = self.driver.find_element_by_id('searchToolTextArea')
+        print ("BEGIN test_dobrowser_genestab_same_gene_mult_subtypes")
+        searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:12347")
         searchbox.send_keys(Keys.RETURN)
-        time.sleep(2)
-        self.driver.find_element_by_link_text("osteogenesis imperfecta").click()
-        self.driver.find_element_by_id('genesTabButton').click()#identifies the Models tab and clicks it.
-        time.sleep(2)
-        model_table = self.driver.find_element_by_id("geneTabTable")
+        
+        self.driver.find_element(By.LINK_TEXT, 'osteogenesis imperfecta').click()
+        self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Models tab and clicks it.
+        
+        model_table = self.driver.find_element(By.ID, 'geneTabTable')
         table = Table(model_table)
         cells = table.get_rows()
         print iterate.getTextAsList(cells)
@@ -422,6 +437,7 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         row24 = cells[25]
         row25 = cells[26]
         row26 = cells[27]
+        row27 = cells[28]
         
         self.assertEqual(row1.text, '       osteogenesis imperfecta type 1 COL1A1* Col1a1* 2 models HomoloGene and HGNC')
         self.assertEqual(row2.text, 'osteogenesis imperfecta type 10 SERPINH1* Serpinh1* 1 model HomoloGene and HGNC')
@@ -433,22 +449,23 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         self.assertEqual(row8.text, 'osteogenesis imperfecta type 7 CRTAP* Crtap* 1 model HomoloGene and HGNC')
         self.assertEqual(row9.text, 'osteogenesis imperfecta type 8 P3H1* P3h1* 1 model HomoloGene and HGNC')
         self.assertEqual(row10.text, 'osteogenesis imperfecta type 9 PPIB* Ppib* 2 models HomoloGene and HGNC')
-        self.assertEqual(row11.text, '       osteogenesis imperfecta SMAD4 Smad4* 1 model HomoloGene and HGNC')
+        self.assertEqual(row11.text, '       osteogenesis imperfecta SMPD3 Smpd3* 1 model HomoloGene and HGNC')
         self.assertEqual(row12.text, 'osteogenesis imperfecta COL1A2 Col1a2* 5 models HomoloGene and HGNC')
-        self.assertEqual(row13.text, 'osteogenesis imperfecta type 2 SMPD3 Smpd3* 1 model HomoloGene and HGNC')
-        self.assertEqual(row14.text, 'osteogenesis imperfecta type 3 SMPD3 Smpd3* 1 model HomoloGene and HGNC')
-        self.assertEqual(row15.text, 'osteogenesis imperfecta type 5 SUCO Suco* 1 model HomoloGene and HGNC')
-        self.assertEqual(row16.text, '       Cole-Carpenter syndrome P4HB* P4hb   HomoloGene and HGNC')
-        self.assertEqual(row17.text, 'Cole-Carpenter syndrome SEC24D* Sec24d   HomoloGene and HGNC')
-        self.assertEqual(row18.text, 'osteogenesis imperfecta type 11 FKBP10* Fkbp10   HomoloGene and HGNC')
-        self.assertEqual(row19.text, 'osteogenesis imperfecta type 12 SP7* Sp7   HomoloGene and HGNC')
-        self.assertEqual(row20.text, 'osteogenesis imperfecta type 13 BMP1* Bmp1   HomoloGene and HGNC')
-        self.assertEqual(row21.text, 'osteogenesis imperfecta type 14 TMEM38B* Tmem38b   HomoloGene and HGNC')
-        self.assertEqual(row22.text, 'osteogenesis imperfecta type 15 WNT1* Wnt1   HomoloGene and HGNC')
-        self.assertEqual(row23.text, 'osteogenesis imperfecta type 17 SPARC* Sparc   HomoloGene and HGNC')
-        self.assertEqual(row24.text, 'osteogenesis imperfecta type 2 COL1A2* Col1a2   HomoloGene and HGNC')
-        self.assertEqual(row25.text, 'osteogenesis imperfecta type 4 COL1A2* Col1a2   HomoloGene and HGNC')
-        self.assertEqual(row26.text, 'osteogenesis imperfecta type 5 IFITM5* Ifitm5   HomoloGene and HGNC')
+        self.assertEqual(row13.text, 'osteogenesis imperfecta SMAD4 Smad4* 1 model HomoloGene and HGNC')
+        self.assertEqual(row14.text, 'osteogenesis imperfecta type 2 SMPD3 Smpd3* 1 model HomoloGene and HGNC')
+        self.assertEqual(row15.text, 'osteogenesis imperfecta type 3 SMPD3 Smpd3* 1 model HomoloGene and HGNC')
+        self.assertEqual(row16.text, 'osteogenesis imperfecta type 5 SUCO Suco* 1 model HomoloGene and HGNC')
+        self.assertEqual(row17.text, '       Cole-Carpenter syndrome P4HB* P4hb   HomoloGene and HGNC')
+        self.assertEqual(row18.text, 'Cole-Carpenter syndrome SEC24D* Sec24d   HomoloGene and HGNC')
+        self.assertEqual(row19.text, 'osteogenesis imperfecta type 11 FKBP10* Fkbp10   HomoloGene and HGNC')
+        self.assertEqual(row20.text, 'osteogenesis imperfecta type 12 SP7* Sp7   HomoloGene and HGNC')
+        self.assertEqual(row21.text, 'osteogenesis imperfecta type 13 BMP1* Bmp1   HomoloGene and HGNC')
+        self.assertEqual(row22.text, 'osteogenesis imperfecta type 14 TMEM38B* Tmem38b   HomoloGene and HGNC')
+        self.assertEqual(row23.text, 'osteogenesis imperfecta type 15 WNT1* Wnt1   HomoloGene and HGNC')
+        self.assertEqual(row24.text, 'osteogenesis imperfecta type 17 SPARC* Sparc   HomoloGene and HGNC')
+        self.assertEqual(row25.text, 'osteogenesis imperfecta type 2 COL1A2* Col1a2   HomoloGene and HGNC')
+        self.assertEqual(row26.text, 'osteogenesis imperfecta type 4 COL1A2* Col1a2   HomoloGene and HGNC')
+        self.assertEqual(row27.text, 'osteogenesis imperfecta type 5 IFITM5* Ifitm5   HomoloGene and HGNC')
         transgene_table = self.driver.find_element_by_id("transgeneTable")
         table = Table(transgene_table)
         cells = table.get_rows()
