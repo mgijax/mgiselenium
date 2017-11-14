@@ -7,8 +7,5 @@
 <path>/${PROJECT_DIR_NAME}/PyTests</path>
 </pydev_pathproperty>
 
-<pydev_pathproperty name="org.python.pydev.PROJECT_EXTERNAL_SOURCE_PATH">
 
-<path>lib</path>
-</pydev_pathproperty>
 </pydev_project>
