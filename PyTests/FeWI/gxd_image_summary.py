@@ -8,6 +8,9 @@ import unittest
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as ec
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -21,6 +24,7 @@ class TestGXDImageSummary(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Chrome()
+        self.driver.implicitly_wait(10)
 
     def test_default_sort_genes(self):
         """
@@ -28,19 +32,16 @@ class TestGXDImageSummary(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.PUBLIC_URL + "/gxd")
-        genebox = driver.find_element_by_name('nomenclature')
+        genebox = driver.find_element(By.NAME, 'nomenclature')
         # put your marker symbol
         genebox.send_keys("pax6")
         genebox.send_keys(Keys.RETURN)
-        #find the Image tab
-        imagetab = driver.find_element_by_id("imagestab")
-        time.sleep(1)
-        #click the image tab
-        imagetab.click()
-        wait.forAjax(driver)
-        time.sleep(.5)
-        genelist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-gene')
-        items = genelist[20].find_elements_by_tag_name("li")
+        time.sleep(5)
+        #finds the Images tab and clicks it
+        driver.find_element(By.ID, 'imagestab').click()
+        #locates the genes column and lists the genes found
+        genelist = driver.find_element(By.ID, 'imagesdata').find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-gene')
+        items = genelist[20].find_elements(By.TAG_NAME, 'li')
         searchTextItems = iterate.getTextAsList(items)
         self.assertEqual(searchTextItems, ["Gsx2", "Nkx2-1", "Pax6"])
         
@@ -51,19 +52,16 @@ class TestGXDImageSummary(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.PUBLIC_URL + "/gxd")
-        genebox = driver.find_element_by_name('nomenclature')
+        genebox = driver.find_element(By.NAME, 'nomenclature')
         # put your marker symbol
         genebox.send_keys("Igfbpl1")
         genebox.send_keys(Keys.RETURN)
-        #find the Image tab
-        imagetab = driver.find_element_by_id("imagestab")
-        time.sleep(1)
-        #click the image tab
-        imagetab.click()
-        wait.forAjax(driver)
-        time.sleep(1)
-        assaylist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-assayType')
-        items = assaylist[0].find_elements_by_tag_name("li")
+        time.sleep(3)
+        #finds the Images tab and clicks it
+        driver.find_element(By.ID, 'imagestab').click()
+        #finds the first row of data and verifies the Assay Type data
+        assaylist = driver.find_element(By.ID, 'imagesdata').find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-assayType')
+        items = assaylist[0].find_elements(By.TAG_NAME, 'li')
         searchTextItems = iterate.getTextAsList(items)
         self.assertEqual(searchTextItems, ["RNA in situ", "Immunohistochemistry", "Immunohistochemistry"])
         
@@ -74,19 +72,16 @@ class TestGXDImageSummary(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.PUBLIC_URL + "/gxd")
-        genebox = driver.find_element_by_name('nomenclature')
+        genebox = driver.find_element(By.NAME, 'nomenclature')
         # put your marker symbol
         genebox.send_keys("Tmem100")
         genebox.send_keys(Keys.RETURN)
-        #find the Image tab
-        imagetab = driver.find_element_by_id("imagestab")
         time.sleep(1)
-        #click the image tab
-        imagetab.click()
-        wait.forAjax(driver)
-        time.sleep(1)
-        typelist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-hybridization')
-        items = typelist[0].find_elements_by_tag_name("li")
+        #finds the Images tab and clicks it
+        driver.find_element_by_id("imagestab").click()
+        #finds the first row of data and verifies the Specimen Type data
+        typelist = driver.find_element(By.ID, 'imagesdata').find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-hybridization')
+        items = typelist[0].find_elements(By.TAG_NAME, 'li')
         searchTextItems = iterate.getTextAsList(items)
         time.sleep(1)
         self.assertEqual(searchTextItems, ["section", "section from whole mount"])
@@ -99,31 +94,27 @@ class TestGXDImageSummary(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.PUBLIC_URL + "/gxd")
-        genebox = driver.find_element_by_name('nomenclature')
+        genebox = driver.find_element(By.NAME, 'nomenclature')
         # put your marker symbol
         genebox.send_keys("shh")
         genebox.send_keys(Keys.RETURN)
-        #find the Image tab
-        imagetab = driver.find_element_by_id("imagestab")
         time.sleep(1)
-        #click the image tab
-        imagetab.click()
-        wait.forAjax(driver)
-        time.sleep(1)
-        
-        imagesdata = driver.find_element_by_id("imagesdata")
-        genelist = imagesdata.find_elements_by_css_selector('td.yui-dt-col-gene')
-        items = genelist[0].find_elements_by_tag_name("li")
+        #find the Images tab and clicks it
+        driver.find_element(By.ID, 'imagestab').click()
+        #finds the first row of data and verifies the genes column sort
+        imagesdata = driver.find_element(By.ID, 'imagesdata')
+        genelist = imagesdata.find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-gene')
+        items = genelist[0].find_elements(By.TAG_NAME, 'li')
         searchTextItems = iterate.getTextAsList(items)
         self.assertEqual(searchTextItems, ["Arx", "Olig2", "Shh"])
-        geneheader = imagesdata.find_element_by_css_selector('th.yui-dt-col-gene')
-        #click the gene header column to sort
+        #find the genes header
+        geneheader = imagesdata.find_element(By.CSS_SELECTOR, 'th.yui-dt-col-gene')
+        #click the gene header column to re-sort
         geneheader.click()
-        wait.forAjax(driver)
         time.sleep(1)
-        genelist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-gene')
+        genelist = driver.find_element(By.ID, 'imagesdata').find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-gene')
         time.sleep(2)
-        items = genelist[0].find_elements_by_tag_name("li")
+        items = genelist[0].find_elements(By.TAG_NAME, 'li')
         searchTextItems = iterate.getTextAsList(items)
         self.assertEqual(searchTextItems, ["Arx", "Olig2", "Shh"])
         
@@ -138,28 +129,25 @@ class TestGXDImageSummary(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.PUBLIC_URL + "/gxd")
-        genebox = driver.find_element_by_name('nomenclature')
+        genebox = driver.find_element(By.NAME, 'nomenclature')
         # put your marker symbol
         genebox.send_keys("pax6")
         genebox.send_keys(Keys.RETURN)
-        #find the Image tab
-        imagetab = driver.find_element_by_id("imagestab")
+        time.sleep(2)
+        #find the Image tab and click it
+        driver.find_element(By.ID, 'imagestab').click()
         time.sleep(1)
-        #click the image tab
-        imagetab.click()
-        wait.forAjax(driver)
-        time.sleep(1)
-        assaylist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-assayType')
-        items = assaylist[0].find_elements_by_tag_name("li")
+        assaylist = driver.find_element(By.ID, 'imagesdata').find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-assayType')
+        items = assaylist[0].find_elements(By.TAG_NAME, 'li')
         searchTextItems = iterate.getTextAsList(items)
         self.assertEqual(searchTextItems, ["Immunohistochemistry", "Immunohistochemistry"])
-        assayheader = driver.find_element_by_id("imagesdata").find_element_by_css_selector('th.yui-dt-col-assayType')
-        #click the gene header column to sort
+        assayheader = driver.find_element(By.ID, 'imagesdata').find_element(By.CSS_SELECTOR, 'th.yui-dt-col-assayType')
+        #click the gene header column to re-sort
         assayheader.click()
-        wait.forAjax(driver)
         time.sleep(1)
-        assaylist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-assayType')
-        items = assaylist[2].find_elements_by_tag_name("li")
+        #find the second row of data and verify the assay type
+        assaylist = driver.find_element(By.ID, 'imagesdata').find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-assayType')
+        items = assaylist[2].find_elements(By.TAG_NAME, 'li')
         searchTextItems = iterate.getTextAsList(items)
         self.assertEqual(searchTextItems, ["RT-PCR"])
     
@@ -184,28 +172,26 @@ class TestGXDImageSummary(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.PUBLIC_URL + "/gxd")
-        genebox = driver.find_element_by_name('nomenclature')
+        genebox = driver.find_element(By.NAME, 'nomenclature')
         # put your marker symbol
         genebox.send_keys("hoxa13")
         genebox.send_keys(Keys.RETURN)
-        #find the Image tab
-        imagetab = driver.find_element_by_id("imagestab")
-        time.sleep(3)
-        #click the image tab
-        imagetab.click()
-        wait.forAjax(driver)
-        time.sleep(3)
-        typelist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-hybridization')
-        items = typelist[0].find_elements_by_tag_name("li")
+        time.sleep(2)
+        #find the Image tab and click it
+        driver.find_element(By.ID, 'imagestab').click()
+        time.sleep(2)
+        #Find the first row of data and verify the specimen type
+        typelist = driver.find_element(By.ID, 'imagesdata').find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-hybridization')
+        items = typelist[0].find_elements(By.TAG_NAME, 'li')
         searchTextItems = iterate.getTextAsList(items)
         self.assertEqual(searchTextItems, ["section", "section"])
-        specimenheader = driver.find_element_by_id("imagesdata").find_element_by_css_selector('th.yui-dt-col-hybridization')
+        specimenheader = driver.find_element(By.ID, 'imagesdata').find_element(By.CSS_SELECTOR, 'th.yui-dt-col-hybridization')
         #click the gene header column to sort
         specimenheader.click()
-        wait.forAjax(driver)
+        
         time.sleep(2)
-        assaylist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-hybridization')
-        items = assaylist[0].find_elements_by_tag_name("li")
+        assaylist = driver.find_element(By.ID, 'imagesdata').find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-hybridization')
+        items = assaylist[0].find_elements(By.TAG_NAME, 'li')
         searchTextItems = iterate.getTextAsList(items)
         self.assertEqual(searchTextItems, ["whole mount"])
             

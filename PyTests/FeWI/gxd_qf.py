@@ -7,7 +7,8 @@ import unittest
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as ec
 import sys,os.path
 from genericpath import exists
 # adjust the path to find config
@@ -31,20 +32,20 @@ class Test(unittest.TestCase):
         '''
         @status This test verifies the ribbons are being displayed in the correct order on the page.
         '''
-        self.driver.find_element_by_id("gxdQueryForm")
-        genesribbon = self.driver.find_element_by_css_selector("tr.stripe1 > td.cat1Gxd")
+        self.driver.find_element(By.ID, 'gxdQueryForm')
+        genesribbon = self.driver.find_element(By.CSS_SELECTOR, 'tr.stripe1 > td.cat1Gxd')
         print genesribbon.text
         self.assertEquals(genesribbon.text, 'Genes', "heading is incorrect")
-        genomelocation = self.driver.find_element_by_css_selector("tr.stripe2 > td.cat2Gxd")
+        genomelocation = self.driver.find_element(By.CSS_SELECTOR, 'tr.stripe2 > td.cat2Gxd')
         print genomelocation.text
         self.assertEquals(genomelocation.text, 'Genome location', "heading is incorrect")
-        structurestage = self.driver.find_element_by_css_selector("tr:nth-child(4).stripe1 > td.cat1Gxd")
+        structurestage = self.driver.find_element(By.CSS_SELECTOR, 'tr:nth-child(4).stripe1 > td.cat1Gxd')
         print structurestage.text
         self.assertEquals(structurestage.text, 'Anatomical structure or stage', "heading is incorrect")
-        mutantwt = self.driver.find_element_by_css_selector("tr:nth-child(5).stripe2 > td.cat2Gxd")
+        mutantwt = self.driver.find_element(By.CSS_SELECTOR, 'tr:nth-child(5).stripe2 > td.cat2Gxd')
         print mutantwt.text
         self.assertEquals(mutantwt.text, 'Mutant / wild type', "heading is incorrect")
-        assaytype = self.driver.find_element_by_css_selector("tr:nth-child(6).stripe1 > td.cat1Gxd")
+        assaytype = self.driver.find_element(By.CSS_SELECTOR, 'tr:nth-child(6).stripe1 > td.cat1Gxd')
         print assaytype.text
         self.assertEquals(assaytype.text, 'Assay types', "heading is incorrect")
         

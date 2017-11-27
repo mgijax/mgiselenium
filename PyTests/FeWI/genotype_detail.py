@@ -7,7 +7,8 @@ import unittest
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as ec
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -34,17 +35,17 @@ class Test(unittest.TestCase):
         @status this test verifies ????.
         @bug: under construction
         '''
-        self.driver.find_element_by_name("nomen").clear()
-        self.driver.find_element_by_name("nomen").send_keys("Pax6")
-        self.driver.find_element_by_class_name("buttonLabel").click()
-        self.driver.find_element_by_partial_link_text("Sey-Dey").click()
-        self.driver.find_element_by_link_text('ht3').click()
+        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.find_element(By.NAME, 'nomen').send_keys("Pax6")
+        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Sey-Dey').click()
+        self.driver.find_element(By.LINK_TEXT, 'ht3').click()
         self.driver.implicitly_wait(10)
         self.driver.switch_to.window(self.driver.window_handles[1])
-        mgiid = self.driver.find_element_by_class_name("genoID")
+        mgiid = self.driver.find_element(By.CLASS_NAME, 'genoID')
         self.assertEquals(mgiid.text, "MGI:2680573", "This is not the correct MGI ID")        
-        self.driver.find_element_by_class_name("results")
-        headers = self.driver.find_elements_by_tag_name("td")
+        self.driver.find_element(By.CLASS_NAME, 'results')
+        headers = self.driver.find_elements(By.TAG_NAME, 'td')
         
         
         

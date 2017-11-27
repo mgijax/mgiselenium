@@ -7,6 +7,8 @@ import unittest
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as ec
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -31,7 +33,7 @@ class TestEmapaBrowser(unittest.TestCase):
         wait.forAjax(driver)
         time.sleep(1)
         #identifies the table tags that  contain  parent terms
-        parent = driver.find_element_by_id("termPaneDetails").find_elements_by_tag_name("td")
+        parent = driver.find_element(By.ID, 'termPaneDetails').find_elements(By.TAG_NAME, 'td')
         #print [x.text for x in parent]
         
         # verifies that the returned part terms are correct
@@ -48,7 +50,7 @@ class TestEmapaBrowser(unittest.TestCase):
         
         wait.forAjax(driver)
         time.sleep(2)
-        termList = driver.find_elements_by_class_name("ygtvlabel")
+        termList = driver.find_elements(By.CLASS_NAME, 'ygtvlabel')
         terms = iterate.getTextAsList(termList)
         print [x.text for x in termList]
         
