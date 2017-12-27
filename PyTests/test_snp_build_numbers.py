@@ -47,7 +47,7 @@ class TestSnpBuild(unittest.TestCase):
         genebox.send_keys("pax6")
         genebox.send_keys(Keys.RETURN)
         #Does a webdriver wait until the export buttons are present so we know the page is loaded
-        if WebDriverWait(self.driver, 10).until(ec.presence_of_element_located((By.ID, 'exportButtons'))):
+        if WebDriverWait(self.driver, 5).until(ec.presence_of_element_located((By.ID, 'exportButtons'))):
             print('page loaded')
         #finds the snp build number in the heading of SNP ID column
         snpidLabel = self.driver.find_element(By.ID, 'snpSummaryTable').find_element(By.ID, 'snp_id')

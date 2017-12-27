@@ -4,11 +4,12 @@ This set of tests verifies items found on the Gene Expression query form page
 @author: jeffc
 '''
 import unittest
-
+import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
+from util.table import Table
 import sys,os.path
 from genericpath import exists
 # adjust the path to find config
@@ -49,7 +50,33 @@ class Test(unittest.TestCase):
         print assaytype.text
         self.assertEquals(assaytype.text, 'Assay types', "heading is incorrect")
         
-        
+    def test_no_normals(self):
+        """
+        @status: Tests that the genes tab does not return normals(like Adcy8) or genes with no expression(like Ankfn1)
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/gxd")
+        genebox = driver.find_element(By.NAME, 'vocabTerm')
+        # Enter your phenotype
+        genebox.send_keys("taste/olfaction")
+        time.sleep(2)
+        genebox.send_keys(Keys.RETURN)
+        time.sleep(2)
+        #find the search button and click it
+        driver.find_element(By.ID, 'submit1').click()
+        time.sleep(2)
+        #finds the Genes tab and clicks it
+        driver.find_element(By.ID, 'genestab').click()
+        time.sleep(2)
+        #locates the genes column and lists the genes found
+        genelist = driver.find_element(By.ID, 'genesdata').find_element(By.CLASS_NAME, 'yui-dt-data')
+        items = genelist.find_elements(By.CLASS_NAME, 'yui-dt-col-symbol')
+        searchTextItems = iterate.getTextAsList(items)
+        print searchTextItems
+        #assert that this gene is not returned since it is associated to a normal phenotype
+        self.assertNotIn('Adcy8', searchTextItems, 'Gene Adcy8 is being returned!')   
+        #assert that this gene is not returned since it has no expression annotations
+        self.assertNotIn('Ankfn1', searchTextItems, 'Gene Ankfn1 is being returned!') 
         
         
         
