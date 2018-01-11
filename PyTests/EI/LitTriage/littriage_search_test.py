@@ -101,7 +101,8 @@ class TestLitSearch(unittest.TestCase):
         #finds the J number column and returns all of this columns results
         jnum_cells = table.get_column_cells(3)
         jnums = iterate.getTextAsList(jnum_cells)
-        self.assertEquals(jnums, ['','J:136110','J:75187','J:151466','J:23392','J:109968','J:134667','J:155845','J:182573','J:43743','J:173534','J:23389'])
+        print jnums
+        self.assertEquals(jnums, ['','J:182573', 'J:173534', 'J:155845', 'J:151466', 'J:136110', 'J:134667', 'J:109968', 'J:75187', 'J:43743', 'J:23392', 'J:23389'])
         
     def testMultiJnumSpaceSearch(self):
         """
@@ -118,7 +119,7 @@ class TestLitSearch(unittest.TestCase):
         jnum_cells = table.get_column_cells(3)
         jnums = iterate.getTextAsList(jnum_cells)
         print jnums
-        self.assertEquals(jnums, ['','J:136110','J:75187','J:151466','J:23392','J:109968','J:134667','J:155845','J:182573','J:43743','J:173534','J:23389'])
+        self.assertEquals(jnums, ['','J:182573', 'J:173534', 'J:155845', 'J:151466', 'J:136110', 'J:134667', 'J:109968', 'J:75187', 'J:43743', 'J:23392', 'J:23389'])
                        
             
     def testPubMedSearch(self):
@@ -394,7 +395,7 @@ class TestLitSearch(unittest.TestCase):
         
         #asserts that the following J number is returned
         self.assertIn('J:237788', JnumbersReturned) # Matches to both QTL statuses selected.
-        self.assertIn('J:237571', JnumbersReturned)
+        self.assertIn('J:242947', JnumbersReturned)
         self.assertIn('J:231948', JnumbersReturned)
         
     def testDiscardSearch(self):
@@ -420,7 +421,7 @@ class TestLitSearch(unittest.TestCase):
         """
         form = self.form
         form.enter_value('year', '2003')
-        form.enter_value('workflow_tag1', 'MGI:nomen')
+        form.enter_value('workflow_tag1', 'MGI:NoAbstract')
         form.enter_value('title', '%anemia%')
         form.click_search()
         #finds the Tag list and verifies the required tag is listed.
@@ -431,7 +432,7 @@ class TestLitSearch(unittest.TestCase):
         used_tags = iterate.getTextAsList(sel_tags)
         print used_tags
         #asserts that the following J numbers are returned
-        self.assertIn('MGI:nomen', used_tags)
+        self.assertIn('MGI:NoAbstract', used_tags)
          
     def testMultiStatusORSearch(self):
         """
@@ -441,52 +442,59 @@ class TestLitSearch(unittest.TestCase):
         form = self.form
         time.sleep(5)
         form.enter_value('title', '%cancer%')
-        self.driver.find_element_by_id("status_AP_Routed").click()
+        form.enter_value('year', '2007')
+        self.driver.find_element_by_id("status_AP_Indexed").click()
         self.driver.find_element_by_id("status_AP_Full_coded").click()
-        self.driver.find_element_by_id("status_GO_Routed").click()
+        self.driver.find_element_by_id("status_GO_Indexed").click()
         self.driver.find_element_by_id("status_GO_Full_coded").click()
         #Do not need to click the OR option because that is the default selection.
         form.click_search()
         #finds the results table and iterates through the table
         table_element = self.driver.find_element_by_id("editTabWorkFlowStatus")
         table = Table(table_element)
-        #finds the Routed column for AP and returns it's status of selected
-        ap_routed = table.get_cell(1,3)
-        self.assertTrue(ap_routed.is_selected, "Routed for AP is not selected")
+        #finds the Indexed column for AP and returns it's status of selected
+        ap_indexed = table.get_cell(1,3)
+        self.assertTrue(ap_indexed.is_selected, "Indexed for AP is not selected")
         #finds the Full Coded column for AP and returns it's status of selected
         ap_full_coded = table.get_cell(1,6)
         self.assertTrue(ap_full_coded.is_selected, "Full Coded for AP is not selected")
-        #finds the Routed column for GO and returns it's status of selected
-        go_routed = table.get_cell(2,3)
-        self.assertTrue(go_routed.is_selected, "Routed for GO is not selected")     
+        #finds the Indexed column for GO and returns it's status of selected
+        go_indexed = table.get_cell(2,3)
+        self.assertTrue(go_indexed.is_selected, "Indexed for GO is not selected")     
         #finds the Full Coded column for GO and returns it's status of selected
         go_full_coded = table.get_cell(2,6)
         self.assertTrue(go_full_coded.is_selected, "Full Coded for GO is not selected")
-        #finds the 1st and 6th fields of the summary table for AP and GO routed and Full-coded columns and returns text value
+        #finds the 1st and 6th fields of the summary table for AP and GO indexed and Full-coded columns and returns text value
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
-        ap_cell1 = table.get_cell(1,6)
-        ap_cell2 = table.get_cell(6,6)
-        go_cell1 = table.get_cell(1,7)
-        go_cell2 = table.get_cell(6,7)
+        ap_cell1 = table.get_cell(4,6)
+        ap_cell2 = table.get_cell(5,6)
+        go_cell1 = table.get_cell(3,7)
+        go_cell2 = table.get_cell(2,7)
         time.sleep(1)
-        self.assertEquals(ap_cell1.text, "Rejected", 'AP is not routed')
+        self.assertEquals(ap_cell1.text, "Indexed", 'AP is not routed')
         self.assertEquals(ap_cell2.text, "Full-coded", 'AP is not full-coded')
         self.assertEquals(go_cell1.text, "Full-coded", 'GO is not routed')
-        self.assertEquals(go_cell2.text, "Rejected", 'GO is not full-coded')
+        self.assertEquals(go_cell2.text, "Indexed", 'GO is not full-coded')
+        print ap_cell1.text
+        print ap_cell2.text
+        print go_cell1.text
+        print go_cell2.text
         
     def testMultiStatusANDSearch(self):
         """
         @Status tests that searching for multiple statuses on multiple workflows(OR) returns correct results
-        @see MBIB-search-28 (88)
+        @see MBIB-search-28 (88) 
+        @bug: needs work because data has changed!!!
         """
         form = self.form
         time.sleep(5)
         form.enter_value('title', '%cancer%')
+        form.enter_value('year', '2016')
         self.driver.find_element_by_id("status_AP_Routed").click()
-        self.driver.find_element_by_id("status_AP_Full_coded").click()
+        self.driver.find_element_by_id("status_AP_Indexed").click()
         self.driver.find_element_by_id("status_GO_Routed").click()
-        self.driver.find_element_by_id("status_GO_Full_coded").click()
+        self.driver.find_element_by_id("status_GO_Indexed").click()
         #click the AND option
         self.driver.find_element_by_xpath("//input[@value='AND']").click()
         
@@ -498,30 +506,30 @@ class TestLitSearch(unittest.TestCase):
         ap_routed = table.get_cell(1,3)
         self.assertTrue(ap_routed.is_selected, "Routed for AP is not selected")
         #finds the Full Coded column for AP and returns it's status of selected
-        ap_full_coded = table.get_cell(1,6)
-        self.assertTrue(ap_full_coded.is_selected, "Full Coded for AP is not selected")
+        ap_indexed = table.get_cell(2,3)
+        self.assertTrue(ap_indexed.is_selected, "Full Coded for AP is not selected")
         #finds the Routed column for GO and returns it's status of selected
-        go_routed = table.get_cell(2,3)
+        go_routed = table.get_cell(1,4)
         self.assertTrue(go_routed.is_selected, "Routed for GO is not selected")     
         #finds the Full Coded column for GO and returns it's status of selected
-        go_full_coded = table.get_cell(2,6)
-        self.assertTrue(go_full_coded.is_selected, "Full Coded for GO is not selected")
+        go_indexed = table.get_cell(2,4)
+        self.assertTrue(go_indexed.is_selected, "Full Coded for GO is not selected")
         #finds the 1st and 6th fields of the summary table for AP and GO routed and Full-coded columns and returns text value
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         ap_cell1 = table.get_cell(1,6)
-        ap_cell2 = table.get_cell(6,6)
-        go_cell1 = table.get_cell(1,7)
-        go_cell2 = table.get_cell(6,7)
+        ap_cell2 = table.get_cell(4,6)
+        go_cell1 = table.get_cell(5,7)
+        go_cell2 = table.get_cell(1,7)
         time.sleep(1)
         self.assertEquals(ap_cell1.text, "Routed", 'AP is not routed')
-        self.assertEquals(ap_cell2.text, "Full-coded", 'AP is not full-coded')
+        self.assertEquals(ap_cell2.text, "Indexed", 'AP is not rejected')
         self.assertEquals(go_cell1.text, "Routed", 'GO is not routed')
-        self.assertEquals(go_cell2.text, "Full-coded", 'GO is not full-coded')
-        #print ap_cell1.text
-        #print ap_cell2.text
-        #print go_cell1.text
-        #print go_cell2.text        
+        self.assertEquals(go_cell2.text, "Indexed", 'GO is not rejected')
+        print ap_cell1.text
+        print ap_cell2.text
+        print go_cell1.text
+        print go_cell2.text        
         
 '''
 def suite():

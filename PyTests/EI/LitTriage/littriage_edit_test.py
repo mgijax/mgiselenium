@@ -61,10 +61,10 @@ class TestLitEdit(unittest.TestCase):
         self.assertTrue(not_route.is_selected, "Not Routed for AP is not selected")
         #select the chosen status for AP
         #chosen = table.get_cell("AP", "Chosen").click()
-        self.driver.find_element_by_xpath("//input[@name='10' and @value='Chosen']").click()
+        self.driver.find_element_by_xpath("//input[@name='12' and @value='Chosen']").click()
         #click the Modify button
         self.driver.find_element_by_id('modifyEditTabButton').click()
-        chosen = self.driver.find_element_by_xpath("//input[@name='10' and @value='Chosen']")
+        chosen = self.driver.find_element_by_xpath("//input[@name='12' and @value='Chosen']")
         #Verifies Chosen status is selected for AP
         self.assertTrue(chosen.is_selected, "Chosen for AP is not selected")
         time.sleep(2)
@@ -97,11 +97,6 @@ class TestLitEdit(unittest.TestCase):
         actions = ActionChains(self.driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
-        #Identifies the background color of the Reference type field
-        bgColor = self.driver.find_element_by_id("editTabRefType").value_of_css_property('background-color')
-        print bgColor
-        #asserts the background color is orange before the field is modified
-        self.assertEquals(bgColor, 'rgba(255, 165, 0, 1)', "The background color is not orange")
         #click the Modify button
         self.driver.find_element_by_id('modifyEditTabButton').click()
         #finds the Reference Type field and return it's text value

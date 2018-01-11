@@ -207,7 +207,7 @@ class TestEmapaBrowser(unittest.TestCase):
         time.sleep(2)
         linkE = driver.find_element(By.CLASS_NAME, 'expressionAnnotationCount') #the expression annotations link found in the Treeview section
         linkP = driver.find_element(By.CLASS_NAME, 'phenotypeAnnotationCount') #the phenotype annotations link found in the Treeview section
-        # verifies the returned terms are the correct terms for this searrh
+        # verifies the returned terms are the correct terms for this search
         self.assertIs('0 expression results', linkE.text, 'The 0 expression results link is wrong' )
         self.assertIs('0 phenotype annotations', linkP.text, 'The 0 phenotypes annotation link is wrong' )
 
@@ -238,7 +238,7 @@ class TestEmapaBrowser(unittest.TestCase):
         print term6.text
         print term7.text
         time.sleep(1)
-        # verifies the returned terms are the correct terms for this searrh
+        # verifies the returned terms are the correct terms for this search
         self.assertEqual('abnormal renal artery morphology', term1.text, 'Term1 is not returning' )
         self.assertEqual('abnormal renal artery morphology', term2.text, 'Term2 is not returning' )
         self.assertEqual('abnormal right renal artery morphology', term3.text, 'Term3 is not returning' )
@@ -272,7 +272,7 @@ class TestEmapaBrowser(unittest.TestCase):
         print term5.text
         print term6.text
         time.sleep(1)
-        # verifies the returned terms are the correct terms for this searrh
+        # verifies the returned terms are the correct terms for this search
         self.assertEqual('absent embryonic cilia', term1.text, 'Term1 is not returning' )
         self.assertEqual('absent primitive node', term2.text, 'Term2 is not returning' )
         self.assertEqual('abnormal primitive node morphology', term3.text, 'Term3 is not returning' )

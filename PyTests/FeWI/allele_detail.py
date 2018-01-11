@@ -8,7 +8,7 @@ import unittest
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-
+from selenium.webdriver.common.by import By
 import sys,os.path
 from genericpath import exists
 # adjust the path to find config
@@ -549,7 +549,111 @@ class Test(unittest.TestCase):
         print disease_cells
         self.assertEquals(disease_cells[1], 'myelofibrosis\nIDs')
         
+    def test_allele_detail_exp_sec_both_links_simple_geno(self):
+        '''
+        @status this test verifies in the expression section that both the assay results & anatomical structures links exist when Allele w/ MP terms annotated to simple genotypes that roll-up.
+        @note: test #1
+        '''
+        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.find_element(By.NAME, 'nomen').send_keys("Ccnd3<tm1Pisc>")
+        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1Pisc').click()
+        #verifies that the assays results link exists/is displayed
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'assay results').is_displayed()
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'anatomical structures').click()
+        #Captures the anatomy search results
+        searchList = self.driver.find_elements(By.ID, 'searchResults')
+        terms = iterate.getTextAsList(searchList)
+        print [x.text for x in searchList]
         
+        # The term 'thymus' should be returned in the anatomy search results
+        self.assertIn('thymus TS24-28', terms, 'the term thymus is not listed!')
+        
+    def test_allele_detail_exp_sec_both_links_cond_geno(self):
+        '''
+        @status this test verifies in the expression section that both the assay results & anatomical structures links exist when Allele w/ MP terms annotated to conditional genotypes that roll-up when a recombinase allele is factored out.
+        @note: Test #2
+        '''
+        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.find_element(By.NAME, 'nomen').send_keys("Tardbp<tm1.1Ckjs>")
+        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1.1Ckjs').click()
+        #verifies that the assays results link exists/is displayed
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'assay results').is_displayed()
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'anatomical structures').click()
+        searchList = self.driver.find_elements(By.ID, 'searchResults')
+        terms = iterate.getTextAsList(searchList)
+        print [x.text for x in searchList]
+        
+        # There should be 5 structures returned in the anatomy search results
+        self.assertIn('mouse TS1-28\nmuscle tissue TS12-28\nspinal cord ventral horn TS20-28\nventral grey horn TS21-26\nvertebral column TS27-28', terms, 'the 5 terms are not listed!')        
+        
+    def test_allele_detail_exp_sec_struct_link_only_norm(self):
+        '''
+        @status this test verifies in the expression section that just the anatomical structures links exist when Allele w/ a mapping that only has Normal annotations; don't include that tissue
+        @note: Test #6
+        '''
+        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.find_element(By.NAME, 'nomen').send_keys("Adam17<tm1.1Wesh>")
+        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1.1Wesh').click()
+        #verifies that the assays results link does not exist/is not displayed
+        bodyText = self.driver.find_element(By.TAG_NAME, 'body').text
+        self.assertFalse('assay results' in bodyText)  
+        #verifies that the anatomical structures link does exist and clicks it
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'anatomical structures').click()
+        searchList = self.driver.find_elements(By.ID, 'searchResults')
+        terms = iterate.getTextAsList(searchList)
+        print [x.text for x in searchList]
+        
+        # There should be 5 structures returned in the anatomy search results
+        self.assertIn('cardiac muscle tissue TS12-28\nheart TS11-28\nlung epithelium TS15-28\nlung mesenchyme TS15-26\nlung vascular element TS15-28', terms, 'the 5 terms are not listed!')        
+
+    def test_allele_detail_no_exp_section(self):
+        '''
+        @status this test verifies no expression section when Allele w/ expressed gene that does not match the gene of the allele
+        @note: Test #7
+        '''
+        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.find_element(By.NAME, 'nomen').send_keys("Ak7<tg(tetO-Hmox1)67Sami>")
+        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, '67Sami').click()
+        #verifies that the assays results and anatomical structures links do not exist/are not displayed
+        bodyText = self.driver.find_element(By.TAG_NAME, 'body').text
+        self.assertFalse('assay results' in bodyText) 
+        self.assertFalse('anatomical structures' in bodyText)  
+
+    def test_allele_detail_no_exp_section_norm_noRollUp(self):
+        '''
+        @status this test verifies no expression section when Allele with MP terms that are 1) Normal; and 2) annotated to genotypes that don't roll-up
+        @note: Test #19
+        '''
+        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.find_element(By.NAME, 'nomen').send_keys("Tg(MMTV-rtTA)1Lach")
+        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, '1Lach').click()
+        #verifies that the assays results and anatomical structures links do not exist/are not displayed
+        bodyText = self.driver.find_element(By.TAG_NAME, 'body').text
+        self.assertFalse('assay results' in bodyText) 
+        self.assertFalse('anatomical structures' in bodyText)  
+
+    def test_allele_detail_exp_sec_assays_link_only(self):
+        '''
+        @status this test verifies in the expression section that just the assay results link exists when Allele w/ expression results but no tissues (simple genotype's MP terms don't have mappings and other genotypes don't roll up)
+        @note: Test #21
+        '''
+        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.find_element(By.NAME, 'nomen').send_keys("Trim27<Gt(XP0484)Wtsi>")
+        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Wtsi').click()
+        #verifies that the assays results link does exist/is displayed
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'assay results').click()
+        allele_name = self.driver.find_element(By.CLASS_NAME, 'summaryHeaderData1').find_element_by_tag_name("span")
+        # Just want to assert the correct Allele is returned
+        self.assertEqual(allele_name.text, 'gene trap XP0484, Wellcome Trust Sanger Institute')
+        #verifies that the anatomical structures link does not exist
+        bodyText = self.driver.find_element(By.TAG_NAME, 'body').text
+        self.assertFalse('anatomical structures' in bodyText)  
         
     def tearDown(self):
         self.driver.quit()
