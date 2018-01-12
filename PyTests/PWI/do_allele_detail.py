@@ -48,57 +48,21 @@ class TestLitIndexByMrk(unittest.TestCase):
         driver.find_element_by_css_selector('dl.detailPageListData:nth-child(1)')
         driver.find_elements_by_tag_name('dd.detailPageListData')
         data = driver.find_elements_by_tag_name('a')
-        #print iterate.getTextAsList(data)#prints out almost all data found on this page, hopefully someday  I can figure out how to capture just the disease annotations section.
+        print iterate.getTextAsList(data)#prints out almost all data found on this page, hopefully someday  I can figure out how to capture just the disease annotations section.
         time.sleep(5)
-        term1 = data[59]
-        id1 = data[60]
-        ref1 = data[61]
-        term2 = data[62]
-        id2 = data[63]
-        ref2 = data[64]
-        term3 = data[65]
-        id3 = data[66]
-        ref3 = data[67]
-        term4 = data[68]
-        id4 = data[69]
-        ref4 = data[70]
-        term5 = data[71]
-        id5 = data[72]
-        ref5 = data[73]
-        term6 = data[74]
-        id6 = data[75]
-        ref6 = data[76]
-        term7 = data[77]
-        id7 = data[78]
-        ref7 = data[79]
-        term8 = data[80]
-        id8 = data[81]
-        ref8 = data[82]
+        term1 = data[60]
+        doid1 = data[61]
+        ref1 = data[62]
+        term2 = data[63]
+        id2 = data[64]
+        ref2 = data[65]
         #asserts that all the disease annotations are correct, but does not capture if a term is a NOT!
-        self.assertEqual(term1.text, "Aniridia 1; AN1")
-        self.assertEqual(id1.text, "OMIM:106210")
+        self.assertEqual(term1.text, "aniridia")
+        self.assertEqual(doid1.text, "DOID:12271")
         self.assertEqual(ref1.text, "J:10820")
-        self.assertEqual(term2.text, "Wilms Tumor, Aniridia, Genitourinary Anomalies, and Mental Retardation Syndrome; WAGR")
-        self.assertEqual(id2.text, "OMIM:194072")
+        self.assertEqual(term2.text, "WAGR syndrome")
+        self.assertEqual(id2.text, "DOID:14515")
         self.assertEqual(ref2.text, "J:10820")
-        self.assertEqual(term3.text, "Peters Anomaly")
-        self.assertEqual(id3.text, "OMIM:604229")
-        self.assertEqual(ref3.text, "J:10820")
-        self.assertEqual(term4.text, "ptosis")
-        self.assertEqual(id4.text, "DOID:0060260")
-        self.assertEqual(ref4.text, "J:116600")  
-        self.assertEqual(term5.text, "Peters anomaly")
-        self.assertEqual(id5.text, "DOID:0060673")
-        self.assertEqual(ref5.text, "J:10820") 
-        self.assertEqual(term6.text, "aniridia")
-        self.assertEqual(id6.text, "DOID:12271")
-        self.assertEqual(ref6.text, "J:10820") 
-        self.assertEqual(term7.text, "WAGR syndrome")
-        self.assertEqual(id7.text, "DOID:14515")
-        self.assertEqual(ref7.text, "J:10820") 
-        self.assertEqual(term8.text, "uveal disease")
-        self.assertEqual(id8.text, "DOID:3480")
-        self.assertEqual(ref8.text, "J:116600")       
         #print searchTextItems
         #verifies all the table headings are correct and in order
         #self.assertEqual(searchTextItems, ['*','Reference','Priority','Conditional'])
