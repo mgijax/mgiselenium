@@ -11,15 +11,15 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 import sys,os.path
-from util import wait, iterate
+from util import iterate
 from config.config import PUBLIC_URL
 # adjust the path to find config
 sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../config',)
 )
-import time
+#import time
 import config
-from util import iterate, wait
+#from util import iterate, wait
 
 
 class TestSnpBuild(unittest.TestCase):
@@ -47,7 +47,7 @@ class TestSnpBuild(unittest.TestCase):
         genebox.send_keys("pax6")
         genebox.send_keys(Keys.RETURN)
         #Does a webdriver wait until the export buttons are present so we know the page is loaded
-        if WebDriverWait(self.driver, 5).until(ec.presence_of_element_located((By.ID, 'exportButtons'))):
+        if WebDriverWait(self.driver, 8).until(ec.presence_of_element_located((By.ID, 'exportButtons'))):
             print('page loaded')
         #finds the snp build number in the heading of SNP ID column
         snpidLabel = self.driver.find_element(By.ID, 'snpSummaryTable').find_element(By.ID, 'snp_id')
