@@ -43,7 +43,7 @@ class Test(unittest.TestCase):
         self.driver.implicitly_wait(10)
         self.driver.switch_to.window(self.driver.window_handles[1])
         mgiid = self.driver.find_element(By.CLASS_NAME, 'genoID')
-        self.assertEquals(mgiid.text, "MGI:2680573", "This is not the correct MGI ID")        
+        self.assertEquals(mgiid.text, "MGI:2175204", "This is not the correct MGI ID")        
         self.driver.find_element(By.CLASS_NAME, 'results')
         headers = self.driver.find_elements(By.TAG_NAME, 'td')
         

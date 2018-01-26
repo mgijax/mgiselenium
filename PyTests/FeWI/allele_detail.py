@@ -21,7 +21,7 @@ import config
 #from config import TEST_URL
 import time
 
-class Test(unittest.TestCase):
+class TestAlleleDetail(unittest.TestCase):
 
 
     def setUp(self):
@@ -137,7 +137,7 @@ class Test(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('Kit')
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element_by_partial_link_text(By.PARTIAL_LINK_TEXT, 'Ssm').click()
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Ssm').click()
         #mutationDownArrow = self.driver.find_element(By.ID, 'downArrowMutationDescription').
         #mutationRightArrow = self.driver.find_element(By.ID, 'rightArrowMutationDescription')
         
@@ -332,7 +332,7 @@ class Test(unittest.TestCase):
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Hsd').click()
         
         caption = self.driver.find_element(By.ID, 'mutationDescriptionTable').find_element(By.CSS_SELECTOR, 'span')
-        self.assertEquals(caption.text, 'Schematic showing the duplication and location of the premature stop codon in the Dock2<mu> allele found in Irf5<tm1Ttg>/Irf5<tm1Ttg> mice')
+        self.assertEquals(caption.text, 'Schematic showing the duplication and location of the premature stop codon in the Dock2<mu> allele')
         
         
     def test_afp_link(self):

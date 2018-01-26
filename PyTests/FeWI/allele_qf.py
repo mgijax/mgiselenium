@@ -19,7 +19,7 @@ from util.table import Table
 import config
 from config import TEST_URL
 
-class Test(unittest.TestCase):
+class TestAlleleQueryForm(unittest.TestCase):
 
 
     def setUp(self):

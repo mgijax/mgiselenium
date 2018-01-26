@@ -33,7 +33,7 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         
     def test_dobrowser_modelspopup_tableheaders(self):
         '''
-@status this test verifies the header section on the DO browser mouse models popup page is correct, this is for the 
+        @status this test verifies the header section on the DO browser mouse models popup page is correct, this is for the 
         headings Human Disease Modeled and Associated Mouse Gene.
         '''
         print ("BEGIN test_dobrowser_modelspopup_tableheaders")
@@ -50,7 +50,7 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         table = Table(gene_table)
         #cells = table.get_rows()
         cell = table.get_cell(3, 6)
-        #Identify the data found in the Mouse Models column for the second row(for marker Fgf9)
+        #Identify the data found in the Mouse Models column for the second row(for marker Robo1)
         print cell.text
         cell.find_element(By.LINK_TEXT, '1 model').click()
         
@@ -66,7 +66,7 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         print assoc_gene_heading.text
         
         #assert that the Associated Mouse Gene heading above the table is correct
-        self.assertEquals(assoc_gene_heading.text, "Fgf9")
+        self.assertEquals(assoc_gene_heading.text, "Robo1")
         
     def test_dobrowser_modelspopup_tableheaders2(self):
         '''
@@ -87,7 +87,7 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         table = Table(gene_table)
         #cells = table.get_rows()
         cell = table.get_cell(7, 3)
-        #Identify the data found in the Mouse Models column for the second row(for marker Yy1)
+        #Identify the data found in the Mouse Models column for the second row(for marker Fgfp)
         print cell.text
         cell.find_element(By.LINK_TEXT, '1 model').click()
         
@@ -103,7 +103,7 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         print assoc_gene_heading.text
         
         #assert that the Associated Mouse Gene heading above the table is correct
-        self.assertEquals(assoc_gene_heading.text, "Yy1")        
+        self.assertEquals(assoc_gene_heading.text, "Fgf9")        
         
     def test_dobrowser_modelspopup_onlynots(self):
         '''

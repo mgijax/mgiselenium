@@ -62,13 +62,13 @@ class TestMPBrowser(unittest.TestCase):
         driver.get(config.TEST_URL + "/vocab/mp_ontology/MP:0002633")
         time.sleep(2)
         driver.find_element(By.LINK_TEXT, 'tissues').click()
-        
+        time.sleep(2)
         searchList = driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
         print [x.text for x in searchList]
         
         # These 2 terms should be returned in the anatomy search results
-        self.assertIn('pulmonary artery TS17-28\naorta TS23-28', terms, 'these terms are not listed!')
+        self.assertIn('aorta TS23-28\npulmonary artery TS17-28', terms, 'these terms are not listed!')
         
  
     def test_tissue_link_single(self):
@@ -83,7 +83,7 @@ class TestMPBrowser(unittest.TestCase):
         searchList = driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
         print [x.text for x in searchList]
-        
+        time.sleep(2)
         # This 1 term should be returned in the anatomy search results
         self.assertIn('cerebellum TS21-28', terms, 'this term is not listed!')
         
@@ -94,8 +94,8 @@ class TestMPBrowser(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/mp_ontology/MP:0030355")
-        time.sleep(2)
         driver.find_element(By.LINK_TEXT, 'tissues').click()
+        time.sleep(2)
         searchList = driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
         print [x.text for x in searchList]
@@ -110,9 +110,8 @@ class TestMPBrowser(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/mp_ontology/MP:0012260")
-        time.sleep(2)
         driver.find_element(By.LINK_TEXT, 'tissues').click()
-        
+        time.sleep(2)
         searchList = driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
         print [x.text for x in searchList]
