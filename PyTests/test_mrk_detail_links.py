@@ -271,9 +271,9 @@ class TestMarkerDetailLinks(unittest.TestCase):
         assert "No results found" not in self.driver.page_source
         
 #Recombinase
-    def test_creqf_links(self):
-        self.driver.find_element(By.LINK_TEXT, 'Minihome')
-        assert "No results found" not in self.driver.page_source
+    #def test_creqf_links(self):
+    #    self.driver.find_element(By.LINK_TEXT, 'Minihome')
+    #    assert "No results found" not in self.driver.page_source
 
     def test_cresummary_links(self):
         self.driver.find_element(By.LINK_TEXT, 'Muscle')
