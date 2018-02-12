@@ -1,6 +1,6 @@
 '''
-Created on Jul 27, 2017
-These tests are to confirm results you get back using various result requirements
+Created on Feb 12, 2018
+These tests are to confirm results you get back from swagger/java api using various result requirements for terms
 @author: jeffc
 '''
 import unittest
@@ -13,8 +13,6 @@ sys.path.append(
 
 import config
 from util import iterate
-from util.form import ModuleForm
-from util.table import Table
 
 class TestTermEndpointAPI(unittest.TestCase):
 
@@ -22,7 +20,6 @@ class TestTermEndpointAPI(unittest.TestCase):
     def setUp(self):
         #self.driver = webdriver.Firefox()
         self.driver = webdriver.Chrome()
-        #self.driver.get('http://scrumdogdev.informatics.jax.org/allele')
         self.driver.implicitly_wait(10)
 
 
