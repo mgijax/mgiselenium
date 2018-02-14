@@ -53,6 +53,7 @@ class TestShort(unittest.TestCase):
         """
         driver = self.driver
         form = self.form
+        time.sleep(2)
         action = ActionChains(self.driver)
         form.enter_value('jnumid','74162')
         # click the Tab key
@@ -132,6 +133,7 @@ class TestShort(unittest.TestCase):
         """
         driver = self.driver
         form = self.form
+        time.sleep(2)
         actions = ActionChains(self.driver)
         form.enter_value('jnumid', '124809')
         # click the Tab key

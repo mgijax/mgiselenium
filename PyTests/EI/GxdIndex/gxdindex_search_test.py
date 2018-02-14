@@ -288,7 +288,6 @@ class TestSearch(unittest.TestCase):
     def testMultipleMrkSearch(self):
         """
         @Status tests that a multiple marker search works
-        @bug test needs to be written
         """
         driver = self.driver
         form = self.form
@@ -299,10 +298,10 @@ class TestSearch(unittest.TestCase):
         
         # verify that display with two markers is shown
         mrkrows = driver.find_elements_by_css_selector(".markerSelections td")
-        print mrkrows
         markers = [r.text for r in mrkrows]
+        print markers
         self.assertEqual(len(markers), 2)
-        self.assertEqual(markers[0], "T, brachyury, Chr 17, Band")
+        self.assertEqual(markers[0], "T, brachyury, T-box transcription factor T, Chr 17, Band")
         self.assertEqual(markers[1], "t, t-complex, Chr 17, Band")
         
         #form.press_enter()

@@ -49,7 +49,7 @@ class TestModify(unittest.TestCase):
         """
         driver = self.driver
         form = self.form
-        
+        time.sleep(2)
         form.enter_value('jnumid', '186289')
         # click the Tab key
         form.press_tab()
@@ -109,7 +109,7 @@ class TestModify(unittest.TestCase):
         """
         driver = self.driver
         form = self.form
-        
+        time.sleep(2)
         form.enter_value('jnumid', '225216')
         # click the Tab key
         form.press_tab()

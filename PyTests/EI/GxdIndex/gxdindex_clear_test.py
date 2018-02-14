@@ -48,7 +48,7 @@ class TestClear(unittest.TestCase):
         """
         driver = self.driver
         form = self.form
-        
+        time.sleep(2)
         form.enter_value('jnumid', '74162')
         # click the Tab key
         form.press_tab()

@@ -9,7 +9,7 @@ import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import HTMLTestRunner
-
+from selenium.webdriver.common.by import By
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -48,9 +48,8 @@ class TestAdd(unittest.TestCase):
         """
         driver = self.driver
         form = self.form
-        
+        time.sleep(2)
         print("BEGIN testAddIndex")
-        
         form.enter_value('jnumid', '225216')
         # click the Tab key
         form.press_tab()
@@ -112,6 +111,7 @@ class TestAdd(unittest.TestCase):
         """
         driver = self.driver
         form = self.form
+        time.sleep(2)
         form.enter_value('jnumid', '000000')
         # click the Tab key
         form.press_tab()
