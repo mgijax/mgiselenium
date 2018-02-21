@@ -9,6 +9,7 @@ import unittest
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 import HTMLTestRunner
 import json
@@ -485,51 +486,53 @@ class TestLitSearch(unittest.TestCase):
         """
         @Status tests that searching for multiple statuses on multiple workflows(OR) returns correct results
         @see MBIB-search-28 (88) 
-        @bug: needs work because data has changed!!!
+        @bug: needs work because data has changed, not finding resultTable cells correctly!!!
         """
         form = self.form
         time.sleep(5)
         form.enter_value('title', '%cancer%')
         form.enter_value('year', '2016')
-        self.driver.find_element_by_id("status_AP_Routed").click()
-        self.driver.find_element_by_id("status_AP_Indexed").click()
-        self.driver.find_element_by_id("status_GO_Routed").click()
-        self.driver.find_element_by_id("status_GO_Indexed").click()
+        self.driver.find_element(By.ID, 'status_AP_Routed').click()
+        self.driver.find_element(By.ID, 'status_AP_Indexed').click()
+        self.driver.find_element(By.ID, 'status_GO_Routed').click()
+        self.driver.find_element(By.ID, 'status_GO_Indexed').click()
         #click the AND option
-        self.driver.find_element_by_xpath("//input[@value='AND']").click()
+        self.driver.find_element(By.XPATH, "//input[@value='AND']").click()
         
         form.click_search()
         #finds the results table and iterates through the table
-        table_element = self.driver.find_element_by_id("editTabWorkFlowStatus")
+        table_element = self.driver.find_element(By.ID, 'editTabWorkFlowStatus')
         table = Table(table_element)
         #finds the Routed column for AP and returns it's status of selected
-        ap_routed = table.get_cell(1,3)
+        ap_routed = table.get_cell(2,3)
         self.assertTrue(ap_routed.is_selected, "Routed for AP is not selected")
         #finds the Full Coded column for AP and returns it's status of selected
-        ap_indexed = table.get_cell(2,3)
-        self.assertTrue(ap_indexed.is_selected, "Full Coded for AP is not selected")
+        ap_indexed = table.get_cell(1,3)
+        self.assertTrue(ap_indexed.is_selected, "Indexed for AP is not selected")
         #finds the Routed column for GO and returns it's status of selected
-        go_routed = table.get_cell(1,4)
+        go_routed = table.get_cell(2,4)
         self.assertTrue(go_routed.is_selected, "Routed for GO is not selected")     
         #finds the Full Coded column for GO and returns it's status of selected
-        go_indexed = table.get_cell(2,4)
-        self.assertTrue(go_indexed.is_selected, "Full Coded for GO is not selected")
-        #finds the 1st and 6th fields of the summary table for AP and GO routed and Full-coded columns and returns text value
-        table_element = self.driver.find_element_by_id("resultsTable")
-        table = Table(table_element)
+        go_indexed = table.get_cell(5,4)
+        self.assertTrue(go_indexed.is_selected, "Indexed for GO is not selected")
+        #finds the 1st and 2nd fields of the summary table for AP and GO routed and Full-coded columns and returns text value
+        #find the search results table
+        results_table = self.driver.find_element_by_id("resultsTable")
+        table = Table(results_table)
         ap_cell1 = table.get_cell(1,6)
-        ap_cell2 = table.get_cell(4,6)
-        go_cell1 = table.get_cell(5,7)
+        ap_cell2 = table.get_cell(2,6)
+        go_cell1 = table.get_cell(8,7)
         go_cell2 = table.get_cell(1,7)
-        time.sleep(1)
-        self.assertEquals(ap_cell1.text, "Routed", 'AP is not routed')
-        self.assertEquals(ap_cell2.text, "Indexed", 'AP is not rejected')
-        self.assertEquals(go_cell1.text, "Routed", 'GO is not routed')
-        self.assertEquals(go_cell2.text, "Indexed", 'GO is not rejected')
+        
+        time.sleep(2)
+        self.assertEquals(ap_cell1.text, "Routed", 'AP is not indexed')
+        self.assertEquals(ap_cell2.text, "Indexed", 'AP is not routed')
+        self.assertEquals(go_cell1.text, "Routed", 'GO is not rejected')
+        self.assertEquals(go_cell2.text, "Indexed", 'GO is not indexed')
         print ap_cell1.text
         print ap_cell2.text
         print go_cell1.text
-        print go_cell2.text        
+        print go_cell2.text
         
 '''
 def suite():

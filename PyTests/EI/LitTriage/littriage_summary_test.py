@@ -55,7 +55,7 @@ class TestLitSummarySearch(unittest.TestCase):
         driver.find_element_by_link_text('10.1073/pnas.0706671104').click()
         #switches focus to the newly opened tab
         driver.switch_to_window(driver.window_handles[-1])
-        page_title = driver.find_element_by_id('article-title-1')
+        page_title = driver.find_element_by_id('page-title')
         print page_title.text
         #asserts the page title for this page is correct
         self.assertEquals(page_title.text, 'Silencing of OB-RGRP in mouse hypothalamic arcuate nucleus increases leptin receptor signaling and prevents diet-induced obesity', 'Title is not displaying from source!')
