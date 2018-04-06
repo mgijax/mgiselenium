@@ -199,18 +199,18 @@ class TestEmapaBrowser(unittest.TestCase):
     def test_zero_pheno_link_zero_exp_link_MP_child(self):
         """
         @status: Tests that when you have a 1to1  NO mapping for expression or pheno, has child terms,the phenotype annotations is zero and expression results links in the Treeview section is normal.
-        @note: EMAPA-ID-search-11 :broken, awaiting a fix to software
+        @note: EMAPA-ID-search-11 :broken, awaiting a fix to software, also this example now returns expression results
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:17342")
         wait.forAjax(driver)
         time.sleep(2)
-        linkE = driver.find_element(By.CLASS_NAME, 'expressionAnnotationCount') #the expression annotations link found in the Treeview section
-        linkP = driver.find_element(By.CLASS_NAME, 'phenotypeAnnotationCount') #the phenotype annotations link found in the Treeview section
+        linkE = driver.find_element(By.CLASS_NAME, 'expressionResultCount') #the expression annotations link found in the Treeview section
+        print linkE.text
         # verifies the returned terms are the correct terms for this search
-        self.assertIs('0 expression results', linkE.text, 'The 0 expression results link is wrong' )
-        self.assertIs('0 phenotype annotations', linkP.text, 'The 0 phenotypes annotation link is wrong' )
-
+        self.assertEqual('73', linkE.text, 'The 0 expression results link is wrong' )
+        self.assertIn('0 phenotype annotations', driver.page_source, 'The 0 phenotypes annotation link is missing')#confirms that o phenotype annitations text is displayed when no results
+        
     def test_pheno_link_withparent3child_treeview(self):
         """
         @status: Tests that when you have a 1toN mapping with parent and 3 child terms associated(pheno)< has child terms,the phenotype annotations link in the Treeview section when clicked returns correct results.
@@ -259,12 +259,12 @@ class TestEmapaBrowser(unittest.TestCase):
         results_table = self.driver.find_element_by_id('resultsTable')
         table = Table(results_table)
         #gets the 1st, 2nd, 4th, 5th, 6th, and 9th rows of the Annotated term column
-        term1 = table.get_cell(3, 1)
-        term2 = table.get_cell(4, 1)
-        term3 = table.get_cell(6, 1)
-        term4 = table.get_cell(7, 1)
-        term5 = table.get_cell(8, 1)
-        term6 = table.get_cell(11, 1)
+        term1 = table.get_cell(4, 1)
+        term2 = table.get_cell(5, 1)
+        term3 = table.get_cell(7, 1)
+        term4 = table.get_cell(8, 1)
+        term5 = table.get_cell(9, 1)
+        term6 = table.get_cell(12, 1)
         print term1.text
         print term2.text
         print term3.text

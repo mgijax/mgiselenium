@@ -9,6 +9,7 @@ import unittest
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 import sys,os.path
 from util import wait, iterate
 from config.config import TEST_URL
@@ -24,6 +25,7 @@ class TestSearchTool(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Chrome()
         #self.driver.get("http://www.informatics.jax.org")
+        #self.driver.get("http://bluebob.informatics.jax.org")
         self.driver.get(TEST_URL) 
 
     def test_gene_id(self):
@@ -32,14 +34,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene ID in the quick search box
         searchbox.send_keys("MGI:87895")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[0].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -53,14 +55,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Reference ID in the quick search box
         searchbox.send_keys("J:14135")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[2].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -75,14 +77,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your GO ID in the quick search box
         searchbox.send_keys("GO:0005892")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
         buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[0].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -96,21 +98,20 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Old Gene ID in the quick search box
         searchbox.send_keys("MGD-MRK-1672")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[0].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[7], 'ID : MGD-MRK-1672   and more detail...')
-        wait.forAjax(driver)
-        
+        wait.forAjax(driver)      
 
     def test_genetrap_id(self):
         """
@@ -118,14 +119,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene Trap ID in the quick search box
         searchbox.send_keys("FHCRC-GT-S15-11C1")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[0].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -139,14 +140,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene Assay ID in the quick search box
         searchbox.send_keys("MGI:1339505")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[2].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -160,14 +161,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Ensembl ID in the quick search box
         searchbox.send_keys("ENSMUSG00000005672")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[0].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -181,14 +182,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your EntrezGene ID in the quick search box
         searchbox.send_keys("11539")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[0].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -202,14 +203,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your UniGene ID in the quick search box
         searchbox.send_keys("181490")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[0].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -223,14 +224,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your UniProt ID in the quick search box
         searchbox.send_keys("Q9ER73")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[0].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -244,14 +245,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your UniSTS ID in the quick search box
         searchbox.send_keys("125993")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[2].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -265,14 +266,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your VEGA ID in the quick search box
         searchbox.send_keys("OTTMUSG00000010935")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[0].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -286,35 +287,98 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
+        # put your OMIM ID in the quick search box
+        searchbox.send_keys("OMIM:168600")
+        searchbox.send_keys(Keys.RETURN)
+        time.sleep(3)
+        #finds the Best Match information
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
+        searchTextItems = iterate.getTextAsList(match_info)
+        wait.forAjax(driver)
+        print searchTextItems
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(searchTextItems[3], 'ID : OMIM:168600')
+        wait.forAjax(driver) 
+
+    def test_omim_id_no_pre(self):
+        """
+        @status: Tests that an OMIM ID without the prefix of OMIM: brings back the proper information
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL)
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your OMIM ID in the quick search box
         searchbox.send_keys("168600")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[1].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[3], 'ID : 168600 (OMIM)')
         wait.forAjax(driver) 
+        
+    def test_omim_gene_id(self):
+        """
+        @status: Tests that an OMIM ID for a gene(human) brings back the proper information
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL)
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
+        # put your OMIM ID in the quick search box
+        searchbox.send_keys("OMIM:191170")
+        searchbox.send_keys(Keys.RETURN)
+        time.sleep(3)
+        #finds the Best Match information
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
+        searchTextItems = iterate.getTextAsList(match_info)
+        wait.forAjax(driver)
+        print searchTextItems
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(searchTextItems[2], 'ID : OMIM:191170 (OMIM - Human)')
+        wait.forAjax(driver) 
 
+    def test_omim_gene_id_no_pre(self):
+        """
+        @status: Tests that an OMIM ID for a gene(human) without the prefix of OMIM: brings back the proper information
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL)
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
+        # put your OMIM ID in the quick search box
+        searchbox.send_keys("191170")
+        searchbox.send_keys(Keys.RETURN)
+        time.sleep(3)
+        #finds the Best Match information
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
+        searchTextItems = iterate.getTextAsList(match_info)
+        wait.forAjax(driver)
+        print searchTextItems
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(searchTextItems[2], 'ID : 191170 (OMIM - Human)')
+        wait.forAjax(driver)         
+        
     def test_homologene_id(self):
         """
         @status: Tests that an HomoloGene ID brings back the proper information
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your HomoloGene ID in the quick search box
         searchbox.send_keys("20151")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[0].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -328,14 +392,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your HGNC ID in the quick search box
         searchbox.send_keys("HGNC:28837")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[0].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -349,14 +413,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your RegSeq ID in the quick search box
         searchbox.send_keys("NM_023876")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[0].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -370,14 +434,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your PDB ID in the quick search box
         searchbox.send_keys("1HU8")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[0].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -391,14 +455,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your ATCC clone ID in the quick search box
         searchbox.send_keys("719230")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[2].find_elements_by_class_name("qsBucketRow1")[1].find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[2].find_elements(By.CLASS_NAME, 'qsBucketRow1')[1].find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -412,14 +476,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Image clone ID in the quick search box
         searchbox.send_keys("MGI:200469")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[2].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -433,14 +497,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your MGC ID in the quick search box
         searchbox.send_keys("14049")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[2].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -454,14 +518,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your RIKEN clone ID in the quick search box
         searchbox.send_keys("MGI:2420147")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[2].find_element_by_class_name("qsBucketRow2").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow2').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -475,14 +539,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your RPCI ID in the quick search box
         searchbox.send_keys("RP23-100A23")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[2].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -496,14 +560,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your InterPro ID in the quick search box
         searchbox.send_keys("IPR003599")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[1].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -517,14 +581,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your PIRSF ID in the quick search box
         searchbox.send_keys("PIRSF038195")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[1].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -538,14 +602,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your PubMed ID in the quick search box
         searchbox.send_keys("8825637")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[2].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -559,14 +623,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your MGI Reference ID in the quick search box
         searchbox.send_keys("MGI:3716133")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[2].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -580,14 +644,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your dbSNP ID in the quick search box
         searchbox.send_keys("rs3021544")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[2].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -601,14 +665,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Genbank ID in the quick search box
         searchbox.send_keys("S40294")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[2].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -622,14 +686,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your EC ID in the quick search box
         searchbox.send_keys("3.4.21.6")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[0].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -643,14 +707,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your mirBasee ID in the quick search box
         searchbox.send_keys("MI0000248")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[0].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -664,14 +728,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Allele ID in the quick search box
         searchbox.send_keys("MGI:2156651")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[0].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -685,14 +749,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your ES Cell Line ID in the quick search box
         searchbox.send_keys("BGB069")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[0].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -706,14 +770,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your ES Cell Line ID in the quick search box
         searchbox.send_keys("OST2298")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[0].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -727,14 +791,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your NCBI ID in the quick search box
         searchbox.send_keys("20423")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[2].find_elements_by_class_name("qsBucketRow2")[0].find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[2].find_elements(By.CLASS_NAME, 'qsBucketRow2')[0].find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -748,14 +812,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Probe ID in the quick search box
         searchbox.send_keys("MGI:10980")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[2].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -769,14 +833,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your MGC clone ID in the quick search box
         searchbox.send_keys("MGI:1414340")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[2].find_elements_by_class_name("qsBucketRow2")[0].find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[2].find_elements(By.CLASS_NAME, 'qsBucketRow2')[0].find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -790,14 +854,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Mapping Experiment ID in the quick search box
         searchbox.send_keys("MGD-CREX-2835")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[2].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -811,14 +875,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Adult Mouse Anatomy ID in the quick search box
         searchbox.send_keys("MA:0000168")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[2].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -832,14 +896,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your MP ID in the quick search box
         searchbox.send_keys("MP:0002089")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[1].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -853,14 +917,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Antibody ID in the quick search box
         searchbox.send_keys("MGI:4438078")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[2].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -874,14 +938,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Proteoform ID in the quick search box
         searchbox.send_keys("PR:Q80YE4-2")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[0].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems
@@ -895,14 +959,14 @@ class TestSearchTool(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        searchbox = driver.find_element_by_id('searchToolTextArea')
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Proteoform ID in the quick search box
         searchbox.send_keys("DOID:1700")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
-        match_info = buckets[1].find_element_by_class_name("qsBucketRow1").find_elements_by_tag_name("td")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
         print searchTextItems

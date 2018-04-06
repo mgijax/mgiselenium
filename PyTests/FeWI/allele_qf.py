@@ -4,7 +4,7 @@ This set of tests verifies items found on the allele query form page
 @author: jeffc
 '''
 import unittest
-
+import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
@@ -63,7 +63,21 @@ class TestAlleleQueryForm(unittest.TestCase):
         print disease_cells
         self.assertEquals(disease_cells[1], 'myelofibrosis   DOID:4971')
         
+    def test_apf_link(self):
+        '''
+        @status this test verifies when you click the APF link for incidental Mutations you go to the correct website location
+        @note: works as of 3/29/18
+        '''
+        self.driver.find_element_by_name("nomen").clear()
+        self.driver.find_element_by_name("nomen").send_keys("Blnk")
+        self.driver.find_element_by_class_name("buttonLabel").click()
+        time.sleep(2)
+        self.driver.find_element_by_partial_link_text('m1Btlr').click()
+        mutlink = self.driver.find_element_by_link_text('incidental mutations')
+        href = mutlink.find_element_by_xpath("//a").get_attribute('href')
+        self.assertTrue(href, 'http://test.informatics.jax.org/downloads/datasets/incidental_muts/Mutagenetix.xlsx')       
         
+             
         
         
         

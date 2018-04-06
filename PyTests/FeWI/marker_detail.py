@@ -124,30 +124,22 @@ class Test(unittest.TestCase):
         #self.assertEquals(disease_cells[3], 'type 1 diabetes mellitus\nIDs')
         #self.assertEquals(disease_cells[4], 'type 2 diabetes mellitus\nIDs')
         self.assertEquals(disease_cells[5], 'maturity-onset diabetes of the young type 10\nIDs')
+        
+    def test_apf_link(self):
         '''
-    def test_????(self):
-        
-        @status this is just a placeholder test for now.
-        @bug: under construction
-        
+        @status this test verifies that the APF link for incidential mutations goes to the correct website location.
+        @note test works as of 3/29/18
+        '''
         self.driver.find_element_by_name("nomen").clear()
-        self.driver.find_element_by_name("nomen").send_keys("Lith20")
+        self.driver.find_element_by_name("nomen").send_keys("Alad")
         self.driver.find_element_by_class_name("buttonLabel").click()
-        alleleLink = self.driver.find_element_by_id('alleleAnnotationLink').click()
-        self.driver.find_element_by_partial_link_text('SM/J').click()
-        alleleType = self.driver.find_element_by_id('alleleTypeDisplay')
+        self.driver.find_element_by_link_text('Alad').click()
+        apflnk = self.driver.find_element_by_link_text('APF')
+        href = apflnk.find_element_by_xpath("//a").get_attribute('href')
         
-        self.assertEqual(alleleType.text, "QTL")
-        self.driver.get(config.FEWI_URL + "/allele/")
+        self.assertTrue(href, "https://databases.apf.edu.au/mutations/snpRow/list?mgiAccessionid=MGI:96853")
         
-        self.driver.find_element_by_name("nomen").clear()
-        self.driver.find_element_by_name("nomen").send_keys("Tg(Id1*-lacZ)1C10Oxb")
-        self.driver.find_element_by_class_name("buttonLabel").click()
-        self.driver.find_element_by_partial_link_text('Tg(Id1*-lacZ)1C10Oxb').click()
-        alleleType = self.driver.find_element_by_id('alleleTypeDisplay')
-        
-        self.assertEqual(alleleType.text, "Transgenic")
-        
+        '''
     def test_????(self):
         
         @status this is just a placeholder test for now.

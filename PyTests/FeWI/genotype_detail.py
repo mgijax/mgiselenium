@@ -43,7 +43,13 @@ class Test(unittest.TestCase):
         self.driver.implicitly_wait(10)
         self.driver.switch_to.window(self.driver.window_handles[1])
         mgiid = self.driver.find_element(By.CLASS_NAME, 'genoID')
-        self.assertEquals(mgiid.text, "MGI:2175204", "This is not the correct MGI ID")        
+        self.assertEquals(mgiid.text, "MGI:2175204", "This is not the correct MGI ID")#verifies we have the correct MGI ID  
+        htid = self.driver.find_element(By.CLASS_NAME, 'htGeno')
+        self.assertEquals(htid.text, "ht3", "This is not the correct ht ID")#verifies we are brining the ht3 data back  
+        gt = self.driver.find_element(By.CLASS_NAME, 'genotypeCombo')
+        print gt.text
+        self.assertEquals(gt.text, "Pax6Sey-Dey/Pax6+", "This is not the correct genotype combo")#verifies the Allelic Composition is correct 
+             
         self.driver.find_element(By.CLASS_NAME, 'results')
         headers = self.driver.find_elements(By.TAG_NAME, 'td')
         

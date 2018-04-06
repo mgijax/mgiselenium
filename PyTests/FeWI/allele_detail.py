@@ -245,7 +245,7 @@ class TestAlleleDetail(unittest.TestCase):
     def test_mutagenetix_link(self):
         '''
         @status this test verifies these Alleles have the Mutagentix link in the Mutation Description ribbon(under Mutation Details) and the link works.
-        @bug Mutagenetix file missing, so link is not there, once file is there this test will work
+        @bug Mutagenetix file missing(only available on public), so link is not there, once file is there this test will work
         '''
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('Blnk')
@@ -329,15 +329,16 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('Dock2')
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Hsd').click()
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'm1Hsd').click()
         
-        caption = self.driver.find_element(By.ID, 'mutationDescriptionTable').find_element(By.CSS_SELECTOR, 'span')
-        self.assertEquals(caption.text, 'Schematic showing the duplication and location of the premature stop codon in the Dock2<mu> allele')
+        caption = self.driver.find_element(By.ID, 'mutationDescriptionTable').find_element(By.CSS_SELECTOR, 'span.small')
+        self.assertEquals(caption.text, 'Schematic showing the duplication and location of the premature stop codon in the Dock2m1Hsd allele')
         
         
     def test_afp_link(self):
         '''
         @status this test verifies these Alleles have the Australian Phenome Facility link in the Mutation Description ribbon(under Mutation Details) and the link works.
+        @bug Mutagenetix file missing(only available on public), so link is not there, once file is there this test will work
         '''
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('Adamts20')
@@ -422,15 +423,15 @@ class TestAlleleDetail(unittest.TestCase):
     def test_pheno_disease_table(self):
         '''
         @status this test verifies these Alleles have the correct Disease models and sorted alphabetically.
-        @Bug needs modification for DOIDs change
         '''
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('Trp53')
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1Tyj').click()
-        actualurl = self.driver.find_element(By.LINK_TEXT, 'Breast Cancer').get_attribute('href')
+        time.sleep(2)
+        actualurl = self.driver.find_element(By.LINK_TEXT, 'breast cancer').get_attribute('href')
         
-        self.assertEqual(actualurl, 'http://scrumdog.informatics.jax.org/disease/DOID:1612')
+        self.assertEqual(actualurl, 'http://test.informatics.jax.org/disease/DOID:1612')
         self.driver.get(config.PUBLIC_URL + "/allele/")
         
         self.driver.find_element(By.NAME, 'nomen').clear()
@@ -443,7 +444,18 @@ class TestAlleleDetail(unittest.TestCase):
         # add all li text to a list for "assertIn" test
         searchTreeItems = iterate.getTextAsList(items)
         
-        self.assertEqual(["Breast Cancer", "114480", "Li-Fraumeni Syndrome 1; LFS1", "151623", "Medulloblastoma; MDB", "155255", "Myxoid Liposarcoma", "613488", "Neurofibromatosis, Type I; NF1", "162200", "Pancreatic Cancer", "260350", "Peutz-Jeghers Syndrome; PJS", "175200"], searchTreeItems)
+        self.assertIn("astrocytoma", searchTreeItems)
+        self.assertIn("breast cancer", searchTreeItems)
+        self.assertIn("diffuse large B-cell lymphoma", searchTreeItems)
+        self.assertIn("glioblastoma multiforme", searchTreeItems)
+        self.assertIn("Li-Fraumeni syndrome", searchTreeItems)
+        self.assertIn("lymphoma", searchTreeItems)
+        self.assertIn("medulloblastoma", searchTreeItems)
+        self.assertIn("myxoid liposarcoma", searchTreeItems)
+        self.assertIn("neurofibromatosis", searchTreeItems)
+        self.assertIn("pancreatic carcinoma", searchTreeItems)
+        self.assertIn("Peutz-Jeghers syndrome", searchTreeItems)
+
     
     def test_pheno_show_hide(self):
         '''
