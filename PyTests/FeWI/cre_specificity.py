@@ -97,7 +97,7 @@ class TestCreSpecificity(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(Test))
+    suite.addTest(unittest.makeSuite(TestCreSpecificity))
     return suite
 
 if __name__ == "__main__":
