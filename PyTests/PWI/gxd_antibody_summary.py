@@ -17,7 +17,7 @@ sys.path.append(
 import config
 from config import TEST_PWI_URL
 
-class TestAssaySummaryPage(unittest.TestCase):
+class TestAntibodySummaryPage(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Chrome()
@@ -133,7 +133,7 @@ class TestAssaySummaryPage(unittest.TestCase):
         
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestAssaySummaryPage))
+    suite.addTest(unittest.makeSuite(TestAntibodySummaryPage))
     return suite
 
 if __name__ == "__main__":

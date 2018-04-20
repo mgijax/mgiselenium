@@ -7,7 +7,7 @@ Created on Dec 7, 2017
 import unittest
 import time
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
+#from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from util import iterate
 import sys,os.path

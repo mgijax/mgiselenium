@@ -110,7 +110,7 @@ class TestEmapaBrowser(unittest.TestCase):
         driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:35272")
         time.sleep(2)
         driver.find_element(By.CLASS_NAME, 'phenotypeAnnotationCount').click()#clicks the phenotype annotations link found in the Treeview section
-        results_table = self.driver.find_element_by_id('resultsTable')
+        results_table = self.driver.find_element(By.ID, 'resultsTable')
         table = Table(results_table)
         #gets the 1st,5th,13th,15th rows of the Annotated term column
         term1 = table.get_cell(3, 1)
@@ -137,7 +137,7 @@ class TestEmapaBrowser(unittest.TestCase):
         driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:36506")
         time.sleep(2)
         driver.find_element(By.CLASS_NAME, 'phenotypeAnnotationCount').click()#clicks the phenotype annotations link found in the Treeview section
-        results_table = self.driver.find_element_by_id('resultsTable')
+        results_table = self.driver.find_element(By.ID, 'resultsTable')
         table = Table(results_table)
         #gets the 1st and only row of the Annotated term column
         term1 = table.get_cell(3, 1)
@@ -156,7 +156,7 @@ class TestEmapaBrowser(unittest.TestCase):
         driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:16333")
         time.sleep(2)
         driver.find_element(By.CLASS_NAME, 'phenotypeAnnotationCount').click()#clicks the phenotype annotations link found in the Treeview section
-        results_table = self.driver.find_element_by_id('resultsTable')
+        results_table = self.driver.find_element(By.ID, 'resultsTable')
         table = Table(results_table)
         #gets the 1st,2nd rows of the Annotated term column, only 2 rows exist
         term1 = table.get_cell(3, 1)
@@ -220,7 +220,7 @@ class TestEmapaBrowser(unittest.TestCase):
         driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:28373")
         time.sleep(2)
         driver.find_element(By.CLASS_NAME, 'phenotypeAnnotationCount').click()#clicks the phenotype annotations link found in the Treeview section
-        results_table = self.driver.find_element_by_id('resultsTable')
+        results_table = self.driver.find_element(By.ID, 'resultsTable')
         table = Table(results_table)
         #gets the 1st-7th rows of the Annotated term column, only 7 rows exist
         term1 = table.get_cell(3, 1)
@@ -256,7 +256,7 @@ class TestEmapaBrowser(unittest.TestCase):
         driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:16075")
         time.sleep(2)
         driver.find_element(By.CLASS_NAME, 'phenotypeAnnotationCount').click()#clicks the phenotype annotations link found in the Treeview section
-        results_table = self.driver.find_element_by_id('resultsTable')
+        results_table = self.driver.find_element(By.ID, 'resultsTable')
         table = Table(results_table)
         #gets the 1st, 2nd, 4th, 5th, 6th, and 9th rows of the Annotated term column
         term1 = table.get_cell(4, 1)

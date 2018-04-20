@@ -12,7 +12,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 import sys,os.path
 from util import wait, iterate
-from config.config import TEST_URL
+#from config.config import TEST_URL
 # adjust the path to find config
 sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../config',)
@@ -83,7 +83,7 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the Best Match information
-        buckets = driver.find_elements_by_class_name("qsBucket")
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
         match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
