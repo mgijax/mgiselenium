@@ -8,7 +8,8 @@ import unittest
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as ec
 import sys,os.path
 from genericpath import exists
 # adjust the path to find config
@@ -31,10 +32,10 @@ class Test(unittest.TestCase):
         '''
         @status This test verifies the ribbons are being displayed in the correct order on the page.
         '''
-        self.driver.find_element_by_name("markerQF")
-        genemarker = self.driver.find_element_by_class_name("queryCat1")
+        self.driver.find_element(By.NAME, 'markerQF')
+        genemarker = self.driver.find_element(By.CLASS_NAME, 'queryCat1')
         self.assertEquals(genemarker.text, 'Gene/Marker', "heading is incorrect")
-        featuretype = self.driver.find_element_by_class_name("queryCat2")
+        featuretype = self.driver.find_element_by_class_name(By.CLASS_NAME, 'queryCat2')
         self.assertEquals(featuretype.text, 'Feature type', "heading is incorrect")
      
         

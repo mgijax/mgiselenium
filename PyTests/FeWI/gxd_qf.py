@@ -20,7 +20,7 @@ from util import wait, iterate
 import config
 from config import TEST_URL
 
-class Test(unittest.TestCase):
+class TestGXDQF(unittest.TestCase):
 
 
     def setUp(self):
@@ -92,5 +92,5 @@ def suite():
     return suite
 
 if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
+    # import sys;sys.argv = ['', 'TestGXDQF.testName']
     unittest.main()                

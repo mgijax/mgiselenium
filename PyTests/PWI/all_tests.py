@@ -21,7 +21,7 @@ import gxd_spec_summary_by_ref
 # add the test suites
 def master_suite():
         suites = []
-        suites.append(gxd_assay_summary.suite())
+        suites.append(gxd_antibody_summary.suite())
         suites.append(gxd_assay_summary.suite())
         suites.append(gxd_image_pane_summary.suite())
         suites.append(gxd_lit_index_by_mrk.suite())

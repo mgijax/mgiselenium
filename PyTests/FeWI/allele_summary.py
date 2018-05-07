@@ -20,7 +20,7 @@ from util.table import Table
 import config
 from config import TEST_URL
 
-class Test(unittest.TestCase):
+class TestAlleleSummary(unittest.TestCase):
 
 
     def setUp(self):
@@ -87,5 +87,5 @@ def suite():
     return suite
 
 if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
+    # import sys;sys.argv = ['', 'TestAlleleSummary.testName']
     unittest.main()        

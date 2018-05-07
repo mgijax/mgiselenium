@@ -43,7 +43,7 @@ class Test(unittest.TestCase):
         print summaryRibbon.text
         self.assertEqual(summaryRibbon.text, 'Summary', "Summary ribbon is missing")
         locationribbon = self.driver.find_element(By.CSS_SELECTOR, 'div.row.locationRibbon > div.header.detailCat2')
-        self.assertEqual(locationribbon.text, "Location & Maps", "Locations & Maps ribbon is missing")
+        self.assertEqual(locationribbon.text, "Genome Context & Strain Distribution", "Genome Context & Strain Distribution ribbon is missing")
         homologyRibbon = self.driver.find_element(By.CSS_SELECTOR, 'div:nth-child(3).row > div.header.detailCat1')
         print homologyRibbon.text
         self.assertEqual(homologyRibbon.text, 'Homology', "Homology ribbon is missing")
@@ -139,32 +139,101 @@ class Test(unittest.TestCase):
         href = apflnk.find_element_by_xpath("//a").get_attribute('href')
         
         self.assertTrue(href, "https://databases.apf.edu.au/mutations/snpRow/list?mgiAccessionid=MGI:96853")
-        
-        '''
-    def test_????(self):
-        
-        @status this is just a placeholder test for now.
-        @bug: under construction
-        
-        self.driver.find_element(By.NAME, 'nomen').clear()
-        self.driver.find_element(By.NAME, 'nomen').send_keys("Tgm3")
-        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1Sjo').click()
-        
-        image = self.driver.find_element(By.ID, 'mutationDescriptionTable').find_element(By.CSS_SELECTOR, 'a img')
-        self.assertTrue(image.is_displayed(), 'the image is not displaying')
-        self.driver.get(config.FEWI_URL + "/allele/")
-        
-        self.driver.find_element(By.NAME, 'nomen').clear()
-        self.driver.find_element(By.NAME, 'nomen').send_keys("Dock2")
-        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Hsd').click()
-        
-        image = self.driver.find_element(By.ID, 'mutationDescriptionTable').find_element(By.CSS_SELECTOR, 'a img')
-        self.assertTrue(image.is_displayed(), 'the image is not displaying')
-        '''
-        
 
+    def test_strain_table_headings(self):
+        '''        
+        @status this test verifies the strain table headings in the Genome Context & Strain Distribution ribbon are correctly ordered/displayed.
+        @note mrkdetail-loc-1
+        '''        
+        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.find_element(By.NAME, 'nomen').send_keys("Ren1")
+        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
+        self.driver.find_element(By.LINK_TEXT, 'Ren1').click()
+        time.sleep(8)#long timeout to compensate for intermittent lagging
+        #clicks the More toggle(turnstile) to display the human disease table
+        self.driver.find_element(By.CSS_SELECTOR, 'div.row.locationRibbon > div.detail.detailData2 > div.toggleImage.hdExpand').click()
+        time.sleep(2)
+        strain_table = self.driver.find_element(By.ID, 'table_strainMarkers')
+        table = Table(strain_table)
+        #Iterate and print the table headers
+        cells = table.get_header_cells()
+        header_cells = iterate.getTextAsList(cells)      
+        #Verify the strain table headers are correct.
+        self.assertEqual(header_cells[0], 'Strain')
+        self.assertEquals(header_cells[1], 'Gene Model ID')
+        self.assertEquals(header_cells[2], 'Feature Type')
+        self.assertEquals(header_cells[3], 'Coordinates')
+        self.assertEquals(header_cells[4], 'Downloads')        
+
+    def test_strain_no_annot(self):
+        '''        
+        @status this test verifies the strain table results in the Genome Context & Strain Distribution ribbon when strains have no annotation.
+        @note mrkdetail-loc-2
+        '''        
+        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.find_element(By.NAME, 'nomen').send_keys("Ren1")
+        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
+        self.driver.find_element(By.LINK_TEXT, 'Ren1').click()
+        time.sleep(8)#long timeout to compensate for intermittent lagging
+        #clicks the More toggle(turnstile) to display the human disease table
+        self.driver.find_element(By.CSS_SELECTOR, 'div.row.locationRibbon > div.detail.detailData2 > div.toggleImage.hdExpand').click()
+        time.sleep(2)
+        strain_table = self.driver.find_element(By.ID, 'table_strainMarkers')
+        table = Table(strain_table)
+        #Iterate and print the table headers
+        header_cells = table.get_header_cells()
+        print iterate.getTextAsList(header_cells)
+        
+        # print all the results in the Gene Model ID column
+        cells = table.get_column_cells("Gene Model ID")
+        gmodel_cells = iterate.getTextAsList(cells)
+        print gmodel_cells
+        #Verify the first 5 results are correct. When a strain  has no results print 'no annotaions' in this field.
+        self.assertEquals(gmodel_cells[1], 'ENSMUSG00000070645\n19701')
+        self.assertEquals(gmodel_cells[2], 'no annotation')
+        self.assertEquals(gmodel_cells[3], 'no annotation')
+        self.assertEquals(gmodel_cells[4], 'no annotation')
+        self.assertEquals(gmodel_cells[5], 'MGP_BALBcJ_G0016428')
+
+    def test_strain_turnstile_closed(self):
+        '''        
+        @status this test verifies the Genome Context & Strain Distribution ribbon when the turnstile is closed shows B6 coordinates and genetic map location.
+        @note mrkdetail-loc-3
+        '''        
+        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.find_element(By.NAME, 'nomen').send_keys("Ren1")
+        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
+        self.driver.find_element(By.LINK_TEXT, 'Ren1').click()
+        #locate the Sequence map information
+        seq_map = self.driver.find_element(By.CSS_SELECTOR, 'div.detail.detailData2 > section.summarySec1 > ul > li > div.value')
+        print seq_map.text
+        #verify the sequence map information is correct
+        self.assertEqual(seq_map.text, 'Chr1:133350510-133360325 bp, + strand')
+        #locate the genetic map information
+        gen_map = self.driver.find_element(By.CSS_SELECTOR, 'div.detail.detailData2 > section.summarySec2 > ul > li > div.value')
+        print gen_map.text
+        #verify the genetic map information is correct
+        self.assertEqual(gen_map.text, 'Chromosome 1, 57.91 cM')
+
+    def test_strain_turnstile_closed_nob6(self):
+        '''        
+        @status this test verifies the Genome Context & Strain Distribution ribbon when the turnstile is closed with no B6 coordinates and has genetic map location.
+        @note mrkdetail-loc-4
+        '''        
+        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.find_element(By.NAME, 'nomen').send_keys("Ren2")
+        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
+        self.driver.find_element(By.LINK_TEXT, 'Ren2').click()
+        #locate the Sequence map information
+        seq_map = self.driver.find_element(By.CSS_SELECTOR, 'div.detail.detailData2 > section.summarySec1 > ul > li > div.value')
+        print seq_map.text
+        #verify the sequence map information is correct
+        self.assertEqual(seq_map.text, 'Genome coordinates not available')
+        #locate the genetic map information
+        gen_map = self.driver.find_element(By.CSS_SELECTOR, 'div.detail.detailData2 > section.summarySec2 > ul > li > div.value')
+        print gen_map.text
+        #verify the genetic map information is correct
+        self.assertEqual(gen_map.text, 'Chromosome 1, Syntenic')
         
     def tearDown(self):
         self.driver.close()

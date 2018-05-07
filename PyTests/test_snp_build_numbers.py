@@ -40,6 +40,7 @@ class TestSnpBuild(unittest.TestCase):
         self.driver.get(PUBLIC_URL + "/snp/")
         #finds the build number at the top of the snp QF page
         formLabel = self.driver.find_element(By.CSS_SELECTOR, '#form1 > div:nth-child(2)')
+        print formLabel.text
         self.assertIn("from dbSNP Build 142", formLabel.text)
 
         genebox = self.driver.find_element(By.ID, 'nomen')
@@ -112,27 +113,6 @@ class TestSnpBuild(unittest.TestCase):
         searchTextItems = iterate.getTextAsList(mainbuild)
         self.assertEqual(searchTextItems, ['Human (GRCh38)', 'Mouse (GRCm38)'])
        
-        """
-        def test_hmdc_summary_build(self):
-        
-        
-        @Status this test no longer required with new hmdc pages
-        checks the mouse build number on the HMDC result/summary page
-        
-        #displays the HMDC qf
-        self.driver.get(PUBLIC_URL + "/humanDisease.shtml")
-        self.driver.find_element_by_partial_link_text("Autism AND").click()
-        wait.forAjax(self.driver)
-        #clicks the gene tab of the hmdc results page
-        self.driver.find_element_by_id("genestab").click()
-        time.sleep(1)
-        # get all the elements in the Genome Coordinates column
-        coorddata = self.driver.find_elements_by_class_name('yui-dt-col-coordinate')
-        #finds the mouse build number
-        searchTreeItems = iterate.getTextAsList(coorddata)
-        #confirms that GRCh38 is displayed somewhere within this field of data
-        self.assertIn("GRCm38", searchTreeItems[1])
-        """
         
         
     def tearDown(self):
