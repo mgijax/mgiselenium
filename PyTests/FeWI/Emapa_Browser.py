@@ -177,29 +177,27 @@ class TestEmapaBrowser(unittest.TestCase):
         driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:32750")
         wait.forAjax(driver)
         time.sleep(2)
-        link = driver.find_element(By.CLASS_NAME, 'phenotypeAnnotationCount') #the phenotype annotations link found in the Treeview section
-        # verifies the returned terms are the correct terms for this search
-        self.assertIs('0 phenotype annotations', link.text, 'The 0 phenotypes annotation link is wrong' )
+        #the phenotype annotations link found in the Treeview section should be zero
+        assert '0 phenotype annotations' in driver.page_source
 
     def test_zero_pheno_link_zero_exp_link(self):
         """
         @status: Tests that when you have a 1to1 NO mapping for expression or pheno, NO child terms, the phenotype annotations is zero and expression results links in the Treeview section is normal.
-        @note: EMAPA-ID-search-10 :broken, awaiting a fix to software
+        @note: EMAPA-ID-search-10
         """
         driver = self.driver
-        driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:17342")
+        driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:36322")
         wait.forAjax(driver)
         time.sleep(2)
-        linkE = driver.find_element(By.CLASS_NAME, 'expressionAnnotationCount') #the expression annotations link found in the Treeview section
-        linkP = driver.find_element(By.CLASS_NAME, 'phenotypeAnnotationCount') #the phenotype annotations link found in the Treeview section
-        # verifies the returned terms are the correct terms for this search
-        self.assertIs('0 expression results', linkE.text, 'The 0 expression results link is wrong' )
-        self.assertIs('0 phenotype annotations', linkP.text, 'The 0 phenotypes annotation link is wrong' )
+        
+        # verifies the returned results are zero for this search
+        assert '(0 expression results; 0 phenotype annotations)' in driver.page_source 
+        
 
     def test_zero_pheno_link_zero_exp_link_MP_child(self):
         """
         @status: Tests that when you have a 1to1  NO mapping for expression or pheno, has child terms,the phenotype annotations is zero and expression results links in the Treeview section is normal.
-        @note: EMAPA-ID-search-11 :broken, awaiting a fix to software, also this example now returns expression results
+        @note: EMAPA-ID-search-11 
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:17342")
