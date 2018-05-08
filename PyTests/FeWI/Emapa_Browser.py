@@ -7,6 +7,8 @@ import unittest
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from util.table import Table
 import sys,os.path
 # adjust the path to find config
@@ -48,7 +50,7 @@ class TestEmapaBrowser(unittest.TestCase):
         termList = driver.find_elements(By.CLASS_NAME, 'ygtvlabel')
         terms = iterate.getTextAsList(termList)
         print [x.text for x in termList]
-        time.sleep(3)
+        time.sleep(2)
         # extra embryonic component should not be 2nd item in list
         self.assertGreater(terms.index('extraembryonic component'), 2)
         
@@ -64,7 +66,7 @@ class TestEmapaBrowser(unittest.TestCase):
         searchList = driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
         print [x.text for x in searchList]
-        
+        time.sleep(2)
         # These 2 terms should be returned in the phenotype search results(could be other terms as well)
         self.assertIn('absent sinus venosus\nsinus venosus hypoplasia', terms, 'these terms are not listed!')
         
@@ -81,7 +83,7 @@ class TestEmapaBrowser(unittest.TestCase):
         searchList = driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
         print [x.text for x in searchList]
-        
+        time.sleep(2)
         # This term should be returned in the phenotype search results
         self.assertIn('absent amniotic folds', terms, 'this term is not listed!')
         
@@ -97,7 +99,7 @@ class TestEmapaBrowser(unittest.TestCase):
         searchList = driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
         print [x.text for x in searchList]
-        
+        time.sleep(2)
         # These 2 terms should be returned in the phenotype search results
         self.assertIn('abnormal blastocoele morphology\nabsent blastocoele', terms, 'these terms are not listed!')
         
@@ -142,8 +144,7 @@ class TestEmapaBrowser(unittest.TestCase):
         #gets the 1st and only row of the Annotated term column
         term1 = table.get_cell(3, 1)
         print term1.text
-
-        time.sleep(1)
+        time.sleep(2)
         # verifies the returned terms are the correct terms for this search
         self.assertEqual("abnormal Peyer's patch epithelium morphology", term1.text, 'Term1 is not returning' )
 
@@ -163,7 +164,7 @@ class TestEmapaBrowser(unittest.TestCase):
         term2 = table.get_cell(4, 1)
         print term1.text
         print term2.text
-        time.sleep(1)
+        time.sleep(2)
         # verifies the returned terms are the correct terms for this search
         self.assertEqual('abnormal bulbus cordis morphology', term1.text, 'Term1 is not returning' )
         self.assertEqual('abnormal bulbus cordis morphology', term2.text, 'Term2 is not returning' )
@@ -188,8 +189,7 @@ class TestEmapaBrowser(unittest.TestCase):
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:36322")
         wait.forAjax(driver)
-        time.sleep(2)
-        
+        time.sleep(2)      
         # verifies the returned results are zero for this search
         assert '(0 expression results; 0 phenotype annotations)' in driver.page_source 
         
@@ -235,7 +235,7 @@ class TestEmapaBrowser(unittest.TestCase):
         print term5.text
         print term6.text
         print term7.text
-        time.sleep(1)
+        time.sleep(2)
         # verifies the returned terms are the correct terms for this search
         self.assertEqual('abnormal renal artery morphology', term1.text, 'Term1 is not returning' )
         self.assertEqual('abnormal renal artery morphology', term2.text, 'Term2 is not returning' )
@@ -269,7 +269,7 @@ class TestEmapaBrowser(unittest.TestCase):
         print term4.text
         print term5.text
         print term6.text
-        time.sleep(1)
+        time.sleep(2)
         # verifies the returned terms are the correct terms for this search
         self.assertEqual('absent embryonic cilia', term1.text, 'Term1 is not returning' )
         self.assertEqual('absent primitive node', term2.text, 'Term2 is not returning' )
