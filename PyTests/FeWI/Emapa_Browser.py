@@ -63,10 +63,11 @@ class TestEmapaBrowser(unittest.TestCase):
         driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:16237")
         time.sleep(2)
         driver.find_element(By.LINK_TEXT, 'phenotype terms').click()
+        time.sleep(2)
         searchList = driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
         print [x.text for x in searchList]
-        time.sleep(2)
+        time.sleep(1)
         # These 2 terms should be returned in the phenotype search results(could be other terms as well)
         self.assertIn('absent sinus venosus\nsinus venosus hypoplasia', terms, 'these terms are not listed!')
         
@@ -80,10 +81,11 @@ class TestEmapaBrowser(unittest.TestCase):
         driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:16076")
         time.sleep(2)
         driver.find_element(By.LINK_TEXT, 'phenotype terms').click()
+        time.sleep(2)
         searchList = driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
         print [x.text for x in searchList]
-        time.sleep(2)
+        time.sleep(1)
         # This term should be returned in the phenotype search results
         self.assertIn('absent amniotic folds', terms, 'this term is not listed!')
         
@@ -99,7 +101,7 @@ class TestEmapaBrowser(unittest.TestCase):
         searchList = driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
         print [x.text for x in searchList]
-        time.sleep(2)
+        time.sleep(1)
         # These 2 terms should be returned in the phenotype search results
         self.assertIn('abnormal blastocoele morphology\nabsent blastocoele', terms, 'these terms are not listed!')
         
@@ -326,12 +328,13 @@ class TestEmapaBrowser(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:16117")
-        wait.forAjax(driver)
+        time.sleep(2)
         driver.find_element(By.LINK_TEXT, 'phenotype terms').click()
         searchList = driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
         print [x.text for x in searchList]
         print terms
+        time.sleep(2)
         # These terms should be returned in the phenotype search results with the order given
         self.assertIn('abnormal pharyngeal arch morphology\nabsent pharyngeal arches\nectopic pharyngeal arch\nenlarged pharyngeal arch\nfused pharyngeal arches\npharyngeal arch hypoplasia\nsmall pharyngeal arch', terms, 'The sort order is not correct' )
                 
