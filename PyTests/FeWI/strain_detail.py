@@ -179,6 +179,90 @@ class TestStrainDetail(unittest.TestCase):
         #verify (pending review) is not displayed on the page
         assert '<span id="strainIsStandard">(interim)</span>' not in driver.page_source        
 
+    def test_strain_mpd_link(self):
+        """
+        @status: Tests that when a strain is associated to MPD it has a link in the nomenclature ribbon   
+        @note: Strain-det-nom-7
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/strains_SNPs.shtml")
+        strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
+        # Enter your strain name
+        strainsearchbox.send_keys("A/J")
+        strainsearchbox.send_keys(Keys.RETURN)
+        time.sleep(2)
+        #locate the link for A/J and click it
+        driver.find_element(By.LINK_TEXT, 'A/J').click()
+        time.sleep(2)
+        #switch focus to the new tab for strain detail page
+        driver.switch_to_window(self.driver.window_handles[-1])
+        #Click the MPD link
+        driver.find_element(By.LINK_TEXT, 'View Phenomic Data').click()
+        time.sleep(2)
+        #switch focus to the new tab for the mpd page
+        driver.switch_to_window(self.driver.window_handles[-1])
+        #Identify the page title
+        title = driver.find_element(By.CLASS_NAME, 'pagetitle')
+        print title.text
+        #verify the Page Title is correct
+        self.assertEqual(title.text, 'Mouse strain: A/J', 'page title is not correct!')      
+
+    def test_strain_mgv_link_seq_Strain(self):
+        """
+        @status: Tests that an MGV link exists for sequenced strain in the nomenclature ribbon   
+        @note: Strain-det-nom-8
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/strains_SNPs.shtml")
+        strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
+        # Enter your strain name
+        strainsearchbox.send_keys("A/J")
+        strainsearchbox.send_keys(Keys.RETURN)
+        time.sleep(2)
+        #locate the link for A/J and click it
+        driver.find_element(By.LINK_TEXT, 'A/J').click()
+        time.sleep(2)
+        #switch focus to the new tab for strain detail page
+        driver.switch_to_window(self.driver.window_handles[-1])
+        #Click the MGV link
+        driver.find_element(By.LINK_TEXT, 'View Genome').click()
+        time.sleep(2)
+        #switch focus to the new tab for the mpd page
+        driver.switch_to_window(self.driver.window_handles[-1])
+        #Identify the page title
+        title = driver.find_element(By.CLASS_NAME, 'title')
+        print title.text
+        #verify the Page Title is correct
+        self.assertEqual(title.text, 'A/J', 'page title is not correct!')   
+
+    def test_strain_mgv_link_canon_gene(self):
+        """
+        @status: Tests that an MGV link exists for the canonical gene strain in the nomenclature ribbon   
+        @note: Strain-det-nom-9
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/strains_SNPs.shtml")
+        strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
+        # Enter your strain name
+        strainsearchbox.send_keys("C57BL/6J")
+        strainsearchbox.send_keys(Keys.RETURN)
+        time.sleep(2)
+        #locate the link for C57BL/6J and click it
+        driver.find_element(By.LINK_TEXT, 'C57BL/6J').click()
+        time.sleep(2)
+        #switch focus to the new tab for strain detail page
+        driver.switch_to_window(self.driver.window_handles[-1])
+        #Click the MGV link
+        driver.find_element(By.LINK_TEXT, 'View Genome').click()
+        time.sleep(2)
+        #switch focus to the new tab for the mpd page
+        driver.switch_to_window(self.driver.window_handles[-1])
+        #Identify the page title
+        title = driver.find_element(By.CLASS_NAME, 'title')
+        print title.text
+        #verify the Page Title is correct
+        self.assertEqual(title.text, 'C57BL/6J', 'page title is not correct!')   
+        
     def test_strain_det_mut_multi_assoc(self):
         """
         @status: Tests that the results are correct and ordered correctly for associated mutations and markers ribbon when you have multiple mutations/genes
@@ -548,6 +632,33 @@ class TestStrainDetail(unittest.TestCase):
         #assert the Show All button in the QTL Mapped with this Strain ribbon is not displayed      
         assert '<span id="qtlButton" class="searchToolButton indented">Show All</span>' not in driver.page_source
     
+    def test_strain_imsr_jax_link(self):
+        """
+        @status: Tests that an IMSR link exists to the correct IMSR page in the IMSR ribbon   
+        @note: Strain-det-imsr-1
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/strains_SNPs.shtml")
+        strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
+        # Enter your strain name
+        strainsearchbox.send_keys("C57BL/6J")
+        strainsearchbox.send_keys(Keys.RETURN)
+        time.sleep(2)
+        #locate the link for C57BL/6J and click it
+        driver.find_element(By.LINK_TEXT, 'C57BL/6J').click()
+        time.sleep(2)
+        #switch focus to the new tab for strain detail page
+        driver.switch_to_window(self.driver.window_handles[-1])
+        #Click the IMSR link
+        driver.find_element(By.LINK_TEXT, 'JAX:000664').click()
+        time.sleep(2)
+        #switch focus to the new tab for the IMSR page
+        driver.switch_to_window(self.driver.window_handles[-1])
+        #Identify the strain name
+        name = driver.find_element(By.LINK_TEXT, 'C57BL/6J')
+        print name.text
+        #verify the strain name is correct
+        self.assertEqual(name.text, 'C57BL/6J', 'strain is not correct!')   
 
     def test_strain_ref_early_link(self):
         """

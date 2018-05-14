@@ -234,6 +234,62 @@ class Test(unittest.TestCase):
         print gen_map.text
         #verify the genetic map information is correct
         self.assertEqual(gen_map.text, 'Chromosome 1, Syntenic')
+
+    def test_mgv_link_exists(self):
+        '''        
+        @status this test verifies the Multiple Genome Viewer(MGV) link when B6 coordinates exist.
+        @note mrkdetail-loc-5
+        '''        
+        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.find_element(By.NAME, 'nomen').send_keys("Ren1")
+        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
+        self.driver.find_element(By.LINK_TEXT, 'Ren1').click()
+        time.sleep(8)#long timeout to compensate for intermittent lagging
+        #clicks the More toggle(turnstile) to display the strain distribution data
+        self.driver.find_element(By.CSS_SELECTOR, 'div.row.locationRibbon > div.detail.detailData2 > div.toggleImage.hdExpand').click()
+        time.sleep(2)
+        #locate the MGV link
+        mgv = self.driver.find_element(By.LINK_TEXT, 'Multiple Genome Viewer (MGV)')
+        print mgv.text
+        #verify the MGV link is correct
+        self.assertEqual(mgv.text, 'Multiple Genome Viewer (MGV)', 'The MGV link is missing!')
+        
+    def test_mgv_link_not_exist(self):
+        '''        
+        @status this test verifies the MGV link does not exist when no B6 coordinates exist.
+        @note mrkdetail-loc-5
+        '''        
+        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.find_element(By.NAME, 'nomen').send_keys("Ren2")
+        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
+        self.driver.find_element(By.LINK_TEXT, 'Ren2').click()
+        #locate the Sequence map information
+        seq_map = self.driver.find_element(By.CSS_SELECTOR, 'div.detail.detailData2 > section.summarySec1 > ul > li > div.value')
+        print seq_map.text
+        #verify the MGV link does not exist
+        assert 'Multiple Genome Viewer (MGV)' not in self.driver.page_source 
+
+    def test_mgv_link_10kb_flank(self):
+        '''        
+        @status this test verifies the Multiple Genome Viewer(MGV) has 10kb flanking on each end of the sequence link URL.
+        @note mrkdetail-loc-6
+        '''        
+        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.find_element(By.NAME, 'nomen').send_keys("Ren1")
+        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
+        self.driver.find_element(By.LINK_TEXT, 'Ren1').click()
+        time.sleep(8)#long timeout to compensate for intermittent lagging
+        #clicks the More toggle(turnstile) to display the strain distribution data
+        self.driver.find_element(By.CSS_SELECTOR, 'div.row.locationRibbon > div.detail.detailData2 > div.toggleImage.hdExpand').click()
+        time.sleep(2)
+        #locates all Href links on the page
+        elems = self.driver.find_elements(By.XPATH, '//a[@href]')
+        for elem in elems:
+            print elem.get_attribute('href')
+        
+        print elems[113].get_attribute('href')
+        #verify the MGV link href is correct(the 10KB flanking added is in the url)
+        self.assertEqual(elems[113].get_attribute('href'), 'http://proto.informatics.jax.org/prototypes/mgv/#ref=C57BL/6J&genomes=C57BL/6J+129S1/SvImJ+A/J+AKR/J+BALB/cJ+C3H/HeJ+C57BL/6NJ+CAROLI/EIJ+CAST/EiJ+CBA/J+DBA/2J+FVB/NJ+LP/J+NOD/ShiLtJ+NZO/HlLtJ+PAHARI/EIJ+PWK/PhJ+SPRET/EiJ+WSB/EiJ&chr=1&start=133340510&end=133370325&highlight=MGI:97898', 'The MGV link href flanking is incorrect!')
         
     def tearDown(self):
         self.driver.close()
