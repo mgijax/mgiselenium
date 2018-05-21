@@ -39,7 +39,7 @@ class TestStrainDetail(unittest.TestCase):
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("C57BL/6J")
-        time.sleep(2)
+        #time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
@@ -65,7 +65,7 @@ class TestStrainDetail(unittest.TestCase):
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("C57BL/6J")
-        time.sleep(2)
+        #time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
@@ -91,7 +91,7 @@ class TestStrainDetail(unittest.TestCase):
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("C57BL/6J")
-        time.sleep(2)
+        #time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
@@ -117,7 +117,7 @@ class TestStrainDetail(unittest.TestCase):
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("C57BL*")
-        time.sleep(2)
+        #time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
@@ -142,13 +142,13 @@ class TestStrainDetail(unittest.TestCase):
         driver.get(config.TEST_URL + "/strains_SNPs.shtml")
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
-        strainsearchbox.send_keys("circling mice")
-        time.sleep(2)
+        strainsearchbox.send_keys("101-A<y>")
+        #time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
-        #locate the link for C57BL/6J and click it
-        driver.find_element(By.LINK_TEXT, 'circling mice').click()
+        #locate the link for 101-A<y> and click it
+        driver.find_element(By.PARTIAL_LINK_TEXT, '101-A').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
         driver.switch_to_window(self.driver.window_handles[-1])
@@ -167,7 +167,7 @@ class TestStrainDetail(unittest.TestCase):
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("101/HY")
-        time.sleep(2)
+        #time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
@@ -262,10 +262,33 @@ class TestStrainDetail(unittest.TestCase):
         print title.text
         #verify the Page Title is correct
         self.assertEqual(title.text, 'C57BL/6J', 'page title is not correct!')   
+
+    def test_strain_alt_ids(self):
+        """
+        @status: Tests that Alternate IDs are displayed in the Nomenclature ribbon and are correct
+        @note: Strain-det-nom-10
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/strains_SNPs.shtml")
+        strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
+        # Enter your strain name
+        strainsearchbox.send_keys("CBA/StMs")
+        #time.sleep(2)
+        #find the search button and click it
+        driver.find_element(By.CLASS_NAME, 'goButton').click()
+        time.sleep(2)
+        #locates the strain name link for CBA/StMs and clicks it
+        driver.find_element(By.LINK_TEXT, 'CBA/StMs').click()
+        time.sleep(2)
+        #switch focus to the new tab for strain detail page
+        driver.switch_to_window(self.driver.window_handles[-1])
+        alt_ids = driver.find_element(By.ID, 'otherIDs')#find the alternate IDs
+        print alt_ids.text#print the alt IDs to the console screen
+        self.assertEqual(alt_ids.text, 'RBRC00636, NIG:143')#assert the alt IDs are correct    
         
     def test_strain_det_mut_multi_assoc(self):
         """
-        @status: Tests that the results are correct and ordered correctly for associated mutations and markers ribbon when you have multiple mutations/genes
+        @status: Tests that the results are correct and ordered correctly for associated mutations and markers when you have multiple mutations/genes
         @note: Strain-det-mut-1
         """
         driver = self.driver
@@ -273,7 +296,7 @@ class TestStrainDetail(unittest.TestCase):
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("C57BL/6J")
-        time.sleep(2)
+        #time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
@@ -287,13 +310,13 @@ class TestStrainDetail(unittest.TestCase):
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
         print iterate.getTextAsList(header_cells)        
-        # print all items found in the Mutation Carried column of the associated mutations ribbon
+        # print all items found in the Mutation Carried column
         cells = table.get_column_cells("Mutation Carried")
         mut_cells = iterate.getTextAsList(cells)
         print mut_cells
         #verifies that the right mutations appear and in the correct order
         self.assertEquals(mut_cells, ['Mutation Carried', 'Ahrb-1', 'Cdh23ahl', 'Fbrwt1C57BL/6J', 'Fbrwt2C57BL/6J', 'Gluchos1C57BL/6J', 'Gluchos2C57BL/6J', 'Gluchos3C57BL/6J', 'Micrln', 'n-TRtct5m1J', 'Nlrp12C57BL/6J', 'NntC57BL/6J', 'P2rx7P451L'])
-        #print all items found in the Gene column of the associated mutations ribbon
+        #print all items found in the Gene column
         cells1 = table.get_column_cells("Gene")
         gene_cells = iterate.getTextAsList(cells1)
         print gene_cells
@@ -302,15 +325,15 @@ class TestStrainDetail(unittest.TestCase):
         
     def test_strain_det_mut_single_assoc(self):
         """
-        @status: Tests that the results are correct when only one associated mutation and marker in the Associated Mutatations and Markers ribbon
-        @note: Strain-det-mut-2 NOTE: this detail page has no QTL Mapped ribbon
+        @status: Tests that the results are correct when only one associated mutation and marker
+        @note: Strain-det-mut-2 NOTE: this detail page has no QTL Mapped table
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/strains_SNPs.shtml")
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("129S6/SvEvTac-Foxc1<tm1Blh>")
-        time.sleep(2)
+        #time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
@@ -324,13 +347,13 @@ class TestStrainDetail(unittest.TestCase):
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
         print iterate.getTextAsList(header_cells)        
-        # print all items found in the Mutation Carried column of the associated mutations ribbon
+        # print all items found in the Mutation Carried column
         cells = table.get_column_cells("Mutation Carried")
         mut_cells = iterate.getTextAsList(cells)
         print mut_cells
         #verifies that the right mutations appear and in the correct order
         self.assertEquals(mut_cells, ['Mutation Carried', 'Foxc1tm1Blh'])
-        #print all items found in the Gene column of the associated mutations ribbon
+        #print all items found in the Gene column
         cells1 = table.get_column_cells("Gene")
         gene_cells = iterate.getTextAsList(cells1)
         print gene_cells
@@ -339,15 +362,15 @@ class TestStrainDetail(unittest.TestCase):
                      
     def test_strain_det_no_mut(self):
         """
-        @status: Tests that the results are correct when no associated mutation and only one marker in the Associated Mutatations and Markers ribbon
-        @note: Strain-det-mut-4 NOTE: this detail page has no QTL Mapped ribbon
+        @status: Tests that the results are correct when no associated mutation and only one marker
+        @note: Strain-det-mut-4 NOTE: this detail page has no QTL Mapped table
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/strains_SNPs.shtml")
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("AEJ/GnRk-Rb(11.14)1Dn/J")
-        time.sleep(2)
+        #time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
@@ -361,13 +384,13 @@ class TestStrainDetail(unittest.TestCase):
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
         print iterate.getTextAsList(header_cells)        
-        # print all items found in the Mutation Carried column of the associated mutations ribbon
+        # print all items found in the Mutation Carried column
         cells = table.get_column_cells("Mutation Carried")
         mut_cells = iterate.getTextAsList(cells)
         print mut_cells
         #verifies that the right mutations appear and in the correct order
         self.assertEquals(mut_cells, ['Mutation Carried', ''])
-        #print all items found in the Gene column of the associated mutations ribbon
+        #print all items found in the Gene column
         cells1 = table.get_column_cells("Gene")
         gene_cells = iterate.getTextAsList(cells1)
         print gene_cells
@@ -376,8 +399,8 @@ class TestStrainDetail(unittest.TestCase):
                      
     def test_strain_det_mut_tg(self):
         """
-        @status: Tests that the results are correct when have associated mutation, marker, and Transgene in the Associated Mutatations and Markers ribbon
-        @note: Strain-det-mut-5 NOTE: this detail page has no QTL Mapped ribbon
+        @status: Tests that the results are correct when have associated mutation, marker, and Transgene
+        @note: Strain-det-mut-5 NOTE: this detail page has no QTL Mapped table
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/strains_SNPs.shtml")
@@ -398,13 +421,13 @@ class TestStrainDetail(unittest.TestCase):
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
         print iterate.getTextAsList(header_cells)        
-        # print all items found in the Mutation Carried column of the associated mutations ribbon
+        # print all items found in the Mutation Carried column
         cells = table.get_column_cells("Mutation Carried")
         mut_cells = iterate.getTextAsList(cells)
         print mut_cells
         #verifies that the right mutations appear and in the correct order
         self.assertEquals(mut_cells, ['Mutation Carried', 'Ddctm1.1Rhrs', 'Tg(Ggt1-cre)M3Egn'])
-        #print all items found in the Gene column of the associated mutations ribbon
+        #print all items found in the Gene column
         cells1 = table.get_column_cells("Gene")
         gene_cells = iterate.getTextAsList(cells1)
         print gene_cells
@@ -413,7 +436,7 @@ class TestStrainDetail(unittest.TestCase):
 
     def test_strain_det_mut_assocnum(self):
         """
-        @status: Tests that the number count and text is correct just above the table in the Associated Mutatations and Markers ribbon
+        @status: Tests that the number count and text is correct just above the Mutations table 
         @note: Strain-det-mut-6 test will probably need rewrite once IDs added to scrumdev
         """
         driver = self.driver
@@ -421,7 +444,7 @@ class TestStrainDetail(unittest.TestCase):
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("C57BL/6J")
-        time.sleep(2)
+        #time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
@@ -436,7 +459,7 @@ class TestStrainDetail(unittest.TestCase):
         
     def test_strain_det_mut_showall(self):
         """
-        @status: Tests that the show all/showless buttons work correctly in the Associated Mutatations and Markers ribbon
+        @status: Tests that the show all/showless buttons work correctly in the Associated Mutatations,Markers, and QTL ribbon
         @note: Strain-det-mut-7/8 
         """
         driver = self.driver
@@ -444,7 +467,7 @@ class TestStrainDetail(unittest.TestCase):
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("MGI:4838014")
-        time.sleep(2)
+        #time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
@@ -453,18 +476,18 @@ class TestStrainDetail(unittest.TestCase):
         time.sleep(2)
         #switch focus to the new tab for strain detail page
         driver.switch_to_window(self.driver.window_handles[-1]) 
-        #locate the Show All button in the Associated Mutations and Markers ribbon      
+        #locate the Show All button in the Associated Mutations, Markers, and QTL ribbon      
         show_all = self.driver.find_element(By.ID, 'mutationButton')
         print show_all.text
         self.assertEqual(show_all.text, 'Show All', 'The Show All button has a problem!') 
-        #locate the Show All button in the Associated Mutations and Markers ribbon and click it      
+        #locate the Show All button in the Associated Mutations, Markers, and QTL ribbon and click it      
         show_all.click()
         print show_all.text
         self.assertEqual(show_all.text, 'Show Less', 'The Show Less button has a problem!')         
 
     def test_strain_det_mut_noshowall(self):
         """
-        @status: Tests that the when less than 4 results the show all/show less buttons do not display in the Associated Mutatations and Markers ribbon
+        @status: Tests that the when less than 4 results the show all/show less buttons does not display in the Associated Mutatations, Markers, and QTL ribbon
         @note: Strain-det-mut-9 
         """
         driver = self.driver
@@ -472,7 +495,7 @@ class TestStrainDetail(unittest.TestCase):
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("MGI:5437707")
-        time.sleep(2)
+        #time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
@@ -481,26 +504,26 @@ class TestStrainDetail(unittest.TestCase):
         time.sleep(2)
         #switch focus to the new tab for strain detail page
         driver.switch_to_window(self.driver.window_handles[-1]) 
-        #assert the Show All button in the Associated Mutations and Markers ribbon is not displayed      
+        #assert the Show All button in the Associated Mutations, Markers, and QTL ribbon is not displayed      
         assert '<span id="mutationButton" class="searchToolButton indented">Show All</span>' not in driver.page_source
     
                      
     def test_strain_det_qtl_sort(self):
         """
-        @status: Tests that the results are correct when have associated QTL and Marker in the QTL Mapped with this strain ribbon, verifies sorting as well
+        @status: Tests that the results are correct when have associated QTL and Marker in the mutations, Marker, and QTL ribbon, verifies sorting as well
         @note: Strain-det-qtl-1
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/strains_SNPs.shtml")
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
-        strainsearchbox.send_keys("SL/Kh")
-        time.sleep(2)
+        strainsearchbox.send_keys("SL/KhStmRbrc")
+        #time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
         #locates the strain name link for this strain and clicks it
-        driver.find_element(By.LINK_TEXT, 'SL/Kh').click()
+        driver.find_element(By.LINK_TEXT, 'SL/KhStmRbrc').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
         driver.switch_to_window(self.driver.window_handles[-1])        
@@ -509,13 +532,13 @@ class TestStrainDetail(unittest.TestCase):
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
         print iterate.getTextAsList(header_cells)        
-        # print all items found in the Allele column of the QTL Mapped ribbon
+        # print all items found in the Allele column of the QTL Table
         cells = table.get_column_cells("Allele")
         allele_cells = iterate.getTextAsList(cells)
         print allele_cells
         #verifies that the right alleles appear and in the correct order
         self.assertEquals(allele_cells, ['Allele', 'Bomb1SL/Kh', 'Esl1SL/Kh', 'Foc1SL/Kh','llaSL/Kh', 'Lyr2SL/Kh', 'Msmr1SL/Kh', 'Msmr2SL/Kh', 'Tlsm1SL/Kh'  ])
-        #print all items found in the Gene column of the associated mutations ribbon
+        #print all items found in the Gene column of the QTL table
         cells1 = table.get_column_cells("Gene")
         gene_cells = iterate.getTextAsList(cells1)
         print gene_cells
@@ -524,7 +547,7 @@ class TestStrainDetail(unittest.TestCase):
                      
     def test_strain_det_qtl_nomut_ribbon(self):
         """
-        @status: Tests that the results are correct when have associated QTL and Marker in the QTL Mapped with this strain ribbon even when no Associated Mutatations ribbon
+        @status: Tests that the results are correct when have associated QTL and Marker in the mutatations, markers, and QTL ribbon even when no Associated Mutatations ribbon
         @note: Strain-det-qtl-2
         """
         driver = self.driver
@@ -532,7 +555,7 @@ class TestStrainDetail(unittest.TestCase):
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("Boulder heterogeneous stock")
-        time.sleep(2)
+        #time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
@@ -546,13 +569,13 @@ class TestStrainDetail(unittest.TestCase):
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
         print iterate.getTextAsList(header_cells)        
-        # print all items found in the Allele column of the QTL Mapped ribbon
+        # print all items found in the Allele column of the QTL table
         cells = table.get_column_cells("Allele")
         allele_cells = iterate.getTextAsList(cells)
         print allele_cells
         #verifies that the right alleles appear and in the correct order
         self.assertEquals(allele_cells, ['Allele', 'CfcdBoulder', 'CfcdNorthport', 'OpfaBoulder','OpfaNorthport' ])
-        #print all items found in the Gene column of the associated mutations ribbon
+        #print all items found in the Gene column of the QTL table
         cells1 = table.get_column_cells("Gene")
         gene_cells = iterate.getTextAsList(cells1)
         print gene_cells
@@ -561,15 +584,15 @@ class TestStrainDetail(unittest.TestCase):
 
     def test_strain_det_qtl_assocnum(self):
         """
-        @status: Tests that the number count and text is correct just above the table in the QTL Mapped with this Strain ribbon
-        @note: Strain-det-qtl-3 waiting for ID to be added for this test!!!
+        @status: Tests that the number count and text is correct just above the QTL table in the mutations, markers, and QTL ribbon
+        @note: Strain-det-qtl-3 
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/strains_SNPs.shtml")
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("MGI:3028467")
-        time.sleep(2)
+        #time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
@@ -579,8 +602,9 @@ class TestStrainDetail(unittest.TestCase):
         #switch focus to the new tab for strain detail page
         driver.switch_to_window(self.driver.window_handles[-1]) 
         #locate the count and text above the qtl table       
-        mut_count = self.driver.find_element(By.CLASS_NAME, 'indented')
-        self.assertEqual(mut_count.text, '2588 associated QTL', 'associated QTL count/text is wrong')
+        qtl_count = self.driver.find_elements(By.CLASS_NAME, 'indented')
+        print qtl_count[2].text
+        self.assertEqual(qtl_count[2].text, '2587 associated QTL', 'associated QTL count/text is wrong')
         
     def test_strain_det_qtl_showall(self):
         """
@@ -592,7 +616,7 @@ class TestStrainDetail(unittest.TestCase):
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("MGI:5749398")
-        time.sleep(2)
+        #time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
@@ -620,7 +644,7 @@ class TestStrainDetail(unittest.TestCase):
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("MGI:2164311")
-        time.sleep(2)
+        #time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
@@ -660,6 +684,185 @@ class TestStrainDetail(unittest.TestCase):
         #verify the strain name is correct
         self.assertEqual(name.text, 'C57BL/6J', 'strain is not correct!')   
 
+    def test_strain_humdis_disease_link(self):
+        """
+        @status: Tests that the Disease link is correct and the link goes to the correct page from Associated Diseases ribbon
+        @note: Strain-det-disease-1
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/strains_SNPs.shtml")
+        strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
+        # Enter your strain name
+        strainsearchbox.send_keys("MGI:3028467")
+        time.sleep(2)
+        #find the search button and click it
+        driver.find_element(By.CLASS_NAME, 'goButton').click()
+        time.sleep(2)
+        #locate the link for C57BL/6J and click it
+        driver.find_element(By.LINK_TEXT, 'C57BL/6J').click()
+        time.sleep(2)
+        #switch focus to the new tab for strain detail page
+        driver.switch_to_window(self.driver.window_handles[-1])
+        #locates the human disease link and clicks it
+        driver.find_element(By.LINK_TEXT, 'X-linked hypophosphatemic rickets').click()
+        time.sleep(2)
+        #switch focus to the new tab for strain detail page
+        driver.switch_to_window(self.driver.window_handles[-1])
+        #verify the Disease name and DOID are correct for this page
+        disname = driver.find_element(By.ID, 'diseaseNameID')
+        print disname.text
+        self.assertEquals(disname.text, 'X-linked hypophosphatemic rickets (DOID:0050445)')       
+
+    def test_strain_humdis_model_link(self):
+        """
+        @status: Tests that the Model link is correct and the link goes to the correct page from Associated Diseases ribbon
+        @note: Strain-det-disease-2
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/strains_SNPs.shtml")
+        strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
+        # Enter your strain name
+        strainsearchbox.send_keys("MGI:2159747")
+        time.sleep(2)
+        #find the search button and click it
+        driver.find_element(By.CLASS_NAME, 'goButton').click()
+        time.sleep(2)
+        #locate the link for C57BL/6J and click it
+        driver.find_element(By.LINK_TEXT, 'A/J').click()
+        time.sleep(2)
+        #switch focus to the new tab for strain detail page
+        driver.switch_to_window(self.driver.window_handles[-1])
+        #locates the model 1 link and clicks it
+        driver.find_element(By.LINK_TEXT, 'model 1').click()
+        time.sleep(2)
+        #switch focus to the new tab for strain detail page
+        driver.switch_to_window(self.driver.window_handles[-1])
+        #verify the Disease name and DOID are correct for this page
+        strain_link = self.driver.find_element(By.LINK_TEXT, 'A/J')
+        print strain_link.text
+        self.assertEquals(strain_link.text, 'A/J')     
+
+    def test_strain_humdis_multi_disease(self):
+        """
+        @status: Tests that the page can display more than 1 disease in the Associated Diseases ribbon
+        @note: Strain-det-disease-3
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/strains_SNPs.shtml")
+        strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
+        # Enter your strain name
+        strainsearchbox.send_keys("MGI:5509376")
+        time.sleep(2)
+        #find the search button and click it
+        driver.find_element(By.CLASS_NAME, 'goButton').click()
+        time.sleep(2)
+        #locate the link for C57BL/6J and click it
+        driver.find_element(By.LINK_TEXT, 'C57BL/6J-Gdf5Bp-5J/GrsrJ').click()
+        time.sleep(2)
+        #switch focus to the new tab for strain detail page
+        driver.switch_to_window(self.driver.window_handles[-1])
+        #locates the Human Disease table
+        time.sleep(2)
+        disease_table = self.driver.find_element(By.ID, 'diseaseSummaryTable')
+        table = Table(disease_table)
+        #Iterate and print the search results headers
+        dis_cells = table.get_column_cells("Human Diseases")
+        print iterate.getTextAsList(dis_cells)
+        #verify the Disease names
+        self.assertEqual(dis_cells[1].text, 'acromesomelic dysplasia, Grebe type')
+        self.assertEqual(dis_cells[2].text, 'acromesomelic dysplasia, Hunter-Thompson type')
+        self.assertEqual(dis_cells[3].text, 'brachydactyly type A1C')
+        self.assertEqual(dis_cells[4].text, 'brachydactyly type A2')
+        self.assertEqual(dis_cells[5].text, 'brachydactyly type C')
+        self.assertEqual(dis_cells[6].text, 'fibular hypoplasia and complex brachydactyly')
+        self.assertEqual(dis_cells[7].text, 'multiple synostoses syndrome')
+        
+    def test_strain_humdis_multi_models(self):
+        """
+        @status: Tests that the page can display more than 1 model in the Associated Diseases ribbon
+        @note: Strain-det-disease-4
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/strains_SNPs.shtml")
+        strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
+        # Enter your strain name
+        strainsearchbox.send_keys("MGI:3028467")
+        time.sleep(2)
+        #find the search button and click it
+        driver.find_element(By.CLASS_NAME, 'goButton').click()
+        time.sleep(2)
+        #locate the link for C57BL/6J and click it
+        driver.find_element(By.LINK_TEXT, 'C57BL/6J').click()
+        time.sleep(2)
+        #switch focus to the new tab for strain detail page
+        driver.switch_to_window(self.driver.window_handles[-1])
+        #locates the Human Disease table
+        time.sleep(2)
+        disease_table = self.driver.find_element(By.ID, 'diseaseSummaryTable')
+        table = Table(disease_table)
+        #Iterate and print the header headers
+        head_cells = table.get_header_cells()
+        print iterate.getTextAsList(head_cells)
+        #verify the Model headers text
+        self.assertEqual(head_cells[1].text, 'model 1')
+        self.assertEqual(head_cells[2].text, 'model 2')
+            
+    def test_strain_humdis_disease_not(self):
+        """
+        @status: Tests that the page can display NOTs as well as  diseases in the Associated Diseases ribbon
+        @note: Strain-det-disease-5 This test is not fully functional until I can figure out how to capture NOT image in the disease table!
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/strains_SNPs.shtml")
+        strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
+        # Enter your strain name
+        strainsearchbox.send_keys("MGI:2160951")
+        time.sleep(2)
+        #find the search button and click it
+        driver.find_element(By.CLASS_NAME, 'goButton').click()
+        time.sleep(2)
+        #locate the link for C57BL/6J and click it
+        driver.find_element(By.LINK_TEXT, 'C57BL/6J-Pax3Sp-d').click()
+        time.sleep(2)
+        #switch focus to the new tab for strain detail page
+        driver.switch_to_window(self.driver.window_handles[-1])
+        #locates the Human Disease table
+        time.sleep(2)
+        disease_table = self.driver.find_element(By.ID, 'diseaseSummaryTable')
+        table = Table(disease_table)
+        #Iterate the second row of the disease table
+        all_cells = table.get_rows()
+        print iterate.getTextAsList(all_cells)
+        #verify the Model headers text
+        #self.assertEqual(head_cells[1].text, 'model 1')
+        #self.assertEqual(head_cells[2].text, 'model 2')        
+        
+    def test_strain_humdis_assoc_diseases(self):
+        """
+        @status: Tests that text number of associated diseases above the disease table matches the table's results in the Associated Diseases ribbon
+        @note: Strain-det-disease-6
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/strains_SNPs.shtml")
+        strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
+        # Enter your strain name
+        strainsearchbox.send_keys("MGI:5509376")
+        time.sleep(2)
+        #find the search button and click it
+        driver.find_element(By.CLASS_NAME, 'goButton').click()
+        time.sleep(2)
+        #locate the link for C57BL/6J and click it
+        driver.find_element(By.LINK_TEXT, 'C57BL/6J-Gdf5Bp-5J/GrsrJ').click()
+        time.sleep(2)
+        #switch focus to the new tab for strain detail page
+        driver.switch_to_window(self.driver.window_handles[-1])
+        #locates the text above the tables on the page(there are 3)
+        result_text = driver.find_elements(By.CLASS_NAME, 'indented')
+        indented_text = iterate.getTextAsList(result_text)
+        print indented_text
+        #verify the text matches the number of diseases returned(the 3rd instance)
+        self.assertEquals(indented_text[3], '7 associated diseases')          
+        
     def test_strain_ref_early_link(self):
         """
         @status: Tests that the earlist reference is the correct one and the link goes to the correct page from Reference ribbon
@@ -670,7 +873,7 @@ class TestStrainDetail(unittest.TestCase):
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("C57BL/6J")
-        time.sleep(2)
+        #time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
@@ -680,10 +883,10 @@ class TestStrainDetail(unittest.TestCase):
         #switch focus to the new tab for strain detail page
         driver.switch_to_window(self.driver.window_handles[-1])
         #locates the earliest reference link and clicks it
-        driver.find_element(By.LINK_TEXT, 'J:6835').click()
+        driver.find_element(By.LINK_TEXT, 'J:84245').click()
         #time.sleep(2)
         #verify the J number J:6835 exists on this page
-        assert "J:6835" in self.driver.page_source        
+        assert "J:84245" in self.driver.page_source        
         
     def test_strain_ref_allref_link(self):
         """
@@ -695,7 +898,7 @@ class TestStrainDetail(unittest.TestCase):
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("C57BL/6J")
-        time.sleep(2)
+        #time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)

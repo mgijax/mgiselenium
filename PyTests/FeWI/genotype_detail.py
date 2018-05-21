@@ -1,6 +1,6 @@
 '''
 Created on Oct 21, 2016
-These tests were created to verify details on the Genotype detail pages(genoview)
+These tests were created to verify details on the Genotype detail pages(genoview) and all Genotype page(allgenoviews)
 @author: jeffc
 '''
 import unittest
@@ -10,6 +10,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
 import sys,os.path
+from selenium.common.exceptions import NoSuchElementException
 # adjust the path to find config
 sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../..',)
@@ -32,40 +33,75 @@ class Test(unittest.TestCase):
         
     def test_genotype_header(self):
         '''
-        @status this test verifies ????.
-        @bug: under construction
+        @status this test verifies the Genotype heading details except 'find mice' information.
+        @note
         '''
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys("Pax6")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Sey-Dey').click()
-        self.driver.find_element(By.LINK_TEXT, 'ht3').click()
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, '132-14Neu').click()
+        self.driver.find_element(By.LINK_TEXT, 'hm1').click()
         self.driver.implicitly_wait(10)
         self.driver.switch_to.window(self.driver.window_handles[1])
         mgiid = self.driver.find_element(By.CLASS_NAME, 'genoID')
-        self.assertEquals(mgiid.text, "MGI:2175204", "This is not the correct MGI ID")#verifies we have the correct MGI ID  
-        htid = self.driver.find_element(By.CLASS_NAME, 'htGeno')
-        self.assertEquals(htid.text, "ht3", "This is not the correct ht ID")#verifies we are brining the ht3 data back  
+        self.assertEquals(mgiid.text, "MGI:3707321", "This is not the correct MGI ID")#verifies we have the correct MGI ID  
+        hmid = self.driver.find_element(By.CLASS_NAME, 'hmGeno')
+        self.assertEquals(hmid.text, "hm1", "This is not the correct hm ID")#verifies we are bringing the hm1 data back  
         gt = self.driver.find_element(By.CLASS_NAME, 'genotypeCombo')
         print gt.text
-        self.assertEquals(gt.text, "Pax6Sey-Dey/Pax6+", "This is not the correct genotype combo")#verifies the Allelic Composition is correct 
+        self.assertEquals(gt.text, "Pax6132-14Neu/Pax6132-14Neu", "This is not the correct genotype combo")#verifies the Allelic Composition is correct 
              
-        self.driver.find_element(By.CLASS_NAME, 'results')
-        headers = self.driver.find_elements(By.TAG_NAME, 'td')
+        link = self.driver.find_element(By.LINK_TEXT, 'C3.Cg-Pax6132-14Neu')
+        self.assertEquals(link.text, 'C3.Cg-Pax6132-14Neu', 'This is not the correct Genetic Background!')#verifies the Genetic Background is correct
         
+    def test_genotype_gb_link(self):
+        '''
+        @status this test verifies the Genetic Background link is correct.
+        @note genodetail-1
+        '''
+        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.find_element(By.NAME, 'nomen').send_keys("Pax6")
+        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, '132-14Neu').click()
+        self.driver.find_element(By.LINK_TEXT, 'hm1').click()
+        self.driver.implicitly_wait(10)
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        #click the Genetic Background link     
+        self.driver.find_element(By.LINK_TEXT, 'C3.Cg-Pax6132-14Neu').click()
+        ptitle = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
+        #Assert the page title is for the correct strain name
+        self.assertEqual(ptitle.text, "C3.Cg-Pax6132-14Neu")        
         
-        
+    def test_genotype_gb_nolink(self):
+        '''
+        @status this test verifies the Genetic Background strain is not a link when it has 'involves'.
+        @note genodetail-2 BUG!!! Needs  work!!
+        '''
+        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.find_element(By.NAME, 'nomen').send_keys("Pax6")
+        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, '2Neu').click()
+        self.driver.find_element(By.LINK_TEXT, 'hm1').click()
+        self.driver.implicitly_wait(10)
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        #click the Genetic Background link   
+        strain_link = self.driver.find_element(By.LINK_TEXT, 'involves: 102 * C3H')
+        assert  'NoSuchElementException' in  self.driver.page_source
+        #if strain_link.is_displayed():
+            #strain_link.click()
+            #print 'Found the strain link and clicked it!'
+        #else: 
+            #print "Strain link not found"    
     
     def tearDown(self):
         self.driver.close()
        
-'''
-These tests should NEVER!!!! be run against a production system!!
+
 def suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(TestAdd))
     return suite
-'''
+
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
     unittest.main() 

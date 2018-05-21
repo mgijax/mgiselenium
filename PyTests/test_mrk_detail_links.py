@@ -20,7 +20,8 @@ class TestMarkerDetailLinks(unittest.TestCase):
 #Genes, Genome Features & Maps
     def setUp(self):
         self.driver = webdriver.Chrome() 
-        self.driver.get(config.WIKI_URL + "sw:WI_Pages_by_Software_Product")
+        #self.driver.get(config.WIKI_URL + "sw:WI_Pages_by_Software_Product")
+        self.driver.get(config.WIKI_URL + "sw:WI_Pages_by_Software_Product_test")
 
     def test_mrk_detail_links(self):
         self.driver.find_element(By.LINK_TEXT, 'Pax*')

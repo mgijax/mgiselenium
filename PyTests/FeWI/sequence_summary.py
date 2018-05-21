@@ -38,7 +38,7 @@ class TestSequenceSummaryPage(unittest.TestCase):
         time.sleep(3)
         #finds the correct marker link and clicks it
         driver.find_element(By.LINK_TEXT, 'Bloc1s2').click()
-        wait.forAjax(driver)
+        time.sleep(2)
         #Finds the All sequences link and clicks it
         driver.find_element(By.ID, 'allSeqLink').click()
         wait.forAjax(driver)
@@ -74,7 +74,7 @@ class TestSequenceSummaryPage(unittest.TestCase):
         time.sleep(3)
         #finds the correct marker link and clicks it
         driver.find_element(By.LINK_TEXT, 'Gabarap').click()
-        wait.forAjax(driver)
+        time.sleep(2)
         #Finds the All sequences link and clicks it
         driver.find_element(By.ID, 'allSeqLink').click()
         time.sleep(2)
@@ -84,7 +84,7 @@ class TestSequenceSummaryPage(unittest.TestCase):
         time.sleep(2)
         print searchTextItems
         #asserts that the rows of Type data are in correct order
-        self.assertEqual(searchTextItems, [u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'DNA', u'DNA', u'DNA', u'Polypeptide', u'Polypeptide', u'Polypeptide'])
+        self.assertEqual(searchTextItems, [u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'DNA', u'DNA', u'Polypeptide', u'Polypeptide', u'Polypeptide', u'Polypeptide', u'Polypeptide', u'Polypeptide'])
         
         #finds the Sequence column and then iterates through all items
         seqlist = driver.find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-seqInfo .yui-dt-liner')
@@ -92,7 +92,7 @@ class TestSequenceSummaryPage(unittest.TestCase):
         time.sleep(2)
         print searchTextItems
         #asserts that the rows of length data are in correct order
-        self.assertEqual(searchTextItems, ['OTTMUST00000013495\n  VEGA\n  MGI Sequence Detail', u'OTTMUST00000013496\n  VEGA\n  MGI Sequence Detail', u'OTTMUST00000038731\n  VEGA\n  MGI Sequence Detail', u'OTTMUST00000013497\n  VEGA\n  MGI Sequence Detail', u'ENSMUST00000018711\n  Ensembl\n  MGI Sequence Detail', u'ENSMUST00000144443\n  Ensembl\n  MGI Sequence Detail', u'ENSMUST00000108592\n  Ensembl\n  MGI Sequence Detail', u'ENSMUST00000139007\n  Ensembl\n  MGI Sequence Detail', u'NM_019749\n  RefSeq\n  MGI Sequence Detail', u'BC030350\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'BC002126\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'BC024621\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'AV029091\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'BC029329\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'AK002879\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'AK011731\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'AF161587\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'KY499680\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'AW124839\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'OTTMUSG00000006020\n  VEGA\n  MGI Sequence Detail', u'ENSMUSG00000018567\n  Ensembl Gene Model\n  MGI Sequence Detail', u'56486\n  NCBI Gene Model\n  MGI Sequence Detail', u'OTTMUSP00000006254\n  VEGA\n  MGI Sequence Detail', u'OTTMUSP00000017319\n  VEGA\n  MGI Sequence Detail', u'ENSMUSP00000018711\n  Ensembl\n  MGI Sequence Detail'])
+        self.assertEqual(searchTextItems, [u'ENSMUST00000018711\n  Ensembl\n  MGI Sequence Detail', u'ENSMUST00000144443\n  Ensembl\n  MGI Sequence Detail', u'ENSMUST00000108592\n  Ensembl\n  MGI Sequence Detail', u'ENSMUST00000139007\n  Ensembl\n  MGI Sequence Detail', u'NM_019749\n  RefSeq\n  MGI Sequence Detail', u'BC030350\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'BC002126\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'BC024621\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'AV029091\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'BC029329\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'AK002879\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'AK011731\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'AF161587\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'KY499680\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'AW124839\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'ENSMUSG00000018567\n  Ensembl Gene Model\n  MGI Sequence Detail', u'56486\n  NCBI Gene Model\n  MGI Sequence Detail', u'ENSMUSP00000018711\n  Ensembl\n  MGI Sequence Detail', u'ENSMUSP00000104233\n  Ensembl\n  MGI Sequence Detail', u'NP_062723\n  RefSeq\n  MGI Sequence Detail', u'Q9DCD6\n  UniProt | EBI\n  MGI Sequence Detail', u'A0A1S6GWH0\n  UniProt | EBI\n  MGI Sequence Detail', u'B1AR50\n  UniProt | EBI\n  MGI Sequence Detail'])
         
         #finds the Length column and then iterates through all items
         lengthlist = driver.find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-length .yui-dt-liner')
@@ -100,7 +100,7 @@ class TestSequenceSummaryPage(unittest.TestCase):
         time.sleep(2)
         print searchTextItems
         #asserts that the rows of length data are in correct order,sort is large to small
-        self.assertEqual(searchTextItems, [u'1351', u'932', u'750', u'454', u'1351', u'932', u'750', u'454', u'1122', u'1152', u'924', u'899', u'893', u'879', u'872', u'776', u'565', u'492', u'465', u'3809', u'3809', u'3580', u'117', u'106', u'117'])
+        self.assertEqual(searchTextItems, [u'1351', u'932', u'750', u'454', u'1122', u'1152', u'924', u'899', u'893', u'879', u'872', u'776', u'565', u'492', u'465', u'3809', u'3580', u'117', u'106', u'117', u'117', u'163', u'106'])
         
         
     def tearDown(self):

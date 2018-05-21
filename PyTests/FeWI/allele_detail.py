@@ -419,6 +419,22 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.PARTIAL_LINK_TEXT, '2Neu').click()
         assert "Project Collection" not in self.driver.page_source
+
+    def test_mutation_strain_link(self):
+        '''
+        @status this test verifies the strain link in the Mutation origin ribbon.
+        @note: alldetail-mutation-1
+        '''
+        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.find_element(By.NAME, 'nomen').send_keys('shh')
+        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Dsh').click()
+        self.driver.find_element(By.LINK_TEXT, '(101 x C3H)F1').click()
+        time.sleep(2)
+        ptitle = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
+        #Assert the page title is for the correct strain name
+        self.assertEqual(ptitle.text, "(101 x C3H)F1")
+        
         
     def test_pheno_disease_table(self):
         '''

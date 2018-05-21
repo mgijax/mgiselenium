@@ -285,11 +285,40 @@ class Test(unittest.TestCase):
         #locates all Href links on the page
         elems = self.driver.find_elements(By.XPATH, '//a[@href]')
         for elem in elems:
-            print elem.get_attribute('href')
-        
+            print elem.get_attribute('href')      
         print elems[113].get_attribute('href')
         #verify the MGV link href is correct(the 10KB flanking added is in the url)
         self.assertEqual(elems[113].get_attribute('href'), 'http://proto.informatics.jax.org/prototypes/mgv/#ref=C57BL/6J&genomes=C57BL/6J+129S1/SvImJ+A/J+AKR/J+BALB/cJ+C3H/HeJ+C57BL/6NJ+CAROLI/EIJ+CAST/EiJ+CBA/J+DBA/2J+FVB/NJ+LP/J+NOD/ShiLtJ+NZO/HlLtJ+PAHARI/EIJ+PWK/PhJ+SPRET/EiJ+WSB/EiJ&chr=1&start=133340510&end=133370325&highlight=MGI:97898', 'The MGV link href flanking is incorrect!')
+
+    def test_strain_table_genemodelid_links(self):
+        '''        
+        @status this test verifies that the Gene Model IDs in the strains table link to their MGI gene model sequence, found in the Genome Context ribbon. (only verifying 1 link of 18)
+        @note mrkdetail-loc-9
+        '''        
+        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.find_element(By.NAME, 'nomen').send_keys("Gata1")
+        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
+        self.driver.find_element(By.LINK_TEXT, 'Gata1').click()
+        time.sleep(8)#long timeout to compensate for intermittent lagging
+        #clicks the More toggle(turnstile) to display the human disease table
+        self.driver.find_element(By.CSS_SELECTOR, 'div.row.locationRibbon > div.detail.detailData2 > div.toggleImage.hdExpand').click()
+        time.sleep(2)
+        #find the link for 129S1/SvImJ gene model id
+        self.driver.find_element(By.LINK_TEXT, 'MGP_129S1SvImJ_G0035536').click()
+        #switch focus to the new tab for sequence detail page
+        self.driver.switch_to_window(self.driver.window_handles[-1])
+        time.sleep(2)
+        structure_table = self.driver.find_element(By.CLASS_NAME, 'detailStructureTable')
+        table = Table(structure_table)
+        #Iterate the second row of the disease table
+        all_cells = table.get_row('ID/Version')
+        print all_cells.text
+        #verify the ID/Version row of data
+        self.assertEqual(all_cells.text, 'ID/Version\nMGP_129S1SvImJ_G0035536 () Version: MGP_129S1SvImJ_G0035536.MGP Release 91')
+          
+        
+        
+
         
     def tearDown(self):
         self.driver.close()
