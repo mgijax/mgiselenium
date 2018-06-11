@@ -80,52 +80,6 @@ class Test(unittest.TestCase):
         print referencesRibbon.text
         self.assertEqual(referencesRibbon.text, 'References', "References ribbon is missing")
         
-    def test_turnstile_behavior(self):
-        '''
-        @status this test verifies In the Human Diseases section, confirm there are turnstile icons for showing more data
-        and clicking the turnstile icon displays the complete Human Diseases table.
-        '''
-        self.driver.find_element(By.NAME, 'nomen').clear()
-        self.driver.find_element(By.NAME, 'nomen').send_keys("Shh")
-        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element(By.LINK_TEXT, 'Shh').click()
-        time.sleep(8)#long timeout to compensate for intermittent lagging
-        #clicks the More toggle(turnstile) to display the human disease table
-        self.driver.find_element(By.CSS_SELECTOR, 'div.row.diseaseRibbon > div.detail.detailData2 > div.toggleImage.hdExpand').click()
-        time.sleep(2)
-        diseasetable = self.driver.find_element(By.ID, 'humanDiseaseTable')
-        self.assertTrue(diseasetable.is_displayed())
-    
-    def test_disease_tbl_doids(self):
-        '''
-        @status this test verifies that the disease table in the Human Diseases ribbon now displays the DOID beside
-         each disease instead of the OMIM ID
-         @bug need to ask Olin why would only certain diseases get captured from the table?
-        '''
-        self.driver.find_element(By.NAME, 'nomen').clear()
-        self.driver.find_element(By.NAME, 'nomen').send_keys("Ins2")
-        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element(By.LINK_TEXT, 'Ins2').click()
-        time.sleep(8)#long timeout to compensate for intermittent lagging
-        #clicks the More toggle(turnstile) to display the human disease table
-        self.driver.find_element(By.CSS_SELECTOR, 'div.row.diseaseRibbon > div.detail.detailData2 > div.toggleImage.hdExpand').click()
-        time.sleep(2)
-        disease_table = self.driver.find_element(By.ID, 'humanDiseaseTable')
-        table = Table(disease_table)
-        #Iterate and print the search results headers
-        header_cells = table.get_header_cells()
-        print iterate.getTextAsList(header_cells)
-        
-        # print row 1
-        cells = table.get_column_cells("Human Disease")
-        disease_cells = iterate.getTextAsList(cells)
-        print disease_cells
-        self.assertEquals(disease_cells[1], 'permanent neonatal diabetes mellitus\nIDs')
-        #self.assertEquals(disease_cells[2], 'maturity-onset diabetes of the young\nIDs')
-        #self.assertEquals(disease_cells[3], 'type 1 diabetes mellitus\nIDs')
-        #self.assertEquals(disease_cells[4], 'type 2 diabetes mellitus\nIDs')
-        self.assertEquals(disease_cells[5], 'maturity-onset diabetes of the young type 10\nIDs')
-        
     def test_apf_link(self):
         '''
         @status this test verifies that the APF link for incidential mutations goes to the correct website location.
@@ -316,10 +270,125 @@ class Test(unittest.TestCase):
         #verify the ID/Version row of data
         self.assertEqual(all_cells.text, 'ID/Version\nMGP_129S1SvImJ_G0035536 () Version: MGP_129S1SvImJ_G0035536.MGP Release 91')
           
-        
-        
+    def test_turnstile_behavior(self):
+        '''
+        @status this test verifies In the Human Diseases section, confirm there are turnstile icons for showing more data
+        and clicking the turnstile icon displays the complete Human Diseases table.
+        @note mrkdetail-hdisease-1
+        '''
+        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.find_element(By.NAME, 'nomen').send_keys("Shh")
+        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
+        self.driver.find_element(By.LINK_TEXT, 'Shh').click()
+        time.sleep(8)#long timeout to compensate for intermittent lagging
+        #clicks the More toggle(turnstile) to display the human disease table
+        self.driver.find_element(By.CSS_SELECTOR, 'div.row.diseaseRibbon > div.detail.detailData2 > div.toggleImage.hdExpand').click()
+        time.sleep(2)
+        diseasetable = self.driver.find_element(By.ID, 'humanDiseaseTable')
+        self.assertTrue(diseasetable.is_displayed())        
 
+    def test_disease_tbl_doids(self):
+        '''
+        @status this test verifies that the disease table in the Human Diseases ribbon now displays the DOID beside
+         each disease instead of the OMIM ID
+         @bug need to ask Olin why would only certain diseases get captured from the table?
+         @note mrkdetail-hdisease-2
+        '''
+        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.find_element(By.NAME, 'nomen').send_keys("Ins2")
+        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
+        self.driver.find_element(By.LINK_TEXT, 'Ins2').click()
+        time.sleep(8)#long timeout to compensate for intermittent lagging
+        #clicks the More toggle(turnstile) to display the human disease table
+        self.driver.find_element(By.CSS_SELECTOR, 'div.row.diseaseRibbon > div.detail.detailData2 > div.toggleImage.hdExpand').click()
+        time.sleep(2)
+        disease_table = self.driver.find_element(By.ID, 'humanDiseaseTable')
+        table = Table(disease_table)
+        #Iterate and print the search results headers
+        header_cells = table.get_header_cells()
+        print iterate.getTextAsList(header_cells)
         
+        # print row 1
+        cells = table.get_column_cells("Human Disease")
+        disease_cells = iterate.getTextAsList(cells)
+        print disease_cells
+        self.assertEquals(disease_cells[1], 'permanent neonatal diabetes mellitus\nIDs')
+        #self.assertEquals(disease_cells[2], 'maturity-onset diabetes of the young\nIDs')
+        #self.assertEquals(disease_cells[3], 'type 1 diabetes mellitus\nIDs')
+        #self.assertEquals(disease_cells[4], 'type 2 diabetes mellitus\nIDs')
+        self.assertEquals(disease_cells[5], 'maturity-onset diabetes of the young type 10\nIDs')
+                
+    def test_mouse_model_strain_links(self):
+        '''
+        @status this test verifies In the Human Diseases section, from the Mouse Model popup strains in Genetic background link to their strain 
+        detail page.
+        @note mrkdetail-hdisease-3
+        '''
+        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.find_element(By.NAME, 'nomen').send_keys("Pde6b")
+        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
+        self.driver.find_element(By.LINK_TEXT, 'Pde6b').click()
+        time.sleep(8)#long timeout to compensate for intermittent lagging
+        #clicks the More toggle(turnstile) to display the human disease table
+        self.driver.find_element(By.CSS_SELECTOR, 'div.row.diseaseRibbon > div.detail.detailData2 > div.toggleImage.hdExpand').click()
+        time.sleep(5)
+        self.driver.find_element(By.ID, 'showDOID_0110375').click()
+        #switch focus to the popup page
+        #self.driver.switch_to_window(self.driver.window_handles[-1])
+        #Find the link in the Genetic Background column C57BL/6J-Tg(SNCA)ARyot and click it
+        self.driver.find_element(By.LINK_TEXT, 'C3H/HeJ').click()
+        time.sleep(2)
+        #switch focus to the new tab for strain detail page
+        self.driver.switch_to_window(self.driver.window_handles[-1])
+        #Asserts that the strain page is for the correct strain
+        assert "C3H/HeJ" in self.driver.page_source  
+
+    def test_mpontology_annot_strain_links(self):
+        '''
+        @status this test verifies when you click the Phenotype summary link(for genetic backgrounds) from the Mutations, Alleles, and Phenotypes ribbon
+        to open the MP ontology annotations page you find strains in the genetic background column link to their strain detail page.
+        @note mrkdetail-allele-5
+        '''
+        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.find_element(By.NAME, 'nomen').send_keys("Pde6b")
+        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
+        self.driver.find_element(By.LINK_TEXT, 'Pde6b').click()
+        time.sleep(8)#long timeout to compensate for intermittent lagging
+        self.driver.find_element(By.ID, 'phenoAnnotationLink').click()
+        #Find the link in the Genetic Background column C57BL/6J-Pde6b<rd1-2J>/J and click it
+        self.driver.find_element(By.LINK_TEXT, 'C57BL/6J-Pde6brd1-2J/J').click()
+        time.sleep(2)
+        #switch focus to the new tab for strain detail page
+        self.driver.switch_to_window(self.driver.window_handles[-1])
+        time.sleep(2)
+        page_title = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
+        print page_title.text
+        #Asserts that the strain page is for the correct strain
+        self.assertEqual(page_title.text, 'C57BL/6J-Pde6brd1-2J/J', 'Page title is not correct!')
+
+    def test_mpontology_annot_strain_links2(self):
+        '''
+        @status this test verifies when you click the Phenotype summary link(for multigenic genotypes) from the Mutations, Alleles, and Phenotypes ribbon
+        to open the MP ontology annotations page you find strains in the genetic background column link to their strain detail page.
+        @note mrkdetail-allele-6
+        '''
+        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.find_element(By.NAME, 'nomen').send_keys("Pde6b")
+        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
+        self.driver.find_element(By.LINK_TEXT, 'Pde6b').click()
+        time.sleep(8)#long timeout to compensate for intermittent lagging
+        self.driver.find_element(By.ID, 'phenoMultigenicLink').click()
+        #Find the link in the Genetic Background column C57BL/6J-Pde6b<rd1-2J> Pde6a<nmf363>and click it
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'C57BL/6J-Pde6brd1-2J').click()
+        time.sleep(2)
+        #switch focus to the new tab for strain detail page
+        self.driver.switch_to_window(self.driver.window_handles[-1])
+        time.sleep(2)
+        page_title = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
+        print page_title.text
+        #Asserts that the strain page is for the correct strain
+        self.assertEqual(page_title.text, 'C57BL/6J-Pde6brd1-2J Pde6anmf363', 'Page title is not correct!')
+                
     def tearDown(self):
         self.driver.close()
 

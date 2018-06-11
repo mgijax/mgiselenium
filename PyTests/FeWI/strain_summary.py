@@ -8,11 +8,15 @@ import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver import ActionChains
 from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.support.select import Select as WebDriverSelect
 from selenium.webdriver.support.ui import Select
 from util.table import Table
+from util.form import ModuleForm
 import sys,os.path
 from genericpath import exists
+from _elementtree import Element
 # adjust the path to find config
 sys.path.append(
   os.path.join(os.path.dirname(__file__), '../..',)
@@ -40,15 +44,16 @@ class TestStrainSummary(unittest.TestCase):
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("101/H")
-        time.sleep(2)
+        strainsearchbox.send_keys(Keys.RETURN)
+        #time.sleep(2)
         #find the search button and click it
-        driver.find_element(By.CLASS_NAME, 'goButton').click()
+        #driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
         #locates the 'you searched for' text to verify it is correct correct
         you_srch = driver.find_element(By.ID, 'ysf')
         print you_srch.text
         #asserts that the following IDs are returned
-        self.assertEquals('You Searched For...\nName: equals 101/H searching current names and synonyms', you_srch.text) # You Searched for text
+        self.assertEquals('You Searched For...\nName/Synonym/ID: equals 101/H searching current names and synonyms', you_srch.text) # You Searched for text
                         
     def test_summary_ysf_name_attrib(self):
         """
@@ -70,7 +75,7 @@ class TestStrainSummary(unittest.TestCase):
         you_srch = driver.find_element(By.ID, 'ysf')
         print you_srch.text
         #asserts that the following IDs are returned
-        self.assertEquals('You Searched For...\nName: equals 101/H searching current names and synonyms\nAttributes: inbred strain', you_srch.text) # You Searched for text                           
+        self.assertEquals('You Searched For...\nName/Synonym/ID: equals 101/H searching current names and synonyms\nAttributes: inbred strain', you_srch.text) # You Searched for text                           
                 
     def test_summary_strain_headings(self):
         """
@@ -166,6 +171,47 @@ class TestStrainSummary(unittest.TestCase):
         #asserts that the Headings are correct
         self.assertEqual(['IDs','MGI:3037980\nJAX:002448\nMPD:3'], idsReturned) # ID link
         
+    def test_summary_attribute_filter(self):
+        """
+        @status: Tests that you can filter results by an attribute
+        @note: Strain-sum-7
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/strains_SNPs.shtml")
+        strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
+        # Enter your strain name
+        strainsearchbox.send_keys("SL*")
+        #time.sleep(2)
+        #find the search button and click it
+        driver.find_element(By.CLASS_NAME, 'goButton').click()
+        #time.sleep(2)
+        #locates the attribute filter and click it to display the list of filter options
+        self.driver.find_element(By.CLASS_NAME, 'filterButton').click()
+        #time.sleep(5)
+        self.driver.find_elements(By.CLASS_NAME, 'attributeFilter')
+        #time.sleep(2)
+        #find the option 'congenic' and click it
+        element = self.driver.find_element(By.CSS_SELECTOR, "input[value='congenic'][type='checkbox']")        
+        ActionChains(driver).click(element)\
+            .send_keys(Keys.ENTER)\
+            .perform()        
+        #time.sleep(2)
+        #locate the Filter button below the filter by attributes list and click it
+        self.driver.find_element(By.ID, 'yui-gen0-button').click()
+        #time.sleep(2)
+        #locates the strain table and verify the Attributes are correct for each of the 5 results
+        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        ids = strain_table.get_column_cells('Attributes')
+        print iterate.getTextAsList(ids)
+        idsReturned = iterate.getTextAsList(ids)
+        #time.sleep(2)
+        #asserts that the Headings are correct
+        self.assertEqual('congenic\nmutant strain\ntargeted mutation', idsReturned[1]) #Assert the first row of attributes are correct
+        self.assertEqual('congenic\nmutant strain\ntargeted mutation', idsReturned[2]) #Assert the second row of attributes are correct 
+        self.assertEqual('congenic\nmutant strain\ntargeted mutation', idsReturned[3]) #Assert the third row of attributes are correct 
+        self.assertEqual('congenic\nmutant strain\ntargeted mutation\ntransgenic', idsReturned[4]) #Assert the fourth row of attributes are correct 
+        self.assertEqual('congenic\nmutant strain', idsReturned[5]) #Assert the fifth row of attributes are correct
+
               
     def tearDown(self):
         #self.driver.close()

@@ -497,6 +497,33 @@ class TestDoBrowserModelTab(unittest.TestCase):
         row2 = cells[3]
         self.assertEqual(row1.text, 'NOT Models         keratoconus Vsx1tm1Mci/Vsx1tm1Mci either: (involves: 129S1/Sv * 129S1/SvImJ * 129X1/SvJ) or (involves: 129S1/Sv * 129X1/SvJ * Black Swiss) J:88182 View')
         self.assertEqual(row2.text, 'keratoconus Vsx1tm2Mci/Vsx1tm2Mci either: (involves: 129S1/Sv * 129S1/SvImJ * 129X1/SvJ) or (involves: 129S1/Sv * 129X1/SvJ * Black Swiss) J:88182 View')
+
+    def test_dobrowser_modelstab_strain_link(self):
+        '''
+        @status this test verifies that strains listed in the Genetic Background column link to their strain detail page
+        @note do-results-model-1
+        '''
+        print ("BEGIN test_dobrowser_modeltab_strain_link")
+        searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
+        # put your DO ID in the quick search box
+        searchbox.send_keys("DOID:14330")
+        searchbox.send_keys(Keys.RETURN)
+        
+        self.driver.find_element(By.LINK_TEXT, "Parkinson's disease").click()
+        self.driver.find_element(By.ID, 'modelsTabButton').click()#identifies the Models tab and clicks it.
+        #Find the link in the Genetic Background column C57BL/6J-Tg(SNCA)ARyot and click it
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'C57BL/6J-Tg').click()
+        time.sleep(2)
+        #switch focus to the new tab for strain detail page
+        self.driver.switch_to_window(self.driver.window_handles[-1])
+        #Asserts that the strain page is for the correct strain
+        assert "C57BL/6J-Tg(SNCA)ARyot" in self.driver.page_source  
+       
+
+
+
+
+
         
         def tearDown(self):
             self.driver.quit()

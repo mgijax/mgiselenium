@@ -216,6 +216,39 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         row3 = table2.get_row(3)
         self.assertEquals(row3.text, 'Ighmtm1Cgn/Ighmtm1Cgn\nTg(IghelMD4)4Ccg/Tg(IghelMD4)4Ccg NOD.Cg-Ighmtm1Cgn Tg(IghelMD4)4Ccg/DvsJ J:80859 View', 'Wrong data displayed for row 3!')
         
+    def test_dobrowser_modelspopup_strain_links(self):
+        '''
+        @status this test verifies that strains in the Genetic Background column link to their strain detail page
+        @note do-results-gene-1
+        '''
+        print ("BEGIN test_dobrowser_modelspopup_strain_links")
+        searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
+        # put your DO ID in the quick search box
+        searchbox.send_keys("DOID:14330")
+        searchbox.send_keys(Keys.RETURN)
+        
+        self.driver.find_element(By.LINK_TEXT, "Parkinson's disease").click()
+        
+        self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Genes tab and clicks it.
+        
+        gene_table = self.driver.find_element(By.ID, 'geneTabTable')
+        table = Table(gene_table)
+        #cells = table.get_rows()
+        cell = table.get_cell(2, 6)
+        #Identify the data found in the Mouse Models column for the first row(for marker Snca)
+        print cell.text
+        cell.find_element(By.LINK_TEXT, '23 models').click()
+        #switch focus to the popup page
+        self.driver.switch_to_window(self.driver.window_handles[-1])
+        #Find the link in the Genetic Background column C57BL/6J-Tg(SNCA)ARyot and click it
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'C57BL/6J-Tg').click()
+        time.sleep(2)
+        #switch focus to the new tab for strain detail page
+        self.driver.switch_to_window(self.driver.window_handles[-1])
+        #Asserts that the strain page is for the correct strain
+        assert "C57BL/6J-Tg(SNCA)ARyot" in self.driver.page_source  
+
+
             
         def tearDown(self):
             self.driver.close()

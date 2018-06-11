@@ -90,7 +90,7 @@ class TestMPBrowser(unittest.TestCase):
     def test_tissue_link_nophenotype(self):
         """
         @status: Tests that searching by an MP term that is associated to an expression but has no phenotype annotations
-        @note: MP-ID_Seach-4
+        @note: MP-ID_Search-4
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/mp_ontology/MP:0030355")
@@ -118,6 +118,21 @@ class TestMPBrowser(unittest.TestCase):
         
         # These 2 terms should be returned in the anatomy search results
         self.assertIn('brain TS17-28\ncranium TS20-28\ntissue TS11-28', terms, 'these terms are not listed!')        
+
+    def test_strain_link_from_summary(self):
+        """
+        @status: Tests that strains listed in the Genetic Background column of an MP query summary goes to it's strain detail page
+        @note: MP-summary-1
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/mp/annotations/MP:0003731")
+        time.sleep(2)
+        driver.find_element(By.LINK_TEXT, 'DBA/2J').click()
+        time.sleep(2)
+        page_title = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
+        print page_title.text
+        #Asserts that the strain page is for the correct strain
+        self.assertEqual(page_title.text, 'DBA/2J', 'Page title is not correct!')
         
     def tearDown(self):
         pass
