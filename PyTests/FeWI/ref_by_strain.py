@@ -40,17 +40,13 @@ class TestRefByStrain(unittest.TestCase):
         # Enter your strain name
         strainsearchbox.send_keys("C57BL/6J")
         strainsearchbox.send_keys(Keys.RETURN)
-        time.sleep(2)
-        #locate the link for C57BL/6J and click it
-        driver.find_element(By.LINK_TEXT, 'C57BL/6J').click()
+        #locates the reference link in row 1 and clicks it
+        driver.find_element(By.CLASS_NAME, 'referenceLink').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
         driver.switch_to_window(self.driver.window_handles[-1])
-        #locates the earliest reference link and clicks it
-        driver.find_element(By.LINK_TEXT, '8638').click()
-        time.sleep(2)
         #verify the strain name is correct for this page
-        strname = driver.find_element_by_css_selector("#templateBodyInsert > table.summaryHeader > tbody > tr > td.summaryHeaderData1 > a.symbolLink")
+        strname = driver.find_element(By.CLASS_NAME, 'symbolLink')
         print strname.text
         self.assertEquals(strname.text, 'C57BL/6J')   
         #verify the MGI ID is correct for this page
@@ -61,7 +57,7 @@ class TestRefByStrain(unittest.TestCase):
     def test_ref_by_strain_sort(self):
         """
         @status: Tests that the Reference by strain page has the sort of descending year, secondary sort of assending J number
-        @note: ref-strain-2. this test is not working, does not show text for column1
+        @note: ref-strain-2. 
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/strains_SNPs.shtml")

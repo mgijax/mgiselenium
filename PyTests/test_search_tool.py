@@ -1502,8 +1502,65 @@ class TestSearchTool(unittest.TestCase):
         self.assertEqual(searchTextItems[3], 'Synonym : APPSWE')
         wait.forAjax(driver)
 
-
+    def test_mgp_id(self):
+        """
+        @status: Tests that an MGP ID search brings back the proper information
+         @note: Strain-qs-id-33
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL)
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
+        # put your NCIMR ID in the quick search box
+        searchbox.send_keys("MGP_DBA2J_G0024137")
+        searchbox.send_keys(Keys.RETURN)
+        time.sleep(3)
+        #finds the Genome Features Best Match information
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
+        searchTextItems = iterate.getTextAsList(match_info)
+        wait.forAjax(driver)
+        print searchTextItems
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(searchTextItems[7], 'ID : MGP_DBA2J_G0024137 (Mouse Genome Project)   and more detail...')
+        #finds the Other Results By ID Why did this match? information
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match3_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
+        searchTextItems3 = iterate.getTextAsList(match3_info)
+        wait.forAjax(driver)
+        print searchTextItems3
+        #asserts that the Why did this match? data is correct for the ID searched
+        self.assertEqual(searchTextItems3[2], 'ID : MGP_DBA2J_G0024137 (Mouse Genome Project)')
+        wait.forAjax(driver)
                 
+    def test_mgi_gene_model_id(self):
+        """
+        @status: Tests that an MGI Gene Model ID search brings back the proper information
+         @note: Strain-qs-id-34
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL)
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
+        # put your NCIMR ID in the quick search box
+        searchbox.send_keys("MGI_C57BL6J_95661")
+        searchbox.send_keys(Keys.RETURN)
+        time.sleep(3)
+        #finds the Genome Features Best Match information
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
+        searchTextItems = iterate.getTextAsList(match_info)
+        wait.forAjax(driver)
+        print searchTextItems
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(searchTextItems[7], 'ID : MGI_C57BL6J_95661 (MGI Strain Gene)   and more detail...')
+        #finds the Other Results By ID Why did this match? information
+        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
+        match3_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
+        searchTextItems3 = iterate.getTextAsList(match3_info)
+        wait.forAjax(driver)
+        print searchTextItems3
+        #asserts that the Why did this match? data is correct for the ID searched
+        self.assertEqual(searchTextItems3[2], 'ID : MGI_C57BL6J_95661 (MGI Strain Gene)')
+        wait.forAjax(driver)
         
     def tearDown(self):
         self.driver.quit()

@@ -46,7 +46,7 @@ class TestStrainDetail(unittest.TestCase):
         #locates the strain name link for C57BL/6J and clicks it
         driver.find_element(By.LINK_TEXT, 'C57BL/6J').click()
         time.sleep(2)
-        #switch foucus to the new tab for strain detail page
+        #switch focus to the new tab for strain detail page
         driver.switch_to_window(self.driver.window_handles[-1])
         title = driver.find_element(By.ID, 'titleBarWrapper')#find the page's title
         print title.text#print the page title to the console screen
@@ -285,6 +285,75 @@ class TestStrainDetail(unittest.TestCase):
         alt_ids = driver.find_element(By.ID, 'otherIDs')#find the alternate IDs
         print alt_ids.text#print the alt IDs to the console screen
         self.assertEqual(alt_ids.text, 'RBRC00636, NIG:143')#assert the alt IDs are correct    
+
+    def test_strain_desc_small(self):
+        """
+        @status: Tests the display when the strain description is only  5 characters
+        @note: Strain-det-desc-1
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/strains_SNPs.shtml")
+        strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
+        # Enter your strain name
+        strainsearchbox.send_keys("MGI:6143482")
+        #time.sleep(2)
+        #find the search button and click it
+        driver.find_element(By.CLASS_NAME, 'goButton').click()
+        time.sleep(2)
+        #locates the strain name link for CBA/StMs and clicks it
+        driver.find_element(By.PARTIAL_LINK_TEXT, 'C57BL/6NCrl-Clcnkb').click()
+        time.sleep(2)
+        #switch focus to the new tab for strain detail page
+        driver.switch_to_window(self.driver.window_handles[-1])
+        desc_field = driver.find_element(By.ID, 'description')#find the description field
+        print desc_field.text#print the description field to the console screen
+        self.assertEqual(desc_field.text, 'CR1475')#assert the text of the description field is correct    
+
+    def test_strain_desc_link(self):
+        """
+        @status: Tests the display when the strain description has a link in it
+        @note: Strain-det-desc-2
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/strains_SNPs.shtml")
+        strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
+        # Enter your strain name
+        strainsearchbox.send_keys("MGI:6156919")
+        #time.sleep(2)
+        #find the search button and click it
+        driver.find_element(By.CLASS_NAME, 'goButton').click()
+        time.sleep(2)
+        #locates the strain name link for CBA/StMs and clicks it
+        driver.find_element(By.PARTIAL_LINK_TEXT, 'SJL/JCrHsd').click()
+        time.sleep(2)
+        #switch focus to the new tab for strain detail page
+        driver.switch_to_window(self.driver.window_handles[-1])
+        desc_field = driver.find_element(By.ID, 'description')#find the description field
+        print desc_field.text#print the description field to the console screen
+        self.assertEqual(desc_field.text, 'From The Jackson Laboratories, Bar Harbor, Maine, to National Institutes of Health, Frederick, Maryland, in 1983. To Harlan in 1987. Harlan became Envigo in 2015.Envigo')#assert the text of the description field is correct    
+
+    def test_strain_desc_large(self):
+        """
+        @status: Tests the display when the strain description is so large it needs a scroll bar
+        @note: Strain-det-desc-2
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/strains_SNPs.shtml")
+        strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
+        # Enter your strain name
+        strainsearchbox.send_keys("MGI:6156918")
+        #time.sleep(2)
+        #find the search button and click it
+        driver.find_element(By.CLASS_NAME, 'goButton').click()
+        time.sleep(2)
+        #locates the strain name link for CBA/StMs and clicks it
+        driver.find_element(By.PARTIAL_LINK_TEXT, 'SAMR1/TaHsd').click()
+        time.sleep(2)
+        #switch focus to the new tab for strain detail page
+        driver.switch_to_window(self.driver.window_handles[-1])
+        desc_field = driver.find_element(By.ID, 'description')#find the description field
+        print desc_field.text#print the description field to the console screen
+        self.assertEqual(desc_field.text, 'SAM models were developed from AKR/J by Kyoto University. Five litters with severe senescence were selected to further propagate and examine these characteristics. Litters that showed normal aging were selected as a senescence-resistant series (R-series). The genetic background of the SAM mice became suspect after the pathological findings were different from the AKR/J mouse. Each SAM model is genetically different. Each SAM colony was acquired by Harlan from Takeda Chemical Ltd. in 2002. Harlan became Envigo in 2015.Envigo')#assert the text of the description field is correct    
         
     def test_strain_det_mut_multi_assoc(self):
         """

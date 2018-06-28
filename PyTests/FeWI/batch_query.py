@@ -201,6 +201,69 @@ class TestBatchQuery(unittest.TestCase):
         #Assert each row of data is correct
         self.assertEqual(row1_data.text, 'MGP_AKRJ_G0020754\nMouse Genome Project\nMGP_AKRJ_G0020754\nMGP_AKRJ_G0020754\n \nAKR/J\nprotein coding\n13\n-\n94228187\n94249372', 'Row1 data is not correct!')
 
+    def test_bq_mgi_gm_ids_has_b6coord(self):
+        """
+        @status: Tests that batch queries on an MGI Gene Model ID that the correct results are returned
+        @note: batch-id-10
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/batch")
+        #locate the Genome Location checkbox in the Gene Attributes output section and click it.
+        driver.find_element(By.ID, 'attributes2').click()
+        idsearchbox = driver.find_element(By.ID, 'ids')
+        # Enter an MGP ID into the ID/Symbols field
+        idsearchbox.send_keys("MGI_C57BL6J_98660")
+        idsearchbox.submit()
+        #time.sleep(2)
+        #locates the Input column, find all the rows of data and print it to the console
+        input_header = self.driver.find_element(By.ID, 'yui-dt0-th-term-liner')
+        print input_header.text        
+        #asserts that the Input header is correct
+        self.assertEqual('Input', input_header.text) 
+        #capture the data for all 6 row results
+        row1_data = self.driver.find_element(By.ID, 'yui-rec0')
+        row2_data = self.driver.find_element(By.ID, 'yui-rec1')
+        
+        #print each row of data to the console
+        print row1_data.text
+        print row2_data.text
+        
+        #Assert each row of data is correct
+        self.assertEqual(row1_data.text, 'MGI_C57BL6J_98660\nMGI Strain Gene\nMGI:98660\nSry\nsex determining region of Chr Y\nC57BL/6J\nprotein coding gene\nY\n-\n2662471\n2663658', 'Row1 data is not correct!')
+        self.assertEqual(row2_data.text, 'MGI_C57BL6J_98660\nMGI Strain Gene\nMGI:98660\nSry\nsex determining region of Chr Y\nC57BL/6J\nprotein-coding\nY\n-\n2662471\n2663658', 'Row2 data is not correct!')
+
+    def test_bq_strain_links(self):
+        """
+        @status: Tests that all strains listed in the strains column go to their respective detail pages
+        @note: batch-id-11
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/batch")
+        idsearchbox = driver.find_element(By.ID, 'ids')
+        # Enter an MGP ID into the ID/Symbols field
+        idsearchbox.send_keys("MGP_CBAJ_G0024006")
+        idsearchbox.submit()
+        #locates the strain column, and click the first strain(C57BL/6J)
+        self.driver.find_element(By.LINK_TEXT, '(C57BL/6J)').click()
+        time.sleep(2)
+        #switch focus to the new tab for strain detail page
+        driver.switch_to_window(self.driver.window_handles[-1])
+        #Identify the page title
+        page_header = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')      
+        #asserts that the Page header is correct
+        self.assertEqual('C57BL/6J', page_header.text) 
+        #switch focus back to the batch query summary
+        driver.switch_to_window(self.driver.window_handles[0])
+        #locates the strain column, and click the second strain(CBA/J)
+        self.driver.find_element(By.LINK_TEXT, '(CBA/J)').click()
+        time.sleep(2)
+        #switch focus to the new tab for strain detail page
+        driver.switch_to_window(self.driver.window_handles[-2])
+        #Identify the page title
+        page_header = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')      
+        #asserts that the Page header is correct
+        self.assert_(expr, msg) 
+
         
     def tearDown(self):
         #self.driver.close()

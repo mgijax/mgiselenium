@@ -742,9 +742,9 @@ class TestStrainQF(unittest.TestCase):
         #asserts the following attributes are returned
         self.assertIn('conplastic', attributesReturned) # assert attribute is listed
         
-    def test_search_strain_attrib_multi(self):
+    def test_search_strain_attrib_multi_default(self):
         '''
-        @status: Tests that you can search for a strains using the strain attribute of conplastic and mutant strain
+        @status: Tests that you can search for a strains using the strain attribute of conplastic and mutant strain with default of Any
         @note: Strain-qf-attrib-2 
         '''
         driver = self.driver
@@ -801,6 +801,122 @@ class TestStrainQF(unittest.TestCase):
         #asserts the following strains are returned
         self.assertIn('B6.Cg-mt-Co1m1Jiha', strainsReturned) # contains this attribute
         self.assertIn('B6;129X1-Decr1tm1Jkh/Oulu[cc]', strainsReturned) # contains this attribute
+
+    def test_search_two_attrib_all(self):
+        '''
+        @status: Tests that you can search for 2 strain attributes using all(AND) option
+        @note: Strain-qf-attrib-4 
+        '''
+        driver = self.driver
+        driver.get(config.TEST_URL + "/strains_SNPs.shtml")
+        #find the 2 attribute options in the list and select them
+        select_box = Select (driver.find_element(By.NAME, 'attributes'))
+        select_box.select_by_visible_text('coisogenic')
+        select_box.select_by_visible_text('revertant')
+        #find the Match selected attributes list and select the "all" option
+        #self.driver.find_element(By.NAME, 'seqPullDownForm')
+        Select(driver.find_element(By.NAME, 'attributeOperator')).select_by_visible_text('all')
+        time.sleep(2)
+        #find the search button and click it
+        driver.find_element(By.CLASS_NAME, 'goButton').click()
+        time.sleep(2)
+        #locates the strain table and find the data in the Attributes column
+        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        cells = strain_table.get_column_cells("Attributes")
+        print iterate.getTextAsList(cells)
+        attributesReturned = iterate.getTextAsList(cells)
+        time.sleep(2)
+        #asserts the following attributes are returned
+        self.assertIn('coisogenic\nmutant strain\nrevertant\ntargeted mutation', attributesReturned) # contains this attribute
+        self.assertIn('coisogenic\nmutant strain\nrevertant\ntargeted mutation', attributesReturned) # contains this attribute
+        
+    def test_search_two_attrib_any(self):
+        '''
+        @status: Tests that you can search for 2 strain attributes using any(OR) option
+        @note: Strain-qf-attrib-5 
+        '''
+        driver = self.driver
+        driver.get(config.TEST_URL + "/strains_SNPs.shtml")
+        #find the 2 attribute options in the list and select them
+        select_box = Select (driver.find_element(By.NAME, 'attributes'))
+        select_box.select_by_visible_text('*F3 hybrid')
+        select_box.select_by_visible_text('revertant')
+        #find the Match selected attributes list and select the "all" option
+        #self.driver.find_element(By.NAME, 'seqPullDownForm')
+        Select(driver.find_element(By.NAME, 'attributeOperator')).select_by_visible_text('any')
+        time.sleep(2)
+        #find the search button and click it
+        driver.find_element(By.CLASS_NAME, 'goButton').click()
+        time.sleep(2)
+        #locates the strain table and find the data in the Attributes column
+        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        cells = strain_table.get_column_cells("Attributes")
+        print iterate.getTextAsList(cells)
+        attributesReturned = iterate.getTextAsList(cells)
+        time.sleep(2)
+        #asserts the following attributes are returned
+        self.assertIn('*F3 hybrid\nmutant stock', attributesReturned) # contains this attribute
+        self.assertIn('*F3 hybrid', attributesReturned) # contains this attribute
+        self.assertIn('coisogenic\nmutant strain\nrevertant\ntargeted mutation', attributesReturned) # contains this attribute
+
+    def test_search_multi_attrib_all(self):
+        '''
+        @status: Tests that you can search for multiple strain attributes using all(AND) option
+        @note: Strain-qf-attrib-6 
+        '''
+        driver = self.driver
+        driver.get(config.TEST_URL + "/strains_SNPs.shtml")
+        #find the 3 attribute options in the list and select them
+        select_box = Select (driver.find_element(By.NAME, 'attributes'))
+        select_box.select_by_visible_text('coisogenic')
+        select_box.select_by_visible_text('revertant')
+        select_box.select_by_visible_text('targeted mutation')
+        #find the Match selected attributes list and select the "all" option
+        #self.driver.find_element(By.NAME, 'seqPullDownForm')
+        Select(driver.find_element(By.NAME, 'attributeOperator')).select_by_visible_text('all')
+        time.sleep(2)
+        #find the search button and click it
+        driver.find_element(By.CLASS_NAME, 'goButton').click()
+        time.sleep(2)
+        #locates the strain table and find the data in the Attributes column
+        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        cells = strain_table.get_column_cells("Attributes")
+        print iterate.getTextAsList(cells)
+        attributesReturned = iterate.getTextAsList(cells)
+        time.sleep(2)
+        #asserts the following attributes are returned
+        self.assertIn('coisogenic\nmutant strain\nrevertant\ntargeted mutation', attributesReturned) # contains this attribute
+        self.assertIn('coisogenic\nmutant strain\nrevertant\ntargeted mutation', attributesReturned) # contains this attribute
+
+    def test_search_multi_attrib_any(self):
+        '''
+        @status: Tests that you can search for multiple strain attributes using any(OR) option
+        @note: Strain-qf-attrib-7 
+        '''
+        driver = self.driver
+        driver.get(config.TEST_URL + "/strains_SNPs.shtml")
+        #find the 3 attribute options in the list and select them
+        select_box = Select (driver.find_element(By.NAME, 'attributes'))
+        select_box.select_by_visible_text('*F3 hybrid')
+        select_box.select_by_visible_text('revertant')
+        select_box.select_by_visible_text('trisomy')
+        #find the Match selected attributes list and select the "all" option
+        #self.driver.find_element(By.NAME, 'seqPullDownForm')
+        Select(driver.find_element(By.NAME, 'attributeOperator')).select_by_visible_text('any')
+        time.sleep(2)
+        #find the search button and click it
+        driver.find_element(By.CLASS_NAME, 'goButton').click()
+        time.sleep(2)
+        #locates the strain table and find the data in the Attributes column
+        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        cells = strain_table.get_column_cells("Attributes")
+        print iterate.getTextAsList(cells)
+        attributesReturned = iterate.getTextAsList(cells)
+        time.sleep(2)
+        #asserts the following attributes are returned
+        self.assertIn('*F3 hybrid\nmutant stock', attributesReturned) # contains this attribute
+        self.assertIn('*F3 hybrid', attributesReturned) # contains this attribute
+        self.assertIn('chromosome aberration\nmutant strain\ntrisomy', attributesReturned) # contains this attribute
         
     def tearDown(self):
         #self.driver.close()

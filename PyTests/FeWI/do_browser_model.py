@@ -359,8 +359,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         
         self.driver.find_element(By.LINK_TEXT, 'myositis').click()
-        self.driver.find_element(By.ID, 'modelsTabButton').click()#identifies the Models tab and clicks it.
-        
+        self.driver.find_element(By.ID, 'modelsTabButton').click()#identifies the Models tab and clicks it.        
         model_table = self.driver.find_element(By.ID, 'modelTabTable')
         table = Table(model_table)
         cells = table.get_rows()

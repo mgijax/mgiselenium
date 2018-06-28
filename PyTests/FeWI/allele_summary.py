@@ -17,6 +17,7 @@ sys.path.append(
 )
 from util import wait, iterate
 from util.table import Table
+import time
 import config
 from config import TEST_URL
 
@@ -29,7 +30,31 @@ class TestAlleleSummary(unittest.TestCase):
         self.driver.get(config.TEST_URL + "/allele/")
         #self.driver.get("http://scrumdogdev.informatics.jax.org/allele/")
         self.driver.implicitly_wait(10)
-        
+
+# ...
+    def highlight(self, element, duration=3):
+        driver = self.driver
+
+        # Store original style so it can be reset later
+        original_style = element.get_attribute("style")
+
+        # Style element with dashed red border
+        driver.execute_script(
+            "arguments[0].setAttribute(arguments[1], arguments[2])",
+            element,
+            "style",
+            "border: 2px solid red; border-style: dashed;")
+
+        # Keep element highlighted for a spell and then revert
+        if (duration > 0):
+            time.sleep(duration)
+            driver.execute_script(
+                "arguments[0].setAttribute(arguments[1], arguments[2])",
+                element,
+                "style",
+                original_style)
+
+       
     def test_column_headings(self):
         '''
         @status This test verifies the correct column headings are being displayed in the correct order on the page.
@@ -40,7 +65,8 @@ class TestAlleleSummary(unittest.TestCase):
         self.driver.find_element_by_partial_link_text("tm2Jzh").click()
         assert "Pkd1<sup>tm2Jzh</sup>" in self.driver.page_source
         assert 'id="nomenclatureHeader"' in self.driver.page_source
-        assert 'id="originHeader"' in self.driver.page_source    
+        assert 'id="originHeader"' in self.driver.page_source  
+        self.highlight(self.driver.find_element_by_class_name('titleBarMainTitle'))  
         
     def test_disease_doids_byallele(self):
         '''
