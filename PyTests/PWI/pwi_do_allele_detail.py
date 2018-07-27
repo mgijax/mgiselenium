@@ -8,6 +8,9 @@ import unittest
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import sys,os.path
 from util import wait, iterate
 # adjust the path to find config
@@ -35,19 +38,19 @@ class TestLitIndexByMrk(unittest.TestCase):
         # put your marker symbol in the box
         nomenbox.send_keys("pax6")
         nomenbox.send_keys(Keys.RETURN)
-        time.sleep(3)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Pax6')))#waits until the Pax6 link is displayed on the page
         #finds the marker link and clicks it
         driver.find_element_by_link_text("Pax6").click()
-        time.sleep(3)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Alleles')))#waits until the Alleles link is displayed on the page
         driver.find_element_by_link_text("Alleles").click()
-        time.sleep(5)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, 'Sey-Dey')))#waits until the allele link for Pax6<Sey-Dey> is displayed on the page
         driver.find_element_by_partial_link_text("Sey-Dey").click()
-        time.sleep(5)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'div.genotypeDetail:nth-child(3)')))#waits until the Genotype data is displayed on the page
         #Locates the summary table and finds the table headings
-        driver.find_element_by_css_selector('div.genotypeDetail:nth-child(3)')
-        driver.find_element_by_css_selector('dl.detailPageListData:nth-child(1)')
-        driver.find_elements_by_tag_name('dd.detailPageListData')
-        data = driver.find_elements_by_tag_name('a')
+        driver.find_element(By.CSS_SELECTOR, 'div.genotypeDetail:nth-child(3)')
+        driver.find_element(By.CSS_SELECTOR, 'dl.detailPageListData:nth-child(1)')
+        driver.find_elements(By.TAG_NAME, 'dd.detailPageListData')
+        data = driver.find_elements(By.TAG_NAME, 'a')
         print iterate.getTextAsList(data)#prints out almost all data found on this page, hopefully someday  I can figure out how to capture just the disease annotations section.
         time.sleep(5)
         term1 = data[60]
@@ -75,21 +78,20 @@ class TestLitIndexByMrk(unittest.TestCase):
         """
         driver = self.driver
         #opens the PWI marker form
-        driver.get(TEST_PWI_URL + '/#markerForm')
-        
-        nomenbox = driver.find_element_by_id('nomen')
+        driver.get(TEST_PWI_URL + '/#markerForm')        
+        nomenbox = driver.find_element(By.ID, 'nomen')
         # put your marker symbol in the box
         nomenbox.send_keys("gata1")
         nomenbox.send_keys(Keys.RETURN)
-        time.sleep(3)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Gata1')))#waits until the Gata1 link is displayed on the page
         #finds the marker link and clicks it
-        driver.find_element_by_link_text("Gata1").click()
-        wait.forAjax(driver)
-        driver.find_element_by_link_text("Lit Index").click()
-        wait.forAjax(driver)
+        driver.find_element(By.LINK_TEXT, "Gata1").click()
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Lit Index')))#waits until the Lit Index link is displayed on the page
+        driver.find_element(By.LINK_TEXT, "Lit Index").click()
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'indexRefsTable')))#waits until the Index reference table is displayed on the page
         #finds the coded column and then the first 10 items
-        refindextable = driver.find_element_by_id("indexRefsTable")
-        coded = refindextable.find_elements_by_css_selector('td:nth-child(1)')
+        refindextable = driver.find_element(By.ID, "indexRefsTable")
+        coded = refindextable.find_elements(By.CSS_SELECTOR, 'td:nth-child(1)')
         code1 = coded[0]
         code2 = coded[1]
         code3 = coded[2]
@@ -134,11 +136,10 @@ class TestLitIndexByMrk(unittest.TestCase):
         self.assertEqual(pri7.text, "Medium")
         self.assertEqual(pri8.text, "Low")
         self.assertEqual(pri9.text, "Medium")
-        self.assertEqual(pri10.text, "High")
-        
+        self.assertEqual(pri10.text, "High")        
         #finds the conditional column and then the first 10 items
-        refindextable = driver.find_element_by_id("indexRefsTable")
-        cond = refindextable.find_elements_by_css_selector('td:nth-child(4)')
+        refindextable = driver.find_element(By.ID, "indexRefsTable")
+        cond = refindextable.find_elements(By.CSS_SELECTOR, 'td:nth-child(4)')
         con1 = cond[0]
         con2 = cond[1]
         con3 = cond[2]

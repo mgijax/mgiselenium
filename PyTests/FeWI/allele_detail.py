@@ -9,6 +9,8 @@ import unittest
 from selenium import webdriver
 #from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import sys,os.path
 #from genericpath import exists
 # adjust the path to find config
@@ -35,11 +37,12 @@ class TestAlleleDetail(unittest.TestCase):
         '''
         @status This test verifies the ribbons are being displayed in the correct order on the page.
         '''
+        driver = self.driver
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('Pkd1')
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm2Jzh').click()
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'nomenTable')))#waits until the nomenclature table(nomenclature ribbon) is displayed on the page
         assert "Pkd1<sup>tm2Jzh</sup>" in self.driver.page_source
         print self.driver.page_source
         assert 'id="nomenclatureHeader"' in self.driver.page_source
@@ -56,11 +59,12 @@ class TestAlleleDetail(unittest.TestCase):
         @status This test verifies the ribbons are being displayed in the correct order on the page.
         This allele had recombinase and phenotype ribbons
         '''
+        driver = self.driver
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('Slc6a3')
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1(cre)Xz').click()
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'nomenTable')))#waits until the nomenclature table(nomenclature ribbon) is displayed on the page
         assert "Slc6a3<sup>tm1(cre)Xz</sup>" in self.driver.page_source
         assert 'id="nomenclatureHeader"' in self.driver.page_source
         assert 'id="originHeader"' in self.driver.page_source
@@ -77,11 +81,12 @@ class TestAlleleDetail(unittest.TestCase):
         @status This test verifies the ribbons are being displayed in the correct order on the page.
         This allele had no disease models so the Expression ribbon should follow the phenotype ribbon
         '''
+        driver = self.driver
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('Pax3')
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1(cre)Joe').click()
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'nomenTable')))#waits until the nomenclature table(nomenclature ribbon) is displayed on the page
         assert "Pax3<sup>tm1(cre)Joe</sup>" in self.driver.page_source
         assert 'id="nomenclatureHeader"' in self.driver.page_source
         assert 'id="originHeader"' in self.driver.page_source
@@ -98,6 +103,7 @@ class TestAlleleDetail(unittest.TestCase):
         Sequence Tags, and Genome Context Verify clicking the turnstile icon for Mutation Notes, Sequence tags, and Genome context displays the complete information.
         @bug clicking the turnstiles was not working, traced to firefox, works fine using Chrome
         '''
+        
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('Arrdc3')
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
@@ -419,7 +425,7 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.PARTIAL_LINK_TEXT, '2Neu').click()
         assert "Project Collection" not in self.driver.page_source
-
+      
     def test_mutation_strain_link(self):
         '''
         @status this test verifies the strain link in the Mutation origin ribbon.
@@ -434,8 +440,68 @@ class TestAlleleDetail(unittest.TestCase):
         ptitle = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
         #Assert the page title is for the correct strain name
         self.assertEqual(ptitle.text, "(101 x C3H)F1")
-        
-        
+
+    def test_pheno_table_strain_link(self):
+        '''
+        @status this test verifies the strain link in the phenotype table Genetic Background column opens in a new tab.
+        @note: alldetail-pheno-1
+        '''
+        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.find_element(By.NAME, 'nomen').send_keys('Shh')
+        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Dz').click()
+        #find the first link for C57BL/6J-Shh<Dz> in the Genetic Background column of the Phenotype table and click it.
+        self.driver.find_element(By.XPATH, '/html/body/div[2]/table/tbody/tr[5]/td[2]/div[1]/table/tbody/tr[2]/td[2]/div/div/table/tbody[2]/tr[1]/td[3]/div/span/a').click()
+        time.sleep(2)
+        #switch focus to the new tab for Strain detail page
+        self.driver.switch_to_window(self.driver.window_handles[-1])
+        time.sleep(2)
+        page_title = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
+        print page_title.text
+        #Asserts that the strain page is for the correct strain
+        self.assertEqual(page_title.text, 'C57BL/6J-ShhDz', 'Page title is not correct!')
+        ptitle = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
+        #Assert the page title is for the correct strain name
+        self.assertEqual(ptitle.text, "C57BL/6J-ShhDz")
+
+    def test_view_table_strain_link(self):
+        '''
+        @status this test verifies the strain links in the allgenoviews table Genetic Background columns opens in a new tab(both summary & Genotype ribbons.
+        @note: alldetail-pheno-2
+        '''
+        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.find_element(By.NAME, 'nomen').send_keys('Shh')
+        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Dz').click()
+        #locate the View link found at the bottom of the Phenotypes ribbon and click it
+        self.driver.find_element(By.LINK_TEXT, 'View').click()
+        #time.sleep(2)
+        #switch focus to the new tab for Phenotypes associated with this allele page
+        self.driver.switch_to_window(self.driver.window_handles[-1])
+        time.sleep(2)
+        #find the first link for C57BL/6J-Shh<Dz> in the Genetic Background column of the Summary ribbon and click it.
+        self.driver.find_element(By.XPATH, '/html/body/div[2]/table/tbody/tr[2]/td[2]/div/table/tbody/tr[2]/td[3]/a').click()
+        time.sleep(2)
+        #switch focus to the new tab for Strain detail page
+        self.driver.switch_to_window(self.driver.window_handles[-1])
+        time.sleep(2)
+        ptitle = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
+        #Assert the page title is for the correct strain name
+        self.assertEqual(ptitle.text, "C57BL/6J-ShhDz", 'Page title is not correct!')
+        time.sleep(2)
+        #switch focus back to the tab for Phenotypes associated with this allele page
+        self.driver.switch_to_window(self.driver.window_handles[+1])
+        time.sleep(2)
+        #find the first link for C57BL/6J-Shh<Dz> in the Genetic Background section of the Genotype ribbon and click it.
+        self.driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div[1]/div/div[2]/table/tbody/tr/td[1]/table/tbody/tr[2]/td[2]/a').click()
+        time.sleep(2)
+        #switch focus to the new tab for Strain detail page
+        self.driver.switch_to_window(self.driver.window_handles[-1])
+        time.sleep(2)
+        ptitle = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
+        #Assert the page title is for the correct strain name
+        self.assertEqual(ptitle.text, "C57BL/6J-ShhDz", 'Page title is not correct!')   
+               
     def test_pheno_disease_table(self):
         '''
         @status this test verifies these Alleles have the correct Disease models and sorted alphabetically.
@@ -688,7 +754,7 @@ class TestAlleleDetail(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(Test))
+    suite.addTest(unittest.makeSuite(TestAlleleDetail))
     return suite
 
 if __name__ == "__main__":

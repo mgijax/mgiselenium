@@ -129,6 +129,9 @@ class TestMPBrowser(unittest.TestCase):
         time.sleep(2)
         driver.find_element(By.LINK_TEXT, 'DBA/2J').click()
         time.sleep(2)
+        #switch focus to the new tab for Strain detail page
+        self.driver.switch_to_window(self.driver.window_handles[-1])
+        time.sleep(2)
         page_title = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
         print page_title.text
         #Asserts that the strain page is for the correct strain

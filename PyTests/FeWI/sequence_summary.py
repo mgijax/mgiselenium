@@ -84,7 +84,7 @@ class TestSequenceSummaryPage(unittest.TestCase):
         time.sleep(2)
         print searchTextItems
         #asserts that the rows of Type data are in correct order
-        self.assertEqual(searchTextItems, [u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'DNA', u'DNA', u'Polypeptide', u'Polypeptide', u'Polypeptide', u'Polypeptide', u'Polypeptide', u'Polypeptide'])
+        self.assertEqual(searchTextItems, [u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'DNA', u'DNA', u'DNA', u'DNA', u'DNA', u'DNA', u'DNA', u'DNA', u'DNA', u'DNA'])
         
         #finds the Sequence column and then iterates through all items
         seqlist = driver.find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-seqInfo .yui-dt-liner')
@@ -92,7 +92,7 @@ class TestSequenceSummaryPage(unittest.TestCase):
         time.sleep(2)
         print searchTextItems
         #asserts that the rows of length data are in correct order
-        self.assertEqual(searchTextItems, [u'ENSMUST00000018711\n  Ensembl\n  MGI Sequence Detail', u'ENSMUST00000144443\n  Ensembl\n  MGI Sequence Detail', u'ENSMUST00000108592\n  Ensembl\n  MGI Sequence Detail', u'ENSMUST00000139007\n  Ensembl\n  MGI Sequence Detail', u'NM_019749\n  RefSeq\n  MGI Sequence Detail', u'BC030350\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'BC002126\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'BC024621\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'AV029091\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'BC029329\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'AK002879\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'AK011731\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'AF161587\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'KY499680\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'AW124839\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'ENSMUSG00000018567\n  Ensembl Gene Model\n  MGI Sequence Detail', u'56486\n  NCBI Gene Model\n  MGI Sequence Detail', u'ENSMUSP00000018711\n  Ensembl\n  MGI Sequence Detail', u'ENSMUSP00000104233\n  Ensembl\n  MGI Sequence Detail', u'NP_062723\n  RefSeq\n  MGI Sequence Detail', u'Q9DCD6\n  UniProt | EBI\n  MGI Sequence Detail', u'A0A1S6GWH0\n  UniProt | EBI\n  MGI Sequence Detail', u'B1AR50\n  UniProt | EBI\n  MGI Sequence Detail'])
+        self.assertEqual(searchTextItems, [u'ENSMUST00000018711\n  Ensembl\n  MGI Sequence Detail', u'ENSMUST00000144443\n  Ensembl\n  MGI Sequence Detail', u'ENSMUST00000108592\n  Ensembl\n  MGI Sequence Detail', u'ENSMUST00000139007\n  Ensembl\n  MGI Sequence Detail', u'NM_019749\n  RefSeq\n  MGI Sequence Detail', u'BC030350\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'BC002126\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'BC024621\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'AV029091\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'BC029329\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'AK002879\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'AK011731\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'AF161587\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'KY499680\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'AW124839\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'ENSMUSG00000018567\n  Ensembl Gene Model\n  MGI Sequence Detail', u'56486\n  NCBI Gene Model\n  MGI Sequence Detail', u'MGP_129S1SvImJ_G0018575\n  Ensembl\n  MGI Sequence Detail', u'MGP_WSBEiJ_G0017937\n  Ensembl\n  MGI Sequence Detail', u'MGP_NODShiLtJ_G0018423\n  Ensembl\n  MGI Sequence Detail', u'MGP_PWKPhJ_G0017657\n  Ensembl\n  MGI Sequence Detail', u'MGP_NZOHlLtJ_G0019008\n  Ensembl\n  MGI Sequence Detail', u'MGP_C3HHeJ_G0018328\n  Ensembl\n  MGI Sequence Detail', u'MGP_BALBcJ_G0018515\n  Ensembl\n  MGI Sequence Detail', u'MGP_C57BL6NJ_G0018966\n  Ensembl\n  MGI Sequence Detail'])
         
         #finds the Length column and then iterates through all items
         lengthlist = driver.find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-length .yui-dt-liner')
@@ -100,8 +100,68 @@ class TestSequenceSummaryPage(unittest.TestCase):
         time.sleep(2)
         print searchTextItems
         #asserts that the rows of length data are in correct order,sort is large to small
-        self.assertEqual(searchTextItems, [u'1351', u'932', u'750', u'454', u'1122', u'1152', u'924', u'899', u'893', u'879', u'872', u'776', u'565', u'492', u'465', u'3809', u'3580', u'117', u'106', u'117', u'117', u'163', u'106'])
+        self.assertEqual(searchTextItems, [u'1351', u'932', u'750', u'454', u'1122', u'1152', u'924', u'899', u'893', u'879', u'872', u'776', u'565', u'492', u'465', u'3809', u'3580', u'6111', u'5983', u'5196', u'4974', u'4641', u'4400', u'3763', u'3731'])
         
+    def test_mgp_links(self):
+        """
+        @status: Tests that am MGP sequence has a link to Mouse Genomes Project and the link is correct
+        It then goes back to the sequence summary page and verifies the MGI Sequence Detail link for the same sequence is correct
+        @note: seq-summary-3
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/marker")
+        genebox = driver.find_element(By.NAME, 'nomen')
+        # put your marker symbol
+        genebox.send_keys("Ppnr")
+        genebox.send_keys(Keys.RETURN)
+        time.sleep(3)
+        #finds the correct marker link and clicks it
+        driver.find_element(By.LINK_TEXT, 'Ppnr').click()
+        time.sleep(2)
+        #Finds the All sequences link and clicks it
+        driver.find_element(By.ID, 'allSeqLink').click()
+        time.sleep(2)
+        #finds the link for Ensembl of sequence MGP_CBAJ_G0036567 and clicks it.
+        driver.find_element(By.CSS_SELECTOR, '#yui-rec5 > td:nth-child(2) > div:nth-child(1) > a:nth-child(2)').click()
+        time.sleep(2)
+        species_m = driver.find_element(By.CLASS_NAME, 'species')
+        #asserts that the link takes you to the correct sequence at ensembl.
+        self.assertEqual(species_m.text, 'Mouse CBA/J')
+        driver.back()
+        time.sleep(2)
+        #finds the link for MGI Sequence Detail of sequence MGP_CBAJ_G0036567 and clicks it.
+        driver.find_element(By.CSS_SELECTOR, '#yui-rec5 > td:nth-child(2) > div:nth-child(1) > a:nth-child(4)').click()
+        time.sleep(2)
+        #find the ID listed in the ID/Version ribbon of the sequence detail page
+        seq_id = driver.find_element(By.CSS_SELECTOR, '#seqIdTable > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > b:nth-child(1)')
+        #asserts that the link takes you to the correct sequence detail page.
+        self.assertEqual(seq_id.text, 'MGP_CBAJ_G0036567')
+
+    def test_mgi_b6_links(self):
+        """
+        @status: Tests that am MGI sequence(b6) has a link to its Sequence Detail page and the link is correct
+        @note: seq-summary-4
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/marker")
+        genebox = driver.find_element(By.NAME, 'nomen')
+        # put your marker symbol
+        genebox.send_keys("Ppnr")
+        genebox.send_keys(Keys.RETURN)
+        time.sleep(3)
+        #finds the correct marker link and clicks it
+        driver.find_element(By.LINK_TEXT, 'Ppnr').click()
+        time.sleep(2)
+        #Finds the All sequences link and clicks it
+        driver.find_element(By.ID, 'allSeqLink').click()
+        time.sleep(2)
+        #finds the link for MGI Sequence Detail of sequence MGI_C57BL6J_1349458 and clicks it.
+        driver.find_element(By.CSS_SELECTOR, '#yui-rec20 > td:nth-child(2) > div:nth-child(1) > a:nth-child(2)').click()
+        time.sleep(2)
+        #find the ID listed in the ID/Version ribbon of the sequence detail page
+        seq_id = driver.find_element(By.CSS_SELECTOR, '#seqIdTable > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > b:nth-child(1)')
+        #asserts that the link takes you to the correct sequence detail page.
+        self.assertEqual(seq_id.text, 'MGI_C57BL6J_1349458')
         
     def tearDown(self):
         self.driver.close()

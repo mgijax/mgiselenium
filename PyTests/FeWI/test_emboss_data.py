@@ -7,6 +7,7 @@ This test verifies EMBOSS data is being returned from the EMBOSS server.
 import unittest
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 #from ddt import ddt, data, unpack
 from pkgutil import get_data
 #from csv import reader
@@ -65,7 +66,7 @@ class TestFile(unittest.TestCase):
     
             self.driver.get(SEQUENCE_URL + embossId)
     
-            goButton = self.driver.find_element_by_css_selector("form[name=\"seqPullDownForm\"] input")
+            goButton = self.driver.find_element(By.CSS_SELECTOR, "form[name=\"seqPullDownForm\"] input")
             goButton.click()
     
             if chrLine:
