@@ -44,7 +44,7 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm2Jzh').click()
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'nomenTable')))#waits until the nomenclature table(nomenclature ribbon) is displayed on the page
         assert "Pkd1<sup>tm2Jzh</sup>" in self.driver.page_source
-        print self.driver.page_source
+        #print self.driver.page_source
         assert 'id="nomenclatureHeader"' in self.driver.page_source
         assert 'id="originHeader"' in self.driver.page_source
         assert 'id="descriptionHeader"' in self.driver.page_source
@@ -261,7 +261,7 @@ class TestAlleleDetail(unittest.TestCase):
         actualurl = self.driver.find_element(By.LINK_TEXT, 'incidental mutations').get_attribute('href')
         
         self.assertEqual(mutagenetixlink.text, "incidental mutations")
-        self.assertEqual(actualurl, config.PUBLIC_URL + '/downloads/datasets/incidental_muts/Mutagenetix.xlsx')
+        self.assertEqual(actualurl, config.TEST_URL + '/downloads/datasets/incidental_muts/Mutagenetix.xlsx')
         self.driver.get(config.PUBLIC_URL + "/allele/")
         
         self.driver.find_element(By.NAME, 'nomen').clear()
@@ -354,18 +354,19 @@ class TestAlleleDetail(unittest.TestCase):
         actualurl = self.driver.find_element(By.LINK_TEXT, 'incidental mutations').get_attribute('href')
         
         self.assertEqual(afplink.text, "incidental mutations")
-        self.assertEqual(actualurl, config.PUBLIC_URL + '/downloads/datasets/incidental_muts/APF.xlsx')
-        self.driver.get(config.PUBLIC_URL + "/allele/")
-        
+        self.assertEqual(actualurl, config.TEST_URL + '/downloads/datasets/incidental_muts/APF.xlsx')        
+        self.driver.get(config.TEST_URL + "/allele/")        
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('Nphp3')
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'pol').click()
+        time.sleep(4)
+        self.driver.find_elements(By.PARTIAL_LINK_TEXT, 'pol')[1].click()
+        time.sleep(4)
         afplink = self.driver.find_element(By.LINK_TEXT, 'incidental mutations')
         actualurl = self.driver.find_element(By.LINK_TEXT, 'incidental mutations').get_attribute('href')
         
         self.assertEqual(afplink.text, "incidental mutations")
-        self.assertEqual(actualurl, config.PUBLIC_URL + '/downloads/datasets/incidental_muts/APF.xlsx')
+        self.assertEqual(actualurl, config.TEST_URL + '/downloads/datasets/incidental_muts/APF.xlsx')
     
     def test_collection_value(self):
         '''
@@ -436,6 +437,8 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Dsh').click()
         self.driver.find_element(By.LINK_TEXT, '(101 x C3H)F1').click()
+        #switch focus to the new tab for strain detail page
+        self.driver.switch_to_window(self.driver.window_handles[-1])
         time.sleep(2)
         ptitle = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
         #Assert the page title is for the correct strain name
@@ -675,12 +678,13 @@ class TestAlleleDetail(unittest.TestCase):
         #verifies that the assays results link exists/is displayed
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'assay results').is_displayed()
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'anatomical structures').click()
+        time.sleep(2)
         searchList = self.driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
         print [x.text for x in searchList]
         
         # There should be 5 structures returned in the anatomy search results
-        self.assertIn('mouse TS1-28\nmuscle tissue TS12-28\nspinal cord ventral horn TS20-28\nventral grey horn TS21-26\nvertebral column TS27-28', terms, 'the 5 terms are not listed!')        
+        self.assertIn('mouse TS1-28\nmuscle organ TS28\nmuscle tissue TS12-28\nspinal cord ventral horn TS20-28\nventral grey horn TS21-26\nvertebral column TS27-28', terms, 'the 5 terms are not listed!')        
         
     def test_allele_detail_exp_sec_struct_link_only_norm(self):
         '''

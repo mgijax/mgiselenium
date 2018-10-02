@@ -50,7 +50,7 @@ class TestReferenceSummaryStrain(unittest.TestCase):
         print iterate.getTextAsList(straindata)
         idsReturned = iterate.getTextAsList(straindata)
         #asserts that the 2 rows of data are correct
-        self.assertEqual(['Official Strain Name Synonyms Attributes IDs References','BUB/BnJ BUB/BnJ-Pde6brd1\ninbred strain\nMGI:2159907\nJAX:000653\n67', 'SF/CamEiJ San Franciscan\ninbred strain\nwild-derived\nMGI:2159978\nJAX:000280\n18'], idsReturned) 
+        self.assertEqual(['Official Strain Name Synonyms Attributes IDs References', 'BUB/BnJ BUB/BnJ-Pde6brd1\ninbred strain\nMGI:2159907\nJAX:000653\nMPD:24\n70', 'SF/CamEiJ San Franciscan\ninbred strain\nwild-derived\nMGI:2159978\nJAX:000280\nMPD:159\n18'], idsReturned) 
         #The reason we brought back all the rows of data is because we needed to make sure the reference counts were correct and it did not bring back duplicate J numbers
         #example BUB/BnJ shows 67 references, in the EI it shows 69 between the two reference tables. The 2 extra references are because both EI tables have J:6844 and J:17601,
         #duplicate J numbers are not displayed in the FEWI strain summary for reference page. 

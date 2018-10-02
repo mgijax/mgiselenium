@@ -342,7 +342,7 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         row8 = cells[9]
         row9 = cells[10]
         self.assertEqual(row1.text, '       hemochromatosis type 1 HFE* Hfe* 13 models HomoloGene and HGNC')
-        self.assertEqual(row2.text, 'hemochromatosis type 2A HFE2* Hfe2* 2 models HomoloGene and HGNC')
+        self.assertEqual(row2.text, 'hemochromatosis type 2A HJV* Hfe2* 2 models HomoloGene and HGNC')
         self.assertEqual(row3.text, 'hemochromatosis type 2B HAMP* Hamp* 1 model HGNC')
         self.assertEqual(row4.text, 'hemochromatosis type 3 TFR2* Tfr2* 2 models HomoloGene and HGNC')
         self.assertEqual(row5.text, 'hemochromatosis type 4 SLC40A1* Slc40a1* 3 models HomoloGene and HGNC')
@@ -465,7 +465,7 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         self.assertEqual(row24.text, 'osteogenesis imperfecta type 17 SPARC* Sparc   HomoloGene and HGNC')
         self.assertEqual(row25.text, 'osteogenesis imperfecta type 2 COL1A2* Col1a2   HomoloGene and HGNC')
         self.assertEqual(row26.text, 'osteogenesis imperfecta type 4 COL1A2* Col1a2   HomoloGene and HGNC')
-        self.assertEqual(row27.text, 'osteogenesis imperfecta type 5 IFITM5* Ifitm5   HomoloGene and HGNC')
+        self.assertEqual(row27.text, 'osteogenesis imperfecta type 5 IFITM5* Ifitm5 1 "NOT" model HomoloGene and HGNC')
         transgene_table = self.driver.find_element_by_id("transgeneTable")
         table = Table(transgene_table)
         cells = table.get_rows()

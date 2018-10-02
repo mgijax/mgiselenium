@@ -179,7 +179,7 @@ class TestStrainQF(unittest.TestCase):
         print iterate.getTextAsList(cells1)
         idReturned = iterate.getTextAsList(cells1)
         #asserts that the correct ID is  returned
-        self.assertIn('MGI:2159739\nJAX:000686', idReturned) # ID is correct                    
+        self.assertIn('MGI:2159739\nJAX:000686\nMPD:17', idReturned) # ID is correct                    
                 
     def test_search_strain_jax_id(self):
         """
@@ -206,7 +206,7 @@ class TestStrainQF(unittest.TestCase):
         print iterate.getTextAsList(cells1)
         idReturned = iterate.getTextAsList(cells1)
         #asserts that the correct ID is  returned
-        self.assertIn('MGI:2159737\nJAX:000651', idReturned) # ID is correct        
+        self.assertIn('MGI:2159737\nJAX:000651\nMPD:5', idReturned) # ID is correct        
 
     def test_search_strain_MMRCC_id(self):
         """
@@ -839,7 +839,7 @@ class TestStrainQF(unittest.TestCase):
         driver.get(config.TEST_URL + "/strains_SNPs.shtml")
         #find the 2 attribute options in the list and select them
         select_box = Select (driver.find_element(By.NAME, 'attributes'))
-        select_box.select_by_visible_text('*F3 hybrid')
+        select_box.select_by_visible_text('F3 hybrid')
         select_box.select_by_visible_text('revertant')
         #find the Match selected attributes list and select the "all" option
         #self.driver.find_element(By.NAME, 'seqPullDownForm')
@@ -855,8 +855,8 @@ class TestStrainQF(unittest.TestCase):
         attributesReturned = iterate.getTextAsList(cells)
         time.sleep(2)
         #asserts the following attributes are returned
-        self.assertIn('*F3 hybrid\nmutant stock', attributesReturned) # contains this attribute
-        self.assertIn('*F3 hybrid', attributesReturned) # contains this attribute
+        self.assertIn('F3 hybrid\nmutant stock', attributesReturned) # contains this attribute
+        self.assertIn('F3 hybrid', attributesReturned) # contains this attribute
         self.assertIn('coisogenic\nmutant strain\nrevertant\ntargeted mutation', attributesReturned) # contains this attribute
 
     def test_search_multi_attrib_all(self):
@@ -897,7 +897,7 @@ class TestStrainQF(unittest.TestCase):
         driver.get(config.TEST_URL + "/strains_SNPs.shtml")
         #find the 3 attribute options in the list and select them
         select_box = Select (driver.find_element(By.NAME, 'attributes'))
-        select_box.select_by_visible_text('*F3 hybrid')
+        select_box.select_by_visible_text('F3 hybrid')
         select_box.select_by_visible_text('revertant')
         select_box.select_by_visible_text('trisomy')
         #find the Match selected attributes list and select the "all" option
@@ -914,8 +914,8 @@ class TestStrainQF(unittest.TestCase):
         attributesReturned = iterate.getTextAsList(cells)
         time.sleep(2)
         #asserts the following attributes are returned
-        self.assertIn('*F3 hybrid\nmutant stock', attributesReturned) # contains this attribute
-        self.assertIn('*F3 hybrid', attributesReturned) # contains this attribute
+        self.assertIn('F3 hybrid\nmutant stock', attributesReturned) # contains this attribute
+        self.assertIn('F3 hybrid', attributesReturned) # contains this attribute
         self.assertIn('chromosome aberration\nmutant strain\ntrisomy', attributesReturned) # contains this attribute
         
     def tearDown(self):

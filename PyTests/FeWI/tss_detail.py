@@ -32,34 +32,32 @@ class Test(unittest.TestCase):
 
     def test_tss_detail_start_site(self):
         '''
-        @status this test opens the TSS Detail page and verifies the Transcription Start site contains a link to it's marker and
-        @note in parenthesis how many base pair from the 5'-end of the gene. Confirm the details against the marker detail page 
+        @status this test opens the TSS Detail table and verifies it is sorted correctly by distance from the marker.
+        @note  
         @note tssdetail-sum-1
         '''
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys("Pax6")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Pax6').click() 
-        #Click the link for Tssr19250 and click it
-        self.driver.find_element(By.XPATH, '//*[@id="templateBodyInsert"]/div[2]/div[1]/div[2]/section[2]/ul/li[5]/div[2]/a[1]').click()  
-        time.sleep(2)
-        #find the Transcription Start Site field info
-        trans = self.driver.find_element(By.XPATH, '//*[@id="templateBodyInsert"]/div[2]/div[1]/div[2]/section[2]/ul/li[2]/div[2]')  
-        print trans.text
-        self.assertEqual(trans.text, "Pax6 (1 bp from 5'-end of gene)", 'The Transcription Start Site info is not correct!')
-        #find the Pax6 link in the Transcription Start Site for field and click it.
-        self.driver.find_element(By.LINK_TEXT, 'Pax6').click()        
-        #Find the All TSS link and click it
-        self.driver.find_element(By.ID, 'showTss').click()
+        #Click the link for the TSS popup table
+        self.driver.find_element(By.ID, 'showTss').click()        
         time.sleep(2)
         tss_table = self.driver.find_element(By.ID, 'tssTable')
         table = Table(tss_table)
-        #Iterate the table Location column
-        cells = table.get_row_cells(1)
-        row_cells = iterate.getTextAsList(cells) 
-        print row_cells    
+        #Capture each row of the TSS table(only the first 5 rows)
+        cells1 = table.get_row(1)
+        cells2 = table.get_row(2)
+        cells3 = table.get_row(3)
+        cells4 = table.get_row(4)
+        cells5 = table.get_row(5)
+        print cells1.text    
         #Verify the TSS table locations are correct and in the correct order.
-        self.assertEqual(row_cells, ['Tssr19250', 'Chr2:105668888-105668914 (+)', '1 bp'])
+        self.assertEqual(cells1.text, 'Tssr19250 Chr2:105668888-105668914 (+) 1 bp')
+        self.assertEqual(cells2.text, 'Tssr19251 Chr2:105668943-105668950 (+) 47 bp')
+        self.assertEqual(cells3.text, 'Tssr19252 Chr2:105674406-105674422 (+) 5,514 bp')
+        self.assertEqual(cells4.text, 'Tssr19253 Chr2:105674426-105674437 (+) 5,532 bp')
+        self.assertEqual(cells5.text, 'Tssr19254 Chr2:105674543-105674558 (+) 5,651 bp')
                
         
     def tearDown(self):

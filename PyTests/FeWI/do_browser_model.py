@@ -64,15 +64,15 @@ class TestDoBrowserModelTab(unittest.TestCase):
     def test_dobrowser_modeltab_mh_m_not(self):
         '''
         @status this test verifies the correct genes, models and source are returned. This test example displays a disease that returns
-        results for associations to mouse/human(8), just mouse(6), and 1 NOT model
+        results for associations to mouse/human(6), just mouse(1), and 3 NOT models
         '''
         print ("BEGIN test_dobrowser_modeltab_mh_m_not")
         searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene ID in the quick search box
-        searchbox.send_keys("DOID:4480")
+        searchbox.send_keys("DOID:0050646")
         searchbox.send_keys(Keys.RETURN)
         
-        self.driver.find_element(By.LINK_TEXT, 'achondroplasia').click()
+        self.driver.find_element(By.LINK_TEXT, 'distal arthrogryposis').click()
 
         self.driver.find_element(By.ID, 'modelsTabButton').click()#identifies the Models tab and clicks it.
         time.sleep(2)
@@ -88,26 +88,14 @@ class TestDoBrowserModelTab(unittest.TestCase):
         row5 = cells[6]
         row6 = cells[7]
         row7 = cells[8]
-        row8 = cells[9]
-        row9 = cells[10]
-        row10 = cells[11]
-        row11 = cells[12]
-        row12 = cells[13]
-        row13 = cells[14]
         
-        self.assertEqual(row1.text, '         achondroplasia Tg(Col2a1-Fgfr3/GH)BDor/0 FVB/N-Tg(Col2a1-Fgfr3/GH)BDor J:50292 View')
-        self.assertEqual(row2.text, 'achondroplasia Fgfr3tm2Wei/Fgfr3+ involves: 129S1/Sv * 129X1/SvJ * MF1 J:54829 View')
-        self.assertEqual(row3.text, 'achondroplasia Fgfr3tm1Llm/Fgfr3+ involves: 129S2/SvPas J:203653 View')
-        self.assertEqual(row4.text, 'achondroplasia Fgfr3tm3.1Cxd/Fgfr3tm3.1Cxd involves: 129S6/SvEvTac J:69849 View')
-        self.assertEqual(row5.text, 'achondroplasia Fgfr3tm3.1Cxd/Fgfr3+ involves: 129S6/SvEvTac J:69849 View')
-        self.assertEqual(row6.text, 'achondroplasia Fgfr3tm5.1Cxd/Fgfr3+ involves: 129S6/SvEvTac J:67780 View')
-        self.assertEqual(row7.text, 'achondroplasia Fgfr3tm1Cxd/Fgfr3tm1Cxd involves: 129S6/SvEvTac * NIH Black Swiss J:52438 View')
-        self.assertEqual(row8.text, '         achondroplasia Npr2cn/Npr2cn AKR/J J:26341 View')
-        self.assertEqual(row9.text, 'achondroplasia Npr2cn-2J/Npr2cn-2J B6;CBACa-Aw-J/A-Kcnj6wv/+ J:72465 View')
-        self.assertEqual(row10.text, 'achondroplasia Pthlhtm1Hmk/Pthlhtm1Hmk either: (involves: 129S2/SvPas) or (involves: 129S2/SvPas * C57BL/6) J:16911 View')
-        self.assertEqual(row11.text, 'achondroplasia Spred2Gt(XB228)Byg/Spred2Gt(XB228)Byg involves: 129P2/OlaHsd * C57BL/6 J:100826 View')
-        self.assertEqual(row12.text, 'achondroplasia Acancmd/Acancmd involves: STOCK T tlow Itpr3tf J:5952, J:30795 View')
-        self.assertEqual(row13.text, 'achondroplasia Npr2cn-3J/Npr2cn-3J MRL/MpJ-Npr2cn-3J/GrsrJ J:170669 View')
+        self.assertEqual(row1.text, '         distal arthrogryposis Fbn2fp-4J/Fbn2fp-4J BALB/cByJ-Fbn2fp-4J/GrsrJ J:222308 View')
+        self.assertEqual(row2.text, 'distal arthrogryposis Fbn2tm1Rmz/Fbn2tm1Rmz either: (involves: 129/Sv) or (involves: 129/Sv * C57BL/6J) J:70592 View')
+        self.assertEqual(row3.text, 'distal arthrogryposis Ecel1tm1Hiki/Ecel1tm1Hiki\nTg(Hlxb9-GFP)1Tmj/0 involves: 129S1/Sv * 129X1/SvJ * C57BL/6 * CBA J:262090 View')
+        self.assertEqual(row4.text, 'distal arthrogryposis Fbn2tm1Rmz/Fbn2tm1Rmz involves: 129S/SvEv J:166786 View')
+        self.assertEqual(row5.text, 'distal arthrogryposis Fbn2mz/Fbn2mz involves: BALB/cAnNCrl * C3H/HeH J:157998 View')
+        self.assertEqual(row6.text, 'distal arthrogryposis Ecel1em1Hiki/Ecel1em1Hiki\nTg(Hlxb9-GFP)1Tmj/0 involves: C57BL/6 * CBA J:262090 View')
+        self.assertEqual(row7.text, '         distal arthrogryposis b2b2966Clo/b2b2966Clo C57BL/6J-b2b2966Clo J:175213 View')
         time.sleep(2)
         notmodel_table = self.driver.find_element(By.ID, 'modelTabNotTable')
         table = Table(notmodel_table)
@@ -115,7 +103,11 @@ class TestDoBrowserModelTab(unittest.TestCase):
         print iterate.getTextAsList(cells)
         #displays each row of NOT models data
         row1 = cells[2]
-        self.assertEqual(row1.text, 'NOT Models         achondroplasia Fgfr3tm1Dor/Fgfr3tm1Dor involves: 129S6/SvEvTac * C57BL/6 J:32991 View')
+        row2 = cells[3]
+        row3 = cells[4]
+        self.assertEqual(row1.text, 'NOT Models         distal arthrogryposis sy/sy B6C3Fe-a/a J:68881 View')
+        self.assertEqual(row2.text, 'distal arthrogryposis Fbn2fp/Fbn2fp C3Fe(B6)-Fbn2fp/J J:68881 View')
+        self.assertEqual(row3.text, 'distal arthrogryposis Fbn2fp-2J/Fbn2fp-2J involves: C57BL/6J * C.B10-H2b/LiMcdJ J:68881 View')
                 
     def test_dobrowser_modelstab_trans_not(self):
         '''
@@ -320,6 +312,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         row15 = cells[16]
         row16 = cells[17]
         row17 = cells[18]
+        row18 = cells[19]
         self.assertEqual(row1.text, '         rheumatoid arthritis Zfp36tm1Pjb/Zfp36tm1Pjb B6.Cg-Zfp36tm1Pjb J:214114 View')
         self.assertEqual(row2.text, 'rheumatoid arthritis Il6sttm1Thir/Il6sttm1Thir involves: 129 * C57BL/6 J:133059 View')
         self.assertEqual(row3.text, 'rheumatoid arthritis Mmp14tm1Hbh/Mmp14tm1Hbh involves: 129P2/OlaHsd * Black Swiss J:57969 View')
@@ -328,15 +321,16 @@ class TestDoBrowserModelTab(unittest.TestCase):
         self.assertEqual(row6.text, 'rheumatoid arthritis Tnftm1Gkl/Tnftm2Gkl involves: 129S/SvEv * C57BL/6 J:54056 View')
         self.assertEqual(row7.text, 'rheumatoid arthritis Tnftm2Gkl/Tnftm2Gkl involves: 129S/SvEv * C57BL/6 J:54056 View')
         self.assertEqual(row8.text, 'rheumatoid arthritis Tnftm2Gkl/Tnf+ involves: 129S/SvEv * C57BL/6 J:54056 View')
-        self.assertEqual(row9.text, 'rheumatoid arthritis Zap70m1Saka/Zap70m1Saka involves: BALB/c J:86607 View')
-        self.assertEqual(row10.text, 'rheumatoid arthritis Tg(TNF)197Gkl/0 involves: C57BL/6 * CBA J:92576 View')
-        self.assertEqual(row11.text, 'rheumatoid arthritis Tg(TNF)3647Gkl/0 involves: C57BL/6 * CBA J:190204 View')
-        self.assertEqual(row12.text, 'Transgenes and\nOther Mutations        rheumatoid arthritis Tg(CAG-SYVN1)1Tn/? D1.Cg-Tg(CAG-SYVN1)1Tn J:86009 View')
-        self.assertEqual(row13.text, 'rheumatoid arthritis Tg(HLA-DRA*0101,HLA-DRB1*0101)1Dmz/Tg(HLA-DRA*0101,HLA-DRB1*0101)1Dmz involves: C57BL/6 * C57BL/10Sn * SJL/J J:108635 View')
-        self.assertEqual(row14.text, 'rheumatoid arthritis H2b/H2g7\nTg(TcraR28,TcrbR28)KRNDim/0 involves: C57BL/6 * NOD * SJL J:36815 View')
-        self.assertEqual(row15.text, 'rheumatoid arthritis Tg(TcraR28,TcrbR28)KRNDim/0 involves: C57BL/6 * NOD * SJL J:36815 View')
-        self.assertEqual(row16.text, 'rheumatoid arthritis Tg(FCGR2A)11Mkz/Tg(FCGR2A)11Mkz involves: C57BL/6 * SJL J:136516 View')
-        self.assertEqual(row17.text, 'Additional\nComplex\nModels        rheumatoid arthritis H2q/?\nNcf1m1J/Ncf1m1J B6.Cg-Ncf1m1J H2q J:92437 View')
+        self.assertEqual(row9.text, 'rheumatoid arthritis Tnftm2Gkl/Tnf+ involves: 129S/SvEv * C57BL/6J J:264147 View')
+        self.assertEqual(row10.text, 'rheumatoid arthritis Zap70m1Saka/Zap70m1Saka involves: BALB/c J:86607 View')
+        self.assertEqual(row11.text, 'rheumatoid arthritis Tg(TNF)197Gkl/0 involves: C57BL/6 * CBA J:92576 View')
+        self.assertEqual(row12.text, 'rheumatoid arthritis Tg(TNF)3647Gkl/0 involves: C57BL/6 * CBA J:190204 View')
+        self.assertEqual(row13.text, 'Transgenes and\nOther Mutations        rheumatoid arthritis Tg(CAG-SYVN1)1Tn/? D1.Cg-Tg(CAG-SYVN1)1Tn J:86009 View')
+        self.assertEqual(row14.text, 'rheumatoid arthritis Tg(HLA-DRA*0101,HLA-DRB1*0101)1Dmz/Tg(HLA-DRA*0101,HLA-DRB1*0101)1Dmz involves: C57BL/6 * C57BL/10Sn * SJL/J J:108635 View')
+        self.assertEqual(row15.text, 'rheumatoid arthritis H2b/H2g7\nTg(TcraR28,TcrbR28)KRNDim/0 involves: C57BL/6 * NOD * SJL J:36815 View')
+        self.assertEqual(row16.text, 'rheumatoid arthritis Tg(TcraR28,TcrbR28)KRNDim/0 involves: C57BL/6 * NOD * SJL J:36815 View')
+        self.assertEqual(row17.text, 'rheumatoid arthritis Tg(FCGR2A)11Mkz/Tg(FCGR2A)11Mkz involves: C57BL/6 * SJL J:136516 View')
+        self.assertEqual(row18.text, 'Additional\nComplex\nModels        rheumatoid arthritis H2q/?\nNcf1m1J/Ncf1m1J B6.Cg-Ncf1m1J H2q J:92437 View')
         
         notmodel_table = self.driver.find_element(By.ID, 'modelTabNotTable')
         table = Table(notmodel_table)
@@ -517,21 +511,15 @@ class TestDoBrowserModelTab(unittest.TestCase):
         self.driver.switch_to_window(self.driver.window_handles[-1])
         #Asserts that the strain page is for the correct strain
         assert "C57BL/6J-Tg(SNCA)ARyot" in self.driver.page_source  
-       
-
-
-
-
-
         
         def tearDown(self):
             self.driver.quit()
-        '''
-        def suite():
-            suite = unittest.TestSuite()
-            suite.addTest(unittest.makeSuite(TestAdd))
-            return suite
-        '''
+
+def suite():
+        suite = unittest.TestSuite()
+        suite.addTest(unittest.makeSuite(TestDoBrowserModelTab))
+        return suite
+        
 if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
+    # import sys;sys.argv = ['', 'Test.TestDoBrowserModelTab']
     HTMLTestRunner.main() 

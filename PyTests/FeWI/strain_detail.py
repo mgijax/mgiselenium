@@ -9,7 +9,8 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from util.table import Table
 import sys,os.path
 from genericpath import exists
@@ -86,12 +87,15 @@ class TestStrainDetail(unittest.TestCase):
         summary_ribbon = driver.find_element(By.ID, 'summaryRibbonLabel')#find the Summary Ribbon's title
         print summary_ribbon.text#print the summary ribbon's title to the console screen
         self.assertEqual(summary_ribbon.text, 'Summary', 'the summary ribbon is missing!')
+        snp_ribbon = driver.find_element(By.ID, 'snpRibbonLabel')#find the Summary Ribbon's title
+        print snp_ribbon.text#print the summary ribbon's title to the console screen
+        self.assertEqual(snp_ribbon.text, 'SNPs', 'the snps ribbon is missing!')
         mutation_ribbon = driver.find_element(By.ID, 'mutationRibbonLabel')#find the Mutation Ribbon's title
         print mutation_ribbon.text#print the mutation ribbon's title to the console screen
         self.assertEqual(mutation_ribbon.text, 'Associated\nMutations,\nMarkers,\nand QTL', 'the mutation ribbon is missing!')
         disease_ribbon = driver.find_element(By.ID, 'diseaseRibbonLabel')#find the Diseases Ribbon's title
         print disease_ribbon.text#print the diseases ribbon's title to the console screen
-        self.assertEqual(disease_ribbon.text, 'Associated\nPhenotypes\nand\nDiseases', 'the disease ribbon is missing!')
+        self.assertEqual(disease_ribbon.text, 'Associated\nPhenotypes', 'the disease/phenotypes ribbon is missing!')
         imsr_ribbon = driver.find_element(By.ID, 'imsrRibbonLabel')#find the imsr Ribbon's title
         print imsr_ribbon.text#print the imsr ribbon's title to the console screen
         self.assertEqual(imsr_ribbon.text, 'Find Mice (IMSR)', 'the imsr ribbon is missing!')
@@ -225,7 +229,7 @@ class TestStrainDetail(unittest.TestCase):
     def test_strain_det_nomen_attrib(self):
         """
         @status: Tests that the strain attributes found in the Nomenclature ribbon are correct
-        @note: Strain-det-sum-6
+        @note: Strain-det-sum-6 !fails because the (see attribute definitions) text has not yet been removed
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/strains_SNPs.shtml")
@@ -295,15 +299,16 @@ class TestStrainDetail(unittest.TestCase):
         #switch focus to the new tab for strain detail page
         driver.switch_to_window(self.driver.window_handles[-1])
         #Click the MGV link
-        driver.find_element(By.LINK_TEXT, 'Strain Genome Comparison (MGV)').click()
+        driver.find_element(By.LINK_TEXT, 'Multiple Genome Viewer (MGV)').click()
         time.sleep(2)
         #switch focus to the new tab for the mpd page
         driver.switch_to_window(self.driver.window_handles[-1])
         #Identify the page title
+        time.sleep(3)
         title = driver.find_element(By.CLASS_NAME, 'title')
         print title.text
         #verify the Page Title is correct
-        self.assertEqual(title.text, 'A/J', 'page title is not correct!')   
+        self.assertEqual(title.text, 'Genome View', 'page title is not correct!')   
 
     def test_strain_mgv_link_canon_gene(self):
         """
@@ -323,15 +328,16 @@ class TestStrainDetail(unittest.TestCase):
         #switch focus to the new tab for strain detail page
         driver.switch_to_window(self.driver.window_handles[-1])
         #Click the MGV link
-        driver.find_element(By.LINK_TEXT, 'Strain Genome Comparison (MGV)').click()
+        driver.find_element(By.LINK_TEXT, 'Multiple Genome Viewer (MGV)').click()
         time.sleep(2)
         #switch focus to the new tab for the mpd page
         driver.switch_to_window(self.driver.window_handles[-1])
         #Identify the page title
-        title = driver.find_element(By.CLASS_NAME, 'title')
+        time.sleep(3)
+        title = driver.find_element(By.ID, 'genomeView')
         print title.text
         #verify the Page Title is correct
-        self.assertEqual(title.text, 'C57BL/6J', 'page title is not correct!')   
+        self.assertEqual(title.text, 'Genome View', 'page title is not correct!')   
 
     def test_strain_alt_ids(self):
         """
@@ -444,9 +450,10 @@ class TestStrainDetail(unittest.TestCase):
         time.sleep(2)
         #switch focus to the new tab for strain detail page
         driver.switch_to_window(self.driver.window_handles[-1])
+        time.sleep(10)
         desc_field = driver.find_element(By.ID, 'description')#find the description field
         print desc_field.text#print the description field to the console screen
-        self.assertEqual(desc_field.text, 'From The Jackson Laboratories, Bar Harbor, Maine, to National Institutes of Health, Frederick, Maryland, in 1983. To Harlan in 1987. Harlan became Envigo in 2015.Envigo')#assert the text of the description field is correct    
+        self.assertEqual(desc_field.text, 'Envigo')#assert the text of the description field is correct    
 
     def test_strain_desc_large(self):
         """
@@ -469,8 +476,142 @@ class TestStrainDetail(unittest.TestCase):
         driver.switch_to_window(self.driver.window_handles[-1])
         desc_field = driver.find_element(By.ID, 'description')#find the description field
         print desc_field.text#print the description field to the console screen
-        self.assertEqual(desc_field.text, 'SAM models were developed from AKR/J by Kyoto University. Five litters with severe senescence were selected to further propagate and examine these characteristics. Litters that showed normal aging were selected as a senescence-resistant series (R-series). The genetic background of the SAM mice became suspect after the pathological findings were different from the AKR/J mouse. Each SAM model is genetically different. Each SAM colony was acquired by Harlan from Takeda Chemical Ltd. in 2002. Harlan became Envigo in 2015.Envigo')#assert the text of the description field is correct    
+        self.assertEqual(desc_field.text, 'Envigo')#assert the text of the description field is correct    
+
+    def test_strain_snp_comp(self):
+        """
+        @status: Tests the SNPs for a strain display the correct comparison strains
+        @note: Strain-det-snp-1,3,4
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/strains_SNPs.shtml")
+        strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
+        # Enter your strain name
+        strainsearchbox.send_keys("MGI:2159745")
+        #time.sleep(2)
+        #find the search button and click it
+        driver.find_element(By.CLASS_NAME, 'goButton').click()
+        time.sleep(2)
+        #locates the strain name link for AKR/J and clicks it
+        driver.find_element(By.PARTIAL_LINK_TEXT, 'AKR/J').click()
+        time.sleep(2)
+        #switch focus to the new tab for strain detail page
+        driver.switch_to_window(self.driver.window_handles[-1])
+        comp_count = driver.find_element(By.ID, 'comparisonStrainCount')#find the Comparison Strains count field
+        print comp_count.text#print the description field to the console screen
+        self.assertEqual(comp_count.text, '86')#asserts the Comparison Strains count is correct
+        #clicks the More toggle(turnstile) to display the snps table
+        self.driver.find_element(By.ID, 'snpToggle').click()
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'snpContainer')))#waits until the snp table is displayed on the page
+        snphead_table = self.driver.find_element(By.ID, 'snpTableHeader')
+        table = Table(snphead_table)
+        #Iterate and print to the screen all the headers(does not capture the word Chromosomes)
+        row1_cells = table.get_row_cells(1)        
+        print iterate.getTextAsList(row1_cells)  
+        time.sleep(2)       
+        #Verify the header cells are correct for the first 4 and last 3 headings
+        self.assertEqual(row1_cells[0].text, 'Comparison Strain')
+        self.assertEqual(row1_cells[1].text, '1')
+        self.assertEqual(row1_cells[2].text, '2')
+        self.assertEqual(row1_cells[3].text, '3')
+        self.assertEqual(row1_cells[20].text, 'X')
+        self.assertEqual(row1_cells[21].text, 'Y')
+        self.assertEqual(row1_cells[22].text, 'MT')        
+        #locate the SNP table and find the rows of strains     
+        snp_table = self.driver.find_element(By.ID, 'snpTable')
+        table = Table(snp_table)
+        # print all items found in the Comparison Strain column
+        cells = table.get_rows()
+        strain_cells = iterate.getTextAsList(cells)
+        print strain_cells
+        #verifies that the right strains appear and in the correct order
+        self.assertEquals(strain_cells, [u'129/Sv', u'129S1/SvImJ', u'129S4/SvJae', u'129S6/SvEvTac', u'129X1/Sv', u'129X1/SvJ', u'A', u'A/He', u'A/HeJ', u'A/J', u'AKR', u'AVZ/Ms', u'B10.D2-H2d', u'B10.D2-Hc0 H2d H2-T18c/oSnJ', u'BALB/c', u'BALB/cA', u'BALB/cBy', u'BALB/cByJ', u'BALB/cJ', u'BALB/cUcsd', u'BFM/2Ms', u'BLG2/Ms', u'BTBR T+ Itpr3tf/J', u'BUB', u'BUB/BnJ', u'C3H/He', u'C3H/HeJ', u'C57BL/6', u'C57BL/6J', u'C57BL/10J', u'C57BLKS/J', u'C57BR/cdJ', u'C57L/J', u'C58/J', u'CAST/EiJ', u'CBA/J', u'CE/J', u'CHD/Ms', u'CZECHII/EiJ', u'DBA/1J', u'DBA/2', u'DBA/2J', u'DDK/Pas', u'FVB', u'FVB/NJ', u'HMI/Ms', u'I/LnJ', u'JF1/Ms', u'KJR/Ms', u'KK/HlJ', u'LG/J', u'LP/J', u'MA/MyJ', u'MAI/Pas', u'MOLF', u'MOLF/EiJ', u'MRL/Mp', u'MRL/MpJ', u'MSM', u'MSM/Ms', u'NJL/Ms', u'NOD/ShiLtJ', u'NON/ShiLtJ', u'NZB/BlN', u'NZB/BlNJ', u'NZW/Lac', u'NZW/LacJ', u'PERA', u'PERA/EiJ', u'PGN2/Ms', u'PL/J', u'PWD/PhJ', u'RIIIS/J', u'SAMP1', u'SAMP8', u'SEA/GnJ', u'SEG/Pas', u'SJL/J', u'SM/J', u'SPRET/EiJ', u'ST/bJ', u'SWN/Ms', u'SWR/J', u'TSOD', u'WSB/EiJ', u'ZALENDE/EiJ'])
         
+    def test_strain_snp_no_snps(self):
+        """
+        @status: Tests the SNPs ribbon does not display when no SNPs are associated to a strain
+        @note: Strain-det-snp-2
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/strains_SNPs.shtml")
+        strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
+        # Enter your strain name
+        strainsearchbox.send_keys("MGI:6156918")
+        #time.sleep(2)
+        #find the search button and click it
+        driver.find_element(By.CLASS_NAME, 'goButton').click()
+        time.sleep(2)
+        #locates the strain name link for SAMR1/TaHsd and clicks it
+        driver.find_element(By.PARTIAL_LINK_TEXT, 'SAMR1/TaHsd').click()
+        time.sleep(2)
+        #switch focus to the new tab for strain detail page
+        driver.switch_to_window(self.driver.window_handles[-1])
+        #asserts that the strains table is not displayed in the Strains Comparison ribbon
+        assert "snpRibbon" not in self.driver.page_source  
+
+    def test_strain_snp_cell_counts(self):
+        """
+        @status: Tests that counts on a cell hover match the number found from it's corresponding SNP summary page
+        @note: Strain-det-snp-5
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/strains_SNPs.shtml")
+        strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
+        # Enter your strain name
+        strainsearchbox.send_keys("MGI:2159745")
+        #time.sleep(2)
+        #find the search button and click it
+        driver.find_element(By.CLASS_NAME, 'goButton').click()
+        time.sleep(2)
+        #locates the strain name link for AKR/J and clicks it
+        driver.find_element(By.PARTIAL_LINK_TEXT, 'AKR/J').click()
+        time.sleep(2)
+        #switch focus to the new tab for strain detail page
+        driver.switch_to_window(self.driver.window_handles[-1])        
+        #clicks the More toggle(turnstile) to display the snps table
+        self.driver.find_element(By.ID, 'snpToggle').click()
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'snpContainer')))#waits until the snp table is displayed on the page
+        #locate the cell for strain 129S1/SvImJ Chromosome 1
+        myelement = driver.find_element(By.CSS_SELECTOR, '#snpTable > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(2)')
+        tooltipText = myelement.get_attribute('title')#Get the title text
+        print tooltipText#print the title text to the console
+        self.assertEquals(tooltipText, '590,392 SNPs', 'The hover text for strain 129S1/SvImJ Chromosome 1 is not correct')
+        #locate the cell for strain 129S1/SvImJ Chromosome 1 and click it
+        driver.find_element(By.CSS_SELECTOR, '#snpTable > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(2)').click()
+        #switch focus to the new tab for Mouse SNP Summary page
+        driver.switch_to_window(self.driver.window_handles[-1]) 
+        #locate the page title
+        self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'snpSummaryTable')))#waits until the snp summary table is displayed on the page 
+        #assert the number of SNPs is correct as found in the upper right corner under pagination 
+        assert "Showing SNP(s) 1 - 100 of 590392" in self.driver.page_source
+        
+    def test_strain_snp_strain_superscript(self):
+        """
+        @status: Tests that when you have a strain with multiple superscripting it displays correctly  in the SNP ribbon
+        @note: Strain-det-snp-8
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/strains_SNPs.shtml")
+        strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
+        # Enter your strain name
+        strainsearchbox.send_keys("MGI:2162761")
+        #time.sleep(2)
+        #find the search button and click it
+        driver.find_element(By.CLASS_NAME, 'goButton').click()
+        time.sleep(2)
+        #locates the strain name link for BTBR T<+> Itpr3<tf>/J and clicks it
+        driver.find_element(By.PARTIAL_LINK_TEXT, 'BTBR').click()
+        time.sleep(2)
+        #switch focus to the new tab for strain detail page
+        driver.switch_to_window(self.driver.window_handles[-1])        
+        
+        #locate the involving strain text in the SNP ribbon 
+        involvedtext = driver.find_element(By.CLASS_NAME, 'rightLabelSnp')
+        print involvedtext.text#print the title text to the console
+        self.assertEquals(involvedtext.text, 'SNPs Involving BTBR T+ Itpr3tf/J', 'The Involving strain text is not displaying superscipt properly')
+        
+                    
     def test_strain_det_mut_multi_assoc(self):
         """
         @status: Tests that the results are correct and ordered correctly for associated mutations and markers when you have multiple mutations/genes
@@ -500,13 +641,13 @@ class TestStrainDetail(unittest.TestCase):
         mut_cells = iterate.getTextAsList(cells)
         print mut_cells
         #verifies that the right mutations appear and in the correct order
-        self.assertEquals(mut_cells, ['Mutation Carried', 'Ahrb-1', 'Apobec3Rfv3-r', 'Cd5b', 'Cdh23ahl', 'Fbrwt1C57BL/6J', 'Fbrwt2C57BL/6J', 'Gluchos1C57BL/6J', 'Gluchos2C57BL/6J', 'Gluchos3C57BL/6J', 'Micrln', 'n-TRtct5m1J', 'Nlrp12C57BL/6J', 'NntC57BL/6J', 'P2rx7P451L'])
+        self.assertEquals(mut_cells, ['Mutation Carried', 'AanatC57BL/6J', 'Ahrb-1', 'Apobec3Rfv3-r', 'Cd5b', 'Cdh23ahl', 'Fbrwt1C57BL/6J', 'Fbrwt2C57BL/6J', 'Gluchos1C57BL/6J', 'Gluchos2C57BL/6J', 'Gluchos3C57BL/6J', 'Micrln', 'n-TRtct5m1J', 'Nlrp12C57BL/6J', 'NntC57BL/6J', 'P2rx7P451L'])
         #print all items found in the Gene column
         cells1 = table.get_column_cells("Marker")
         gene_cells = iterate.getTextAsList(cells1)
         print gene_cells
         #verifies that the right genes appear and in the correct order
-        self.assertEquals(gene_cells, ['Marker', 'Ahr', 'Apobec3', 'Cd5', 'Cdh23', 'Fbrwt1', 'Fbrwt2', 'Gluchos1', 'Gluchos2', 'Gluchos3', 'Micrl', 'n-TRtct5', 'Nlrp12', 'Nnt', 'P2rx7'])
+        self.assertEquals(gene_cells, [u'Marker', u'Aanat', u'Ahr', u'Apobec3', u'Cd5', u'Cdh23', u'Fbrwt1', u'Fbrwt2', u'Gluchos1', u'Gluchos2', u'Gluchos3', u'Micrl', u'n-TRtct5', u'Nlrp12', u'Nnt', u'P2rx7'])
         
     def test_strain_det_mut_single_assoc(self):
         """
@@ -641,7 +782,7 @@ class TestStrainDetail(unittest.TestCase):
         #locate the count and text above the mutations table       
         mut_count = self.driver.find_element(By.CLASS_NAME, 'indented')
         print mut_count.text
-        self.assertEqual(mut_count.text, '14 associated mutations', 'associated mutations count/text is wrong')
+        self.assertEqual(mut_count.text, '15 associated mutations', 'associated mutations count/text is wrong')
         
     def test_strain_det_mut_showall(self):
         """
@@ -712,7 +853,7 @@ class TestStrainDetail(unittest.TestCase):
         time.sleep(2)
         #switch focus to the new tab for strain detail page
         driver.switch_to_window(self.driver.window_handles[-1])                      
-        ahr_mrk = self.driver.find_element(By.XPATH, '//*[@id="mutationSummaryTable"]/tbody/tr[2]/td[2]/a')
+        ahr_mrk = self.driver.find_element(By.XPATH, '//*[@id="mutationSummaryTable"]/tbody/tr[3]/td[2]/a')
         title_text = ahr_mrk.get_attribute('title')
         print title_text   
         #verifies that the hover text  for Ahr is correct
@@ -927,14 +1068,14 @@ class TestStrainDetail(unittest.TestCase):
         driver = self.driver
         driver.get(config.TEST_URL + "/strains_SNPs.shtml")
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
-        # Enter your strain name
-        strainsearchbox.send_keys("MGI:3028467")
+        # Enter your strain name/ID
+        strainsearchbox.send_keys("MGI:2161574")
         time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
-        #locate the link for C57BL/6J and click it
-        driver.find_element(By.LINK_TEXT, 'C57BL/6J').click()
+        #locate the link for B6.Cg-Phex<Hyp>/J and click it
+        driver.find_element(By.PARTIAL_LINK_TEXT, 'B6.Cg-Phex').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
         driver.switch_to_window(self.driver.window_handles[-1])
@@ -1033,13 +1174,13 @@ class TestStrainDetail(unittest.TestCase):
         driver.get(config.TEST_URL + "/strains_SNPs.shtml")
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
-        strainsearchbox.send_keys("MGI:3028467")
+        strainsearchbox.send_keys("MGI:2161574")
         time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
-        #locate the link for C57BL/6J and click it
-        driver.find_element(By.LINK_TEXT, 'C57BL/6J').click()
+        #locate the link for B6.Cg-Phex<Hyp>/J and click it
+        driver.find_element(By.PARTIAL_LINK_TEXT, 'B6.Cg-Phex').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
         driver.switch_to_window(self.driver.window_handles[-1])
@@ -1171,9 +1312,8 @@ class TestStrainDetail(unittest.TestCase):
         geno3 = driver.find_element(By.ID, 'fm30511a')
         geno4 = driver.find_element(By.ID, 'fm70664a')
         geno5 = driver.find_element(By.ID, 'fm30510a')
-        geno6 = driver.find_element(By.ID, 'fm16113a')
-        geno7 = driver.find_element(By.ID, 'fm19624a')
-        geno8 = driver.find_element(By.ID, 'fm1a')
+        geno6 = driver.find_element(By.ID, 'fm19624a')
+        geno7 = driver.find_element(By.ID, 'fm1a')
         print geno1.text
         print geno2.text
         print geno3.text
@@ -1181,59 +1321,63 @@ class TestStrainDetail(unittest.TestCase):
         print geno5.text
         print geno6.text
         print geno7.text
-        print geno8.text
         self.assertTrue(geno1.text, "Ahrb-1/Ahrb-1")
         self.assertTrue(geno2.text, "Aliq4C57BL/6J/Aliq4C57BL/6J")
         self.assertTrue(geno3.text, "Gluchos1C57BL/6J/Gluchos1C57BL/6J")
         self.assertTrue(geno4.text, "n-TRtct5m1J/n-TRtct5m1J")
         self.assertTrue(geno5.text, "NntC57BL/6J/NntC57BL/6J")
-        self.assertTrue(geno6.text, "PhexHyp/Y")
-        self.assertTrue(geno7.text, "Tph2Pro447/Tph2Pro447")
+        self.assertTrue(geno6.text, "Tph2Pro447/Tph2Pro447")
         
     def test_strain_pheno_annot_hover(self):
         """
         @status: Tests that when you hover over a blue box in the Phonoslimgrid it gives you the number of annotations associated
-        @note: Strain-det-disease-12 
+        @note: Strain-det-disease-12 !this test fails because it can't capture the on hover text of the phenogrid boxes.
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/strains_SNPs.shtml")
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
-        strainsearchbox.send_keys("MGI:2159837")
+        strainsearchbox.send_keys("MGI:2159747")
         time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
         #locate the link for DBA/1 and click it
-        driver.find_element(By.LINK_TEXT, 'DBA/1').click()
+        driver.find_element(By.LINK_TEXT, 'A/J').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
         driver.switch_to_window(self.driver.window_handles[-1])
         time.sleep(2)
         #locates the phenogrid box for behavior/neurological and capture it's title
-        value1 = driver.find_element_by_xpath('/html/body/div[2]/div[4]/div/div[2]/section/div/div[3]/table/tbody/tr[3]/td[2]').get_attribute("title")
+        value1 = driver.find_element(By.ID, 'mpSlimgrid12Div').get_attribute("title")
+        #value1 = driver.find_element_by_xpath('/html/body/div[2]/div[4]/div/div[2]/section/div/div[3]/table/tbody/tr[3]/td[2]').get_attribute("title")
         print value1
-        self.assertTrue(value1, "4 annotation(s)")
+        #self.assertTrue(value1, "2 annotation(s)")
         #locates the phenogrid box for growth/size/body and capture it's title
-        value2 = driver.find_element_by_xpath('/html/body/div[2]/div[4]/div/div[2]/section/div/div[3]/table/tbody/tr[3]/td[9]').get_attribute("title")
+        value2 = driver.find_element(By.ID, 'mpSlimgrid9Div').get_attribute("title")
+        #value2 = driver.find_element_by_xpath('/html/body/div[2]/div[4]/div/div[2]/section/div/div[3]/table/tbody/tr[3]/td[9]').get_attribute("title")
         print value2
-        self.assertTrue(value2, "1 annotation(s)")
+        #self.assertTrue(value2, "1 annotation(s)")
         #locates the phenogrid box for hearing/vestibular/ear and capture it's title
-        value3 = driver.find_element_by_xpath('/html/body/div[2]/div[4]/div/div[2]/section/div/div[3]/table/tbody/tr[3]/td[10]').get_attribute("title")
+        value3 = driver.find_element(By.ID, 'mpSlimgrid10Div').get_attribute("title")
+        #value3 = driver.find_element_by_xpath('/html/body/div[2]/div[4]/div/div[2]/section/div/div[3]/table/tbody/tr[3]/td[10]').get_attribute("title")
         print value3
-        self.assertTrue(value3, "1 annotation(s)")
-        #locates the phenogrid box for mortality/aging and capture it's title
-        value4 = driver.find_element_by_xpath('/html/body/div[2]/div[4]/div/div[2]/section/div/div[3]/table/tbody/tr[3]/td[17]').get_attribute("title")
-        print value4
-        self.assertTrue(value4, "2 annotation(s)")
+        #self.assertTrue(value3, "4 annotation(s)")
         #locates the phenogrid box for muscle and capture it's title
-        value5 = driver.find_element_by_xpath('/html/body/div[2]/div[4]/div/div[2]/section/div/div[3]/table/tbody/tr[3]/td[18]').get_attribute("title")
+        value4 = driver.find_element(By.ID, 'mpSlimgrid18Div').get_attribute("title")
+        #value4 = driver.find_element_by_xpath('/html/body/div[2]/div[4]/div/div[2]/section/div/div[3]/table/tbody/tr[3]/td[17]').get_attribute("title")
+        print value4
+        #self.assertTrue(value4, "1 annotation(s)")
+        #locates the phenogrid box for neoplasm and capture it's title
+        value5 = driver.find_element(By.ID, 'mpSlimgrid19Div').get_attribute("title")
+        #value5 = driver.find_element_by_xpath('/html/body/div[2]/div[4]/div/div[2]/section/div/div[3]/table/tbody/tr[3]/td[18]').get_attribute("title")
         print value5
-        self.assertTrue(value5, "1 annotation(s)")
+        #self.assertTrue(value5, "1 annotation(s)")
         #locates the phenogrid box for reproductive system and capture it's title
-        value6 = driver.find_element_by_xpath('/html/body/div[2]/div[4]/div/div[2]/section/div/div[3]/table/tbody/tr[3]/td[24]').get_attribute("title")
+        value6 = driver.find_element(By.ID, 'mpSlimgrid24Div').get_attribute("title")
+        #value6 = driver.find_element_by_xpath('/html/body/div[2]/div[4]/div/div[2]/section/div/div[3]/table/tbody/tr[3]/td[24]').get_attribute("title")
         print value6
-        self.assertTrue(value6, "1 annotation(s)")
+        #self.assertTrue(value6, "9 annotation(s)")
             
     def test_strain_ref_early_link(self):
         """

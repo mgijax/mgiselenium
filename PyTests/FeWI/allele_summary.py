@@ -101,7 +101,7 @@ class TestAlleleSummary(unittest.TestCase):
         searchTextItems = iterate.getTextAsList(cells)
         print searchTextItems
         #this is the 11th cell which corresponds to the Human Disease odel result for the second allele 
-        self.assertEqual(searchTextItems[11], 'brachydactyly type A1 (IDs)')
+        self.assertEqual(searchTextItems[23], 'brachydactyly type A1 (IDs)')
         
         
     def tearDown(self):

@@ -514,95 +514,52 @@ class TestPwiMrkDetail(unittest.TestCase):
     def test_mrk_det_withdrawn_mrk(self):
         """
         @status: Tests that a withdrawn marker returns correctly
-        @note Under construction!!!
+        @note pwi-mrk-det-search-10
         """
         driver = self.driver
         #opens the PWI marker form
-        driver.get(TEST_PWI_URL + '/#markerForm')
-        
-        nomenbox = driver.find_element(By.ID, 'nomen')
+        driver.get(TEST_PWI_URL + '/edit/marker/key/155768')  
+        #opens the PWI marker form
+        #driver.get(TEST_PWI_URL + '/#markerForm')        
+        #nomenbox = driver.find_element(By.ID, 'nomen')
         # put your marker symbol in the box
-        nomenbox.send_keys("gata1")
-        nomenbox.send_keys(Keys.RETURN)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Gata1')))#waits until the Gata1 link is displayed on the page
-        #finds the marker link and clicks it
-        driver.find_element(By.LINK_TEXT, "Gata1").click()
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Lit Index')))#waits until the Lit Index link is displayed on the page
-        driver.find_element(By.LINK_TEXT, "Lit Index").click()
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'indexRefsTable')))#waits until the Index reference table is displayed on the page
-        #finds the coded column and then the first 10 items
-        refindextable = driver.find_element(By.ID, "indexRefsTable")
-        coded = refindextable.find_elements(By.CSS_SELECTOR, 'td:nth-child(1)')
-        code1 = coded[0]
-        code2 = coded[1]
-        code3 = coded[2]
-        code4 = coded[3]
-        code5 = coded[4]
-        code6 = coded[5]
-        code7 = coded[6]
-        code8 = coded[7]
-        code9 = coded[8]
-        code10 = coded[9]
-        #asserts the first 10 coded labels are correct and in correct order
-        self.assertEqual(code1.text, "*")
-        self.assertEqual(code2.text, "")
-        self.assertEqual(code3.text, "")
-        self.assertEqual(code4.text, "")
-        self.assertEqual(code5.text, "")
-        self.assertEqual(code6.text, "")
-        self.assertEqual(code7.text, "")
-        self.assertEqual(code8.text, "*")
-        self.assertEqual(code9.text, "")
-        self.assertEqual(code10.text, "")
-        #finds the priority column and then the first 10 items
-        refindextable = driver.find_element(By.ID, "indexRefsTable")
-        priority = refindextable.find_elements(By.CSS_SELECTOR, 'td:nth-child(3)')
-        pri1 = priority[0]
-        pri2 = priority[1]
-        pri3 = priority[2]
-        pri4 = priority[3]
-        pri5 = priority[4]
-        pri6 = priority[5]
-        pri7 = priority[6]
-        pri8 = priority[7]
-        pri9 = priority[8]
-        pri10 = priority[9]
-        #asserts the first 10 priority labels are correct and in correct order
-        self.assertEqual(pri1.text, "High")
-        self.assertEqual(pri2.text, "Low")
-        self.assertEqual(pri3.text, "High")
-        self.assertEqual(pri4.text, "High")
-        self.assertEqual(pri5.text, "High")
-        self.assertEqual(pri6.text, "Medium")
-        self.assertEqual(pri7.text, "Medium")
-        self.assertEqual(pri8.text, "Low")
-        self.assertEqual(pri9.text, "Medium")
-        self.assertEqual(pri10.text, "High")
-        
-        #finds the conditional column and then the first 10 items
-        refindextable = driver.find_element(By.ID, "indexRefsTable")
-        cond = refindextable.find_elements(By.CSS_SELECTOR, 'td:nth-child(4)')
-        con1 = cond[0]
-        con2 = cond[1]
-        con3 = cond[2]
-        con4 = cond[3]
-        con5 = cond[4]
-        con6 = cond[5]
-        con7 = cond[6]
-        con8 = cond[7]
-        con9 = cond[8]
-        con10 = cond[9]
-        #asserts the first 10 conditional labels are correct and in correct order
-        self.assertEqual(con1.text, "Not Specified")
-        self.assertEqual(con2.text, "Not Specified")
-        self.assertEqual(con3.text, "Conditional")
-        self.assertEqual(con4.text, "Not Applicable")
-        self.assertEqual(con5.text, "Conditional")
-        self.assertEqual(con6.text, "Not Specified")
-        self.assertEqual(con7.text, "Not Specified")
-        self.assertEqual(con8.text, "Not Specified")
-        self.assertEqual(con9.text, "Not Applicable")
-        self.assertEqual(con10.text, "Not Applicable")
+        #nomenbox.send_keys("gata1")
+        #nomenbox.send_keys(Keys.RETURN)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Public Ccm1 Page')))#waits until the Gata1 link is displayed on the page
+        mrk_symbol = driver.find_element(By.ID, 'mrkDetail_Symbol')#finds the marker symbol
+        print mrk_symbol.text    
+        mrk_id = driver.find_element(By.ID, 'mrkDetail_ID')#finds the marker ID
+        print mrk_id.text
+        mrk_sec = driver.find_element(By.ID, 'mrkDetail_secondaryIDs')#finds the secondary IDs
+        print mrk_sec.text
+        mrk_status = driver.find_element(By.ID, 'mrkDetail_status')#finds the Marker status
+        print mrk_status.text
+        mrk_name = driver.find_element(By.ID, 'mrkDetail_name')#finds the Current Name
+        print mrk_name.text
+        mrk_syn = driver.find_element(By.ID, 'mrkDetail_synonyms')#finds the Synonymns
+        print mrk_syn.text
+        mrk_type = driver.find_element(By.ID, 'mrkDetail_mrkType')#finds the Marker Type
+        print mrk_type.text
+        mrk_feature = driver.find_element(By.ID, 'mrkDetail_featureType')#finds the Feature Type
+        print mrk_feature.text
+        mrk_biotype = driver.find_element(By.ID, 'mrkDetail_biotypes')#finds the Biotypes
+        print mrk_biotype.text
+        mrk_location = driver.find_element(By.ID, 'mrkDetail_location')#finds the Location
+        print mrk_location.text
+        mrk_clip = driver.find_element(By.ID, 'mrkDetail_clip')#finds the Marker Detail Clip
+        print mrk_clip.text    
+        #Verifies that the returned data is all correct for the 11 fields
+        self.assertEqual(mrk_symbol.text, 'Ccm1 - Public Ccm1 Page', 'The Symbol is not correct!')
+        self.assertEqual(mrk_id.text, '', 'The MGI ID is not correct!')
+        self.assertEqual(mrk_sec.text, '', 'The secondary IDs are not correct!')
+        self.assertEqual(mrk_status.text, 'withdrawn', 'The Marker Status is not correct!')
+        self.assertEqual(mrk_name.text, 'withdrawn, = Krit1', 'The Current Name is not correct!')
+        self.assertEqual(mrk_syn.text, '', 'The Marker Synonyms are not correct!')
+        self.assertEqual(mrk_type.text, 'Gene', 'The Marker Type is not correct!')
+        self.assertEqual(mrk_feature.text, '', 'The Marker Feature Type is not correct!')
+        self.assertEqual(mrk_biotype.text, '', 'The Marker Biotype is not correct!')
+        self.assertEqual(mrk_location.text, 'Chr5', 'The Marker Location is not correct!')
+        self.assertEqual(mrk_clip.text, '', 'The Marker Detail Clip is not correct!')
         
 
     def tearDown(self):

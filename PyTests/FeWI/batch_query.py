@@ -160,14 +160,14 @@ class TestBatchQuery(unittest.TestCase):
         driver.find_element(By.ID, 'attributes2').click()
         idsearchbox = driver.find_element(By.ID, 'ids')
         # Enter an MGP ID into the ID/Symbols field
-        idsearchbox.send_keys("MGP_AKRJ_G0020754")
+        idsearchbox.send_keys("MGP_DBA2J*")
         idsearchbox.submit()
         #time.sleep(2)
         #locates the Input column row1
         input_1 = self.driver.find_element(By.CSS_SELECTOR, 'td.yui-dt0-col-term > div:nth-child(1)')
         print input_1.text        
         #asserts that the Input row1 data is correct
-        self.assertEqual(input_1.text, 'MGP_AKRJ_G0020754') 
+        self.assertEqual(input_1.text, 'MGP_DBA2J*') 
         #locates the MGI Gene/Marker ID row1
         input_3 = self.driver.find_element(By.CSS_SELECTOR, 'td.yui-dt0-col-markerId > div:nth-child(1)')
         print input_3.text

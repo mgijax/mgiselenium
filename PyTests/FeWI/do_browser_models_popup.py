@@ -252,12 +252,12 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
             
         def tearDown(self):
             self.driver.close()
-        '''
+        
         def suite():
             suite = unittest.TestSuite()
-            suite.addTest(unittest.makeSuite(TestAdd))
+            suite.addTest(unittest.makeSuite(TestDoBrowserModelsPopup))
             return suite
-        '''
+        
 if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
+    # import sys;sys.argv = ['', 'Test.TestDoBrowserModelsPopup']
     HTMLTestRunner.main() 

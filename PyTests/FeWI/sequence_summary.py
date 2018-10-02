@@ -92,7 +92,7 @@ class TestSequenceSummaryPage(unittest.TestCase):
         time.sleep(2)
         print searchTextItems
         #asserts that the rows of length data are in correct order
-        self.assertEqual(searchTextItems, [u'ENSMUST00000018711\n  Ensembl\n  MGI Sequence Detail', u'ENSMUST00000144443\n  Ensembl\n  MGI Sequence Detail', u'ENSMUST00000108592\n  Ensembl\n  MGI Sequence Detail', u'ENSMUST00000139007\n  Ensembl\n  MGI Sequence Detail', u'NM_019749\n  RefSeq\n  MGI Sequence Detail', u'BC030350\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'BC002126\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'BC024621\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'AV029091\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'BC029329\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'AK002879\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'AK011731\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'AF161587\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'KY499680\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'AW124839\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'ENSMUSG00000018567\n  Ensembl Gene Model\n  MGI Sequence Detail', u'56486\n  NCBI Gene Model\n  MGI Sequence Detail', u'MGP_129S1SvImJ_G0018575\n  Ensembl\n  MGI Sequence Detail', u'MGP_WSBEiJ_G0017937\n  Ensembl\n  MGI Sequence Detail', u'MGP_NODShiLtJ_G0018423\n  Ensembl\n  MGI Sequence Detail', u'MGP_PWKPhJ_G0017657\n  Ensembl\n  MGI Sequence Detail', u'MGP_NZOHlLtJ_G0019008\n  Ensembl\n  MGI Sequence Detail', u'MGP_C3HHeJ_G0018328\n  Ensembl\n  MGI Sequence Detail', u'MGP_BALBcJ_G0018515\n  Ensembl\n  MGI Sequence Detail', u'MGP_C57BL6NJ_G0018966\n  Ensembl\n  MGI Sequence Detail'])
+        self.assertEqual(searchTextItems, [u'ENSMUST00000018711\n  Ensembl\n  MGI Sequence Detail', u'ENSMUST00000144443\n  Ensembl\n  MGI Sequence Detail', u'ENSMUST00000108592\n  Ensembl\n  MGI Sequence Detail', u'ENSMUST00000139007\n  Ensembl\n  MGI Sequence Detail', u'NM_019749\n  RefSeq\n  MGI Sequence Detail', u'BC030350\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'BC002126\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'BC024621\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'AV029091\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'BC029329\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'AK002879\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'AK011731\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'AF161587\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'KY499680\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'AW124839\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'ENSMUSG00000018567\n  Ensembl Gene Model\n  MGI Sequence Detail', u'56486\n  NCBI Gene Model\n  MGI Sequence Detail', u'MGP_129S1SvImJ_G0018575\n  MGI Sequence Detail', u'MGP_WSBEiJ_G0017937\n  MGI Sequence Detail', u'MGP_NODShiLtJ_G0018423\n  MGI Sequence Detail', u'MGP_PWKPhJ_G0017657\n  MGI Sequence Detail', u'MGP_NZOHlLtJ_G0019008\n  MGI Sequence Detail', u'MGP_C3HHeJ_G0018328\n  MGI Sequence Detail', u'MGP_BALBcJ_G0018515\n  MGI Sequence Detail', u'MGP_C57BL6NJ_G0018966\n  MGI Sequence Detail'])
         
         #finds the Length column and then iterates through all items
         lengthlist = driver.find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-length .yui-dt-liner')
@@ -156,7 +156,7 @@ class TestSequenceSummaryPage(unittest.TestCase):
         driver.find_element(By.ID, 'allSeqLink').click()
         time.sleep(2)
         #finds the link for MGI Sequence Detail of sequence MGI_C57BL6J_1349458 and clicks it.
-        driver.find_element(By.CSS_SELECTOR, '#yui-rec20 > td:nth-child(2) > div:nth-child(1) > a:nth-child(2)').click()
+        driver.find_element(By.CSS_SELECTOR, '#yui-rec21 > td:nth-child(2) > div:nth-child(1) > a:nth-child(2)').click()
         time.sleep(2)
         #find the ID listed in the ID/Version ribbon of the sequence detail page
         seq_id = driver.find_element(By.CSS_SELECTOR, '#seqIdTable > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > b:nth-child(1)')
@@ -172,5 +172,5 @@ def suite():
     return suite
 
 if __name__ == "__main__":
-    #import sys;sys.argv = ['', 'Test.testSpecSumByRef']
+    #import sys;sys.argv = ['', 'Test.TestSequenceSummaryPage']
     unittest.main()

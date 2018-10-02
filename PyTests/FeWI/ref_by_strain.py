@@ -96,9 +96,9 @@ class TestRefByStrain(unittest.TestCase):
         row7 = driver.find_element_by_xpath("//*[@id='dynamicdata']/table/tbody/tr[7]/td[6]/div")
         print row7.text
         self.assertEqual(row1.text, '2018')   
-        self.assertEqual(row2a.text, 'J:253473\nJournal Link')
-        self.assertEqual(row3a.text, '29222168\nJ:253599\nJournal Link')
-        self.assertEqual(row4a.text, '29368690\nJ:254911\nJournal Link')       
+        self.assertEqual(row2a.text, '29323231\nJ:259713\nJournal Link')
+        self.assertEqual(row3a.text, '29162555\nJ:256655\nJournal Link')
+        self.assertEqual(row4a.text, '29459437\nJ:258482\nJournal Link')       
         self.assertEqual(row2.text, '2018')
         self.assertEqual(row3.text, '2018')
         self.assertEqual(row4.text, '2018')

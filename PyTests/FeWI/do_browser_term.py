@@ -126,7 +126,7 @@ class TestDoBrowserTermTab(unittest.TestCase):
         #locate the siblings terms box
         siblings = self.driver.find_elements(By.ID, 'termTabTermWrapper')
         searchTermItems = iterate.getTextAsList(siblings)
-        self.assertEquals(searchTermItems[0], "malaria +\n\namebiasis\nbabesiosis\nbalantidiasis\ncoccidiosis +\ndientamoebiasis\ngiardiasis\ngranulomatous amebic encephalitis\nleishmaniasis +\nprimary amebic meningoencephalitis\ntheileriasis\ntrichomoniasis\ntrypanosomiasis +")
+        self.assertEquals(searchTermItems[0], "malaria +\n\namebiasis\nbabesiosis\nbalantidiasis\ncoccidiosis +\ndientamoebiasis\ngiardiasis\nleishmaniasis +\nprimary amebic meningoencephalitis +\ntheileriasis\ntrichomoniasis +\ntrypanosomiasis +")
         print searchTermItems
         #locate the children terms box
         children = self.driver.find_elements(By.ID, 'termTabChildWrapper')
@@ -154,12 +154,12 @@ class TestDoBrowserTermTab(unittest.TestCase):
         #locate the siblings terms box
         siblings = self.driver.find_elements(By.ID, 'termTabTermWrapper')
         searchTermItems = iterate.getTextAsList(siblings)
-        self.assertEquals(searchTermItems[0], "primary ciliary dyskinesia +\n\nJoubert syndrome +\nMeckel syndrome")
+        self.assertEquals(searchTermItems[0], "primary ciliary dyskinesia +\n\nJoubert syndrome +\nMeckel syndrome +")
         print searchTermItems
         #locate the children terms box
         children = self.driver.find_elements(By.ID, 'termTabChildWrapper')
         searchTermItems = iterate.getTextAsList(children)
-        self.assertEquals(searchTermItems[0], "Kartagener syndrome\nprimary ciliary dyskinesia 1\nprimary ciliary dyskinesia 10\nprimary ciliary dyskinesia 11\nprimary ciliary dyskinesia 12\nprimary ciliary dyskinesia 13\nprimary ciliary dyskinesia 14\nprimary ciliary dyskinesia 15\nprimary ciliary dyskinesia 16\nprimary ciliary dyskinesia 17\nprimary ciliary dyskinesia 18\nprimary ciliary dyskinesia 19\nprimary ciliary dyskinesia 2\nprimary ciliary dyskinesia 20\nprimary ciliary dyskinesia 21\nprimary ciliary dyskinesia 22\nprimary ciliary dyskinesia 23\nprimary ciliary dyskinesia 24\nprimary ciliary dyskinesia 25\nprimary ciliary dyskinesia 26\nprimary ciliary dyskinesia 27\nprimary ciliary dyskinesia 28\nprimary ciliary dyskinesia 29\nprimary ciliary dyskinesia 3\nprimary ciliary dyskinesia 30\nprimary ciliary dyskinesia 32\nprimary ciliary dyskinesia 33\nprimary ciliary dyskinesia 34\nprimary ciliary dyskinesia 35\nprimary ciliary dyskinesia 4\nprimary ciliary dyskinesia 5\nprimary ciliary dyskinesia 6\nprimary ciliary dyskinesia 7\nprimary ciliary dyskinesia 8\nprimary ciliary dyskinesia 9\nStromme syndrome")
+        self.assertEquals(searchTermItems[0], "Kartagener syndrome\nprimary ciliary dyskinesia 1\nprimary ciliary dyskinesia 10\nprimary ciliary dyskinesia 11\nprimary ciliary dyskinesia 12\nprimary ciliary dyskinesia 13\nprimary ciliary dyskinesia 14\nprimary ciliary dyskinesia 15\nprimary ciliary dyskinesia 16\nprimary ciliary dyskinesia 17\nprimary ciliary dyskinesia 18\nprimary ciliary dyskinesia 19\nprimary ciliary dyskinesia 2\nprimary ciliary dyskinesia 20\nprimary ciliary dyskinesia 21\nprimary ciliary dyskinesia 22\nprimary ciliary dyskinesia 23\nprimary ciliary dyskinesia 24\nprimary ciliary dyskinesia 25\nprimary ciliary dyskinesia 26\nprimary ciliary dyskinesia 27\nprimary ciliary dyskinesia 28\nprimary ciliary dyskinesia 29\nprimary ciliary dyskinesia 3\nprimary ciliary dyskinesia 30\nprimary ciliary dyskinesia 32\nprimary ciliary dyskinesia 33\nprimary ciliary dyskinesia 34\nprimary ciliary dyskinesia 35\nprimary ciliary dyskinesia 37\nprimary ciliary dyskinesia 4\nprimary ciliary dyskinesia 5\nprimary ciliary dyskinesia 6\nprimary ciliary dyskinesia 7\nprimary ciliary dyskinesia 8\nprimary ciliary dyskinesia 9\nStromme syndrome")
         print searchTermItems
 
     def test_dobrowser_noomim(self):
@@ -207,7 +207,7 @@ class TestDoBrowserTermTab(unittest.TestCase):
         #locate the siblings terms box
         siblings = self.driver.find_elements(By.ID, 'termTabTermWrapper')
         searchTermItems = iterate.getTextAsList(siblings)
-        self.assertIn(searchTermItems[0], "tauopathy +\n\nagenesis of the corpus callosum with peripheral neuropathy\ndemyelinating disease +\neye degenerative disease +\neyelid degenerative disease +\nfamilial encephalopathy with neuroserpin inclusion bodies\nhereditary ataxia +\nHuntington disease-like 2\nHuntington's disease\ninfantile cerebellar-retinal degeneration\nLafora disease\nmotor neuron disease +\nmyoclonic cerebellar dyssynergia\nneuroacanthocytosis +\nneurodegeneration with brain iron accumulation +\nolivopontocerebellar atrophy\nPick's disease\nplexopathy\npontocerebellar hypoplasia +\nprimary cerebellar degeneration\nsecondary Parkinson disease +\nSPOAN syndrome\nsynucleinopathy +")
+        self.assertIn(searchTermItems[0], "tauopathy +\n\nagenesis of the corpus callosum with peripheral neuropathy\ndemyelinating disease +\neyelid degenerative disease +\nfamilial encephalopathy with neuroserpin inclusion bodies\nhereditary ataxia +\nHuntington's disease\nHuntington's disease-like 2\ninfantile cerebellar-retinal degeneration\nLafora disease\nmotor neuron disease +\nmyoclonic cerebellar dyssynergia\nneuroacanthocytosis +\nneurodegeneration with brain iron accumulation +\nolivopontocerebellar atrophy\nPick's disease\nplexopathy\npontocerebellar hypoplasia +\nprimary cerebellar degeneration\nsecondary Parkinson disease +\nSPOAN syndrome\nsynucleinopathy +")
         print searchTermItems
         #locate the children terms box
         children = self.driver.find_elements(By.ID, 'termTabChildWrapper')

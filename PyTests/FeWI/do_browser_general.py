@@ -103,7 +103,7 @@ class TestDoBrowserGeneral(unittest.TestCase):
         
         self.driver.switch_to_window(self.driver.window_handles[-1])
         print (self.driver.current_url)
-        self.assertEqual(self.driver.current_url, 'http://www.genome.jp/dbget-bin/www_bget?map05012', 'The KEGG link is broken!')
+        self.assertEqual(self.driver.current_url, 'https://www.genome.jp/dbget-bin/www_bget?map05012', 'The KEGG link is broken!')
         self.driver.switch_to_window(self.driver.window_handles[0])
         
         self.driver.find_element(By.LINK_TEXT, 'MESH:D010300').click()
@@ -117,7 +117,7 @@ class TestDoBrowserGeneral(unittest.TestCase):
         
         self.driver.switch_to_window(self.driver.window_handles[-1])
         print (self.driver.current_url)
-        self.assertEqual(self.driver.current_url, 'http://www.orpha.net/consor/cgi-bin/OC_Exp.php?lng=EN&Expert=2828', 'The ORDO link is broken!')
+        self.assertEqual(self.driver.current_url, 'https://www.orpha.net/consor/cgi-bin/OC_Exp.php?lng=EN&Expert=2828', 'The ORDO link is broken!')
         
     def test_dobrowser_mult_syn(self):
         '''
