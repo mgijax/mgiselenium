@@ -602,11 +602,12 @@ class TestSearch(unittest.TestCase):
         #puts an X in the first assay/age cell
         cell = table.get_cell(1,1)
         cell.click()
-        #puts an X in the second assay/first age cell
-        cell = table.get_cell(2,1)
+        #puts an X in the eith assay row/fourth age cell
+        cell = table.get_cell(8,4)
         cell.click()
         wait.forAngular(driver)
         form.click_search()#click the search button
+        wait.forAngular(driver)
         #find the search results table
         results_table = driver.find_element_by_id("resultsTable")
         table = Table(results_table)
@@ -619,7 +620,7 @@ class TestSearch(unittest.TestCase):
         #print column 1
         symbols_cells = table.get_column_cells('Marker')
         symbols = iterate.getTextAsList(symbols_cells)
-        self.assertIn("Stx2",symbols)
+        self.assertIn("Musk",symbols)
         
         
             

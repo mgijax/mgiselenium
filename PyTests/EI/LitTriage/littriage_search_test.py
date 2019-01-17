@@ -518,12 +518,13 @@ class TestLitSearch(unittest.TestCase):
         #find the search results table
         results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
-        ap_cell1 = table.get_cell(7,6)
+        ap_cell1 = table.get_cell(16,6)
         ap_cell2 = table.get_cell(1,6)
-        go_cell1 = table.get_cell(2,7)
+        go_cell1 = table.get_cell(5,7)
         go_cell2 = table.get_cell(1,7)
         
         time.sleep(2)
+        #verifies the 16th AP item is rejected, the 1st AP item is Indexed, the 5th GO item is Rejected and the 1st GO item is Indexed
         self.assertEquals(ap_cell1.text, "Rejected", 'AP is not indexed')
         self.assertEquals(ap_cell2.text, "Indexed", 'AP is not routed')
         self.assertEquals(go_cell1.text, "Rejected", 'GO is not rejected')

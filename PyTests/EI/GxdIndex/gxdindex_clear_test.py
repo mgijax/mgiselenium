@@ -110,8 +110,8 @@ class TestClear(unittest.TestCase):
         #find the table field to check
         table_element = driver.find_element_by_id("indexGrid")
         table = Table(table_element)
-        #get a cell that has been selected for this index record
-        cell = table.get_cell(2,21)
+        #get a cell that has been selected for this index record(RNA-sxn/10.5)
+        cell = table.get_cell(8,4)
         #cell.click()
         wait.forAngular(driver)
         self.assertEqual(cell.text, 'X', "the cell is not checked")

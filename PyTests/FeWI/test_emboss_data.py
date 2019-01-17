@@ -11,7 +11,7 @@ from selenium.webdriver.common.by import By
 #from ddt import ddt, data, unpack
 from pkgutil import get_data
 #from csv import reader
-
+import time
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -65,7 +65,7 @@ class TestFile(unittest.TestCase):
                 chrLine = parts[1]
     
             self.driver.get(SEQUENCE_URL + embossId)
-    
+            time.sleep(2)
             goButton = self.driver.find_element(By.CSS_SELECTOR, "form[name=\"seqPullDownForm\"] input")
             goButton.click()
     

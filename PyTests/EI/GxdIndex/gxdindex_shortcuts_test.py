@@ -189,7 +189,7 @@ class TestShort(unittest.TestCase):
         table_element = driver.find_element_by_id("indexGrid")
         table = Table(table_element)
         #verifies there is an X in the Prot-sxn by age 18.5 box
-        cell = table.get_cell(1, 37)
+        cell = table.get_cell(5, 21)
         wait.forAngular(driver)
         self.assertEqual(cell.text, 'X', "the cell is checked")   
 
