@@ -126,7 +126,7 @@ class TestVarSearch(unittest.TestCase):
     def testVarRefMultiSearch(self):
         """
         @Status tests that a variant multi reference search works
-        @see pwi-var-search-5 
+        @see pwi-var-search-5 currently broken!!!!!
         """
         driver = self.driver
         #finds the history symbol field and enters a symbol
@@ -222,6 +222,29 @@ class TestVarSearch(unittest.TestCase):
         #assert the variant reference data is correct
         self.assertEquals(var_jnum, "J:228124")
 
+    def testVarWithNotesSearch(self):
+        """
+        @Status tests that a basic allele search returns variant notes(public & private) data works
+        @see pwi-var-search-11
+        """
+        driver = self.driver
+        #finds the Allele ID field and enters an MGI ID
+        driver.find_element_by_id("alleleID").send_keys('MGI:5491244')
+        driver.find_element_by_id('searchButton').click()
+        time.sleep(2)
+        #find the Public Notes field
+        var_pnote = self.driver.find_element_by_id("publicNote").get_attribute('value')
+        time.sleep(2)
+        print var_pnote
+        #assert the variant reference data is correct
+        self.assertEquals(var_pnote, "Low impact")
+        #find the curator Notes field
+        var_cnote = self.driver.find_element_by_id("curatorNote").get_attribute('value')
+        time.sleep(2)
+        print var_cnote
+        #assert the variant reference data is correct
+        self.assertEquals(var_cnote, "unknown effect on splice donor site of intron 9")
+
     def testVarStrandNegSearch(self):
         """
         @Status tests that a variant Strand negative search has  the stand always with a red background
@@ -238,7 +261,106 @@ class TestVarSearch(unittest.TestCase):
         #verify the RGB code is correct for the color Red
         self.assertEqual(rgb, 'rgba(255, 0, 0, 1)', 'the wrong RGB code is returning')
 
-        
+    def testAlleleWithMultVarSearch(self):
+        """
+        @Status tests that a basic allele search that has multiple variants displays all data correctly
+        @see pwi-var-search-13
+        """
+        driver = self.driver
+        #finds the Allele ID field and enters an MGI ID
+        driver.find_element_by_id("alleleID").send_keys('MGI:5301876')
+        driver.find_element_by_id('searchButton').click()
+        time.sleep(2)
+        #find the variant results table
+        results_table = self.driver.find_element_by_id("variantTable")
+        table = Table(results_table)
+        # print row one through three
+        row1 = table.get_row(0)
+        row2 = table.get_row(1)
+        row3 = table.get_row(2)
+        row4 = table.get_row(3)
+        row5 = table.get_row(4)
+        print row1.text
+        print row2.text
+        print row3.text
+        print row4.text
+        print row5.text
+        #assert that the first 3 search results are correct
+        self.assertEqual(row3.text, 'GRCm38 24901452 24901452 T G - -')
+        self.assertEqual(row4.text, 'GRCm38 24901470 24901470 T G - -')
+        self.assertEqual(row5.text, 'GRCm38 24901488 24901489 AC GT - -')
+
+    def testAlleleWithSingleVarSearch(self):
+        """
+        @Status tests that a basic allele search that has omly 1 variant displays all data correctly
+        @see pwi-var-search-14, 16
+        """
+        driver = self.driver
+        #finds the Allele ID field and enters an MGI ID
+        driver.find_element_by_id("alleleID").send_keys('MGI:5616147')
+        driver.find_element_by_id('searchButton').click()
+        time.sleep(2)
+        #find the variant results table
+        results_table = self.driver.find_element_by_id("variantTable")
+        table = Table(results_table)
+        # print row one through three
+        row1 = table.get_row(0)
+        row2 = table.get_row(1)
+        row3 = table.get_row(2)
+        print row1.text
+        print row2.text
+        print row3.text
+        #assert that the search results are correct, this includes the table headings are correct as well
+        self.assertEqual(row1.text, 'Genomic Transcript Polypeptide')
+        self.assertEqual(row2.text, 'build start end ref var ID start end ref var ID start end ref var')
+        self.assertEqual(row3.text, 'GRCm38 141218575 141218575 T C - -')
+
+    def testVarGenomicRefSearch(self):
+        """
+        @Status tests that a basic allele search that has a variant with a long Genomic ref displays all data correctly
+        @see pwi-var-search-17
+        """
+        driver = self.driver
+        #finds the Allele ID field and enters an MGI ID
+        driver.find_element_by_id("alleleID").send_keys('MGI:5566856')
+        driver.find_element_by_id('searchButton').click()
+        time.sleep(2)
+        #find the variant results table
+        results_table = self.driver.find_element_by_id("variantTable")
+        table = Table(results_table)
+        # print row one through three
+        row1 = table.get_row(0)
+        row2 = table.get_row(1)
+        row3 = table.get_row(2)
+        print row1.text
+        print row2.text
+        print row3.text
+        #assert that the search results are correct, this variant has a rather long Genomic ref
+        self.assertEqual(row3.text, 'GRCm38 122478668 122478680 TACACGCATCCCA C - -')
+
+    def testVarGenomicVarSearch(self):
+        """
+        @Status tests that a basic allele search that has a variant with a long Genomic var displays all data correctly
+        @see pwi-var-search-18
+        """
+        driver = self.driver
+        #finds the Allele ID field and enters an MGI ID
+        driver.find_element_by_id("alleleID").send_keys('MGI:3838372')
+        driver.find_element_by_id('searchButton').click()
+        time.sleep(2)
+        #find the variant results table
+        results_table = self.driver.find_element_by_id("variantTable")
+        table = Table(results_table)
+        # print row one through three
+        row1 = table.get_row(0)
+        row2 = table.get_row(1)
+        row3 = table.get_row(2)
+        print row1.text
+        print row2.text
+        print row3.text
+        #assert that the search results are correct, this variant has a rather long Genomic ref
+        self.assertEqual(row3.text, 'GRCm38 57322231 57322238 CGGCGCAG GAGGACGA - -')
+                
 '''
 def suite():
     suite = unittest.TestSuite()
