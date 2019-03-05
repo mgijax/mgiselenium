@@ -107,6 +107,7 @@ class TestLitEdit(unittest.TestCase):
         select.select_by_visible_text('MGI Curation Record')
         #click the Modify button to set the Reference Type back to MGI Curation Record.
         self.driver.find_element_by_id('modifyEditTabButton').click()
+        
     def testDiscardEdit(self):
         """
         @Status tests the setting of the MGI Discard flag
@@ -152,6 +153,27 @@ class TestLitEdit(unittest.TestCase):
         #asserts that the following J numbers are returned
         self.assertIn('MGI:CorrectionAdded', used_tags)
         
+    def testSupplementalEdit(self):
+        """
+        @Status tests that you can change the Supplemental field option
+        @see MBIB-edit-22, 23
+        """
+        #driver = self.driver
+        form = self.form
+        form.enter_value('accids', 'J:269580')
+        form.click_search()
+        
+        #finds the supplemental field and selcts the option Supplement attached
+        Select(self.driver.find_element_by_id("editTabSuppData")).select_by_value('Supplement attached')
+        wait.forAngular(self.driver)
+        #find and click the Modify button
+        self.driver.find_element_by_id("modifyEditTabButton").click()
+        wait.forAngular(self.driver)
+        #finds the Supplemental and verifies the correct option is selected.
+        supp = self.driver.find_element_by_id("editTabSuppData").get_attribute('value')
+        print supp
+        #asserts that the following J numbers are returned
+        self.assertEqual(supp, 'Supplement attached', 'The wrong supplemental is displayed!')
         
 '''
 def suite():

@@ -68,7 +68,7 @@ class TestFile(unittest.TestCase):
             time.sleep(2)
             goButton = self.driver.find_element(By.CSS_SELECTOR, "form[name=\"seqPullDownForm\"] input")
             goButton.click()
-    
+            time.sleep(2)
             if chrLine:
                 self.assertIn(chrLine, self.driver.page_source)
             else:

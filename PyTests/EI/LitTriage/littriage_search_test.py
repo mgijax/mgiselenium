@@ -492,8 +492,6 @@ class TestLitSearch(unittest.TestCase):
         form.enter_value('title', '%cancer%')
         form.enter_value('year', '2014')
         self.driver.find_element(By.ID, 'status_AP_Rejected').click()
-        self.driver.find_element(By.ID, 'status_AP_Indexed').click()
-        self.driver.find_element(By.ID, 'status_GO_Rejected').click()
         self.driver.find_element(By.ID, 'status_GO_Indexed').click()
         #click the AND option
         self.driver.find_element(By.XPATH, "//input[@value='AND']").click()
@@ -504,13 +502,7 @@ class TestLitSearch(unittest.TestCase):
         table = Table(table_element)
         #finds the Routed column for AP and returns it's status of selected
         ap_routed = table.get_cell(1,3)
-        self.assertTrue(ap_routed.is_selected, "Rejected for AP is not selected")
-        #finds the Full Coded column for AP and returns it's status of selected
-        ap_indexed = table.get_cell(1,3)
-        self.assertTrue(ap_indexed.is_selected, "Indexed for AP is not selected")
-        #finds the Routed column for GO and returns it's status of selected
-        go_routed = table.get_cell(2,4)
-        self.assertTrue(go_routed.is_selected, "Rejected for GO is not selected")     
+        self.assertTrue(ap_routed.is_selected, "Rejected for AP is not selected")  
         #finds the Full Coded column for GO and returns it's status of selected
         go_indexed = table.get_cell(2,4)
         self.assertTrue(go_indexed.is_selected, "Indexed for GO is not selected")
@@ -518,20 +510,14 @@ class TestLitSearch(unittest.TestCase):
         #find the search results table
         results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
-        ap_cell1 = table.get_cell(16,6)
-        ap_cell2 = table.get_cell(1,6)
-        go_cell1 = table.get_cell(5,7)
+        ap_cell1 = table.get_cell(1,6)
         go_cell2 = table.get_cell(1,7)
         
         time.sleep(2)
         #verifies the 16th AP item is rejected, the 1st AP item is Indexed, the 5th GO item is Rejected and the 1st GO item is Indexed
         self.assertEquals(ap_cell1.text, "Rejected", 'AP is not indexed')
-        self.assertEquals(ap_cell2.text, "Indexed", 'AP is not routed')
-        self.assertEquals(go_cell1.text, "Rejected", 'GO is not rejected')
         self.assertEquals(go_cell2.text, "Indexed", 'GO is not indexed')
         print ap_cell1.text
-        print ap_cell2.text
-        print go_cell1.text
         print go_cell2.text
         
 '''
