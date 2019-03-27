@@ -1,7 +1,7 @@
 '''
 Created on Oct 30, 2018
 
-This test verifies searching within the Marker module.
+These tests verify searching within the Marker module.
 
 @author: jeffc
 '''

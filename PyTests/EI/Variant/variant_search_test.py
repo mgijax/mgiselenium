@@ -360,6 +360,19 @@ class TestVarSearch(unittest.TestCase):
         print row3.text
         #assert that the search results are correct, this variant has a rather long Genomic ref
         self.assertEqual(row3.text, 'GRCm38 57322231 57322238 CGGCGCAG GAGGACGA - -')
+
+    def testVarGenomeList(self):
+        """
+        @Status tests that the picklist for Genome Build is correct
+        @see pwi-var-search-19
+        """
+        driver = self.driver
+        #finds the Sourced Genomic Genome Build pulldown list
+        dropdown = Select(driver.find_element_by_id("srcDnaVersion"))
+        print [o.text for o in dropdown.options]
+        #assert that the search results are correct, this includes the table headings are correct as well
+        self.assertEqual([o.text for o in dropdown.options], [u'', u'GRCm38 (mm10)\n       ', u'GRCm38.p12 \n       ', u'GRCm38.p11 \n       ', u'GRCm38.p10 \n       ', u'GRCm38.p9 \n       ', u'GRCm38.p8 \n       ', u'GRCm38.p7 \n       ', u'GRCm38.p6 \n       ', u'GRCm38.p5 \n       ', u'GRCm38.p4 \n       ', u'GRCm38.p3 \n       ', u'GRCm38.p2 \n       ', u'NCBI m37 (mm9)\n       ', u'NCBI m36 (mm8)\n       ', u'NCBI m35 (mm7)\n       ', u'NCBI m34 (mm6)\n       ', u'NCBI m33 (mm5)\n       ', u'NCBI m32 (mm4)\n       ', u'NCBI m30 (mm3)\n       ', u'MGSCv3 (mm2)\n       ', u'MGSCv2 (mm1)\n       ', u'Not Specified \n       '])
+        
                 
 '''
 def suite():
