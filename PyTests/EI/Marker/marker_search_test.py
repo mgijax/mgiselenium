@@ -71,6 +71,7 @@ class TestMrkSearch(unittest.TestCase):
     def testTypeDnaSegSearch(self):
         """
         @Status tests that a basic Marker Type DNA Segment Marker search works
+        @note: A DNA Segment type should not display Feature Type
         @see pwi-mrk-search-2
         """
         driver = self.driver
@@ -94,6 +95,7 @@ class TestMrkSearch(unittest.TestCase):
     def testTypeQtlSearch(self):
         """
         @Status tests that a basic Marker Type QTL Marker search works
+        @note: A QTL type should not display Feature Type
         @see pwi-mrk-search-3 
         """
         driver = self.driver
@@ -116,6 +118,7 @@ class TestMrkSearch(unittest.TestCase):
     def testTypeTransSearch(self):
         """
         @Status tests that a basic Marker Type Transgene Marker search works
+        @note: A Transgene type should not display Feature Type
         @see pwi-mrk-search-4
         """
         driver = self.driver
@@ -138,6 +141,7 @@ class TestMrkSearch(unittest.TestCase):
     def testTypeComplexSearch(self):
         """
         @Status tests that a basic Marker Type Complex/Cluster/Region Marker search works
+        @note: A Complex/Cluster/Region type should not display Feature Type
         @see pwi-mrk-search-5
         """
         driver = self.driver
@@ -182,6 +186,7 @@ class TestMrkSearch(unittest.TestCase):
     def testTypeBacYacSearch(self):
         """
         @Status tests that a basic Marker Type BAC/YAC search works
+        @note: A BAC/YAC end type should not display Feature Type
         @see pwi-mrk-search-7
         """
         driver = self.driver
@@ -328,7 +333,7 @@ class TestMrkSearch(unittest.TestCase):
         results_table = self.driver.find_element_by_id("resultsTableHeader")
         table = Table(results_table)
         # print row 1
-        cells = table.get_row(0)
+        cells = table.get_row(1)
         #print column 1
         print cells.text
         #assert the symbol is correct
@@ -391,14 +396,16 @@ class TestMrkSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the accession ID field, enters an ID and hits the search button
-        driver.find_element_by_id("markerAccID").send_keys("MGI:87875")
-        driver.find_element_by_id('searchButton').click()
-        time.sleep(4)
+        driver.find_element_by_name("ids").send_keys("MGI:87875")
+        searchAcc = driver.find_element_by_xpath('[type=submit]').click()
+        searchAcc.submit()
+        time.sleep(10)
         #find the search results table
         results_table = self.driver.find_element_by_id("resultsTableHeader")
         table = Table(results_table)
         # print row 1
         cells = table.get_row(0)
+        time.sleep(2)
         print cells.text
         #Assert the correct symbol has been returned in the results table
         self.assertEquals(cells.text, 'Acf1')
@@ -639,8 +646,7 @@ class TestMrkSearch(unittest.TestCase):
         print cell0.text
         print cell1.text
         #Assert the correct symbol has been returned in the results table
-        self.assertEqual(cell0.text, '1190002N15Rik')
-        self.assertEqual(cell1.text, '2300002M23Rik')
+        self.assertEqual(cell0.text, '2300002M23Rik')
         #Assert the correct Creation Name is returned in the Creation Date field
         modifydate = driver.find_element_by_id('markerModificationDate').get_attribute('value')
         self.assertEqual(modifydate, '2008-10-10')        
@@ -811,8 +817,8 @@ class TestMrkSearch(unittest.TestCase):
         self.assertEqual(cell0.text, 'Atxn7')
         self.assertEqual(cell1.text, 'Galnt5')
         #Assert the correct Creation Date is returned in the Creation Date field
-        modifydate = driver.find_element_by_id('markerCreationDate').get_attribute('value')
-        self.assertEqual(modifydate, '2002-05-20')        
+        createdate = driver.find_element_by_id('markerCreationDate').get_attribute('value')
+        self.assertEqual(createdate, '2002-05-20')        
 
     def testSynonymTypeSearch(self):
         """
@@ -874,6 +880,26 @@ class TestMrkSearch(unittest.TestCase):
         #Assert the second synonym J number returned(row2) is correct
         self.assertEqual(cell[2].text, 'J:9808')              
 
+    def testSynonymJnumSearch2(self):
+        """
+        @Status tests that a basic Synonym J number search without the J: works
+        @see pwi-mrk-det-syn-search-3
+        """
+        driver = self.driver
+        #finds the Synonym J number field, enters a J number
+        driver.find_element_by_id("markerSynonymJnumID").send_keys("J:9808")
+        #finds the Search button and clicks it
+        driver.find_element_by_id('searchButton').click()
+        time.sleep(4)
+        #find the synonym results table
+        syn_table = self.driver.find_element_by_id("synonymTable")
+        table = Table(syn_table)
+        # get the data for the Synonym J# column, print the row 2 result
+        cell = table.get_column_cells('J:#')
+        print cell[2].text
+        #Assert the second synonym J number returned(row2) is correct
+        self.assertEqual(cell[2].text, 'J:9808')    
+
     def testSynonymModBySearch(self):
         """
         @Status tests that a basic Synonym Modified By search works
@@ -924,7 +950,7 @@ class TestMrkSearch(unittest.TestCase):
         driver.find_element_by_id("markerSynonymID").send_keys("Sqn5")
         #finds the Search button and clicks it
         driver.find_element_by_id('searchButton').click()
-        time.sleep(4)
+        time.sleep(10)
         #find the synonym results table
         syn_table = self.driver.find_element_by_id("synonymTable")
         table = Table(syn_table)
@@ -961,14 +987,14 @@ class TestMrkSearch(unittest.TestCase):
         #locate the Alias fields and verify the results are correct
         self.assertEqual(cells[1].text, 'D9Mit22')
         self.assertEqual(cells[2].text, 'D9Mit26')
-        self.assertEqual(cells[3].text, 'D9Nds6')
-        self.assertEqual(cells[4].text, 'D9Mit94')
-        self.assertEqual(cells[5].text, 'D9Mit98')
+        self.assertEqual(cells[3].text, 'D9Mit94')
+        self.assertEqual(cells[4].text, 'D9Mit98')
+        self.assertEqual(cells[5].text, 'D9Nds6')
 
     def testMrkwithTssSearch(self):
         """
         @Status tests that a marker search which has TSS Markers displays these markers in the STS Markers tab
-        @see pwi-mrk-det-detail-5
+        @see pwi-mrk-det-detail-5 
         """
         driver = self.driver
         #finds the Symbol field . Enter Gata1 and click the Search button
@@ -977,6 +1003,7 @@ class TestMrkSearch(unittest.TestCase):
         time.sleep(2)
         #find the TSS tab and click it
         driver.find_element_by_id('tssTabButton').click()
+        time.sleep(2)
         #find the tss results table
         alias_table = self.driver.find_element_by_id("tssTable")
         table = Table(alias_table)
@@ -1039,7 +1066,7 @@ class TestMrkSearch(unittest.TestCase):
         #print the first row result
         print cells.text
         #locate the first row of reference data and verify it is correct
-        self.assertEqual(cells.text, 'General J:260007 Neumann P, Nat Commun 2018 Jan 16;9(1):237 pm2geneload 2019-02-24')
+        self.assertEqual(cells.text, 'General J:234813 Luo S, Cell Stem Cell 2016 May 5;18(5):637-52 pm2geneload 2019-03-31')
         
     def testMrkRefStrainSearch(self):
         """
@@ -1076,6 +1103,31 @@ class TestMrkSearch(unittest.TestCase):
         driver.find_element_by_id('refsTabButton').click()
         #find the references J number field and enter the J number
         driver.find_element_by_id("markerRefJnumID").send_keys("J:699")
+        #find the Search button and click it
+        driver.find_element_by_id('searchButton').click()
+        #waits until the Reference table is displayed on the page    
+        wait.forAngular(self.driver)
+        #find the Reference results table
+        refs_table = self.driver.find_element_by_id("refsTable")
+        table = Table(refs_table)
+        # find the column of data for J numbers
+        cells = table.get_column_cells('J:#')
+        jnums = iterate.getTextAsList(cells)
+        #print the J numbers column data
+        print jnums
+        #locate the column of reference J number data and verify that J:699 exists on one of the rows
+        self.assertIn('J:699', jnums)
+
+    def testMrkRefJnumSearch2(self):
+        """
+        @Status tests that a marker reference search using J number without J: returns correct data
+        @see pwi-mrk-det-ref-search-3 
+        """
+        driver = self.driver
+        #find the Reference tab and click it
+        driver.find_element_by_id('refsTabButton').click()
+        #find the references J number field and enter the J number
+        driver.find_element_by_id("markerRefJnumID").send_keys("699")
         #find the Search button and click it
         driver.find_element_by_id('searchButton').click()
         #waits until the Reference table is displayed on the page    
@@ -1166,7 +1218,7 @@ class TestMrkSearch(unittest.TestCase):
         print sort
         wait.forAngular(self.driver)
         #locate the rows and assert the order is correct
-        self.assertEqual(sort, ['Type J:# Citation Modified By Date', 'General J:62788 Meyer M, Cytogenet Cell Genet 2000;88(3-4):278-82 pm2geneload 2019-02-24', 'General J:62835 Widney DP, J Immunol 2000 Jun 15;164(12):6322-31 pm2geneload 2019-02-24', 'General J:139937 Yates CC, Am J Pathol 2008 Sep;173(3):643-52 mmh 2009-06-24', 'General J:147166 Crawford MA, Infect Immun 2009 Apr;77(4):1664-78 csmith 2009-05-04', 'General J:212764 Zohar Y, J Clin Invest 2014 May 1;124(5):2009-22 pm2geneload 2019-02-24', 'General J:223165 Li S, PLoS One 2014;9(8):e104107 mmh 2015-08-28', 'General J:240190 Ha Y, Am J Pathol 2017 Feb;187(2):352-365 wilmil 2017-04-24', 'Strain-Specific Marker J:62788 Meyer M, Cytogenet Cell Genet 2000;88(3-4):278-82 yz 2015-06-25', 'Strain-Specific Marker J:124878 Sierro F, Proc Natl Acad Sci U S A 2007 Sep 11;104(37):14759-64 yz 2015-06-25'])
+        self.assertEqual(sort, ['Type J:# Citation Modified By Date', 'General J:62788 Meyer M, Cytogenet Cell Genet 2000;88(3-4):278-82 pm2geneload 2019-03-31', 'General J:62835 Widney DP, J Immunol 2000 Jun 15;164(12):6322-31 pm2geneload 2019-03-31', 'General J:139937 Yates CC, Am J Pathol 2008 Sep;173(3):643-52 mmh 2009-06-24', 'General J:147166 Crawford MA, Infect Immun 2009 Apr;77(4):1664-78 csmith 2009-05-04', 'General J:212764 Zohar Y, J Clin Invest 2014 May 1;124(5):2009-22 pm2geneload 2019-03-31', 'General J:223165 Li S, PLoS One 2014;9(8):e104107 mmh 2015-08-28', 'General J:240190 Ha Y, Am J Pathol 2017 Feb;187(2):352-365 wilmil 2017-04-24', 'Strain-Specific Marker J:62788 Meyer M, Cytogenet Cell Genet 2000;88(3-4):278-82 yz 2015-06-25', 'Strain-Specific Marker J:124878 Sierro F, Proc Natl Acad Sci U S A 2007 Sep 11;104(37):14759-64 yz 2015-06-25'])
 
 
     def testMrkRefCiteSearch(self):
@@ -1202,7 +1254,7 @@ class TestMrkSearch(unittest.TestCase):
         """
         driver = self.driver
         #find the symbol field and enter the marker
-        driver.find_element_by_id("markerSymbol").send_keys("Cdk3-ps")
+        driver.find_element_by_id("markerSymbol").send_keys("Cdk3")
         #find the Search button and click it
         driver.find_element_by_id('searchButton').click()
         #find the AccIDs(other) tab and click it
@@ -1220,7 +1272,7 @@ class TestMrkSearch(unittest.TestCase):
         print sort
         wait.forAngular(self.driver)
         #locate the rows and assert the order is correct
-        self.assertEqual(sort, ['Acc Name AccID J:# Citation Modified By Date', 'ABA 69681 J:132069 Lein ES, 2008;(): aba_assocload 2012-01-20', 'Affy 1.0 ST 10382779 J:144086 Mouse Genome Informatics Scientific Curators, Database Download 2009;(): Affy_1.0_ST_assocload 2011-06-18', 'Affy 430 2.0 1460472_at J:144087 Mouse Genome Informatics Scientific Curators, Database Download 2009;(): Affy_430_2.0_assocload 2011-06-18', 'Affy U74 110085_at J:157972 Mouse Genome Informatics Scientific Curators, Database Download 2010;(): Affy_U74_assocload 2011-06-18', 'ArrayExpress MGI:1916931 J:153877 Ringwald M, MGI Direct Data Submission 2009;(): arrayexp_assocload 2016-11-14', 'Ensembl Gene Model ENSMUSG00000092300 J:91388 Mouse Genome Informatics Scientific Curators, 2005;(): ensembl_assocload 2019-02-02', 'Ensembl Protein ENSMUSP00000134251 J:91388 Mouse Genome Informatics Scientific Curators, 2005;(): ensembl_proteinassocload 2019-02-02', 'Ensembl Transcript ENSMUST00000173567 J:91388 Mouse Genome Informatics Scientific Curators, 2005;(): ensembl_transcriptassocload 2019-02-02', 'Ensembl Transcript ENSMUST00000174177 J:91388 Mouse Genome Informatics Scientific Curators, 2005;(): ensembl_transcriptassocload 2019-02-02', 'Ensembl Transcript ENSMUST00000174248 J:91388 Mouse Genome Informatics Scientific Curators, 2005;(): ensembl_transcriptassocload 2019-02-02', 'Entrez Gene 69681 J:63103 Mouse Genome Database and National Center for Biotechnology, Database Release 2000;(): entrezgene_load 2019-02-24', 'FuncBase 1916931 J:145067 Bult C, 2009;(): mousefunc_assocload 2015-04-25', 'NCBI Gene Model 69681 J:90438 Mouse Genome Informatics Scientific Curators, 2005;(): ncbi_assocload 2019-01-19', 'RefSeq NR_004853 J:63103 Mouse Genome Database and National Center for Biotechnology, Database Release 2000;(): entrezgene_load 2019-02-24', 'SWISS-PROT Q80YP0 J:53168 Bairoch A, Database Release 1999;(): uniprotload_assocload 2019-02-24', 'UniGene 33677 J:57747 MGI Genome Annotation Group and UniGene Staff, Database Download 2015;(): mgd_dbo 2015-04-26'])
+        self.assertEqual(sort, ['Acc Name AccID J:# Citation Modified By Date', 'ABA 69681 J:132069 Lein ES, 2008;(): aba_assocload 2012-01-20', 'Affy 1.0 ST 10382779 J:144086 Mouse Genome Informatics Scientific Curators, Database Download 2009;(): Affy_1.0_ST_assocload 2011-06-18', 'Affy 430 2.0 1460472_at J:144087 Mouse Genome Informatics Scientific Curators, Database Download 2009;(): Affy_430_2.0_assocload 2011-06-18', 'Affy U74 110085_at J:157972 Mouse Genome Informatics Scientific Curators, Database Download 2010;(): Affy_U74_assocload 2011-06-18', 'ArrayExpress MGI:1916931 J:153877 Ringwald M, MGI Direct Data Submission 2009;(): arrayexp_assocload 2016-11-14', 'Ensembl Gene Model ENSMUSG00000092300 J:91388 Mouse Genome Informatics Scientific Curators, 2005;(): ensembl_assocload 2019-02-02', 'Ensembl Protein ENSMUSP00000134251 J:91388 Mouse Genome Informatics Scientific Curators, 2005;(): ensembl_proteinassocload 2019-02-02', 'Ensembl Transcript ENSMUST00000173567 J:91388 Mouse Genome Informatics Scientific Curators, 2005;(): ensembl_transcriptassocload 2019-02-02', 'Ensembl Transcript ENSMUST00000174177 J:91388 Mouse Genome Informatics Scientific Curators, 2005;(): ensembl_transcriptassocload 2019-02-02', 'Ensembl Transcript ENSMUST00000174248 J:91388 Mouse Genome Informatics Scientific Curators, 2005;(): ensembl_transcriptassocload 2019-02-02', 'Entrez Gene 69681 J:63103 Mouse Genome Database and National Center for Biotechnology, Database Release 2000;(): entrezgene_load 2019-03-31', 'FuncBase 1916931 J:145067 Bult C, 2009;(): mousefunc_assocload 2015-04-25', 'NCBI Gene Model 69681 J:90438 Mouse Genome Informatics Scientific Curators, 2005;(): ncbi_assocload 2019-01-19', 'RefSeq NR_004853 J:63103 Mouse Genome Database and National Center for Biotechnology, Database Release 2000;(): entrezgene_load 2019-03-31', 'SWISS-PROT Q80YP0 J:53168 Bairoch A, Database Release 1999;(): uniprotload_assocload 2019-03-31', 'UniGene 33677 J:57747 MGI Genome Annotation Group and UniGene Staff, Database Download 2015;(): mgd_dbo 2015-04-26'])
 
             
 '''

@@ -57,6 +57,9 @@ class TestVarCopy(unittest.TestCase):
         @see pwi-var-copy-1 **under construction**
         """
         driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )
         #finds the allele ID field and enters a symbol
         driver.find_element_by_id("alleleID").send_keys('MGI:2670437')
         driver.find_element_by_id('searchButton').click()
@@ -77,18 +80,21 @@ class TestVarCopy(unittest.TestCase):
         @see pwi-var-copy-2 *under construction*
         """
         driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )
         #finds the allele ID field and enters a ID
-        driver.find_element_by_id("alleleID").send_keys('MGI:1861186')
+        driver.find_element_by_id("alleleID").send_keys('MGI:5563413')
         driver.find_element_by_id('searchButton').click()
         time.sleep(4)
         #checks if the Genomic sequence already exists, if not it will add it along with the other sequence data
-        if self.assertEqual(driver.find_element_by_id("srcDnaVersion").text, ""):
+        if "GRCm38(mm10)" not in self.driver.find_element_by_id("srcDnaVersion").get_attribute("value"):
             print "Sourced Genomic Version field is empty"
-            driver.find_element_by_id("srcDnaID").send_keys('GRCm38(mm10)')#add sourced Genomic data
+            driver.find_element_by_id("srcDnaVersion").send_keys('GRCm38(mm10)')#add sourced Genomic data
             time.sleep(2)
-            driver.find_element_by_id("srcDnaStart").send_keys('123')#add sourced Genomic start coordinate data
+            driver.find_element_by_id("srcDnaStart").send_keys('51782639')#add sourced Genomic start coordinate data
             WebDriverWait(driver, 10)
-            driver.find_element_by_id("srcDnaEnd").send_keys('123')#add sourced Genomic stop coordinate data
+            driver.find_element_by_id("srcDnaEnd").send_keys('51782639')#add sourced Genomic stop coordinate data
             WebDriverWait(driver, 10)
             driver.find_element_by_id("srcDnaRefAllele").send_keys('A')#add sourced Genomic Reference Allele data
             WebDriverWait(driver, 10)
@@ -98,7 +104,7 @@ class TestVarCopy(unittest.TestCase):
             WebDriverWait(driver, 10)
             
         WebDriverWait(driver, 10)
-        sgbld = driver.find_element_by_id("srcDnaID").get_attribute("value")#locate the sourced Genomic Genome Build field again
+        sgbld = driver.find_element_by_id("srcDnaVersion").get_attribute("value")#locate the sourced Genomic Genome Build field again
         time.sleep(4)
         #assert the correct Version is in the Sourced Genomic Genome Build field
         self.assertEqual(sgbld, 'GRCm38(mm10)')
@@ -106,7 +112,7 @@ class TestVarCopy(unittest.TestCase):
         driver.find_element_by_id('cpGenomicCoord').click()
         WebDriverWait(driver, 10)
         
-        cgbld = driver.find_element_by_id("curDnaID").get_attribute("value")#locate the curated Curated Genome Build field again
+        cgbld = driver.find_element_by_id("curDnaVersion").get_attribute("value")#locate the curated Curated Genome Build field again
         time.sleep(4)
         #assert the correct Version is in the curated Genome Build field
         self.assertEqual(cgbld, 'GRCm38(mm10)')   
@@ -118,8 +124,11 @@ class TestVarCopy(unittest.TestCase):
         @see pwi-var-copy-2 
         """
         driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )
         #finds the allele ID field and enters a ID
-        driver.find_element_by_id("alleleID").send_keys('MGI:1861186')
+        driver.find_element_by_id("alleleID").send_keys('MGI:5563413')
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         tid = self.driver.find_element_by_id("srcRnaID").get_attribute("value")
@@ -127,11 +136,11 @@ class TestVarCopy(unittest.TestCase):
         #checks if the transcript already exists, if not it will add it along with the other sequence data
         if "NM_009170" not in self.driver.find_element_by_id("srcRnaID").get_attribute("value"):
             print "Sourced Transcript field is empty"
-            driver.find_element_by_id("srcRnaID").send_keys('NM_009170')#add sourced Transcript data
+            driver.find_element_by_id("srcRnaID").send_keys('NM_009122')#add sourced Transcript data
             time.sleep(2)
-            driver.find_element_by_id("srcRnaStart").send_keys('123')#add sourced Transcript start coordinate data
+            driver.find_element_by_id("srcRnaStart").send_keys('51782639')#add sourced Transcript start coordinate data
             WebDriverWait(driver, 10)
-            driver.find_element_by_id("srcRnaEnd").send_keys('123')#add sourced Transcript stop coordinate data
+            driver.find_element_by_id("srcRnaEnd").send_keys('51782639')#add sourced Transcript stop coordinate data
             WebDriverWait(driver, 10)
             driver.find_element_by_id("srcRnaRefAllele").send_keys('A')#add sourced Transcript Reference Allele data
             WebDriverWait(driver, 10)
@@ -144,7 +153,7 @@ class TestVarCopy(unittest.TestCase):
         trans = driver.find_element_by_id("srcRnaID").get_attribute("value")#locate the sourced Transcript ID field again
         time.sleep(4)
         #assert the correct ID is in the Sourced Transcript ID field
-        self.assertEqual(trans, 'NM_009170')
+        self.assertEqual(trans, 'NM_009122')
         #Find the Sourced Transcript Coords button and click it
         driver.find_element_by_id('cpTranscriptCoord').click()
         WebDriverWait(driver, 10)
@@ -152,7 +161,7 @@ class TestVarCopy(unittest.TestCase):
         cur = driver.find_element_by_id("curRnaID").get_attribute("value")#locate the curated Transcript ID field again
         time.sleep(4)
         #assert the correct ID is in the curated Transcript ID field
-        self.assertEqual(cur, 'NM_009170')   
+        self.assertEqual(cur, 'NM_009122')   
 
     def testVarCopyCoords3(self):
         """
@@ -160,18 +169,21 @@ class TestVarCopy(unittest.TestCase):
         @see pwi-var-copy-2 
         """
         driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )
         #finds the allele ID field and enters a ID
-        driver.find_element_by_id("alleleID").send_keys('MGI:1861186')
+        driver.find_element_by_id("alleleID").send_keys('MGI:5563413')
         driver.find_element_by_id('searchButton').click()
         time.sleep(4)
         #checks if the Polypeptide already exists, if not it will add it along with the other sequence data
         if "NP_033196" not in self.driver.find_element_by_id("srcProteinID").get_attribute("value"):
             print "Sourced Polypeptide field is empty"
-            driver.find_element_by_id("srcProteinID").send_keys('NP_033196')#add sourced Polypeptide data
+            driver.find_element_by_id("srcProteinID").send_keys('Q8C2Q2')#add sourced Polypeptide data
             time.sleep(2)
-            driver.find_element_by_id("srcProteinStart").send_keys('123')#add sourced Polypeptide start coordinate data
+            driver.find_element_by_id("srcProteinStart").send_keys('51782639')#add sourced Polypeptide start coordinate data
             WebDriverWait(driver, 10)
-            driver.find_element_by_id("srcProteinEnd").send_keys('123')#add sourced Polypeptide stop coordinate data
+            driver.find_element_by_id("srcProteinEnd").send_keys('51782639')#add sourced Polypeptide stop coordinate data
             WebDriverWait(driver, 10)
             driver.find_element_by_id("srcProteinRefAllele").send_keys('A')#add sourced Polypeptide Reference Allele data
             WebDriverWait(driver, 10)
@@ -184,7 +196,7 @@ class TestVarCopy(unittest.TestCase):
         spoly = driver.find_element_by_id("srcProteinID").get_attribute("value")#locate the sourced Polypeptide ID field again
         time.sleep(2)
         #assert the correct ID is in the Sourced Polypeptide ID field
-        self.assertEqual(spoly, 'NP_033196')
+        self.assertEqual(spoly, 'Q8C2Q2')
         #Find the Sourced Polypeptide Coords button and click it
         driver.find_element_by_id('cpPolypeptideCoord').click()
         WebDriverWait(driver, 10)
@@ -192,33 +204,36 @@ class TestVarCopy(unittest.TestCase):
         cpoly = driver.find_element_by_id("curProteinID").get_attribute("value")#locate the curated Polypeptide ID field again
         time.sleep(2)
         #assert the correct ID is in the curated Polypeptide ID field
-        self.assertEqual(cpoly, 'NP_033196')   
+        self.assertEqual(cpoly, 'Q8C2Q2')   
 
         
     def testVarCopyAlleles1(self):
         """
         @Status tests that the Copy Alleles function works for sourced Genomic
-        @see pwi-var-copy-3 *under construction*
+        @see pwi-var-copy-3
         """
         driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )
         #finds the allele ID field and enters a ID
-        driver.find_element_by_id("alleleID").send_keys('MGI:1861186')
+        driver.find_element_by_id("alleleID").send_keys('MGI:5547989')
         driver.find_element_by_id('searchButton').click()
         time.sleep(4)
-        gid = self.driver.find_element_by_id("srcDnaID").get_attribute("value")
+        gid = self.driver.find_element_by_id("srcDnaVersion").get_attribute("value")
         print gid
         #checks if the Genomic sequence already exists, if not it will add it along with the other sequence data
-        if "GRCm38(mm10)" not in self.driver.find_element_by_id("srcDnaID").get_attribute("value"):
+        if "GRCm38(mm10)" not in self.driver.find_element_by_id("srcDnaVersion").get_attribute("value"):
             print "Sourced Genomic Version field is empty"
-            driver.find_element_by_id("srcDnaID").send_keys('GRCm38(mm10)')#add sourced Genomic data
+            driver.find_element_by_id("srcDnaVersion").send_keys('GRCm38(mm10)')#add sourced Genomic data
             time.sleep(2)
-            driver.find_element_by_id("srcDnaStart").send_keys('123')#add sourced Genomic start coordinate data
+            driver.find_element_by_id("srcDnaStart").send_keys('47016337')#add sourced Genomic start coordinate data
             WebDriverWait(driver, 10)
-            driver.find_element_by_id("srcDnaEnd").send_keys('123')#add sourced Genomic stop coordinate data
+            driver.find_element_by_id("srcDnaEnd").send_keys('47016337')#add sourced Genomic stop coordinate data
             WebDriverWait(driver, 10)
             driver.find_element_by_id("srcDnaRefAllele").send_keys('A')#add sourced Genomic Reference Allele data
             WebDriverWait(driver, 10)
-            driver.find_element_by_id("srcDnaVarAllele").send_keys('T')#add sourced Genomic Variant Allele data
+            driver.find_element_by_id("srcDnaVarAllele").send_keys('C')#add sourced Genomic Variant Allele data
             WebDriverWait(driver, 10)
             driver.find_element_by_id('updateVariantButton').click()#find the Modify button and click it
             WebDriverWait(driver, 10)
@@ -244,8 +259,11 @@ class TestVarCopy(unittest.TestCase):
         @see pwi-var-copy-3 
         """
         driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )
         #finds the allele ID field and enters a ID
-        driver.find_element_by_id("alleleID").send_keys('MGI:1861186')
+        driver.find_element_by_id("alleleID").send_keys('MGI:5547989')
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         tid = self.driver.find_element_by_id("srcRnaID").get_attribute("value")
@@ -253,25 +271,27 @@ class TestVarCopy(unittest.TestCase):
         #checks if the transcript already exists, if not it will add it along with the other sequence data
         if "NM_009170" not in self.driver.find_element_by_id("srcRnaID").get_attribute("value"):
             print "Sourced Transcript field is empty"
-            driver.find_element_by_id("srcRnaID").send_keys('NM_009170')#add sourced Transcript data
+            driver.find_element_by_id("srcRnaID").send_keys('NM_028966')#add sourced Transcript data
             time.sleep(2)
             driver.find_element_by_id("srcRnaStart").send_keys('123')#add sourced Transcript start coordinate data
-            WebDriverWait(driver, 10)
+            WebDriverWait(driver, 2)
             driver.find_element_by_id("srcRnaEnd").send_keys('123')#add sourced Transcript stop coordinate data
-            WebDriverWait(driver, 10)
+            WebDriverWait(driver, 2)
             driver.find_element_by_id("srcRnaRefAllele").send_keys('A')#add sourced Transcript Reference Allele data
-            WebDriverWait(driver, 10)
+            WebDriverWait(driver, 2)
             driver.find_element_by_id("srcRnaVarAllele").send_keys('T')#add sourced Transcript Variant Allele data
-            WebDriverWait(driver, 10)
-            driver.find_element_by_id('updateVariantButton').click()#find the Modify button and click it
-            WebDriverWait(driver, 10)
+            WebDriverWait(driver, 2)
+            #driver.find_element_by_id('updateVariantButton').click()#find the Modify button and click it
+            driver.find_element_by_id('createVariantButton').click()#find the Modify button and click it
+            WebDriverWait(driver, 2)
             
         WebDriverWait(driver, 10)
         transRef = driver.find_element_by_id("srcRnaRefAllele").get_attribute("value")#locate the sourced Transcript Reference Allele field again
         time.sleep(4)
         #assert the correct reference allele is in the Sourced Transcript Reference Allele field
         self.assertEqual(transRef, 'A')
-        #Find the Sourced Transcript Alleles button and click it
+        time.sleep(2)
+        #Find the Sourced Transcript Alleles copy  button and click it
         driver.find_element_by_id('cpTranscriptAlleles').click()
         WebDriverWait(driver, 10)
         
@@ -286,14 +306,17 @@ class TestVarCopy(unittest.TestCase):
         @see pwi-var-copy-3 
         """
         driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )
         #finds the allele ID field and enters a ID
-        driver.find_element_by_id("alleleID").send_keys('MGI:1861186')
+        driver.find_element_by_id("alleleID").send_keys('MGI:5547989')
         driver.find_element_by_id('searchButton').click()
         time.sleep(4)
         #checks if the Polypeptide already exists, if not it will add it along with the other sequence data
         if "NP_033196" not in self.driver.find_element_by_id("srcProteinID").get_attribute("value"):
             print "Sourced Polypeptide field is empty"
-            driver.find_element_by_id("srcProteinID").send_keys('NP_033196')#add sourced Polypeptide data
+            driver.find_element_by_id("srcProteinID").send_keys('NP_083242')#add sourced Polypeptide data
             time.sleep(2)
             driver.find_element_by_id("srcProteinStart").send_keys('123')#add sourced Polypeptide start coordinate data
             WebDriverWait(driver, 10)
@@ -326,6 +349,9 @@ class TestVarCopy(unittest.TestCase):
         @see pwi-var-copy-4
         """
         driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )
         #finds the allele ID field and enters a ID
         driver.find_element_by_id("alleleID").send_keys('MGI:5547989')
         driver.find_element_by_id('searchButton').click()
@@ -349,6 +375,9 @@ class TestVarCopy(unittest.TestCase):
         @see pwi-var-copy-5
         """
         driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )
         #finds the allele ID field and enters a ID
         driver.find_element_by_id("alleleID").send_keys('MGI:5547989')
         driver.find_element_by_id('searchButton').click()
@@ -357,8 +386,10 @@ class TestVarCopy(unittest.TestCase):
         self.assertFalse(driver.find_element_by_id('createVariantButton').is_enabled(), "Create button is enabled")
         #Find the Duplicate Variant button and click it
         driver.find_element_by_id('cpVariant').click()
-            
         WebDriverWait(driver, 10)
+        Asym = driver.find_element_by_id("alleleSymbol").get_attribute('value')#locate the Allele Symbol field and get it's text
+        #Assert the Allele Symbol field contains just the Marker symbol
+        self.assertEqual(Asym, 'Samd4', 'The marker symbol is not correct!')
         sstart = driver.find_element_by_id("curDnaStart").get_attribute("value")#locate the curated Genomic Start field
         time.sleep(4)
         #assert the Curated Genomic Start field is correct

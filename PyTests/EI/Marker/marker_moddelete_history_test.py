@@ -39,9 +39,73 @@ class TestMrkHistUpdateDelete(unittest.TestCase):
         self.driver = webdriver.Chrome()
         self.form = ModuleForm(self.driver)
         self.form.get_module(config.TEST_PWI_URL + "/edit/marker")
+        username = self.driver.find_element_by_name('user')#finds the user login box
+        username.send_keys(config.PWI_LOGIN) #enters the username
+        passwd = self.driver.find_element_by_name('password')#finds the password box
+        passwd.send_keys(config.PWI_PASSWORD) #enters a valid password
+        submit = self.driver.find_element_by_name("submit") #Find the Login button
+        submit.click() #click the login button
     
     def tearDown(self):
         self.driver.close()
+
+    def testSymbolHistoryAdd(self):
+        """
+        @Status tests that marker history add feature works
+        @see pwi-mrk-det-hist-add-1 
+        """
+        driver = self.driver
+        #finds the history symbol field and enters a symbol
+        driver.find_element_by_id("markerHistorySymbolID").send_keys('Shh')
+        driver.find_element_by_id('searchButton').click()
+        time.sleep(2)
+        #find the history results table
+        history_table = self.driver.find_element_by_id("historyTable")
+        table = Table(history_table)
+        #Iterate and print the search results column of Symbols
+        sym = table.get_column_cells('Symbol')
+        symbols = iterate.getTextAsList(sym)
+        print symbols
+        #Assert the correct marker symbols are returned
+        self.assertEqual(symbols, ['Symbol', 'Hhg1', 'Hhg1', 'Shh', 'Dsh', 'Dsh', 'Hx', 'Hx', 'Hxl3', 'Hxl3'])
+        #Find and click the History Add button
+        driver.find_element_by_id("addHistoryButton").click()
+        #find the Event pulldown list
+        select = Select(driver.find_element_by_id('markerAddHistoryEventID'))
+        #select the option you want by visible text
+        select.select_by_visible_text('deleted')
+        #find the Event Reason pulldown list
+        select = Select(driver.find_element_by_id('markerAddHistoryEventReasonID'))
+        #select the option you want by visible text
+        select.select_by_visible_text('problematic sequences')
+        #find the add history Symbol field and enter your symbol
+        driver.find_element_by_id('markerAddHistorySymbolID').send_keys('Dsh')
+        #find the add history Name field and enter your name
+        driver.find_element_by_id('markerAddHistoryNameID').send_keys('Test adding history')        
+        #find the add history J number field and enter your J number
+        driver.find_element_by_id('markerAddHistoryJnumID').send_keys('J:23000')
+        actionChains = ActionChains(driver)
+        actionChains.send_keys(Keys.TAB)
+        actionChains.perform()
+        WebDriverWait(self.driver, 20).until(
+            ec.element_to_be_clickable((By.ID, "addHistoryRowCommit"))
+            )
+        #find the Commit button and click it
+        driver.find_element_by_id('addHistoryRowCommit').click()
+        time.sleep(2)
+        #Find and click the modify button
+        driver.find_element_by_id('updateMarkerButton').click()
+        time.sleep(2)
+        #find the history results table
+        history_table = self.driver.find_element_by_id("historyTable")
+        table = Table(history_table)
+        #Iterate and print the search results column of Symbols
+        sym = table.get_column_cells('Symbol')
+        symbols = iterate.getTextAsList(sym)
+        print symbols
+        #Assert the correct marker symbols are returned
+        self.assertEqual(symbols, ['Symbol', 'Hhg1', 'Hhg1', 'Shh', 'Dsh', 'Dsh', 'Hx', 'Hx', 'Hxl3', 'Hxl3', 'Dsh'])
+        
         
     def testSymbolHistoryUpdate(self):
         """

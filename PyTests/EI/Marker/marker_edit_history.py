@@ -67,7 +67,7 @@ class TestMrkEditHist(unittest.TestCase):
         symbols = iterate.getTextAsList(sym)
         print symbols
         #Assert the correct marker symbols are returned for the first result(Pax1)
-        self.assertEqual(symbols, ['Symbol','Hhg1','Hhg1','Shh','Dsh','Hx','Hx','Hx','Hxl3','Hxl3'])
+        self.assertEqual(symbols, ['Symbol', 'Hhg1', 'Hhg1', 'Shh', 'Dsh', 'Dsh', 'Hx', 'Hx', 'Hxl3', 'Hxl3'])
         #find the search results table
         results_table = self.driver.find_element_by_id("resultsTableHeader")
         table = Table(results_table)
@@ -357,7 +357,7 @@ class TestMrkEditHist(unittest.TestCase):
         history_table = self.driver.find_element_by_id("historyTable")
         table = Table(history_table)
         #Iterate and print the search results column of Modified By
-        modby = table.get_column_cells('Modified By')
+        modby = table.get_column_cells('Mod By')
         modbys = iterate.getTextAsList(modby)
         print modbys
         #Assert the correct Modified By searched is returned for the first result(Cdk12)
@@ -386,7 +386,7 @@ class TestMrkEditHist(unittest.TestCase):
         history_table = self.driver.find_element_by_id("historyTable")
         table = Table(history_table)
         #Iterate and print the search results column of Modified By
-        modby = table.get_column_cells('Modified By')
+        modby = table.get_column_cells('Mod By')
         modbys = iterate.getTextAsList(modby)
         print modbys
         #Assert the correct Modified By searched is returned for the first result(Cdk12)
@@ -417,7 +417,7 @@ class TestMrkEditHist(unittest.TestCase):
         #click on the fifth row of data to set row to edit mode
         table.get_row(5).click()
         #find the symbol field of the 5th row and double click it to highlight and then send new text to the field all with actionChains
-        sym_field = table.get_cell(5, 1).click()
+        sym_field = table.get_cell(5, 2).click()
         actionChains = ActionChains(driver)        
         actionChains.double_click(sym_field)
         actionChains.send_keys('Hxl3')
@@ -433,7 +433,7 @@ class TestMrkEditHist(unittest.TestCase):
         #find the fifth row of data
         table.get_row(5)
         #find the symbol field of the 5th row 
-        sym_field = table.get_cell(5, 1)
+        sym_field = table.get_cell(5, 2)
         print sym_field.text
         #Assert the symbol field is now displaying the symbol Hxl3
         self.assertEqual('Hxl3', sym_field.text)
@@ -459,7 +459,7 @@ class TestMrkEditHist(unittest.TestCase):
         #click on the fifth row of data to set row to edit mode
         table.get_row(5).click()
         #find the symbol field of the 5th row and double click it to highlight and then send new text to the field all with actionChains
-        sym_field = table.get_cell(5, 1).click()
+        sym_field = table.get_cell(5, 2).click()
         actionChains = ActionChains(driver)        
         actionChains.double_click(sym_field)
         actionChains.send_keys('Dsh1')
@@ -491,7 +491,7 @@ class TestMrkEditHist(unittest.TestCase):
         #click on the fifth row of data to set row to edit mode
         table.get_row(5).click()
         #find the J# field of the 5th row and double click it to highlight and then send new text to the field all with actionChains
-        jnum_field = table.get_cell(5, 4).click()
+        jnum_field = table.get_cell(5, 5).click()
         actionChains = ActionChains(driver)        
         actionChains.double_click(jnum_field)
         actionChains.send_keys('13476')
@@ -507,7 +507,7 @@ class TestMrkEditHist(unittest.TestCase):
         #find the fifth row of data
         table.get_row(5)
         #find the symbol field of the 5th row and double click it to highlight and then send new text to the field all with actionChains
-        jnum_field = table.get_cell(5, 4)
+        jnum_field = table.get_cell(5, 5)
         #find the history results table
         history_table = self.driver.find_element_by_id("historyTable")
         table = Table(history_table)
@@ -535,7 +535,7 @@ class TestMrkEditHist(unittest.TestCase):
         #click on the sixth row of data to set row to edit mode
         table.get_row(6).click()
         #find the J# field of the 6th row and double click it to highlight and then send new text to the field all with actionChains
-        sym_field = table.get_cell(6, 4).click()
+        sym_field = table.get_cell(6, 5).click()
         actionChains = ActionChains(driver)        
         actionChains.double_click(sym_field)
         actionChains.send_keys('00000')

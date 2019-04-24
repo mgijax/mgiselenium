@@ -93,6 +93,9 @@ class TestVarAddDelete(unittest.TestCase):
         @see pwi-var-type-1, 4 / pwi-var-so-1
         """
         driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )
         #finds the allele ID field and enters the MGI ID for Samd4<m1Btlr>
         driver.find_element_by_id("alleleID").send_keys('MGI:5563413')
         driver.find_element_by_id('searchButton').click()
@@ -105,12 +108,12 @@ class TestVarAddDelete(unittest.TestCase):
         types_table = self.driver.find_element_by_id("soTable")
         table = Table(types_table)
         #Iterate and print the Types column
-        cell1 = table.get_column_cells('Effect')
+        cell1 = table.get_column_cells('Term')
         alltypes = iterate.getTextAsList(cell1)
         print alltypes
         wait.forAngular
         #assert the correct SO Types are listed in the correct order
-        self.assertEquals(alltypes, ['Effect', 'point_mutation', 'deletion', 'insertion', 'MNV', 'inversion', 'translocation', 'inversion_breakpoint', 'translocation_breakpoint', 'duplication', 'sequence_length_variant', 'complex_substitution', 'complex_structural_alteration'])
+        self.assertEquals(alltypes, ['Term', 'point_mutation', 'deletion', 'insertion', 'MNV', 'inversion', 'translocation', 'inversion_breakpoint', 'translocation_breakpoint', 'duplication', 'sequence_length_variant', 'complex_substitution', 'complex_structural_alteration'])
 
     def testVarEffectsPopup(self):
         """
@@ -118,6 +121,9 @@ class TestVarAddDelete(unittest.TestCase):
         @see pwi-var-type-6, 9 /pwi-var-so-4
         """
         driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )
         #finds the allele ID field and enters the MGI ID for Samd4<m1Btlr>
         driver.find_element_by_id("alleleID").send_keys('MGI:5563413')
         driver.find_element_by_id('searchButton').click()
@@ -130,12 +136,12 @@ class TestVarAddDelete(unittest.TestCase):
         effects_table = self.driver.find_element_by_id("soTable")
         table = Table(effects_table)
         #Iterate and print the Effect column
-        cell1 = table.get_column_cells('Effect')
+        cell1 = table.get_column_cells('Term')
         alleffects = iterate.getTextAsList(cell1)
         print alleffects
         wait.forAngular
         #assert the correct SO Effects are listed in the correct order
-        self.assertEquals(alleffects, ['Effect', 'missense_variant', 'stop_gained', 'stop_lost', 'start_lost', 'splice_acceptor_variant', 'splice_donor_variant', 'splice_region_variant', 'frameshift_variant', 'frameshift_truncation', 'frameshift_elongation', '5_prime_UTR_premature_start_codon_gain_variant', 'chromosome', 'chromosome_number_variation', 'coding_sequence_variant', 'coding_transcript_intron_variant', 'coding_transcript_variant', 'complex_substitution', 'conserved_intergenic_variant', 'conserved_intron_variant', 'direct_tandem_duplication', 'disruptive_inframe_deletion', 'disruptive_inframe_insertion', 'downstream_gene_variant', 'exon_loss_variant', 'exon_variant', 'feature_truncation', 'gene_variant', 'inframe_deletion', 'inframe_insertion', 'initiator_codon_variant', 'intergenic_region', 'intergenic_variant', 'internal_feature_elongation', 'intragenic_variant', 'intron_variant', 'miRNA', 'non_coding_transcript_exon_variant', 'non_coding_transcript_intron_variant', 'non_coding_transcript_variant', 'rare_amino_acid_variant', 'regulatory_region_variant', 'sequence_variant', 'splicing_variant', 'stop_retained_variant', 'structural_variant', 'synonymous_variant', 'transcript_ablation', 'transcript_variant', 'upstream_gene_variant'])        
+        self.assertEquals(alleffects, ['Term', 'missense_variant', 'stop_gained', 'stop_lost', 'start_lost', 'splice_acceptor_variant', 'splice_donor_variant', 'splice_region_variant', 'frameshift_variant', 'frameshift_truncation', 'frameshift_elongation', '5_prime_UTR_premature_start_codon_gain_variant', 'chromosome', 'chromosome_number_variation', 'coding_sequence_variant', 'coding_transcript_intron_variant', 'coding_transcript_variant', 'complex_substitution', 'conserved_intergenic_variant', 'conserved_intron_variant', 'direct_tandem_duplication', 'disruptive_inframe_deletion', 'disruptive_inframe_insertion', 'downstream_gene_variant', 'exon_loss_variant', 'exon_variant', 'feature_truncation', 'gene_variant', 'inframe_deletion', 'inframe_insertion', 'initiator_codon_variant', 'intergenic_region', 'intergenic_variant', 'internal_feature_elongation', 'intragenic_variant', 'intron_variant', 'miRNA', 'non_coding_transcript_exon_variant', 'non_coding_transcript_intron_variant', 'non_coding_transcript_variant', 'rare_amino_acid_variant', 'regulatory_region_variant', 'sequence_variant', 'splicing_variant', 'stop_retained_variant', 'structural_variant', 'synonymous_variant', 'transcript_ablation', 'transcript_variant', 'upstream_gene_variant'])        
 
     def testVarTypesPopupAdd(self):
         """
@@ -143,6 +149,9 @@ class TestVarAddDelete(unittest.TestCase):
         @see pwi-var-type-2 / pwi-var-so-2,7 
         """
         driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )
         #finds the allele ID field and enters the MGI ID for Samd4<m1Btlr>
         driver.find_element_by_id("alleleID").send_keys('MGI:5563413')
         driver.find_element_by_id('searchButton').click()
@@ -174,6 +183,9 @@ class TestVarAddDelete(unittest.TestCase):
         @see pwi-var-so-8  
         """
         driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )
         #finds the allele ID field and enters the MGI ID for Samd4<m1Btlr>
         driver.find_element_by_id("alleleID").send_keys('MGI:5563413')
         driver.find_element_by_id('searchButton').click()
@@ -203,6 +215,9 @@ class TestVarAddDelete(unittest.TestCase):
         @see pwi-var-so-5, 9 / pwi-var-effect-1 
         """
         driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )
         #finds the allele ID field and enters the MGI ID for Samd4<m1Btlr>
         driver.find_element_by_id("alleleID").send_keys('MGI:5563413')
         driver.find_element_by_id('searchButton').click()
@@ -233,6 +248,9 @@ class TestVarAddDelete(unittest.TestCase):
         @see pwi-var-so-10
         """
         driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )
         #finds the allele ID field and enters the MGI ID for Samd4<m1Btlr>
         driver.find_element_by_id("alleleID").send_keys('MGI:5563413')
         driver.find_element_by_id('searchButton').click()
@@ -263,6 +281,9 @@ class TestVarAddDelete(unittest.TestCase):
         @attention: This variant might have to be totally recreated upon a new data load, or just create it within this test
         """
         driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )
         #finds the allele ID field and enters the MGI ID for Samd4<m1Btlr>
         driver.find_element_by_id("alleleID").send_keys('MGI:3851923')
         driver.find_element_by_id('searchButton').click()
@@ -312,8 +333,11 @@ class TestVarAddDelete(unittest.TestCase):
         @attention: This variant might have to be totally recreated upon a new data load, or just create it within this test
         """
         driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )
         #finds the allele ID field and enters the MGI ID
-        driver.find_element_by_id("alleleID").send_keys('MGI:3851923')
+        driver.find_element_by_id("alleleID").send_keys('MGI:5563413')
         driver.find_element_by_id('searchButton').click()
         #waits until the page is displayed on the page    
         wait.forAngular(self.driver)   
@@ -325,11 +349,11 @@ class TestVarAddDelete(unittest.TestCase):
         symbols = iterate.getTextAsList(cells)
         print symbols
         #find the Transcript ID and click it
-        self.driver.find_element_by_link_text("NM_009170").click()
+        self.driver.find_element_by_link_text("XM_006519628").click()
         #switch focus to the newly opened page
         self.driver.switch_to_window(driver.window_handles[-1])
         #Assert the Transcript ID is displayed somewhere on this page.
-        assert "NM_009170" in self.driver.page_source
+        assert "XM_006519628" in self.driver.page_source
         #Assert you do not find "No items found" text on the page  
         assert "No items found" not in self.driver.page_source 
              
@@ -340,6 +364,9 @@ class TestVarAddDelete(unittest.TestCase):
         @attention: This variant might have to be totally recreated upon a new data load, or just create it within this test
         """
         driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )
         #finds the allele ID field and enters the MGI ID
         driver.find_element_by_id("alleleID").send_keys('MGI:3051902')
         driver.find_element_by_id('searchButton').click()
@@ -368,6 +395,9 @@ class TestVarAddDelete(unittest.TestCase):
         @attention: This variant might have to be totally recreated upon a new data load, or just create it within this test
         """
         driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )
         #finds the allele ID field and enters the MGI ID
         driver.find_element_by_id("alleleID").send_keys('MGI:1861186')
         driver.find_element_by_id('searchButton').click()
@@ -396,6 +426,9 @@ class TestVarAddDelete(unittest.TestCase):
         @attention: This variant might have to be totally recreated upon a new data load, or just create it within this test
         """
         driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )
         #finds the allele ID field and enters the MGI ID
         driver.find_element_by_id("alleleID").send_keys('MGI:1861186')
         driver.find_element_by_id('searchButton').click()
@@ -424,6 +457,9 @@ class TestVarAddDelete(unittest.TestCase):
         @attention: This variant might have to be totally recreated upon a new data load, or just create it within this test
         """
         driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )
         #finds the allele ID field and enters the MGI ID
         driver.find_element_by_id("alleleID").send_keys('MGI:3051902')
         driver.find_element_by_id('searchButton').click()

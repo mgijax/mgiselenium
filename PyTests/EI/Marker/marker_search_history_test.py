@@ -192,6 +192,35 @@ class TestMrkHistSearch(unittest.TestCase):
         #assert all the correct symbols are returned
         self.assertEquals(symbols, ['Pax3','Del(1)3H'])
 
+    def testJnumHistorySearch2(self):
+        """
+        @Status tests that a basic Marker History J number search works when the J: is not added
+        @see pwi-mrk-det-hist-search-6
+        """
+        driver = self.driver
+        #finds the J# field and enters a J number
+        driver.find_element_by_id("markerHistoryJNumID").send_keys('2944')
+        driver.find_element_by_id('searchButton').click()
+        time.sleep(2)
+        #find the history results table
+        history_table = self.driver.find_element_by_id("historyTable")
+        table = Table(history_table)
+        #Iterate and print the search results column of J#
+        sym = table.get_column_cells('J#')
+        jnums = iterate.getTextAsList(sym)
+        print jnums
+        #Assert the correct J# searched is returned for the first result(Pax1)
+        self.assertIn('J:2944', jnums)
+        #find the search results table
+        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        table = Table(results_table)
+        # print all rows
+        cells = table.get_rows()
+        symbols = iterate.getTextAsList(cells)
+        print symbols
+        #assert all the correct symbols are returned
+        self.assertEquals(symbols, ['Pax3','Del(1)3H'])
+
     def testCitationHistorySearch(self):
         """
         @Status tests that a basic Marker History Citation search works
@@ -343,7 +372,7 @@ class TestMrkHistSearch(unittest.TestCase):
         history_table = self.driver.find_element_by_id("historyTable")
         table = Table(history_table)
         #Iterate and print the search results column of Modified By
-        modby = table.get_column_cells('Modified By')
+        modby = table.get_column_cells('Mod By')
         modbys = iterate.getTextAsList(modby)
         print modbys
         #Assert the correct Modified By searched is returned for the first result(Cdk12)
@@ -372,7 +401,7 @@ class TestMrkHistSearch(unittest.TestCase):
         history_table = self.driver.find_element_by_id("historyTable")
         table = Table(history_table)
         #Iterate and print the search results column of Modified By
-        modby = table.get_column_cells('Modified By')
+        modby = table.get_column_cells('Mod By')
         modbys = iterate.getTextAsList(modby)
         print modbys
         #Assert the correct Modified By searched is returned for the first result(Cdk12)

@@ -49,6 +49,9 @@ class TestVarSearch(unittest.TestCase):
         @see pwi-var-search-1
         """
         driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )
         #finds the allele ID field and enters a symbol
         driver.find_element_by_id("alleleID").send_keys('MGI:2670437')
         driver.find_element_by_id('searchButton').click()
@@ -69,6 +72,9 @@ class TestVarSearch(unittest.TestCase):
         @see pwi-var-search-2
         """
         driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )
         #finds the allele symbol field and enters a symbol
         driver.find_element_by_id("alleleSymbol").send_keys('Cntn1<usl>')
         driver.find_element_by_id('searchButton').click()
@@ -89,6 +95,9 @@ class TestVarSearch(unittest.TestCase):
         @see pwi-var-search-3
         """
         driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )
         #finds the allele symbol field and enters a symbol
         driver.find_element_by_id("alleleSymbol").send_keys('Cntn%')
         driver.find_element_by_id('searchButton').click()
@@ -101,7 +110,7 @@ class TestVarSearch(unittest.TestCase):
         symbols = iterate.getTextAsList(cells)
         print symbols
         #assert all the correct symbols are returned
-        self.assertEquals(symbols, ['Cntn1<usl>', 'Cntnap1<M1Btlr>'])
+        self.assertEquals(symbols, ['Cntn1<m1J>', 'Cntn1<usl>', 'Cntnap1<M1Btlr>'])
 
     def testVarRefSearch(self):
         """
@@ -109,6 +118,9 @@ class TestVarSearch(unittest.TestCase):
         @see pwi-var-search-4 
         """
         driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )
         #finds the references field and enters a J number
         driver.find_element_by_id("jnumIDs").send_keys('J:13651')
         driver.find_element_by_id('searchButton').click()
@@ -129,6 +141,9 @@ class TestVarSearch(unittest.TestCase):
         @see pwi-var-search-5 currently broken!!!!!
         """
         driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )
         #finds the history symbol field and enters a symbol
         driver.find_element_by_id("jnumIDs").send_keys('J:203032, J:13651')
         driver.find_element_by_id('searchButton').click()
@@ -149,6 +164,9 @@ class TestVarSearch(unittest.TestCase):
         @see pwi-var-search-6
         """
         driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )
         #finds the chromosome field and enters a chromosome
         driver.find_element_by_id("chromosome").send_keys('X')
         driver.find_element_by_id('searchButton').click()
@@ -161,7 +179,7 @@ class TestVarSearch(unittest.TestCase):
         symbols = iterate.getTextAsList(cells)
         print symbols
         #assert all the correct symbols are returned
-        self.assertEquals(symbols, ['Atp11c<m1Btlr>','Atp11c<m2Btlr>','Foxp3<m1Btlr>','Pou3f4<sdl>','Was<tm1Itl>','Was<tm2Itl>','Yipf6<M1Btlr>','Zic3<Ka>'])
+        self.assertEquals(symbols, ['Arx<tm2Kki>', 'Arx<tm3Kki>', 'Arx<tm4Kki>', 'Arx<tm5Kki>', 'Atp11c<m1Btlr>', 'Atp11c<m2Btlr>', 'Ebp<Td>', 'Ebp<Td-ho>', 'Foxp3<m1Btlr>', 'G6pdx<a-m1Neu>', 'Kdm6a<tm2.1Kaig>', 'Mtm1<tm1Itl>', 'Phex<Hpr>', 'Phex<m1Jrt>', 'Phex<Mhdabap012>', 'Phex<Mhdabap024>', 'Phex<Pug>', 'Pou3f4<sdl>', 'Was<tm1Itl>', 'Was<tm2Itl>', 'Xiap<tm1Hs>', 'Yipf6<M1Btlr>', 'Zic3<Ka>'])
 
     def testVarStrandSearch(self):
         """
@@ -169,10 +187,13 @@ class TestVarSearch(unittest.TestCase):
         @see pwi-var-search-7 
         """
         driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )
         #finds the Strand field and enters a Strand
         driver.find_element_by_id("strand").send_keys('+')
         driver.find_element_by_id('searchButton').click()
-        time.sleep(2)
+        time.sleep(4)
         #find the search results table
         results_table = self.driver.find_element_by_id("resultsTableHeader")
         table = Table(results_table)
@@ -185,8 +206,8 @@ class TestVarSearch(unittest.TestCase):
         print row3.text
         #assert that the first 3 search results are correct
         self.assertEqual(row1.text, 'Acan<b2b183Clo>')
-        self.assertEqual(row2.text, 'Adamts6<b2b1879.1Clo>')
-        self.assertEqual(row3.text, 'Adamts6<b2b2029Clo>')
+        self.assertEqual(row2.text, 'Adad1<em1(IMPC)J>')
+        self.assertEqual(row3.text, 'Adamts6<b2b1879.1Clo>')
 
     def testVarWithHGVSSearch(self):
         """
@@ -194,6 +215,9 @@ class TestVarSearch(unittest.TestCase):
         @see pwi-var-search-8
         """
         driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )
         #finds the Allele ID field and enters an MGI ID
         driver.find_element_by_id("alleleID").send_keys('MGI:5705324')
         driver.find_element_by_id('searchButton').click()
@@ -211,6 +235,9 @@ class TestVarSearch(unittest.TestCase):
         @see pwi-var-search-9
         """
         driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )
         #finds the Allele ID field and enters an MGI ID
         driver.find_element_by_id("alleleID").send_keys('MGI:5705324')
         driver.find_element_by_id('searchButton').click()
@@ -228,6 +255,9 @@ class TestVarSearch(unittest.TestCase):
         @see pwi-var-search-11
         """
         driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )
         #finds the Allele ID field and enters an MGI ID
         driver.find_element_by_id("alleleID").send_keys('MGI:5491244')
         driver.find_element_by_id('searchButton').click()
@@ -247,14 +277,17 @@ class TestVarSearch(unittest.TestCase):
 
     def testVarStrandNegSearch(self):
         """
-        @Status tests that a variant Strand negative search has  the stand always with a red background
+        @Status tests that a variant Strand negative search has the stand always with a red background
         @see pwi-var-search-12 
         """
         driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )
         #finds the Strand field and enters a Strand
         driver.find_element_by_id("strand").send_keys('-')
         driver.find_element_by_id('searchButton').click()
-        time.sleep(2)
+        time.sleep(4)
         #Find the strand for the first result and verify it's background color
         rgb = driver.find_element_by_id('strand').value_of_css_property('background-color')
         print rgb
@@ -267,6 +300,9 @@ class TestVarSearch(unittest.TestCase):
         @see pwi-var-search-13
         """
         driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )
         #finds the Allele ID field and enters an MGI ID
         driver.find_element_by_id("alleleID").send_keys('MGI:5301876')
         driver.find_element_by_id('searchButton').click()
@@ -296,6 +332,9 @@ class TestVarSearch(unittest.TestCase):
         @see pwi-var-search-14, 16
         """
         driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )       
         #finds the Allele ID field and enters an MGI ID
         driver.find_element_by_id("alleleID").send_keys('MGI:5616147')
         driver.find_element_by_id('searchButton').click()
@@ -321,6 +360,9 @@ class TestVarSearch(unittest.TestCase):
         @see pwi-var-search-17
         """
         driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )
         #finds the Allele ID field and enters an MGI ID
         driver.find_element_by_id("alleleID").send_keys('MGI:5566856')
         driver.find_element_by_id('searchButton').click()
@@ -336,7 +378,7 @@ class TestVarSearch(unittest.TestCase):
         print row2.text
         print row3.text
         #assert that the search results are correct, this variant has a rather long Genomic ref
-        self.assertEqual(row3.text, 'GRCm38 122478668 122478680 TACACGCATCCCA C - -')
+        self.assertEqual(row3.text, 'GRCm38 122478667 122478680 CTACACGCATCCCA CC - -')
 
     def testVarGenomicVarSearch(self):
         """
@@ -344,6 +386,9 @@ class TestVarSearch(unittest.TestCase):
         @see pwi-var-search-18
         """
         driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )
         #finds the Allele ID field and enters an MGI ID
         driver.find_element_by_id("alleleID").send_keys('MGI:3838372')
         driver.find_element_by_id('searchButton').click()
@@ -367,6 +412,9 @@ class TestVarSearch(unittest.TestCase):
         @see pwi-var-search-19
         """
         driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )
         #finds the Sourced Genomic Genome Build pulldown list
         dropdown = Select(driver.find_element_by_id("srcDnaVersion"))
         print [o.text for o in dropdown.options]
