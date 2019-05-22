@@ -363,7 +363,7 @@ class TestSearch(unittest.TestCase):
         #print column 1
         symbols_cells = table.get_column_cells('Marker')
         symbols = iterate.getTextAsList(symbols_cells)
-        self.assertEqual(symbols, ['Marker', 'Hnf1a', 'Runx1', 'Timp1', 'Tnc'])
+        self.assertEqual(symbols, ['Marker', 'Dbn1', 'Hnf1a', 'Mup10', 'Mup19', 'Mup7', 'Pten', 'Runx1', 'Syp', 'Timp1', 'Tnc'])
                         
     def testModifiedBySearch(self):
         """
@@ -602,7 +602,7 @@ class TestSearch(unittest.TestCase):
         #puts an X in the first assay/age cell
         cell = table.get_cell(1,1)
         cell.click()
-        #puts an X in the eith assay row/fourth age cell
+        #puts an X in the eighth assay row/fourth age cell
         cell = table.get_cell(8,4)
         cell.click()
         wait.forAngular(driver)
@@ -620,7 +620,7 @@ class TestSearch(unittest.TestCase):
         #print column 1
         symbols_cells = table.get_column_cells('Marker')
         symbols = iterate.getTextAsList(symbols_cells)
-        self.assertIn("Musk",symbols)
+        self.assertIn("Eed",symbols)
         
         
             

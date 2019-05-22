@@ -67,7 +67,7 @@ class TestMrkEditHist(unittest.TestCase):
         symbols = iterate.getTextAsList(sym)
         print symbols
         #Assert the correct marker symbols are returned for the first result(Pax1)
-        self.assertEqual(symbols, ['Symbol', 'Hhg1', 'Hhg1', 'Shh', 'Dsh', 'Dsh', 'Hx', 'Hx', 'Hxl3', 'Hxl3'])
+        self.assertEqual(symbols, ['Symbol', 'Hhg1', 'Hhg1', 'Shh', 'Dsh', 'Hxl3', 'Hx', 'Hx', 'Hxl3', 'Hxl3'])
         #find the search results table
         results_table = self.driver.find_element_by_id("resultsTableHeader")
         table = Table(results_table)

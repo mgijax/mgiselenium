@@ -157,8 +157,7 @@ class TestShort(unittest.TestCase):
         print marker_symbol
         self.assertEqual(marker_symbol, 'Abca3')
         #finds the coded? field
-        is_coded = form.get_value('is_coded')
-        
+        is_coded = form.get_value('is_coded')        
         print is_coded
         self.assertEqual(is_coded, 'false')
         #finds the priority field
@@ -189,20 +188,12 @@ class TestShort(unittest.TestCase):
         table_element = driver.find_element_by_id("indexGrid")
         table = Table(table_element)
         #verifies there is an X in the Prot-sxn by age 18.5 box
-        cell = table.get_cell(5, 21)
+        cell = table.get_cell(1, 37)
         wait.forAngular(driver)
         self.assertEqual(cell.text, 'X', "the cell is checked")   
 
     def tearDown(self):
-        #driver = self.driver
-        #form = self.form
-        #form.click_clear()
-        #form.enter_value('jnumid', '225216')
-        #form.press_tab()
-        #form.enter_value('marker_symbol', 'Bmp2')
-        #form.press_tab()
-        #form.click_search()
-        #form.click_delete()
+
         self.report.WriteReportFooter()
         self.report.WriteToFile("GXDIndexEITestResults.html")
         self.driver.quit()

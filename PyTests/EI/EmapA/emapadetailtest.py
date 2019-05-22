@@ -157,7 +157,7 @@ class TestEmapaDetail(unittest.TestCase, EmapaBaseClass):
         self.assertEqual(items[0].text, "renal artery")
         self.assertEqual(items[1].text, "Theiler Stage 22 (13.5-15.0 dpc)")
         self.assertEqual(items[2].text, "EMAPS:2837322")
-        self.assertEqual(items[3].text.split("\n"), ["is-a artery","part-of arterial system","part-of renal arterial system","part-of renal large blood vessel","part-of renal vasculature", "part-of urinary system"])
+        self.assertEqual(items[3].text.split("\n"), ["is-a artery","part-of renal arterial system","part-of renal large blood vessel","part-of renal vasculature", "part-of urinary system"])
        
         
     def testMinimalStageLinks(self):

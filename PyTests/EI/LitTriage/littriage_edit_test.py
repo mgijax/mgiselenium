@@ -10,8 +10,11 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys 
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 import HTMLTestRunner
 import sys,os.path
+from selenium.webdriver.support.wait import WebDriverWait
 # adjust the path to find config
 sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../..',)
@@ -47,12 +50,15 @@ class TestLitEdit(unittest.TestCase):
     def testRefStatusEdit(self):
         """
         @Status tests that changing a "not routed" reference to "chosen" assigns it a J number
+        @attention: This test needs some work, not really working right as of now 05/14/19
         @see MBIB-edit-1,2 (1)
         """
         form = self.form
-        time.sleep(5)
+        form.enter_value('authors', 'Nakanura%')
         self.driver.find_element_by_id("status_AP_Not_Routed").click()
         form.click_search()
+        #time.sleep(5)
+        WebDriverWait(self.driver, 20).until(EC.presence_of_element_located((By.ID, "historyTable")))
         #finds the results table and iterates through the table
         table_element = self.driver.find_element_by_id("editTabWorkFlowStatus")
         table = Table(table_element)

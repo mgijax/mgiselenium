@@ -411,6 +411,8 @@ class TestLitSearch(unittest.TestCase):
                 option.click()
                 break
         form = self.form
+        form.enter_value('year', '2019')
+        form.enter_value('journal', 'glia')
         form.click_search() 
         #Confirms that the MGI Discard box is checked(selected)
         self.driver.find_element_by_id("editTabIsDiscard").is_selected()
@@ -519,7 +521,92 @@ class TestLitSearch(unittest.TestCase):
         self.assertEquals(go_cell2.text, "Indexed", 'GO is not indexed')
         print ap_cell1.text
         print go_cell2.text
-        
+
+    def testEditorsWildSearch(self):
+        """
+        @Status Tests that a search of Editors field using a wildcard returns the correct results
+        @See MBIB-search-60 
+        """
+        self.driver.find_element_by_id('book_author').send_keys('Macholan%')
+        form = self.form
+        form.click_search()
+        #finds the Tag list and verifies the required tag is listed.
+        table_element = self.driver.find_element_by_id("resultsTable")
+        table = Table(table_element)
+        #finds the J number column and returns all of this columns results
+        jnum_cells = table.get_column_cells(3)
+        jnums = iterate.getTextAsList(jnum_cells)
+        print jnums
+        self.assertEquals(jnums, ['', 'J:195038'])
+
+    def testBookTitleWildSearch(self):
+        """
+        @Status Tests that a search of Book Title field using a wildcard returns the correct results
+        @See MBIB-search-61 
+        """
+        self.driver.find_element_by_id('book_title').send_keys('Evoultion%')
+        form = self.form
+        form.click_search()
+        #finds the Tag list and verifies the required tag is listed.
+        table_element = self.driver.find_element_by_id("resultsTable")
+        table = Table(table_element)
+        #finds the J number column and returns all of this columns results
+        jnum_cells = table.get_column_cells(3)
+        jnums = iterate.getTextAsList(jnum_cells)
+        print jnums
+        self.assertEquals(jnums, ['', 'J:195038'])     
+
+    def testPlaceWildSearch(self):
+        """
+        @Status Tests that a search of Place field using a wildcard returns the correct results
+        @See MBIB-search-62 
+        """
+        self.driver.find_element_by_id('place').send_keys('Cambridge%')
+        form = self.form
+        form.click_search()
+        #finds the Tag list and verifies the required tag is listed.
+        table_element = self.driver.find_element_by_id("resultsTable")
+        table = Table(table_element)
+        #finds the J number column and returns all of this columns results
+        jnum_cells = table.get_column_cells(3)
+        jnums = iterate.getTextAsList(jnum_cells)
+        print jnums
+        self.assertEquals(jnums, ['', 'J:195038', 'J:31532', 'J:30784', 'J:30695'])     
+
+    def testPublisherWildSearch(self):
+        """
+        @Status Tests that a search of Publisher field using a wildcard returns the correct results
+        @See MBIB-search-63 
+        """
+        self.driver.find_element_by_id('publisher').send_keys('Cambridge%')
+        form = self.form
+        form.click_search()
+        #finds the Tag list and verifies the required tag is listed.
+        table_element = self.driver.find_element_by_id("resultsTable")
+        table = Table(table_element)
+        #finds the J number column and returns all of this columns results
+        jnum_cells = table.get_column_cells(3)
+        jnums = iterate.getTextAsList(jnum_cells)
+        print jnums
+        self.assertEquals(jnums, ['', 'J:195038', 'J:30695', 'J:19241'])     
+
+    def testEditionWildSearch(self):
+        """
+        @Status Tests that a search of Edition field using a wildcard returns the correct results
+        @See MBIB-search-64 
+        """
+        self.driver.find_element_by_id('series_ed').send_keys('Memoirs%')
+        form = self.form
+        form.click_search()
+        #finds the Tag list and verifies the required tag is listed.
+        table_element = self.driver.find_element_by_id("resultsTable")
+        table = Table(table_element)
+        #finds the J number column and returns all of this columns results
+        jnum_cells = table.get_column_cells(3)
+        jnums = iterate.getTextAsList(jnum_cells)
+        print jnums
+        self.assertEquals(jnums, ['', 'J:19241'])     
+                          
 '''
 def suite():
     suite = unittest.TestSuite()

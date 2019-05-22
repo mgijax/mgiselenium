@@ -333,7 +333,7 @@ class TestMrkSearch(unittest.TestCase):
         results_table = self.driver.find_element_by_id("resultsTableHeader")
         table = Table(results_table)
         # print row 1
-        cells = table.get_row(1)
+        cells = table.get_row(0)
         #print column 1
         print cells.text
         #assert the symbol is correct
@@ -395,10 +395,13 @@ class TestMrkSearch(unittest.TestCase):
         @see pwi-mrk-search-18(broken)
         """
         driver = self.driver
+        form = self.form
+        form.enter_value('accessionForm', 'MGI:87875')
+        form.click_search()
         #finds the accession ID field, enters an ID and hits the search button
-        driver.find_element_by_name("ids").send_keys("MGI:87875")
-        searchAcc = driver.find_element_by_xpath('[type=submit]').click()
-        searchAcc.submit()
+        #driver.find_element_by_name("ids").send_keys("MGI:87875")
+        #searchAcc = driver.find_element_by_xpath('[type=submit]').click()
+        #searchAcc.submit()
         time.sleep(10)
         #find the search results table
         results_table = self.driver.find_element_by_id("resultsTableHeader")
@@ -521,11 +524,11 @@ class TestMrkSearch(unittest.TestCase):
     def testAccIDWildSearch(self):
         """
         @Status tests that an Accession ID search using a wildcard works
-        @see pwi-mrk-search-23(broken)
+        @see pwi-mrk-search-23(broken) appears wildcards not allowed in accid search?
         """
         driver = self.driver
         #finds the accession ID field, enters an ID and hits the search button
-        driver.find_element_by_id("markerAccID").send_keys("MGD-MRK-890%")
+        driver.find_element_by_name("ids").send_keys("MGD-MRK-890%")
         driver.find_element_by_id('searchButton').click()
         time.sleep(4)
         #find the search results table
@@ -789,8 +792,8 @@ class TestMrkSearch(unittest.TestCase):
         self.assertEqual(cell0.text, 'Atxn7')
         self.assertEqual(cell1.text, 'Huc1')
         #Assert the correct Creation Date is returned in the Creation Date field
-        modifydate = driver.find_element_by_id('markerCreationDate').get_attribute('value')
-        self.assertEqual(modifydate, '2002-05-20')        
+        createdate = driver.find_element_by_id('markerCreationDate').get_attribute('value')
+        self.assertEqual(createdate, '2002-05-20')        
       
     def testCreateDateRangeSearch(self):
         """

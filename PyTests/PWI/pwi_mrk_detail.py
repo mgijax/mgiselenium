@@ -1,6 +1,9 @@
 '''
 Created on Jul 24, 2018
 These tests start out using the Marker form to display and test Marker Details
+@attention: All these tests need to be rewritten using the new Marker module!!!!!!!
+@attention: All these tests need to be rewritten using the new Marker module!!!!!!!
+@attention: All these tests need to be rewritten using the new Marker module!!!!!!!
 @author: jeffc
 '''
 
@@ -34,50 +37,44 @@ class TestPwiMrkDetail(unittest.TestCase):
         """
         driver = self.driver
         #opens the PWI marker form
-        driver.get(TEST_PWI_URL + '/edit/marker/MGI:96677')        
-        #nomenbox = driver.find_element(By.ID, 'nomen')
-        # put your marker symbol in the box
-        #nomenbox.send_keys("pax6")
-        #nomenbox.send_keys(Keys.RETURN)
-        #time.sleep(3)
-        #finds the marker link and clicks it
-        #driver.find_element(By.LINK_TEXT, "Pax6").click()
-        #time.sleep(2)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Alleles')))#waits until the results are displayed on the page by looking for the MGI ID to be displayed
-        mrk_symbol = driver.find_element(By.ID, 'mrkDetail_Symbol')#finds the marker symbol
-        print mrk_symbol.text    
-        mrk_id = driver.find_element(By.ID, 'mrkDetail_ID')#finds the marker ID
+        driver.get(TEST_PWI_URL + '/edit/marker/')  
+        time.sleep(2)
+        #find the Symbol field and enter the text      
+        driver.find_element(By.ID, 'markerSymbol').send_keys('Kit')
+        # Finf the search button and click it.
+        driver.find_element(By.ID, 'searchButton').click()
+        time.sleep(3)
+        #wait until the delete column of the history table is present
+        #WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.ID, 'deleteIconColumn')))
+        #WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'deleteIconColumn')))
+        mrk_symbol = driver.find_element(By.ID, 'markerSymbol')#finds the marker symbol
+        print mrk_symbol.text   
+        mrk_id = driver.find_element(By.ID, 'accIdQuery')#finds the marker ID
         print mrk_id.text
-        mrk_sec = driver.find_element(By.ID, 'mrkDetail_secondaryIDs')#finds the secondary IDs
-        print mrk_sec.text
-        mrk_status = driver.find_element(By.ID, 'mrkDetail_status')#finds the Marker status
+        mrk_status = driver.find_element(By.ID, 'markerStatus')#finds the Marker status
         print mrk_status.text
-        mrk_name = driver.find_element(By.ID, 'mrkDetail_name')#finds the Current Name
+        mrk_name = driver.find_element(By.ID, 'markerName')#finds the Current Name
         print mrk_name.text
-        mrk_syn = driver.find_element(By.ID, 'mrkDetail_synonyms')#finds the Synonymns
-        print mrk_syn.text
-        mrk_type = driver.find_element(By.ID, 'mrkDetail_mrkType')#finds the Marker Type
+        mrk_type = driver.find_element(By.ID, 'markerType')#finds the Marker Type
         print mrk_type.text
-        mrk_feature = driver.find_element(By.ID, 'mrkDetail_featureType')#finds the Feature Type
+        mrk_feature = driver.find_element(By.ID, 'featureTypeTable')#finds the Feature Type
         print mrk_feature.text
-        mrk_biotype = driver.find_element(By.ID, 'mrkDetail_biotypes')#finds the Biotypes
-        print mrk_biotype.text
-        mrk_location = driver.find_element(By.ID, 'mrkDetail_location')#finds the Location
-        print mrk_location.text
-        mrk_clip = driver.find_element(By.ID, 'mrkDetail_clip')#finds the Marker Detail Clip
-        print mrk_clip.text    
+        mrk_chrom = driver.find_element(By.ID, 'chromosome')#finds the Chromosome
+        print mrk_chrom.text
+        mrk_band = driver.find_element(By.ID, 'cytogeneticOffset')#finds the Cytogenetic band
+        print mrk_band.text
+        mrk_posit = driver.find_element(By.ID, 'cmOffset')#finds the Marker Detail cM position
+        print mrk_posit.text    
         #Verifies that the returned data is all correct for the 11 fields
-        self.assertEqual(mrk_symbol.text, 'Kit - Public Kit Page', 'The Symbol is not correct!')
+        #self.assertEqual(mrk_symbol.text, 'Kit', 'The Symbol is not correct!')
         self.assertEqual(mrk_id.text, 'MGI:96677', 'The MGI ID is not correct!')
-        self.assertEqual(mrk_sec.text, 'MGI:3530304, MGI:3530312, MGI:3530319', 'The secondary IDs are not correct!')
-        self.assertEqual(mrk_status.text, 'official', 'The Marker Status is not correct!')
+        self.assertEqual(mrk_status.text, 'Official', 'The Marker Status is not correct!')
         self.assertEqual(mrk_name.text, 'KIT proto-oncogene receptor tyrosine kinase', 'The Current Name is not correct!')
-        self.assertEqual(mrk_syn.text, 'CD117, Dominant white spotting, Gsfsco1, Gsfsco5, Gsfsow3, SCO1, SCO5, SOW3, Steel Factor Receptor, Tr-kit, belly-spot, c-KIT', 'The Marker Synonyms are not correct!')
         self.assertEqual(mrk_type.text, 'Gene', 'The Marker Type is not correct!')
-        self.assertEqual(mrk_feature.text, 'gene', 'The Marker Feature Type is not correct!')
-        self.assertEqual(mrk_biotype.text, '', 'The Marker Biotype is not correct!')
-        self.assertEqual(mrk_location.text, 'Chr5:75574987-75656722 bp, + strand From NCBI annotation of GRCm38', 'The Marker Location is not correct!')
-        self.assertEqual(mrk_clip.text, 'Mutations at this locus affect migration of embryonic stem cell populations, resulting in mild to severe impairments in hematopoiesis, and pigmentation. Some alleles are homozygous lethal, sterile, or result in the formation of gastrointestinal tumors.', 'The Marker Detail Clip is not correct!')
+        self.assertEqual(mrk_feature.text, 'protein coding gene', 'The Marker Feature Type is not correct!')
+        self.assertEqual(mrk_chrom.text, '5', 'The Chromosome is not correct!')
+        self.assertEqual(mrk_band.text, 'C', 'The Cytogenetic band is not correct!')
+        self.assertEqual(mrk_posit.text, '39.55', 'The cM Position is not correct!')
         
     def test_mrk_det_type_herit(self):
         """

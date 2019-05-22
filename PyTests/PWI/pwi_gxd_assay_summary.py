@@ -46,7 +46,7 @@ class TestAssaySummaryPage(unittest.TestCase):
         searchTextItems = iterate.getTextAsList(items)
         wait.forAjax(driver)
         #verifies all the table headings are correct and in order
-        self.assertEqual(searchTextItems, ['Result Details','Gene','Assay Type','Reference'])
+        self.assertEqual(searchTextItems, ['Result Details','Gene','Assay Type','Reference', 'Assay Notes'])
 
     def test_page_sort(self):
         """
@@ -100,12 +100,12 @@ class TestAssaySummaryPage(unittest.TestCase):
         self.assertEqual(row10.text, "MGI:5688754 Mtus1 Immunohistochemistry J:208450 Bundschu K, Dev Dyn 2014 May;243(5):699-711")
         self.assertEqual(row11.text, "MGI:5688745 Mtus1 RNA in situ J:208450 Bundschu K, Dev Dyn 2014 May;243(5):699-711")
         self.assertEqual(row12.text, "MGI:5688744 Mtus1 In situ reporter (knock in) J:208450 Bundschu K, Dev Dyn 2014 May;243(5):699-711")
-        self.assertEqual(row13.text, "MGI:5688692 Mtus1 RT-PCR J:208450 Bundschu K, Dev Dyn 2014 May;243(5):699-711")
-        self.assertEqual(row14.text, "MGI:5688694 Mtus1 RT-PCR J:208450 Bundschu K, Dev Dyn 2014 May;243(5):699-711")
-        self.assertEqual(row15.text, "MGI:5688695 Mtus1 RT-PCR J:208450 Bundschu K, Dev Dyn 2014 May;243(5):699-711")
-        self.assertEqual(row16.text, "MGI:5688696 Mtus1 RT-PCR J:208450 Bundschu K, Dev Dyn 2014 May;243(5):699-711")
-        self.assertEqual(row17.text, "MGI:5688697 Mtus1 RT-PCR J:208450 Bundschu K, Dev Dyn 2014 May;243(5):699-711")
-        self.assertEqual(row18.text, "MGI:5688698 Mtus1 RT-PCR J:208450 Bundschu K, Dev Dyn 2014 May;243(5):699-711")
+        self.assertEqual(row13.text, "MGI:5688692 Mtus1 RT-PCR J:208450 Bundschu K, Dev Dyn 2014 May;243(5):699-711 The primer set used in this assay is designed to amplify all three murine isoforms.")
+        self.assertEqual(row14.text, "MGI:5688694 Mtus1 RT-PCR J:208450 Bundschu K, Dev Dyn 2014 May;243(5):699-711 The primer set used in this assay is designed to amplify all three murine isoforms.")
+        self.assertEqual(row15.text, "MGI:5688695 Mtus1 RT-PCR J:208450 Bundschu K, Dev Dyn 2014 May;243(5):699-711 The primer set used in this assay is designed to amplify all three murine isoforms.")
+        self.assertEqual(row16.text, "MGI:5688696 Mtus1 RT-PCR J:208450 Bundschu K, Dev Dyn 2014 May;243(5):699-711 The primer set used in this assay is designed to amplify all three murine isoforms.")
+        self.assertEqual(row17.text, "MGI:5688697 Mtus1 RT-PCR J:208450 Bundschu K, Dev Dyn 2014 May;243(5):699-711 The primer set used in this assay is designed to amplify all three murine isoforms.")
+        self.assertEqual(row18.text, "MGI:5688698 Mtus1 RT-PCR J:208450 Bundschu K, Dev Dyn 2014 May;243(5):699-711 The primer set used in this assay is designed to amplify all three murine isoforms.")
         
         details = resultstable.find_elements_by_css_selector('td:nth-child(1)')
         detail1 = details[0]

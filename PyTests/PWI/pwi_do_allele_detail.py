@@ -53,12 +53,12 @@ class TestLitIndexByMrk(unittest.TestCase):
         data = driver.find_elements(By.TAG_NAME, 'a')
         print iterate.getTextAsList(data)#prints out almost all data found on this page, hopefully someday  I can figure out how to capture just the disease annotations section.
         time.sleep(5)
-        term1 = data[60]
-        doid1 = data[61]
-        ref1 = data[62]
-        term2 = data[63]
-        id2 = data[64]
-        ref2 = data[65]
+        term1 = data[64]
+        doid1 = data[65]
+        ref1 = data[66]
+        term2 = data[67]
+        id2 = data[68]
+        ref2 = data[69]
         #asserts that all the disease annotations are correct, but does not capture if a term is a NOT!
         self.assertEqual(term1.text, "aniridia")
         self.assertEqual(doid1.text, "DOID:12271")

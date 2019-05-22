@@ -209,7 +209,7 @@ class TestLitDetail(unittest.TestCase):
         #finds the Title field and return it's text value
         title = self.driver.find_element_by_id("editTabTitle").get_attribute('value')
         print title
-        self.assertEqual(title, 'Allotyping C<m>a and C<m>b DNA and RNA')
+        self.assertEqual(title, 'Allotyping C<m>a and C<m>b DNA and RNA,')
         
         
 '''

@@ -41,7 +41,7 @@ class TestTreeView(unittest.TestCase, EmapaBaseClass):
         # add all li text to a list for "assertIn" test
         searchTreeItems = iterate.getTextAsList(items)
         
-        self.assertEqual(["mouse", "body fluid or substance", "body region", "cavity or lining", "conceptus", "early embryo", "embryo", "extraembryonic component", "germ layer", "organ", "organ system", "tissue", "umbilical or vitelline vessel"], searchTreeItems)
+        self.assertEqual(["mouse", "body fluid or substance", "body region", "cavity or lining", "conceptus", "early embryo", "embryo", "extracellular matrix", "extraembryonic component", "germ layer", "organ", "organ system", "tissue", "umbilical or vitelline vessel"], searchTreeItems)
 
     def testSpecificStageTree(self):
         """
