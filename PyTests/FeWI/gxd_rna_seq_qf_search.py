@@ -374,8 +374,7 @@ class TestRnaSeqSearching(unittest.TestCase):
         geoid = self.driver.find_element_by_id('viewData0')
         print geoid.text
         self.assertEqual(geoid.text, "ArrayExpress: E-GEOD-41637\nGEO: GSE41637")
-        
-    
+           
     
     def tearDown(self):
         self.driver.close()

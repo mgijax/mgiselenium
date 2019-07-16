@@ -421,6 +421,24 @@ class TestVarSearch(unittest.TestCase):
         #assert that the search results are correct, this includes the table headings are correct as well
         self.assertEqual([o.text for o in dropdown.options], [u'', u'GRCm38 (mm10)\n       ', u'GRCm38.p12 \n       ', u'GRCm38.p11 \n       ', u'GRCm38.p10 \n       ', u'GRCm38.p9 \n       ', u'GRCm38.p8 \n       ', u'GRCm38.p7 \n       ', u'GRCm38.p6 \n       ', u'GRCm38.p5 \n       ', u'GRCm38.p4 \n       ', u'GRCm38.p3 \n       ', u'GRCm38.p2 \n       ', u'NCBI m37 (mm9)\n       ', u'NCBI m36 (mm8)\n       ', u'NCBI m35 (mm7)\n       ', u'NCBI m34 (mm6)\n       ', u'NCBI m33 (mm5)\n       ', u'NCBI m32 (mm4)\n       ', u'NCBI m30 (mm3)\n       ', u'MGSCv3 (mm2)\n       ', u'MGSCv2 (mm1)\n       ', u'Not Specified \n       '])
         
+    def testAllelelinkVarSearch(self):
+        """
+        @Status tests that a basic allele search has a link to it's allele detail page just above the variant table
+        @see pwi-var-detail-4
+        """
+        driver = self.driver
+        WebDriverWait(self.driver, 10).until(
+            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
+            )       
+        #finds the Allele ID field and enters an MGI ID
+        driver.find_element_by_id("alleleID").send_keys('MGI:3641255')
+        driver.find_element_by_id('searchButton').click()
+        time.sleep(2)
+        #find the Allele detail link above the variant table and locate the href text
+        allele_link = driver.find_element_by_partial_link_text('Myd88').get_attribute('href')
+        print allele_link
+        #Assert the href is correct
+        self.assertEqual(allele_link, 'http://prodwww.informatics.jax.org/pwi/detail/allele/MGI:3641255')
                 
 '''
 def suite():

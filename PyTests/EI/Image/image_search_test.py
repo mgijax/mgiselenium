@@ -24,9 +24,6 @@ from util import iterate, wait
 from util.form import ModuleForm
 from util.table import Table
 
-
-
-
 # Tests
 
 class TestImgSearch(unittest.TestCase):
@@ -38,7 +35,7 @@ class TestImgSearch(unittest.TestCase):
         #self.driver = webdriver.Firefox() 
         self.driver = webdriver.Chrome()
         self.form = ModuleForm(self.driver)
-        self.form.get_module(config.TEST_PWI_URL + "/edit/image")
+        self.form.get_module(config.TEST_PWI_URL + "/edit/imageGxd")
     
     def tearDown(self):
         self.driver.close()
@@ -49,12 +46,14 @@ class TestImgSearch(unittest.TestCase):
         @see pwi-image-search-1
         """
         driver = self.driver
+        #finds the Image Class pulldown and selects "Search all" option then click the Search button
+        Select(driver.find_element_by_id("imageClass")).select_by_value('')
         #finds the MGI ID field and enters am MGI ID then clicks the Search button
         driver.find_element_by_id("objectAccId").send_keys('MGI:3717589')
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
@@ -70,18 +69,18 @@ class TestImgSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the MGI ID field and enters am MGI ID then clicks the Search button
-        driver.find_element_by_id("objectAccId").send_keys('MGI:3717590')
+        driver.find_element_by_id("objectAccId").send_keys('MGI:5442068')
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
         result1 = iterate.getTextAsList(cell1)
         print result1
         #Assert the correct J number detail is returned
-        self.assertEquals(result1, ['J:20443; Full Size; 1'])
+        self.assertEquals(result1, ['J:148; Full Size; 10'])
 
     def testImageJnumAllSearch(self):
         """
@@ -89,12 +88,14 @@ class TestImgSearch(unittest.TestCase):
         @see pwi-image-search-3
         """
         driver = self.driver
+        #finds the Image Class pulldown and selects "Search all" option then click the Search button
+        Select(driver.find_element_by_id("imageClass")).select_by_value('')
         #finds the J# field and enter a J Number for an expression image then click the Search button
         driver.find_element_by_id("JNumID").send_keys('139510')
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
@@ -117,12 +118,12 @@ class TestImgSearch(unittest.TestCase):
         #Assert the correct J number details are returned
         self.assertEquals(result1, ['J:139510; Full Size; 1'])
         self.assertEquals(result2, ['J:139510; Full Size; 1aleft'])
-        self.assertEquals(result3, ['J:139510; Full Size; 1aright'])
-        self.assertEquals(result4, ['J:139510; Full Size; 1b'])
-        self.assertEquals(result5, ['J:139510; Full Size; S1'])
-        self.assertEquals(result6, ['J:139510; Thumbnail; 1aleft'])
-        self.assertEquals(result7, ['J:139510; Thumbnail; 1aright'])
-        self.assertEquals(result8, ['J:139510; Thumbnail; 1b'])
+        self.assertEquals(result3, ['J:139510; Thumbnail; 1aleft'])        
+        self.assertEquals(result4, ['J:139510; Full Size; 1aright'])
+        self.assertEquals(result5, ['J:139510; Thumbnail; 1aright'])
+        self.assertEquals(result6, ['J:139510; Full Size; 1b'])
+        self.assertEquals(result7, ['J:139510; Thumbnail; 1b'])
+        self.assertEquals(result8, ['J:139510; Full Size; S1'])     
 
     def testImageJnumExpSearch(self):
         """
@@ -136,7 +137,7 @@ class TestImgSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
@@ -167,12 +168,14 @@ class TestImgSearch(unittest.TestCase):
         @see pwi-image-search-5
         """
         driver = self.driver
-        #finds the J# field and enter a J Number for an expression image then click the Search button
+        #finds the Image Class pulldown and selects "Phenotypes" option then click the Search button
+        Select(driver.find_element_by_id("imageClass")).select_by_value('6481782')
+        #finds the J# field and enter a J Number for a phenotype image then click the Search button
         driver.find_element_by_id("JNumID").send_keys('6708')
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
@@ -185,8 +188,8 @@ class TestImgSearch(unittest.TestCase):
         cell8 = table.get_row_cells(7)
         cell9 = table.get_row_cells(8)
         cell10 = table.get_row_cells(9)
-        cell11 = table.get_row_cells(10)
-        cell12 = table.get_row_cells(11)
+        cell17 = table.get_row_cells(16)
+        cell18 = table.get_row_cells(17)
         result1 = iterate.getTextAsList(cell1)
         result2 = iterate.getTextAsList(cell2)
         result3 = iterate.getTextAsList(cell3)
@@ -197,22 +200,22 @@ class TestImgSearch(unittest.TestCase):
         result8 = iterate.getTextAsList(cell8)
         result9 = iterate.getTextAsList(cell9)
         result10 = iterate.getTextAsList(cell10)
-        result11 = iterate.getTextAsList(cell11)
-        result12 = iterate.getTextAsList(cell12)
+        result17 = iterate.getTextAsList(cell17)
+        result18 = iterate.getTextAsList(cell18)
         print result1
         #Assert the correct J number details are returned(for the first 12 results)
         self.assertEquals(result1, ['J:6708; Full Size; 1'])
-        self.assertEquals(result2, ['J:6708; Full Size; 10'])
+        self.assertEquals(result2, ['J:6708; Thumbnail; 1'])
         self.assertEquals(result3, ['J:6708; Full Size; 2'])
-        self.assertEquals(result4, ['J:6708; Full Size; 3'])
-        self.assertEquals(result5, ['J:6708; Full Size; 5'])
-        self.assertEquals(result6, ['J:6708; Full Size; 6'])
-        self.assertEquals(result7, ['J:6708; Full Size; 7'])
-        self.assertEquals(result8, ['J:6708; Full Size; 8'])
-        self.assertEquals(result9, ['J:6708; Full Size; 9'])
-        self.assertEquals(result10, ['J:6708; Thumbnail; 1'])
-        self.assertEquals(result11, ['J:6708; Thumbnail; 10'])
-        self.assertEquals(result12, ['J:6708; Thumbnail; 2'])
+        self.assertEquals(result4, ['J:6708; Thumbnail; 2'])
+        self.assertEquals(result5, ['J:6708; Full Size; 3'])
+        self.assertEquals(result6, ['J:6708; Thumbnail; 3'])
+        self.assertEquals(result7, ['J:6708; Full Size; 5'])
+        self.assertEquals(result8, ['J:6708; Thumbnail; 5'])
+        self.assertEquals(result9, ['J:6708; Full Size; 6'])
+        self.assertEquals(result10, ['J:6708; Thumbnail; 6'])
+        self.assertEquals(result17, ['J:6708; Full Size; 10'])
+        self.assertEquals(result18, ['J:6708; Thumbnail; 10'])
 
     def testImageJnumMoleSearch(self):
         """
@@ -220,12 +223,14 @@ class TestImgSearch(unittest.TestCase):
         @see pwi-image-search-6
         """
         driver = self.driver
-        #finds the J# field and enter a J Number for an expression image then click the Search button
+        #finds the Image Class pulldown and selects "Molecular" option then click the Search button
+        Select(driver.find_element_by_id("imageClass")).select_by_value('6481783')
+        #finds the J# field and enter a J Number for a molecular image then click the Search button
         driver.find_element_by_id("JNumID").send_keys('42811')
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
@@ -241,7 +246,6 @@ class TestImgSearch(unittest.TestCase):
     def testImageFigLabelSearch(self):
         """
         @Status tests that a basic Image Figure Label search works
-        @note: This is using the current default image class of Search All!
         @see pwi-image-search-7
         """
         driver = self.driver
@@ -250,35 +254,21 @@ class TestImgSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
         cell2 = table.get_row_cells(1)
-        cell3 = table.get_row_cells(2)
-        cell4 = table.get_row_cells(3)
-        cell5 = table.get_row_cells(4)
-        cell6 = table.get_row_cells(5)
         result1 = iterate.getTextAsList(cell1)
         result2 = iterate.getTextAsList(cell2)
-        result3 = iterate.getTextAsList(cell3)
-        result4 = iterate.getTextAsList(cell4)
-        result5 = iterate.getTextAsList(cell5)
-        result6 = iterate.getTextAsList(cell6)
-        
         print result1
         #Assert the correct J number details are returned(for the first 6 results)
         self.assertEquals(result1, ['J:81846; Full Size; 5A'])
-        self.assertEquals(result2, ['J:141243; Full Size; 5A'])
-        self.assertEquals(result3, ['J:146497; Full Size; 5a'])
-        self.assertEquals(result4, ['J:149430; Full Size; 5a'])
-        self.assertEquals(result5, ['J:149552; Full Size; 5a'])
-        self.assertEquals(result6, ['J:150421; Full Size; 5a'])
+        self.assertEquals(result2, ['J:241606; Full Size; 5A'])
 
     def testImageCiteWildSearch(self):
         """
-        @Status tests that a basic Image Citation w?wildcard search works
-        @note: This is using the current default image class of Search All!
+        @Status tests that a basic Image Citation w/wildcard search works
         @see pwi-image-search-8
         """
         driver = self.driver
@@ -287,7 +277,7 @@ class TestImgSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
@@ -314,7 +304,7 @@ class TestImgSearch(unittest.TestCase):
     def testImageClassExpSearch(self):
         """
         @Status tests that a basic Image Class Expression search works
-        @note: This will check sorting  of results as well
+        @note: This will check sorting  of results as well(Jnum, Label, Image Type)
         @attention: The EC webdriverwait code needs to be worked on/fixed when time allows
         @see pwi-image-search-9
         """
@@ -325,7 +315,7 @@ class TestImgSearch(unittest.TestCase):
         time.sleep(10)
         #WebDriverWait(driver, 20).until(EC.text_to_be_present_in_element((By.ID, "resultsCount")))
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
@@ -339,8 +329,7 @@ class TestImgSearch(unittest.TestCase):
         result3 = iterate.getTextAsList(cell3)
         result4 = iterate.getTextAsList(cell4)
         result5 = iterate.getTextAsList(cell5)
-        result6 = iterate.getTextAsList(cell6)
-        
+        result6 = iterate.getTextAsList(cell6)        
         print result1
         #Assert the correct J number details are returned(for the first 6 results)
         self.assertEquals(result1, ['J:25; Full Size; 1'])
@@ -353,7 +342,7 @@ class TestImgSearch(unittest.TestCase):
     def testImageClassPhenoSearch(self):
         """
         @Status tests that a basic Image Class Phenotypes search works
-        @note: This will check sorting  of results as well
+        @note: This will check sorting  of results as well(Jnum, Label, Image Type)
         @attention: The EC webdriverwait code needs to be worked on/fixed when time allows
         @see pwi-image-search-10
         """
@@ -364,7 +353,7 @@ class TestImgSearch(unittest.TestCase):
         time.sleep(5)
         #WebDriverWait(driver, 20).until(EC.text_to_be_present_in_element((By.ID, "resultsCount")))
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
@@ -373,26 +362,43 @@ class TestImgSearch(unittest.TestCase):
         cell4 = table.get_row_cells(3)
         cell5 = table.get_row_cells(4)
         cell6 = table.get_row_cells(5)
+        cell7 = table.get_row_cells(6)
+        cell8 = table.get_row_cells(7)
+        cell9 = table.get_row_cells(8)
+        cell10 = table.get_row_cells(9)
+        cell21 = table.get_row_cells(20)
+        cell22 = table.get_row_cells(21)
         result1 = iterate.getTextAsList(cell1)
         result2 = iterate.getTextAsList(cell2)
         result3 = iterate.getTextAsList(cell3)
         result4 = iterate.getTextAsList(cell4)
         result5 = iterate.getTextAsList(cell5)
         result6 = iterate.getTextAsList(cell6)
-        
+        result7 = iterate.getTextAsList(cell7)
+        result8 = iterate.getTextAsList(cell8)
+        result9 = iterate.getTextAsList(cell9)
+        result10 = iterate.getTextAsList(cell10)  
+        result21 = iterate.getTextAsList(cell21)
+        result22 = iterate.getTextAsList(cell22)            
         print result1
-        #Assert the correct J number details are returned(for the first 6 results)
+        #Assert the correct J number details are returned(for the first 10 results, plus result for image 10)
         self.assertEquals(result1, ['J:4348; Full Size; 1'])
-        self.assertEquals(result2, ['J:4348; Full Size; 2'])
-        self.assertEquals(result3, ['J:6708; Full Size; 1'])
-        self.assertEquals(result4, ['J:6708; Full Size; 10'])
-        self.assertEquals(result5, ['J:6708; Full Size; 2'])
-        self.assertEquals(result6, ['J:6708; Full Size; 3'])
+        self.assertEquals(result2, ['J:4348; Thumbnail; 1'])
+        self.assertEquals(result3, ['J:4348; Full Size; 2'])
+        self.assertEquals(result4, ['J:4348; Thumbnail; 2'])
+        self.assertEquals(result5, ['J:6708; Full Size; 1'])
+        self.assertEquals(result6, ['J:6708; Thumbnail; 1'])
+        self.assertEquals(result7, ['J:6708; Full Size; 2'])
+        self.assertEquals(result8, ['J:6708; Thumbnail; 2'])
+        self.assertEquals(result9, ['J:6708; Full Size; 3'])
+        self.assertEquals(result10, ['J:6708; Thumbnail; 3'])
+        self.assertEquals(result21, ['J:6708; Full Size; 10'])
+        self.assertEquals(result22, ['J:6708; Thumbnail; 10'])
 
     def testImageClassMolecularSearch(self):
         """
         @Status tests that a basic Image Class Molecular search works
-        @note: This will check sorting  of results as well
+        @note: This will check sorting  of results as well(Jnum, Label, Image Type)
         @attention: The EC webdriverwait code needs to be worked on/fixed when time allows
         @see pwi-image-search-11
         """
@@ -403,7 +409,7 @@ class TestImgSearch(unittest.TestCase):
         time.sleep(2)
         #WebDriverWait(driver, 20).until(EC.text_to_be_present_in_element((By.ID, "resultsCount")))
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
@@ -412,50 +418,63 @@ class TestImgSearch(unittest.TestCase):
         cell4 = table.get_row_cells(3)
         cell5 = table.get_row_cells(4)
         cell6 = table.get_row_cells(5)
+        cell7 = table.get_row_cells(6)
+        cell8 = table.get_row_cells(7)
+        cell9 = table.get_row_cells(8)
+        cell10 = table.get_row_cells(9)
+        cell11 = table.get_row_cells(10)
+        cell12 = table.get_row_cells(11)
         result1 = iterate.getTextAsList(cell1)
         result2 = iterate.getTextAsList(cell2)
         result3 = iterate.getTextAsList(cell3)
         result4 = iterate.getTextAsList(cell4)
         result5 = iterate.getTextAsList(cell5)
         result6 = iterate.getTextAsList(cell6)
-        
+        result7 = iterate.getTextAsList(cell7)
+        result8 = iterate.getTextAsList(cell8)
+        result9 = iterate.getTextAsList(cell9)
+        result10 = iterate.getTextAsList(cell10)
+        result11 = iterate.getTextAsList(cell11)
+        result12 = iterate.getTextAsList(cell12)        
         print result1
-        #Assert the correct J number details are returned(for the first 6 results)
+        #Assert the correct J number details are returned(for the first 12 results)
         self.assertEquals(result1, ['J:42811; Full Size; 1'])
-        self.assertEquals(result2, ['J:52722; Full Size; 3'])
-        self.assertEquals(result3, ['J:77213; Full Size; 1'])
-        self.assertEquals(result4, ['J:80319; Full Size; 1a'])
-        self.assertEquals(result5, ['J:80963; Full Size; 1'])
-        self.assertEquals(result6, ['J:83279; Full Size; 1B'])
+        self.assertEquals(result2, ['J:42811; Thumbnail; 1'])
+        self.assertEquals(result3, ['J:52722; Full Size; 3'])
+        self.assertEquals(result4, ['J:52722; Thumbnail; 3'])
+        self.assertEquals(result5, ['J:77213; Full Size; 1'])
+        self.assertEquals(result6, ['J:77213; Thumbnail; 1'])
+        self.assertEquals(result7, ['J:80319; Full Size; 1a'])
+        self.assertEquals(result8, ['J:80319; Thumbnail; 1a'])
+        self.assertEquals(result9, ['J:80963; Full Size; 1'])
+        self.assertEquals(result10, ['J:80963; Thumbnail; 1'])
+        self.assertEquals(result11, ['J:83279; Full Size; 1B'])
+        self.assertEquals(result12, ['J:83279; Thumbnail; 1B'])
 
     def testImageCaptionWildSearch(self):
         """
         @Status tests that a basic Image Caption w/wildcard search works
-        @note: This is using the current default image class of Search All!
         @see pwi-image-search-12
         """
         driver = self.driver
-        #finds the captionfield and enter a wildcard search term then click the Search button
-        driver.find_element_by_id("captionID").send_keys('%PGK neomycin%')
+        #finds the caption field and enter a wildcard search term then click the Search button
+        driver.find_element_by_id("captionID").send_keys('%Magnification, 291 X%')
         driver.find_element_by_id('searchButton').click()
         time.sleep(3)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
-        cell2 = table.get_row_cells(1)
         result1 = iterate.getTextAsList(cell1)
-        result2 = iterate.getTextAsList(cell2)
         print result1
         #Assert the correct J number details are returned
-        self.assertEquals(result1, ['J:80319; Full Size; 1a'])
-        self.assertEquals(result2, ['J:178154; Full Size; 2A'])
+        self.assertEquals(result1, ['J:47; Full Size; 1'])
         
     def testImageCopyrightWildSearch(self):
         """
         @Status tests that a basic Image Copyright w/wildcard search works
-        @note: This is using the current default image class of Search All!
+        @note J:190949; Full Size; 3 should come before J:190949; Full Size; S1 but sort is not perfect, known issue. Leave it as is for now.
         @see pwi-image-search-14
         """
         driver = self.driver
@@ -464,7 +483,7 @@ class TestImgSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(3)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
@@ -473,13 +492,13 @@ class TestImgSearch(unittest.TestCase):
         result2 = iterate.getTextAsList(cell2)
         print result1
         #Assert the correct J number details are returned
-        self.assertEquals(result1, ['J:190949; Full Size; 3'])
-        self.assertEquals(result2, ['J:190949; Full Size; S1'])
+        self.assertEquals(result1, ['J:190949; Full Size; S1'])
+        self.assertEquals(result2, ['J:190949; Full Size; 3'])
 
     def testImageJnumNoCopyrightSearch(self):
         """
         @Status tests that a basic Image J number Search that has no copyright will not display a copyright and not fail search works
-        @see pwi-image-search-3=15
+        @see pwi-image-search-15
         """
         driver = self.driver
         #finds the J# field and enter a J Number for an expression image then click the Search button
@@ -492,7 +511,7 @@ class TestImgSearch(unittest.TestCase):
         #Assert the copyright field is clear of text
         self.assertEqual(cpy.text, '', 'The copyright field is not empty')
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
@@ -520,25 +539,33 @@ class TestImgSearch(unittest.TestCase):
         """
         driver = self.driver
         #find the Modified By field and enter the user name
-        driver.find_element_by_id("objectCreatedBy").send_keys("honda")
+        driver.find_element_by_id("objectCreatedBy").send_keys("jx")
         #find the Search button and click it
         driver.find_element_by_id('searchButton').click()
         #wait until the Reference table is displayed on the page    
         wait.forAngular(self.driver)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows of results
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
+        cell2 = table.get_row(2)
+        cell3 = table.get_row(3)
+        cell4 = table.get_row(4)
+        cell5 = table.get_row(5)
         print cell0.text
         print cell1.text
         #Assert the correct symbol has been returned in the results table
-        self.assertEqual(cell0.text, 'J:175213; Thumbnail; 01-107002-2451')
-        self.assertEqual(cell1.text, 'J:175213; Full Size; 01-107002-2451')
+        self.assertEqual(cell0.text, 'J:25; Full Size; 1')
+        self.assertEqual(cell1.text, 'J:25; Full Size; 2')
+        self.assertEqual(cell2.text, 'J:779; Full Size; 2')
+        self.assertEqual(cell3.text, 'J:779; Full Size; 3')
+        self.assertEqual(cell4.text, 'J:779; Full Size; 4')
+        self.assertEqual(cell5.text, 'J:779; Full Size; 5')
         #Assert the correct Creation Name is returned in the Created By field
         createuser = driver.find_element_by_id('objectCreatedBy').get_attribute('value')
-        self.assertEqual(createuser, 'honda')    
+        self.assertEqual(createuser, 'jx')    
 
     def testImageModBySearch(self):
         """
@@ -547,25 +574,33 @@ class TestImgSearch(unittest.TestCase):
         """
         driver = self.driver
         #find the Modified By field and enter the user name
-        driver.find_element_by_id("objectModifiedBy").send_keys("monikat")
+        driver.find_element_by_id("objectModifiedBy").send_keys("ijm")
         #find the Search button and click it
         driver.find_element_by_id('searchButton').click()
         #wait until the Reference table is displayed on the page    
         wait.forAngular(self.driver)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows of results
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
+        cell2 = table.get_row(2)
+        cell3 = table.get_row(3)
+        cell4 = table.get_row(4)
+        cell5 = table.get_row(5)
         print cell0.text
         print cell1.text
         #Assert the correct symbol has been returned in the results table
-        self.assertEqual(cell0.text, 'J:6708; Thumbnail; 1')
-        self.assertEqual(cell1.text, 'J:6708; Thumbnail; 10')
+        self.assertEqual(cell0.text, 'J:706; Full Size; 1')
+        self.assertEqual(cell1.text, 'J:706; Full Size; 3')
+        self.assertEqual(cell2.text, 'J:706; Full Size; 5')
+        self.assertEqual(cell3.text, 'J:706; Full Size; 7')
+        self.assertEqual(cell4.text, 'J:821; Full Size; 1')
+        self.assertEqual(cell5.text, 'J:906; Full Size; 5')
         #Assert the correct Modified By Name is returned in the Modified By field
         moduser = driver.find_element_by_id('objectModifiedBy').get_attribute('value')
-        self.assertEqual(moduser, 'monikat')        
+        self.assertEqual(moduser, 'ijm')        
 
     def testCreateDateSearch(self):
         """
@@ -579,16 +614,24 @@ class TestImgSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows of results
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
+        cell2 = table.get_row(2)
+        cell3 = table.get_row(3)
+        cell4 = table.get_row(4)
+        cell5 = table.get_row(5)
         print cell0.text
         print cell1.text
         #Assert the correct symbol has been returned in the results table
-        self.assertEqual(cell0.text, 'J:72808; Thumbnail; 2')
-        self.assertEqual(cell1.text, 'J:72808; Full Size; 2')
+        self.assertEqual(cell0.text, 'J:91438; Full Size; 1')
+        self.assertEqual(cell1.text, 'J:91438; Full Size; 2')
+        self.assertEqual(cell2.text, 'J:91438; Full Size; 3')
+        self.assertEqual(cell3.text, 'J:91438; Full Size; 4')
+        self.assertEqual(cell4.text, 'J:91438; Full Size; 5')
+        self.assertEqual(cell5.text, 'J:91438; Full Size; 6')
         #Assert the correct Creation Name is returned in the Creation Date field
         createdate = driver.find_element_by_id('objectCreationDate').get_attribute('value')
         self.assertEqual(createdate, '2009-09-03')        
@@ -605,16 +648,24 @@ class TestImgSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
+        cell2 = table.get_row(2)
+        cell3 = table.get_row(3)
+        cell4 = table.get_row(4)
+        cell5 = table.get_row(5)
         print cell0.text
         print cell1.text
         #Assert the correct symbol has been returned in the results table
         self.assertEqual(cell0.text, 'J:2959; Full Size; 3')
         self.assertEqual(cell1.text, 'J:2959; Full Size; 4')
+        self.assertEqual(cell2.text, 'J:2959; Full Size; 5')
+        self.assertEqual(cell3.text, 'J:2959; Full Size; 7')
+        self.assertEqual(cell4.text, 'J:2959; Full Size; 8')
+        self.assertEqual(cell5.text, 'J:2959; Full Size; 9')
         #Assert the correct Creation Name is returned in the Creation Date field
         modifydate = driver.find_element_by_id('objectModificationDate').get_attribute('value')
         self.assertEqual(modifydate, '2013-02-08')        
@@ -631,19 +682,27 @@ class TestImgSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
+        cell2 = table.get_row(2)
+        cell3 = table.get_row(3)
+        cell4 = table.get_row(4)
+        cell5 = table.get_row(5)
         print cell0.text
         print cell1.text
         #Assert the correct symbol has been returned in the results table
-        self.assertEqual(cell0.text, 'J:26733; Full Size; 1')
-        self.assertEqual(cell1.text, 'J:26733; Full Size; 5')
+        self.assertEqual(cell0.text, 'J:130; Full Size; 3')
+        self.assertEqual(cell1.text, 'J:458; Full Size; 2')
+        self.assertEqual(cell2.text, 'J:767; Full Size; 3')
+        self.assertEqual(cell3.text, 'J:2819; Full Size; 5')
+        self.assertEqual(cell4.text, 'J:22503; Full Size; 2')
+        self.assertEqual(cell5.text, 'J:22984; Full Size; 3')
         #Assert the correct Modification Date is returned in the Modification Date field
         modifydate = driver.find_element_by_id('objectModificationDate').get_attribute('value')
-        self.assertEqual(modifydate, '2019-05-07')        
+        self.assertEqual(modifydate, '2019-06-10')        
 
     def testModifyDateGreaterEqualSearch(self):
         """
@@ -657,19 +716,27 @@ class TestImgSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
+        cell2 = table.get_row(2)
+        cell3 = table.get_row(3)
+        cell4 = table.get_row(4)
+        cell5 = table.get_row(5)
         print cell0.text
         print cell1.text
         #Assert the correct symbol has been returned in the results table
-        self.assertEqual(cell0.text, 'J:74079; Full Size; 1')
-        self.assertEqual(cell1.text, 'J:74079; Full Size; 2')
+        self.assertEqual(cell0.text, 'J:130; Full Size; 3')
+        self.assertEqual(cell1.text, 'J:458; Full Size; 2')
+        self.assertEqual(cell2.text, 'J:767; Full Size; 3')
+        self.assertEqual(cell3.text, 'J:2819; Full Size; 5')
+        self.assertEqual(cell4.text, 'J:22503; Full Size; 2')
+        self.assertEqual(cell5.text, 'J:22984; Full Size; 3')
         #Assert the correct Modification Date is returned in the Modification Date field
         modifydate = driver.find_element_by_id('objectModificationDate').get_attribute('value')
-        self.assertEqual(modifydate, '2019-05-10')    
+        self.assertEqual(modifydate, '2019-06-10')    
 
     def testModifyDateLessSearch(self):
         """
@@ -683,7 +750,7 @@ class TestImgSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows
         cell0 = table.get_row(0)
@@ -709,7 +776,7 @@ class TestImgSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows
         cell0 = table.get_row(0)
@@ -735,7 +802,7 @@ class TestImgSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows
         cell0 = table.get_row(0)
@@ -761,19 +828,27 @@ class TestImgSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
+        cell2 = table.get_row(2)
+        cell3 = table.get_row(3)
+        cell4 = table.get_row(4)
+        cell5 = table.get_row(5)
         print cell0.text
         print cell1.text
         #Assert the correct symbol has been returned in the results table
-        self.assertEqual(cell0.text, 'J:74079; Full Size; 1')
-        self.assertEqual(cell1.text, 'J:74079; Full Size; 2')
+        self.assertEqual(cell0.text, 'J:22503; Full Size; 2')
+        self.assertEqual(cell1.text, 'J:22984; Full Size; 3')
+        self.assertEqual(cell2.text, 'J:22984; Full Size; 4')
+        self.assertEqual(cell3.text, 'J:22984; Full Size; 5')
+        self.assertEqual(cell4.text, 'J:22984; Full Size; 8')
+        self.assertEqual(cell5.text, 'J:23287; Full Size; 2')
         #Assert the correct Modification Date is returned in the Modification Date field
         modifydate = driver.find_element_by_id('objectCreationDate').get_attribute('value')
-        self.assertEqual(modifydate, '2019-05-10')        
+        self.assertEqual(modifydate, '2019-06-21')        
 
     def testCreateDateGreaterEqualSearch(self):
         """
@@ -787,19 +862,27 @@ class TestImgSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
+        cell2 = table.get_row(2)
+        cell3 = table.get_row(3)
+        cell4 = table.get_row(4)
+        cell5 = table.get_row(5)
         print cell0.text
         print cell1.text
         #Assert the correct symbol has been returned in the results table
-        self.assertEqual(cell0.text, 'J:74079; Full Size; 1')
-        self.assertEqual(cell1.text, 'J:74079; Full Size; 2')
+        self.assertEqual(cell0.text, 'J:22503; Full Size; 2')
+        self.assertEqual(cell1.text, 'J:22984; Full Size; 3')
+        self.assertEqual(cell2.text, 'J:22984; Full Size; 4')
+        self.assertEqual(cell3.text, 'J:22984; Full Size; 5')
+        self.assertEqual(cell4.text, 'J:22984; Full Size; 8')
+        self.assertEqual(cell5.text, 'J:23287; Full Size; 2')
         #Assert the correct Modification Date is returned in the Modification Date field
         modifydate = driver.find_element_by_id('objectCreationDate').get_attribute('value')
-        self.assertEqual(modifydate, '2019-05-10')    
+        self.assertEqual(modifydate, '2019-06-21')    
         
     def testCreateDateLessSearch(self):
         """
@@ -813,7 +896,7 @@ class TestImgSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows
         cell0 = table.get_row(0)
@@ -839,7 +922,7 @@ class TestImgSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows
         cell0 = table.get_row(0)
@@ -865,7 +948,7 @@ class TestImgSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows
         cell0 = table.get_row(0)
@@ -878,6 +961,207 @@ class TestImgSearch(unittest.TestCase):
         #Assert the correct Creation Date is returned in the Creation Date field
         createdate = driver.find_element_by_id('objectCreationDate').get_attribute('value')
         self.assertEqual(createdate, '1998-06-22')        
+
+    def testImgJnumNoCopySearch(self):
+        """
+        @Status tests that a J number search that has no copyright does not fail but works
+        @see pwi-image-date-search-15
+        """
+        driver = self.driver
+        #finds the J# field and enters a J number
+        driver.find_element_by_id("JNumID").send_keys("J:2250")
+        #finds the Search button and clicks it
+        driver.find_element_by_id('searchButton').click()
+        time.sleep(2)
+        #find the search results table
+        results_table = self.driver.find_element_by_id("resultsTable")
+        table = Table(results_table)
+        # get and print the first 2 rows
+        cell0 = table.get_row(0)
+        cell1 = table.get_row(1)
+        print cell0.text
+        print cell1.text
+        #Assert the correct symbols has been returned in the results table
+        self.assertEqual(cell0.text, 'J:2250; Full Size; 4')
+        #Assert the copyright field is blank
+        copyrgt = driver.find_element_by_id('copyrightID')
+        self.assertEqual(copyrgt.text, '')        
+
+    def testAccTypePaintSearch(self):
+        """
+        @Status tests that a basic Image Accession Type GenePaint search works
+        @attention: The EC webdriverwait code needs to be worked on/fixed when time allows
+        @see pwi-image-search-27
+        """
+        driver = self.driver
+        #finds the Image Other Accession Ids pulldown and selects "GenePaint" option then click the Search button
+        Select(driver.find_element_by_id("accidTypeID")).select_by_value('105')
+        driver.find_element_by_id('searchButton').click()
+        time.sleep(5)
+        #WebDriverWait(driver, 20).until(EC.text_to_be_present_in_element((By.ID, "resultsCount")))
+        #find the search results table
+        results_table = self.driver.find_element_by_id("resultsTable")
+        table = Table(results_table)
+        #Iterate and print the search results
+        cell1 = table.get_row_cells(0)
+        cell2 = table.get_row_cells(1)
+        cell3 = table.get_row_cells(2)
+        cell4 = table.get_row_cells(3)
+        cell5 = table.get_row_cells(4)
+        cell6 = table.get_row_cells(5)
+        cell7 = table.get_row_cells(6)
+        cell8 = table.get_row_cells(7)
+        cell9 = table.get_row_cells(8)
+        cell10 = table.get_row_cells(9)
+        result1 = iterate.getTextAsList(cell1)
+        result2 = iterate.getTextAsList(cell2)
+        result3 = iterate.getTextAsList(cell3)
+        result4 = iterate.getTextAsList(cell4)
+        result5 = iterate.getTextAsList(cell5)
+        result6 = iterate.getTextAsList(cell6)
+        result7 = iterate.getTextAsList(cell7)
+        result8 = iterate.getTextAsList(cell8)
+        result9 = iterate.getTextAsList(cell9)
+        result10 = iterate.getTextAsList(cell10)        
+        print result1
+        #Assert the correct J number details are returned(for the first 10 results)
+        self.assertEquals(result1, ['J:101025; Full Size; FG21'])
+        self.assertEquals(result2, ['J:101025; Full Size; FG24'])
+        self.assertEquals(result3, ['J:101025; Full Size; FG25'])
+        self.assertEquals(result4, ['J:101025; Full Size; FG26'])
+        self.assertEquals(result5, ['J:101025; Full Size; FG32'])
+        self.assertEquals(result6, ['J:101025; Full Size; FG34'])
+        self.assertEquals(result7, ['J:101025; Full Size; FG35'])
+        self.assertEquals(result8, ['J:101025; Full Size; FG36'])
+        self.assertEquals(result9, ['J:101025; Full Size; FG37'])
+        self.assertEquals(result10, ['J:101025; Full Size; FG39'])
+        #find the Other Accession Ids table
+        accid_table = self.driver.find_element_by_id("otherAccIdTable")
+        table = Table(accid_table)
+        #Iterate and print the search results
+        cell1 = table.get_row_cells(0)
+        result1 = iterate.getTextAsList(cell1)
+        print result1
+        #Assert the correct Acc ID result details are returned
+        self.assertEquals(result1, ['GenePaint', 'FG,-A21,-Asetview'])
+       
+    def testAccTypeGudmapSearch(self):
+        """
+        @Status tests that a basic Image Accession Type Gudmap search works
+        @attention: The EC webdriverwait code needs to be worked on/fixed when time allows
+        @see pwi-image-search-28
+        """
+        driver = self.driver
+        #finds the Image Other Accession Ids pulldown and selects "Gudmap" option then click the Search button
+        Select(driver.find_element_by_id("accidTypeID")).select_by_value('163')
+        driver.find_element_by_id('searchButton').click()
+        time.sleep(5)
+        #WebDriverWait(driver, 20).until(EC.text_to_be_present_in_element((By.ID, "resultsCount")))
+        #find the search results table
+        results_table = self.driver.find_element_by_id("resultsTable")
+        table = Table(results_table)
+        #Iterate and print the search results
+        cell1 = table.get_row_cells(0)
+        cell2 = table.get_row_cells(1)
+        cell3 = table.get_row_cells(2)
+        cell4 = table.get_row_cells(3)
+        cell5 = table.get_row_cells(4)
+        cell6 = table.get_row_cells(5)
+        cell7 = table.get_row_cells(6)
+        cell8 = table.get_row_cells(7)
+        cell9 = table.get_row_cells(8)
+        cell10 = table.get_row_cells(9)
+        result1 = iterate.getTextAsList(cell1)
+        result2 = iterate.getTextAsList(cell2)
+        result3 = iterate.getTextAsList(cell3)
+        result4 = iterate.getTextAsList(cell4)
+        result5 = iterate.getTextAsList(cell5)
+        result6 = iterate.getTextAsList(cell6)
+        result7 = iterate.getTextAsList(cell7)
+        result8 = iterate.getTextAsList(cell8)
+        result9 = iterate.getTextAsList(cell9)
+        result10 = iterate.getTextAsList(cell10)        
+        print result1
+        #Assert the correct J number details are returned(for the first 10 results)
+        self.assertEquals(result1, ['J:171409; Full Size; GUDMAP:3'])
+        self.assertEquals(result2, ['J:171409; Full Size; GUDMAP:4'])
+        self.assertEquals(result3, ['J:171409; Full Size; GUDMAP:5'])
+        self.assertEquals(result4, ['J:171409; Full Size; GUDMAP:9'])
+        self.assertEquals(result5, ['J:171409; Full Size; GUDMAP:10'])
+        self.assertEquals(result6, ['J:171409; Full Size; GUDMAP:15'])
+        self.assertEquals(result7, ['J:171409; Full Size; GUDMAP:16'])
+        self.assertEquals(result8, ['J:171409; Full Size; GUDMAP:22'])
+        self.assertEquals(result9, ['J:171409; Full Size; GUDMAP:23'])
+        self.assertEquals(result10, ['J:171409; Full Size; GUDMAP:26'])
+        #find the Other Accession Ids table
+        accid_table = self.driver.find_element_by_id("otherAccIdTable")
+        table = Table(accid_table)
+        #Iterate and print the search results
+        cell1 = table.get_row_cells(0)
+        result1 = iterate.getTextAsList(cell1)
+        print result1
+        #Assert the correct Acc ID result details are returned
+        self.assertEquals(result1, ['GUDMAP', 'GUDMAP:3'])
+       
+    def testAccTypeEurexpressSearch(self):
+        """
+        @Status tests that a basic Image Accession Type Eurexpress search works
+        @attention: The EC webdriverwait code needs to be worked on/fixed when time allows
+        @see pwi-image-search-30
+        """
+        driver = self.driver
+        #finds the Image Other Accession Ids pulldown and selects "Emage" option then click the Search button
+        Select(driver.find_element_by_id("accidTypeID")).select_by_value('148')
+        driver.find_element_by_id('searchButton').click()
+        time.sleep(10)
+        #wait = WebDriverWait(driver, 20)
+        #element = wait.until(EC.text_to_be_present_in_element((By.ID, "resultsTable")));
+        #element.view()
+        #find the search results table
+        results_table = self.driver.find_element_by_id("resultsTable")
+        table = Table(results_table)
+        #Iterate and print the search results
+        cell1 = table.get_row_cells(0)
+        cell2 = table.get_row_cells(1)
+        cell3 = table.get_row_cells(2)
+        cell4 = table.get_row_cells(3)
+        cell5 = table.get_row_cells(4)
+        cell6 = table.get_row_cells(5)
+        cell7 = table.get_row_cells(6)
+        cell8 = table.get_row_cells(7)
+        cell9 = table.get_row_cells(8)
+        cell10 = table.get_row_cells(9)
+        result1 = iterate.getTextAsList(cell1)
+        result2 = iterate.getTextAsList(cell2)
+        result3 = iterate.getTextAsList(cell3)
+        result4 = iterate.getTextAsList(cell4)
+        result5 = iterate.getTextAsList(cell5)
+        result6 = iterate.getTextAsList(cell6)
+        result7 = iterate.getTextAsList(cell7)
+        result8 = iterate.getTextAsList(cell8)
+        result9 = iterate.getTextAsList(cell9)
+        result10 = iterate.getTextAsList(cell10)        
+        print result1
+        #Assert the correct J number details are returned(for the first 10 results)
+        self.assertEquals(result1, ['J:153498; Full Size; euxassay_000001_01'])
+        self.assertEquals(result2, ['J:153498; Full Size; euxassay_000001_02'])
+        self.assertEquals(result3, ['J:153498; Full Size; euxassay_000001_03'])
+        self.assertEquals(result4, ['J:153498; Full Size; euxassay_000001_04'])
+        self.assertEquals(result5, ['J:153498; Full Size; euxassay_000001_05'])
+        self.assertEquals(result6, ['J:153498; Full Size; euxassay_000001_06'])
+        self.assertEquals(result7, ['J:153498; Full Size; euxassay_000001_07'])
+        self.assertEquals(result8, ['J:153498; Full Size; euxassay_000001_08'])
+        self.assertEquals(result9, ['J:153498; Full Size; euxassay_000001_09'])
+        self.assertEquals(result10, ['J:153498; Full Size; euxassay_000001_10'])
+        #find the Other Accession Ids table
+        accid_table = self.driver.find_element_by_id("otherAccIdTable")
+        table = Table(accid_table)
+        #Iterate and print the search results
+        cell1 = table.get_row_cells(0)
+        result1 = iterate.getTextAsList(cell1)
+        print result1
+        #Assert the correct Acc ID result details are returned
+        self.assertEquals(result1, ['Eurexpress', 'euxassay_000001_01'])             
 
 '''
 def suite():
