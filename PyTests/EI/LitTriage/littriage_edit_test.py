@@ -95,7 +95,7 @@ class TestLitEdit(unittest.TestCase):
         #finds the Reference Type field and return it's text value
         ref_type = self.driver.find_element_by_id("editTabRefType").get_attribute('value')
         print ref_type
-        self.assertEqual(ref_type, 'MGI Curation Record')
+        self.assertEqual(ref_type, '31576686')#31576686 = MGI Curation Record
         #finds the Reference type field and modify its value
         select = Select(self.driver.find_element_by_id("editTabRefType"))
         select.select_by_visible_text('Unreviewed Article')
@@ -107,7 +107,7 @@ class TestLitEdit(unittest.TestCase):
         self.driver.find_element_by_id('modifyEditTabButton').click()
         #finds the Reference Type field and return it's text value
         ref_type = self.driver.find_element_by_id("editTabRefType").get_attribute('value')
-        self.assertEqual(ref_type, 'Unreviewed Article')      
+        self.assertEqual(ref_type, '31576689')#31576689 = Unreviewed Article      
         #finds the Reference type field and modify its value
         select = Select(self.driver.find_element_by_id("editTabRefType"))
         select.select_by_visible_text('MGI Curation Record')

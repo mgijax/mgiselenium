@@ -51,7 +51,9 @@ class TestImgCCSearch(unittest.TestCase):
         driver = self.driver
         #finds the J# field and enter a J Number for an expression image then click the Search button
         driver.find_element_by_id("JNumID").send_keys('152235')
-        driver.find_element_by_id('searchButton').click()
+        actionChains = ActionChains(driver)
+        actionChains.send_keys(Keys.TAB)
+        actionChains.perform()
         time.sleep(2)
         #Assert the Creative Commons display is present
         element = self.driver.find_element_by_id('creativeCommonsWarning')
@@ -68,7 +70,9 @@ class TestImgCCSearch(unittest.TestCase):
         driver = self.driver
         #finds the J# field and enter a J Number for an expression image then click the Search button
         driver.find_element_by_id("JNumID").send_keys('164634')
-        driver.find_element_by_id('searchButton').click()
+        actionChains = ActionChains(driver)
+        actionChains.send_keys(Keys.TAB)
+        actionChains.perform()
         time.sleep(2)
         #Assert the Creative Commons display is present
         element = self.driver.find_element_by_id('creativeCommonsWarning')
@@ -85,7 +89,9 @@ class TestImgCCSearch(unittest.TestCase):
         driver = self.driver
         #finds the J# field and enter a J Number for an expression image then click the Search button
         driver.find_element_by_id("JNumID").send_keys('206523')
-        driver.find_element_by_id('searchButton').click()
+        actionChains = ActionChains(driver)
+        actionChains.send_keys(Keys.TAB)
+        actionChains.perform()
         time.sleep(2)
         #Assert the Creative Commons display is present
         element = self.driver.find_element_by_id('creativeCommonsWarning')
@@ -102,7 +108,9 @@ class TestImgCCSearch(unittest.TestCase):
         driver = self.driver
         #finds the J# field and enter a J Number for an expression image then click the Search button
         driver.find_element_by_id("JNumID").send_keys('260813')
-        driver.find_element_by_id('searchButton').click()
+        actionChains = ActionChains(driver)
+        actionChains.send_keys(Keys.TAB)
+        actionChains.perform()
         time.sleep(2)
         #Assert the Creative Commons display is present
         element = self.driver.find_element_by_id('creativeCommonsWarning')
@@ -119,7 +127,9 @@ class TestImgCCSearch(unittest.TestCase):
         driver = self.driver
         #finds the J# field and enter a J Number for an expression image then click the Search button
         driver.find_element_by_id("JNumID").send_keys('174477')
-        driver.find_element_by_id('searchButton').click()
+        actionChains = ActionChains(driver)
+        actionChains.send_keys(Keys.TAB)
+        actionChains.perform()
         time.sleep(2)
         #Assert the Creative Commons display is present
         element = self.driver.find_element_by_id('creativeCommonsWarning')
@@ -136,7 +146,9 @@ class TestImgCCSearch(unittest.TestCase):
         driver = self.driver
         #finds the J# field and enter a J Number for an expression image then click the Search button
         driver.find_element_by_id("JNumID").send_keys('72149')
-        driver.find_element_by_id('searchButton').click()
+        actionChains = ActionChains(driver)
+        actionChains.send_keys(Keys.TAB)
+        actionChains.perform()
         time.sleep(2)
         #Assert the Creative Commons display is present
         element = self.driver.find_element_by_id('creativeCommonsWarning')
@@ -153,7 +165,9 @@ class TestImgCCSearch(unittest.TestCase):
         driver = self.driver
         #finds the J# field and enter a J Number for an expression image then click the Search button
         driver.find_element_by_id("JNumID").send_keys('91517')
-        driver.find_element_by_id('searchButton').click()
+        actionChains = ActionChains(driver)
+        actionChains.send_keys(Keys.TAB)
+        actionChains.perform()
         time.sleep(2)
         #Assert the Creative Commons display is present
         element = self.driver.find_element_by_id('creativeCommonsWarning')
@@ -170,7 +184,9 @@ class TestImgCCSearch(unittest.TestCase):
         driver = self.driver
         #finds the J# field and enter a J Number for an expression image then click the Search button
         driver.find_element_by_id("JNumID").send_keys('260788')
-        driver.find_element_by_id('searchButton').click()
+        actionChains = ActionChains(driver)
+        actionChains.send_keys(Keys.TAB)
+        actionChains.perform()
         time.sleep(2)
         #Assert the Creative Commons display is present
         element = self.driver.find_element_by_id('creativeCommonsWarning')
@@ -187,7 +203,9 @@ class TestImgCCSearch(unittest.TestCase):
         driver = self.driver
         #finds the J# field and enter a J Number for an expression image then click the Search button
         driver.find_element_by_id("JNumID").send_keys('59030')
-        driver.find_element_by_id('searchButton').click()
+        actionChains = ActionChains(driver)
+        actionChains.send_keys(Keys.TAB)
+        actionChains.perform()
         time.sleep(2)
         #Assert the Creative Commons display is present
         element = self.driver.find_element_by_id('creativeCommonsWarning')
@@ -204,7 +222,9 @@ class TestImgCCSearch(unittest.TestCase):
         driver = self.driver
         #finds the J# field and enter a J Number for an expression image then click the Search button
         driver.find_element_by_id("JNumID").send_keys('70181')
-        driver.find_element_by_id('searchButton').click()
+        actionChains = ActionChains(driver)
+        actionChains.send_keys(Keys.TAB)
+        actionChains.perform()
         time.sleep(2)
         #Assert the Creative Commons display is present
         element = self.driver.find_element_by_id('creativeCommonsWarning')
@@ -221,7 +241,9 @@ class TestImgCCSearch(unittest.TestCase):
         driver = self.driver
         #finds the J# field and enter a J Number for an expression image then click the Search button
         driver.find_element_by_id("JNumID").send_keys('80848')
-        driver.find_element_by_id('searchButton').click()
+        actionChains = ActionChains(driver)
+        actionChains.send_keys(Keys.TAB)
+        actionChains.perform()
         time.sleep(2)
         #Assert the Creative Commons display is present
         element = self.driver.find_element_by_id('creativeCommonsWarning')
@@ -238,7 +260,9 @@ class TestImgCCSearch(unittest.TestCase):
         driver = self.driver
         #finds the J# field and enter a J Number for an expression image then click the Search button
         driver.find_element_by_id("JNumID").send_keys('55992')
-        driver.find_element_by_id('searchButton').click()
+        actionChains = ActionChains(driver)
+        actionChains.send_keys(Keys.TAB)
+        actionChains.perform()
         time.sleep(2)
         #Assert the Creative Commons display is present
         element = self.driver.find_element_by_id('creativeCommonsWarning')
@@ -255,7 +279,9 @@ class TestImgCCSearch(unittest.TestCase):
         driver = self.driver
         #finds the J# field and enter a J Number for an expression image then click the Search button
         driver.find_element_by_id("JNumID").send_keys('54310')
-        driver.find_element_by_id('searchButton').click()
+        actionChains = ActionChains(driver)
+        actionChains.send_keys(Keys.TAB)
+        actionChains.perform()
         time.sleep(2)
         #Assert the Creative Commons display is present
         element = self.driver.find_element_by_id('creativeCommonsWarning')
@@ -272,7 +298,9 @@ class TestImgCCSearch(unittest.TestCase):
         driver = self.driver
         #finds the J# field and enter a J Number for an expression image then click the Search button
         driver.find_element_by_id("JNumID").send_keys('258432')
-        driver.find_element_by_id('searchButton').click()
+        actionChains = ActionChains(driver)
+        actionChains.send_keys(Keys.TAB)
+        actionChains.perform()
         time.sleep(2)
         #Assert the Creative Commons display is present
         element = self.driver.find_element_by_id('creativeCommonsWarning')
@@ -289,7 +317,9 @@ class TestImgCCSearch(unittest.TestCase):
         driver = self.driver
         #finds the J# field and enter a J Number for an expression image then click the Search button
         driver.find_element_by_id("JNumID").send_keys('103960')
-        driver.find_element_by_id('searchButton').click()
+        actionChains = ActionChains(driver)
+        actionChains.send_keys(Keys.TAB)
+        actionChains.perform()
         time.sleep(2)
         #Assert the Creative Commons display is present
         element = self.driver.find_element_by_id('creativeCommonsWarning')
@@ -306,7 +336,9 @@ class TestImgCCSearch(unittest.TestCase):
         driver = self.driver
         #finds the J# field and enter a J Number for an expression image then click the Search button
         driver.find_element_by_id("JNumID").send_keys('97898')
-        driver.find_element_by_id('searchButton').click()
+        actionChains = ActionChains(driver)
+        actionChains.send_keys(Keys.TAB)
+        actionChains.perform()
         time.sleep(2)
         #Assert the Creative Commons display is present
         element = self.driver.find_element_by_id('creativeCommonsWarning')

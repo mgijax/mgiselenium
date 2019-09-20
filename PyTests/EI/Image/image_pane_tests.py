@@ -38,6 +38,7 @@ class TestImgPaneSearch(unittest.TestCase):
         #self.driver = webdriver.Firefox() 
         self.driver = webdriver.Chrome()
         self.form = ModuleForm(self.driver)
+        #self.driver.get(config.TEST_PWI_URL + "/edit/imageGxd")
         self.form.get_module(config.TEST_PWI_URL + "/edit/imageGxd")
     
     def tearDown(self):
@@ -46,28 +47,22 @@ class TestImgPaneSearch(unittest.TestCase):
     def testImagePaneSearch(self):
         """
         @Status tests that a basic Image Pane Label search works
-        @see pwi-image-pane-search-1
+        @see pwi-image-pane-search-1 
         """
         driver = self.driver
         #finds the Image Pane Label field and enters text then clicks the Search button
-        driver.find_element_by_id("imagePaneLabel").send_keys('A heart WT')
+        driver.find_element_by_id("paneLabelID").send_keys('A heart WT')
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the Pane Labels results table
         pane_table = self.driver.find_element_by_id("imagePaneTable")
-        table = Table(pane_table)
-        #Iterate and print the search results
-        cell1 = table.get_row_cells(1)
-        cell2 = table.get_row_cells(2)
-        cell3 = table.get_row_cells(3)
-        result1 = iterate.getTextAsList(cell1)
-        result2 = iterate.getTextAsList(cell2)
-        result3 = iterate.getTextAsList(cell3)
-        print result1
-        #Assert the correct details are returned
-        self.assertEquals(result1, ['A heart Paxx-/-', '144, 131, 97, 95'])
-        self.assertEquals(result2, ['A heart Paxx-/-;Xlf-/-', '337, 131, 101, 95'])
-        self.assertEquals(result3, ['A heart WT', '47, 131, 97, 95'])
+        time.sleep(2)
+        
+        third_row = self.driver.find_element_by_id("paneLabelID480566").get_attribute("value")
+        time.sleep(2)
+        print third_row
+        #Assert the correct details are returned, the third Pane Label should be 'A heart WT
+        self.assertEquals(third_row, 'A heart WT')
 
     def testImagePaneSearchWild(self):
         """
@@ -76,30 +71,30 @@ class TestImgPaneSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Image Pane Label field and enters text then clicks the Search button
-        driver.find_element_by_id("imagePaneLabel").send_keys('%liver Paxx%')
+        driver.find_element_by_id("paneLabelID").send_keys('%liver Paxx%')
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the Pane Labels results table
         pane_table = self.driver.find_element_by_id("imagePaneTable")
         table = Table(pane_table)
-        #Iterate and print the search results
-        cell1 = table.get_row_cells(1)
-        cell2 = table.get_row_cells(2)
-        cell3 = table.get_row_cells(3)
-        cell4 = table.get_row_cells(4)
-        cell5 = table.get_row_cells(5)
-        result1 = iterate.getTextAsList(cell1)
-        result2 = iterate.getTextAsList(cell2)
-        result3 = iterate.getTextAsList(cell3)
-        result4 = iterate.getTextAsList(cell4)
-        result5 = iterate.getTextAsList(cell5)
-        print result5
+        time.sleep(2)
+        row1 = self.driver.find_element_by_id("paneLabelID480567").get_attribute("value")
+        row2 = self.driver.find_element_by_id("paneLabelID480569").get_attribute("value")
+        row3 = self.driver.find_element_by_id("paneLabelID480566").get_attribute("value")
+        row4 = self.driver.find_element_by_id("paneLabelID480568").get_attribute("value")
+        row5 = self.driver.find_element_by_id("paneLabelID480571").get_attribute("value")
+        time.sleep(2)
+        print row1
+        print row2
+        print row3
+        print row4
+        print row5
         #Assert the correct details are returned
-        self.assertEquals(result1, ['A heart Paxx-/-', '144, 131, 97, 95'])
-        self.assertEquals(result2, ['A heart Paxx-/-;Xlf-/-', '337, 131, 101, 95'])
-        self.assertEquals(result3, ['A heart WT', '47, 131, 97, 95'])
-        self.assertEquals(result4, ['A heart Xlf-/-', '241, 131, 96, 95'])
-        self.assertEquals(result5, ['A liver Paxx-/-', '144, 226, 97, 95'])
+        self.assertEquals(row1, 'A heart Paxx-/-')
+        self.assertEquals(row2, 'A heart Paxx-/-;Xlf-/-')
+        self.assertEquals(row3, 'A heart WT')
+        self.assertEquals(row4, 'A heart Xlf-/-')
+        self.assertEquals(row5, 'A liver Paxx-/-')
 
     def testImagePaneSearchSpecChr(self):
         """
@@ -108,50 +103,47 @@ class TestImgPaneSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Image Pane Label field and enters text then clicks the Search button
-        driver.find_element_by_id("imagePaneLabel").send_keys("k/k'")
+        driver.find_element_by_id("paneLabelID").send_keys("k/k'")
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the Pane Labels results table
         pane_table = self.driver.find_element_by_id("imagePaneTable")
         table = Table(pane_table)
-        #Iterate and print the search results, checking the 14th and 15th result
-        cell14 = table.get_row_cells(14)
-        cell15 = table.get_row_cells(15)
-        result14 = iterate.getTextAsList(cell14)
-        result15 = iterate.getTextAsList(cell15)
-        print result14
+        time.sleep(2)
+        row14 = self.driver.find_element_by_id("paneLabelID480840").get_attribute("value")
+        row15 = self.driver.find_element_by_id("paneLabelID480847").get_attribute("value")
+        time.sleep(2)
+        print row14
         #Assert the correct details are returned
-        self.assertEquals(result14, ["k/k'", ''])
-        self.assertEquals(result15, ["l/l'", ''])
+        self.assertEquals(row14, "k/k'")
+        self.assertEquals(row15, "l/l'")
 
-    def testImagePaneSearchlong(self):
+    def c(self):
         """
         @Status tests that a basic Image Pane Label search for a label that is extremely long works
         @see pwi-image-pane-search-4
         """
         driver = self.driver
         #finds the Image Pane Label field and enters text then clicks the Search button
-        driver.find_element_by_id("imagePaneLabel").send_keys("C merge (EFGP and choline acetyltransferase immunoreactivity)")
+        driver.find_element_by_id("paneLabelID").send_keys("C merge (EFGP and choline acetyltransferase immunoreactivity)")
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the Pane Labels results table
         pane_table = self.driver.find_element_by_id("imagePaneTable")
         table = Table(pane_table)
-        #Iterate and print the search results, checking the 8th and 9th result
-        cell8 = table.get_row_cells(8)
-        cell9 = table.get_row_cells(9)
-        result8 = iterate.getTextAsList(cell8)
-        result9 = iterate.getTextAsList(cell9)
-        print result8
-        print result9
+        time.sleep(2)
+        row8 = self.driver.find_element_by_id("paneLabelID313902").get_attribute("value")
+        row9 = self.driver.find_element_by_id("paneLabelID313901").get_attribute("value")
+        time.sleep(2)
+        print row8
         #Assert the correct details are returned
-        self.assertEquals(result8, ['Ci (expanded boxed region in B)', ''])
-        self.assertEquals(result9, ['C merge (EFGP and choline acetyltransferase immunoreactivity)', ''])
+        self.assertEquals(row8, 'C merge (EFGP and choline acetyltransferase immunoreactivity)')
+        self.assertEquals(row9, "Ci (expanded boxed region in B)")
 
     def testImagePaneNoLabelSearch(self):
         """
         @Status tests that a basic Image Pane Label search for a label is blanl(no label) works
-        @see pwi-image-pane-search-5
+        @see pwi-image-pane-search-5 currently broken but need to keep as is for talk w/pete about implementation
         """
         driver = self.driver
         #finds the J# field and enter a J Number for an expression image then click the Search button
@@ -171,11 +163,11 @@ class TestImgPaneSearch(unittest.TestCase):
     def testImagePaneUnderscoreSearch(self):
         """
         @Status tests a pane label display that starts with an underscore
-        @see pwi-image-pane-search-6
+        @see pwi-image-pane-search-6 !currently broken, same issue as search 5
         """
         driver = self.driver
         #finds the Image Pane Label field and enters text then clicks the Search button
-        driver.find_element_by_id("imagePaneLabel").send_keys("_Hox-4-4")
+        driver.find_element_by_id("paneLabelID").send_keys("_Hox-4-4")
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the Pane Labels results table
@@ -191,7 +183,7 @@ class TestImgPaneSearch(unittest.TestCase):
     def testImagePaneSortSearch(self):
         """
         @Status tests that a basic Image Pane Label search has the correct alpha sort of the pane labels
-        @see pwi-image-pane-search-7
+        @see pwi-image-pane-search-7 !currently broken, same issue as search 5
         """
         driver = self.driver
         #finds the J# field and enter a J Number for an expression image then click the Search button

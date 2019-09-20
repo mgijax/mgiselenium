@@ -356,7 +356,7 @@ class TestMrkHistSearch(unittest.TestCase):
         symbols = iterate.getTextAsList(cells)
         print symbols
         #assert all the correct symbols are returned
-        self.assertEquals(symbols, ['Ak6', 'Comt', 'Cops7a', 'Dyrk1a', 'Psme2b', 'D17Leh54', 'Rpl19-rs7'])
+        self.assertEquals(symbols, ['Ak6', 'Comt', 'Cops7a', 'Dyrk1a', 'Pakap', 'Psme2b', 'D17Leh54', 'Rpl19-rs7'])
 
     def testHistoryModBySearch(self):
         """

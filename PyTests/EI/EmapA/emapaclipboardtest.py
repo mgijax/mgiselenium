@@ -59,7 +59,8 @@ class TestClipboard(unittest.TestCase, EmapaBaseClass):
         clipbox = self.driver.find_element_by_id("clipboardInput")
         clipbox.send_keys("16")
         clipbox.send_keys(Keys.RETURN)
-        
+        #Click the 'Add to Clipboard' button
+        self.driver.find_element_by_id('addClipboardButton').click()
         wait.forAngular(self.driver)
         
         errdisplay = self.driver.find_element_by_id("errorMessage")

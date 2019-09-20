@@ -177,9 +177,13 @@ class TestVarSearch(unittest.TestCase):
         # print all rows
         cells = table.get_rows()
         symbols = iterate.getTextAsList(cells)
-        print symbols
-        #assert all the correct symbols are returned
-        self.assertEquals(symbols, ['Arx<tm2Kki>', 'Arx<tm3Kki>', 'Arx<tm4Kki>', 'Arx<tm5Kki>', 'Atp11c<m1Btlr>', 'Atp11c<m2Btlr>', 'Ebp<Td>', 'Ebp<Td-ho>', 'Foxp3<m1Btlr>', 'G6pdx<a-m1Neu>', 'Kdm6a<tm2.1Kaig>', 'Mtm1<tm1Itl>', 'Phex<Hpr>', 'Phex<m1Jrt>', 'Phex<Mhdabap012>', 'Phex<Mhdabap024>', 'Phex<Pug>', 'Pou3f4<sdl>', 'Was<tm1Itl>', 'Was<tm2Itl>', 'Xiap<tm1Hs>', 'Yipf6<M1Btlr>', 'Zic3<Ka>'])
+        print symbols[0]
+        #assert some of the correct symbols are returned
+        self.assertEqual(symbols[0], 'Arx<tm2Kki>', 'symbol0 is wrong')
+        self.assertEqual(symbols[1], 'Arx<tm3Kki>', 'symbol1 is wrong')
+        self.assertEqual(symbols[2], 'Arx<tm4Kki>', 'symbol2 is wrong')
+        self.assertEqual(symbols[3], 'Arx<tm5Kki>', 'symbol3 is wrong')
+        self.assertEqual(symbols[4], 'Atp11c<m1Btlr>', 'symbol4 is wrong')
 
     def testVarStrandSearch(self):
         """
@@ -205,9 +209,9 @@ class TestVarSearch(unittest.TestCase):
         print row2.text
         print row3.text
         #assert that the first 3 search results are correct
-        self.assertEqual(row1.text, 'Acan<b2b183Clo>')
-        self.assertEqual(row2.text, 'Adad1<em1(IMPC)J>')
-        self.assertEqual(row3.text, 'Adamts6<b2b1879.1Clo>')
+        self.assertEqual(row1.text, 'Abca3<tm1.1Smgt>' )
+        self.assertEqual(row2.text, 'Acan<b2b183Clo>')
+        self.assertEqual(row3.text, 'Adad1<em1(IMPC)J>')
 
     def testVarWithHGVSSearch(self):
         """
@@ -378,7 +382,7 @@ class TestVarSearch(unittest.TestCase):
         print row2.text
         print row3.text
         #assert that the search results are correct, this variant has a rather long Genomic ref
-        self.assertEqual(row3.text, 'GRCm38 122478667 122478680 CTACACGCATCCCA CC - -')
+        self.assertEqual(row3.text, 'GRCm38 122478667 122478680 CTACACGCATCCCA C - -')
 
     def testVarGenomicVarSearch(self):
         """

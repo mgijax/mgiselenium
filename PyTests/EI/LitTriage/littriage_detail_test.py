@@ -11,6 +11,7 @@ import sys,os.path
 sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../..',)
 )
+import time
 import config
 from util import iterate
 from util.form import ModuleForm
@@ -27,7 +28,7 @@ class TestLitDetail(unittest.TestCase):
         #self.driver = webdriver.Firefox() 
         self.driver = webdriver.Chrome()
         self.form = ModuleForm(self.driver)
-        self.form.get_module(config.TEST_PWI_URL + "/edit/triage")
+        self.form.get_module(config.TEST_PWI_URL + "/edit/triageFull")
     
     def tearDown(self):
         self.driver.close()
@@ -37,17 +38,18 @@ class TestLitDetail(unittest.TestCase):
         """
         @Status tests that detail results for a result w/ GO Ref ID is correct
         @see MBIB-detail-1 (2)
+        @attention: Under Construction!!!
         """
         #driver = self.driver
         form = self.form
         form.enter_value('accids', 'J:161428')
         form.click_search()
         
-        #finds the Reference Type field and return it's text value
+        #finds the Reference Type field and return it's value; 31576686 = MGI Curation Record
         ref_type = self.driver.find_element_by_id("editTabRefType").get_attribute('value')
         print ref_type
-        self.assertEqual(ref_type, 'MGI Curation Record')
-        #finds the Authors field and return it's text value
+        self.assertEqual(ref_type, '31576686')
+        #finds the Authors field and return it's text value 
         author = self.driver.find_element_by_id("editTabAuthors").get_attribute('value')
         print author
         self.assertEqual(author, 'Gaudet P; Livstone M; Thomas P; The Reference Genome Project 2010')
@@ -57,14 +59,14 @@ class TestLitDetail(unittest.TestCase):
         self.assertEqual(title, 'Annotation inferences using phylogenetic trees')
         
         #finds the Reference IDs table and iterates through the table
-        table_element = self.driver.find_element_by_id("editRefIdTable")
+        table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
         id_col = table.get_column_cells(1)
         ids = iterate.getTextAsList(id_col)
         
         #finds the GO-REF field and return it's ID value
-        go_ref = self.driver.find_element_by_id("editTabGorefid").get_attribute('value')
+        go_ref = self.driver.find_element_by_id("gorefId").get_attribute('value')
         print go_ref
         self.assertEqual(go_ref, 'GO_REF:0000033')
         
@@ -78,10 +80,10 @@ class TestLitDetail(unittest.TestCase):
         form.enter_value('accids', 'J:148145')
         form.click_search()
         
-        #finds the Reference Type field and return it's text value
+        #finds the Reference Type field and return it's value; 31576687 = Peer Reviewed Article
         ref_type = self.driver.find_element_by_id("editTabRefType").get_attribute('value')
         print ref_type
-        self.assertEqual(ref_type, 'Peer Reviewed Article')
+        self.assertEqual(ref_type, '31576687')
         #finds the Authors field and return it's text value
         author = self.driver.find_element_by_id("editTabAuthors").get_attribute('value')
         print author
@@ -95,22 +97,22 @@ class TestLitDetail(unittest.TestCase):
         print journal
         self.assertEqual(journal, 'J Neurophysiol')
         #finds the Reference IDs table and iterates through the table
-        table_element = self.driver.find_element_by_id("editRefIdTable")
+        table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
         id_col = table.get_column_cells(1)
         ids = iterate.getTextAsList(id_col)
         
         #finds the Pubmed field and return it's ID value
-        pub_med = self.driver.find_element_by_id("editTabPubmedid").get_attribute('value')
+        pub_med = self.driver.find_element_by_id("pubmedId").get_attribute('value')
         print pub_med
         self.assertEqual(pub_med, '17881478')    
         #finds the DOI field and return it's ID value
-        do_id = self.driver.find_element_by_id("editTabDoiid").get_attribute('value')
+        do_id = self.driver.find_element_by_id("doiId").get_attribute('value')
         print do_id
         self.assertEqual(do_id, '10.1152/jn.00608.2007')    
         #finds the GO-REF field and return it's ID value(should be blank/empty)
-        go_ref = self.driver.find_element_by_id("editTabGorefid").get_attribute('value')
+        go_ref = self.driver.find_element_by_id("gorefId").get_attribute('value')
         print go_ref
         self.assertEqual(go_ref, '')        
         
@@ -211,6 +213,31 @@ class TestLitDetail(unittest.TestCase):
         print title
         self.assertEqual(title, 'Allotyping C<m>a and C<m>b DNA and RNA,')
         
+    def testAlleleAssocTable(self):
+        """
+        @Status tests that the Allele Associations table displays correctly for a reference with associations
+        @see MBIB-allele-assoc-1
+        """
+        #driver = self.driver
+        form = self.form
+        form.enter_value('accids', 'J:7537')
+        form.click_search()
+        time.sleep(2)
+        #find the Allele Associations button and click it
+        self.driver.find_element_by_id('alleleTabButton').click()
+        #finds the Allele Association table and get the first 2 rows of data
+        time.sleep(2)
+        table_element = self.driver.find_element_by_id("alleleAssocTable")
+        table = Table(table_element)
+        cells1 = table.get_row_cells(1)
+        c1 = iterate.getTextAsList(cells1)
+        cells2 = table.get_row_cells(2)
+        c2 = iterate.getTextAsList(cells2)
+        #assert the row results are correct
+        self.assertEqual(c1, ['', 'Used-FC', 'Cdk5rap2<an>', 'MGI:1856646', 'Cdk5rap2'])
+        self.assertEqual(c2, ['', 'Used-FC', 'Tyrp1<B-lt>', 'MGI:1855962', 'Tyrp1'])
+
+
         
 '''
 def suite():

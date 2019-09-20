@@ -57,19 +57,22 @@ class TestLitSearch(unittest.TestCase):
         data = result.find_elements_by_tag_name("td")
         print iterate.getTextAsList(data)
         #finds the Journal field
-        Journal = data[1].text
-        self.assertEqual(Journal, '10.1002/cne.24025')
-        #finds the pmid by field
-        PubMedID = data[2].text
-        self.assertEqual(PubMedID, '27097562')
+        mgiid = data[1].text
+        self.assertEqual(mgiid, 'MGI:5812656')        
         #finds the J number field
-        Jnumber = data[3].text
+        Jnumber = data[2].text
         self.assertEqual(Jnumber, 'J:237402')
+        #finds the pmid by field
+        PubMedID = data[3].text
+        self.assertEqual(PubMedID, '27097562')
+        #finds the Journal field
+        doi = data[4].text
+        self.assertEqual(doi, '10.1002/cne.24025')
         #finds the short citation field
-        ShortCite = data[4].text
+        ShortCite = data[5].text
         self.assertEqual(ShortCite, 'Iwai-Takekoshi L, J Comp Neurol 2016 Dec 15;524(18):3696-3716')
         #finds the title field
-        Title = data[5].text
+        Title = data[6].text
         self.assertEqual(Title, 'Retinal pigment epithelial integrity is compromised in the developing albino mouse retina.')
         
     def testInvalidJnumSearch(self):
@@ -100,7 +103,7 @@ class TestLitSearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
-        jnum_cells = table.get_column_cells(3)
+        jnum_cells = table.get_column_cells(2)
         jnums = iterate.getTextAsList(jnum_cells)
         print jnums
         self.assertEquals(jnums, ['','J:182573', 'J:173534', 'J:155845', 'J:151466', 'J:136110', 'J:134667', 'J:109968', 'J:75187', 'J:43743', 'J:23392', 'J:23389'])
@@ -117,11 +120,28 @@ class TestLitSearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
-        jnum_cells = table.get_column_cells(3)
+        jnum_cells = table.get_column_cells(2)
         jnums = iterate.getTextAsList(jnum_cells)
         print jnums
         self.assertEquals(jnums, ['','J:182573', 'J:173534', 'J:155845', 'J:151466', 'J:136110', 'J:134667', 'J:109968', 'J:75187', 'J:43743', 'J:23392', 'J:23389'])
                        
+    def testMultiAssortedSpaceSearch(self):
+        """
+        @Status Tests that a list of multiple space separated assorted IDs returns the correct results
+        @See MBIB-search-3
+        """
+        form = self.form
+        form.enter_value('accids', 'MGI:5812656 J:151466 10.1534/genetics.114.161455 GO_REF:0000033')
+        form.click_search()
+        #finds the results table and iterates through the table
+        table_element = self.driver.find_element_by_id("resultsTable")
+        table = Table(table_element)
+        #finds the J number column and returns all of this columns results
+        jnum_cells = table.get_column_cells(2)
+        jnums = iterate.getTextAsList(jnum_cells)
+        print jnums
+        self.assertEquals(jnums, ['','J:237402', 'J:212979', 'J:161428', 'J:151466'])
+        
             
     def testPubMedSearch(self):
         """
@@ -135,7 +155,7 @@ class TestLitSearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
-        jnum_cell = table.get_cell(1,3)
+        jnum_cell = table.get_cell(1,2)
         #jnum = iterate.getTextAsList(jnum_cells)
         self.assertEqual(jnum_cell.text, 'J:54446')
               
@@ -151,7 +171,7 @@ class TestLitSearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
-        jnum_cell = table.get_cell(1,3)
+        jnum_cell = table.get_cell(1,2)
         #jnum = iterate.getTextAsList(jnum_cells)
         self.assertEqual(jnum_cell.text, 'J:14223')
             
@@ -167,7 +187,7 @@ class TestLitSearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
-        jnum_cell = table.get_cell(1,3)
+        jnum_cell = table.get_cell(1,2)
         #jnum = iterate.getTextAsList(jnum_cells)
         self.assertEqual(jnum_cell.text, 'J:212979')
               
@@ -183,7 +203,7 @@ class TestLitSearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
-        jnum_cell = table.get_cell(1,3)
+        jnum_cell = table.get_cell(1,2)
         #jnum = iterate.getTextAsList(jnum_cells)
         self.assertEqual(jnum_cell.text, 'J:161428')
 
@@ -199,7 +219,7 @@ class TestLitSearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
-        jnum_cell = table.get_cell(1,3)
+        jnum_cell = table.get_cell(1,2)
         #jnum = iterate.getTextAsList(jnum_cells)
         self.assertEqual(jnum_cell.text, 'J:19279')
         
@@ -209,14 +229,14 @@ class TestLitSearch(unittest.TestCase):
         @See MBIB-search-22 (58)
         """
         form = self.form
-        form.enter_value('reference_type', 'book')
+        form.enter_value('referenceType', 'book')
         form.enter_value('title', 'P-selectin%')
         form.click_search()
         #finds the results table and iterates through the table
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
-        jnum_cell = table.get_cell(1,3)
+        jnum_cell = table.get_cell(1,2)
         #jnum = iterate.getTextAsList(jnum_cells)
         self.assertEqual(jnum_cell.text, 'J:28109')
     
@@ -234,7 +254,7 @@ class TestLitSearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
-        jnum_cell = table.get_cell(1,3)
+        jnum_cell = table.get_cell(1,2)
         #jnum = iterate.getTextAsList(jnum_cells)
         self.assertEqual(jnum_cell.text, 'J:41368')
     
@@ -254,7 +274,7 @@ class TestLitSearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
-        jnum_cell = table.get_cell(1,3)
+        jnum_cell = table.get_cell(1,2)
         #jnum = iterate.getTextAsList(jnum_cells)
         self.assertEqual(jnum_cell.text, 'J:183831')
 
@@ -272,7 +292,7 @@ class TestLitSearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
-        jnum_cell = table.get_cell(1,3)
+        jnum_cell = table.get_cell(1,2)
         #jnum = iterate.getTextAsList(jnum_cells)
         self.assertEqual(jnum_cell.text, 'J:128739')
 
@@ -291,7 +311,7 @@ class TestLitSearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
-        jnum_cell = table.get_cell(1,3)
+        jnum_cell = table.get_cell(1,2)
         self.assertEqual(jnum_cell.text, 'J:63615')
      
     def testAPStatusSearch(self):
@@ -308,7 +328,7 @@ class TestLitSearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
-        jnum_cells = table.get_column_cells(3)
+        jnum_cells = table.get_column_cells(2)
         jnums = iterate.getTextAsList(jnum_cells)
         print jnums
         JnumbersReturned = iterate.getTextAsList(jnum_cells)
@@ -331,7 +351,7 @@ class TestLitSearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
-        jnum_cells = table.get_column_cells(3)
+        jnum_cells = table.get_column_cells(2)
         jnums = iterate.getTextAsList(jnum_cells)
         print jnums
         JnumbersReturned = iterate.getTextAsList(jnum_cells)
@@ -357,7 +377,7 @@ class TestLitSearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
-        jnum_cells = table.get_column_cells(3)
+        jnum_cells = table.get_column_cells(2)
         jnums = iterate.getTextAsList(jnum_cells)
         print jnums               
         JnumbersReturned = iterate.getTextAsList(jnum_cells)
@@ -389,7 +409,7 @@ class TestLitSearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
-        jnum_cells = table.get_column_cells(3)
+        jnum_cells = table.get_column_cells(2)
         jnums = iterate.getTextAsList(jnum_cells)
         print jnums               
         JnumbersReturned = iterate.getTextAsList(jnum_cells)
@@ -405,7 +425,7 @@ class TestLitSearch(unittest.TestCase):
         @See MBIB-search-26 (78)
         """
         #This finds the pull down menu for Discard? and then selects the second option
-        dl = self.driver.find_element_by_id('is_discard')
+        dl = self.driver.find_element_by_id('isDiscard')
         for option in dl.find_elements_by_tag_name("option"):
             if option.text == 'Only Discard':
                 option.click()
@@ -470,10 +490,10 @@ class TestLitSearch(unittest.TestCase):
         #finds the 1st and 6th fields of the summary table for AP and GO indexed and Full-coded columns and returns text value
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
-        ap_cell1 = table.get_cell(4,6)
-        ap_cell2 = table.get_cell(5,6)
-        go_cell1 = table.get_cell(3,7)
-        go_cell2 = table.get_cell(2,7)
+        ap_cell1 = table.get_cell(4,7)
+        ap_cell2 = table.get_cell(5,7)
+        go_cell1 = table.get_cell(3,8)
+        go_cell2 = table.get_cell(2,8)
         time.sleep(1)
         self.assertEquals(ap_cell1.text, "Indexed", 'AP is not routed')
         self.assertEquals(ap_cell2.text, "Full-coded", 'AP is not full-coded')
@@ -512,8 +532,8 @@ class TestLitSearch(unittest.TestCase):
         #find the search results table
         results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
-        ap_cell1 = table.get_cell(1,6)
-        go_cell2 = table.get_cell(1,7)
+        ap_cell1 = table.get_cell(1,7)
+        go_cell2 = table.get_cell(1,8)
         
         time.sleep(2)
         #verifies the 16th AP item is rejected, the 1st AP item is Indexed, the 5th GO item is Rejected and the 1st GO item is Indexed
@@ -534,7 +554,7 @@ class TestLitSearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
-        jnum_cells = table.get_column_cells(3)
+        jnum_cells = table.get_column_cells(2)
         jnums = iterate.getTextAsList(jnum_cells)
         print jnums
         self.assertEquals(jnums, ['', 'J:195038'])
@@ -551,7 +571,7 @@ class TestLitSearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
-        jnum_cells = table.get_column_cells(3)
+        jnum_cells = table.get_column_cells(2)
         jnums = iterate.getTextAsList(jnum_cells)
         print jnums
         self.assertEquals(jnums, ['', 'J:195038'])     
@@ -568,7 +588,7 @@ class TestLitSearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
-        jnum_cells = table.get_column_cells(3)
+        jnum_cells = table.get_column_cells(2)
         jnums = iterate.getTextAsList(jnum_cells)
         print jnums
         self.assertEquals(jnums, ['', 'J:195038', 'J:31532', 'J:30784', 'J:30695'])     
@@ -585,7 +605,7 @@ class TestLitSearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
-        jnum_cells = table.get_column_cells(3)
+        jnum_cells = table.get_column_cells(2)
         jnums = iterate.getTextAsList(jnum_cells)
         print jnums
         self.assertEquals(jnums, ['', 'J:195038', 'J:30695', 'J:19241'])     
@@ -602,7 +622,7 @@ class TestLitSearch(unittest.TestCase):
         table_element = self.driver.find_element_by_id("resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
-        jnum_cells = table.get_column_cells(3)
+        jnum_cells = table.get_column_cells(2)
         jnums = iterate.getTextAsList(jnum_cells)
         print jnums
         self.assertEquals(jnums, ['', 'J:19241'])     

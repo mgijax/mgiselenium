@@ -141,7 +141,7 @@ class TestVarAddDelete(unittest.TestCase):
         print alleffects
         wait.forAngular
         #assert the correct SO Effects are listed in the correct order
-        self.assertEquals(alleffects, ['Term', 'missense_variant', 'stop_gained', 'stop_lost', 'start_lost', 'splice_acceptor_variant', 'splice_donor_variant', 'splice_region_variant', 'frameshift_variant', 'frameshift_truncation', 'frameshift_elongation', '5_prime_UTR_premature_start_codon_gain_variant', 'chromosome', 'chromosome_number_variation', 'coding_sequence_variant', 'coding_transcript_intron_variant', 'coding_transcript_variant', 'complex_substitution', 'conserved_intergenic_variant', 'conserved_intron_variant', 'direct_tandem_duplication', 'disruptive_inframe_deletion', 'disruptive_inframe_insertion', 'downstream_gene_variant', 'exon_loss_variant', 'exon_variant', 'feature_truncation', 'gene_variant', 'inframe_deletion', 'inframe_insertion', 'initiator_codon_variant', 'intergenic_region', 'intergenic_variant', 'internal_feature_elongation', 'intragenic_variant', 'intron_variant', 'miRNA', 'non_coding_transcript_exon_variant', 'non_coding_transcript_intron_variant', 'non_coding_transcript_variant', 'rare_amino_acid_variant', 'regulatory_region_variant', 'sequence_variant', 'splicing_variant', 'stop_retained_variant', 'structural_variant', 'synonymous_variant', 'transcript_ablation', 'transcript_variant', 'upstream_gene_variant'])        
+        self.assertEquals(alleffects, ['Term', 'missense_variant', 'stop_gained', 'stop_lost', 'start_lost', 'splice_acceptor_variant', 'splice_donor_variant', 'splice_region_variant', 'frameshift_variant', 'frameshift_truncation', 'frameshift_elongation', '5_prime_UTR_premature_start_codon_gain_variant', 'chromosome_number_variation', 'coding_sequence_variant', 'coding_transcript_intron_variant', 'coding_transcript_variant', 'conserved_intergenic_variant', 'conserved_intron_variant', 'disruptive_inframe_deletion', 'disruptive_inframe_insertion', 'downstream_gene_variant', 'exon_loss_variant', 'exon_variant', 'feature_truncation', 'gene_variant', 'inframe_deletion', 'inframe_insertion', 'initiator_codon_variant', 'intergenic_variant', 'internal_feature_elongation', 'intragenic_variant', 'intron_variant', 'non_coding_transcript_exon_variant', 'non_coding_transcript_intron_variant', 'non_coding_transcript_variant', 'rare_amino_acid_variant', 'regulatory_region_variant', 'sequence_variant', 'splicing_variant', 'stop_retained_variant', 'structural_variant', 'synonymous_variant', 'transcript_ablation', 'transcript_variant', 'upstream_gene_variant'])        
 
     def testVarTypesPopupAdd(self):
         """
@@ -277,7 +277,7 @@ class TestVarAddDelete(unittest.TestCase):
     def testAllVarTable(self):
         """
         @Status tests that the All Variants Table displays the data that is displayed in the form
-        @see pwi-var-create-5, 6, 7
+        @see pwi-var-create-5, 6, 7 BROKE 9/5/2019
         @attention: This variant might have to be totally recreated upon a new data load, or just create it within this test
         """
         driver = self.driver
@@ -360,7 +360,7 @@ class TestVarAddDelete(unittest.TestCase):
     def testVarTableTransEnsemblLink(self):
         """
         @Status tests that the All Variants Table Transcript IDs link to their appropriate website(Ensembl ID)
-        @see pwi-var-create-8 *BUG* waiting for fix
+        @see pwi-var-create-8 
         @attention: This variant might have to be totally recreated upon a new data load, or just create it within this test
         """
         driver = self.driver
@@ -368,7 +368,7 @@ class TestVarAddDelete(unittest.TestCase):
             ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
             )
         #finds the allele ID field and enters the MGI ID
-        driver.find_element_by_id("alleleID").send_keys('MGI:3051902')
+        driver.find_element_by_id("alleleID").send_keys('MGI:1856473')
         driver.find_element_by_id('searchButton').click()
         #waits until the page is displayed on the page    
         wait.forAngular(self.driver)   
@@ -380,11 +380,11 @@ class TestVarAddDelete(unittest.TestCase):
         symbols = iterate.getTextAsList(cells)
         print symbols
         #find the Transcript ID for the first row of data and click it
-        self.driver.find_element_by_link_text("ENSMUST00000125418").click()
+        self.driver.find_element_by_link_text("ENSMUST00000035342").click()
         #switch focus to the newly opened page
         self.driver.switch_to_window(driver.window_handles[-1])
         #Assert the Ensembl ID is displayed somewhere on this page.
-        assert "ENSMUST00000125418" in self.driver.page_source   
+        assert "ENSMUST00000035342" in self.driver.page_source   
         #Assert you do not find "No items found" text on the page  
         assert "No items found" not in self.driver.page_source 
 
@@ -399,7 +399,7 @@ class TestVarAddDelete(unittest.TestCase):
             ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
             )
         #finds the allele ID field and enters the MGI ID
-        driver.find_element_by_id("alleleID").send_keys('MGI:1861186')
+        driver.find_element_by_id("alleleID").send_keys('MGI:6305831')
         driver.find_element_by_id('searchButton').click()
         #waits until the page is displayed on the page    
         wait.forAngular(self.driver)   
@@ -411,11 +411,11 @@ class TestVarAddDelete(unittest.TestCase):
         symbols = iterate.getTextAsList(cells)
         print symbols
         #find the Transcript ID and click it
-        self.driver.find_element_by_link_text("AK052447").click()
+        self.driver.find_element_by_link_text("NM_145223").click()
         #switch focus to the newly opened page
         self.driver.switch_to_window(driver.window_handles[-1])
         #Assert the GenBank ID is displayed somewhere on this page.
-        assert "AK052447" in self.driver.page_source   
+        assert "NM_145223" in self.driver.page_source   
         #Assert you do not find "No items found" text on the page  
         assert "No items found" not in self.driver.page_source 
 
@@ -430,7 +430,7 @@ class TestVarAddDelete(unittest.TestCase):
             ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
             )
         #finds the allele ID field and enters the MGI ID
-        driver.find_element_by_id("alleleID").send_keys('MGI:1861186')
+        driver.find_element_by_id("alleleID").send_keys('MGI:6336157')
         driver.find_element_by_id('searchButton').click()
         #waits until the page is displayed on the page    
         wait.forAngular(self.driver)   
@@ -442,11 +442,11 @@ class TestVarAddDelete(unittest.TestCase):
         symbols = iterate.getTextAsList(cells)
         print symbols
         #find the Polypeptide ID and click it
-        self.driver.find_element_by_link_text("Q62226").click()
+        self.driver.find_element_by_link_text("Q8CJG0").click()
         #switch focus to the newly opened page
         self.driver.switch_to_window(driver.window_handles[-1])
         #Assert the Swiss-Prot ID is displayed somewhere on this page.
-        assert "Q62226" in self.driver.page_source   
+        assert "Q8CJG0" in self.driver.page_source   
         #Assert you do not find "No items found" text on the page  
         assert "No items found" not in self.driver.page_source 
 
@@ -461,7 +461,7 @@ class TestVarAddDelete(unittest.TestCase):
             ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
             )
         #finds the allele ID field and enters the MGI ID
-        driver.find_element_by_id("alleleID").send_keys('MGI:3051902')
+        driver.find_element_by_id("alleleID").send_keys('MGI:6306273')
         driver.find_element_by_id('searchButton').click()
         #waits until the page is displayed on the page    
         wait.forAngular(self.driver)   
@@ -473,11 +473,11 @@ class TestVarAddDelete(unittest.TestCase):
         symbols = iterate.getTextAsList(cells)
         print symbols
         #find the Polypeptide ID and click it
-        self.driver.find_element_by_link_text("Q8C765").click()
+        self.driver.find_element_by_link_text("Q6AXE3").click()
         #switch focus to the newly opened page
         self.driver.switch_to_window(driver.window_handles[-1])
         #Assert the Trembl ID is displayed somewhere on this page.
-        assert "Q8C765" in self.driver.page_source   
+        assert "Q6AXE3" in self.driver.page_source   
         #Assert you do not find "No items found" text on the page  
         assert "No items found" not in self.driver.page_source 
                         

@@ -47,7 +47,7 @@ class TestImgSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Image Class pulldown and selects "Search all" option then click the Search button
-        Select(driver.find_element_by_id("imageClass")).select_by_value('')
+        Select(driver.find_element_by_id("imageClassID")).select_by_value('')
         #finds the MGI ID field and enters am MGI ID then clicks the Search button
         driver.find_element_by_id("objectAccId").send_keys('MGI:3717589')
         driver.find_element_by_id('searchButton').click()
@@ -89,7 +89,7 @@ class TestImgSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Image Class pulldown and selects "Search all" option then click the Search button
-        Select(driver.find_element_by_id("imageClass")).select_by_value('')
+        Select(driver.find_element_by_id("imageClassID")).select_by_value('')
         #finds the J# field and enter a J Number for an expression image then click the Search button
         driver.find_element_by_id("JNumID").send_keys('139510')
         driver.find_element_by_id('searchButton').click()
@@ -169,7 +169,7 @@ class TestImgSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Image Class pulldown and selects "Phenotypes" option then click the Search button
-        Select(driver.find_element_by_id("imageClass")).select_by_value('6481782')
+        Select(driver.find_element_by_id("imageClassID")).select_by_value('6481782')
         #finds the J# field and enter a J Number for a phenotype image then click the Search button
         driver.find_element_by_id("JNumID").send_keys('6708')
         driver.find_element_by_id('searchButton').click()
@@ -224,7 +224,7 @@ class TestImgSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Image Class pulldown and selects "Molecular" option then click the Search button
-        Select(driver.find_element_by_id("imageClass")).select_by_value('6481783')
+        Select(driver.find_element_by_id("imageClassID")).select_by_value('6481783')
         #finds the J# field and enter a J Number for a molecular image then click the Search button
         driver.find_element_by_id("JNumID").send_keys('42811')
         driver.find_element_by_id('searchButton').click()
@@ -310,13 +310,14 @@ class TestImgSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Image Class pulldown and selects "Expression" option then click the Search button
-        Select(driver.find_element_by_id("imageClass")).select_by_value('6481781')
+        Select(driver.find_element_by_id("imageClassID")).select_by_value('6481781')
         driver.find_element_by_id('searchButton').click()
-        time.sleep(10)
+        time.sleep(15)
         #WebDriverWait(driver, 20).until(EC.text_to_be_present_in_element((By.ID, "resultsCount")))
         #find the search results table
         results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
+        time.sleep(2)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
         cell2 = table.get_row_cells(1)
@@ -348,7 +349,7 @@ class TestImgSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Image Class pulldown and selects "Phenotypes" option then click the Search button
-        Select(driver.find_element_by_id("imageClass")).select_by_value('6481782')
+        Select(driver.find_element_by_id("imageClassID")).select_by_value('6481782')
         driver.find_element_by_id('searchButton').click()
         time.sleep(5)
         #WebDriverWait(driver, 20).until(EC.text_to_be_present_in_element((By.ID, "resultsCount")))
@@ -404,7 +405,7 @@ class TestImgSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Image Class pulldown and selects "Molecular" option then click the Search button
-        Select(driver.find_element_by_id("imageClass")).select_by_value('6481783')
+        Select(driver.find_element_by_id("imageClassID")).select_by_value('6481783')
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #WebDriverWait(driver, 20).until(EC.text_to_be_present_in_element((By.ID, "resultsCount")))
@@ -460,7 +461,7 @@ class TestImgSearch(unittest.TestCase):
         #finds the caption field and enter a wildcard search term then click the Search button
         driver.find_element_by_id("captionID").send_keys('%Magnification, 291 X%')
         driver.find_element_by_id('searchButton').click()
-        time.sleep(3)
+        time.sleep(35)
         #find the search results table
         results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
@@ -481,7 +482,7 @@ class TestImgSearch(unittest.TestCase):
         #finds the Copyright field and enter a wildcard term then click the Search button
         driver.find_element_by_id("copyrightID").send_keys('%vasc cell%')
         driver.find_element_by_id('searchButton').click()
-        time.sleep(3)
+        time.sleep(35)
         #find the search results table
         results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
@@ -774,7 +775,7 @@ class TestImgSearch(unittest.TestCase):
         driver.find_element_by_id("objectModificationDate").send_keys('<=2009-09-14')
         #finds the Search button and clicks it
         driver.find_element_by_id('searchButton').click()
-        time.sleep(2)
+        time.sleep(4)
         #find the search results table
         results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
@@ -997,7 +998,7 @@ class TestImgSearch(unittest.TestCase):
         #finds the Image Other Accession Ids pulldown and selects "GenePaint" option then click the Search button
         Select(driver.find_element_by_id("accidTypeID")).select_by_value('105')
         driver.find_element_by_id('searchButton').click()
-        time.sleep(5)
+        time.sleep(10)
         #WebDriverWait(driver, 20).until(EC.text_to_be_present_in_element((By.ID, "resultsCount")))
         #find the search results table
         results_table = self.driver.find_element_by_id("resultsTable")
@@ -1055,7 +1056,7 @@ class TestImgSearch(unittest.TestCase):
         #finds the Image Other Accession Ids pulldown and selects "Gudmap" option then click the Search button
         Select(driver.find_element_by_id("accidTypeID")).select_by_value('163')
         driver.find_element_by_id('searchButton').click()
-        time.sleep(5)
+        time.sleep(10)
         #WebDriverWait(driver, 20).until(EC.text_to_be_present_in_element((By.ID, "resultsCount")))
         #find the search results table
         results_table = self.driver.find_element_by_id("resultsTable")

@@ -180,7 +180,7 @@ class TestEmapaDetail(unittest.TestCase, EmapaBaseClass):
         
         #verify EMAPS term is loaded for second polar body
         detailItems = self.driver.find_elements_by_css_selector("#termDetailContent dd")
-        self.assertEqual(detailItems[2].text,"EMAPA:16034")
+        self.assertEqual(detailItems[2].text,"EMAPS:1603401")
         
         
         # verify stage is active

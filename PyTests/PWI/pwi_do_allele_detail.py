@@ -1,6 +1,6 @@
 '''
 Created on Nov 22, 2016
-These tests start out using the Marker form
+These tests start out using the Marker form THE MARKER FOM IS NOW GONE reevaluate these tests!
 @author: jeffc
 '''
 
