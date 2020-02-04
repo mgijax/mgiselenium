@@ -19,15 +19,16 @@ sys.path.append(
 )
 from util import wait, iterate
 import config
-from config import TEST_URL
+#from config import TEST_URL
 
 class TestStrainQF(unittest.TestCase):
 
 
     def setUp(self):
     
-        self.driver = webdriver.Firefox()
-        self.driver.get(config.TEST_URL + "/strains_SNPs.shtml")
+        #self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
+        self.driver.get(config.TEST_URL + "/home/strain")
         self.driver.implicitly_wait(10)
 
     def test_search_strain_name(self):
@@ -36,23 +37,23 @@ class TestStrainQF(unittest.TestCase):
         @note: Strain-qf-name-1
         """
         driver = self.driver
-        driver.get(config.TEST_URL + "/strains_SNPs.shtml")
+        driver.get(config.TEST_URL + "/home/strain")
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
-        strainsearchbox.send_keys("CD-1/crl")
+        strainsearchbox.send_keys("CD")
         time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
-        cells = strain_table.get_column_cells("Official Strain Name")
+        cells = strain_table.get_column_cells("Strain/Stock Name")
         print iterate.getTextAsList(cells)
         
         strainNamesReturned = iterate.getTextAsList(cells)
         
         #asserts that the following strains are returned
-        self.assertIn('CD-1/Crl', strainNamesReturned) # official strain name
+        self.assertIn('CD', strainNamesReturned) # Strain/Stock Name
   
     def test_search_strain_syn_name(self):
         """
@@ -68,11 +69,11 @@ class TestStrainQF(unittest.TestCase):
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
-        cells = strain_table.get_column_cells("Official Strain Name")
+        cells = strain_table.get_column_cells("Strain/Stock Name")
         print iterate.getTextAsList(cells)
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
-        self.assertIn('129S6.Cg-Tg(APPSWE)2576Kha/Tac', strainNamesReturned) # official strain name
+        self.assertIn('129S6.Cg-Tg(APPSWE)2576Kha/Tac', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("Synonyms")
         print iterate.getTextAsList(cells1)
         strainSynReturned = iterate.getTextAsList(cells1)
@@ -93,14 +94,14 @@ class TestStrainQF(unittest.TestCase):
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
-        cells = strain_table.get_column_cells("Official Strain Name")
+        cells = strain_table.get_column_cells("Strain/Stock Name")
         print iterate.getTextAsList(cells)
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
-        self.assertIn('129S6(B6)-Pgk2tm1Dao/Mmnc', strainNamesReturned) # official strain name
-        self.assertIn('C57BL/6J x 129', strainNamesReturned) # official strain name
-        self.assertIn('B6;129S5-Elovl6Gt(OST222498)Lex/Orl', strainNamesReturned) # official strain name
-        self.assertIn('C.129', strainNamesReturned) # official strain name
+        self.assertIn('129S6(B6)-Pgk2tm1Dao/Mmnc', strainNamesReturned) # Strain/Stock Name
+        self.assertIn('C57BL/6J x 129', strainNamesReturned) # Strain/Stock Name
+        self.assertIn('B6;129S5-Elovl6Gt(OST222498)Lex/Orl', strainNamesReturned) # Strain/Stock Name
+        self.assertIn('C.129', strainNamesReturned) # Strain/Stock Name
        
     def test_search_strain_wild_front_back(self):
         """
@@ -118,14 +119,14 @@ class TestStrainQF(unittest.TestCase):
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
-        cells = strain_table.get_column_cells("Official Strain Name")
+        cells = strain_table.get_column_cells("Strain/Stock Name")
         print iterate.getTextAsList(cells)
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
-        self.assertIn('B6.129-Crygstm1Gwis', strainNamesReturned) # official strain name
-        self.assertIn('B6N(Cg)-Crygstm1b(KOMP)Wtsi/2J', strainNamesReturned) # official strain name
-        self.assertIn('C3H.Cg-CrygsOpj/H', strainNamesReturned) # official strain name
-        self.assertIn('C57BL/6N-Crygstm1a(KOMP)Wtsi/2J', strainNamesReturned) # official strain name
+        self.assertIn('B6.129-Crygstm1Gwis', strainNamesReturned) # Strain/Stock Name
+        self.assertIn('B6N(Cg)-Crygstm1b(KOMP)Wtsi/2J', strainNamesReturned) # Strain/Stock Name
+        self.assertIn('C3H.Cg-CrygsOpj/H', strainNamesReturned) # Strain/Stock Name
+        self.assertIn('C57BL/6N-Crygstm1a(KOMP)Wtsi/2J', strainNamesReturned) # Strain/Stock Name
         
     def test_search_strain_mgi_id(self):
         """
@@ -143,11 +144,11 @@ class TestStrainQF(unittest.TestCase):
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
-        cells = strain_table.get_column_cells("Official Strain Name")
+        cells = strain_table.get_column_cells("Strain/Stock Name")
         print iterate.getTextAsList(cells)
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
-        self.assertIn('101/H', strainNamesReturned) # official strain name
+        self.assertIn('101/H', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
         print iterate.getTextAsList(cells1)
         idReturned = iterate.getTextAsList(cells1)
@@ -170,11 +171,11 @@ class TestStrainQF(unittest.TestCase):
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
-        cells = strain_table.get_column_cells("Official Strain Name")
+        cells = strain_table.get_column_cells("Strain/Stock Name")
         print iterate.getTextAsList(cells)
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
-        self.assertIn('SJL/J', strainNamesReturned) # official strain name
+        self.assertIn('SJL/J', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
         print iterate.getTextAsList(cells1)
         idReturned = iterate.getTextAsList(cells1)
@@ -197,11 +198,11 @@ class TestStrainQF(unittest.TestCase):
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
-        cells = strain_table.get_column_cells("Official Strain Name")
+        cells = strain_table.get_column_cells("Strain/Stock Name")
         print iterate.getTextAsList(cells)
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
-        self.assertIn('BALB/cJ', strainNamesReturned) # official strain name
+        self.assertIn('BALB/cJ', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
         print iterate.getTextAsList(cells1)
         idReturned = iterate.getTextAsList(cells1)
@@ -224,11 +225,11 @@ class TestStrainQF(unittest.TestCase):
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
-        cells = strain_table.get_column_cells("Official Strain Name")
+        cells = strain_table.get_column_cells("Strain/Stock Name")
         print iterate.getTextAsList(cells)
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
-        self.assertIn('129-Myh7tm1Unc/Mmnc', strainNamesReturned) # official strain name
+        self.assertIn('129-Myh7tm1Unc/Mmnc', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
         print iterate.getTextAsList(cells1)
         idReturned = iterate.getTextAsList(cells1)
@@ -251,11 +252,11 @@ class TestStrainQF(unittest.TestCase):
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
-        cells = strain_table.get_column_cells("Official Strain Name")
+        cells = strain_table.get_column_cells("Strain/Stock Name")
         print iterate.getTextAsList(cells)
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
-        self.assertIn('129(B6)-Elf5tm1Mapr', strainNamesReturned) # official strain name
+        self.assertIn('129(B6)-Elf5tm1Mapr', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
         print iterate.getTextAsList(cells1)
         idReturned = iterate.getTextAsList(cells1)
@@ -278,16 +279,16 @@ class TestStrainQF(unittest.TestCase):
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
-        cells = strain_table.get_column_cells("Official Strain Name")
+        cells = strain_table.get_column_cells("Strain/Stock Name")
         print iterate.getTextAsList(cells)
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
-        self.assertIn('C57BL/6JArc', strainNamesReturned) # official strain name
+        self.assertIn('C57BL/6JArc', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
         print iterate.getTextAsList(cells1)
         idReturned = iterate.getTextAsList(cells1)
         #asserts that the correct ID is  returned
-        self.assertIn('MGI:5425110\nARC:B6', idReturned) # ID is correct   
+        self.assertIn('MGI:5425110\nARC:B6\nMPD:784', idReturned) # ID is correct   
     '''test_search_strain_BCBC_id not possible until data exists'''
         
     def test_search_strain_CARD_id(self):
@@ -304,11 +305,11 @@ class TestStrainQF(unittest.TestCase):
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
-        cells = strain_table.get_column_cells("Official Strain Name")
+        cells = strain_table.get_column_cells("Strain/Stock Name")
         print iterate.getTextAsList(cells)
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
-        self.assertIn('129-Atp6v0ctm1Hka', strainNamesReturned) # official strain name
+        self.assertIn('129-Atp6v0ctm1Hka', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
         print iterate.getTextAsList(cells1)
         idReturned = iterate.getTextAsList(cells1)
@@ -332,11 +333,11 @@ class TestStrainQF(unittest.TestCase):
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
-        cells = strain_table.get_column_cells("Official Strain Name")
+        cells = strain_table.get_column_cells("Strain/Stock Name")
         print iterate.getTextAsList(cells)
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
-        self.assertIn('129-Alpltm1(cre)Nagy', strainNamesReturned) # official strain name
+        self.assertIn('129-Alpltm1(cre)Nagy', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
         print iterate.getTextAsList(cells1)
         idReturned = iterate.getTextAsList(cells1)
@@ -360,11 +361,11 @@ class TestStrainQF(unittest.TestCase):
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
-        cells = strain_table.get_column_cells("Official Strain Name")
+        cells = strain_table.get_column_cells("Strain/Stock Name")
         print iterate.getTextAsList(cells)
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
-        self.assertIn('129-Acaa1btm1Vnf/Orl', strainNamesReturned) # official strain name
+        self.assertIn('129-Acaa1btm1Vnf/Orl', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
         print iterate.getTextAsList(cells1)
         idReturned = iterate.getTextAsList(cells1)
@@ -385,11 +386,11 @@ class TestStrainQF(unittest.TestCase):
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
-        cells = strain_table.get_column_cells("Official Strain Name")
+        cells = strain_table.get_column_cells("Strain/Stock Name")
         print iterate.getTextAsList(cells)
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
-        self.assertIn('B6.Cg-Tg(NR2E1)11Ems/Ems', strainNamesReturned) # official strain name
+        self.assertIn('B6.Cg-Tg(NR2E1)11Ems/Ems', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
         print iterate.getTextAsList(cells1)
         idReturned = iterate.getTextAsList(cells1)
@@ -413,11 +414,11 @@ class TestStrainQF(unittest.TestCase):
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
-        cells = strain_table.get_column_cells("Official Strain Name")
+        cells = strain_table.get_column_cells("Strain/Stock Name")
         print iterate.getTextAsList(cells)
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
-        self.assertIn('101/H-Tbob/H', strainNamesReturned) # official strain name
+        self.assertIn('101/H-Tbob/H', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
         print iterate.getTextAsList(cells1)
         idReturned = iterate.getTextAsList(cells1)
@@ -440,11 +441,11 @@ class TestStrainQF(unittest.TestCase):
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
-        cells = strain_table.get_column_cells("Official Strain Name")
+        cells = strain_table.get_column_cells("Strain/Stock Name")
         print iterate.getTextAsList(cells)
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
-        self.assertIn('C57BL/6J-GckHlb62/J', strainNamesReturned) # official strain name
+        self.assertIn('C57BL/6J-GckHlb62/J', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
         print iterate.getTextAsList(cells1)
         idReturned = iterate.getTextAsList(cells1)
@@ -469,11 +470,11 @@ class TestStrainQF(unittest.TestCase):
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
-        cells = strain_table.get_column_cells("Official Strain Name")
+        cells = strain_table.get_column_cells("Strain/Stock Name")
         print iterate.getTextAsList(cells)
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
-        self.assertIn('129(Cg)-Mdm2tm1.2Mep', strainNamesReturned) # official strain name
+        self.assertIn('129(Cg)-Mdm2tm1.2Mep', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
         print iterate.getTextAsList(cells1)
         idReturned = iterate.getTextAsList(cells1)
@@ -494,11 +495,11 @@ class TestStrainQF(unittest.TestCase):
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
-        cells = strain_table.get_column_cells("Official Strain Name")
+        cells = strain_table.get_column_cells("Strain/Stock Name")
         print iterate.getTextAsList(cells)
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
-        self.assertIn('129S6/SvEvTac', strainNamesReturned) # official strain name
+        self.assertIn('129S6/SvEvTac', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
         print iterate.getTextAsList(cells1)
         idReturned = iterate.getTextAsList(cells1)
@@ -522,11 +523,11 @@ class TestStrainQF(unittest.TestCase):
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
-        cells = strain_table.get_column_cells("Official Strain Name")
+        cells = strain_table.get_column_cells("Strain/Stock Name")
         print iterate.getTextAsList(cells)
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
-        self.assertIn('B6;129-Adgre1tm1(cre)Kpf', strainNamesReturned) # official strain name
+        self.assertIn('B6;129-Adgre1tm1(cre)Kpf', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
         print iterate.getTextAsList(cells1)
         idReturned = iterate.getTextAsList(cells1)
@@ -542,16 +543,16 @@ class TestStrainQF(unittest.TestCase):
         driver.get(config.TEST_URL + "/strains_SNPs.shtml")
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
-        strainsearchbox.send_keys("229")
+        strainsearchbox.send_keys("NIG:229")
         strainsearchbox.send_keys(Keys.RETURN)
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
-        cells = strain_table.get_column_cells("Official Strain Name")
+        cells = strain_table.get_column_cells("Strain/Stock Name")
         print iterate.getTextAsList(cells)
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
-        self.assertIn('AVZ/Ms', strainNamesReturned) # official strain name
+        self.assertIn('AVZ/Ms', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
         print iterate.getTextAsList(cells1)
         idReturned = iterate.getTextAsList(cells1)
@@ -574,11 +575,11 @@ class TestStrainQF(unittest.TestCase):
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
-        cells = strain_table.get_column_cells("Official Strain Name")
+        cells = strain_table.get_column_cells("Strain/Stock Name")
         print iterate.getTextAsList(cells)
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
-        self.assertIn('C57BL/6J-Clockm1Jt/Nwu', strainNamesReturned) # official strain name
+        self.assertIn('C57BL/6J-Clockm1Jt/Nwu', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
         print iterate.getTextAsList(cells1)
         idReturned = iterate.getTextAsList(cells1)
@@ -601,11 +602,11 @@ class TestStrainQF(unittest.TestCase):
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
-        cells = strain_table.get_column_cells("Official Strain Name")
+        cells = strain_table.get_column_cells("Strain/Stock Name")
         print iterate.getTextAsList(cells)
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
-        self.assertIn('B6.129P2-Hrh1tm1Wtn/Obs', strainNamesReturned) # official strain name
+        self.assertIn('B6.129P2-Hrh1tm1Wtn/Obs', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
         print iterate.getTextAsList(cells1)
         idReturned = iterate.getTextAsList(cells1)
@@ -628,11 +629,11 @@ class TestStrainQF(unittest.TestCase):
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
-        cells = strain_table.get_column_cells("Official Strain Name")
+        cells = strain_table.get_column_cells("Strain/Stock Name")
         print iterate.getTextAsList(cells)
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
-        self.assertIn('47BS/Rl', strainNamesReturned) # official strain name
+        self.assertIn('47BS/Rl', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
         print iterate.getTextAsList(cells1)
         idReturned = iterate.getTextAsList(cells1)
@@ -655,16 +656,16 @@ class TestStrainQF(unittest.TestCase):
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
-        cells = strain_table.get_column_cells("Official Strain Name")
+        cells = strain_table.get_column_cells("Strain/Stock Name")
         print iterate.getTextAsList(cells)
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
-        self.assertIn('SL/KhStmRbrc', strainNamesReturned) # official strain name
+        self.assertIn('SL/KhStmRbrc', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
         print iterate.getTextAsList(cells1)
         idReturned = iterate.getTextAsList(cells1)
         #asserts that the correct ID is  returned
-        self.assertIn('MGI:2160561\nRBRC00222', idReturned) # ID is correct 
+        self.assertIn('MGI:2160561\nRBRC00222\nMPD:981', idReturned) # ID is correct 
     '''test_search_strain_SMOC_id not possible until data exists'''                 
 
     def test_search_strain_TAC_id(self):
@@ -681,11 +682,11 @@ class TestStrainQF(unittest.TestCase):
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
-        cells = strain_table.get_column_cells("Official Strain Name")
+        cells = strain_table.get_column_cells("Strain/Stock Name")
         print iterate.getTextAsList(cells)
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
-        self.assertIn('129S6/SvEvTac-Rag2tm1Fwa/Tac', strainNamesReturned) # official strain name
+        self.assertIn('129S6/SvEvTac-Rag2tm1Fwa/Tac', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
         print iterate.getTextAsList(cells1)
         idReturned = iterate.getTextAsList(cells1)
@@ -709,11 +710,11 @@ class TestStrainQF(unittest.TestCase):
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
-        cells = strain_table.get_column_cells("Official Strain Name")
+        cells = strain_table.get_column_cells("Strain/Stock Name")
         print iterate.getTextAsList(cells)
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
-        self.assertIn('C57BL/6JNarl', strainNamesReturned) # official strain name
+        self.assertIn('C57BL/6JNarl', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
         print iterate.getTextAsList(cells1)
         idReturned = iterate.getTextAsList(cells1)
@@ -793,8 +794,8 @@ class TestStrainQF(unittest.TestCase):
         #asserts the following attributes are returned
         self.assertIn('conplastic\ntargeted mutation', attributesReturned) # contains this attribute
         self.assertIn('closed colony\nmutant stock', attributesReturned) # contains this attribute
-        #get data from the Official Strain Name column
-        cells1 = strain_table.get_column_cells("Official Strain Name")
+        #get data from the Strain/Stock Name column
+        cells1 = strain_table.get_column_cells("Strain/Stock Name")
         print iterate.getTextAsList(cells)
         strainsReturned = iterate.getTextAsList(cells1)
         time.sleep(2)

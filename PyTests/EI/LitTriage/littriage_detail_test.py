@@ -225,18 +225,34 @@ class TestLitDetail(unittest.TestCase):
         time.sleep(2)
         #find the Allele Associations button and click it
         self.driver.find_element_by_id('alleleTabButton').click()
-        #finds the Allele Association table and get the first 2 rows of data
+        #finds the Allele Association table and gets the first row of data
         time.sleep(2)
-        table_element = self.driver.find_element_by_id("alleleAssocTable")
-        table = Table(table_element)
-        cells1 = table.get_row_cells(1)
-        c1 = iterate.getTextAsList(cells1)
-        cells2 = table.get_row_cells(2)
-        c2 = iterate.getTextAsList(cells2)
+        type_used = self.driver.find_elements_by_class_name('alleleAssocType')[0].get_property('value')#value will be 1017 which associates to 'Used-FC'
+        allele_used = self.driver.find_elements_by_class_name("alleleSymbol")[0].get_property('value')
+        allele_id = self.driver.find_elements_by_class_name("alleleAccID")[0].get_property('value')
+        mrk = self.driver.find_elements_by_class_name('alleleMarkerSymbol')[0]
+        print type_used
+        print allele_used
+        print allele_id
+        print mrk.text
+        #finds the Allele Association table and gets the second row of data
+        type1_used = self.driver.find_elements_by_class_name('alleleAssocType')[1].get_property('value')#value will be 1017 which associates to 'Used-FC'
+        allele1_used = self.driver.find_elements_by_class_name("alleleSymbol")[1].get_property('value')
+        allele1_id = self.driver.find_elements_by_class_name("alleleAccID")[1].get_property('value')
+        mrk1 = self.driver.find_elements_by_class_name('alleleMarkerSymbol')[1]
+        print type1_used
+        print allele1_used
+        print allele1_id
+        print mrk1.text
         #assert the row results are correct
-        self.assertEqual(c1, ['', 'Used-FC', 'Cdk5rap2<an>', 'MGI:1856646', 'Cdk5rap2'])
-        self.assertEqual(c2, ['', 'Used-FC', 'Tyrp1<B-lt>', 'MGI:1855962', 'Tyrp1'])
-
+        self.assertEqual(type_used, '1017')
+        self.assertEqual(allele_used, 'Cdk5rap2<an>')
+        self.assertEqual(allele_id, 'MGI:1856646')
+        self.assertEqual(mrk.text, 'Cdk5rap2')
+        self.assertEqual(type1_used, '1017')
+        self.assertEqual(allele1_used, 'Tyrp1<B-lt>')
+        self.assertEqual(allele1_id, 'MGI:1855962')
+        self.assertEqual(mrk1.text, 'Tyrp1')
 
         
 '''

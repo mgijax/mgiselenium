@@ -27,7 +27,8 @@ class TestStrainDetail(unittest.TestCase):
 
     def setUp(self):
     
-        self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
         self.driver.get(config.TEST_URL + "/strains_SNPs.shtml")
         self.driver.implicitly_wait(10)
 
@@ -155,29 +156,30 @@ class TestStrainDetail(unittest.TestCase):
         print mgiid.text#print the strain MGI ID to the console screen
         self.assertIn('MGI:3028467', mgiid.text, 'MGI ID is incorrect')#assert the MGI ID is correct        
 
-    def test_strain_det_nomen_approveNo(self):
+    #def test_strain_det_nomen_approveNo(self):
         """
         @status: Tests that when a strain is set to standard=no it displays (interim) after the strain in the nomenclature ribbon   
-        @note: Strain-det-sum-3
+        @note: Strain-det-sum-3 ***This test disabled because the FeWI no longer puts 'Interim' after a non standard strain!!
         """
-        driver = self.driver
-        driver.get(config.TEST_URL + "/strains_SNPs.shtml")
-        strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
+        #driver = self.driver
+        #driver.get(config.TEST_URL + "/strains_SNPs.shtml")
+        #strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
-        strainsearchbox.send_keys("101-A<y>")
+        #strainsearchbox.send_keys("101-A<y>")
         #time.sleep(2)
         #find the search button and click it
-        driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
+        #driver.find_element(By.CLASS_NAME, 'goButton').click()
+        #time.sleep(2)
         #locate the link for 101-A<y> and click it
-        driver.find_element(By.PARTIAL_LINK_TEXT, '101-A').click()
-        time.sleep(2)
+        #driver.find_element(By.PARTIAL_LINK_TEXT, '101-A').click()
+        #time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        #driver.switch_to_window(self.driver.window_handles[-1])
         #locates the earliest reference link and clicks it
-        pend = driver.find_element(By.ID, 'strainIsStandard')
-        self.assertEqual(pend.text, '(interim)')         
-        
+        #pend = driver.find_element(By.ID, 'strainIsStandard')
+        #self.assertEqual(pend.text, '(interim)')         
+    
+    
     def test_strain_det_nomen_approveYes(self):
         """
         @status: Tests that when a strain is set to standard=yes it does not display (interim) after the strain in the nomenclature ribbon   
@@ -387,7 +389,7 @@ class TestStrainDetail(unittest.TestCase):
 
     def test_strain_strain_fam_link(self):
         """
-        @status: Tests that Strain Familyt Member link is displayed in the Nomenclature ribbon for all Strain Family strains
+        @status: Tests that Strain Family Member link is displayed in the Nomenclature ribbon for all Strain Family strains
         @note: Strain-det-sum-13
         """
         driver = self.driver
@@ -406,12 +408,12 @@ class TestStrainDetail(unittest.TestCase):
         time.sleep(2)
         fam_mem = driver.find_element(By.ID, 'relatedStrains')#find the Strain Family Member link
         print fam_mem.text#print the strain family member to the console screen
-        self.assertEqual(fam_mem.text, '85')#assert the strain family member link is correct    
+        self.assertEqual(fam_mem.text, '90')#assert the strain family member link is correct    
 
     def test_strain_desc_small(self):
         """
-        @status: Tests the display when the strain description is only  5 characters
-        @note: Strain-det-desc-1
+        @status: Tests the display when the strain description is only 5 characters
+        @note: Strain-det-desc-1**broken 10/24/19 need a new example that has short description**
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/strains_SNPs.shtml")
@@ -508,7 +510,7 @@ class TestStrainDetail(unittest.TestCase):
         #Iterate and print to the screen all the headers(does not capture the word Chromosomes)
         row1_cells = table.get_row_cells(1)        
         print iterate.getTextAsList(row1_cells)  
-        time.sleep(2)       
+        time.sleep(4)       
         #Verify the header cells are correct for the first 4 and last 3 headings
         self.assertEqual(row1_cells[0].text, 'Comparison Strain')
         self.assertEqual(row1_cells[1].text, '1')
@@ -582,7 +584,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.switch_to_window(self.driver.window_handles[-1]) 
         #locate the page title
         self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'snpSummaryTable')))#waits until the snp summary table is displayed on the page 
+        WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, 'snpSummaryTable')))#waits until the snp summary table is displayed on the page 
         #assert the number of SNPs is correct as found in the upper right corner under pagination 
         assert "Showing SNP(s) 1 - 100 of 590392" in self.driver.page_source
         
@@ -641,13 +643,13 @@ class TestStrainDetail(unittest.TestCase):
         mut_cells = iterate.getTextAsList(cells)
         print mut_cells
         #verifies that the right mutations appear and in the correct order
-        self.assertEquals(mut_cells, ['Mutation Carried', 'AanatC57BL/6J', 'Ahrb-1', 'Apobec3Rfv3-r', 'Cd5b', 'Cdh23ahl', 'Fbrwt1C57BL/6J', 'Fbrwt2C57BL/6J', 'Gluchos1C57BL/6J', 'Gluchos2C57BL/6J', 'Gluchos3C57BL/6J', 'Micrln', 'n-TRtct5m1J', 'Nlrp12C57BL/6J', 'NntC57BL/6J', 'P2rx7P451L'])
+        self.assertEquals(mut_cells, ['Mutation Carried', 'AanatC57BL/6J', 'Ahrb-1', 'Apobec3Rfv3-r', 'Cd5b', 'Cdh23ahl', 'Cox7a2ls', 'Fbrwt1C57BL/6J', 'Fbrwt2C57BL/6J', 'Gluchos1C57BL/6J', 'Gluchos2C57BL/6J', 'Gluchos3C57BL/6J', 'Micrln', 'Mx1s1', 'n-TRtct5m1J', 'Nlrp12C57BL/6J', 'NntC57BL/6J', 'P2rx7P451L'])
         #print all items found in the Gene column
         cells1 = table.get_column_cells("Marker")
         gene_cells = iterate.getTextAsList(cells1)
         print gene_cells
         #verifies that the right genes appear and in the correct order
-        self.assertEquals(gene_cells, [u'Marker', u'Aanat', u'Ahr', u'Apobec3', u'Cd5', u'Cdh23', u'Fbrwt1', u'Fbrwt2', u'Gluchos1', u'Gluchos2', u'Gluchos3', u'Micrl', u'n-TRtct5', u'Nlrp12', u'Nnt', u'P2rx7'])
+        self.assertEquals(gene_cells, ['Marker', 'Aanat', 'Ahr', 'Apobec3', 'Cd5', 'Cdh23', 'Cox7a2l', 'Fbrwt1', 'Fbrwt2', 'Gluchos1', 'Gluchos2', 'Gluchos3', 'Micrl', 'Mx1', 'n-TRtct5', 'Nlrp12', 'Nnt', 'P2rx7'])
         
     def test_strain_det_mut_single_assoc(self):
         """
@@ -782,7 +784,7 @@ class TestStrainDetail(unittest.TestCase):
         #locate the count and text above the mutations table       
         mut_count = self.driver.find_element(By.CLASS_NAME, 'indented')
         print mut_count.text
-        self.assertEqual(mut_count.text, '15 associated mutations', 'associated mutations count/text is wrong')
+        self.assertEqual(mut_count.text, '17 associated mutations', 'associated mutations count/text is wrong')
         
     def test_strain_det_mut_showall(self):
         """
@@ -955,7 +957,7 @@ class TestStrainDetail(unittest.TestCase):
         #locate the count and text above the qtl table       
         qtl_count = self.driver.find_elements(By.CLASS_NAME, 'indented')
         print qtl_count[2].text
-        self.assertEqual(qtl_count[2].text, '2587 associated QTL', 'associated QTL count/text is wrong')
+        self.assertEqual(qtl_count[2].text, '2629 associated QTL', 'associated QTL count/text is wrong')
         
     def test_strain_det_qtl_showall(self):
         """
@@ -1076,18 +1078,21 @@ class TestStrainDetail(unittest.TestCase):
         time.sleep(2)
         #locate the link for B6.Cg-Phex<Hyp>/J and click it
         driver.find_element(By.PARTIAL_LINK_TEXT, 'B6.Cg-Phex').click()
-        time.sleep(2)
+        time.sleep(3)
         #switch focus to the new tab for strain detail page
         driver.switch_to_window(self.driver.window_handles[-1])
+        #set browser window to max size
+        driver.maximize_window()
+        time.sleep(1)
         #locates the human disease link and clicks it
-        driver.find_element(By.LINK_TEXT, 'X-linked hypophosphatemic rickets').click()
+        driver.find_element(By.PARTIAL_LINK_TEXT, 'X-linked').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
         driver.switch_to_window(self.driver.window_handles[-1])
         #verify the Disease name and DOID are correct for this page
         disname = driver.find_element(By.ID, 'diseaseNameID')
         print disname.text
-        self.assertEquals(disname.text, 'X-linked hypophosphatemic rickets (DOID:0050445)')       
+        self.assertEquals(disname.text, 'X-linked dominant hypophosphatemic rickets (DOID:0050445)')       
 
     def test_strain_humdis_model_link(self):
         """
@@ -1399,10 +1404,10 @@ class TestStrainDetail(unittest.TestCase):
         #switch focus to the new tab for strain detail page
         driver.switch_to_window(self.driver.window_handles[-1])
         #locates the earliest reference link and clicks it
-        driver.find_element(By.LINK_TEXT, 'J:84245').click()
+        driver.find_element(By.LINK_TEXT, 'J:22753').click()
         #time.sleep(2)
         #verify the J number J:6835 exists on this page
-        assert "J:84245" in self.driver.page_source        
+        assert "J:22753" in self.driver.page_source        
         
     def test_strain_ref_allref_link(self):
         """

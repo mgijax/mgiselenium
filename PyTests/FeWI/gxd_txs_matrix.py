@@ -31,7 +31,8 @@ class TestGXDTissueStageMatrix(unittest.TestCase):
         @attention: the time sleeps need to be replaced by expected conditions code
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL + "/gxd")
+        driver.get(config.TEST_URL + "/gxd")
+        #driver.get(config.PUBLIC_URL + "/gxd")
         stagebox = driver.find_element(By.NAME, 'vocabTerm')
         # put your vocabulary term to search in the box
         stagebox.send_keys("mouse")
@@ -67,7 +68,8 @@ class TestGXDTissueStageMatrix(unittest.TestCase):
         @attention: the time sleeps need to be replaced by expected conditions code
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL + "/gxd")
+        driver.get(config.TEST_URL + "/gxd")
+        #driver.get(config.PUBLIC_URL + "/gxd")
         genebox = driver.find_element_by_name('nomenclature')
         # put your marker symbol
         genebox.send_keys("Psmb2")
@@ -104,7 +106,8 @@ class TestGXDTissueStageMatrix(unittest.TestCase):
         sort order is gene first, assay type secondary
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL + "/gxd")
+        driver.get(config.TEST_URL + "/gxd")
+        #driver.get(config.PUBLIC_URL + "/gxd")
         genebox = driver.find_element_by_name('nomenclature')
         # put your marker symbol
         genebox.send_keys("Tmem100")
@@ -114,7 +117,7 @@ class TestGXDTissueStageMatrix(unittest.TestCase):
         time.sleep(1)
         #click the image tab
         imagetab.click()
-        wait.forAjax(driver)
+        #wait.forAjax(driver)
         time.sleep(1)
         typelist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-hybridization')
         items = typelist[0].find_elements_by_tag_name("li")
@@ -129,7 +132,8 @@ class TestGXDTissueStageMatrix(unittest.TestCase):
         * sort order is gene, then assay type
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL + "/gxd")
+        driver.get(config.TEST_URL + "/gxd")
+        #driver.get(config.PUBLIC_URL + "/gxd")
         genebox = driver.find_element_by_name('nomenclature')
         # put your marker symbol
         genebox.send_keys("shh")
@@ -150,8 +154,8 @@ class TestGXDTissueStageMatrix(unittest.TestCase):
         geneheader = imagesdata.find_element_by_css_selector('th.yui-dt-col-gene')
         #click the gene header column to sort
         geneheader.click()
-        wait.forAjax(driver)
-        time.sleep(1)
+        #wait.forAjax(driver)
+        time.sleep(2)
         genelist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-gene')
         time.sleep(2)
         items = genelist[0].find_elements_by_tag_name("li")
@@ -168,7 +172,8 @@ class TestGXDTissueStageMatrix(unittest.TestCase):
         * blot assays are last by default
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL + "/gxd")
+        driver.get(config.TEST_URL + "/gxd")
+        #driver.get(config.PUBLIC_URL + "/gxd")
         genebox = driver.find_element_by_name('nomenclature')
         # put your marker symbol
         genebox.send_keys("pax6")
@@ -188,7 +193,7 @@ class TestGXDTissueStageMatrix(unittest.TestCase):
         #click the gene header column to sort
         assayheader.click()
         wait.forAjax(driver)
-        time.sleep(1)
+        time.sleep(2)
         assaylist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-assayType')
         items = assaylist[2].find_elements_by_tag_name("li")
         searchTextItems = iterate.getTextAsList(items)
@@ -214,7 +219,8 @@ class TestGXDTissueStageMatrix(unittest.TestCase):
         *blots
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL + "/gxd")
+        driver.get(config.TEST_URL + "/gxd")
+        #driver.get(config.PUBLIC_URL + "/gxd")
         genebox = driver.find_element_by_name('nomenclature')
         # put your marker symbol
         genebox.send_keys("hoxa13")

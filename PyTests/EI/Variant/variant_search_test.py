@@ -179,11 +179,12 @@ class TestVarSearch(unittest.TestCase):
         symbols = iterate.getTextAsList(cells)
         print symbols[0]
         #assert some of the correct symbols are returned
-        self.assertEqual(symbols[0], 'Arx<tm2Kki>', 'symbol0 is wrong')
-        self.assertEqual(symbols[1], 'Arx<tm3Kki>', 'symbol1 is wrong')
-        self.assertEqual(symbols[2], 'Arx<tm4Kki>', 'symbol2 is wrong')
-        self.assertEqual(symbols[3], 'Arx<tm5Kki>', 'symbol3 is wrong')
-        self.assertEqual(symbols[4], 'Atp11c<m1Btlr>', 'symbol4 is wrong')
+        self.assertEqual(symbols[0], 'Arhgap36<em1Seul>', 'symbol0 is wrong')
+        self.assertEqual(symbols[1], 'Arx<tm2Kki>', 'symbol0 is wrong')
+        self.assertEqual(symbols[2], 'Arx<tm3Kki>', 'symbol1 is wrong')
+        self.assertEqual(symbols[3], 'Arx<tm4Kki>', 'symbol2 is wrong')
+        self.assertEqual(symbols[4], 'Arx<tm5Kki>', 'symbol3 is wrong')
+        self.assertEqual(symbols[5], 'Atp11c<m1Btlr>', 'symbol4 is wrong')
 
     def testVarStrandSearch(self):
         """
@@ -205,13 +206,15 @@ class TestVarSearch(unittest.TestCase):
         row1 = table.get_row(0)
         row2 = table.get_row(1)
         row3 = table.get_row(2)
+        row4 = table.get_row(3)
         print row1.text
         print row2.text
         print row3.text
         #assert that the first 3 search results are correct
-        self.assertEqual(row1.text, 'Abca3<tm1.1Smgt>' )
-        self.assertEqual(row2.text, 'Acan<b2b183Clo>')
-        self.assertEqual(row3.text, 'Adad1<em1(IMPC)J>')
+        self.assertEqual(row1.text, '2610301B20Rik<em1Jyang>' )
+        self.assertEqual(row2.text, '2610301B20Rik<em2Jyang>')
+        self.assertEqual(row3.text, 'Aars2<tm1.1Htyy>')
+        self.assertEqual(row4.text, 'Aars2<tm2.1Htyy>')
 
     def testVarWithHGVSSearch(self):
         """

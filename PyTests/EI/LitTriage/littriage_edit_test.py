@@ -35,7 +35,7 @@ class TestLitEdit(unittest.TestCase):
         #self.driver = webdriver.Firefox() 
         self.driver = webdriver.Chrome()
         self.form = ModuleForm(self.driver)
-        self.form.get_module(config.TEST_PWI_URL + "/edit/triage")
+        self.form.get_module(config.TEST_PWI_URL + "/edit/triageFull")
         username = self.driver.find_element_by_name('user')#finds the user login box
         username.send_keys(config.PWI_LOGIN) #enters the username
         passwd = self.driver.find_element_by_name('password')#finds the password box
@@ -50,38 +50,38 @@ class TestLitEdit(unittest.TestCase):
     def testRefStatusEdit(self):
         """
         @Status tests that changing a "not routed" reference to "chosen" assigns it a J number
-        @attention: This test needs some work, not really working right as of now 05/14/19
+        @attention: This test works but once you have chnaged it to chosen the J number will always be present
         @see MBIB-edit-1,2 (1)
         """
-        form = self.form
-        form.enter_value('authors', 'Nakanura%')
-        self.driver.find_element_by_id("status_AP_Not_Routed").click()
-        form.click_search()
+        #enter text into the authors filed,click the alleles Not Routed box then search
+        self.driver.find_element_by_id('authors').send_keys('Nakamura%')
+        self.driver.find_element_by_id('status_AP_Not_Routed').click()
+        self.driver.find_element_by_id('searchButton').click()
         #time.sleep(5)
-        WebDriverWait(self.driver, 20).until(EC.presence_of_element_located((By.ID, "historyTable")))
-        #finds the results table and iterates through the table
-        table_element = self.driver.find_element_by_id("editTabWorkFlowStatus")
-        table = Table(table_element)
-        #finds the Not Routed column for AP and returns it's status of selected
-        not_route = table.get_cell(1,2)
-        self.assertTrue(not_route.is_selected, "Not Routed for AP is not selected")
+        #wait until the Pubmed ID of the first row is visible
+        WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "#resultsTable > tbody > tr > td:nth-child(4) > div > a")))
+        #finds the results table and then the first pubmed ID field(text)
+        table_element = self.driver.find_element_by_id("resultsTable")
+        link_element = table_element.find_element_by_css_selector('tbody > tr > td:nth-child(4) > div > a')
+        txt = link_element.get_attribute('innerHTML')
+        #finds the AP column and confirm it is Not Routed
+        not_route = table_element.find_element_by_css_selector('tbody > tr > td:nth-child(8)')
+        #print not_route.text
+        #assert the first row AP column is 'Not Routed'
+        self.assertTrue(not_route.text, "Not Routed")
         #select the chosen status for AP
-        #chosen = table.get_cell("AP", "Chosen").click()
-        self.driver.find_element_by_xpath("//input[@name='12' and @value='Chosen']").click()
+        table_element1 = self.driver.find_element_by_id('editTabWorkFlowStatus')
+        chosen = table_element1.find_element_by_css_selector('tbody>tr:nth-child(1)>td:nth-child(4)>input').click()
         #click the Modify button
         self.driver.find_element_by_id('modifyEditTabButton').click()
-        chosen = self.driver.find_element_by_xpath("//input[@name='12' and @value='Chosen']")
-        #Verifies Chosen status is selected for AP
-        self.assertTrue(chosen.is_selected, "Chosen for AP is not selected")
-        time.sleep(2)
-        #finds the Reference J: field of the Reference ID table and return it's text value
-        table_element1 = self.driver.find_element_by_id("editRefIdTable")
-        table1 = Table(table_element1)
-        jnum_cell = table1.get_cell(0,1)
-        time.sleep(1)
-        print jnum_cell.text
-        #Need to find an assert that works
-        #self.assertTrue(jnum_cell,'J number field is empty')
+        #Verifies Chosen status is selected for AP now in the table
+        chosen1 = self.driver.find_element_by_name('90')
+        self.assertTrue( chosen1.is_selected())
+        print chosen1.text
+        #select the not routed status for AP tp put the data back to normal
+        table_element1 = self.driver.find_element_by_id('editTabWorkFlowStatus')
+        norouted = table_element1.find_element_by_css_selector('tbody>tr:nth-child(1)>td:nth-child(2)>input').click()
+
         
     def testReftypeEdit(self):
         """

@@ -52,9 +52,10 @@ class TestStructureAutocomplete(unittest.TestCase):
         self.assertEqual(items[3].text, "heart endothelium", "Term 3 is not visible!")
         self.assertEqual(items[4].text, "heart mesenchyme", "Term 4 is not visible!")
         self.assertEqual(items[5].text, "heart mesentery", "Term 5 is not visible!")
-        self.assertEqual(items[6].text, "heart septum", "Term 6 is not visible!")                                                                                                                                 
-        self.assertEqual(items[7].text, "heart valve", "Term 7 is not visible!")
-        self.assertEqual(items[8].text, "heart ventricle", "Term 8 is not visible!")
+        self.assertEqual(items[6].text, "heart septum", "Term 6 is not visible!") 
+        self.assertEqual(items[7].text, "heart trabecula", "Term 7 is not visible!")                                                                                                                                
+        self.assertEqual(items[8].text, "heart valve", "Term 8 is not visible!")
+        self.assertEqual(items[9].text, "heart ventricle", "Term 9 is not visible!")
     
     def tearDown(self):
         self.driver.close()

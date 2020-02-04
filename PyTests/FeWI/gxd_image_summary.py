@@ -41,9 +41,9 @@ class TestGXDImageSummary(unittest.TestCase):
         driver.find_element(By.ID, 'imagestab').click()
         #locates the genes column and lists the genes found
         genelist = driver.find_element(By.ID, 'imagesdata').find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-gene')
-        items = genelist[20].find_elements(By.TAG_NAME, 'li')
+        items = genelist[14].find_elements(By.TAG_NAME, 'li')
         searchTextItems = iterate.getTextAsList(items)
-        self.assertEqual(searchTextItems, ["Gsx2", "Nkx2-1", "Pax6"])
+        self.assertEqual(searchTextItems, ["Eomes", "Pax6", "Sox2"])
         
     def test_default_sort_assaytype(self):
         """

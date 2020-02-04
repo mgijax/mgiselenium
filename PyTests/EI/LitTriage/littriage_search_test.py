@@ -37,7 +37,7 @@ class TestLitSearch(unittest.TestCase):
         #self.driver = webdriver.Firefox() 
         self.driver = webdriver.Chrome()
         self.form = ModuleForm(self.driver)
-        self.form.get_module(config.TEST_PWI_URL + "/edit/triage")
+        self.form.get_module(config.TEST_PWI_URL + "/edit/triageFull")
     
     def tearDown(self):
         self.driver.close()

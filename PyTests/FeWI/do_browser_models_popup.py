@@ -49,8 +49,8 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         gene_table = self.driver.find_element(By.ID, 'geneTabTable')
         table = Table(gene_table)
         #cells = table.get_rows()
-        cell = table.get_cell(3, 6)
-        #Identify the data found in the Mouse Models column for the second row(for marker Robo1)
+        cell = table.get_cell(6, 3)
+        #Identify the data found in the Mouse Models column for the fifth row(for marker Robo1)
         print cell.text
         cell.find_element(By.LINK_TEXT, '1 model').click()
         
@@ -86,7 +86,7 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         gene_table = self.driver.find_element(By.ID, 'geneTabTable')
         table = Table(gene_table)
         #cells = table.get_rows()
-        cell = table.get_cell(7, 3)
+        cell = table.get_cell(8, 3)
         #Identify the data found in the Mouse Models column for the second row(for marker Fgfp)
         print cell.text
         cell.find_element(By.LINK_TEXT, '1 model').click()
@@ -152,8 +152,8 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         gene_table = self.driver.find_element(By.ID, 'geneTabTable')
         table = Table(gene_table)
         #cells = table.get_rows()
-        cell = table.get_cell(20, 3)
-        #Identify the data found in the Mouse Models column for the twenth row(for marker SORL1)
+        cell = table.get_cell(21, 3)
+        #Identify the data found in the Mouse Models column for the twenth row(for marker PSEN2)
         print cell.text
         cell.find_element(By.LINK_TEXT, '1 model').click()
         
@@ -163,7 +163,7 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         #print table1
         row1 = table1.get_row(1)
         #assert the table data for row 1 is correct
-        self.assertEquals(row1.text, 'Sorl1tm1Tew/Sorl1tm1Tew\nTg(APP695)3Dbo/0\nTg(PSEN1dE9)S9Dbo/0 involves: 129 * C3H/HeJ * C57BL/6 J:142501 View', 'Wrong data displayed for row 1!')
+        self.assertEquals(row1.text, 'Psen1tm1Jzt/Psen1tm1Jzt\nPsen2tm1Ber/Psen2tm1Ber\nTg(Camk2a-cre)T29-1Stl/0 involves: C57BL/6 * CBA J:90685 View', 'Wrong data displayed for row 1!')
         print row1.text
         
     def test_dobrowser_modelspopup_mouse_nots(self):
@@ -234,7 +234,7 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         gene_table = self.driver.find_element(By.ID, 'geneTabTable')
         table = Table(gene_table)
         #cells = table.get_rows()
-        cell = table.get_cell(2, 6)
+        cell = table.get_cell(3, 3)
         #Identify the data found in the Mouse Models column for the first row(for marker Snca)
         print cell.text
         cell.find_element(By.LINK_TEXT, '23 models').click()

@@ -678,32 +678,30 @@ class TestImgSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Modification Date field, enters a Date with greater than symbol
-        driver.find_element_by_id("objectModificationDate").send_keys('>2019-05-06')
+        driver.find_element_by_id("objectModificationDate").send_keys('>2019-12-16')
         #finds the Search button and clicks it
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
         results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
+        time.sleep(4)
         # get and print the first 2 rows
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
         cell2 = table.get_row(2)
         cell3 = table.get_row(3)
-        cell4 = table.get_row(4)
-        cell5 = table.get_row(5)
         print cell0.text
         print cell1.text
         #Assert the correct symbol has been returned in the results table
-        self.assertEqual(cell0.text, 'J:130; Full Size; 3')
-        self.assertEqual(cell1.text, 'J:458; Full Size; 2')
-        self.assertEqual(cell2.text, 'J:767; Full Size; 3')
-        self.assertEqual(cell3.text, 'J:2819; Full Size; 5')
-        self.assertEqual(cell4.text, 'J:22503; Full Size; 2')
-        self.assertEqual(cell5.text, 'J:22984; Full Size; 3')
+        self.assertEqual(cell0.text, 'J:31122; Full Size; 1')
+        self.assertEqual(cell1.text, 'J:31122; Full Size; 2')
+        self.assertEqual(cell2.text, 'J:31122; Full Size; 3')
+        self.assertEqual(cell3.text, 'J:33398; Full Size; 2')
+        
         #Assert the correct Modification Date is returned in the Modification Date field
         modifydate = driver.find_element_by_id('objectModificationDate').get_attribute('value')
-        self.assertEqual(modifydate, '2019-06-10')        
+        self.assertEqual(modifydate, '2020-01-06')        
 
     def testModifyDateGreaterEqualSearch(self):
         """
@@ -712,7 +710,7 @@ class TestImgSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Modification Date field, enters a Date with greater than equals symbols
-        driver.find_element_by_id("objectModificationDate").send_keys('>=2019-05-09')
+        driver.find_element_by_id("objectModificationDate").send_keys('>=2019-12-16')
         #finds the Search button and clicks it
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
@@ -724,20 +722,16 @@ class TestImgSearch(unittest.TestCase):
         cell1 = table.get_row(1)
         cell2 = table.get_row(2)
         cell3 = table.get_row(3)
-        cell4 = table.get_row(4)
-        cell5 = table.get_row(5)
         print cell0.text
         print cell1.text
         #Assert the correct symbol has been returned in the results table
-        self.assertEqual(cell0.text, 'J:130; Full Size; 3')
-        self.assertEqual(cell1.text, 'J:458; Full Size; 2')
-        self.assertEqual(cell2.text, 'J:767; Full Size; 3')
-        self.assertEqual(cell3.text, 'J:2819; Full Size; 5')
-        self.assertEqual(cell4.text, 'J:22503; Full Size; 2')
-        self.assertEqual(cell5.text, 'J:22984; Full Size; 3')
+        self.assertEqual(cell0.text, 'J:33667; Full Size; 1')
+        self.assertEqual(cell1.text, 'J:33667; Full Size; 2')
+        self.assertEqual(cell2.text, 'J:33667; Full Size; 3')
+        self.assertEqual(cell3.text, 'J:33667; Full Size; 4')
         #Assert the correct Modification Date is returned in the Modification Date field
         modifydate = driver.find_element_by_id('objectModificationDate').get_attribute('value')
-        self.assertEqual(modifydate, '2019-06-10')    
+        self.assertEqual(modifydate, '2019-12-17')    
 
     def testModifyDateLessSearch(self):
         """
@@ -824,32 +818,29 @@ class TestImgSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Created Date field, enters a Date with greater than symbol
-        driver.find_element_by_id("objectCreationDate").send_keys('>2019-05-08')
+        driver.find_element_by_id("objectCreationDate").send_keys('>2019-12-16')
         #finds the Search button and clicks it
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
         results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
+        time.sleep(4)
         # get and print the first 2 rows
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
         cell2 = table.get_row(2)
         cell3 = table.get_row(3)
-        cell4 = table.get_row(4)
-        cell5 = table.get_row(5)
         print cell0.text
         print cell1.text
         #Assert the correct symbol has been returned in the results table
-        self.assertEqual(cell0.text, 'J:22503; Full Size; 2')
-        self.assertEqual(cell1.text, 'J:22984; Full Size; 3')
-        self.assertEqual(cell2.text, 'J:22984; Full Size; 4')
-        self.assertEqual(cell3.text, 'J:22984; Full Size; 5')
-        self.assertEqual(cell4.text, 'J:22984; Full Size; 8')
-        self.assertEqual(cell5.text, 'J:23287; Full Size; 2')
+        self.assertEqual(cell0.text, 'J:31122; Full Size; 1')
+        self.assertEqual(cell1.text, 'J:31122; Full Size; 2')
+        self.assertEqual(cell2.text, 'J:31122; Full Size; 3')
+        self.assertEqual(cell3.text, 'J:33398; Full Size; 2')
         #Assert the correct Modification Date is returned in the Modification Date field
         modifydate = driver.find_element_by_id('objectCreationDate').get_attribute('value')
-        self.assertEqual(modifydate, '2019-06-21')        
+        self.assertEqual(modifydate, '2020-01-06')        
 
     def testCreateDateGreaterEqualSearch(self):
         """
@@ -858,7 +849,7 @@ class TestImgSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Creation Date field, enters a Date with greater than and equals symbols
-        driver.find_element_by_id("objectCreationDate").send_keys('>=2019-05-09')
+        driver.find_element_by_id("objectCreationDate").send_keys('>=2019-12-16')
         #finds the Search button and clicks it
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
@@ -870,20 +861,16 @@ class TestImgSearch(unittest.TestCase):
         cell1 = table.get_row(1)
         cell2 = table.get_row(2)
         cell3 = table.get_row(3)
-        cell4 = table.get_row(4)
-        cell5 = table.get_row(5)
         print cell0.text
         print cell1.text
         #Assert the correct symbol has been returned in the results table
-        self.assertEqual(cell0.text, 'J:22503; Full Size; 2')
-        self.assertEqual(cell1.text, 'J:22984; Full Size; 3')
-        self.assertEqual(cell2.text, 'J:22984; Full Size; 4')
-        self.assertEqual(cell3.text, 'J:22984; Full Size; 5')
-        self.assertEqual(cell4.text, 'J:22984; Full Size; 8')
-        self.assertEqual(cell5.text, 'J:23287; Full Size; 2')
+        self.assertEqual(cell0.text, 'J:31122; Full Size; 1')
+        self.assertEqual(cell1.text, 'J:31122; Full Size; 2')
+        self.assertEqual(cell2.text, 'J:31122; Full Size; 3')
+        self.assertEqual(cell3.text, 'J:33398; Full Size; 2')
         #Assert the correct Modification Date is returned in the Modification Date field
         modifydate = driver.find_element_by_id('objectCreationDate').get_attribute('value')
-        self.assertEqual(modifydate, '2019-06-21')    
+        self.assertEqual(modifydate, '2020-01-06')    
         
     def testCreateDateLessSearch(self):
         """
@@ -995,8 +982,9 @@ class TestImgSearch(unittest.TestCase):
         @see pwi-image-search-27
         """
         driver = self.driver
-        #finds the Image Other Accession Ids pulldown and selects "GenePaint" option then click the Search button
+        #finds the Image Other Accession Ids pulldown and selects "GenePaint" option, find the Other Accession ID field and enter a genepaint ID, then click the Search button
         Select(driver.find_element_by_id("accidTypeID")).select_by_value('105')
+        driver.find_element_by_id('otherAccId').send_keys('FG,-A%')
         driver.find_element_by_id('searchButton').click()
         time.sleep(10)
         #WebDriverWait(driver, 20).until(EC.text_to_be_present_in_element((By.ID, "resultsCount")))

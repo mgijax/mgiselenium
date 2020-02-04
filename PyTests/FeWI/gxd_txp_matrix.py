@@ -99,18 +99,18 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         self.assertIn('Pax4<tm1b(EUCOMM)Hmgu>/Pax4<+>', searchTextItems)
         #find the phenotype grid box for hemolymphoid system for Pax4<tm1b(EUCOMM)Hmgu>/Pax4<+>
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
-        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row9.col3 > rect.phenoBlue1')
+        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row12.col3 > rect.phenoBlue2')
         rightclass = item.get_attribute('class')
         #rightclass finds the class name of the gridbox
         #now we assert the class name of the gridbox matches the class name of blue2
-        self.assertEqual(rightclass, 'phenoBlue1')
+        self.assertEqual(rightclass, 'phenoBlue2')
         #find the phenotype grid box for hematopoietic system for Pax4<tm1b(EUCOMM)Hmgu>/Pax4<+>
         boxlist1 = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
-        item = boxlist1.find_element(By.CSS_SELECTOR, 'g.cell.row14.col3 > rect.phenoBlue1')
+        item = boxlist1.find_element(By.CSS_SELECTOR, 'g.cell.row11.col3 > rect.phenoBlue2')
         rightclass1 = item.get_attribute('class')
         #rightclass1 finds the class name of the gridbox
         #now we assert the class name of the gridbox matches the class name of phenoBlue1
-        self.assertEqual(rightclass1, 'phenoBlue1')        
+        self.assertEqual(rightclass1, 'phenoBlue2')        
                 
     def test_mp_emapa_child(self):
         """
@@ -221,7 +221,7 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         self.assertIn('Foxe1<tm1Rdl>/Foxe1<tm1Rdl>', searchTextItems)
         #find the phenotype grid box for integumental system system for Foxe1<tm1Rdl>/Foxe1<tm1Rdl>
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
-        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row10.col1 > rect.phenoBlue3')
+        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row14.col1 > rect.phenoBlue3')
         rightclass = item.get_attribute('class')
         #rightclass finds the class name of the gridbox
         #now we assert the class name of the gridbox matches the class name of phenoBlue3
@@ -279,12 +279,12 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         item4 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row11.col2 > rect.phenoBlue1')
         rightclass4 = item4.get_attribute('class')
         celltext4 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row11.col2 > text')#locates the text in the box to verify it has an N
-        item5 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row13.col2 > rect.phenoBlue1')
+        item5 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row19.col2 > rect.phenoBlue1')
         rightclass5 = item5.get_attribute('class')
-        celltext5 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row13.col2 > text')#locates the text in the box to verify it has an N
-        item6 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row16.col2 > rect.phenoBlue1')
+        celltext5 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row19.col2 > text')#locates the text in the box to verify it has an N
+        item6 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row23.col2 > rect.phenoBlue1')
         rightclass6 = item6.get_attribute('class')
-        celltext6 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row16.col2 > text')#locates the text in the box to verify it has an N
+        celltext6 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row23.col2 > text')#locates the text in the box to verify it has an N
         #rightclass finds the class name of the gridbox for the 7 anatomical terms pheno box for the allele
         #now we assert the class name of the gridbox matches the class name of phenoBlue1
         self.assertEqual(rightclass, 'phenoBlue1')
@@ -335,11 +335,11 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         self.assertIn('Pax7<tm1.1(HBEGF)Mal>/Pax7<+>', searchTextItems)
         #find the phenotype grid box for musculoskeletal system for Pax7<tm1.1(HBEGF)Mal/Pax7<+>
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
-        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row16.col5 > rect.phenoBlue2')
+        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row19.col4 > rect.phenoBlue1')
         rightclass = item.get_attribute('class')
         #rightclass finds the class name of the gridbox
         #now we assert the class name of the gridbox matches the class name of phenoBlue2
-        self.assertEqual(rightclass, 'phenoBlue2')
+        self.assertEqual(rightclass, 'phenoBlue1')
         
     def test_bkgrnd_sense_mp(self):
         """
@@ -373,9 +373,9 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         self.assertIn('Kras<tm2Tyj>/Kras<+>', searchTextItems)
         #find the phenotype grid box for integumental system for Kras<tm2Tyj>/Kras<+>
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
-        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row15.col8 > rect.phenoBlue2')
+        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row19.col7 > rect.phenoBlue2')
         rightclass = item.get_attribute('class')
-        celltext = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row15.col8 > text')#locates the text in the box to verify it has a !
+        celltext = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row19.col7 > text')#locates the text in the box to verify it has a !
         #rightclass finds the class name of the gridbox for the anatomical terms pheno box for the allele
         #now we assert the class name of the gridbox matches the class name of phenoBlue2
         self.assertEqual(rightclass, 'phenoBlue2')
@@ -449,33 +449,24 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         celltext3 = boxlist.find_elements(By.CSS_SELECTOR, 'g.cell.row6.col1 > text')#locates the text in the box to verify it has an N!
         searchTextItems3 = iterate.getTextAsList(celltext3)
         print searchTextItems3
-        #verifies both an N and a ! is displayed in the organ system/phenotype box
+        #verifies both an N and a ! is displayed in the organ system/genitourimary system box
         self.assertEqual(['N', '!'], searchTextItems3)
         self.assertEqual('phenoBlue1', rightclass3)
-        item4 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row12.col1 > rect.phenoBlue1')
+        item4 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row10.col1 > rect.phenoBlue1')
         rightclass4 = item4.get_attribute('class')
-        celltext4 = boxlist.find_elements(By.CSS_SELECTOR, 'g.cell.row12.col1 > text')#locates the text in the box to verify it has an N!
+        celltext4 = boxlist.find_elements(By.CSS_SELECTOR, 'g.cell.row10.col1 > text')#locates the text in the box to verify it has an N!
         searchTextItems4 = iterate.getTextAsList(celltext4)
         print searchTextItems4
         #verifies both an N and a ! is displayed in the reproductive system/phenotype box
         self.assertEqual(['N', '!'], searchTextItems4)
         self.assertEqual('phenoBlue1', rightclass4)
-        item5 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row15.col1 > rect.phenoBlue1')
+        item5 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row19.col1 > rect.phenoBlue1')
         rightclass5 = item5.get_attribute('class')
-        celltext5 = boxlist.find_elements(By.CSS_SELECTOR, 'g.cell.row15.col1 > text')#locates the text in the box to verify it has an N!
+        celltext5 = boxlist.find_elements(By.CSS_SELECTOR, 'g.cell.row19.col1 > text')#locates the text in the box to verify it has an N!
         searchTextItems5 = iterate.getTextAsList(celltext5)
         print searchTextItems5
-        #verifies both an N and a ! is displayed in the genitourinary system/phenotype box
         self.assertEqual(['N', '!'], searchTextItems5)
         self.assertEqual('phenoBlue1', rightclass5)
-        item6 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row18.col1 > rect.phenoBlue1')
-        rightclass6 = item6.get_attribute('class')
-        celltext6 = boxlist.find_elements(By.CSS_SELECTOR, 'g.cell.row18.col1 > text')#locates the text in the box to verify it has an N!
-        searchTextItems6 = iterate.getTextAsList(celltext6)
-        print searchTextItems6
-        #verifies both an N and a ! is displayed in the visceral organ system/phenotype box
-        self.assertEqual(['N', '!'], searchTextItems6)
-        self.assertEqual('phenoBlue1', rightclass6)
         
     def test_high_cell_color(self):
         """

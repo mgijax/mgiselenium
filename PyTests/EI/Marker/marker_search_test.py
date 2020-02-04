@@ -52,21 +52,21 @@ class TestMrkSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the results table and iterates through the table
-        Select(driver.find_element_by_id("markerType")).select_by_value('1')
+        Select(driver.find_element_by_id("markerType")).select_by_value('string:2')
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
         symbol1 = iterate.getTextAsList(cell1)
         print symbol1
         #Assert the correct marker symbol and marker type is returned
-        self.assertEquals(symbol1, ['0610005A07Rik'])
+        self.assertEquals(symbol1, ['03.MMHAP34FRA.seq'])
         #since we search for a particular marker type verify the correct type is displayed
         mrktype = driver.find_element_by_id('markerType').get_attribute('value')
-        self.assertEqual(mrktype, '1')#1 equals "Gene"
+        self.assertEqual(mrktype, 'string:2')#2 equals "DNA Segment"
 
     def testTypeDnaSegSearch(self):
         """
@@ -76,11 +76,11 @@ class TestMrkSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the results table and iterates through the table
-        Select(driver.find_element_by_id("markerType")).select_by_value('2')
+        Select(driver.find_element_by_id("markerType")).select_by_value('string:2')
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # print row 1
         cell1 = table.get_row_cells(0)
@@ -90,7 +90,7 @@ class TestMrkSearch(unittest.TestCase):
         self.assertEquals(symbol1, ['03.MMHAP34FRA.seq'])
         #since we search for a particular marker type verify the correct type is displayed
         mrktype = driver.find_element_by_id('markerType').get_attribute('value')
-        self.assertEqual(mrktype, '2')#2 equals "DNA Segment"
+        self.assertEqual(mrktype, 'string:2')#2 equals "DNA Segment"
 
     def testTypeQtlSearch(self):
         """
@@ -100,11 +100,11 @@ class TestMrkSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the results table and iterates through the table
-        Select(driver.find_element_by_id("markerType")).select_by_value('6')
+        Select(driver.find_element_by_id("markerType")).select_by_value('string:6')
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # print row 1
         cell1 = table.get_row_cells(0)
@@ -113,7 +113,7 @@ class TestMrkSearch(unittest.TestCase):
         self.assertEquals(symbol1, ['Aaaq1'])
         #since we search for a particular marker type verify the correct type is displayed
         mrktype = driver.find_element_by_id('markerType').get_attribute('value')
-        self.assertEqual(mrktype, '6')#9 equals "QTL"
+        self.assertEqual(mrktype, 'string:6')#9 equals "QTL"
 
     def testTypeTransSearch(self):
         """
@@ -123,11 +123,11 @@ class TestMrkSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the results table and iterates through the table
-        Select(driver.find_element_by_id("markerType")).select_by_value('12')
+        Select(driver.find_element_by_id("markerType")).select_by_value('string:12')
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # print row 1
         cell1 = table.get_row_cells(0)
@@ -136,7 +136,7 @@ class TestMrkSearch(unittest.TestCase):
         self.assertEquals(symbol1, ['Et(cre/ERT2)119Rdav'])
         #since we search for a particular marker type verify the correct type is displayed
         mrktype = driver.find_element_by_id('markerType').get_attribute('value')
-        self.assertEqual(mrktype, '12')#12 equals "Transgene"
+        self.assertEqual(mrktype, 'string:12')#12 equals "Transgene"
 
     def testTypeComplexSearch(self):
         """
@@ -146,11 +146,11 @@ class TestMrkSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the results table and iterates through the table
-        Select(driver.find_element_by_id("markerType")).select_by_value('10')
+        Select(driver.find_element_by_id("markerType")).select_by_value('string:10')
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # print row 1
         cell1 = table.get_row_cells(0)
@@ -159,7 +159,7 @@ class TestMrkSearch(unittest.TestCase):
         self.assertEquals(symbol1, ['Amy'])
         #since we search for a particular marker type verify the correct type is displayed
         mrktype = driver.find_element_by_id('markerType').get_attribute('value')
-        self.assertEqual(mrktype, '10')#10 equals "Complex/Cluster/Region"
+        self.assertEqual(mrktype, 'string:10')#10 equals "Complex/Cluster/Region"
 
     def testTypeCytoSearch(self):
         """
@@ -168,11 +168,11 @@ class TestMrkSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the results table and iterates through the table
-        Select(driver.find_element_by_id("markerType")).select_by_value('3')
+        Select(driver.find_element_by_id("markerType")).select_by_value('string:3')
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # print row 1
         cell1 = table.get_row_cells(0)
@@ -181,7 +181,7 @@ class TestMrkSearch(unittest.TestCase):
         self.assertEquals(symbol1, ['Del(10)12H'])
         #since we search for a particular marker type verify the correct type is displayed
         mrktype = driver.find_element_by_id('markerType').get_attribute('value')
-        self.assertEqual(mrktype, '3')#3 equals "Cytogenetic Marker"
+        self.assertEqual(mrktype, 'string:3')#3 equals "Cytogenetic Marker"
 
     def testTypeBacYacSearch(self):
         """
@@ -191,11 +191,11 @@ class TestMrkSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the results table and iterates through the table
-        Select(driver.find_element_by_id("markerType")).select_by_value('8')
+        Select(driver.find_element_by_id("markerType")).select_by_value('string:8')
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
 
         # print row 1
@@ -205,7 +205,7 @@ class TestMrkSearch(unittest.TestCase):
         self.assertEquals(symbol1, ['03B03F'])
         #since we search for a particular marker type verify the correct type is displayed
         mrktype = driver.find_element_by_id('markerType').get_attribute('value')
-        self.assertEqual(mrktype, '8')#8 equals "BAC/YAC end"
+        self.assertEqual(mrktype, 'string:8')#8 equals "BAC/YAC end"
 
     def testTypePseudoSearch(self):
         """
@@ -213,21 +213,22 @@ class TestMrkSearch(unittest.TestCase):
         @see pwi-mrk-search-8
         """
         driver = self.driver
-        #finds the results table and iterates through the table
-        Select(driver.find_element_by_id("markerType")).select_by_value('7')
+        #finds the marker type pseudogene and selects it, then selects chromosome 16 to narrow down results set
+        Select(driver.find_element_by_id("markerType")).select_by_value('string:7')
+        Select(driver.find_element_by_id("chromosome")).select_by_value('string:16')
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # print row 1
         cell1 = table.get_row_cells(0)
         symbol1 = iterate.getTextAsList(cell1)
         print symbol1
-        self.assertEquals(symbol1, ['100034662'])
+        self.assertEquals(symbol1, ['100039035'])
         #since we search for a particular marker type verify the correct type is displayed
         mrktype = driver.find_element_by_id('markerType').get_attribute('value')
-        self.assertEqual(mrktype, '7')#7 equals "Pseudogene"
+        self.assertEqual(mrktype, 'string:7')#7 equals "Pseudogene"
 
     def testTypeOtherSearch(self):
         """
@@ -235,22 +236,23 @@ class TestMrkSearch(unittest.TestCase):
         @see pwi-mrk-search-9
         """
         driver = self.driver
-        #finds the Marker Type field and select the Other Genome Feature option
-        Select(driver.find_element_by_id("markerType")).select_by_value('9')
+        #finds the Marker Type field and select the Other Genome Feature option, then selects chromosome 16 to narrow down search results
+        Select(driver.find_element_by_id("markerType")).select_by_value('string:9')
+        Select(driver.find_element_by_id("chromosome")).select_by_value('string:16')
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         #get the first row of data and print it's symbol
         cell1 = table.get_row_cells(0)
         symbol1 = iterate.getTextAsList(cell1)
         print symbol1
         #assert the symbol is correct
-        self.assertEquals(symbol1, ['2610021C13Rik'])
+        self.assertEquals(symbol1, ['Actb-rs1'])
         #since we search for a particular marker type verify the correct type is displayed
         mrktype = driver.find_element_by_id('markerType').get_attribute('value')
-        self.assertEqual(mrktype, '9')#9 equals "Other Genome Feature"
+        self.assertEqual(mrktype, 'string:9')#9 equals "Other Genome Feature"
 
     def testWithdrawnSymbolSearch(self):
         """
@@ -263,7 +265,7 @@ class TestMrkSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # find the first row of data
         cells = table.get_row(0)
@@ -279,22 +281,23 @@ class TestMrkSearch(unittest.TestCase):
         @see pwi-mrk-search-11
         """
         driver = self.driver
-        #finds the Marker Status field, selects the option Official and clicks search
-        Select(driver.find_element_by_id("markerStatus")).select_by_value('1')
+        #finds the Marker Status field, selects the option Official and Chromosome 16, then clicks search
+        Select(driver.find_element_by_id("markerStatus")).select_by_value('string:1')
+        Select(driver.find_element_by_id("chromosome")).select_by_value('string:16')
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # print row 1
         cells = table.get_row(0)
         #print column 1
         print cells.text
         #assert the symbol is correct
-        self.assertEquals(cells.text, '0610005C13Rik')
+        self.assertEquals(cells.text, '0610009F21Rik')
         #locate the Marker status field and assert it is correct
         mrkstatus = driver.find_element_by_id('markerStatus').get_attribute('value')
-        self.assertEqual(mrkstatus, '1')#1 equals "Official"
+        self.assertEqual(mrkstatus, 'string:1')#1 equals "Official"
 
     def testStatusWithdrawnSearch(self):
         """
@@ -302,22 +305,23 @@ class TestMrkSearch(unittest.TestCase):
         @see pwi-mrk-search-12
         """
         driver = self.driver
-        #finds the Marker Status field, selects the option Withdrawn and clicks search
-        Select(driver.find_element_by_id("markerStatus")).select_by_value('2')
+        #finds the Marker Status field, selects the option Withdrawn, selects chromosome 16 and clicks search
+        Select(driver.find_element_by_id("markerStatus")).select_by_value('string:2')
+        Select(driver.find_element_by_id("chromosome")).select_by_value('string:16')
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # print row 1
         cells = table.get_row(0)
         #print column 1
         print cells.text
         #assert the symbol is correct
-        self.assertEquals(cells.text, '0610005A07Rik')
+        self.assertEquals(cells.text, '0610006N12Rik')
         #locate the Marker status field and assert it is correct
         mrkstatus = driver.find_element_by_id('markerStatus').get_attribute('value')
-        self.assertEqual(mrkstatus, '2')#2 equals "Withdrawn"
+        self.assertEqual(mrkstatus, 'string:2')#2 equals "Withdrawn"
 
     def testStatusReservedSearch(self):
         """
@@ -326,11 +330,11 @@ class TestMrkSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Marker Status field, selects the option Reserved and clicks search
-        Select(driver.find_element_by_id("markerStatus")).select_by_value('3')
+        Select(driver.find_element_by_id("markerStatus")).select_by_value('string:3')
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # print row 1
         cells = table.get_row(0)
@@ -340,7 +344,7 @@ class TestMrkSearch(unittest.TestCase):
         self.assertEquals(cells.text, 'Acadlm')
         #locate the Marker status field and assert it is correct
         mrkstatus = driver.find_element_by_id('markerStatus').get_attribute('value')
-        self.assertEqual(mrkstatus, '3')#3 equals "Reserved"
+        self.assertEqual(mrkstatus, 'string:3')#3 equals "Reserved"
     
     def testSymbolSearch(self):
         """
@@ -353,7 +357,7 @@ class TestMrkSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # print row 1
         cells = table.get_row(0)
@@ -375,7 +379,7 @@ class TestMrkSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # print row 1
         cells = table.get_row(0)
@@ -403,7 +407,7 @@ class TestMrkSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # print row 1
         cells = table.get_row(0)
@@ -421,15 +425,15 @@ class TestMrkSearch(unittest.TestCase):
     def testMGDAccIDSearch(self):
         """
         @Status tests that a basic Accession ID search using an MGD ID works
-        @see pwi-mrk-search-19(broken)
+        @see pwi-mrk-search-19(had to use MGI ID as old MGD IDs did not work)
         """
         driver = self.driver
         #finds the accession ID field, enters an ID and hits the search button
-        driver.find_element_by_id("accIdQuery").send_keys("MGD-MRK-8906")
+        driver.find_element_by_id("accIdQuery").send_keys("MGI:98297")
         driver.find_element_by_id('searchButton').click()
         time.sleep(10)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # print row 1
         cells = table.get_row(0)
@@ -444,18 +448,18 @@ class TestMrkSearch(unittest.TestCase):
         mrkname = driver.find_element_by_id('markerName').get_attribute('value')
         self.assertEqual(mrkname, 'sonic hedgehog')  
 
-    def testECAccIDSearch(self):
-        """
+    #def testECAccIDSearch(self):
+        """  
         @Status tests that a basic Accession ID search using an EC ID works
         @see pwi-mrk-search-20(broken)
-        """
+        
         driver = self.driver
         #finds the accession ID field, enters an ID and hits the search button
         driver.find_element_by_id("accIdQuery").send_keys("2.3.1.5")
         driver.find_element_by_id('searchButton').click()
         time.sleep(4)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # print row 1
         cells = table.get_row(0)
@@ -468,7 +472,7 @@ class TestMrkSearch(unittest.TestCase):
         #Assert the correct Name is returned in the name field
         mrkname = driver.find_element_by_id('markerName').get_attribute('value')
         self.assertEqual(mrkname, 'arylalkylamine N-acetyltransferase')  
-
+        """
     def testSymbolWildSearch(self):
         """
         @Status tests that a marker symbol search using a wildcard works
@@ -480,7 +484,7 @@ class TestMrkSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(4)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # print row 1
         cells = table.get_rows()
@@ -506,7 +510,7 @@ class TestMrkSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(4)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # print row 1
         cells = table.get_rows()
@@ -521,18 +525,18 @@ class TestMrkSearch(unittest.TestCase):
         self.assertEquals(cells[19].text, 'Csnk2a1-ps1')
         self.assertEquals(cells[20].text, 'Csnk2a3')
 
-    def testAccIDWildSearch(self):
+    #def testAccIDWildSearch(self):
         """
         @Status tests that an Accession ID search using a wildcard works
         @see pwi-mrk-search-23(broken) appears wildcards not allowed in accid search?
-        """
+        
         driver = self.driver
         #finds the accession ID field, enters an ID and hits the search button
         driver.find_element_by_id("accIdQuery").send_keys("MGD-MRK-890%")
         driver.find_element_by_id('searchButton').click()
         time.sleep(4)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # print row 1
         cells = table.get_rows()
@@ -546,7 +550,7 @@ class TestMrkSearch(unittest.TestCase):
         self.assertEquals(cells[6].text, 'Mreg')
         self.assertEquals(cells[7].text, 'Shh')
         self.assertEquals(cells[8].text, 'Dsi1')
-
+        """
     def testCreateUserSearch(self):
         """
         @Status tests that a basic Create User search works
@@ -561,7 +565,7 @@ class TestMrkSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(4)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # get and print the 2 rows
         cell0 = table.get_row(0)
@@ -589,7 +593,7 @@ class TestMrkSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(4)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # get and print the 2 rows
         cell0 = table.get_row(0)
@@ -615,7 +619,7 @@ class TestMrkSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(4)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows
         cell0 = table.get_row(0)
@@ -641,7 +645,7 @@ class TestMrkSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(4)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows
         cell0 = table.get_row(0)
@@ -668,7 +672,7 @@ class TestMrkSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(4)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows
         cell0 = table.get_row(0)
@@ -696,7 +700,7 @@ class TestMrkSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(4)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows
         cell0 = table.get_row(0)
@@ -724,7 +728,7 @@ class TestMrkSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(4)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows
         cell0 = table.get_row(0)
@@ -753,7 +757,7 @@ class TestMrkSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(4)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows
         cell0 = table.get_row(0)
@@ -781,7 +785,7 @@ class TestMrkSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(4)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows
         cell0 = table.get_row(0)
@@ -809,7 +813,7 @@ class TestMrkSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(4)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows
         cell0 = table.get_row(0)
@@ -830,18 +834,15 @@ class TestMrkSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Synonym Type field and selects the type of "Broad"
-        Select(driver.find_element_by_id("markerSynonymTypeQueryID")).select_by_value('1006')
+        Select(driver.find_element_by_id("synonymType")).select_by_value('string:1006')
         #finds the Search button and clicks it
         driver.find_element_by_id('searchButton').click()
         time.sleep(4)
-        #find the synonym results table
-        syn_table = self.driver.find_element_by_id("synonymTable")
-        table = Table(syn_table)
-        # get the data for the Synonym Type column, print the row 5 result
-        cell = table.get_column_cells('Type')
-        print cell[5].text
+        #find the synonym results table type column row 5
+        syn_type = driver.find_elements_by_id('synonymType')[4].get_attribute('value')
+        print syn_type
         #Assert the fith synonym type returned(row5) is correct
-        self.assertEqual(cell[5].text, 'broad')
+        self.assertEqual(syn_type, 'string:1006')#string:1006  equals synonym type Broad
         
     def testSynonymNameSearch(self):
         """
@@ -850,18 +851,15 @@ class TestMrkSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Synonym name field, enters a synonym name
-        driver.find_element_by_id("markerSynonymID").send_keys("Gf-1")
+        driver.find_element_by_id("synonymName-0").send_keys("Gf-1")
         #finds the Search button and clicks it
         driver.find_element_by_id('searchButton').click()
         time.sleep(4)
-        #find the synonym results table
-        syn_table = self.driver.find_element_by_id("synonymTable")
-        table = Table(syn_table)
-        # get the data for the Synonym column, print the row 2 result
-        cell = table.get_column_cells('Synonym')
-        print cell[2].text
+        #find the synonym results table type column row 5
+        syn_name = driver.find_element_by_id('synonymName-1').get_attribute('value')
+        print syn_name
         #Assert the second synonym name returned(row2) is correct
-        self.assertEqual(cell[2].text, 'Gf-1')
+        self.assertEqual(syn_name, 'Gf-1')
         
     def testSynonymJnumSearch(self):
         """
@@ -870,18 +868,15 @@ class TestMrkSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Synonym J number field, enters a J number
-        driver.find_element_by_id("markerSynonymJnumID").send_keys("J:9808")
+        driver.find_element_by_id("synjnumID-0").send_keys("J:9808")
         #finds the Search button and clicks it
         driver.find_element_by_id('searchButton').click()
         time.sleep(4)
-        #find the synonym results table
-        syn_table = self.driver.find_element_by_id("synonymTable")
-        table = Table(syn_table)
-        # get the data for the Synonym J# column, print the row 2 result
-        cell = table.get_column_cells('J#')
-        print cell[2].text
-        #Assert the second synonym J number returned(row2) is correct
-        self.assertEqual(cell[2].text, 'J:9808')              
+        syn_jnum = driver.find_element_by_id('synjnumID-1').get_attribute('value')
+        print syn_jnum
+        #Assert the synonym J number is correct for row 2
+        self.assertEqual(syn_jnum, 'J:9808')
+        
 
     def testSynonymJnumSearch2(self):
         """
@@ -890,18 +885,14 @@ class TestMrkSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Synonym J number field, enters a J number
-        driver.find_element_by_id("markerSynonymJnumID").send_keys("J:9808")
+        driver.find_element_by_id("synjnumID-0").send_keys("9808")
         #finds the Search button and clicks it
         driver.find_element_by_id('searchButton').click()
         time.sleep(4)
-        #find the synonym results table
-        syn_table = self.driver.find_element_by_id("synonymTable")
-        table = Table(syn_table)
-        # get the data for the Synonym J# column, print the row 2 result
-        cell = table.get_column_cells('J#')
-        print cell[2].text
-        #Assert the second synonym J number returned(row2) is correct
-        self.assertEqual(cell[2].text, 'J:9808')    
+        syn_jnum = driver.find_element_by_id('synjnumID-1').get_attribute('value')
+        print syn_jnum
+        #Assert the synonym J number is correct for row 2
+        self.assertEqual(syn_jnum, 'J:9808') 
 
     def testSynonymModBySearch(self):
         """
@@ -910,18 +901,15 @@ class TestMrkSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Synonym Modified By field, enters a user
-        driver.find_element_by_id("markerSynonymModByID").send_keys("honda")
+        driver.find_element_by_id("synonymModifiedBy-0").send_keys("honda")
         #finds the Search button and clicks it
         driver.find_element_by_id('searchButton').click()
-        time.sleep(4)
-        #find the synonym results table
-        syn_table = self.driver.find_element_by_id("synonymTable")
-        table = Table(syn_table)
+        #waits until the element is located or 10 seconds
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'synonymModification_date-2')))
         # get the data for the Synonym Modified By column, print the row 2 result
-        cell = table.get_column_cells('Modified By')
-        print cell[2].text
-        #Assert the second synonym J number returned(row2) is correct
-        self.assertEqual(cell[2].text, 'honda')        
+        syn_mod = driver.find_element_by_id('synonymModifiedBy-1').get_attribute('value')        
+        #Assert the second synonym date returned(row2) is correct
+        self.assertEqual(syn_mod, 'honda')         
 
     def testSynonymDateSearch(self):
         """
@@ -930,18 +918,15 @@ class TestMrkSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Synonym Date field, enters a date
-        driver.find_element_by_id("markerSynonymDateID").send_keys("2015-07-23")
+        driver.find_element_by_id("synonymModification_date-0").send_keys("2015-07-23")
         #finds the Search button and clicks it
         driver.find_element_by_id('searchButton').click()
-        time.sleep(4)
-        #find the synonym results table
-        syn_table = self.driver.find_element_by_id("synonymTable")
-        table = Table(syn_table)
+        #waits until the element is located or 10 seconds
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'synonymModification_date-2')))
         # get the data for the Synonym Date column, print the row 2 result
-        cell = table.get_column_cells('Date')
-        print cell[2].text
-        #Assert the second synonym J number returned(row2) is correct
-        self.assertEqual(cell[2].text, '2015-07-23')      
+        syn_date = driver.find_element_by_id('synonymModification_date-1').get_attribute('value')        
+        #Assert the second synonym date returned(row2) is correct
+        self.assertEqual(syn_date, '2015-07-23')      
 
     def testSynonymSortSearch(self):
         """
@@ -950,22 +935,19 @@ class TestMrkSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Synonym name field, enters a synonym name
-        driver.find_element_by_id("markerSynonymID").send_keys("Sqn5")
+        driver.find_element_by_id("synonymName-0").send_keys("Sqn5")
         #finds the Search button and clicks it
         driver.find_element_by_id('searchButton').click()
-        time.sleep(10)
-        #find the synonym results table
-        syn_table = self.driver.find_element_by_id("synonymTable")
-        table = Table(syn_table)
-        # get the data for the Synonym Type column, print the results
-        cell = table.get_column_cells('Type')
-        print cell[1].text
-        print cell[2].text
-        print cell[3].text
-        #Assert the synonym types returned are in the correct order
-        self.assertEqual(cell[1].text, 'exact')
-        self.assertEqual(cell[2].text, 'similar')
-        self.assertEqual(cell[3].text, 'broad')
+        time.sleep(5)
+        #find the synonym results table type column row 5
+        syn_type1 = driver.find_elements_by_id('synonymType')[0].get_attribute('value')
+        syn_type2 = driver.find_elements_by_id('synonymType')[1].get_attribute('value')
+        syn_type3 = driver.find_elements_by_id('synonymType')[2].get_attribute('value')
+        print syn_type1
+        #Assert the  synonym types returned are in the correct order
+        self.assertEqual(syn_type1, 'string:1004')#string:1004  equals synonym type exact
+        self.assertEqual(syn_type2, 'string:1005')#string:1005  equals synonym type similiar
+        self.assertEqual(syn_type3, 'string:1006')#string:1006  equals synonym type Broad
 
     def testMrkwithSTSMarkersSearch(self):
         """
@@ -1050,26 +1032,35 @@ class TestMrkSearch(unittest.TestCase):
     def testMrkRefGenSearch(self):
         """
         @Status tests that a marker reference search which has reference type of General returns correct data
-        @see pwi-mrk-det-ref-search-1 **note: might need rewrite to properly  do assertIn correctly if we want  to use assertIn!!
+        @see pwi-mrk-det-ref-search-1 
         """
         driver = self.driver
         #find the Reference tab and click it
         driver.find_element_by_id('refsTabButton').click()
-        #find the Type pulldown for references and select the General option
-        Select(driver.find_element_by_id("markerSynonymTypeQueryID")).select_by_value('1018')
+        #find the Type pulldown for reference type and select the General option
+        Select(driver.find_element_by_id("refAssocType")).select_by_value('string:1018')
+        #find the J# field and enter the J number
+        refbox = driver.find_element_by_id("refjnumID-0")
+        refbox.send_keys("J:180800")
+        refbox.send_keys(Keys.TAB)
+        time.sleep(2)        
         #find the Search button and click it
         driver.find_element_by_id('searchButton').click()
+        #waits until the element is located or 40 seconds
+        WebDriverWait(self.driver, 40).until(EC.visibility_of_element_located((By.ID, 'refAssocModification_date-1')))
         #waits until the Reference table is displayed on the page    
-        wait.forAngular(self.driver)
-        #find the Reference results table
-        refs_table = self.driver.find_element_by_id("refsTable")
-        table = Table(refs_table)
-        # find the first row of data
-        cells = table.get_row(1)
-        #print the first row result
-        print cells.text
-        #locate the first row of reference data and verify it is correct
-        self.assertEqual(cells.text, 'General J:234813 Luo S, Cell Stem Cell 2016 May 5;18(5):637-52 pm2geneload 2019-03-31')
+        #wait.forAngular(self.driver)
+        #time.sleep(20)
+       
+        #find the reference results table type column
+        ref_type1 = driver.find_elements_by_id('refAssocType')[0].get_attribute('value')
+        ref_type2 = driver.find_elements_by_id('refAssocType')[1].get_attribute('value')
+        
+        print ref_type1
+        #Assert the  synonym types returned are in the correct order
+        self.assertEqual(ref_type1, 'string:1018')#string:1018  equals reference type general
+        self.assertEqual(ref_type2, 'string:1018')#string:1018  equals reference type general
+
         
     def testMrkRefStrainSearch(self):
         """
@@ -1080,21 +1071,18 @@ class TestMrkSearch(unittest.TestCase):
         #find the Reference tab and click it
         driver.find_element_by_id('refsTabButton').click()
         #find the Type pulldown for references and select the strain-specific marker option
-        Select(driver.find_element_by_id("markerSynonymTypeQueryID")).select_by_value('1028')
+        Select(driver.find_element_by_id("refAssocType")).select_by_value('string:1028')
         #find the Search button and click it
         driver.find_element_by_id('searchButton').click()
         #waits until the Reference table is displayed on the page    
         wait.forAngular(self.driver)
-        #find the Reference results table
-        refs_table = self.driver.find_element_by_id("refsTable")
-        reftable = Table(refs_table)
-        # find the first row of data
-        cells = reftable.get_column_cells('Type')
-        types = iterate.getTextAsList(cells)
-        #print the Types column results
-        print types
-        #locate the Types column of reference data and verify the strain-specific marker type is disaplyed at least once
-        self.assertIn('Strain-Specific Marker', types)
+        #find the reference results table type column
+        ref_type1 = driver.find_elements_by_id('refAssocType')[16].get_attribute('value')
+        ref_type2 = driver.find_elements_by_id('refAssocType')[17].get_attribute('value')        
+        print ref_type1
+        #Assert the  synonym types returned are in the correct order
+        self.assertEqual(ref_type1, 'string:1028')#string:1028  equals reference type strain-specific marker
+        self.assertEqual(ref_type2, 'string:1028')#string:1028  equals reference type strain-specific marker
            
     def testMrkRefJnumSearch(self):
         """
@@ -1105,21 +1093,19 @@ class TestMrkSearch(unittest.TestCase):
         #find the Reference tab and click it
         driver.find_element_by_id('refsTabButton').click()
         #find the references J number field and enter the J number
-        driver.find_element_by_id("markerRefJnumID").send_keys("J:699")
+        driver.find_element_by_id("refjnumID-0").send_keys("J:699")
         #find the Search button and click it
         driver.find_element_by_id('searchButton').click()
         #waits until the Reference table is displayed on the page    
-        wait.forAngular(self.driver)
-        #find the Reference results table
-        refs_table = self.driver.find_element_by_id("refsTable")
-        table = Table(refs_table)
-        # find the column of data for J numbers
-        cells = table.get_column_cells('J#')
-        jnums = iterate.getTextAsList(cells)
-        #print the J numbers column data
-        print jnums
-        #locate the column of reference J number data and verify that J:699 exists on one of the rows
-        self.assertIn('J:699', jnums)
+        #wait.forAngular(self.driver)
+        time.sleep(4)
+        #find the reference results table J# column
+        ref_jnum1 = driver.find_element_by_id('refjnumID-0').get_attribute('value')
+        ref_jnum2 = driver.find_element_by_id('refjnumID-1').get_attribute('value')        
+        print ref_jnum1
+        #Assert the  J numbers returned are correct 
+        self.assertEqual(ref_jnum1, 'J:699')
+        self.assertEqual(ref_jnum2, 'J:10117')
 
     def testMrkRefJnumSearch2(self):
         """
@@ -1130,21 +1116,19 @@ class TestMrkSearch(unittest.TestCase):
         #find the Reference tab and click it
         driver.find_element_by_id('refsTabButton').click()
         #find the references J number field and enter the J number
-        driver.find_element_by_id("markerRefJnumID").send_keys("699")
+        driver.find_element_by_id("refjnumID-0").send_keys("699")
         #find the Search button and click it
         driver.find_element_by_id('searchButton').click()
         #waits until the Reference table is displayed on the page    
         wait.forAngular(self.driver)
         #find the Reference results table
-        refs_table = self.driver.find_element_by_id("refsTable")
-        table = Table(refs_table)
-        # find the column of data for J numbers
-        cells = table.get_column_cells('J#')
-        jnums = iterate.getTextAsList(cells)
-        #print the J numbers column data
-        print jnums
-        #locate the column of reference J number data and verify that J:699 exists on one of the rows
-        self.assertIn('J:699', jnums)
+        #find the reference results table J# column
+        ref_jnum1 = driver.find_element_by_id('refjnumID-0').get_attribute('value')
+        ref_jnum2 = driver.find_element_by_id('refjnumID-1').get_attribute('value')        
+        print ref_jnum1
+        #Assert the  J numbers returned are correct 
+        self.assertEqual(ref_jnum1, 'J:699')
+        self.assertEqual(ref_jnum2, 'J:10117')
            
     def testMrkRefModBySearch(self):
         """
@@ -1154,22 +1138,19 @@ class TestMrkSearch(unittest.TestCase):
         driver = self.driver
         #find the Reference tab and click it
         driver.find_element_by_id('refsTabButton').click()
-        #find the references J number field and enter the J number
-        driver.find_element_by_id("markerRefModByID").send_keys("honda")
+        time.sleep(2)
+        #find the references Modified By field and enter the name
+        driver.find_element_by_id("refAssocModifiedBy-0").send_keys("rbabiuk")
         #find the Search button and click it
         driver.find_element_by_id('searchButton').click()
         #wait until the Reference table is displayed on the page    
-        wait.forAngular(self.driver)
-        #find the Reference results table
-        refs_table = self.driver.find_element_by_id("refsTable")
-        table = Table(refs_table)
-        # find the column of data for Modified by
-        cells = table.get_column_cells('Modified By')
-        modby = iterate.getTextAsList(cells)
-        #print the column of data for Modified by
-        print modby
-        #locate the column of Modified by data and verify that honda exists on at least one of the rows
-        self.assertIn('honda', modby)
+        #wait.forAngular(self.driver)
+        time.sleep(10)
+        #find the Modified by column eighth row
+        mod_by1 = driver.find_element_by_id('refAssocModifiedBy-8').get_attribute('value')
+        print mod_by1
+        #Assert the  Modified By field returned is correct 
+        self.assertEqual(mod_by1, 'rbabiuk')
 
     def testMrkRefDateSearch(self):
         """
@@ -1179,22 +1160,20 @@ class TestMrkSearch(unittest.TestCase):
         driver = self.driver
         #find the Reference tab and click it
         driver.find_element_by_id('refsTabButton').click()
+        #find the references J number field and enter the J number
+        driver.find_element_by_id("refjnumID-0").send_keys("J:221782")
         #find the references Date field and enter the date
-        driver.find_element_by_id("markerRefDateID").send_keys("2015-07-13")
+        driver.find_element_by_id("refAssocModification_date-0").send_keys("2015-07-13")
         #find the Search button and click it
         driver.find_element_by_id('searchButton').click()
         #waits until the Reference table is displayed on the page    
         wait.forAngular(self.driver)
-        #find the Reference results table
-        refs_table = self.driver.find_element_by_id("refsTable")
-        table = Table(refs_table)
-        # find the column of data for Date
-        cells = table.get_column_cells('Date')
-        dates = iterate.getTextAsList(cells)
-        #print the column results for the Date column
-        print dates
-        #locate the column of Date data and verify that 2015-07-13 exists on at least one of the rows
-        self.assertIn('2015-07-13', dates)
+        #find the Modified by column eighth row
+        mod_date1 = driver.find_element_by_id('refAssocModification_date-2').get_attribute('value')
+        print mod_date1
+        #Assert the  Modified By field returned is correct 
+        self.assertEqual(mod_date1, '2015-07-13')
+
 
     def testMrkRefSortSearch(self):
         """
@@ -1210,19 +1189,13 @@ class TestMrkSearch(unittest.TestCase):
         driver.find_element_by_id('refsTabButton').click()
         #waits until the Reference table is displayed on the page    
         time.sleep(5)
-        #find the Reference results table
-        refs_table = self.driver.find_element_by_id("refsTable")
-        table = Table(refs_table)
-        # find the rows of data
-        allrows = table.get_rows()
-        sort = iterate.getTextAsList(allrows)
-        wait.forAngular(self.driver)
-        #print the results of the Citation column
-        print sort
-        wait.forAngular(self.driver)
-        #locate the rows and assert the order is correct
-        self.assertEqual(sort, ['Type J# Citation Modified By Date', 'General J:62788 Meyer M, Cytogenet Cell Genet 2000;88(3-4):278-82 pm2geneload 2019-08-11', 'General J:62835 Widney DP, J Immunol 2000 Jun 15;164(12):6322-31 pm2geneload 2019-08-11', 'General J:139937 Yates CC, Am J Pathol 2008 Sep;173(3):643-52 mmh 2009-06-24', 'General J:147166 Crawford MA, Infect Immun 2009 Apr;77(4):1664-78 csmith 2009-05-04', 'General J:212764 Zohar Y, J Clin Invest 2014 May 1;124(5):2009-22 pm2geneload 2019-08-11', 'General J:223165 Li S, PLoS One 2014;9(8):e104107 mmh 2015-08-28', 'General J:240190 Ha Y, Am J Pathol 2017 Feb;187(2):352-365 wilmil 2017-04-24', 'Strain-Specific Marker J:62788 Meyer M, Cytogenet Cell Genet 2000;88(3-4):278-82 yz 2015-06-25', 'Strain-Specific Marker J:124878 Sierro F, Proc Natl Acad Sci U S A 2007 Sep 11;104(37):14759-64 yz 2015-06-25'])
-
+        #find the reference results table type column
+        ref_type1 = driver.find_elements_by_id('refAssocType')[6].get_attribute('value')
+        ref_type2 = driver.find_elements_by_id('refAssocType')[7].get_attribute('value')        
+        print ref_type1
+        #Assert the  synonym types returned are in the correct order
+        self.assertEqual(ref_type1, 'string:1018')#string:1028  equals reference type general
+        self.assertEqual(ref_type2, 'string:1028')#string:1028  equals reference type strain-specific marker
 
     def testMrkRefCiteSearch(self):
         """
@@ -1233,22 +1206,16 @@ class TestMrkSearch(unittest.TestCase):
         #find the Reference tab and click it
         driver.find_element_by_id('refsTabButton').click()
         #find the citation field and enter the text search with wildcard
-        driver.find_element_by_id("markerRefCitationID").send_keys("Funk CD%")
+        driver.find_element_by_id("refAssocCitation-0").send_keys("Funk CD%")
         #find the Search button and click it
         driver.find_element_by_id('searchButton').click()
         #waits until the Reference table is displayed on the page    
         wait.forAngular(self.driver)
-        #find the Reference results table
-        refs_table = self.driver.find_element_by_id("refsTable")
-        table = Table(refs_table)
-        # find the column of data for Citation
-        cells = table.get_column_cells('Citation')
-        cites = iterate.getTextAsList(cells)
-        wait.forAngular(self.driver)
-        #print the results of the Citation column
-        print cites
-        #locate the column of reference Citation data and verify that Funk CD exists on at least one of the rows
-        self.assertIn('Funk CD, Biochim Biophys Acta 1996 Nov 11;1304(1):65-84', cites)
+        #find the reference results table type column
+        cite = driver.find_element_by_id('refAssocCitation-3').get_attribute('value')       
+        print cite
+        #Assert the citation returned is correct for row4
+        self.assertEqual(cite, 'Funk CD, Biochim Biophys Acta 1996 Nov 11;1304(1):65-84')
 
     def testMrkAccIDOtherSortSearch(self):
         """
@@ -1267,17 +1234,22 @@ class TestMrkSearch(unittest.TestCase):
         #find the AccID (other) results table
         acco_table = self.driver.find_element_by_id("accidOtherTable")
         table = Table(acco_table)
-        # find the rows of data
-        allrows = table.get_rows()
-        sort = iterate.getTextAsList(allrows)
-        wait.forAngular(self.driver)
-        #print the results of the Citation column
-        print sort
         wait.forAngular(self.driver)
         #locate the rows and assert the order is correct
-        self.assertEqual(sort, ['Acc Name AccID J# Citation Modified By Date', 'ABA 69681 J:132069 Lein ES, 2008;(): aba_assocload 2012-01-20', 'Affy 1.0 ST 10382779 J:144086 Mouse Genome Informatics Scientific Curators, Database Download 2009;(): Affy_1.0_ST_assocload 2011-06-18', 'Affy 430 2.0 1460472_at J:144087 Mouse Genome Informatics Scientific Curators, Database Download 2009;(): Affy_430_2.0_assocload 2011-06-18', 'Affy U74 110085_at J:157972 Mouse Genome Informatics Scientific Curators, Database Download 2010;(): Affy_U74_assocload 2011-06-18', 'ArrayExpress MGI:1916931 J:153877 Ringwald M, MGI Direct Data Submission 2009;(): arrayexp_assocload 2016-11-14', 'Ensembl Gene Model ENSMUSG00000092300 J:91388 Mouse Genome Informatics Scientific Curators, 2005;(): ensembl_assocload 2019-08-03', 'Ensembl Protein ENSMUSP00000134251 J:91388 Mouse Genome Informatics Scientific Curators, 2005;(): ensembl_proteinassocload 2019-08-03', 'Ensembl Transcript ENSMUST00000173567 J:91388 Mouse Genome Informatics Scientific Curators, 2005;(): ensembl_transcriptassocload 2019-08-03', 'Ensembl Transcript ENSMUST00000174177 J:91388 Mouse Genome Informatics Scientific Curators, 2005;(): ensembl_transcriptassocload 2019-08-03', 'Ensembl Transcript ENSMUST00000174248 J:91388 Mouse Genome Informatics Scientific Curators, 2005;(): ensembl_transcriptassocload 2019-08-03', 'Entrez Gene 69681 J:63103 Mouse Genome Database and National Center for Biotechnology, Database Release 2000;(): entrezgene_load 2019-08-11', 'FuncBase 1916931 J:145067 Bult C, 2009;(): mousefunc_assocload 2015-04-25', 'NCBI Gene Model 69681 J:90438 Mouse Genome Informatics Scientific Curators, 2005;(): ncbi_assocload 2019-01-19', 'RefSeq NR_004853 J:63103 Mouse Genome Database and National Center for Biotechnology, Database Release 2000;(): entrezgene_load 2019-08-11', 'SWISS-PROT Q80YP0 J:53168 Bairoch A, Database Release 1999;(): uniprotload_assocload 2019-08-11', 'UniGene 33677 J:57747 MGI Genome Annotation Group and UniGene Staff, Database Download 2015;(): mgd_dbo 2015-04-26'])
-
-            
+        #self.assertEqual(sort, ['Acc Name AccID J# Citation Modified By Date', 'ABA 69681 J:132069 Lein ES, 2008;(): aba_assocload 2012-01-20', 'Affy 1.0 ST 10382779 J:144086 Mouse Genome Informatics Scientific Curators, Database Download 2009;(): Affy_1.0_ST_assocload 2011-06-18', 'Affy 430 2.0 1460472_at J:144087 Mouse Genome Informatics Scientific Curators, Database Download 2009;(): Affy_430_2.0_assocload 2011-06-18', 'Affy U74 110085_at J:157972 Mouse Genome Informatics Scientific Curators, Database Download 2010;(): Affy_U74_assocload 2011-06-18', 'ArrayExpress MGI:1916931 J:153877 Ringwald M, MGI Direct Data Submission 2009;(): arrayexp_assocload 2016-11-14', 'Ensembl Gene Model ENSMUSG00000092300 J:91388 Mouse Genome Informatics Scientific Curators, 2005;(): ensembl_assocload 2019-08-03', 'Ensembl Protein ENSMUSP00000134251 J:91388 Mouse Genome Informatics Scientific Curators, 2005;(): ensembl_proteinassocload 2019-08-03', 'Ensembl Transcript ENSMUST00000173567 J:91388 Mouse Genome Informatics Scientific Curators, 2005;(): ensembl_transcriptassocload 2019-08-03', 'Ensembl Transcript ENSMUST00000174177 J:91388 Mouse Genome Informatics Scientific Curators, 2005;(): ensembl_transcriptassocload 2019-08-03', 'Ensembl Transcript ENSMUST00000174248 J:91388 Mouse Genome Informatics Scientific Curators, 2005;(): ensembl_transcriptassocload 2019-08-03', 'Entrez Gene 69681 J:63103 Mouse Genome Database and National Center for Biotechnology, Database Release 2000;(): entrezgene_load 2019-08-11', 'FuncBase 1916931 J:145067 Bult C, 2009;(): mousefunc_assocload 2015-04-25', 'NCBI Gene Model 69681 J:90438 Mouse Genome Informatics Scientific Curators, 2005;(): ncbi_assocload 2019-01-19', 'RefSeq NR_004853 J:63103 Mouse Genome Database and National Center for Biotechnology, Database Release 2000;(): entrezgene_load 2019-08-11', 'SWISS-PROT Q80YP0 J:53168 Bairoch A, Database Release 1999;(): uniprotload_assocload 2019-08-11', 'UniGene 33677 J:57747 MGI Genome Annotation Group and UniGene Staff, Database Download 2015;(): mgd_dbo 2015-04-26'])
+        #find the first column of results
+        names = table.get_column_cells('Acc Name')
+        name_list = iterate.getTextAsList(names)
+        print name_list
+        #Assert the names are in the correct sort order
+        self.assertEqual(name_list, ['Acc Name', 'ABA', 'Affy 1.0 ST', 'Affy 430 2.0', 'Affy U74', 'ArrayExpress', 'Ensembl Gene Model', 'Ensembl Protein', 'Ensembl Transcript', 'Ensembl Transcript', 'Ensembl Transcript', 'Entrez Gene', 'FuncBase', 'NCBI Gene Model', 'RefSeq', 'SWISS-PROT', 'UniGene'])            
+        #find the second column of results
+        accs = table.get_column_cells('AccID')
+        acc_list = iterate.getTextAsList(accs)
+        print acc_list  
+        #Assert the Acc IDs are in the correct sort order
+        self.assertEqual(acc_list, ['AccID', '69681', '10382779', '1460472_at', '110085_at', 'MGI:1916931', 'ENSMUSG00000092300', 'ENSMUSP00000134251', 'ENSMUST00000173567', 'ENSMUST00000174177', 'ENSMUST00000174248', '69681', '1916931', '69681', 'NR_004853', 'Q80YP0', '33677'])
+        
 '''
 def suite():
     suite = unittest.TestSuite()

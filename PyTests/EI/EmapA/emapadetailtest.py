@@ -5,7 +5,7 @@ Add'l 4 tests added Aug 2016; jlewis
 @author: jeffc
 '''
 import unittest
-
+import time 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
@@ -176,8 +176,8 @@ class TestEmapaDetail(unittest.TestCase, EmapaBaseClass):
 
         # click stage 1
         stage1 = detailArea.find_element_by_link_text("1").click()
-        wait.forAjax(self.driver)
-        
+        #wait.forAjax(self.driver)
+        time.sleep(2)
         #verify EMAPS term is loaded for second polar body
         detailItems = self.driver.find_elements_by_css_selector("#termDetailContent dd")
         self.assertEqual(detailItems[2].text,"EMAPS:1603401")

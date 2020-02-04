@@ -105,11 +105,11 @@ class TestSearch(unittest.TestCase):
         #finds the J number field
         jnumid = form.get_value('jnumid')
         print jnumid
-        self.assertEqual(jnumid, 'J:193837')
+        self.assertEqual(jnumid, 'J:278544')
         #finds the citation field
         citation = form.get_value('citation')
         print citation
-        self.assertEqual(citation, 'Abdelhamed ZA, Hum Mol Genet 2013 Apr 1;22(7):1358-72')
+        self.assertEqual(citation, 'Abdelhamed ZA, Sci Rep 2019 Apr 1;9(1):5446')
         #finds the coded? field
         is_coded = form.get_value('is_coded')
         print is_coded
@@ -117,7 +117,7 @@ class TestSearch(unittest.TestCase):
         #finds the priority field
         priority = form.get_selected_text('_priority_key')
         print priority
-        self.assertEqual(priority, 'Medium')
+        self.assertEqual(priority, 'High')
         #finds the conditional field
         conditional = form.get_selected_text('_conditionalmutants_key')
         print conditional
@@ -125,19 +125,19 @@ class TestSearch(unittest.TestCase):
         #finds the created by field
         created_user = form.get_value('createdby_login')
         print created_user
-        self.assertEqual(created_user, 'terryh')
+        self.assertEqual(created_user, 'jfinger')
         #finds the modified by field
         modified_user = form.get_value('modifiedby_login')#.find_element_by_css_selector('td')
         print modified_user
-        self.assertEqual(modified_user, 'terryh')
+        self.assertEqual(modified_user, 'jfinger')
         #finds the created by date field
         created_date = form.get_value('creation_date')
         print created_date
-        self.assertEqual(created_date, '03/26/2013')
+        self.assertEqual(created_date, '10/17/2019')
         #finds the created by date field
         modified_date = form.get_value('modification_date')
         print modified_date
-        self.assertEqual(modified_date, '03/26/2013')
+        self.assertEqual(modified_date, '10/17/2019')
         
     def testMrkWildcardSearch(self):
         """
@@ -238,7 +238,7 @@ class TestSearch(unittest.TestCase):
         form.press_tab()
         error = form.get_error_message()
         # error message will display current symbol for dw
-        self.assertIn("Pou1f1", error )
+        self.assertIn("dw", error )
         # marker entry should be cleared
         marker_symbol = form.get_value('marker_symbol')
         self.assertEqual(marker_symbol, '')
@@ -363,7 +363,12 @@ class TestSearch(unittest.TestCase):
         #print column 1
         symbols_cells = table.get_column_cells('Marker')
         symbols = iterate.getTextAsList(symbols_cells)
-        self.assertEqual(symbols, ['Marker', 'Dbn1', 'Hnf1a', 'Mup10', 'Mup19', 'Mup7', 'Pten', 'Runx1', 'Syp', 'Timp1', 'Tnc'])
+        self.assertEquals(symbols[1], 'Acta2')
+        self.assertEquals(symbols[2], 'Aldob')
+        self.assertEquals(symbols[3], 'Apoc2')
+        self.assertEquals(symbols[4], 'Aqp4')
+        self.assertEquals(symbols[5], 'Atp12a')
+        
                         
     def testModifiedBySearch(self):
         """

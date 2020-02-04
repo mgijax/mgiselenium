@@ -104,8 +104,7 @@ class TestGXDDifferentialQF(unittest.TestCase):
         items = genelist.find_elements(By.TAG_NAME, "text")
         searchTextItems = iterate.getTextAsList(items)
         #print searchTextItems
-        #self.assertIn('Adgrb2', searchTextItems)
-        self.assertIn('Acta2', searchTextItems)
+        self.assertIn('Bmp2', searchTextItems)
         self.assertIn('Casp3', searchTextItems)
         self.assertIn('Col11a1', searchTextItems)
         self.assertIn('Crip2', searchTextItems)
@@ -117,6 +116,7 @@ class TestGXDDifferentialQF(unittest.TestCase):
         self.assertIn('Itga6', searchTextItems)
         self.assertIn('Mki67', searchTextItems)
         self.assertIn('Notch2', searchTextItems)
+        self.assertIn('Vcan', searchTextItems)
         #find the tissue grid box for bladder for marker Agtr2
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
         item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row0.col12 > rect.blue1')
@@ -227,11 +227,11 @@ class TestGXDDifferentialQF(unittest.TestCase):
         self.assertIn('A2m', searchTextItems)
         self.assertIn('Aard', searchTextItems)
         self.assertIn('Abca3', searchTextItems)
-        self.assertIn('Bckdk', searchTextItems)
-        self.assertIn('Pkm', searchTextItems)
+        #self.assertIn('Bckdk', searchTextItems)
+        #self.assertIn('Pkm', searchTextItems)
         #find the tissue grid box for liver for marker A2m
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
-        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row0.col14 > rect.blue2')
+        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row0.col10 > rect.blue2')
         rightclass = item.get_attribute('class')
         #rightclass finds the class name of the gridbox
         #now we assert the class name of the gridbox matches the class name of blue2

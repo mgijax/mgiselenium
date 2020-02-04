@@ -65,6 +65,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         '''
         @status this test verifies the correct genes, models and source are returned. This test example displays a disease that returns
         results for associations to mouse/human(6), just mouse(1), and 3 NOT models
+        BUG: not sorting as espected, should be smart alpha
         '''
         print ("BEGIN test_dobrowser_modeltab_mh_m_not")
         searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
@@ -253,7 +254,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         searchbox.send_keys("DOID:0050771")
         searchbox.send_keys(Keys.RETURN)
         
-        self.driver.find_element(By.LINK_TEXT, 'phaeochromocytoma').click()
+        self.driver.find_element(By.LINK_TEXT, 'pheochromocytoma').click()
 
         self.driver.find_element(By.ID, 'modelsTabButton').click()#identifies the Models tab and clicks it.
         
@@ -265,22 +266,22 @@ class TestDoBrowserModelTab(unittest.TestCase):
         row1 = cells[2]
         row2 = cells[3]
         
-        self.assertEqual(row1.text, '         phaeochromocytoma Rettm2.1Cos/Rettm2.1Cos involves: 129S1/Sv * C57BL/6J * FVB/N J:60659 View')
-        self.assertEqual(row2.text, '         phaeochromocytoma Ptentm1Mro/Ptentm1Mro\nSdhbtm1.1Ics/Sdhb+\nTg(KLK3-cre)D4Trp/0 involves: 129S2/SvPas * FVB J:236514 View')
+        self.assertEqual(row1.text, '         pheochromocytoma Rettm2.1Cos/Rettm2.1Cos involves: 129S1/Sv * C57BL/6J * FVB/N J:60659 View')
+        self.assertEqual(row2.text, '         pheochromocytoma Ptentm1Mro/Ptentm1Mro\nSdhbtm1.1Ics/Sdhb+\nTg(KLK3-cre)D4Trp/0 involves: 129S2/SvPas * FVB J:236514 View')
         
         notmodel_table = self.driver.find_element(By.ID, 'modelTabNotTable')
         table = Table(notmodel_table)
         cells = table.get_rows()
         print iterate.getTextAsList(cells)
-        #displays each row of NOT models data
-        row1 = cells[2]
-        self.assertEqual(row1.text, 'NOT Models         phaeochromocytoma Rettm1Cos/Rettm2.1Cos involves: 129S/SvEv * 129S1/Sv * C57BL/6J * FVB/N * MF1 J:60659 View')
+        #displays fourth row of NOT models data
+        row4 = cells[5]
+        self.assertEqual(row4.text, 'pheochromocytoma Rettm1Cos/Rettm2.1Cos involves: 129S/SvEv * 129S1/Sv * C57BL/6J * FVB/N * MF1 J:60659 View')
                 
     def test_dobrowser_modelstab_m_trans_complex_not(self):
         '''
         @status this test verifies the correct genes, models and source are returned. This test example displays a disease that returns
         results for associations to mouse, transgenes, and complex, also has 1 NOT
-        '''
+        BUG: might be a sorting issue causing this story to fail'''
         print ("BEGIN test_dobrowser_modeltab_m_trans_complex_not")
         searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your DO ID in the quick search box
@@ -397,7 +398,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         '''
         @status this test verifies the correct genes, models and source are returned. This test example displays a disease that returns
         results for associations to mouse/human and mouse. Genes COL1A1 and COL1A2 are attached multiple times
-        '''
+        BUG: sorting iussue might be causing this test to fail'''
         print ("BEGIN test_dobrowser_modeltab_same_gene_mult_subtypes")
         searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your DO ID in the quick search box

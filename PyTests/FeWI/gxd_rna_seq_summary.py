@@ -28,11 +28,86 @@ class TestRnaSeqSummary(unittest.TestCase):
         self.driver = webdriver.Chrome()
         self.driver.get(config.TEST_URL + "/gxd/htexp_index")
         self.driver.implicitly_wait(10)
-        
+
+    def test_rnaseq_summary_array_express_link(self):
+        '''
+        @status this test verifies the array express link on the RNA-Seq summary results page is correct.
+        @see GXD-RNASeq-summary-5
+        '''
+        print ("BEGIN test_rnaseq_summary_array_express_link")
+        #finds the strain field and enters text
+        self.driver.find_element(By.ID, 'strainNameAC').send_keys('C57BL/6J')
+        #find the Search button and click it
+        self.driver.find_element_by_id('submit1').click()
+        time.sleep(2)
+        #identify the View experiment at cell of the first row of results returned
+        result_set = self.driver.find_element_by_id("injectedResults").find_elements_by_class_name('extUrl')
+        print result_set[2].text
+        time.sleep(2)
+        result_set[2].click()
+        time.sleep(2)
+        #switch focus to the next tab
+        self.driver.switch_to_window(self.driver.window_handles[-1])
+        #get the URL of the page
+        page_url = self.driver.current_url
+        print page_url
+        #Assert the URL is correct
+        self.assertEqual(page_url, "https://www.ebi.ac.uk/arrayexpress/experiments/E-ERAD-433/")
+     
+    def test_rnaseq_summary_exp_atlas_link(self):
+        '''
+        @status this test verifies the expression atlas link on the RNA-Seq summary results page is correct.
+        @see GXD-RNASeq-summary-6
+        '''
+        print ("BEGIN test_rnaseq_summary_exp_atlas_link")
+        #finds the strain field and enters text
+        self.driver.find_element(By.ID, 'strainNameAC').send_keys('C57BL/6J')
+        #find the Search button and click it
+        self.driver.find_element_by_id('submit1').click()
+        time.sleep(2)
+        #identify the View experiment at cell of the first row of results returned
+        result_set = self.driver.find_element_by_id("injectedResults").find_elements_by_class_name('extUrl')
+        print result_set[0].text
+        time.sleep(2)
+        result_set[0].click()
+        time.sleep(2)
+        #switch focus to the next tab
+        self.driver.switch_to_window(self.driver.window_handles[-1])
+        #get the URL of the page
+        page_url = self.driver.current_url
+        print page_url
+        #Assert the URL is correct
+        self.assertEqual(page_url, "https://www.ebi.ac.uk/gxa/experiments/E-ERAD-169/Results")
+
+    def test_rnaseq_summary_geo_link(self):
+        '''
+        @status this test verifies the geo link on the RNA-Seq summary results page is correct.
+        @see GXD-RNASeq-summary-7
+        '''
+        print ("BEGIN test_rnaseq_summary_geo_link")
+        #finds the strain field and enters text
+        self.driver.find_element(By.ID, 'strainNameAC').send_keys('C57BL/6J')
+        #find the Search button and click it
+        self.driver.find_element_by_id('submit1').click()
+        time.sleep(2)
+        #identify the View experiment at cell of the third row of results returned
+        result_set = self.driver.find_element_by_id("injectedResults").find_elements_by_class_name('extUrl')
+        print result_set[4].text
+        time.sleep(2)
+        result_set[4].click()
+        time.sleep(2)
+        #switch focus to the next tab
+        self.driver.switch_to_window(self.driver.window_handles[-1])
+        #get the URL of the page
+        page_url = self.driver.current_url
+        print page_url
+        #Assert the URL is correct
+        self.assertEqual(page_url, "https://www.ebi.ac.uk/arrayexpress/experiments/E-GEOD-868/")
+                    
     def test_rnaseq_summary_single_var_filter(self):
         '''
         @status this test verifies the filtering by a single variable on the RNA-Seq summary  results page.
-        @see GXD-RNASeq-summary-7
+        @see GXD-RNASeq-summary-8
         '''
         print ("BEGIN test_rnaseq_summary_single_var_filter")
         Select(self.driver.find_element(By.ID, 'age')).deselect_by_value('ANY')#deselect the default option
@@ -59,7 +134,7 @@ class TestRnaSeqSummary(unittest.TestCase):
     def test_rnaseq_summary_multi_var_filter(self):
         '''
         @status this test verifies the filtering by multiple variables on the RNA-Seq summary  results page.
-        @see GXD-RNASeq-summary-8
+        @see GXD-RNASeq-summary-9
         '''
         print ("BEGIN test_rnaseq_summary_multi_var_filter")
         Select(self.driver.find_element(By.ID, 'age')).deselect_by_value('ANY')#deselect the default option
@@ -95,7 +170,7 @@ class TestRnaSeqSummary(unittest.TestCase):
     def test_rnaseq_summary_study_filter(self):
         '''
         @status this test verifies the filtering by a single study type on the RNA-Seq summary results page.
-        @see GXD-RNASeq-summary-9
+        @see GXD-RNASeq-summary-10
         '''
         print ("BEGIN test_rnaseq_summary_study_filter")
         Select(self.driver.find_element(By.ID, 'age')).deselect_by_value('ANY')#deselect the default option
@@ -118,6 +193,53 @@ class TestRnaSeqSummary(unittest.TestCase):
         time.sleep(2)
         #Assert the lone result has a study type of 'WT vs. Mutant'
         self.assertEqual(result_set.text, "WT vs. Mutant")        
+
+    def test_rnaseq_summary_vea_sort_order(self):
+        '''
+        @status this test verifies the sort order on the RNA-Seq summary results page for the View Experiment at column is correct.
+        @see GXD-RNASeq-summary-13 
+        '''
+        print ("BEGIN test_rnaseq_summary_vea_sort_order")
+        #finds the strain field and enters text
+        self.driver.find_element(By.ID, 'strainNameAC').send_keys('C57BL/6J')
+        #find the Search button and click it
+        self.driver.find_element_by_id('submit1').click()
+        time.sleep(2)
+        #identify the View experiment at cell of the third row of results returned
+        result_set = self.driver.find_element_by_id("injectedResults").find_element_by_id('viewData0')
+        print result_set.text
+        time.sleep(2)
+        #Assert the sort order is correct
+        self.assertEqual(result_set.text, "GXD: E-ERAD-169\nExpression Atlas: E-ERAD-169\nArrayExpress: E-ERAD-169")
+
+    def test_rnaseq_summary_gxd_link(self):
+        '''
+        @status this test verifies the gxd link on the RNA-Seq summary results page is correct.
+        @see GXD-RNASeq-summary-14 
+        '''
+        print ("BEGIN test_rnaseq_summary_gxd_link")
+        #finds the strain field and enters text
+        self.driver.find_element(By.ID, 'strainNameAC').send_keys('C57BL/6J')
+        #find the Search button and click it
+        self.driver.find_element_by_id('submit1').click()
+        time.sleep(2)
+        #Find the first E-ERAD--169 found in the first row of the View Experiment at column and click it.
+        vea_links = self.driver.find_elements_by_link_text('E-ERAD-169')
+        print vea_links[0]
+        vea_links[0].click()
+        time.sleep(2)
+        #switch focus to the next tab
+        self.driver.switch_to_window(self.driver.window_handles[-1])
+        #get the URL of the page
+        page_url = self.driver.current_url
+        print page_url
+        #Assert the URL is correct
+        self.assertEqual(page_url, "http://test.informatics.jax.org/gxd/experiment/E-ERAD-169")
+
+
+
+
+
     
     
     def tearDown(self):

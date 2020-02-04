@@ -118,7 +118,7 @@ class TestImgPaneSearch(unittest.TestCase):
         self.assertEquals(row14, "k/k'")
         self.assertEquals(row15, "l/l'")
 
-    def c(self):
+    def testImagePaneLabelSearch(self):
         """
         @Status tests that a basic Image Pane Label search for a label that is extremely long works
         @see pwi-image-pane-search-4
@@ -134,7 +134,7 @@ class TestImgPaneSearch(unittest.TestCase):
         time.sleep(2)
         row8 = self.driver.find_element_by_id("paneLabelID313902").get_attribute("value")
         row9 = self.driver.find_element_by_id("paneLabelID313901").get_attribute("value")
-        time.sleep(2)
+        time.sleep(5)
         print row8
         #Assert the correct details are returned
         self.assertEquals(row8, 'C merge (EFGP and choline acetyltransferase immunoreactivity)')
@@ -142,8 +142,8 @@ class TestImgPaneSearch(unittest.TestCase):
 
     def testImagePaneNoLabelSearch(self):
         """
-        @Status tests that a basic Image Pane Label search for a label is blanl(no label) works
-        @see pwi-image-pane-search-5 currently broken but need to keep as is for talk w/pete about implementation
+        @Status tests that a basic Image Pane Label search for a label is blank(no label) works
+        @see pwi-image-pane-search-5 
         """
         driver = self.driver
         #finds the J# field and enter a J Number for an expression image then click the Search button
@@ -151,34 +151,31 @@ class TestImgPaneSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the Pane Labels results table
-        pane_table = self.driver.find_element_by_id("imagePaneTable")
-        table = Table(pane_table)
-        #Iterate and print the search results, checking the 1st result
-        cell1 = table.get_row_cells(1)
-        result1 = iterate.getTextAsList(cell1)
-        print result1
+        pane_row1 = self.driver.find_element_by_id("paneLabelID6895").get_attribute("value")
+        #prints the pane label for row 1(should be blank)
+        print pane_row1
         #Assert the correct details are returned
-        self.assertEquals(result1, ['', '0, 0, 350, 534'])
+        self.assertEquals(pane_row1, '')
         
     def testImagePaneUnderscoreSearch(self):
         """
         @Status tests a pane label display that starts with an underscore
-        @see pwi-image-pane-search-6 !currently broken, same issue as search 5
+        @see pwi-image-pane-search-6 
         """
         driver = self.driver
         #finds the Image Pane Label field and enters text then clicks the Search button
         driver.find_element_by_id("paneLabelID").send_keys("_Hox-4-4")
         driver.find_element_by_id('searchButton').click()
-        time.sleep(2)
+        time.sleep(5)
         #find the Pane Labels results table
-        pane_table = self.driver.find_element_by_id("imagePaneTable")
-        table = Table(pane_table)
-        #Iterate and print the search results, checking the 1st result
-        cell1 = table.get_row_cells(1)
-        result1 = iterate.getTextAsList(cell1)
-        print result1
+        pane_row1 = self.driver.find_element_by_id("paneLabelID472753").get_attribute('value')
+        pane_row2 = self.driver.find_element_by_id("paneLabelID472754").get_attribute('value')
+        #prints the pane label for row 1(should be blank)
+        print pane_row1
+        print pane_row2
         #Assert the correct details are returned
-        self.assertEquals(result1, ['_Hox-4-4', ''])
+        self.assertEquals(pane_row1, '_Hox-4-4')
+        self.assertEquals(pane_row2, '_Hox-4-5')
 
     def testImagePaneSortSearch(self):
         """
@@ -191,35 +188,26 @@ class TestImgPaneSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the Pane Labels results table
-        pane_table = self.driver.find_element_by_id("imagePaneTable")
-        table = Table(pane_table)
+        pane_row1 = self.driver.find_element_by_id("paneLabelID465633").get_attribute('value')
+        pane_row2 = self.driver.find_element_by_id("paneLabelID465634").get_attribute('value')
+        pane_row3 = self.driver.find_element_by_id("paneLabelID465636").get_attribute('value')
+        pane_row4 = self.driver.find_element_by_id("paneLabelID465635").get_attribute('value')
+        pane_row5 = self.driver.find_element_by_id("paneLabelID465629").get_attribute('value')
+        pane_row6 = self.driver.find_element_by_id("paneLabelID465630").get_attribute('value')
+        pane_row7 = self.driver.find_element_by_id("paneLabelID465632").get_attribute('value')
+        pane_row8 = self.driver.find_element_by_id("paneLabelID465631").get_attribute('value')
         #Iterate and print the search results, checking the 1st result
-        cell1 = table.get_row_cells(1)
-        cell2 = table.get_row_cells(2)
-        cell3 = table.get_row_cells(3)
-        cell4 = table.get_row_cells(4)
-        cell5 = table.get_row_cells(5)
-        cell6 = table.get_row_cells(6)
-        cell7 = table.get_row_cells(7)
-        cell8 = table.get_row_cells(8)
-        result1 = iterate.getTextAsList(cell1)
-        result2 = iterate.getTextAsList(cell2)
-        result3 = iterate.getTextAsList(cell3)
-        result4 = iterate.getTextAsList(cell4)
-        result5 = iterate.getTextAsList(cell5)
-        result6 = iterate.getTextAsList(cell6)
-        result7 = iterate.getTextAsList(cell7)
-        result8 = iterate.getTextAsList(cell8)
-        print result1
+        print pane_row1
+        print pane_row2
         #Assert the correct details are returned
-        self.assertEquals(result1, ['_ptc E14.5', '253, 32, 241, 159'])
-        self.assertEquals(result2, ['_ptc E17', '253, 196, 241, 144'])
-        self.assertEquals(result3, ['_ptc P14', '253, 540, 241, 194'])
-        self.assertEquals(result4, ['_ptc P7', '253, 344, 241, 191'])
-        self.assertEquals(result5, ['_Shh E14.5', '55, 32, 192, 159'])
-        self.assertEquals(result6, ['_Shh E17', '55, 196, 192, 144'])
-        self.assertEquals(result7, ['_Shh P14', '55, 540, 192, 194'])
-        self.assertEquals(result8, ['_Shh P7', '55, 344, 192, 191'])
+        self.assertEquals(pane_row1, '_ptc E14.5')
+        self.assertEquals(pane_row2, '_ptc E17')
+        self.assertEquals(pane_row3, '_ptc P14')
+        self.assertEquals(pane_row4, '_ptc P7')
+        self.assertEquals(pane_row5, '_Shh E14.5')
+        self.assertEquals(pane_row6, '_Shh E17')
+        self.assertEquals(pane_row7, '_Shh P14')
+        self.assertEquals(pane_row8, '_Shh P7')
 
 '''
 def suite():

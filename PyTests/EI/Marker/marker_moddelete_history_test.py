@@ -1,6 +1,6 @@
 '''
 Created on Feb 1, 2019
-Tests the update and derlete features for the Marker History table
+Tests the update and delete features for the Marker History table(none of these tests are ready to use right now!!!!)
 @author: jeffc
 '''
 import unittest
@@ -10,11 +10,12 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 import HTMLTestRunner
 import json
 import sys,os.path
+from __builtin__ import True
 # adjust the path to find config
 sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../..',)
@@ -23,9 +24,6 @@ import config
 from util import iterate, wait
 from util.form import ModuleForm
 from util.table import Table
-
-
-
 
 # Tests
 
@@ -56,105 +54,107 @@ class TestMrkHistUpdateDelete(unittest.TestCase):
         """
         driver = self.driver
         #finds the history symbol field and enters a symbol
-        driver.find_element_by_id("markerHistorySymbolID").send_keys('Shh')
+        driver.find_element_by_id("historySymbol-0").send_keys('Shh')
         driver.find_element_by_id('searchButton').click()
+        #waits until the element is located or 10 seconds
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historyName-1')))
         time.sleep(2)
-        #find the history results table
-        history_table = self.driver.find_element_by_id("historyTable")
-        table = Table(history_table)
-        #Iterate and print the search results column of Symbols
-        sym = table.get_column_cells('Symbol')
-        symbols = iterate.getTextAsList(sym)
-        print symbols
-        #Assert the correct marker symbols are returned
-        self.assertEqual(symbols, ['Symbol', 'Hhg1', 'Hhg1', 'Shh', 'Dsh', 'Dsh', 'Hx', 'Hx', 'Hxl3', 'Hxl3'])
+        # get the data for the Symbol column for certain rows
+        hist_sym = driver.find_element_by_id('historySymbol-0').get_attribute('value')  
+        hist_sym8 = driver.find_element_by_id('historySymbol-8').get_attribute('value')  
+        print hist_sym
+        print hist_sym8     
+        #Assert the second synonym date returned(row2) is correct
+        self.assertEqual(hist_sym, 'Hhg1')      
+        self.assertEqual(hist_sym8, 'Hxl3') 
         #Find and click the History Add button
         driver.find_element_by_id("addHistoryButton").click()
         #find the Event pulldown list
-        select = Select(driver.find_element_by_id('markerAddHistoryEventID'))
-        #select the option you want by visible text
-        select.select_by_visible_text('deleted')
-        #find the Event Reason pulldown list
-        select = Select(driver.find_element_by_id('markerAddHistoryEventReasonID'))
-        #select the option you want by visible text
-        select.select_by_visible_text('problematic sequences')
-        #find the add history Symbol field and enter your symbol
-        driver.find_element_by_id('markerAddHistorySymbolID').send_keys('Dsh')
-        #find the add history Name field and enter your name
-        driver.find_element_by_id('markerAddHistoryNameID').send_keys('Test adding history')        
-        #find the add history J number field and enter your J number
-        driver.find_element_by_id('markerAddHistoryJnumID').send_keys('J:23000')
-        actionChains = ActionChains(driver)
-        actionChains.send_keys(Keys.TAB)
-        actionChains.perform()
-        WebDriverWait(self.driver, 20).until(
-            ec.element_to_be_clickable((By.ID, "addHistoryRowCommit"))
-            )
-        #find the Commit button and click it
-        driver.find_element_by_id('addHistoryRowCommit').click()
+        Select(driver.find_element_by_id('historyEvent'))
+        #
+        driver.find_element_by_id('historySymbol-9').clear()
         time.sleep(2)
+        #find the add history Symbol field and enter your symbol
+        driver.find_element_by_id('historySymbol-9').send_keys('Dsh')
+        #find the add history Name field and enter your name
+        driver.find_element_by_id('historyName-9').send_keys('test')  
+        driver.find_element_by_id('historyJnum-9').clear()      
+        #find the add history J number field and enter your J number
+        driver.find_element_by_id('historyJnum-9').send_keys('J:2300')
+        #find the Event field and select assigned
+        Select(driver.find_element_by_id('historyEvent')).select_by_visible_text('assigned')
+        #find the Reason field and select Not Specified
+        Select(driver.find_element_by_id('historyEventReason')).select_by_visible_text('Not Specified')
+        time.sleep(5)
         #Find and click the modify button
         driver.find_element_by_id('updateMarkerButton').click()
+        time.sleep(5)
+        # get the data for the Symbol column for certain rows
+        hist_sym = driver.find_element_by_id('historySymbol-0').get_attribute('value')  
+        hist_sym9 = driver.find_element_by_id('historySymbol-9').get_attribute('value')  
+        print hist_sym
+        print hist_sym9     
+        #Assert the second synonym date returned(row2) is correct
+        self.assertEqual(hist_sym, 'Hhg1')      
+        self.assertEqual(hist_sym9, 'Dsh') 
+        #now lets put the symbol back to it's original.
+        driver.find_element_by_id('deleteRow-9').click()
         time.sleep(2)
-        #find the history results table
-        history_table = self.driver.find_element_by_id("historyTable")
-        table = Table(history_table)
-        #Iterate and print the search results column of Symbols
-        sym = table.get_column_cells('Symbol')
-        symbols = iterate.getTextAsList(sym)
-        print symbols
-        #Assert the correct marker symbols are returned
-        self.assertEqual(symbols, ['Symbol', 'Hhg1', 'Hhg1', 'Shh', 'Dsh', 'Dsh', 'Hx', 'Hx', 'Hxl3', 'Hxl3', 'Dsh'])
-        
+        #find all the history symbols in the history table and print to screen
+        i=0
+        while True:
+            try:
+                ele = self.driver.find_element_by_id('historySymbol-' + str(i))
+                print ele.get_attribute('value')
+                i += 1
+            except:
+                break
+        #find the Modify button and click it
+        driver.find_element_by_id('updateMarkerButton').click()
         
     def testSymbolHistoryUpdate(self):
         """
         @Status tests that marker history symbol can be modified
         @see pwi-mrk-det-hist-update-1 
+
         """
         driver = self.driver
         #finds the history symbol field and enters a symbol
-        driver.find_element_by_id("markerHistorySymbolID").send_keys('Dsh')
+        driver.find_element_by_id("historySymbol-0").send_keys('Dsh')
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
-        #find the history results table
-        history_table = self.driver.find_element_by_id("historyTable")
-        table = Table(history_table)
-        #Iterate and print the search results column of Symbols
-        sym = table.get_column_cells('Symbol')
-        symbols = iterate.getTextAsList(sym)
-        print symbols
-        #Assert the correct marker symbols are returned
-        self.assertEqual(symbols, ['Symbol', 'Hhg1', 'Hhg1', 'Shh', 'Dsh', 'Dsh', 'Hx', 'Hx', 'Hxl3', 'Hxl3'])
         
-    def testSymbolHistoryValidation(self):
-        """
-        @Status tests that the symbol history validation works
-        @see pwi-mrk-det-hist-update-2 
-        """
-        driver = self.driver
-        #finds the history symbol field and enters a symbol
-        driver.find_element_by_id("markerHistorySymbolID").send_keys('Pax%')
-        driver.find_element_by_id('searchButton').click()
+        #find all the history symbols in the history table and print to screen
+        i=0
+        while True:
+            try:
+                ele = self.driver.find_element_by_id('historySymbol-' + str(i))
+                print ele.get_attribute('value')
+                i += 1
+            except:
+                break
+        #find the last(9th) row symbol and change it from Hxl3 to Hx
+        driver.find_element_by_id('historySymbol-8').clear()
         time.sleep(2)
-        #find the history results table
-        history_table = self.driver.find_element_by_id("historyTable")
-        table = Table(history_table)
-        #Iterate and print the search results column of Symbols
-        sym = table.get_column_cells('Symbol')
-        symbols = iterate.getTextAsList(sym)
-        print symbols
-        #Assert the correct marker symbols are returned for the first result(Pax1)
-        self.assertEqual(symbols, ['Symbol', 'hbs', 'hbs', 'wt', 'wt', 'un', 'un', 'Pax-1', 'Pax-1', 'Pax1'])
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
-        table = Table(results_table)
-        # print all rows
-        cells = table.get_rows()
-        symbols = iterate.getTextAsList(cells)
-        print symbols
-        #assert all the correct symbols are returned
-        self.assertEquals(symbols, ['Pax1','Pax2','Pax3','Pax4','Pax5','Pax6','Pax6os1','Pax7','Pax8','Pax9','Paxbp1','Paxip1','Paxx'])
+        driver.find_element_by_id('historySymbol-8').send_keys('Hx')
+        driver.find_element_by_id('historySymbol-8').send_keys(Keys.TAB)
+        time.sleep(2)
+        #find the Modify button and click it
+        driver.find_element_by_id('updateMarkerButton').click()
+        time.sleep(2)
+        #find the symbol column for the last(9th) symbol and verify it is now Hx
+        last_sym = driver.find_element_by_id('historySymbol-8').get_attribute('value')
+        #waits until the element is located or 10 seconds
+        #WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element_value((By.ID, 'historySymbol-8', 'Hx')))
+        self.assertEquals(last_sym, 'Hx')
+        #now lets put the symbol back to it's original.
+        driver.find_element_by_id('historySymbol-8').clear()
+        time.sleep(2)
+        driver.find_element_by_id('historySymbol-8').send_keys('Hxl3')
+        driver.find_element_by_id('historySymbol-8').send_keys(Keys.TAB)
+        time.sleep(2)
+        #find the Modify button and click it
+        driver.find_element_by_id('updateMarkerButton').click()        
 
     def testNameHistoryModify(self):
         """
@@ -163,18 +163,51 @@ class TestMrkHistUpdateDelete(unittest.TestCase):
         """
         driver = self.driver
         #finds the history name field and enters a name
-        driver.find_element_by_id("markerHistoryNameID").send_keys('sonic hedgehog')
+        driver.find_element_by_id("historyName-0").send_keys('sonic hedgehog')
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
-        #find the history results table
-        history_table = self.driver.find_element_by_id("historyTable")
-        table = Table(history_table)
-        #Iterate and print the search results column of Symbols
-        sym = table.get_column_cells('Symbol')
-        symbols = iterate.getTextAsList(sym)
-        print symbols
-        #Assert the correct marker symbols are returned
-        self.assertEqual(symbols, ['Symbol', 'Hhg1', 'Hhg1', 'Shh', 'Dsh', 'Dsh', 'Hx', 'Hx', 'Hxl3', 'Hxl3'])
+        #find the symbol column of the history table for the first 9 results
+        symname1 = driver.find_element_by_id('historyName-0').get_attribute('value')
+        symname2 = driver.find_element_by_id('historyName-1').get_attribute('value')
+        symname3 = driver.find_element_by_id('historyName-2').get_attribute('value')
+        symname4 = driver.find_element_by_id('historyName-3').get_attribute('value')
+        symname5 = driver.find_element_by_id('historyName-4').get_attribute('value')
+        symname6 = driver.find_element_by_id('historyName-5').get_attribute('value')
+        symname7 = driver.find_element_by_id('historyName-6').get_attribute('value')
+        symname8 = driver.find_element_by_id('historyName-7').get_attribute('value')
+        symname9 = driver.find_element_by_id('historyName-8').get_attribute('value')
+        #assert that the symbols are correct and in the correct order
+        self.assertEquals(symname1, 'hedgehog gene 1')
+        self.assertEquals(symname2, 'hedgehog gene 1')
+        self.assertEquals(symname3, 'sonic hedgehog')
+        self.assertEquals(symname4, 'short digits')
+        self.assertEquals(symname5, 'short digits')
+        self.assertEquals(symname6, 'hemimelic extra toes')
+        self.assertEquals(symname7, 'hemimelic extra toes')
+        self.assertEquals(symname8, 'hemimelic extratoes like 3')
+        self.assertEquals(symname9, 'hemimelic extratoes like 3')
+        #find the fourth row symbol name and change it from short digits to short digits testing
+        driver.find_element_by_id('historyName-3').clear()
+        time.sleep(2)
+        driver.find_element_by_id('historyName-3').send_keys('short digits testing')
+        driver.find_element_by_id('historyName-3').send_keys(Keys.TAB)
+        time.sleep(2)
+        #find the Modify button and click it
+        driver.find_element_by_id('updateMarkerButton').click()
+        time.sleep(2)
+        #find the symbol name column for the 4th symbol and verify it is now short digits testing
+        symname4 = driver.find_element_by_id('historyName-3').get_attribute('value')
+        #waits until the element is located or 10 seconds
+        #WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element_value((By.ID, 'historySymbol-8', 'Hx')))
+        self.assertEquals(symname4, 'short digits testing')
+        #now lets put the symbol name back to it's original.
+        driver.find_element_by_id('historyName-3').clear()
+        time.sleep(2)
+        driver.find_element_by_id('historyName-3').send_keys('short digits')
+        driver.find_element_by_id('historyName-3').send_keys(Keys.TAB)
+        time.sleep(2)
+        #find the Modify button and click it
+        driver.find_element_by_id('updateMarkerButton').click()       
         
     def testDateHistoryModify(self):
         """
@@ -183,105 +216,203 @@ class TestMrkHistUpdateDelete(unittest.TestCase):
         """
         driver = self.driver
         #finds the history symbol field and enters a symbol
-        driver.find_element_by_id("markerHistoryNameID").send_keys('splotch-like%')
+        driver.find_element_by_id("historyName-0").send_keys('splotch-like%')
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
-        #find the history results table
-        history_table = self.driver.find_element_by_id("historyTable")
-        table = Table(history_table)
-        #Iterate and print the search results column of Symbols
-        sym = table.get_column_cells('Symbol')
-        symbols = iterate.getTextAsList(sym)
-        print symbols
-        #Assert the correct marker symbols are returned for the first result(Pax1)
-        self.assertEqual(symbols, ['Symbol', 'Pax-3', 'Pax-3', 'Pax3', 'Sp', 'Sp', 'Splchl2', 'Splchl2'])
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
-        table = Table(results_table)
-        # print all rows
-        cells = table.get_rows()
-        symbols = iterate.getTextAsList(cells)
-        print symbols
-        #assert all the correct symbols are returned
-        self.assertEquals(symbols, ['Pax3','Splchl'])
+        #find the symbol name column of the history table for the first 7 results
+        symname1 = driver.find_element_by_id('historyName-0').get_attribute('value')
+        symname2 = driver.find_element_by_id('historyName-1').get_attribute('value')
+        symname3 = driver.find_element_by_id('historyName-2').get_attribute('value')
+        symname4 = driver.find_element_by_id('historyName-3').get_attribute('value')
+        symname5 = driver.find_element_by_id('historyName-4').get_attribute('value')
+        symname6 = driver.find_element_by_id('historyName-5').get_attribute('value')
+        symname7 = driver.find_element_by_id('historyName-6').get_attribute('value')
+        #assert that the symbols are correct and in the correct order
+        self.assertEquals(symname1, 'paired box 3')
+        self.assertEquals(symname2, 'paired box 3')
+        self.assertEquals(symname3, 'paired box 3')
+        self.assertEquals(symname4, 'splotch')
+        self.assertEquals(symname5, 'splotch')
+        self.assertEquals(symname6, 'splotch-like 2')
+        self.assertEquals(symname7, 'splotch-like 2')
+        #find the fourth row date and change it from 1947-01-01 to 2019-11-19
+        driver.find_element_by_id('historyEventDate-3').clear()
+        time.sleep(2)
+        driver.find_element_by_id('historyEventDate-3').send_keys('2019-11-19')
+        driver.find_element_by_id('historyEventDate-3').send_keys(Keys.TAB)
+        time.sleep(2)
+        #find the Modify button and click it
+        driver.find_element_by_id('updateMarkerButton').click()
+        time.sleep(2)
+        #find the date column for the 4th symbol and verify it is now 2019-11-19
+        symdate4 = driver.find_element_by_id('historyEventDate-3').get_attribute('value')
+        #waits until the element is located or 10 seconds
+        #WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element_value((By.ID, 'historySymbol-8', 'Hx')))
+        self.assertEquals(symdate4, '2019-11-19')
+        #now lets put the date back to it's original.
+        driver.find_element_by_id('historyEventDate-3').clear()
+        time.sleep(2)
+        driver.find_element_by_id('historyEventDate-3').send_keys('1947-01-01')
+        driver.find_element_by_id('historyEventDate-3').send_keys(Keys.TAB)
+        time.sleep(2)
+        #find the Modify button and click it
+        driver.find_element_by_id('updateMarkerButton').click()
+        
         
     def testJnumHistoryModify(self):
         """
         @Status tests that a basic Marker History J# can be modified
-        @see pwi-mrk-det-hist-update-5
+        @see pwi-mrk-det-hist-update-5 
         """
         driver = self.driver
-        #finds the history name field and enters a name
-        driver.find_element_by_id("markerHistoryModDateID").send_keys('2018-09-20')
+        #finds the history name field and enters a symbol
+        driver.find_element_by_id("historyName-0").send_keys('splotch-like%')
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
-        table = Table(results_table)
-        # print all rows
-        cells = table.get_rows()
-        symbols = iterate.getTextAsList(cells)
-        print symbols
-        #assert all the correct symbols are returned
-        self.assertEquals(symbols, ['Shs','Tg(CAG-MYC,-GFP*)#Rugg', 'Tg(Rho-GSTP1)#Psbe'])
+        #find the J number column of the history table for the first 7 results
+        jnumber1 = driver.find_element_by_id('historyJnum-0').get_attribute('value')
+        jnumber2 = driver.find_element_by_id('historyJnum-1').get_attribute('value')
+        jnumber3 = driver.find_element_by_id('historyJnum-2').get_attribute('value')
+        jnumber4 = driver.find_element_by_id('historyJnum-3').get_attribute('value')
+        jnumber5 = driver.find_element_by_id('historyJnum-4').get_attribute('value')
+        jnumber6 = driver.find_element_by_id('historyJnum-5').get_attribute('value')
+        jnumber7 = driver.find_element_by_id('historyJnum-6').get_attribute('value')
+        #assert that the symbols are correct and in the correct order
+        self.assertEquals(jnumber1, 'J:14224')
+        self.assertEquals(jnumber2, 'J:15839')
+        self.assertEquals(jnumber3, 'J:15839')
+        self.assertEquals(jnumber4, 'J:12957')
+        self.assertEquals(jnumber5, 'J:2944')
+        self.assertEquals(jnumber6, 'J:162227')
+        self.assertEquals(jnumber7, 'J:222308')
+        #find the fourth row J# and change it from J:12957 to J:23000
+        driver.find_element_by_id('historyJnum-3').clear()
+        time.sleep(2)
+        driver.find_element_by_id('historyJnum-3').send_keys('J:23000')
+        driver.find_element_by_id('historyJnum-3').send_keys(Keys.TAB)
+        time.sleep(2)
+        #find the Modify button and click it
+        driver.find_element_by_id('updateMarkerButton').click()
+        time.sleep(2)
+        #find the J# column for the 4th symbol and verify it is now J:23000
+        jnumber4 = driver.find_element_by_id('historyJnum-3').get_attribute('value')
+        #waits until the element is located or 10 seconds
+        #WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element_value((By.ID, 'historySymbol-8', 'Hx')))
+        self.assertEquals(jnumber4, 'J:23000')
+        #now lets put the J# back to it's original.
+        driver.find_element_by_id('historyJnum-3').clear()
+        time.sleep(2)
+        driver.find_element_by_id('historyJnum-3').send_keys('J:12957')
+        driver.find_element_by_id('historyJnum-3').send_keys(Keys.TAB)
+        time.sleep(2)
+        #find the Modify button and click it
+        driver.find_element_by_id('updateMarkerButton').click()
 
     def testJnumHistoryValid(self):
         """
         @Status tests that a basic Marker History J number update verifies
-        @see pwi-mrk-det-hist-update-6
+        @see pwi-mrk-det-hist-update-6 *might need to verify this test is actually testing the right thing*
         """
         driver = self.driver
         #finds the J# field and enters a J number
-        driver.find_element_by_id("markerHistoryJNumID").send_keys('J:2944')
+        driver.find_element_by_id("historyJnum-0").send_keys('J:2944')
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
-        #find the history results table
-        history_table = self.driver.find_element_by_id("historyTable")
-        table = Table(history_table)
-        #Iterate and print the search results column of J#
-        sym = table.get_column_cells('J#')
-        jnums = iterate.getTextAsList(sym)
-        print jnums
-        #Assert the correct J# searched is returned for the first result(Pax1)
-        self.assertIn('J:2944', jnums)
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
-        table = Table(results_table)
-        # print all rows
-        cells = table.get_rows()
-        symbols = iterate.getTextAsList(cells)
-        print symbols
-        #assert all the correct symbols are returned
-        self.assertEquals(symbols, ['Pax3','Del(1)3H'])
+        #find the J number column of the history table for the first 7 results
+        jnumber1 = driver.find_element_by_id('historyJnum-0').get_attribute('value')
+        jnumber2 = driver.find_element_by_id('historyJnum-1').get_attribute('value')
+        jnumber3 = driver.find_element_by_id('historyJnum-2').get_attribute('value')
+        jnumber4 = driver.find_element_by_id('historyJnum-3').get_attribute('value')
+        jnumber5 = driver.find_element_by_id('historyJnum-4').get_attribute('value')
+        jnumber6 = driver.find_element_by_id('historyJnum-5').get_attribute('value')
+        jnumber7 = driver.find_element_by_id('historyJnum-6').get_attribute('value')
+        #assert that the symbols are correct and in the correct order
+        self.assertEquals(jnumber1, 'J:14224')
+        self.assertEquals(jnumber2, 'J:15839')
+        self.assertEquals(jnumber3, 'J:15839')
+        self.assertEquals(jnumber4, 'J:12957')
+        self.assertEquals(jnumber5, 'J:2944')
+        self.assertEquals(jnumber6, 'J:162227')
+        self.assertEquals(jnumber7, 'J:222308')
+        #find the fourth row J# and change it from J:12957 to J:23000
+        driver.find_element_by_id('historyJnum-3').clear()
+        time.sleep(2)
+        driver.find_element_by_id('historyJnum-3').send_keys('J:23000')
+        driver.find_element_by_id('historyJnum-3').send_keys(Keys.TAB)
+        time.sleep(2)
+        #find the Modify button and click it
+        driver.find_element_by_id('updateMarkerButton').click()
+        time.sleep(2)
+        #find the J# column for the 4th symbol and verify it is now J:23000
+        jnumber4 = driver.find_element_by_id('historyJnum-3').get_attribute('value')
+        #waits until the element is located or 10 seconds
+        #WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element_value((By.ID, 'historySymbol-8', 'Hx')))
+        self.assertEquals(jnumber4, 'J:23000')
+        #now lets put the J# back to it's original.
+        driver.find_element_by_id('historyJnum-3').clear()
+        time.sleep(2)
+        driver.find_element_by_id('historyJnum-3').send_keys('J:12957')
+        driver.find_element_by_id('historyJnum-3').send_keys(Keys.TAB)
+        time.sleep(2)
+        #find the Modify button and click it
+        driver.find_element_by_id('updateMarkerButton').click()
 
     def testEventHistoryModify(self):
         """
         @Status tests that a basic Marker History Event can be modified
-        @see pwi-mrk-det-hist-search-8
+        @see pwi-mrk-det-hist-search-8 
         """
         driver = self.driver
-        #finds the Citation field and enters a citation string
-        driver.find_element_by_id("markerHistoryCitationID").send_keys('Balling R, Cell 1988 Nov 4;55(3):531-5')
+        #finds the history symbol field and enters a symbol
+        driver.find_element_by_id("historySymbol-0").send_keys('Pax1')
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
-        #find the history results table
-        history_table = self.driver.find_element_by_id("historyTable")
-        table = Table(history_table)
-        #Iterate and print the search results column of Citation
-        cite = table.get_column_cells('Citation')
-        cites = iterate.getTextAsList(cite)
-        print cites
-        #Assert the correct citation searched is returned for the first result(Pax1)
-        self.assertIn('Balling R, Cell 1988 Nov 4;55(3):531-5', cites)
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
-        table = Table(results_table)
-        # print all rows
-        cells = table.get_rows()
-        symbols = iterate.getTextAsList(cells)
-        print symbols
-        #assert all the correct symbols are returned
-        self.assertEquals(symbols, ['Pax1'])
+        #find the Event column of the history table for the first 9 results
+        vent1 = driver.find_element_by_id('historyEvent-0').get_attribute('value')
+        vent2 = driver.find_element_by_id('historyEvent-1').get_attribute('value')
+        vent3 = driver.find_element_by_id('historyEvent-2').get_attribute('value')
+        vent4 = driver.find_element_by_id('historyEvent-3').get_attribute('value')
+        vent5 = driver.find_element_by_id('historyEvent-4').get_attribute('value')
+        vent6 = driver.find_element_by_id('historyEvent-5').get_attribute('value')
+        vent7 = driver.find_element_by_id('historyEvent-6').get_attribute('value')
+        vent8 = driver.find_element_by_id('historyEvent-7').get_attribute('value')
+        vent9 = driver.find_element_by_id('historyEvent-8').get_attribute('value')
+        #assert that the symbols are correct and in the correct order
+        self.assertEquals(vent1, 'string:1')#string:1 equals assigned
+        self.assertEquals(vent2, 'string:4')#string:4 equals allele of
+        self.assertEquals(vent3, 'string:1')
+        self.assertEquals(vent4, 'string:4')
+        self.assertEquals(vent5, 'string:1')
+        self.assertEquals(vent6, 'string:4')
+        self.assertEquals(vent7, 'string:1')
+        self.assertEquals(vent8, 'string:2')#string:2 equals rename
+        self.assertEquals(vent9, 'string:1')
+        #find the seventh row Event and change it from rename to assigned
+        time.sleep(2)
+        my_select = driver.find_element_by_id('historyEvent-7')
+        for option in my_select.find_elements_by_tag_name('option'):
+            if option.text == "assigned":
+                option.click()
+                break
+        time.sleep(2)
+        #find the Modify button and click it
+        driver.find_element_by_id('updateMarkerButton').click()
+        time.sleep(2)
+        #find the Event column for the 7th row and verify it is now Assigned
+        vent8 = driver.find_element_by_id('historyEvent-7').get_attribute('value')
+        #waits until the element is located or 10 seconds
+        #WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element_value((By.ID, 'historySymbol-8', 'Hx')))
+        self.assertEquals(vent8, 'string:1')
+        #now lets put the Event back to it's original of rename.
+        time.sleep(2)
+        my_select = driver.find_element_by_id('historyEvent-7')
+        for option in my_select.find_elements_by_tag_name('option'):
+            if option.text == "rename":
+                option.click()
+                break
+        time.sleep(2)
+        #find the Modify button and click it
+        driver.find_element_by_id('updateMarkerButton').click()   
 
 
     def testEventReasonHistoryModify(self):
@@ -290,63 +421,101 @@ class TestMrkHistUpdateDelete(unittest.TestCase):
         @see pwi-mrk-det-hist-search-9 
         """
         driver = self.driver
-        #finds the Citation field and enters a citation string
-        driver.find_element_by_id("markerHistoryCitationID").send_keys('Selby P%')
+        #finds the history symbol field and enters a symbol
+        driver.find_element_by_id("historySymbol-0").send_keys('Ang2')
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
-        #find the history results table
-        history_table = self.driver.find_element_by_id("historyTable")
-        table = Table(history_table)
-        #Iterate and print the search results column of Citation
-        cite = table.get_column_cells('Citation')
-        cites = iterate.getTextAsList(cite)
-        print cites
-        #Assert the correct citation searched is returned for the first result(Ccd)
-        self.assertIn('Selby P, Mouse News Lett 1985;72():123', cites)
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
-        table = Table(results_table)
-        # print all rows
-        cells = table.get_rows()
-        symbols = iterate.getTextAsList(cells)
-        print symbols
-        #assert all the correct symbols are returned
-        self.assertEquals(symbols, ['Ccd', 'Shh'])
+        #find the Reason column of the history table for the first 3 results
+        vreason1 = driver.find_element_by_id('historyEventReason-0').get_attribute('value')
+        vreason2 = driver.find_element_by_id('historyEventReason-1').get_attribute('value')
+        vreason3 = driver.find_element_by_id('historyEventReason-2').get_attribute('value')
+        
+        #assert that the reasons are correct and in the correct order
+        self.assertEquals(vreason1, 'string:-1')#string:-1 equals Not Specified
+        self.assertEquals(vreason2, 'string:3')#string:3 equals personal comm w/authors
+        self.assertEquals(vreason3, 'string:3')
+        
+        #find the second row Reason and change it from personal comm w/authors to per gene family revision
+        time.sleep(2)
+        my_select = driver.find_element_by_id('historyEventReason-1')
+        for option in my_select.find_elements_by_tag_name('option'):
+            if option.text == "per gene family revision":
+                option.click()
+                break
+        time.sleep(2)
+        #find the Modify button and click it
+        driver.find_element_by_id('updateMarkerButton').click()
+        time.sleep(2)
+        #find the Reason column for the 2nd row and verify it is now string:2 (per gene family)
+        vreason2 = driver.find_element_by_id('historyEvent-1').get_attribute('value')
+        #waits until the element is located or 10 seconds
+        #WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element_value((By.ID, 'historySymbol-8', 'Hx')))
+        self.assertEquals(vreason2, 'string:2')
+        #now lets put the Event back to it's original of rename.
+        time.sleep(2)
+        my_select = driver.find_element_by_id('historyEventReason-1')
+        for option in my_select.find_elements_by_tag_name('option'):
+            if option.text == "personal comm w/authors":
+                option.click()
+                break
+        time.sleep(2)
+        #find the Modify button and click it
+        driver.find_element_by_id('updateMarkerButton').click()   
 
 
     def testHistoryDeleteConfirm(self):
         """
         @Status tests that a basic Marker History row deletion gives a validation popup confirmation and the row gets highlighted.
-        @see pwi-mrk-det-hist-update-12 
+        @see pwi-mrk-det-hist-update-12 **Under Construction**
         """
         driver = self.driver
         #finds the history symbol field and enters a symbol
-        driver.find_element_by_id("markerHistorySymbolID").send_keys('Gata1')
+        driver.find_element_by_id("historySymbol-0").send_keys('Gata-1')
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
-        #find the history results table
-        history_table = self.driver.find_element_by_id("historyTable")
-        table = Table(history_table)
-        #click the first cell of the fifth row to put it in edit mode
-        del_cell = table.get_cell(5, 0)
-        del_cell.click()
-        #locate the span tag inside the cell and click it to bring up the popup
-        del_cell.find_element_by_css_selector('tr.ng-scope:nth-child(6)>td:nth-child(1)>span:nth-child(1)').click()
+        #find the symbol column of the history table for the first 9 results
+        sym1 = driver.find_element_by_id('historySymbol-0').get_attribute('value')
+        sym2 = driver.find_element_by_id('historySymbol-1').get_attribute('value')
+        sym3 = driver.find_element_by_id('historySymbol-2').get_attribute('value')
+        sym4 = driver.find_element_by_id('historySymbol-3').get_attribute('value')
+        sym5 = driver.find_element_by_id('historySymbol-4').get_attribute('value')
+        #assert that the symbols are correct and in the correct order
+        self.assertEquals(sym1, 'Gf-1')
+        self.assertEquals(sym2, 'Gf-1')
+        self.assertEquals(sym3, 'Gata-1')
+        self.assertEquals(sym4, 'Gata-1')
+        self.assertEquals(sym5, 'Gata1')
+        #find the delete x for row 5 of the history table and click it
+        driver.find_element_by_id('deleteRow-4').click()
         time.sleep(2)
-        #switch to the popup alert box
-        alert = self.driver.switch_to_alert()
-        #get the alert box text
-        alert_text = alert.text
-        #Assert the correct alert text is displayed
-        self.assertEqual('Are you sure you want to delete this history row?', alert_text)
-        #click on alert OK button
-        alert.accept()
-        #find the fifth row of data
-        driver.find_element_by_css_selector('tr.ng-scope:nth-child(6)')
-        #locate the class name  for this row
-        del_class = driver.find_element_by_class_name('deletedHistoryRow')
-        #Assert that the class name is true which means the row is highlighted for deletion
-        self.assertTrue(del_class, 'class is missing')
+        #find the Modify button and click it
+        driver.find_element_by_id('updateMarkerButton').click()
+        time.sleep(2)
+        #now lets add  this row back
+        #find the add Row button for the history table and click it
+        driver.find_element_by_id('addHistoryButton').click()
+        #find the add history Symbol field and enter your symbol
+        driver.find_element_by_id('historySymbol-4').send_keys('Gata1')
+        #find the add history Name field and enter your name
+        driver.find_element_by_id('historyName-4').send_keys('GATA binding protein 1') 
+        #find the add history Date field and enter the date
+        driver.find_element_by_id('historyEventDate-4').send_keys('1993-11-01')       
+        #find the add history J number field and enter your J number
+        driver.find_element_by_id('historyJnum-4').send_keys('J:15839')
+        driver.find_element_by_id('historyJnum-4').send_keys(Keys.TAB)
+        #find the Event field and select assigned
+        Select(driver.find_element_by_id('historyEvent-4')).select_by_visible_text('assigned')
+        #find the Reason field and select Not Specified
+        Select(driver.find_element_by_id('historyEventReason-4')).select_by_visible_text('Not Specified')
+        time.sleep(2)
+        #find the Modify button and click it
+        driver.find_element_by_id('updateMarkerButton').click() 
+        time.sleep(2)
+        #Find the 5th row and verify the symbol is correct
+        sym5 = driver.find_element_by_id('historySymbol-4').get_attribute('value')
+        #assert that the symbol for the 5th row is correct
+        self.assertEquals(sym5, 'Gata1')
+        
         
         
 '''
@@ -358,4 +527,4 @@ def suite():
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
     HTMLTestRunner.main()
-       
+    

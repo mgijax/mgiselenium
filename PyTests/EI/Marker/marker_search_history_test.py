@@ -12,11 +12,12 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 import HTMLTestRunner
 import json
 import sys,os.path
+from symbol import sym_name
 # adjust the path to find config
 sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../..',)
@@ -52,18 +53,32 @@ class TestMrkHistSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the history symbol field and enters a symbol
-        driver.find_element_by_id("markerHistorySymbolID").send_keys('Dsh')
+        driver.find_element_by_id("historySymbol-0").send_keys('Dsh')
         driver.find_element_by_id('searchButton').click()
-        time.sleep(2)
-        #find the history results table
-        history_table = self.driver.find_element_by_id("historyTable")
-        table = Table(history_table)
-        #Iterate and print the search results column of Symbols
-        sym = table.get_column_cells('Symbol')
-        symbols = iterate.getTextAsList(sym)
-        print symbols
-        #Assert the correct marker symbols are returned
-        self.assertEqual(symbols, ['Symbol', 'Hhg1', 'Hhg1', 'Shh', 'Dsh', 'Dsh', 'Hx', 'Hx', 'Hxl3', 'Hxl3'])
+        #waits until the element is located or 10 seconds
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'synonymModification_date-2')))
+        # get the data for the Symbol column for all 9 rows
+        hist_sym = driver.find_element_by_id('historySymbol-0').get_attribute('value')  
+        hist_sym1 = driver.find_element_by_id('historySymbol-1').get_attribute('value') 
+        hist_sym2 = driver.find_element_by_id('historySymbol-2').get_attribute('value') 
+        hist_sym3 = driver.find_element_by_id('historySymbol-3').get_attribute('value') 
+        hist_sym4 = driver.find_element_by_id('historySymbol-4').get_attribute('value') 
+        hist_sym5 = driver.find_element_by_id('historySymbol-5').get_attribute('value') 
+        hist_sym6 = driver.find_element_by_id('historySymbol-6').get_attribute('value') 
+        hist_sym7 = driver.find_element_by_id('historySymbol-7').get_attribute('value') 
+        hist_sym8 = driver.find_element_by_id('historySymbol-8').get_attribute('value')  
+        print hist_sym
+        print hist_sym8     
+        #Assert the second synonym date returned(row2) is correct
+        self.assertEqual(hist_sym, 'Hhg1')      
+        self.assertEqual(hist_sym1, 'Hhg1') 
+        self.assertEqual(hist_sym2, 'Shh') 
+        self.assertEqual(hist_sym3, 'Dsh') 
+        self.assertEqual(hist_sym4, 'Dsh') 
+        self.assertEqual(hist_sym5, 'Hx') 
+        self.assertEqual(hist_sym6, 'Hx') 
+        self.assertEqual(hist_sym7, 'Hxl3') 
+        self.assertEqual(hist_sym8, 'Hxl3') 
         
     def testSymbolHistoryWildSearch(self):
         """
@@ -72,28 +87,34 @@ class TestMrkHistSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the history symbol field and enters a symbol
-        driver.find_element_by_id("markerHistorySymbolID").send_keys('Pax%')
+        driver.find_element_by_id("historySymbol-0").send_keys('Pax%')
         driver.find_element_by_id('searchButton').click()
-        time.sleep(2)
-        #find the history results table
-        history_table = self.driver.find_element_by_id("historyTable")
-        table = Table(history_table)
-        #Iterate and print the search results column of Symbols
-        sym = table.get_column_cells('Symbol')
-        symbols = iterate.getTextAsList(sym)
-        print symbols
-        #Assert the correct marker symbols are returned for the first result(Pax1)
-        self.assertEqual(symbols, ['Symbol', 'hbs', 'hbs', 'wt', 'wt', 'un', 'un', 'Pax-1', 'Pax-1', 'Pax1'])
+        #waits until the element is located or 10 seconds
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'synonymModification_date-2')))
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
-        # print all rows
-        cells = table.get_rows()
-        symbols = iterate.getTextAsList(cells)
-        print symbols
-        #assert all the correct symbols are returned
-        self.assertEquals(symbols, ['Pax1','Pax2','Pax3','Pax4','Pax5','Pax6','Pax6os1','Pax7','Pax8','Pax9','Paxbp1','Paxip1','Paxx'])
-
+        # get and print the first 2 rows of results
+        cell0 = table.get_row(0)
+        cell1 = table.get_row(1)
+        cell2 = table.get_row(2)
+        cell3 = table.get_row(3)
+        cell4 = table.get_row(4)
+        cell5 = table.get_row(5)
+        print cell0.text
+        print cell1.text
+        print cell2.text
+        print cell3.text
+        print cell4.text
+        print cell5.text
+        #Assert the correct genotype has been returned in the results table
+        self.assertEqual(cell0.text, 'Pax1')
+        self.assertEqual(cell1.text, 'Pax2')
+        self.assertEqual(cell2.text, 'Pax3') 
+        self.assertEqual(cell3.text, 'Pax4') 
+        self.assertEqual(cell4.text, 'Pax5') 
+        self.assertEqual(cell5.text, 'Pax6')   
+        
     def testNameHistorySearch(self):
         """
         @Status tests that a basic Marker History Name search works
@@ -101,18 +122,33 @@ class TestMrkHistSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the history name field and enters a name
-        driver.find_element_by_id("markerHistoryNameID").send_keys('sonic hedgehog')
+        driver.find_element_by_id("historyName-0").send_keys('sonic hedgehog')
         driver.find_element_by_id('searchButton').click()
-        time.sleep(2)
-        #find the history results table
-        history_table = self.driver.find_element_by_id("historyTable")
-        table = Table(history_table)
-        #Iterate and print the search results column of Symbols
-        sym = table.get_column_cells('Symbol')
-        symbols = iterate.getTextAsList(sym)
-        print symbols
-        #Assert the correct marker symbols are returned
-        self.assertEqual(symbols, ['Symbol', 'Hhg1', 'Hhg1', 'Shh', 'Dsh', 'Dsh', 'Hx', 'Hx', 'Hxl3', 'Hxl3'])
+        #waits until the element is located or 10 seconds
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'synonymModification_date-2')))
+        #time.sleep(2)
+        # get the data for the Symbol column for all 9 rows
+        hist_sym = driver.find_element_by_id('historySymbol-0').get_attribute('value')  
+        hist_sym1 = driver.find_element_by_id('historySymbol-1').get_attribute('value') 
+        hist_sym2 = driver.find_element_by_id('historySymbol-2').get_attribute('value') 
+        hist_sym3 = driver.find_element_by_id('historySymbol-3').get_attribute('value') 
+        hist_sym4 = driver.find_element_by_id('historySymbol-4').get_attribute('value') 
+        hist_sym5 = driver.find_element_by_id('historySymbol-5').get_attribute('value') 
+        hist_sym6 = driver.find_element_by_id('historySymbol-6').get_attribute('value') 
+        hist_sym7 = driver.find_element_by_id('historySymbol-7').get_attribute('value') 
+        hist_sym8 = driver.find_element_by_id('historySymbol-8').get_attribute('value')  
+        print hist_sym
+        print hist_sym8     
+        #Assert the second synonym date returned(row2) is correct
+        self.assertEqual(hist_sym, 'Hhg1')      
+        self.assertEqual(hist_sym1, 'Hhg1') 
+        self.assertEqual(hist_sym2, 'Shh') 
+        self.assertEqual(hist_sym3, 'Dsh') 
+        self.assertEqual(hist_sym4, 'Dsh') 
+        self.assertEqual(hist_sym5, 'Hx') 
+        self.assertEqual(hist_sym6, 'Hx') 
+        self.assertEqual(hist_sym7, 'Hxl3') 
+        self.assertEqual(hist_sym8, 'Hxl3') 
         
     def testNameHistoryWildSearch(self):
         """
@@ -121,27 +157,29 @@ class TestMrkHistSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the history symbol field and enters a symbol
-        driver.find_element_by_id("markerHistoryNameID").send_keys('splotch-like%')
+        driver.find_element_by_id("historyName-0").send_keys('splotch-like%')
         driver.find_element_by_id('searchButton').click()
-        time.sleep(2)
-        #find the history results table
-        history_table = self.driver.find_element_by_id("historyTable")
-        table = Table(history_table)
-        #Iterate and print the search results column of Symbols
-        sym = table.get_column_cells('Symbol')
-        symbols = iterate.getTextAsList(sym)
-        print symbols
-        #Assert the correct marker symbols are returned for the first result(Pax1)
-        self.assertEqual(symbols, ['Symbol', 'Pax-3', 'Pax-3', 'Pax3', 'Sp', 'Sp', 'Splchl2', 'Splchl2'])
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
-        table = Table(results_table)
-        # print all rows
-        cells = table.get_rows()
-        symbols = iterate.getTextAsList(cells)
-        print symbols
-        #assert all the correct symbols are returned
-        self.assertEquals(symbols, ['Pax3','Splchl'])
+        #waits until the element is located or 10 seconds
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'synonymModification_date-1')))
+        #time.sleep(2)
+        # get the data for the Symbol column for all 9 rows
+        hist_sym = driver.find_element_by_id('historySymbol-0').get_attribute('value')  
+        hist_sym1 = driver.find_element_by_id('historySymbol-1').get_attribute('value') 
+        hist_sym2 = driver.find_element_by_id('historySymbol-2').get_attribute('value') 
+        hist_sym3 = driver.find_element_by_id('historySymbol-3').get_attribute('value') 
+        hist_sym4 = driver.find_element_by_id('historySymbol-4').get_attribute('value') 
+        hist_sym5 = driver.find_element_by_id('historySymbol-5').get_attribute('value') 
+        hist_sym6 = driver.find_element_by_id('historySymbol-6').get_attribute('value') 
+        print hist_sym
+        print hist_sym6     
+        #Assert the second synonym date returned(row2) is correct
+        self.assertEqual(hist_sym, 'Pax-3')      
+        self.assertEqual(hist_sym1, 'Pax-3') 
+        self.assertEqual(hist_sym2, 'Pax3') 
+        self.assertEqual(hist_sym3, 'Sp') 
+        self.assertEqual(hist_sym4, 'Sp') 
+        self.assertEqual(hist_sym5, 'Splchl2') 
+        self.assertEqual(hist_sym6, 'Splchl2') 
         
     def testDateHistorySearch(self):
         """
@@ -150,18 +188,23 @@ class TestMrkHistSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the history name field and enters a name
-        driver.find_element_by_id("markerHistoryModDateID").send_keys('2018-09-20')
+        driver.find_element_by_id("historyEventDate-0").send_keys('2018-09-20')
         driver.find_element_by_id('searchButton').click()
+        #waits until the element is located or 10 seconds
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historyName-0')))
         time.sleep(2)
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        #capture the results table rows
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
-        # print all rows
-        cells = table.get_rows()
-        symbols = iterate.getTextAsList(cells)
-        print symbols
-        #assert all the correct symbols are returned
-        self.assertEquals(symbols, ['Shs','Tg(CAG-MYC,-GFP*)#Rugg', 'Tg(Rho-GSTP1)#Psbe'])
+        symbl1 = table.get_row(0)
+        symbl2 = table.get_row(1)
+        symbl3 = table.get_row(2)
+        print symbl2.text
+        print symbl3.text  
+        #Assert the first 6 results are correct
+        self.assertEqual(symbl1.text, 'Shs')      
+        self.assertEqual(symbl2.text, 'Tg(CAG-MYC,-GFP*)#Rugg') 
+        self.assertEqual(symbl3.text, 'Tg(Rho-GSTP1)#Psbe') 
 
     def testJnumHistorySearch(self):
         """
@@ -170,27 +213,21 @@ class TestMrkHistSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the J# field and enters a J number
-        driver.find_element_by_id("markerHistoryJNumID").send_keys('J:2944')
+        driver.find_element_by_id("historyJnum-0").send_keys('J:2944')
         driver.find_element_by_id('searchButton').click()
+        #waits until the element is located or 10 seconds
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historyName-0')))
         time.sleep(2)
-        #find the history results table
-        history_table = self.driver.find_element_by_id("historyTable")
-        table = Table(history_table)
-        #Iterate and print the search results column of J#
-        sym = table.get_column_cells('J#')
-        jnums = iterate.getTextAsList(sym)
-        print jnums
-        #Assert the correct J# searched is returned for the first result(Pax1)
-        self.assertIn('J:2944', jnums)
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        #capture the results table rows
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
-        # print all rows
-        cells = table.get_rows()
-        symbols = iterate.getTextAsList(cells)
-        print symbols
-        #assert all the correct symbols are returned
-        self.assertEquals(symbols, ['Pax3','Del(1)3H'])
+        symbl1 = table.get_row(0)
+        symbl2 = table.get_row(1)
+        print symbl1.text
+        print symbl2.text  
+        #Assert the first 6 results are correct
+        self.assertEqual(symbl1.text, 'Pax3')      
+        self.assertEqual(symbl2.text, 'Del(1)3H') 
 
     def testJnumHistorySearch2(self):
         """
@@ -199,86 +236,64 @@ class TestMrkHistSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the J# field and enters a J number
-        driver.find_element_by_id("markerHistoryJNumID").send_keys('2944')
+        driver.find_element_by_id("historyJnum-0").send_keys('2944')
         driver.find_element_by_id('searchButton').click()
+        #waits until the element is located or 10 seconds
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historyName-0')))
         time.sleep(2)
-        #find the history results table
-        history_table = self.driver.find_element_by_id("historyTable")
-        table = Table(history_table)
-        #Iterate and print the search results column of J#
-        sym = table.get_column_cells('J#')
-        jnums = iterate.getTextAsList(sym)
-        print jnums
-        #Assert the correct J# searched is returned for the first result(Pax1)
-        self.assertIn('J:2944', jnums)
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        #capture the results table rows
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
-        # print all rows
-        cells = table.get_rows()
-        symbols = iterate.getTextAsList(cells)
-        print symbols
-        #assert all the correct symbols are returned
-        self.assertEquals(symbols, ['Pax3','Del(1)3H'])
+        symbl1 = table.get_row(0)
+        symbl2 = table.get_row(1)
+        print symbl1.text
+        print symbl2.text  
+        #Assert the first 6 results are correct
+        self.assertEqual(symbl1.text, 'Pax3')      
+        self.assertEqual(symbl2.text, 'Del(1)3H') 
 
-    def testCitationHistorySearch(self):
-        """
+    """def testCitationHistorySearch(self):
+        
         @Status tests that a basic Marker History Citation search works
-        @see pwi-mrk-det-hist-search-8
-        """
+        @see pwi-mrk-det-hist-search-8 Currently can't search by citation 2019-11-15
+        
         driver = self.driver
         #finds the Citation field and enters a citation string
-        driver.find_element_by_id("markerHistoryCitationID").send_keys('Balling R, Cell 1988 Nov 4;55(3):531-5')
+        driver.find_element_by_id("historyShortCitation-0").send_keys('Balling R, Cell 1988 Nov 4;55(3):531-5')
         driver.find_element_by_id('searchButton').click()
-        time.sleep(2)
-        #find the history results table
-        history_table = self.driver.find_element_by_id("historyTable")
-        table = Table(history_table)
-        #Iterate and print the search results column of Citation
-        cite = table.get_column_cells('Citation')
-        cites = iterate.getTextAsList(cite)
-        print cites
-        #Assert the correct citation searched is returned for the first result(Pax1)
-        self.assertIn('Balling R, Cell 1988 Nov 4;55(3):531-5', cites)
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
-        table = Table(results_table)
-        # print all rows
-        cells = table.get_rows()
-        symbols = iterate.getTextAsList(cells)
-        print symbols
-        #assert all the correct symbols are returned
-        self.assertEquals(symbols, ['Pax1'])
+        #waits until the element is located or 10 seconds
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historyName-0')))
+        # get the data for the Citation column, print the row 6 result
+        cite_row = driver.find_element_by_id('historyShortCitation-5').get_attribute('value')        
+        #Assert the sixth citation returned(row6) is correct
+        self.assertEqual(cite_row, 'Balling R, Cell 1988 Nov 4;55(3):531-5')      
+        #capture the results table row
+        symbl1 = driver.find_element_by_xpath('/html/body/main/div[1]/div/form/div/div/div[2]/div[5]/div/div[2]/table/tbody/tr[1]/td').get_attribute('innerText')
+        print symbl1
+        #Assert the first result is correct
+        self.assertEqual(symbl1, 'Pax1') """     
 
 
-    def testCitationHistoryWildcardSearch(self):
-        """
+    """def testCitationHistoryWildcardSearch(self):
+        
         @Status tests that a basic Marker History Citation search with wildcard works
-        @see pwi-mrk-det-hist-search-9
-        """
+        @see pwi-mrk-det-hist-search-9 Currently can't search by citation 2019-11-15
+        
         driver = self.driver
         #finds the Citation field and enters a citation string
-        driver.find_element_by_id("markerHistoryCitationID").send_keys('Selby P%')
+        driver.find_element_by_id("historyShortCitation-0").send_keys('Selby P%')
         driver.find_element_by_id('searchButton').click()
-        time.sleep(2)
-        #find the history results table
-        history_table = self.driver.find_element_by_id("historyTable")
-        table = Table(history_table)
-        #Iterate and print the search results column of Citation
-        cite = table.get_column_cells('Citation')
-        cites = iterate.getTextAsList(cite)
-        print cites
-        #Assert the correct citation searched is returned for the first result(Ccd)
-        self.assertIn('Selby P, Mouse News Lett 1985;72():123', cites)
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
-        table = Table(results_table)
-        # print all rows
-        cells = table.get_rows()
-        symbols = iterate.getTextAsList(cells)
-        print symbols
-        #assert all the correct symbols are returned
-        self.assertEquals(symbols, ['Ccd', 'Shh'])
+        #waits until the element is located or 10 seconds
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historyName-0')))
+        # get the data for the Citation column, print the row 6 result
+        cite_row = driver.find_element_by_id('historyShortCitation-5').get_attribute('value')        
+        #Assert the sixth citation returned(row6) is correct
+        self.assertEqual(cite_row, 'Selby P, Mouse News Lett 1985;72():123')      
+        #capture the results table row
+        symbl1 = driver.find_element_by_xpath('/html/body/main/div[1]/div/form/div/div/div[2]/div[5]/div/div[2]/table/tbody/tr[1]/td').get_attribute('innerText')
+        print symbl1
+        #Assert the first result is correct
+        self.assertEqual(symbl1, 'Ccd') """
 
     def testHistoryEventNotSpecifiedSearch(self):
         """
@@ -287,27 +302,22 @@ class TestMrkHistSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Event field and selects the option "Not Specified"
-        Select(driver.find_element_by_id("markerHistoryEventID")).select_by_value('Not Specified')
-        driver.find_element_by_id('searchButton').click()
-        time.sleep(2)
-        #find the history results table
-        history_table = self.driver.find_element_by_id("historyTable")
-        table = Table(history_table)
-        #Iterate and print the search results column of Citation
-        evt = table.get_column_cells('Event')
-        evts = iterate.getTextAsList(evt)
-        print evts
-        #Assert the correct event searched is returned for the first result(Smim4)
-        self.assertIn('Not Specified', evts)
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        Select(driver.find_element_by_id("historyEvent-0")).select_by_value('string:-1')#string -1 equals 'Not Specified'
+        driver.find_element_by_id('searchButton').click()        
+        #waits until the element is located or 10 seconds
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historyName-0')))
+        #time.sleep(2)
+        # get the data for the Event column, print the row 1 result
+        evt_row = driver.find_element_by_id('historyEvent-0').get_attribute('value')        
+        #Assert the sixth citation returned(row6) is correct
+        self.assertEqual(evt_row, 'string:-1')#string -1 equals 'Not Specified'      
+        #capture the results table row
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
-        # print all rows
-        cells = table.get_rows()
-        symbols = iterate.getTextAsList(cells)
-        print symbols
-        #assert all the correct symbols are returned
-        self.assertEquals(symbols, ['Smim4'])
+        symbl1 = table.get_row(0)        
+        print symbl1.text                 
+        #Assert the first result is correct
+        self.assertEqual(symbl1.text, 'Smim4') 
 
     def testHistoryEventSplitSearch(self):
         """
@@ -316,18 +326,15 @@ class TestMrkHistSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Event field and selects the option "Split"
-        Select(driver.find_element_by_id("markerHistoryEventID")).select_by_value('split')
+        Select(driver.find_element_by_id("historyEvent-0")).select_by_value('string:5')#string:5 is 'split'
         driver.find_element_by_id('searchButton').click()
+        #waits until the element is located or 10 seconds
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historyName-0')))
         time.sleep(2)
-        #find the history results table
-        history_table = self.driver.find_element_by_id("historyTable")
-        table = Table(history_table)
-        #Iterate and print the search results column of Citation
-        evt = table.get_column_cells('Event')
-        evts = iterate.getTextAsList(evt)
-        print evts
-        #Assert the correct event searched is returned for the first result(Adam1a)
-        self.assertIn('split', evts)
+        # get the data for the Event column, print the row 6 result
+        evt_row = driver.find_element_by_id('historyEvent-5').get_attribute('value')        
+        #Assert the sixth citation returned(row6) is correct
+        self.assertEqual(evt_row, 'string:5')#string:5 equals 'Split'      
 
     def testHistoryEventReasonSearch(self):
         """
@@ -336,28 +343,22 @@ class TestMrkHistSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Event Reason field and selects the option "per personal comm w/Chromosome Committee"
-        Select(driver.find_element_by_id("markerHistoryEventReasonID")).select_by_value('per personal comm w/Chromosome Committee')
+        Select(driver.find_element_by_id("historyEventReason-0")).select_by_value('string:4')#string:4 is personal comm w/Expert'
         driver.find_element_by_id('searchButton').click()
+        #waits until the element is located or 10 seconds
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historyName-1')))
         time.sleep(2)
-        #find the history results table
-        history_table = self.driver.find_element_by_id("historyTable")
-        table = Table(history_table)
-        #Iterate and print the search results column of Reason
-        evtr = table.get_column_cells('Reason')
-        evtrs = iterate.getTextAsList(evtr)
-        print evtrs
-        #Assert the correct event reason searched is returned for the first result(Ak6)
-        self.assertIn('per personal comm w/Chromosome Committee', evtrs)
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        reason_row = driver.find_element_by_id('historyEventReason-2').get_attribute('value')        
+        #Assert the third row returned is correct
+        self.assertEqual(reason_row, 'string:4')#string:4 equals 'personal comm w/Expert'  
+        #capture the results table row
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
-        # print all rows
-        cells = table.get_rows()
-        symbols = iterate.getTextAsList(cells)
-        print symbols
-        #assert all the correct symbols are returned
-        self.assertEquals(symbols, ['Ak6', 'Comt', 'Cops7a', 'Dyrk1a', 'Pakap', 'Psme2b', 'D17Leh54', 'Rpl19-rs7'])
-
+        symbl1 = table.get_row(0)
+        print symbl1.text
+        #Assert the first result is correct
+        self.assertEqual(symbl1.text, 'Ak6') 
+        
     def testHistoryModBySearch(self):
         """
         @Status tests that a basic Marker History Modified by search works
@@ -365,28 +366,34 @@ class TestMrkHistSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Modified By field and enters a search name
-        driver.find_element_by_id("markerHistoryModByID").send_keys('hjd')
+        driver.find_element_by_id("historyModifiedBy-0").send_keys('hjd')
         driver.find_element_by_id('searchButton').click()
+        #waits until the element is located or 10 seconds
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historyName-1')))
         time.sleep(2)
-        #find the history results table
-        history_table = self.driver.find_element_by_id("historyTable")
-        table = Table(history_table)
-        #Iterate and print the search results column of Modified By
-        modby = table.get_column_cells('Mod By')
-        modbys = iterate.getTextAsList(modby)
-        print modbys
-        #Assert the correct Modified By searched is returned for the first result(Cdk12)
-        self.assertIn('hjd', modbys)
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        mod_row = driver.find_element_by_id('historyModifiedBy-4').get_attribute('value')        
+        #Assert the fifth row returned is correct
+        self.assertEqual(mod_row, 'hjd')#string:4 equals 'personal comm w/Expert'  
+        #capture the results table row
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
-        # print all rows
-        cells = table.get_rows()
-        symbols = iterate.getTextAsList(cells)
-        print symbols
-        #assert all the correct symbols are returned
-        self.assertEquals(symbols, ['Cdk12','Esd','Hat1','Kdm3b','Kdm6b','Lsm2','Myh10','Neu4','S100a16','Sptlc2','Tinf2','Actb-rs1','Actb-rs2'])
-
+        symbl1 = table.get_row(0)
+        symbl2 = table.get_row(1)
+        symbl3 = table.get_row(2)
+        symbl4 = table.get_row(3)
+        symbl5 = table.get_row(4)
+        print symbl1.text
+        print symbl2.text 
+        print symbl3.text
+        print symbl4.text 
+        print symbl5.text
+        #Assert the first result is correct
+        self.assertEqual(symbl1.text, 'Cdk12') 
+        self.assertEqual(symbl2.text, 'Esd')
+        self.assertEqual(symbl3.text, 'Hat1')
+        self.assertEqual(symbl4.text, 'Kdm3b')
+        self.assertEqual(symbl5.text, 'Kdm6b')
+       
     def testHistoryModByWildcardSearch(self):
         """
         @Status tests that a basic Marker History Modified by search with wildcard works
@@ -394,28 +401,33 @@ class TestMrkHistSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Modified By field and enters a search name with wildcard
-        driver.find_element_by_id("markerHistoryModByID").send_keys('hj%')
+        driver.find_element_by_id("historyModifiedBy-0").send_keys('hj%')
         driver.find_element_by_id('searchButton').click()
+        #waits until the element is located or 10 seconds
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historyName-1')))
         time.sleep(2)
-        #find the history results table
-        history_table = self.driver.find_element_by_id("historyTable")
-        table = Table(history_table)
-        #Iterate and print the search results column of Modified By
-        modby = table.get_column_cells('Mod By')
-        modbys = iterate.getTextAsList(modby)
-        print modbys
-        #Assert the correct Modified By searched is returned for the first result(Cdk12)
-        self.assertIn('hjd', modbys)
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        mod_row = driver.find_element_by_id('historyModifiedBy-4').get_attribute('value')        
+        #Assert the fifth row returned is correct
+        self.assertEqual(mod_row, 'hjd')#string:4 equals 'personal comm w/Expert'  
+        #capture the results table row
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
-        # print all rows
-        cells = table.get_rows()
-        symbols = iterate.getTextAsList(cells)
-        print symbols
-        #assert all the correct symbols are returned
-        self.assertEquals(symbols, ['Cdk12','Esd','Hat1','Kdm3b','Kdm6b','Lsm2','Myh10','Neu4','S100a16','Sptlc2','Tinf2','Actb-rs1','Actb-rs2'])
-
+        symbl1 = table.get_row(0)
+        symbl2 = table.get_row(1)
+        symbl3 = table.get_row(2)
+        symbl4 = table.get_row(3)
+        symbl5 = table.get_row(4)
+        print symbl1.text
+        print symbl2.text 
+        print symbl3.text
+        print symbl4.text 
+        print symbl5.text
+        #Assert the first result is correct
+        self.assertEqual(symbl1.text, 'Cdk12') 
+        self.assertEqual(symbl2.text, 'Esd')
+        self.assertEqual(symbl3.text, 'Hat1')
+        self.assertEqual(symbl4.text, 'Kdm3b')
+        self.assertEqual(symbl5.text, 'Kdm6b')
         
 '''
 def suite():

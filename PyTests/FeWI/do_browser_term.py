@@ -76,12 +76,12 @@ class TestDoBrowserTermTab(unittest.TestCase):
         #locate the Parent Term box
         parent = self.driver.find_elements(By.ID, 'termTabParentWrapper')#identifies all the parents found in the Parents term box
         searchTermItems = iterate.getTextAsList(parent)
-        self.assertEqual(searchTermItems[0], "synucleinopathy +\ndementia +")
+        self.assertEqual(searchTermItems[0], "dementia +")
         print searchTermItems
         #locate the sublings terms box
         siblings = self.driver.find_elements(By.ID, 'termTabTermWrapper')
         searchTermItems = iterate.getTextAsList(siblings)
-        self.assertEquals(searchTermItems[0], "Lewy body dementia\n\nfrontotemporal dementia +\nmultiple system atrophy +\nParkinson's disease +\nvascular dementia", 'correct siblings are not being returned')
+        self.assertEquals(searchTermItems[0], "Lewy body dementia\n\nfrontotemporal dementia +\nvascular dementia", 'correct siblings are not being returned')
         
     def test_dobrowser_toplevel_siblings(self):
         '''
@@ -207,7 +207,7 @@ class TestDoBrowserTermTab(unittest.TestCase):
         #locate the siblings terms box
         siblings = self.driver.find_elements(By.ID, 'termTabTermWrapper')
         searchTermItems = iterate.getTextAsList(siblings)
-        self.assertIn(searchTermItems[0], "tauopathy +\n\nagenesis of the corpus callosum with peripheral neuropathy\ndemyelinating disease +\neyelid degenerative disease +\nfamilial encephalopathy with neuroserpin inclusion bodies\nhereditary ataxia +\nHuntington's disease\nHuntington's disease-like 2\ninfantile cerebellar-retinal degeneration\nLafora disease\nmotor neuron disease +\nmyoclonic cerebellar dyssynergia\nneuroacanthocytosis +\nneurodegeneration with brain iron accumulation +\nolivopontocerebellar atrophy\nPick's disease\nplexopathy\npontocerebellar hypoplasia +\nprimary cerebellar degeneration\nsecondary Parkinson disease +\nSPOAN syndrome\nsynucleinopathy +")
+        self.assertIn(searchTermItems[0], "tauopathy +\n\nagenesis of the corpus callosum with peripheral neuropathy\namyotrophic lateral sclerosis-parkinsonism/dementia complex 1\ndemyelinating disease +\neyelid degenerative disease\nfamilial encephalopathy with neuroserpin inclusion bodies\nhereditary ataxia +\nHuntington's disease\nHuntington's disease-like 2\ninfantile cerebellar-retinal degeneration\nmotor neuron disease +\nmyoclonic cerebellar dyssynergia\nneuroacanthocytosis +\nneurodegeneration with brain iron accumulation +\nolivopontocerebellar atrophy\nPick's disease\nplexopathy\npontocerebellar hypoplasia +\nprimary cerebellar degeneration\nsecondary Parkinson disease +\nSPOAN syndrome\nsynucleinopathy +")
         print searchTermItems
         #locate the children terms box
         children = self.driver.find_elements(By.ID, 'termTabChildWrapper')

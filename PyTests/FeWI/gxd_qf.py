@@ -80,6 +80,75 @@ class TestGXDQF(unittest.TestCase):
         self.assertNotIn('Ankfn1', searchTextItems, 'Gene Ankfn1 is being returned!') 
         
         
+    def test_specimen_mut_gene(self):
+        """
+        @status: Tests that the option "specimen mutated in Gene" option of the GXD query form works as expected
+        @note: GXD-assay-4
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/gxd")
+        #find the Specimens mutated in gene option of the Mutant/ Wild type section and click it and enter your gene
+        driver.find_element_by_id('mutatedSpecimen').click()
+        driver.find_element_by_id('mutatedIn').send_keys('Dppa3')
+        #find the InSitu assays and Blot assays check boxes and uncheck them
+        driver.find_element(By.CLASS_NAME, 'allInSitu').click()
+        driver.find_element(By.ID, 'blotAll').click()
+        #find the Whole Genome assays check box and click it
+        driver.find_element(By.ID, 'wholeGenomeAll').click()
+        #find the search button and click it
+        driver.find_element(By.ID, 'submit1').click()
+        time.sleep(2)
+        #finds the Assays tab and clicks it
+        driver.find_element(By.ID, 'assaystab').click()
+        time.sleep(2)
+        #locates the References column and lists the references found
+        reflist = driver.find_element(By.ID, 'assaysdata').find_element(By.CLASS_NAME, 'yui-dt-data')
+        items = reflist.find_elements(By.CLASS_NAME, 'yui-dt-col-reference')
+        searchTextItems = iterate.getTextAsList(items)
+        print searchTextItems
+        time.sleep(2)
+        #assert that the Reference column holds the correct reference
+        self.assertEqual(searchTextItems, ['E-MTAB-5210 Transcription profiling of wild type and Stella knockout oocytes, wild type and Stella maternal/zygotic knockout embryos to study to the role of Stella in early mouse development'])     
+        
+    def test_specimen_wild_type_only(self):
+        """
+        @status: Tests that the option "Wild type specimens only" option of the GXD query form works as expected
+        @note GXD-assay-5
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/gxd")
+        #find the Detected in option of the Anatomical structure or stage section and click it
+        driver.find_element_by_id('detected1').click()
+        #find the Wild type specimens only option in the Mutant/wild type section and click it
+        driver.find_element_by_id('isWildType').click()
+        #find the InSitu assays and Blot assays check boxes and uncheck them
+        driver.find_element(By.CLASS_NAME, 'allInSitu').click()
+        driver.find_element(By.ID, 'blotAll').click()
+        #find the Whole Genome assays check box and click it
+        driver.find_element(By.ID, 'wholeGenomeAll').click()
+        #find the search button and click it
+        #find the search button and click it
+        driver.find_element(By.ID, 'submit1').click()
+        time.sleep(2)
+        #finds the Assays tab and clicks it
+        driver.find_element(By.ID, 'assaystab').click()
+        time.sleep(2)
+        #locates the gene column and lists the gene found
+        genelist = driver.find_element(By.ID, 'assaysdata').find_element(By.CLASS_NAME, 'yui-dt-data')
+        items = genelist.find_elements(By.CLASS_NAME, 'yui-dt-col-gene')
+        searchTextItems = iterate.getTextAsList(items)
+        print searchTextItems
+        #assert that the Gene column holds the text "Whole Genome"
+        assert "Whole Genome" in searchTextItems  
+        time.sleep(2)
+        #locates the assay type column and lists the assay types found
+        assaylist = driver.find_element(By.ID, 'assaysdata').find_element(By.CLASS_NAME, 'yui-dt-data')
+        items = assaylist.find_elements(By.CLASS_NAME, 'yui-dt-col-assayType')
+        searchTextItems1 = iterate.getTextAsList(items)
+        print searchTextItems1
+        #assert that the Assay Type column holds the text "RNA-Seq"
+        assert "RNA-Seq" in searchTextItems1  
+                   
         
         
         

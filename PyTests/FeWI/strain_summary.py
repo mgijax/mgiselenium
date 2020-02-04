@@ -30,7 +30,8 @@ class TestStrainSummary(unittest.TestCase):
 
     def setUp(self):
     
-        self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
         self.driver.get(config.TEST_URL + "/strains_SNPs.shtml")
         self.driver.implicitly_wait(10)
 
@@ -97,7 +98,7 @@ class TestStrainSummary(unittest.TestCase):
         print iterate.getTextAsList(headings)
         hdsReturned = iterate.getTextAsList(headings)
         #asserts that the Headings are correct
-        self.assertEqual(['Official Strain Name', 'Synonyms', 'Attributes', 'IDs', 'References'], hdsReturned) # ID link
+        self.assertEqual(['Strain/Stock Name', 'Synonyms', 'Attributes', 'IDs', 'References'], hdsReturned) # ID link
         
 
     def test_summary_strain_strain_link(self):

@@ -23,7 +23,8 @@ class TestAlleleQueryForm(unittest.TestCase):
 
 
     def setUp(self):
-        self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
         self.driver.get(config.TEST_URL + "/allele/")
         self.driver.implicitly_wait(10)
 
@@ -45,7 +46,7 @@ class TestAlleleQueryForm(unittest.TestCase):
     def test_doids_search(self):
         '''
         @status this test verifies  you can search by a DOID in the phenotypes box of the allele query form.
-        @bug under construction, need the summary table to have an ID or Name
+        @bug under construction, need the summary table to have an ID or Name OR do it like non table(MP annotation PWI)
         '''
         self.driver.find_element_by_name("phenotype").clear()
         self.driver.find_element_by_name("phenotype").send_keys("DOID:5737")
@@ -63,20 +64,6 @@ class TestAlleleQueryForm(unittest.TestCase):
         #print disease_cells
         #self.assertEquals(disease_cells[1], 'myelofibrosis   DOID:4971')
 
-        
-    def test_apf_link(self):
-        '''
-        @status this test verifies when you click the APF link for incidental Mutations you go to the correct website location
-        @note: works as of 3/29/18
-        '''
-        self.driver.find_element_by_name("nomen").clear()
-        self.driver.find_element_by_name("nomen").send_keys("Blnk")
-        self.driver.find_element_by_class_name("buttonLabel").click()
-        time.sleep(2)
-        self.driver.find_element_by_partial_link_text('m1Btlr').click()
-        mutlink = self.driver.find_element_by_link_text('incidental mutations')
-        href = mutlink.find_element_by_xpath("//a").get_attribute('href')
-        self.assertTrue(href, 'http://test.informatics.jax.org/downloads/datasets/incidental_muts/Mutagenetix.xlsx')       
         
              
         
