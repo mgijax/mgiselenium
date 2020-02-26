@@ -202,6 +202,7 @@ class TestVarSearch(unittest.TestCase):
         #find the search results table
         results_table = self.driver.find_element_by_id("resultsTableHeader")
         table = Table(results_table)
+        time.sleep(2)
         # print row one through three
         row1 = table.get_row(0)
         row2 = table.get_row(1)

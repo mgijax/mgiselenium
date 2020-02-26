@@ -17,6 +17,7 @@ from selenium.common.exceptions import NoSuchElementException
 import HTMLTestRunner
 import json
 import sys,os.path
+from select import select
 # adjust the path to find config
 sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../..',)
@@ -56,17 +57,17 @@ class TestMrkAddDelete(unittest.TestCase):
         """
         @Status tests that you can add a marker of type Gene
         @see pwi-mrk-create-mrk-1
-        @note: remove time sleeps later when time permits!
+        @note: remove time sleeps later when time permits! tested 2/10/2020
         """
         driver = self.driver
         #finds the marker type pulldown list and selects "Pseudogene"
-        Select(driver.find_element_by_id("markerType")).select_by_value('7')
+        Select(driver.find_element_by_id("markerType")).select_by_value('string:7')
         time.sleep(2)
         #finds the marker status pulldown and selects "Official"
-        Select(driver.find_element_by_id("markerStatus")).select_by_value('1')
+        Select(driver.find_element_by_id("markerStatus")).select_by_value('string:1')
         time.sleep(2)
         #Finds the Chromosome pulldown list and selects Chromosome "2"
-        Select(driver.find_element_by_id("chromosome")).select_by_value('2')
+        Select(driver.find_element_by_id("chromosome")).select_by_value('string:2')
         time.sleep(2)
         #Finds the Symbol field and enters a new symbol
         driver.find_element_by_id("markerSymbol").send_keys('jeffcmarker')
@@ -75,7 +76,7 @@ class TestMrkAddDelete(unittest.TestCase):
         driver.find_element_by_id("markerName").send_keys('jeffc test marker')
         time.sleep(2)
         #Finds the J# field in the History section and enter a valid J number
-        driver.find_element_by_id("markerHistoryJNumID").send_keys('28000')
+        driver.find_element_by_id("historyJnum-0").send_keys('28000')
         actionChains = ActionChains(driver)
         actionChains.send_keys(Keys.TAB)
         actionChains.perform()
@@ -83,7 +84,7 @@ class TestMrkAddDelete(unittest.TestCase):
         driver.find_element_by_id('createMarkerButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTableHeader")
+        results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -93,12 +94,12 @@ class TestMrkAddDelete(unittest.TestCase):
         self.assertEquals(symbol1, ['jeffcmarker'])
         #since we search for a particular marker type verify the correct type is displayed
         mrktype = driver.find_element_by_id('markerType').get_attribute('value')
-        self.assertEqual(mrktype, '7')#1 equals "Gene"
+        self.assertEqual(mrktype, 'string:7')#1 equals "Gene"
 
-    def testTypeGeneAddRef(self):
+    def testTypeGeneRef(self):
         """
         @Status tests that you can add a reference to a marker of type Gene
-        @see pwi-mrk-det-ref-add-1, 5 
+        @see pwi-mrk-det-ref-add-1, 5 tested 2/10/2020
         """
         driver = self.driver
         #finds the Symbol field and enters the text
@@ -110,57 +111,55 @@ class TestMrkAddDelete(unittest.TestCase):
         time.sleep(2)
         #find the Reference Add button and click it
         driver.find_element_by_id('addReferenceButton').click()
+        #find the Type field and select "General" as the option
+        Select(driver.find_element_by_id('refAssocType')).select_by_value('string:1018')
         #find the J# field and enter the J# into it then tabout for validation check
-        driver.find_element_by_id('addMarkerRefJnumID').send_keys('28000')
+        driver.find_element_by_id('refjnumID-0').send_keys('28000')
         actionChains = ActionChains(driver)
         actionChains.send_keys(Keys.TAB)
         actionChains.perform()
-        #find and click the "Commit Row" button
-        driver.find_element_by_id('addMarkerRefCommitID').click()
-        time.sleep(10)
-        #find the reference row that has the correct J number
-        refs_table = self.driver.find_element_by_id("refsTable")
-        table = Table(refs_table)
-        #Iterate and get the correct row of reference data
-        cells = table.get_row_cells(1)
-        row1 = iterate.getTextAsList(cells)
-        print row1
-        #assert the row of Reference data, Note we never actually modify the marker so this reference never gets saved.
-        self.assertEqual(row1, [u'', u'General', u'28000', u'Novotny MV, Experientia 1995 Jul 14;51(7):738-43', u'', u''])
+        #find and click the "Modify" button
+        driver.find_element_by_id('updateMarkerButton').click()
+        time.sleep(2)
+        #find the Type field, ref jnum field, citation field of row 1 of the Reference tab and print them
+        typ = driver.find_element_by_id('refAssocType').get_attribute('value')
+        refjn = driver.find_element_by_id('refjnumID-0').get_attribute('value')
+        cit = driver.find_element_by_id('refAssocCitation-0').get_attribute('value')
+        print typ
+        print refjn
+        print cit
+        #assert the row of Reference data(first 3 fields) 
+        self.assertEqual(typ, 'string:1018')
+        self.assertEqual(refjn, 'J:28000')
+        self.assertEqual(cit, 'Novotny MV, Experientia 1995 Jul 14;51(7):738-43')
     
     def testGeneFeatureAdd(self):
         """
         @Status tests that you can add a feature type to a Marker Type Gene
         @see pwi-mrk-det-feature-add-1
-        @note: remove time sleeps later when time permits!
+        @note: remove time sleeps later when time permits! tested 2/10/2020
         """
         driver = self.driver
         #finds the Symbol field . Enter jeff% and click the Search button
         driver.find_element_by_id("markerSymbol").send_keys("jeff%")
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
-        #Find the feature type pulldown and select "gene segment"
-        Select(driver.find_element_by_id("tdcAddList")).select_by_value('6238171')
-        time.sleep(2)
-        #Find the feature types "Add" button and click it
+        #click the add row button for Feature Type
         driver.find_element_by_id('addFeatureTypeButton').click()
-        time.sleep(2)
-        #NOTE: we never actually save this feature type!
-        #find the feature types table
-        feature_table = self.driver.find_element_by_id("featureTypeTable")
-        table = Table(feature_table)
-        #Iterate and print the feature type results
-        cell1 = table.get_row_cells(1)
-        item1 = iterate.getTextAsList(cell1)
-        print item1
-        #Assert the correct feature type is returned
-        self.assertEquals(item1, ['', 'gene segment'])  
-
+        #Find the feature type pulldown and select "gene segment"
+        Select(driver.find_element_by_id("featureID")).select_by_value('string:7313348')
+        time.sleep(2)        
+        #find the Feature Type field and print it
+        feat = driver.find_element_by_id('featureID').get_attribute('value')
+        print feat
+        #assert the feature type is correct for this marker 
+        self.assertEqual(feat, 'string:7313348')
+        
     def testDnaSegFeatureAdd(self):
         """
         @Status tests that you can't add a feature type to a Marker Type DNA Segment Marker
         @see pwi-mrk-det-feature-add-2
-        @note: remove time sleeps later when time permits!
+        @note: remove time sleeps later when time permits! tested 2/10/2020
         """
         driver = self.driver
         #finds the Symbol field . Enter 123B5b and click the Search button
@@ -170,41 +169,36 @@ class TestMrkAddDelete(unittest.TestCase):
         #Assert there is no Add Feature type pulldown list
         def test_element_does_not_exist(self):
             with self.assertRaises(NoSuchElementException):
-                driver.find_element_by_id("tdcAddList")
+                driver.find_element_by_id("featureID")
 
     def testCytoMrkFeatureAdd(self):
         """
         @Status tests that you can add a feature type to a Marker Type Cytogenetic Marker
         @see pwi-mrk-det-feature-add-3
-        @note: remove time sleeps later when time permits!
+        @note: remove time sleeps later when time permits! tested 2/10/2020
         """
         driver = self.driver
-        #finds the Symbol field . Enter jeffc% and click the Search button
-        driver.find_element_by_id("markerSymbol").send_keys("jeffc%")
+        #finds the Symbol field . Enter 123B5b and click the Search button
+        driver.find_element_by_id("markerSymbol").send_keys("Del(8)7H")
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #Find the feature type pulldown and select "Robertsonian fusion"
-        Select(driver.find_element_by_id("tdcAddList")).select_by_value('7196771')
+        Select(driver.find_element_by_id("featureID")).select_by_value('string:7196771')
+        time.sleep(2)        
+        #Now let's click the Modify button!
+        driver.find_element_by_id('updateMarkerButton').click()
         time.sleep(2)
-        #Find the feature types "Add" button and click it
-        driver.find_element_by_id('addFeatureTypeButton').click()
-        time.sleep(2)
-        #NOTE: we never actually save this feature type!
-        #find the feature types table
-        feature_table = self.driver.find_element_by_id("featureTypeTable")
-        table = Table(feature_table)
-        #Iterate and print the feature type results
-        cell1 = table.get_row_cells(1)
-        item1 = iterate.getTextAsList(cell1)
-        print item1
-        #Assert the correct feature type is returned
-        self.assertEquals(item1, ['', 'Robertsonian fusion'])  
+        #find the Feature Type field and print it
+        feat = driver.find_element_by_id('featureID').get_attribute('value')
+        print feat
+        #assert the feature type is correct for this marker 
+        self.assertEquals(feat, 'string:7196771')  
 
     def testQtlFeatureAdd(self):
         """
         @Status tests that you can't add a feature type to a Marker Type QTL
         @see pwi-mrk-det-feature-add-4
-        @note: remove time sleeps later when time permits!
+        @note: remove time sleeps later when time permits! tested 2/10/2020
         """
         driver = self.driver
         #finds the Symbol field . Enter Aec1 and click the Search button
@@ -220,7 +214,7 @@ class TestMrkAddDelete(unittest.TestCase):
         """
         @Status tests that you can add a feature type to a Marker Type Pseudogene Marker
         @see pwi-mrk-det-feature-add-5
-        @note: remove time sleeps later when time permits!
+        @note: remove time sleeps later when time permits! tested 2/11/2020
         """
         driver = self.driver
         #finds the Symbol field . Enter Clec7a and click the Search button
@@ -228,27 +222,22 @@ class TestMrkAddDelete(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #Find the feature type pulldown and select "Pseudogenic region"
-        Select(driver.find_element_by_id("tdcAddList")).select_by_value('7288448')
+        Select(driver.find_element_by_id("featureID")).select_by_value('string:7288448')
         time.sleep(2)
-        #Find the feature types "Add" button and click it
-        driver.find_element_by_id('addFeatureTypeButton').click()
+        #Find the Modify button and click it
+        driver.find_element_by_id('updateMarkerButton').click()
         time.sleep(2)
-        #NOTE: we never actually save this feature type!
-        #find the feature types table
-        feature_table = self.driver.find_element_by_id("featureTypeTable")
-        table = Table(feature_table)
-        #Iterate and print the feature type results
-        cell1 = table.get_row_cells(1)
-        item1 = iterate.getTextAsList(cell1)
-        print item1
-        #Assert the correct feature type is returned
-        self.assertEquals(item1, ['', 'pseudogenic region'])  
-
+        #find the Feature Type field and print it
+        feat = driver.find_element_by_id('featureID').get_attribute('value')
+        print feat
+        #assert the feature type is correct for this marker 
+        self.assertEquals(feat, 'string:7288448')  
+        
     def testBacYacFeatureAdd(self):
         """
         @Status tests that you can't add a feature type to a Marker Type BAC/YAC end
         @see pwi-mrk-det-feature-add-6
-        @note: remove time sleeps later when time permits!
+        @note: remove time sleeps later when time permits! tested 2/11/2020
         """
         driver = self.driver
         #finds the Symbol field . Enter 52H9 and click the Search button
@@ -258,41 +247,36 @@ class TestMrkAddDelete(unittest.TestCase):
         #Assert there is no Add Feature type pulldown list
         def test_element_does_not_exist(self):
             with self.assertRaises(NoSuchElementException):
-                driver.find_element_by_id("tdcAddList")
+                driver.find_element_by_id("featureID")
 
     def testOtherGenomeFeatureAdd(self):
         """
         @Status tests that you can add a feature type to a Marker Type Other Genome Feature
         @see pwi-mrk-det-feature-add-7
-        @note: remove time sleeps later when time permits!
+        @note: remove time sleeps later when time permits! tested 2/11/2020
         """
         driver = self.driver
         #finds the Symbol field . Enter Cpgi% and click the Search button
-        driver.find_element_by_id("markerSymbol").send_keys("Cpgi%")
+        driver.find_element_by_id("markerSymbol").send_keys("Cpgi10")
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #Find the feature type pulldown and select "unclassified other genome feature"
-        Select(driver.find_element_by_id("tdcAddList")).select_by_value('7648969')
+        Select(driver.find_element_by_id("featureID")).select_by_value('string:7648969')
         time.sleep(2)
-        #Find the feature types "Add" button and click it
-        driver.find_element_by_id('addFeatureTypeButton').click()
+        #Find the Modify button and click it
+        driver.find_element_by_id('updateMarkerButton').click()
         time.sleep(2)
-        #NOTE: we never actually save this feature type!
-        #find the feature types table
-        feature_table = self.driver.find_element_by_id("featureTypeTable")
-        table = Table(feature_table)
-        #Iterate and print the feature type results
-        cell1 = table.get_row_cells(1)
-        item1 = iterate.getTextAsList(cell1)
-        print item1
-        #Assert the correct feature type is returned
-        self.assertEquals(item1, ['', 'unclassified other genome feature'])
+        #find the Feature Type field and print it
+        feat = driver.find_element_by_id('featureID').get_attribute('value')
+        print feat
+        #assert the feature type is correct for this marker 
+        self.assertEquals(feat, 'string:7648969')  
         
     def testComplexFeatureAdd(self):
         """
         @Status tests that you can't add a feature type to a Marker Type Complex/Cluster/Region
         @see pwi-mrk-det-feature-add-8
-        @note: remove time sleeps later when time permits!
+        @note: remove time sleeps later when time permits! tested 2/11/2020
         """
         driver = self.driver
         #finds the Symbol field . Enter Amy and click the Search button
@@ -302,13 +286,13 @@ class TestMrkAddDelete(unittest.TestCase):
         #Assert there is no Add Feature type pulldown list
         def test_element_does_not_exist(self):
             with self.assertRaises(NoSuchElementException):
-                driver.find_element_by_id("tdcAddList")          
+                driver.find_element_by_id("featureID")          
 
     def testTransgeneFeatureAdd(self):
         """
         @Status tests that you can't add a feature type to a Marker Type Transgene
         @see pwi-mrk-det-feature-add-9
-        @note: remove time sleeps later when time permits!
+        @note: remove time sleeps later when time permits! tested 2/11/2020
         """
         driver = self.driver
         #finds the Symbol field . Enter Tg(Hbb-b1)83Clo and click the Search button
@@ -318,55 +302,61 @@ class TestMrkAddDelete(unittest.TestCase):
         #Assert there is no Add Feature type pulldown list
         def test_element_does_not_exist(self):
             with self.assertRaises(NoSuchElementException):
-                driver.find_element_by_id("tdcAddList")
+                driver.find_element_by_id("featureID")
 
     def testMultipleFeatureAdd(self):
         """
         @Status tests that you can add multiple feature types to a Marker
         @see pwi-mrk-det-feature-add-10
-        @note: remove time sleeps later when time permits!
+        @note: remove time sleeps later when time permits! tested 02/25/2020
         """
         driver = self.driver
         #finds the Symbol field . Enter Cpgi% and click the Search button
-        driver.find_element_by_id("markerSymbol").send_keys("Cpgi%")
+        driver.find_element_by_id("markerSymbol").send_keys("Cpgi1")
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
-        #Find the feature type pulldown and select "unclassified other genome feature"
-        Select(driver.find_element_by_id("tdcAddList")).select_by_value('7648969')
-        time.sleep(2)
         #Find the feature types "Add" button and click it
         driver.find_element_by_id('addFeatureTypeButton').click()
+        time.sleep(2)
+        driver.find_element_by_id('addFeatureTypeButton').click()
+        #gets you focused in the second row of Feature Type
+        row2 = driver.find_element_by_id("featureTypeTable").find_element_by_css_selector('tr:nth-child(2)')
+        row2.click()
+        time.sleep(2)
+        #Find the feature type pulldown and select "unclassified other genome feature"
+        Select(row2.find_element_by_id("featureID")).select_by_value('string:7648969')
+        time.sleep(2)       
+        #gets you focused in the third row of Feature Type
+        row3 = driver.find_element_by_id("featureTypeTable").find_element_by_css_selector('tr:nth-child(3)')
+        row3.click()
         time.sleep(2)
         #Find the feature type pulldown and select "minisatellite"
-        Select(driver.find_element_by_id("tdcAddList")).select_by_value('7648968')
+        Select(row3.find_element_by_id("featureID")).select_by_value('string:7648968')
         time.sleep(2)
-        #Find the feature types "Add" button and click it
-        driver.find_element_by_id('addFeatureTypeButton').click()
+        #Find the Modify button and click it
+        driver.find_element_by_id('updateMarkerButton').click()
         time.sleep(2)
-        #NOTE: we never actually save this feature type!
-        #find the feature types table
-        feature_table = self.driver.find_element_by_id("featureTypeTable")
-        table = Table(feature_table)
-        #Iterate and print the feature type results
-        cell1 = table.get_row_cells(1)
-        item1 = iterate.getTextAsList(cell1)
-        print item1
-        cell2 = table.get_row_cells(2)
-        item2 = iterate.getTextAsList(cell2)
-        print item2
-        cell3 = table.get_row_cells(3)
-        item3 = iterate.getTextAsList(cell3)
-        print item3
-        #Assert the correct feature types are returned
-        self.assertEquals(item1, ['', 'minisatellite']) 
-        self.assertEquals(item2, ['', 'unclassified other genome feature'])
-        self.assertEquals(item3, ['', 'CpG island']) 
+        #This gets and then verifies that the first feature type is CpG island(string:15406205)
+        feat1 = driver.find_element_by_id('featureID').get_attribute('value')
+        print feat1
+        self.assertEquals(feat1, 'string:15406205')
+        #This gets and then verifies that the second feature type is minisatellite(string:7648968)
+        #even though this was entered third once the adds are modified the feature type resorts by alpha
+        row2 = driver.find_element_by_id("featureTypeTable").find_element_by_css_selector('tr:nth-child(2)')
+        feat2 = row2.find_element_by_id('featureID').get_attribute('value')
+        self.assertEquals(feat2, 'string:7648968')
+        #This gets and then verifies that the third feature type is unclassified other genome featyre(string:7648969)
+        #even though this was entered second once the adds are modified the feature type resorts by alpha
+        row3 = driver.find_element_by_id("featureTypeTable").find_element_by_css_selector('tr:nth-child(3)')
+        feat3 = row3.find_element_by_id('featureID').get_attribute('value')
+        self.assertEquals(feat3, 'string:7648969')
+        
 
     def testBadMrkTypeFeatureAdd(self):
         """
-        @Status tests that you get an error when you try to change the Marker type for an imcompatible feature type
+        @Status tests that you get an error when you try to change the Marker type for an incompatible feature type
         @see pwi-mrk-det-feature-update-1
-        @note: remove time sleeps later when time permits!
+        @note: remove time sleeps later when time permits! tested 02/25/2020
         """
         driver = self.driver
         #finds the Symbol field . Enter Hc3 and click the Search button
@@ -374,7 +364,7 @@ class TestMrkAddDelete(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the Marker Type pulldown and try to change it from Cytogenetic Marker to Other Genome Feature
-        Select(driver.find_element_by_id("markerType")).select_by_value('9')
+        Select(driver.find_element_by_id("markerType")).select_by_value('string:9')
         time.sleep(2)
         #capture the javascript alert and press it's OK button
         alertObj = driver.switch_to.alert
@@ -386,9 +376,9 @@ class TestMrkAddDelete(unittest.TestCase):
         
     def testBadFeatureTypeMarkerAdd(self):
         """
-        @Status tests that you get an error when you try to change the Feature type for an imcompatible Marker type
+        @Status tests that you get an error when you try to change the Feature type for an incompatible Marker type
         @see pwi-mrk-det-feature-update-2
-        @note: remove time sleeps later when time permits!
+        @note: remove time sleeps later when time permits! tested 02/25/2020
         """
         driver = self.driver
         #finds the Symbol field . Enter Hc3 and click the Search button
@@ -396,10 +386,7 @@ class TestMrkAddDelete(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the Feature Type pulldown and try to change it from unclassified cytogenetic marker to pseudogene
-        Select(driver.find_element_by_id("tdcAddList")).select_by_value('7313348')
-        time.sleep(2)
-        #Find the feature types "Add" button and click it
-        driver.find_element_by_id('addFeatureTypeButton').click()
+        Select(driver.find_element_by_id("featureID")).select_by_value('string:7313348')
         time.sleep(2)
         #capture the javascript alert and press it's OK button
         alertObj = driver.switch_to.alert

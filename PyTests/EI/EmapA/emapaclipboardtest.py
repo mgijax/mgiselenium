@@ -374,7 +374,7 @@ class TestClipboard(unittest.TestCase, EmapaBaseClass):
         clipbox = self.driver.find_element_by_id("clipboardInput")
         clipbox.send_keys("18")
         clipbox.send_keys(Keys.RETURN)
-        
+        time.sleep(2)
         clipdata = self.driver.find_element_by_id("emapClipBoardContent").find_element_by_id("clipboard")
         items = clipdata.find_elements_by_css_selector("li")
         searchTreeItems = iterate.getTextAsList(items)

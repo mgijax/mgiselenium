@@ -224,7 +224,7 @@ class TestDoannotSearch(unittest.TestCase):
         print term0
         voc_term = driver.find_elements_by_class_name('term')[0]
         print voc_term.text
-        qualfy = driver.find_elements_by_id('qualifierAbbreviation-0').get_property('value')#value should be 'string:1614157' that equals NOT
+        qualfy = driver.find_element_by_id('qualifierAbbreviation-0').get_property('value')#value should be 'string:1614157' that equals NOT
         print qualfy
         j_num = driver.find_element_by_id('jnumID-2').get_property('value')
         print j_num

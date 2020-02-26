@@ -163,6 +163,7 @@ class TestMpannotSearch(unittest.TestCase):
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
+        time.sleep(2)
         driver.find_element_by_id('searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'termID-3')))
@@ -273,6 +274,7 @@ class TestMpannotSearch(unittest.TestCase):
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
+        time.sleep(2)
         driver.find_element_by_id('searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'termID-3')))

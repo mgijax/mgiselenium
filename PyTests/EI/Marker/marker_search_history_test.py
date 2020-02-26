@@ -306,7 +306,7 @@ class TestMrkHistSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()        
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historyName-0')))
-        #time.sleep(2)
+        time.sleep(2)
         # get the data for the Event column, print the row 1 result
         evt_row = driver.find_element_by_id('historyEvent-0').get_attribute('value')        
         #Assert the sixth citation returned(row6) is correct

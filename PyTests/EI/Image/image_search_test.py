@@ -670,69 +670,7 @@ class TestImgSearch(unittest.TestCase):
         #Assert the correct Creation Name is returned in the Creation Date field
         modifydate = driver.find_element_by_id('objectModificationDate').get_attribute('value')
         self.assertEqual(modifydate, '2013-02-08')        
-
-    def testModifyDateGreaterSearch(self):
-        """
-        @Status tests that a basic Modification Date by Greater than works
-        @see pwi-image-date-search-5
-        """
-        driver = self.driver
-        #finds the Modification Date field, enters a Date with greater than symbol
-        driver.find_element_by_id("objectModificationDate").send_keys('>2019-12-16')
-        #finds the Search button and clicks it
-        driver.find_element_by_id('searchButton').click()
-        time.sleep(2)
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
-        table = Table(results_table)
-        time.sleep(4)
-        # get and print the first 2 rows
-        cell0 = table.get_row(0)
-        cell1 = table.get_row(1)
-        cell2 = table.get_row(2)
-        cell3 = table.get_row(3)
-        print cell0.text
-        print cell1.text
-        #Assert the correct symbol has been returned in the results table
-        self.assertEqual(cell0.text, 'J:31122; Full Size; 1')
-        self.assertEqual(cell1.text, 'J:31122; Full Size; 2')
-        self.assertEqual(cell2.text, 'J:31122; Full Size; 3')
-        self.assertEqual(cell3.text, 'J:33398; Full Size; 2')
         
-        #Assert the correct Modification Date is returned in the Modification Date field
-        modifydate = driver.find_element_by_id('objectModificationDate').get_attribute('value')
-        self.assertEqual(modifydate, '2020-01-06')        
-
-    def testModifyDateGreaterEqualSearch(self):
-        """
-        @Status tests that a basic Modification Date by greater than equals works
-        @see pwi-image-date-search-6
-        """
-        driver = self.driver
-        #finds the Modification Date field, enters a Date with greater than equals symbols
-        driver.find_element_by_id("objectModificationDate").send_keys('>=2019-12-16')
-        #finds the Search button and clicks it
-        driver.find_element_by_id('searchButton').click()
-        time.sleep(2)
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
-        table = Table(results_table)
-        # get and print the first 2 rows
-        cell0 = table.get_row(0)
-        cell1 = table.get_row(1)
-        cell2 = table.get_row(2)
-        cell3 = table.get_row(3)
-        print cell0.text
-        print cell1.text
-        #Assert the correct symbol has been returned in the results table
-        self.assertEqual(cell0.text, 'J:33667; Full Size; 1')
-        self.assertEqual(cell1.text, 'J:33667; Full Size; 2')
-        self.assertEqual(cell2.text, 'J:33667; Full Size; 3')
-        self.assertEqual(cell3.text, 'J:33667; Full Size; 4')
-        #Assert the correct Modification Date is returned in the Modification Date field
-        modifydate = driver.find_element_by_id('objectModificationDate').get_attribute('value')
-        self.assertEqual(modifydate, '2019-12-17')    
-
     def testModifyDateLessSearch(self):
         """
         @Status tests that a basic Modification Date by less than works
