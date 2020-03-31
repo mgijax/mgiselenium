@@ -12,7 +12,8 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
-import HTMLTestRunner
+from configparser import SafeConfigParser
+import HtmlTestRunner
 import json
 import sys,os.path
 from test.test_base64 import BaseXYTestCase
@@ -20,7 +21,7 @@ from test.test_base64 import BaseXYTestCase
 sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../..',)
 )
-import config
+#import config
 from util import iterate, wait
 from util.form import ModuleForm
 from util.table import Table
@@ -33,10 +34,14 @@ class TestDoannotSearch(unittest.TestCase):
     """
 
     def setUp(self):
+        parser = SafeConfigParser()
+        parser.read("..\..\..\config\config.ini")
+        base_url = parser.get('testpwi', 'test_dogdev_pwi_url')
+        print('>>>', base_url)
         #self.driver = webdriver.Firefox() 
         self.driver = webdriver.Chrome()
         self.form = ModuleForm(self.driver)
-        self.form.get_module(config.TEST_PWI_URL + "/edit/doannot")
+        self.form.get_module(base_url + "/edit/doannot")
     
     def tearDown(self):
         self.driver.close()
@@ -58,40 +63,40 @@ class TestDoannotSearch(unittest.TestCase):
         time.sleep(2)
         #find the Genotype field and verify it's text
         geno = driver.find_element_by_id('genotypeDisplay').get_property('value')
-        print geno
+        print(geno)
         self.assertEqual(geno, '(NZB x BXSB)F1 Yaa')
         an_table = self.driver.find_element_by_id('annotTable')
         table = Table(an_table)
         #Iterate and print the table results
         header_cells = table.get_header_cells()
         headings = iterate.getTextAsList(header_cells)
-        print headings
+        print(headings)
         #assert the headers are correct
-        self.assertEqual(headings, ['', 'DO Term', 'Vocabulary Term', 'Qualifier', 'J#', 'Citation', 'Evidence', 'Modified', 'Date', 'Created', 'Date'])
+        self.assertEqual(headings, ['', '', '', 'DO Term', 'Vocabulary Term', 'Qualifier', 'J#', 'Citation', 'Evidence', 'Modified', 'Date', 'Created', 'Date'])
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'termID-1')))
         #find the search results table first row of data
         term0 = driver.find_element_by_id('termID-0').get_property('value')
-        print term0
+        print(term0)
         voc_term = driver.find_element_by_class_name('term')
-        print voc_term.text
+        print(voc_term.text)
         qualfy = driver.find_element_by_id('qualifierAbbreviation-0').get_property('value')
         #value should be 'string:1614158' that equals (none)
-        print qualfy
+        print(qualfy)
         j_num = driver.find_element_by_id('jnumID-0').get_property('value')
-        print j_num
+        print(j_num)
         cite = driver.find_element_by_class_name('short_citation')
-        print cite.text
+        print(cite.text)
         evid = driver.find_element_by_id('evidenceAbbreviation-0').get_property('value')#value should be "string:847168" which is TAS
-        print evid
+        print(evid)
         mod_by = driver.find_element_by_id('modifiedBy-0').get_property('value')
-        print mod_by
+        print(mod_by)
         mod_date = driver.find_element_by_id('modifiedDate-0').get_property('value')
-        print mod_date
+        print(mod_date)
         create_by = driver.find_element_by_id('createdBy-0').get_property('value')
-        print create_by
+        print(create_by)
         create_date = driver.find_element_by_id('createdDate-0').get_property('value')
-        print create_date
+        print(create_date)
         #we are asserting the first row of data is correct
         self.assertEqual(term0, 'DOID:9074')
         self.assertEqual(voc_term.text, 'systemic lupus erythematosus')
@@ -122,25 +127,25 @@ class TestDoannotSearch(unittest.TestCase):
         time.sleep(5)
         #find the search results table first row of data
         term0 = driver.find_element_by_id('termID-0').get_property('value')
-        print term0
+        print(term0)
         voc_term = driver.find_element_by_class_name('term')
-        print voc_term.text
+        print(voc_term.text)
         qualfy = driver.find_element_by_id('qualifierAbbreviation-0').get_property('value')#value should be 'string:1614158' that equals (none)
-        print qualfy
+        print(qualfy)
         j_num = driver.find_element_by_id('jnumID-0').get_property('value')
-        print j_num
+        print(j_num)
         cite = driver.find_element_by_class_name('short_citation')
-        print cite.text
+        print(cite.text)
         evid = driver.find_element_by_id('evidenceAbbreviation-0').get_property('value')#value should be "string:847168" which is TAS
-        print evid
+        print(evid)
         mod_by = driver.find_element_by_id('modifiedBy-0').get_property('value')
-        print mod_by
+        print(mod_by)
         mod_date = driver.find_element_by_id('modifiedDate-0').get_property('value')
-        print mod_date
+        print(mod_date)
         create_by = driver.find_element_by_id('createdBy-0').get_property('value')
-        print create_by
+        print(create_by)
         create_date = driver.find_element_by_id('createdDate-0').get_property('value')
-        print create_date
+        print(create_date)
         #we are asserting the first row of data is correct
         self.assertEqual(term0, 'DOID:9256')
         self.assertEqual(voc_term.text, 'colorectal cancer')
@@ -171,25 +176,25 @@ class TestDoannotSearch(unittest.TestCase):
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'termID-3')))
         #find the search results table first row of data
         term0 = driver.find_element_by_id('termID-0').get_property('value')
-        print term0
+        print(term0)
         voc_term = driver.find_element_by_class_name('term')
-        print voc_term.text
+        print(voc_term.text)
         qualfy = driver.find_element_by_id('qualifierAbbreviation-0').get_property('value')#value should be 'string:1614158' that equals (none)
-        print qualfy
+        print(qualfy)
         j_num = driver.find_element_by_id('jnumID-0').get_property('value')
-        print j_num
+        print(j_num)
         cite = driver.find_element_by_class_name('short_citation')
-        print cite.text
+        print(cite.text)
         evid = driver.find_element_by_id('evidenceAbbreviation-0').get_property('value')#value should be "string:847168" which is TAS
-        print evid
+        print(evid)
         mod_by = driver.find_element_by_id('modifiedBy-0').get_property('value')
-        print mod_by
+        print(mod_by)
         mod_date = driver.find_element_by_id('modifiedDate-0').get_property('value')
-        print mod_date
+        print(mod_date)
         create_by = driver.find_element_by_id('createdBy-0').get_property('value')
-        print create_by
+        print(create_by)
         create_date = driver.find_element_by_id('createdDate-0').get_property('value')
-        print create_date
+        print(create_date)
         #we are asserting the first row of data is correct
         self.assertEqual(term0, 'DOID:9256')
         self.assertEqual(voc_term.text, 'colorectal cancer')
@@ -221,25 +226,25 @@ class TestDoannotSearch(unittest.TestCase):
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'termID-3')))
         #find the search results table third row of data
         term0 = driver.find_element_by_id('termID-0').get_property('value')
-        print term0
+        print(term0)
         voc_term = driver.find_elements_by_class_name('term')[0]
-        print voc_term.text
+        print(voc_term.text)
         qualfy = driver.find_element_by_id('qualifierAbbreviation-0').get_property('value')#value should be 'string:1614157' that equals NOT
-        print qualfy
+        print(qualfy)
         j_num = driver.find_element_by_id('jnumID-2').get_property('value')
-        print j_num
+        print(j_num)
         cite = driver.find_elements_by_class_name('short_citation')[0]
-        print cite.text
+        print(cite.text)
         evid = driver.find_element_by_id('evidenceAbbreviation-0').get_property('value')#value should be "string:847168" which is TAS
-        print evid
+        print(evid)
         mod_by = driver.find_element_by_id('modifiedBy-0').get_property('value')
-        print mod_by
+        print(mod_by)
         mod_date = driver.find_element_by_id('modifiedDate-0').get_property('value')
-        print mod_date
+        print(mod_date)
         create_by = driver.find_element_by_id('createdBy-0').get_property('value')
-        print create_by
+        print(create_by)
         create_date = driver.find_element_by_id('createdDate-0').get_property('value')
-        print create_date
+        print(create_date)
         #we are asserting the third row of data is correct
         self.assertEqual(term0, 'DOID:11949')
         self.assertEqual(voc_term.text, 'Creutzfeldt-Jakob disease')
@@ -271,25 +276,25 @@ class TestDoannotSearch(unittest.TestCase):
         time.sleep(5)
         #find the search results table seventh row of data
         term0 = driver.find_element_by_id('termID-0').get_property('value')
-        print term0
+        print(term0)
         voc_term = driver.find_elements_by_class_name('term')[0]
-        print voc_term.text
+        print(voc_term.text)
         qualfy = driver.find_element_by_id('qualifierAbbreviation-0').get_property('value')#value should be 'string:1614158' that equals (none)
-        print qualfy
+        print(qualfy)
         j_num = driver.find_element_by_id('jnumID-0').get_property('value')
-        print j_num
+        print(j_num)
         cite = driver.find_elements_by_class_name('short_citation')[0]
-        print cite.text
+        print(cite.text)
         evid = driver.find_element_by_id('evidenceAbbreviation-0').get_property('value')#value should be "string:847168" which is TAS
-        print evid
+        print(evid)
         mod_by = driver.find_element_by_id('modifiedBy-0').get_property('value')
-        print mod_by
+        print(mod_by)
         mod_date = driver.find_element_by_id('modifiedDate-0').get_property('value')
-        print mod_date
+        print(mod_date)
         create_by = driver.find_element_by_id('createdBy-0').get_property('value')
-        print create_by
+        print(create_by)
         create_date = driver.find_element_by_id('createdDate-0').get_property('value')
-        print create_date
+        print(create_date)
         #we are asserting the seventh row of data is correct
         self.assertEqual(term0, 'DOID:0060041')
         self.assertEqual(voc_term.text, 'autism spectrum disorder')
@@ -321,25 +326,25 @@ class TestDoannotSearch(unittest.TestCase):
         time.sleep(10)
         #find the search results table thirteenth row of data
         term0 = driver.find_element_by_id('termID-0').get_property('value')
-        print term0
+        print(term0)
         voc_term = driver.find_elements_by_class_name('term')[0]
-        print voc_term.text
+        print(voc_term.text)
         qualfy = driver.find_element_by_id('qualifierAbbreviation-0').get_property('value')#value should be 'string:1614158' that equals (none)
-        print qualfy
+        print(qualfy)
         j_num = driver.find_element_by_id('jnumID-0').get_property('value')
-        print j_num
+        print(j_num)
         cite = driver.find_element_by_class_name('short_citation')
-        print cite.text
+        print(cite.text)
         evid = driver.find_element_by_id('evidenceAbbreviation-0').get_property('value')#value should be "string:847168" which is TAS
-        print evid
+        print(evid)
         mod_by = driver.find_element_by_id('modifiedBy-0').get_property('value')
-        print mod_by
+        print(mod_by)
         mod_date = driver.find_element_by_id('modifiedDate-0').get_property('value')
-        print mod_date
+        print(mod_date)
         create_by = driver.find_element_by_id('createdBy-0').get_property('value')
-        print create_by
+        print(create_by)
         create_date = driver.find_element_by_id('createdDate-0').get_property('value')
-        print create_date
+        print(create_date)
         #we are asserting the thirteenth row of data is correct
         self.assertEqual(term0, 'DOID:1206')
         self.assertEqual(voc_term.text, 'Rett syndrome')
@@ -371,27 +376,27 @@ class TestDoannotSearch(unittest.TestCase):
         time.sleep(10)
         #find the search results table thirteenth row of data
         term0 = driver.find_element_by_id('termID-0').get_property('value')
-        print term0
+        print(term0)
         voc_term = driver.find_elements_by_class_name('term')[0]
-        print voc_term.text
+        print(voc_term.text)
         qualfy = driver.find_element_by_id('qualifierAbbreviation-0').get_property('value')#value should be 'string:1614158' that equals (none)
-        print qualfy
+        print(qualfy)
         j_num = driver.find_element_by_id('jnumID-0').get_property('value')
-        print j_num
+        print(j_num)
         cite = driver.find_element_by_class_name('short_citation')
-        print cite.text
+        print(cite.text)
         evid = driver.find_element_by_id('evidenceAbbreviation-0').get_property('value')#value should be "string:847168" which is TAS
-        print evid
+        print(evid)
         mod_by = driver.find_element_by_id('modifiedBy-0').get_property('value')
-        print mod_by
+        print(mod_by)
         mod_date = driver.find_element_by_id('modifiedDate-0').get_property('value')
-        print mod_date
+        print(mod_date)
         create_by = driver.find_element_by_id('createdBy-0').get_property('value')
-        print create_by
+        print(create_by)
         create_date = driver.find_element_by_id('createdDate-0').get_property('value')
-        print create_date
+        print(create_date)
         note_text = driver.find_element_by_id('noteType-0').get_property('value')
-        print note_text
+        print(note_text)
         #we are asserting the thirteenth row of data is correct
         self.assertEqual(term0, 'DOID:0080014')
         self.assertEqual(voc_term.text, 'chromosomal disease')
@@ -427,12 +432,12 @@ class TestDoannotSearch(unittest.TestCase):
         cell3 = table.get_row(3)
         cell4 = table.get_row(4)
         cell5 = table.get_row(5)
-        print cell0.text
-        print cell1.text
-        print cell2.text
-        print cell3.text
-        print cell4.text
-        print cell5.text
+        print(cell0.text)
+        print(cell1.text)
+        print(cell2.text)
+        print(cell3.text)
+        print(cell4.text)
+        print(cell5.text)
         #Assert the correct genotype has been returned in the results table
         self.assertEqual(cell0.text, '129S6/SvEvTac-Maoa<K284stop> Maoa<K284stop>')
         self.assertEqual(cell1.text, '129X1.Cg-Cyp1b1<tm1Gonz> Cyp1b1<tm1Gonz>,Cyp1b1<tm1Gonz>')
@@ -466,12 +471,12 @@ class TestDoannotSearch(unittest.TestCase):
         cell3 = table.get_row(3)
         cell4 = table.get_row(4)
         cell5 = table.get_row(5)
-        print cell0.text
-        print cell1.text
-        print cell2.text
-        print cell3.text
-        print cell4.text
-        print cell5.text
+        print(cell0.text)
+        print(cell1.text)
+        print(cell2.text)
+        print(cell3.text)
+        print(cell4.text)
+        print(cell5.text)
         #Assert the correct genotypes have been returned in the results table
         self.assertEqual(cell0.text, '(129S6.129P2-Mecp2<tm1Bird> x C57BL/6)F1 Mecp2<tm1Bird>')
         self.assertEqual(cell1.text, '(129S6.129P2-Mecp2<tm1Bird> x FVB/N)F1 Mecp2<tm1Bird>')
@@ -503,10 +508,10 @@ class TestDoannotSearch(unittest.TestCase):
         cell1 = table.get_row(1)
         cell2 = table.get_row(2)
         cell3 = table.get_row(3)
-        print cell0.text
-        print cell1.text
-        print cell2.text
-        print cell3.text
+        print(cell0.text)
+        print(cell1.text)
+        print(cell2.text)
+        print(cell3.text)
         #Assert the correct genotypes have been returned in the results table
         self.assertEqual(cell0.text, '(129S6.129P2-Mecp2<tm1Bird> x C57BL/6)F1 Mecp2<tm1Bird>')
         self.assertEqual(cell1.text, '(129S6.129P2-Mecp2<tm1Bird> x FVB/N)F1 Mecp2<tm1Bird>')
@@ -535,9 +540,9 @@ class TestDoannotSearch(unittest.TestCase):
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
         cell2 = table.get_row(2)
-        print cell0.text
-        print cell1.text
-        print cell2.text
+        print(cell0.text)
+        print(cell1.text)
+        print(cell2.text)
         #Assert the correct genotypes have been returned in the results table
         self.assertEqual(cell0.text, '(C3H/HeJ x B6.129S2-Trp53<tm1Tyj> Nf1<tm1Tyj>/+ +)F1 Nf1<tm1Tyj>,Nf1<+>,Trp53<tm1Tyj>,Trp53<+>')
         self.assertEqual(cell1.text, '(CAST/EiJ x B6.129S2-Trp53<tm1Tyj> Nf1<tm1Tyj>/+ +)F1 Nf1<tm1Tyj>,Nf1<+>,Trp53<tm1Tyj>,Trp53<+>')
@@ -642,8 +647,8 @@ class TestDoannotSearch(unittest.TestCase):
         # get and print the first 2 rows
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
-        print cell0.text
-        print cell1.text
+        print(cell0.text)
+        print(cell1.text)
         #Assert the correct genotypes have been returned in the results table
         self.assertEqual(cell0.text, '129-Nphs2<tm1Antc> Nphs2<tm1Antc>,Nphs2<tm1Antc>')
         self.assertEqual(cell1.text, '129P2(C)-Cecr2<Gt(pGT1)1Hemc> Cecr2<Gt(pGT1)1Hemc>,Cecr2<Gt(pGT1)1Hemc>')
@@ -669,8 +674,8 @@ class TestDoannotSearch(unittest.TestCase):
         # get and print the first 2 rows
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
-        print cell0.text
-        print cell1.text
+        print(cell0.text)
+        print(cell1.text)
         #Assert the correct gentypes have been returned in the results table
         self.assertEqual(cell0.text, '(129S6.129P2-Mecp2<tm1Bird> x C57BL/6)F1 Mecp2<tm1Bird>')
         self.assertEqual(cell1.text, '(129S6.129P2-Mecp2<tm1Bird> x FVB/N)F1 Mecp2<tm1Bird>')
@@ -696,8 +701,8 @@ class TestDoannotSearch(unittest.TestCase):
         # get and print the first 2 rows
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
-        print cell0.text
-        print cell1.text
+        print(cell0.text)
+        print(cell1.text)
         #Assert the correct genotypes have been returned in the results table
         self.assertEqual(cell0.text, 'B6.129S6-Mlxipl<tm1Kuy>/J Mlxipl<tm1Kuy>,Mlxipl<tm1Kuy>')
         self.assertEqual(cell1.text, 'involves: FVB/N Tg(Col1a1-FGF2*,-Sapphire)203Mmh,Tg(Col1a1-FGF2*,-Sapphire)203Mmh')
@@ -801,8 +806,8 @@ class TestDoannotSearch(unittest.TestCase):
         # get and print the first 2 rows
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
-        print cell0.text
-        print cell1.text
+        print(cell0.text)
+        print(cell1.text)
         #Assert the correct genotypes have been returned in the results table
         self.assertEqual(cell0.text, '129-Nphs2<tm1Antc> Nphs2<tm1Antc>,Nphs2<tm1Antc>')
         self.assertEqual(cell1.text, '129P2(C)-Cecr2<Gt(pGT1)1Hemc> Cecr2<Gt(pGT1)1Hemc>,Cecr2<Gt(pGT1)1Hemc>')
@@ -828,8 +833,8 @@ class TestDoannotSearch(unittest.TestCase):
         # get and print the first 2 rows
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
-        print cell0.text
-        print cell1.text
+        print(cell0.text)
+        print(cell1.text)
         #Assert the correct genotypes have been returned in the results table
         self.assertEqual(cell0.text, 'B6.C3-Mfrp<rd6> Mfrp<rd6>,Mfrp<rd6>')
         self.assertEqual(cell1.text, 'B6.Cg-Aire<tm1Mmat> Aire<tm1Mmat>,Aire<tm1Mmat>')
@@ -855,8 +860,8 @@ class TestDoannotSearch(unittest.TestCase):
         # get and print the first 2 rows
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
-        print cell0.text
-        print cell1.text
+        print(cell0.text)
+        print(cell1.text)
         #Assert the correct genotypes have been returned in the results table
         self.assertEqual(cell0.text, 'B6.C3-Mfrp<rd6> Mfrp<rd6>,Mfrp<rd6>')
         self.assertEqual(cell1.text, 'B6.Cg-Aire<tm1Mmat> Aire<tm1Mmat>,Aire<tm1Mmat>')
@@ -873,5 +878,5 @@ def suite():
 '''
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    HTMLTestRunner.main()
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))
     

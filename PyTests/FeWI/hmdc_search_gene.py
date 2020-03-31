@@ -14,7 +14,7 @@ import time
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
-import HTMLTestRunner
+import HtmlTestRunner
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -55,7 +55,7 @@ class TestGenesSearch(unittest.TestCase):
         wait.forAngular(self.driver)
         #identify the Grid tab and click on it
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
-        print grid_tab.text
+        print(grid_tab.text)
         time.sleep(2)
         self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (0 x 0)", "Grid tab is not visible!")
         grid_tab.click()
@@ -81,7 +81,7 @@ class TestGenesSearch(unittest.TestCase):
         #identify the Genes tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Check for no results message
@@ -107,7 +107,7 @@ class TestGenesSearch(unittest.TestCase):
         #identify the Genes tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Check for no results message - returns nothing because the asterisk is NOT a wildcard in the HMDC
@@ -142,7 +142,7 @@ class TestGenesSearch(unittest.TestCase):
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
        
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         grid_tab.click()
         
         #Get human genes returned to grid
@@ -181,7 +181,7 @@ class TestGenesSearch(unittest.TestCase):
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
        
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         grid_tab.click()
         
         #Get human genes returned to grid
@@ -217,7 +217,7 @@ class TestGenesSearch(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         
         grid_tab.click()
         
@@ -231,7 +231,7 @@ class TestGenesSearch(unittest.TestCase):
         #Click on the Disease Tab and verify the no data message displayed.
         disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         time.sleep(2)
-        print disease_tab.text
+        print(disease_tab.text)
         
         disease_tab.click()
         
@@ -262,7 +262,7 @@ class TestGenesSearch(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         
         gene_tab.click()
         gene_table = Table(self.driver.find_element_by_id("geneTable"))
@@ -299,7 +299,7 @@ class TestGenesSearch(unittest.TestCase):
         #identify the Genes tab and click on it
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         grid_tab.click()
         
         #verify TP53 returned on Grid
@@ -337,7 +337,7 @@ class TestGenesSearch(unittest.TestCase):
         #identify the Genes tab and click on it
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         grid_tab.click()
         
         #verify TP53 returned on Grid
@@ -376,7 +376,7 @@ class TestGenesSearch(unittest.TestCase):
         #identify the Grid tab and click on it
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         grid_tab.click()
         
         #Grab the human and mouse genes displayed on the grid
@@ -416,7 +416,7 @@ class TestGenesSearch(unittest.TestCase):
         #identify the Genes tab and click on it
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         grid_tab.click()
         
         #Grab mouse and human genes returned to the Grid
@@ -447,7 +447,7 @@ class TestGenesSearch(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         grid_tab.click()
         
         #Look for no results message - entering a gene name in the Gene Symbol/ID field returns no results
@@ -474,14 +474,14 @@ class TestGenesSearch(unittest.TestCase):
         #identify the Grid tab and click on it
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (0 x 0)", "Grid tab is not visible!")
         grid_tab.click()
         self.assertIn('No data available for your query', self.driver.page_source)
         
         #identify the Genes tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
-        print gene_tab.text
+        print(gene_tab.text)
         
         gene_tab.click()
         gene_table = Table(self.driver.find_element_by_id("geneTable"))
@@ -513,7 +513,7 @@ class TestGenesSearch(unittest.TestCase):
         #identify the Grid tab and click on it
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         grid_tab.click()
         
         #verify expected human and mouse gene returned
@@ -527,7 +527,7 @@ class TestGenesSearch(unittest.TestCase):
         
         #identify the Disease tab and click on it
         disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
-        print disease_tab.text
+        print(disease_tab.text)
         
         disease_tab.click()
         
@@ -558,7 +558,7 @@ class TestGenesSearch(unittest.TestCase):
         #identify the Grid tab and click on it
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         grid_tab.click()
         
         #get the mouse and human genes returned and verify PAX6 and Pax6 are included
@@ -588,7 +588,7 @@ class TestGenesSearch(unittest.TestCase):
         #identify the Grid Tab and click on it
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         grid_tab.click()
         
         #get the mouse and human genes returned and verify PAX6 and Pax6 are NOT included
@@ -626,7 +626,7 @@ class TestGenesSearch(unittest.TestCase):
         #identify the Genes tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         gene_table = Table(self.driver.find_element_by_id("geneTable"))
@@ -657,12 +657,12 @@ class TestGenesSearch(unittest.TestCase):
         #identify the Grid Tab and click on it
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         grid_tab.click()
         
         #identify the Genes tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #get the list of genes
@@ -695,7 +695,7 @@ class TestGenesSearch(unittest.TestCase):
         #identify the Grid tab and click on it
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         grid_tab.click()
         
         #Grab the human genes returned on the Grid Tab and verify associated human gene is returned
@@ -727,7 +727,7 @@ class TestGenesSearch(unittest.TestCase):
         #identify the Grid tab and click on it
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         grid_tab.click()
         
         #Grab the human genes returned on the Grid Tab and verify associated human gene is returned
@@ -764,7 +764,7 @@ class TestGenesSearch(unittest.TestCase):
         #identify the Grid tab, print the text, and click on the Tab
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         grid_tab.click()
         
         #cells captures every field from Human Gene heading to the last phenotype/disease name displayed (the angled text)
@@ -776,7 +776,7 @@ class TestGenesSearch(unittest.TestCase):
         
         #identify the Genes tab and verify the tab's text
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         gene_table = Table(self.driver.find_element_by_id("geneTable"))
@@ -785,22 +785,24 @@ class TestGenesSearch(unittest.TestCase):
         #save each row of gene data and verify the expected genes are returned
         gene1 = cells[1]
         gene2 = cells[2]
-        self.assertEqual(gene1.text, 'Adam33')
-        self.assertEqual(gene2.text, 'ADAM33')
+        self.assertEqual(gene1.text, 'ADAM33')
+        self.assertEqual(gene2.text, 'Adam33')
         
         cells2 = gene_table.get_column_cells("References in MGI")
-       
+        time.sleep(2)
         #save each row of References in MGI data and verify the disease relevant reference is found.  This is the reference for the
         #NOT annotation.  NOT model references are recognized here.
         ref1 = cells2[1]
         ref2 = cells2[2]
+        print(ref2.text)
+        time.sleep(2)
         #asserts that the References in MGI column displays a Disease Relevant link since the is a NOT disease
-        self.assertEqual(ref1.text, 'All Mouse: 39\nDisease Relevant: 1')
-        self.assertEqual(ref2.text, '')
+        self.assertEqual(ref1.text, '')
+        self.assertEqual(ref2.text, 'All Mouse: 40\nDisease Relevant: 1')
         
         #identify the Disease tab and verify the tab's text
         disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
-        print disease_tab.text
+        print(disease_tab.text)
         
         disease_tab.click()
         
@@ -830,7 +832,7 @@ class TestGenesSearch(unittest.TestCase):
         #identify the Grid Tab and click on it
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         grid_tab.click()
         
         #No rows should be displayed on the Grid -- look for no results message
@@ -838,7 +840,7 @@ class TestGenesSearch(unittest.TestCase):
         
         #Go to the Genes Tab and verify it is returned there as expected
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Get list of genes and verify Gt(ROSA)26Sor is displayed on the Genes Tab
@@ -865,7 +867,7 @@ class TestGenesSearch(unittest.TestCase):
         #identify the Grid tab and click on it
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         grid_tab.click()
         
         mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
@@ -874,7 +876,7 @@ class TestGenesSearch(unittest.TestCase):
         
         #Go to the Genes Tab and verify it is returned there as expected
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Get list of genes and verify Gt(ROSA)26Sor is displayed on the Genes Tab
@@ -906,7 +908,7 @@ class TestGenesSearch(unittest.TestCase):
         #identify the Grid tab and click on it
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         grid_tab.click()
         
         #get human and mouse genes on the grid and verify C4a/C4b/C4A/C4B homology class
@@ -920,7 +922,7 @@ class TestGenesSearch(unittest.TestCase):
         
         #identify the Genes tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #get the list of genes and verify the multiple gene homology class
@@ -957,7 +959,7 @@ class TestGenesSearch(unittest.TestCase):
         #identify the Grid tab and click on it
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         grid_tab.click()
         
         #firstcell captures all the table data blocks of phenotypes on the first row of data
@@ -975,7 +977,7 @@ class TestGenesSearch(unittest.TestCase):
         #Identify the table
         mouse_geno_table = self.driver.find_element_by_css_selector("p > table.popupTable ")
         data = mouse_geno_table.find_element_by_tag_name("td")
-        print data.text
+        print(data.text)
         #find all the TR tags in the table and iterate through them
         cells = mouse_geno_table.find_elements_by_tag_name("tr")
         genoClusterList = iterate.getTextAsList(cells)
@@ -1005,7 +1007,7 @@ class TestGenesSearch(unittest.TestCase):
         #identify the Genes tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         gene_table = Table(self.driver.find_element_by_id("geneTable"))
@@ -1035,7 +1037,7 @@ class TestGenesSearch(unittest.TestCase):
         #identify the Genes tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         gene_table = Table(self.driver.find_element_by_id("geneTable"))
@@ -1067,7 +1069,7 @@ class TestGenesSearch(unittest.TestCase):
         #identify the Genes tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and verify expected genes are in the list
@@ -1101,7 +1103,7 @@ class TestGenesSearch(unittest.TestCase):
         #identify the Genes tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #get the list of genes and verify the one we searched for is there
@@ -1124,7 +1126,7 @@ class TestGenesSearch(unittest.TestCase):
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("RGD1560248") #enter a rat symbol
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("RGD:1560248") #enter a rat symbol
         wait.forAngular(self.driver)
         self.driver.find_element_by_id("searchButton").click()
         wait.forAngular(self.driver)
@@ -1132,11 +1134,12 @@ class TestGenesSearch(unittest.TestCase):
         #identify the Genes tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
-        
+        time.sleep(2)
         #get the list of genes and verify the one we searched for is there
         gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        time.sleep(2)
         cells = gene_table.get_column_cells("Gene Symbol")
         geneList = iterate.getTextAsList(cells)
         
@@ -1165,7 +1168,7 @@ class TestGenesSearch(unittest.TestCase):
         #identify the Genes tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #get the list of genes and verify the one we searched for is there
@@ -1202,7 +1205,7 @@ class TestGenesSearch(unittest.TestCase):
         #identify the Genes tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and verify that expected ones are present
@@ -1237,7 +1240,7 @@ class TestGenesSearch(unittest.TestCase):
         #identify the Genes tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and verify that expected ones are present
@@ -1271,7 +1274,7 @@ class TestGenesSearch(unittest.TestCase):
         #identify the Genes tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Check for no results message - list of symbols not valid for Gene Name search
@@ -1283,4 +1286,4 @@ class TestGenesSearch(unittest.TestCase):
        
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    HTMLTestRunner.main() 
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests')) 

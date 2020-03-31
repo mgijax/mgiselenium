@@ -145,4 +145,4 @@ class Table(object):
         """
         Check if identifier is a numerical index value
         """
-        return isinstance(identifier, (int, long))
+        return isinstance(identifier, int)

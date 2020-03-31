@@ -10,7 +10,7 @@ Test uses for notes picklist items
 import unittest
 import time
 from selenium import webdriver
-import HTMLTestRunner
+import HtmlTestRunner
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 import sys,os.path
@@ -61,7 +61,7 @@ class TestNotes(unittest.TestCase):
         form.enter_value('marker_symbol', 'Bmp4')
         marker_symbol = form.get_value('marker_symbol')
         form.press_tab()
-        print marker_symbol
+        print(marker_symbol)
         self.assertEqual(marker_symbol, 'Bmp4')
         form.click_search()
         form.get_value("comments")
@@ -175,7 +175,7 @@ class TestNotes(unittest.TestCase):
         form.enter_value('marker_symbol', 'Bmp2')
         marker_symbol = form.get_value('marker_symbol')
         form.press_tab()
-        print marker_symbol
+        print(marker_symbol)
         self.assertEqual(marker_symbol, 'Bmp2')
         form.click_search()
         self.driver.find_element_by_id('comments').clear()#clears the notes field
@@ -197,7 +197,7 @@ class TestNotes(unittest.TestCase):
         form.enter_value('marker_symbol', 'Bmp2')
         marker_symbol = form.get_value('marker_symbol')
         form.press_tab()
-        print marker_symbol
+        print(marker_symbol)
         self.assertEqual(marker_symbol, 'Bmp2')
         form.click_search()
         self.driver.find_element_by_id('comments').clear()#clears the notes field
@@ -219,7 +219,7 @@ class TestNotes(unittest.TestCase):
         form.enter_value('marker_symbol', 'Bmp2')
         marker_symbol = form.get_value('marker_symbol')
         form.press_tab()
-        print marker_symbol
+        print(marker_symbol)
         self.assertEqual(marker_symbol, 'Bmp2')
         form.click_search()
         self.driver.find_element_by_id('comments').clear()#clears the notes field
@@ -237,4 +237,4 @@ def suite():
 
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    HTMLTestRunner.main() 
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests')) 

@@ -70,9 +70,9 @@ class TestVarCopy(unittest.TestCase):
         # print all rows
         cells = table.get_rows()
         symbols = iterate.getTextAsList(cells)
-        print symbols
+        print(symbols)
         #assert all the correct symbols are returned
-        self.assertEquals(symbols, ['Rora<tmgc26>'])
+        self.assertEqual(symbols, ['Rora<tmgc26>'])
         
     def testVarCopyCoords1(self):
         """
@@ -88,10 +88,10 @@ class TestVarCopy(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(4)
         sgbld = driver.find_element_by_id("srcDnaVersion").get_attribute("value")#locate the sourced Genomic Genome Build field
-        print sgbld
+        print(sgbld)
         #checks if the Genomic sequence already exists, if not it will add it along with the other sequence data
         if "GRCm38" not in self.driver.find_element_by_id("srcDnaVersion").get_attribute("value"):
-            print "Sourced Genomic Version field is empty"
+            print("Sourced Genomic Version field is empty")
             driver.find_element_by_id("srcDnaVersion").send_keys('GRCm38(mm10)')#add sourced Genomic data
             time.sleep(2)
             driver.find_element_by_id("srcDnaStart").send_keys('51782639')#add sourced Genomic start coordinate data
@@ -133,10 +133,10 @@ class TestVarCopy(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         tid = self.driver.find_element_by_id("srcRnaID").get_attribute("value")
-        print tid
+        print(tid)
         #checks if the transcript already exists, if not it will add it along with the other sequence data
         if "XM_006519628" not in self.driver.find_element_by_id("srcRnaID").get_attribute("value"):
-            print "Sourced Transcript field is empty"
+            print("Sourced Transcript field is empty")
             driver.find_element_by_id("srcRnaID").send_keys('XM_006519628')#add sourced Transcript data
             time.sleep(2)
             driver.find_element_by_id("srcRnaStart").send_keys('23456')#add sourced Transcript start coordinate data
@@ -179,7 +179,7 @@ class TestVarCopy(unittest.TestCase):
         time.sleep(4)
         #checks if the Polypeptide already exists, if not it will add it along with the other sequence data
         if "Q8C2Q2" not in self.driver.find_element_by_id("srcProteinID").get_attribute("value"):
-            print "Sourced Polypeptide field is empty"
+            print("Sourced Polypeptide field is empty")
             driver.find_element_by_id("srcProteinID").send_keys('Q8C2Q2')#add sourced Polypeptide data
             time.sleep(2)
             driver.find_element_by_id("srcProteinStart").send_keys('51782639')#add sourced Polypeptide start coordinate data
@@ -222,10 +222,10 @@ class TestVarCopy(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(4)
         gid = self.driver.find_element_by_id("srcDnaVersion").get_attribute("value")
-        print gid
+        print(gid)
         #checks if the Genomic sequence already exists, if not it will add it along with the other sequence data
         if "GRCm38" not in self.driver.find_element_by_id("srcDnaVersion").get_attribute("value"):
-            print "Sourced Genomic Version field is empty"
+            print("Sourced Genomic Version field is empty")
             driver.find_element_by_id("srcDnaVersion").send_keys('GRCm38')#add sourced Genomic data
             time.sleep(2)
             driver.find_element_by_id("srcDnaStart").send_keys('47016337')#add sourced Genomic start coordinate data
@@ -268,10 +268,10 @@ class TestVarCopy(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         tid = self.driver.find_element_by_id("srcRnaID").get_attribute("value")
-        print tid
+        print(tid)
         #checks if the transcript already exists, if not it will add it along with the other sequence data
         if "NM_009170" not in self.driver.find_element_by_id("srcRnaID").get_attribute("value"):
-            print "Sourced Transcript field is empty"
+            print("Sourced Transcript field is empty")
             driver.find_element_by_id("srcRnaID").send_keys('NM_028966')#add sourced Transcript data
             time.sleep(2)
             driver.find_element_by_id("srcRnaStart").send_keys('123')#add sourced Transcript start coordinate data
@@ -316,7 +316,7 @@ class TestVarCopy(unittest.TestCase):
         time.sleep(4)
         #checks if the Polypeptide already exists, if not it will add it along with the other sequence data
         if "NP_083242" not in self.driver.find_element_by_id("srcProteinID").get_attribute("value"):
-            print "Sourced Polypeptide field is empty"
+            print("Sourced Polypeptide field is empty")
             driver.find_element_by_id("srcProteinID").send_keys('NP_083242')#add sourced Polypeptide data
             time.sleep(2)
             driver.find_element_by_id("srcProteinStart").send_keys('123')#add sourced Polypeptide start coordinate data
@@ -407,6 +407,6 @@ def suite():
 '''
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    HTMLTestRunner.main()
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))
                     
         

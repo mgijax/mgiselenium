@@ -14,7 +14,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
-import HTMLTestRunner
+import HtmlTestRunner
 import json
 import sys,os.path
 # adjust the path to find config
@@ -61,9 +61,9 @@ class TestMrkSearch(unittest.TestCase):
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
         symbol1 = iterate.getTextAsList(cell1)
-        print symbol1
+        print(symbol1)
         #Assert the correct marker symbol and marker type is returned
-        self.assertEquals(symbol1, ['03.MMHAP34FRA.seq'])
+        self.assertEqual(symbol1, ['03.MMHAP34FRA.seq'])
         #since we search for a particular marker type verify the correct type is displayed
         mrktype = driver.find_element_by_id('markerType').get_attribute('value')
         self.assertEqual(mrktype, 'string:2')#2 equals "DNA Segment"
@@ -85,9 +85,9 @@ class TestMrkSearch(unittest.TestCase):
         # print row 1
         cell1 = table.get_row_cells(0)
         symbol1 = iterate.getTextAsList(cell1)
-        print symbol1
+        print(symbol1)
         #symbols_cells = table.get_column_cells('Marker')
-        self.assertEquals(symbol1, ['03.MMHAP34FRA.seq'])
+        self.assertEqual(symbol1, ['03.MMHAP34FRA.seq'])
         #since we search for a particular marker type verify the correct type is displayed
         mrktype = driver.find_element_by_id('markerType').get_attribute('value')
         self.assertEqual(mrktype, 'string:2')#2 equals "DNA Segment"
@@ -109,8 +109,8 @@ class TestMrkSearch(unittest.TestCase):
         # print row 1
         cell1 = table.get_row_cells(0)
         symbol1 = iterate.getTextAsList(cell1)
-        print symbol1
-        self.assertEquals(symbol1, ['Aaaq1'])
+        print(symbol1)
+        self.assertEqual(symbol1, ['Aaaq1'])
         #since we search for a particular marker type verify the correct type is displayed
         mrktype = driver.find_element_by_id('markerType').get_attribute('value')
         self.assertEqual(mrktype, 'string:6')#9 equals "QTL"
@@ -132,8 +132,8 @@ class TestMrkSearch(unittest.TestCase):
         # print row 1
         cell1 = table.get_row_cells(0)
         symbol1 = iterate.getTextAsList(cell1)
-        print symbol1
-        self.assertEquals(symbol1, ['Et(cre/ERT2)119Rdav'])
+        print(symbol1)
+        self.assertEqual(symbol1, ['Et(cre/ERT2)119Rdav'])
         #since we search for a particular marker type verify the correct type is displayed
         mrktype = driver.find_element_by_id('markerType').get_attribute('value')
         self.assertEqual(mrktype, 'string:12')#12 equals "Transgene"
@@ -155,8 +155,8 @@ class TestMrkSearch(unittest.TestCase):
         # print row 1
         cell1 = table.get_row_cells(0)
         symbol1 = iterate.getTextAsList(cell1)
-        print symbol1
-        self.assertEquals(symbol1, ['Amy'])
+        print(symbol1)
+        self.assertEqual(symbol1, ['Amy'])
         #since we search for a particular marker type verify the correct type is displayed
         mrktype = driver.find_element_by_id('markerType').get_attribute('value')
         self.assertEqual(mrktype, 'string:10')#10 equals "Complex/Cluster/Region"
@@ -177,8 +177,8 @@ class TestMrkSearch(unittest.TestCase):
         # print row 1
         cell1 = table.get_row_cells(0)
         symbol1 = iterate.getTextAsList(cell1)
-        print symbol1
-        self.assertEquals(symbol1, ['Del(10)12H'])
+        print(symbol1)
+        self.assertEqual(symbol1, ['Del(10)12H'])
         #since we search for a particular marker type verify the correct type is displayed
         mrktype = driver.find_element_by_id('markerType').get_attribute('value')
         self.assertEqual(mrktype, 'string:3')#3 equals "Cytogenetic Marker"
@@ -201,8 +201,8 @@ class TestMrkSearch(unittest.TestCase):
         # print row 1
         cell1 = table.get_row_cells(0)
         symbol1 = iterate.getTextAsList(cell1)
-        print symbol1
-        self.assertEquals(symbol1, ['03B03F'])
+        print(symbol1)
+        self.assertEqual(symbol1, ['03B03F'])
         #since we search for a particular marker type verify the correct type is displayed
         mrktype = driver.find_element_by_id('markerType').get_attribute('value')
         self.assertEqual(mrktype, 'string:8')#8 equals "BAC/YAC end"
@@ -224,8 +224,8 @@ class TestMrkSearch(unittest.TestCase):
         # print row 1
         cell1 = table.get_row_cells(0)
         symbol1 = iterate.getTextAsList(cell1)
-        print symbol1
-        self.assertEquals(symbol1, ['100039035'])
+        print(symbol1)
+        self.assertEqual(symbol1, ['100039035'])
         #since we search for a particular marker type verify the correct type is displayed
         mrktype = driver.find_element_by_id('markerType').get_attribute('value')
         self.assertEqual(mrktype, 'string:7')#7 equals "Pseudogene"
@@ -247,9 +247,9 @@ class TestMrkSearch(unittest.TestCase):
         #get the first row of data and print it's symbol
         cell1 = table.get_row_cells(0)
         symbol1 = iterate.getTextAsList(cell1)
-        print symbol1
+        print(symbol1)
         #assert the symbol is correct
-        self.assertEquals(symbol1, ['Actb-rs1'])
+        self.assertEqual(symbol1, ['Actb-rs1'])
         #since we search for a particular marker type verify the correct type is displayed
         mrktype = driver.find_element_by_id('markerType').get_attribute('value')
         self.assertEqual(mrktype, 'string:9')#9 equals "Other Genome Feature"
@@ -270,7 +270,7 @@ class TestMrkSearch(unittest.TestCase):
         # find the first row of data
         cells = table.get_row(0)
         #print the first row result
-        print cells.text
+        print(cells.text)
         #locate the Name field and verify the result is correct
         mrkname = driver.find_element_by_id('markerName').get_attribute('value')
         self.assertEqual(mrkname, 'withdrawn, = Ints13')
@@ -292,9 +292,9 @@ class TestMrkSearch(unittest.TestCase):
         # print row 1
         cells = table.get_row(0)
         #print column 1
-        print cells.text
+        print(cells.text)
         #assert the symbol is correct
-        self.assertEquals(cells.text, '0610009F21Rik')
+        self.assertEqual(cells.text, '0610009F21Rik')
         #locate the Marker status field and assert it is correct
         mrkstatus = driver.find_element_by_id('markerStatus').get_attribute('value')
         self.assertEqual(mrkstatus, 'string:1')#1 equals "Official"
@@ -316,9 +316,9 @@ class TestMrkSearch(unittest.TestCase):
         # print row 1
         cells = table.get_row(0)
         #print column 1
-        print cells.text
+        print(cells.text)
         #assert the symbol is correct
-        self.assertEquals(cells.text, '0610006N12Rik')
+        self.assertEqual(cells.text, '0610006N12Rik')
         #locate the Marker status field and assert it is correct
         mrkstatus = driver.find_element_by_id('markerStatus').get_attribute('value')
         self.assertEqual(mrkstatus, 'string:2')#2 equals "Withdrawn"
@@ -339,9 +339,9 @@ class TestMrkSearch(unittest.TestCase):
         # print row 1
         cells = table.get_row(0)
         #print column 1
-        print cells.text
+        print(cells.text)
         #assert the symbol is correct
-        self.assertEquals(cells.text, 'Acadlm')
+        self.assertEqual(cells.text, 'Acadlm')
         #locate the Marker status field and assert it is correct
         mrkstatus = driver.find_element_by_id('markerStatus').get_attribute('value')
         self.assertEqual(mrkstatus, 'string:3')#3 equals "Reserved"
@@ -361,9 +361,9 @@ class TestMrkSearch(unittest.TestCase):
         table = Table(results_table)
         # print row 1
         cells = table.get_row(0)
-        print cells.text
+        print(cells.text)
         #Assert the correct symbol has been returned in the results table
-        self.assertEquals(cells.text, '10S')
+        self.assertEqual(cells.text, '10S')
         #Assert the correct Symbol is returned in the symbol field
         mrksymbol = driver.find_element_by_id('markerSymbol').get_attribute('value')
         self.assertEqual(mrksymbol, '10S')
@@ -383,9 +383,9 @@ class TestMrkSearch(unittest.TestCase):
         table = Table(results_table)
         # print row 1
         cells = table.get_row(0)
-        print cells.text
+        print(cells.text)
         #Assert the correct symbol has been returned in the results table
-        self.assertEquals(cells.text, 'Shh')
+        self.assertEqual(cells.text, 'Shh')
         #Assert the correct Symbol is returned in the symbol field
         mrksymbol = driver.find_element_by_id('markerSymbol').get_attribute('value')
         self.assertEqual(mrksymbol, 'Shh')
@@ -412,9 +412,9 @@ class TestMrkSearch(unittest.TestCase):
         # print row 1
         cells = table.get_row(0)
         time.sleep(2)
-        print cells.text
+        print(cells.text)
         #Assert the correct symbol has been returned in the results table
-        self.assertEquals(cells.text, 'Acf1')
+        self.assertEqual(cells.text, 'Acf1')
         #Assert the correct Symbol is returned in the symbol field
         mrksymbol = driver.find_element_by_id('markerSymbol').get_attribute('value')
         self.assertEqual(mrksymbol, 'Acf1')
@@ -438,9 +438,9 @@ class TestMrkSearch(unittest.TestCase):
         # print row 1
         cells = table.get_row(0)
         time.sleep(2)
-        print cells.text
+        print(cells.text)
         #Assert the correct symbol has been returned in the results table
-        self.assertEquals(cells.text, 'Shh')
+        self.assertEqual(cells.text, 'Shh')
         #Assert the correct Symbol is returned in the symbol field
         mrksymbol = driver.find_element_by_id('markerSymbol').get_attribute('value')
         self.assertEqual(mrksymbol, 'Shh')
@@ -488,16 +488,16 @@ class TestMrkSearch(unittest.TestCase):
         table = Table(results_table)
         # print row 1
         cells = table.get_rows()
-        print cells[0].text
+        print(cells[0].text)
         #Assert the correct symbols have been returned in the results table(only verifies the first 4 and last 4 results of the table)
-        self.assertEquals(cells[0].text, 'Pax1')
-        self.assertEquals(cells[1].text, 'Pax-1')
-        self.assertEquals(cells[2].text, 'Pax2')
-        self.assertEquals(cells[3].text, 'Pax-2')
-        self.assertEquals(cells[18].text, 'Pax-9')
-        self.assertEquals(cells[19].text, 'Paxbp1')
-        self.assertEquals(cells[20].text, 'Paxip1')
-        self.assertEquals(cells[21].text, 'Paxx')
+        self.assertEqual(cells[0].text, 'Pax1')
+        self.assertEqual(cells[1].text, 'Pax-1')
+        self.assertEqual(cells[2].text, 'Pax2')
+        self.assertEqual(cells[3].text, 'Pax-2')
+        self.assertEqual(cells[18].text, 'Pax-9')
+        self.assertEqual(cells[19].text, 'Paxbp1')
+        self.assertEqual(cells[20].text, 'Paxip1')
+        self.assertEqual(cells[21].text, 'Paxx')
 
     def testNameWildSearch(self):
         """
@@ -514,16 +514,16 @@ class TestMrkSearch(unittest.TestCase):
         table = Table(results_table)
         # print row 1
         cells = table.get_rows()
-        print cells[0].text
+        print(cells[0].text)
         #Assert the correct symbols have been returned in the results table(only verifies the first 4 and last 4 results of the table)
-        self.assertEquals(cells[0].text, 'Clpp')
-        self.assertEquals(cells[1].text, 'Clpx')
-        self.assertEquals(cells[2].text, 'Csn1s1')
-        self.assertEquals(cells[3].text, 'Csn1s2a')
-        self.assertEquals(cells[17].text, 'Csnka2ip')
-        self.assertEquals(cells[18].text, 'Csnk2a1-ps')
-        self.assertEquals(cells[19].text, 'Csnk2a1-ps1')
-        self.assertEquals(cells[20].text, 'Csnk2a3')
+        self.assertEqual(cells[0].text, 'Clpp')
+        self.assertEqual(cells[1].text, 'Clpx')
+        self.assertEqual(cells[2].text, 'Csn1s1')
+        self.assertEqual(cells[3].text, 'Csn1s2a')
+        self.assertEqual(cells[17].text, 'Csnka2ip')
+        self.assertEqual(cells[18].text, 'Csnk2a1-ps')
+        self.assertEqual(cells[19].text, 'Csnk2a1-ps1')
+        self.assertEqual(cells[20].text, 'Csnk2a3')
 
     #def testAccIDWildSearch(self):
         """
@@ -570,8 +570,8 @@ class TestMrkSearch(unittest.TestCase):
         # get and print the 2 rows
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
-        print cell0.text
-        print cell1.text
+        print(cell0.text)
+        print(cell1.text)
         #Assert the correct symbol has been returned in the results table
         self.assertEqual(cell0.text, 'Aff4')
         self.assertEqual(cell1.text, 'Mthfr-rs1')
@@ -598,8 +598,8 @@ class TestMrkSearch(unittest.TestCase):
         # get and print the 2 rows
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
-        print cell0.text
-        print cell1.text
+        print(cell0.text)
+        print(cell1.text)
         #Assert the correct symbol has been returned in the results table
         self.assertEqual(cell0.text, 'Lbp')
         self.assertEqual(cell1.text, 'Lrp8')
@@ -624,8 +624,8 @@ class TestMrkSearch(unittest.TestCase):
         # get and print the first 2 rows
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
-        print cell0.text
-        print cell1.text
+        print(cell0.text)
+        print(cell1.text)
         #Assert the correct symbol has been returned in the results table
         self.assertEqual(cell0.text, '100038882')
         self.assertEqual(cell1.text, 'Rgsc1520')
@@ -650,8 +650,8 @@ class TestMrkSearch(unittest.TestCase):
         # get and print the first 2 rows
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
-        print cell0.text
-        print cell1.text
+        print(cell0.text)
+        print(cell1.text)
         #Assert the correct symbol has been returned in the results table
         self.assertEqual(cell0.text, '2300002M23Rik')
         #Assert the correct Creation Name is returned in the Creation Date field
@@ -677,8 +677,8 @@ class TestMrkSearch(unittest.TestCase):
         # get and print the first 2 rows
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
-        print cell0.text
-        print cell1.text
+        print(cell0.text)
+        print(cell1.text)
         #Assert the correct symbol has been returned in the results table
         self.assertEqual(cell0.text, '4930500I12Rik')
         self.assertEqual(cell1.text, 'AY243472')
@@ -705,8 +705,8 @@ class TestMrkSearch(unittest.TestCase):
         # get and print the first 2 rows
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
-        print cell0.text
-        print cell1.text
+        print(cell0.text)
+        print(cell1.text)
         #Assert the correct symbol has been returned in the results table
         self.assertEqual(cell0.text, '4930500I12Rik')
         self.assertEqual(cell1.text, 'AI838599')
@@ -733,8 +733,8 @@ class TestMrkSearch(unittest.TestCase):
         # get and print the first 2 rows
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
-        print cell0.text
-        print cell1.text
+        print(cell0.text)
+        print(cell1.text)
         #Assert the correct symbol has been returned in the results table
         self.assertEqual(cell0.text, 'Tg(Alb-SND1)3aDsar')
         self.assertEqual(cell1.text, 'Tg(KRT5-Terf2)PMBlas')
@@ -762,8 +762,8 @@ class TestMrkSearch(unittest.TestCase):
         # get and print the first 2 rows
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
-        print cell0.text
-        print cell1.text
+        print(cell0.text)
+        print(cell1.text)
         #Assert the correct symbol has been returned in the results table
         self.assertEqual(cell0.text, 'Huc1')
         self.assertEqual(cell1.text, 'Huc2')
@@ -790,8 +790,8 @@ class TestMrkSearch(unittest.TestCase):
         # get and print the first 2 rows
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
-        print cell0.text
-        print cell1.text
+        print(cell0.text)
+        print(cell1.text)
         #Assert the correct symbol has been returned in the results table
         self.assertEqual(cell0.text, 'Atxn7')
         self.assertEqual(cell1.text, 'Huc1')
@@ -818,8 +818,8 @@ class TestMrkSearch(unittest.TestCase):
         # get and print the first 2 rows
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
-        print cell0.text
-        print cell1.text
+        print(cell0.text)
+        print(cell1.text)
         #Assert the correct symbols has been returned in the results table
         self.assertEqual(cell0.text, 'Atxn7')
         self.assertEqual(cell1.text, 'Galnt5')
@@ -840,7 +840,7 @@ class TestMrkSearch(unittest.TestCase):
         time.sleep(4)
         #find the synonym results table type column row 5
         syn_type = driver.find_elements_by_id('synonymType')[4].get_attribute('value')
-        print syn_type
+        print(syn_type)
         #Assert the fith synonym type returned(row5) is correct
         self.assertEqual(syn_type, 'string:1006')#string:1006  equals synonym type Broad
         
@@ -857,7 +857,7 @@ class TestMrkSearch(unittest.TestCase):
         time.sleep(4)
         #find the synonym results table type column row 5
         syn_name = driver.find_element_by_id('synonymName-1').get_attribute('value')
-        print syn_name
+        print(syn_name)
         #Assert the second synonym name returned(row2) is correct
         self.assertEqual(syn_name, 'Gf-1')
         
@@ -873,7 +873,7 @@ class TestMrkSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(4)
         syn_jnum = driver.find_element_by_id('synjnumID-1').get_attribute('value')
-        print syn_jnum
+        print(syn_jnum)
         #Assert the synonym J number is correct for row 2
         self.assertEqual(syn_jnum, 'J:9808')
         
@@ -890,7 +890,7 @@ class TestMrkSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         time.sleep(4)
         syn_jnum = driver.find_element_by_id('synjnumID-1').get_attribute('value')
-        print syn_jnum
+        print(syn_jnum)
         #Assert the synonym J number is correct for row 2
         self.assertEqual(syn_jnum, 'J:9808') 
 
@@ -943,7 +943,7 @@ class TestMrkSearch(unittest.TestCase):
         syn_type1 = driver.find_elements_by_id('synonymType')[0].get_attribute('value')
         syn_type2 = driver.find_elements_by_id('synonymType')[1].get_attribute('value')
         syn_type3 = driver.find_elements_by_id('synonymType')[2].get_attribute('value')
-        print syn_type1
+        print(syn_type1)
         #Assert the  synonym types returned are in the correct order
         self.assertEqual(syn_type1, 'string:1004')#string:1004  equals synonym type exact
         self.assertEqual(syn_type2, 'string:1005')#string:1005  equals synonym type similiar
@@ -968,7 +968,7 @@ class TestMrkSearch(unittest.TestCase):
         cells = table.get_column_cells('STS markers')
         time.sleep(2)
         #print the first row result
-        print cells[1].text
+        print(cells[1].text)
         #locate the Alias fields and verify the results are correct
         self.assertEqual(cells[1].text, 'D9Mit22')
         self.assertEqual(cells[2].text, 'D9Mit26')
@@ -996,7 +996,7 @@ class TestMrkSearch(unittest.TestCase):
         cells = table.get_column_cells('TSS or Gene')
         time.sleep(2)
         #print the first row result
-        print cells[1].text
+        print(cells[1].text)
         #locate the tss fields and verify the results are correct
         self.assertEqual(cells[1].text, 'Tssr162832')
         self.assertEqual(cells[2].text, 'Tssr162833')
@@ -1025,7 +1025,7 @@ class TestMrkSearch(unittest.TestCase):
         cells = table.get_column_cells('TSS or Gene')
         time.sleep(2)
         #print the first row result
-        print cells[1].text
+        print(cells[1].text)
         #locate the tss fields and verify the results are correct
         self.assertEqual(cells[1].text, 'Gata1')
 
@@ -1056,7 +1056,7 @@ class TestMrkSearch(unittest.TestCase):
         ref_type1 = driver.find_elements_by_id('refAssocType')[0].get_attribute('value')
         ref_type2 = driver.find_elements_by_id('refAssocType')[1].get_attribute('value')
         
-        print ref_type1
+        print(ref_type1)
         #Assert the  synonym types returned are in the correct order
         self.assertEqual(ref_type1, 'string:1018')#string:1018  equals reference type general
         self.assertEqual(ref_type2, 'string:1018')#string:1018  equals reference type general
@@ -1079,7 +1079,7 @@ class TestMrkSearch(unittest.TestCase):
         #find the reference results table type column
         ref_type1 = driver.find_elements_by_id('refAssocType')[16].get_attribute('value')
         ref_type2 = driver.find_elements_by_id('refAssocType')[17].get_attribute('value')        
-        print ref_type1
+        print(ref_type1)
         #Assert the  synonym types returned are in the correct order
         self.assertEqual(ref_type1, 'string:1028')#string:1028  equals reference type strain-specific marker
         self.assertEqual(ref_type2, 'string:1028')#string:1028  equals reference type strain-specific marker
@@ -1102,7 +1102,7 @@ class TestMrkSearch(unittest.TestCase):
         #find the reference results table J# column
         ref_jnum1 = driver.find_element_by_id('refjnumID-0').get_attribute('value')
         ref_jnum2 = driver.find_element_by_id('refjnumID-1').get_attribute('value')        
-        print ref_jnum1
+        print(ref_jnum1)
         #Assert the  J numbers returned are correct 
         self.assertEqual(ref_jnum1, 'J:699')
         self.assertEqual(ref_jnum2, 'J:10117')
@@ -1125,7 +1125,7 @@ class TestMrkSearch(unittest.TestCase):
         #find the reference results table J# column
         ref_jnum1 = driver.find_element_by_id('refjnumID-0').get_attribute('value')
         ref_jnum2 = driver.find_element_by_id('refjnumID-1').get_attribute('value')        
-        print ref_jnum1
+        print(ref_jnum1)
         #Assert the  J numbers returned are correct 
         self.assertEqual(ref_jnum1, 'J:699')
         self.assertEqual(ref_jnum2, 'J:10117')
@@ -1148,7 +1148,7 @@ class TestMrkSearch(unittest.TestCase):
         time.sleep(10)
         #find the Modified by column eighth row
         mod_by1 = driver.find_element_by_id('refAssocModifiedBy-8').get_attribute('value')
-        print mod_by1
+        print(mod_by1)
         #Assert the  Modified By field returned is correct 
         self.assertEqual(mod_by1, 'rbabiuk')
 
@@ -1170,7 +1170,7 @@ class TestMrkSearch(unittest.TestCase):
         wait.forAngular(self.driver)
         #find the Modified by column eighth row
         mod_date1 = driver.find_element_by_id('refAssocModification_date-2').get_attribute('value')
-        print mod_date1
+        print(mod_date1)
         #Assert the  Modified By field returned is correct 
         self.assertEqual(mod_date1, '2015-07-13')
 
@@ -1192,7 +1192,7 @@ class TestMrkSearch(unittest.TestCase):
         #find the reference results table type column
         ref_type1 = driver.find_elements_by_id('refAssocType')[6].get_attribute('value')
         ref_type2 = driver.find_elements_by_id('refAssocType')[7].get_attribute('value')        
-        print ref_type1
+        print(ref_type1)
         #Assert the  synonym types returned are in the correct order
         self.assertEqual(ref_type1, 'string:1018')#string:1028  equals reference type general
         self.assertEqual(ref_type2, 'string:1028')#string:1028  equals reference type strain-specific marker
@@ -1213,7 +1213,7 @@ class TestMrkSearch(unittest.TestCase):
         wait.forAngular(self.driver)
         #find the reference results table type column
         cite = driver.find_element_by_id('refAssocCitation-3').get_attribute('value')       
-        print cite
+        print(cite)
         #Assert the citation returned is correct for row4
         self.assertEqual(cite, 'Funk CD, Biochim Biophys Acta 1996 Nov 11;1304(1):65-84')
 
@@ -1240,13 +1240,13 @@ class TestMrkSearch(unittest.TestCase):
         #find the first column of results
         names = table.get_column_cells('Acc Name')
         name_list = iterate.getTextAsList(names)
-        print name_list
+        print(name_list)
         #Assert the names are in the correct sort order
         self.assertEqual(name_list, ['Acc Name', 'ABA', 'Affy 1.0 ST', 'Affy 430 2.0', 'Affy U74', 'ArrayExpress', 'Ensembl Gene Model', 'Ensembl Protein', 'Ensembl Transcript', 'Ensembl Transcript', 'Ensembl Transcript', 'Entrez Gene', 'FuncBase', 'NCBI Gene Model', 'RefSeq', 'SWISS-PROT', 'UniGene'])            
         #find the second column of results
         accs = table.get_column_cells('AccID')
         acc_list = iterate.getTextAsList(accs)
-        print acc_list  
+        print(acc_list)  
         #Assert the Acc IDs are in the correct sort order
         self.assertEqual(acc_list, ['AccID', '69681', '10382779', '1460472_at', '110085_at', 'MGI:1916931', 'ENSMUSG00000092300', 'ENSMUSP00000134251', 'ENSMUST00000173567', 'ENSMUST00000174177', 'ENSMUST00000174248', '69681', '1916931', '69681', 'NR_004853', 'Q80YP0', '33677'])
         
@@ -1258,5 +1258,5 @@ def suite():
 '''
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    HTMLTestRunner.main()
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))
     

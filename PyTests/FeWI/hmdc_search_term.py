@@ -7,12 +7,12 @@ E.g. removed assertions re: counts; changed assertEqual to assertIn; etc.  All t
 
 import unittest
 import time
-import requests
+#import requests
 from selenium import webdriver
 
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
-import HTMLTestRunner
+import HtmlTestRunner
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -20,7 +20,7 @@ sys.path.append(
 )
 import config
 from util import iterate, wait
-from util.form import ModuleForm
+#from util.form import ModuleForm
 from util.table import Table
 
 # Tests
@@ -52,7 +52,7 @@ class TestSearchTerm(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         wait.forAngular(self.driver)
-        print grid_tab.text
+        print(grid_tab.text)
         time.sleep(2)
         self.assertIn("Gene Homologs x Phenotypes/Diseases", grid_tab.text, "Grid tab is not visible!")
         grid_tab.click()
@@ -82,25 +82,26 @@ class TestSearchTerm(unittest.TestCase):
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         wait.forAngular(self.driver)
         time.sleep(3)
-        print grid_tab.text
+        print(grid_tab.text)
         time.sleep(2)
-        self.assertIn(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (1 x 18)", "Data has changed for this test - update may be needed")
+        self.assertIn(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (1 x 20)", "Data has changed for this test - update may be needed")
         grid_tab.click()
         
         #cells captures every field from Human Gene heading to the last disease angled, this test is only testing the disease.
         cells = self.driver.find_elements_by_css_selector("div.ngc.cell-content.ngc-custom-html.ng-binding.ng-scope")
         #print iterate.getTextAsList(cells) #if you want to see what it captures uncomment this
         #displays each angled column of disease heading, note that there is 1 blank field between pheno headings and disease headings.
-        disease1 = cells[20]
+        disease1 = cells[22]
+        print(disease1.text)
         #asserts that the correct diseases(at angle) display in the correct order
         self.assertEqual(disease1.text, 'inherited metabolic disorder')
         
-        #phenocells captures all the table data cells on the first row of data
-        phenocells = self.driver.find_elements_by_css_selector("td.ngc.center.cell.middle")
-        
-        phenocells[18].click() #clicks the disease cell (last one in list) to open up the genotype popup page
+        #phenocells captures the inherited metabolic disorder cell on the first row of data
+        phenocells = self.driver.find_element_by_css_selector("td.middle:nth-child(23) > div:nth-child(1) > div:nth-child(1)")
+        phenocells.click() #clicks the disease cell (last one in list) to open up the genotype popup page
+        time.sleep(2)
         self.driver.switch_to_window(self.driver.window_handles[1])#switches focus to the genotype popup page
-        #time.sleep(5)
+        time.sleep(5)
         matching_text = "Human Genes and Mouse Models for inherited metabolic disorder and SUMF1/Sumf1"
         #asserts the heading text is correct in page source
         self.assertIn(matching_text, self.driver.page_source, 'matching text not displayed')
@@ -109,7 +110,7 @@ class TestSearchTerm(unittest.TestCase):
         popup_table = self.driver.find_element_by_class_name("popupTable")
         
         disease_data = popup_table.find_element_by_css_selector("span > a")
-        print disease_data.text
+        print(disease_data.text)
         #asserts that the correct disease is displayed
         self.assertEqual(disease_data.text, 'mucosulfatidosis')
         
@@ -134,7 +135,7 @@ class TestSearchTerm(unittest.TestCase):
         self.driver.find_element_by_xpath("//*[contains(text(), 'Add')]").click()
         my_select1 = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_4')]")#identifies the select field and picks the phenotype name option
         for option in my_select1.find_elements_by_tag_name("option"):
-            print option.text
+            print(option.text)
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
@@ -148,7 +149,7 @@ class TestSearchTerm(unittest.TestCase):
         #identify the Grid tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print ("grid tab counts =", grid_tab.text)
+        print(("grid tab counts =", grid_tab.text))
         self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (1 x 8)", "Grid tab is not visible!")
         grid_tab.click()
         
@@ -157,7 +158,7 @@ class TestSearchTerm(unittest.TestCase):
         searchTermItems = iterate.getTextAsList(mgenes)
      
         self.assertEqual(searchTermItems[0], "Celsr3")
-        print searchTermItems
+        print(searchTermItems)
         
         # Add checks for Phenotype Categories returned
         #cells captures every field from Human Gene heading to the last angled term -- this test checks that the 2 MP headers associated with this term are displayed
@@ -187,7 +188,7 @@ class TestSearchTerm(unittest.TestCase):
         self.driver.find_element_by_xpath("//*[contains(text(), 'Add')]").click()
         my_select1 = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_4')]")#identifies the select field and picks the phenotype name option
         for option in my_select1.find_elements_by_tag_name("option"):
-            print option.text
+            print(option.text)
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
@@ -201,7 +202,7 @@ class TestSearchTerm(unittest.TestCase):
         
         #Identify the grid tab and click on it
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
-        print grid_tab.text
+        print(grid_tab.text)
         time.sleep(2)
         grid_tab.click()
         
@@ -209,7 +210,7 @@ class TestSearchTerm(unittest.TestCase):
         headingcells = self.driver.find_elements_by_css_selector("div.ngc.cell-content.ngc-custom-html.ng-binding.ng-scope")
         
         searchTermItems = iterate.getTextAsList(headingcells)
-        print searchTermItems #if you want to see what it captures uncomment this
+        print(searchTermItems) #if you want to see what it captures uncomment this
         
         #verify that the correct MP header terms for this phenotype term are included in the grid
          
@@ -218,10 +219,10 @@ class TestSearchTerm(unittest.TestCase):
         
         #Verify that the actual term is displayed in the genotype pop-up
         
-        #phenocells captures all the table data cells on the first row of data
-        phenocells = self.driver.find_elements_by_css_selector("td.ngc.center.cell.middle")
+        #phenocell captures the table hearing/vestibular/ear cell on the first row of data
+        phenocell = self.driver.find_element_by_css_selector("td.middle:nth-child(9) > div:nth-child(1) > div:nth-child(1)")
         
-        phenocells[5].click() #clicks the cell for hearing/vestibular/ear (new data could break this)
+        phenocell.click() #clicks the cell for hearing/vestibular/ear (new data could break this)
         self.driver.switch_to_window(self.driver.window_handles[1])#switches focus to the genotype popup page
         time.sleep(2)
         matching_text = "Human hearing/vestibular/ear abnormalities for TFAP2A/Tfap2a"
@@ -257,21 +258,21 @@ class TestSearchTerm(unittest.TestCase):
         cells = self.driver.find_elements_by_css_selector("div.ngc.cell-content.ngc-custom-html.ng-binding.ng-scope")
         
         cellheadings = iterate.getTextAsList(cells)
-        print cellheadings
+        print(cellheadings)
         
         #asserts that the correct diseases(at angle) display in the correct order
         self.assertIn('musculoskeletal system disease', cellheadings, "expected disease header not displayed")
         
         #identify the Disease tab, print it, and click it
         disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
-        print disease_tab.text
+        print(disease_tab.text)
         disease_tab.click()
         
         disease_table = Table(self.driver.find_element_by_id("diseaseTable"))
         
         cells = disease_table.get_column_cells("DO ID")
         
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         ids = iterate.getTextAsList(cells)
         
         #asserts that the expected disease is returned
@@ -297,7 +298,7 @@ class TestSearchTerm(unittest.TestCase):
         self.driver.find_element_by_xpath("//*[contains(text(), 'Add')]").click()
         my_select1 = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_4')]")#identifies the select field and picks the phenotype name option
         for option in my_select1.find_elements_by_tag_name("option"):
-            print option.text
+            print(option.text)
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
@@ -332,7 +333,7 @@ class TestSearchTerm(unittest.TestCase):
         headingcells = self.driver.find_elements_by_css_selector("div.ngc.cell-content.ngc-custom-html.ng-binding.ng-scope")
         
         searchTermItems = iterate.getTextAsList(headingcells)
-        print searchTermItems #if you want to see what it captures uncomment this
+        print(searchTermItems) #if you want to see what it captures uncomment this
         
         #verify that the correct MP header terms for this phenotype term are included in the grid
          
@@ -374,7 +375,7 @@ class TestSearchTerm(unittest.TestCase):
         self.driver.find_element_by_xpath("//*[contains(text(), 'Add')]").click()
         my_select1 = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_4')]")#identifies the select field and picks the phenotype name option
         for option in my_select1.find_elements_by_tag_name("option"):
-            print option.text
+            print(option.text)
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
@@ -444,7 +445,7 @@ class TestSearchTerm(unittest.TestCase):
         self.driver.find_element_by_xpath("//*[contains(text(), 'Add')]").click()
         my_select1 = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_4')]")#identifies the select field and picks the phenotype name option
         for option in my_select1.find_elements_by_tag_name("option"):
-            print option.text
+            print(option.text)
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
@@ -465,7 +466,7 @@ class TestSearchTerm(unittest.TestCase):
         cellheadings = iterate.getTextAsList(cells) #if you want to see what it captures uncomment this
         
         #asserts that the correct diseases(at angle) display in the correct order
-        self.assertIn('ciliopathy', cellheadings, "expected disease header not found")
+        self.assertIn('nervous system disease', cellheadings, "expected disease header not found")
         
         #identify the Disease tab and verify the tab's text
         disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
@@ -514,7 +515,7 @@ class TestSearchTerm(unittest.TestCase):
         
         #capture N display
         pcells = self.driver.find_elements_by_css_selector("td.ngc.center.cell.middle")
-        print iterate.getTextAsList(pcells)
+        print(iterate.getTextAsList(pcells))
         
         pcellsnormal = iterate.getTextAsList(pcells)
         self.assertIn('N', pcellsnormal, "Normal flag not found")
@@ -539,7 +540,7 @@ class TestSearchTerm(unittest.TestCase):
         self.driver.find_element_by_xpath("//*[contains(text(), 'Add')]").click()
         my_select1 = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_4')]")#identifies the select field and picks the phenotype name option
         for option in my_select1.find_elements_by_tag_name("option"):
-            print option.text
+            print(option.text)
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
@@ -561,13 +562,12 @@ class TestSearchTerm(unittest.TestCase):
         
         #Verify that the simple genotype is displayed in the genotype pop-up
         
-        #phenocells captures all the table data cells on the first row of data
-        phenocells = self.driver.find_elements_by_css_selector("td.ngc.center.cell.middle")
-        
-        phenocells[0].click() #clicks the cell for behavior/neurological (new data could break this)
+        #phenocell captures all the table behavior/neurological cell on the first row of data
+        phenocell = self.driver.find_element_by_css_selector("td.middle:nth-child(3) > div:nth-child(1) > div:nth-child(1)")
+        phenocell.click() #clicks the cell for behavior/neurological (new data could break this)
         self.driver.switch_to_window(self.driver.window_handles[1])#switches focus to the genotype popup page
         time.sleep(2)
-        matching_text = "Mouse behavior/neurological abnormalities for AARS/Aars"
+        matching_text = "Mouse behavior/neurological abnormalities for AARS1/Aars"
         #asserts the heading text is correct in page source
         self.assertIn(matching_text, self.driver.page_source, 'expected pop-up box heading not displayed')
         
@@ -593,7 +593,7 @@ class TestSearchTerm(unittest.TestCase):
         self.driver.find_element_by_xpath("//*[contains(text(), 'Add')]").click()
         my_select1 = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_4')]")#identifies the select field and picks the phenotype name option
         for option in my_select1.find_elements_by_tag_name("option"):
-            print option.text
+            print(option.text)
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
@@ -648,7 +648,7 @@ class TestSearchTerm(unittest.TestCase):
         self.driver.find_element_by_xpath("//*[contains(text(), 'Add')]").click()
         my_select1 = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_4')]")#identifies the select field and picks the phenotype name option
         for option in my_select1.find_elements_by_tag_name("option"):
-            print option.text
+            print(option.text)
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
@@ -703,7 +703,7 @@ class TestSearchTerm(unittest.TestCase):
         self.driver.find_element_by_xpath("//*[contains(text(), 'Add')]").click()
         my_select1 = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_4')]")#identifies the select field and picks the phenotype name option
         for option in my_select1.find_elements_by_tag_name("option"):
-            print option.text
+            print(option.text)
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
@@ -743,7 +743,7 @@ class TestSearchTerm(unittest.TestCase):
         self.driver.find_element_by_xpath("//*[contains(text(), 'Add')]").click()
         my_select1 = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_4')]")#identifies the select field and picks the phenotype name option
         for option in my_select1.find_elements_by_tag_name("option"):
-            print option.text
+            print(option.text)
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
@@ -785,7 +785,7 @@ class TestSearchTerm(unittest.TestCase):
         self.driver.find_element_by_xpath("//*[contains(text(), 'Add')]").click()
         my_select1 = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_4')]")#identifies the select field and picks the phenotype name option
         for option in my_select1.find_elements_by_tag_name("option"):
-            print option.text
+            print(option.text)
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
@@ -826,7 +826,7 @@ class TestSearchTerm(unittest.TestCase):
         self.driver.find_element_by_xpath("//*[contains(text(), 'Add')]").click()
         my_select1 = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_4')]")#identifies the select field and picks the phenotype name option
         for option in my_select1.find_elements_by_tag_name("option"):
-            print option.text
+            print(option.text)
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
@@ -899,4 +899,4 @@ class TestSearchTerm(unittest.TestCase):
         '''
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    HTMLTestRunner.main() 
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests')) 

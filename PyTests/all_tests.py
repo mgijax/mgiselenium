@@ -12,13 +12,13 @@ import config
 import unittest
 
 # import all sub test suites
-from EI import all_tests as ei_tests
-from FeWI import all_tests as fewi_tests
-from PWI import all_tests as pwi_tests
+from .EI import all_tests as ei_tests
+from .FeWI import all_tests as fewi_tests
+from .PWI import all_tests as pwi_tests
 
-import test_mrk_detail_links
-import test_private_data
-import test_snp_build_numbers
+from . import test_mrk_detail_links
+from . import test_private_data
+from . import test_snp_build_numbers
 
 # add the test suites
 def master_suite():

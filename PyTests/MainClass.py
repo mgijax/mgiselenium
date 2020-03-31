@@ -4,11 +4,11 @@ Created on Nov 23, 2016
 @author: jeffc
 '''
 import unittest
-from test_search_tool import TestSearchTool
-from test_snp_build_numbers import TestSnpBuild
-from test_private_data import TestPrivateData
+from .test_search_tool import TestSearchTool
+from .test_snp_build_numbers import TestSnpBuild
+from .test_private_data import TestPrivateData
 import os
-import HTMLTestRunner
+import HtmlTestRunner
 
 
 def main():
@@ -20,7 +20,7 @@ def main():
 #file
     dir = os.getcwd()
     outfile = open(dir + "PWItestreport.html", "w")
-    runner = HTMLTestRunner.HTMLTestRunner(stream = outfile,title = 'Test Report',description = 'PWI Test Report')
+    runner = HtmlTestRunner.HTMLTestRunner(stream = outfile,title = 'Test Report',description = 'PWI Test Report')
     runner.run(pwi_tests)
 
 if __name__=="__main__":

@@ -11,7 +11,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 #from selenium.webdriver.common.action_chains import ActionChains
-import HTMLTestRunner
+import HtmlTestRunner
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -56,7 +56,7 @@ class TestHmdcSearchID(unittest.TestCase):
         #identify the Grid Tab and click on it
         grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         grid_tab.click()
         
         #Get the list of human and mouse genes
@@ -75,7 +75,7 @@ class TestHmdcSearchID(unittest.TestCase):
         #Identify the Disease Tab and click on it
         disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         time.sleep(2)
-        print disease_tab.text
+        print(disease_tab.text)
         disease_tab.click()
         
         #Verify disease searched for is returned
@@ -104,7 +104,7 @@ class TestHmdcSearchID(unittest.TestCase):
         #Identify the Disease Tab and click on it
         disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         time.sleep(2)
-        print disease_tab.text
+        print(disease_tab.text)
         disease_tab.click()
         
         #Verify no diseases are returned
@@ -131,7 +131,7 @@ class TestHmdcSearchID(unittest.TestCase):
         #Identify the Disease Tab and click on it
         disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         time.sleep(2)
-        print disease_tab.text
+        print(disease_tab.text)
         disease_tab.click()
         
         #Verify disease searched for is returned
@@ -160,7 +160,7 @@ class TestHmdcSearchID(unittest.TestCase):
         #Identify the Disease Tab and click on it
         disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         time.sleep(2)
-        print disease_tab.text
+        print(disease_tab.text)
         disease_tab.click()
         
         #Verify disease searched for is returned
@@ -189,7 +189,7 @@ class TestHmdcSearchID(unittest.TestCase):
         #identify the Disease tab and click on it
         disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         time.sleep(2)
-        print disease_tab.text
+        print(disease_tab.text)
         disease_tab.click()
         
         #Look for no results message
@@ -217,7 +217,7 @@ class TestHmdcSearchID(unittest.TestCase):
         #Identify the Disease Tab and click on it
         disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         time.sleep(2)
-        print disease_tab.text
+        print(disease_tab.text)
         disease_tab.click()
         
         #Verify disease searched for is returned
@@ -246,7 +246,7 @@ class TestHmdcSearchID(unittest.TestCase):
         #Identify the Disease Tab and click on it
         disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         time.sleep(2)
-        print disease_tab.text
+        print(disease_tab.text)
         disease_tab.click()
         
         #Verify disease searched for is returned
@@ -275,7 +275,7 @@ class TestHmdcSearchID(unittest.TestCase):
         #Identify the Disease Tab and click on it
         disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         time.sleep(2)
-        print disease_tab.text
+        print(disease_tab.text)
         disease_tab.click()
         
         #Verify disease searched for is returned
@@ -304,7 +304,7 @@ class TestHmdcSearchID(unittest.TestCase):
         #Identify the Disease Tab and click on it
         disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         time.sleep(2)
-        print disease_tab.text
+        print(disease_tab.text)
         disease_tab.click()
         
         #Verify disease searched for is returned
@@ -337,7 +337,7 @@ class TestHmdcSearchID(unittest.TestCase):
         #identify the Gene tab and click on it
         gene_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Grab the gene list and verify the mouse gene is returned but NOT the human ortholog
@@ -351,7 +351,7 @@ class TestHmdcSearchID(unittest.TestCase):
         #identify the Grid tab and click on it
         grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         grid_tab.click()
         
         #Get the list of mouse genes and verify expected gene is there
@@ -455,7 +455,7 @@ class TestHmdcSearchID(unittest.TestCase):
         #identify the Grid tab and click it
         grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         grid_tab.click()
         
         #firstcell captures all the table data blocks of phenotypes on the first row of data
@@ -544,7 +544,7 @@ class TestHmdcSearchID(unittest.TestCase):
         #identify the Grid tab and click it
         grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         grid_tab.click()
         
         #firstcell captures all the table data blocks of phenotypes on the first row of data
@@ -592,7 +592,7 @@ class TestHmdcSearchID(unittest.TestCase):
         #identify the Grid tab and click it
         grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         grid_tab.click()
         
         #firstcell captures all the table data blocks of phenotypes on the first row of data
@@ -601,10 +601,9 @@ class TestHmdcSearchID(unittest.TestCase):
         phenoheaders = iterate.getTextAsList(phenocells) #if you want to see what it captures uncomment this
         
         #asserts that the correct phenotypess(at angle) display in the correct order
-        self.assertIn('behavior/neurological', phenoheaders, "expected pheno heading not found")
-        self.assertIn('cardiovascular system', phenoheaders, "expected pheno heading not found")
+        self.assertIn('autosomal genetic disease', phenoheaders, "expected pheno heading not found")
         self.assertIn('hearing/vestibular/ear', phenoheaders, "expected pheno heading not found")
-        self.assertIn('nervous system', phenoheaders, "expected pheno heading not found")
+        self.assertIn('nervous system disease', phenoheaders, "expected pheno heading not found")
 
     def test_mixed_term_multi_id(self):
         '''
@@ -638,7 +637,7 @@ class TestHmdcSearchID(unittest.TestCase):
         #identify the Grid tab and click it
         grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         grid_tab.click()
         
         #firstcell captures all the table data blocks of phenotypes on the first row of data
@@ -686,7 +685,7 @@ class TestHmdcSearchID(unittest.TestCase):
         grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         grid_tab.click()
         
         #cells captures every field from Human Gene heading to the last disease angled, this test only captures the diseases, which are items 25,26,27
@@ -695,12 +694,12 @@ class TestHmdcSearchID(unittest.TestCase):
         gridheaders = iterate.getTextAsList(cells) 
         
         #asserts that the correct diseases(at angle) display in the correct order
-        self.assertIn('chondrodysplasia punctata', gridheaders, "expected disease heading not found")
+        self.assertIn('autosomal genetic disease', gridheaders, "expected disease heading not found")
          
         #identify the Diseases tab and click on it
         disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         time.sleep(2)
-        print disease_tab.text
+        print(disease_tab.text)
         disease_tab.click()
         
         disease_table = Table(self.driver.find_element(By.ID, "diseaseTable"))
@@ -736,5 +735,5 @@ class TestHmdcSearchID(unittest.TestCase):
         '''
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    HTMLTestRunner.main() 
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests')) 
 

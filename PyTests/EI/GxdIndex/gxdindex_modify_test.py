@@ -9,7 +9,7 @@ import unittest
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-import HTMLTestRunner
+import HtmlTestRunner
 
 import sys,os.path
 # adjust the path to find config
@@ -55,13 +55,13 @@ class TestModify(unittest.TestCase):
         form.press_tab()
         #finds the citation field
         citation = form.get_value('citation')
-        print citation
+        print(citation)
         self.assertIn('Brahmaraju', citation)
         #finds the marker field
         form.enter_value('marker_symbol', 'Aire')
         marker_symbol = form.get_value('marker_symbol')
         form.press_tab()
-        print marker_symbol
+        print(marker_symbol)
         form.click_search()
         
         table_element = driver.find_element_by_id("indexGrid")
@@ -82,13 +82,13 @@ class TestModify(unittest.TestCase):
         form.press_tab()
         #finds the citation field
         citation = form.get_value('citation')
-        print citation
+        print(citation)
         self.assertIn('Brahmaraju', citation)
         #finds the marker field
         form.enter_value('marker_symbol', 'Aire')
         marker_symbol = form.get_value('marker_symbol')
         form.press_tab()
-        print marker_symbol
+        print(marker_symbol)
         form.click_search()
         
         #removes an X in the first assay/second age cell
@@ -115,13 +115,13 @@ class TestModify(unittest.TestCase):
         form.press_tab()
         #finds the citation field
         citation = form.get_value('citation')
-        print citation
+        print(citation)
         self.assertEqual(citation, 'Alvarez-Saavedra M, Nat Commun 2014;5():4181')
         #finds the marker field
         form.enter_value('marker_symbol', 'Atoh1')
         marker_symbol = form.get_value('marker_symbol')
         form.press_tab()
-        print marker_symbol
+        print(marker_symbol)
         self.assertEqual(marker_symbol, 'Atoh1')
         form.click_search()
         self.driver.find_element_by_id('comments').clear()#clears the notes field
@@ -143,4 +143,4 @@ def suite():
 
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    HTMLTestRunner.main() 
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests')) 

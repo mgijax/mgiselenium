@@ -10,7 +10,7 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-import HTMLTestRunner
+import HtmlTestRunner
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -43,21 +43,21 @@ class TestDoBrowserGeneral(unittest.TestCase):
         self.driver.find_element(By.LINK_TEXT, "Parkinson's disease").click()
         
         header = self.driver.find_element(By.ID, 'diseaseNameID')#identifies the header section of the DO Browser page
-        print header.text
+        print(header.text)
         
         self.assertEqual(header.text, "Parkinson's disease (DOID:14330)")
         syn = self.driver.find_element(By.ID, 'diseaseSynonym')#identifies the synonym line in the header section of the DO Browser page
-        print syn.text
+        print(syn.text)
         
         self.assertEqual(syn.text, "paralysis agitans; Parkinson disease")
         alt_id = self.driver.find_element(By.ID, 'diseaseSecondaryIDs')#identifies the alternate IDs line of the header section of the DO Browser page
-        print alt_id.text
+        print(alt_id.text)
         
         self.assertIn(alt_id.text, "OMIM:607688, OMIM:610297, OMIM:613643, OMIM:614251, EFO:0002508, ICD10CM:G20, ICD9CM:332, ICD9CM:332.0, KEGG:05012, MESH:D010300, NCI:C26845, OMIM:PS168600, ORDO:2828, UMLS_CUI:C0030567")
 
         #locates and verifies the definition
         definition = self.driver.find_element(By.ID, 'diseaseDefinition')#identifies the Definition line of the header section of the DO Browser page
-        print definition.text
+        print(definition.text)
         
         self.assertEqual(definition.text, "A synucleinopathy that has_material_basis_in degeneration of the central nervous system that often impairs motor skills, speech, and other functions.")
         
@@ -74,50 +74,50 @@ class TestDoBrowserGeneral(unittest.TestCase):
         self.driver.find_element(By.LINK_TEXT, "Parkinson's disease").click()
         wait.forAjax(self.driver)
         header = self.driver.find_element(By.ID, 'diseaseNameID')#identifies the header section of the DO Browser page
-        print header.text
+        print(header.text)
         
         self.assertEqual(header.text, "Parkinson's disease (DOID:14330)")
         syn = self.driver.find_element(By.ID, 'diseaseSynonym')#identifies the synonym line in the header section of the DO Browser page
-        print syn.text
+        print(syn.text)
         
         self.assertEqual(syn.text, "paralysis agitans; Parkinson disease")
         alt_id = self.driver.find_element(By.ID, 'diseaseSecondaryIDs')#identifies the alternate IDs line of the header section of the DO Browser page
-        print alt_id.text
+        print(alt_id.text)
         time.sleep(1)
         self.assertIn(alt_id.text, "OMIM:607688, OMIM:610297, OMIM:613643, OMIM:614251, EFO:0002508, ICD10CM:G20, ICD9CM:332, ICD9CM:332.0, KEGG:05012, MESH:D010300, NCI:C26845, OMIM:PS168600, ORDO:2828, UMLS_CUI:C0030567")
-        self.driver.find_element(By.LINK_TEXT, 'OMIM:607688').click()
+        self.driver.find_element(By.LINK_TEXT, 'OMIM:PS168600').click()
         
         self.driver.switch_to_window(self.driver.window_handles[-1])
-        print (self.driver.current_url)
+        print((self.driver.current_url))
         #OMIM link will not work until donation popup is removed
-        #self.assertEqual(self.driver.current_url, 'http://www.omim.org/entry/607688', 'The OMIM link is broken!')
+        #self.assertEqual(self.driver.current_url, 'http://www.omim.org/phenotypicSeries/PS168600', 'The OMIM link is broken!')
         self.driver.switch_to_window(self.driver.window_handles[0])
         
         self.driver.find_element(By.LINK_TEXT, 'EFO:0002508').click()
         
         self.driver.switch_to_window(self.driver.window_handles[-1])
-        print (self.driver.current_url)
+        print((self.driver.current_url))
         self.assertEqual(self.driver.current_url, 'https://www.ebi.ac.uk/ols/ontologies/efo/terms?short_form=EFO_0002508', 'The EFO link is broken!')
         self.driver.switch_to_window(self.driver.window_handles[0])
         
         self.driver.find_element(By.LINK_TEXT, 'KEGG:05012').click()
         
         self.driver.switch_to_window(self.driver.window_handles[-1])
-        print (self.driver.current_url)
+        print((self.driver.current_url))
         self.assertEqual(self.driver.current_url, 'https://www.genome.jp/dbget-bin/www_bget?map05012', 'The KEGG link is broken!')
         self.driver.switch_to_window(self.driver.window_handles[0])
         
         self.driver.find_element(By.LINK_TEXT, 'MESH:D010300').click()
         
         self.driver.switch_to_window(self.driver.window_handles[-1])
-        print (self.driver.current_url)
+        print((self.driver.current_url))
         self.assertEqual(self.driver.current_url, 'https://www.ncbi.nlm.nih.gov/mesh/D010300', 'The MESH link is broken!')
         self.driver.switch_to_window(self.driver.window_handles[0])
         
         self.driver.find_element(By.LINK_TEXT, 'ORDO:2828').click()
         
         self.driver.switch_to_window(self.driver.window_handles[-1])
-        print (self.driver.current_url)
+        print((self.driver.current_url))
         self.assertEqual(self.driver.current_url, 'https://www.orpha.net/consor/cgi-bin/OC_Exp.php?lng=EN&Expert=2828', 'The ORDO link is broken!')
         
     def test_dobrowser_mult_syn(self):
@@ -133,7 +133,7 @@ class TestDoBrowserGeneral(unittest.TestCase):
         self.driver.find_element_by_link_text('X-linked ichthyosis').click()
         wait.forAjax(self.driver)
         syn = self.driver.find_element_by_id('diseaseSynonym')#identifies the synonym line in the header section of the DO Browser page
-        print syn.text
+        print(syn.text)
         time.sleep(1)
         self.assertEqual(syn.text, "X-linked ichthyosis with steryl-sulphatase deficiency; X-linked placental steryl-sulphatase deficiency; X-linked recessive ichthyosis")
         
@@ -150,7 +150,7 @@ class TestDoBrowserGeneral(unittest.TestCase):
         self.driver.find_element(By.LINK_TEXT, 'X-linked ichthyosis').click()
         
         alt_id = self.driver.find_element(By.ID, 'diseaseSecondaryIDs')#identifies the alternate IDs line of the header section of the DO Browser page
-        print alt_id.text
+        print(alt_id.text)
         
         self.assertEqual(alt_id.text, "OMIM:308100, ICD10CM:Q80.1, MESH:D016114, NCI:C84779, UMLS_CUI:C0079588")
         
@@ -167,4 +167,4 @@ class TestDoBrowserGeneral(unittest.TestCase):
         '''
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    HTMLTestRunner.main() 
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))

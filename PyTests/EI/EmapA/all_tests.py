@@ -7,17 +7,16 @@ import sys,os.path
 sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../../config',)
 )
-import config
 
 import unittest
 
 # import all sub test suites
-import emapaclipboardtest
-import emapadetailtest
-import emapatreeviewtest
+from . import emapaclipboardtest
+from . import emapadetailtest
+from . import emapatreeviewtest
 from EI.EmapA import emapamodifytest
 from EI.EmapA import emapasearchtest
-
+from configparser import SafeConfigParser
 # add the test suites
 def master_suite():
         suites = []

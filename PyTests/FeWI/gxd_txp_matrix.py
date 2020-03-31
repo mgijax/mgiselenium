@@ -40,13 +40,13 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         time.sleep(1)
         #click the Gene Expression + Phenotype link
         driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
-        time.sleep(1)
+        time.sleep(2)
         self.driver.switch_to_window(self.driver.window_handles[-1])
         #find the Anatomical Terms column
         termslist = driver.find_element(By.ID, "rowGroupInner")
         items = termslist.find_elements(By.TAG_NAME, 'text')
         searchTextItems = iterate.getTextAsList(items)
-        print searchTextItems
+        print(searchTextItems)
         self.assertIn('mouse', searchTextItems)
         self.assertIn('body region', searchTextItems)
         self.assertIn('embryo', searchTextItems)
@@ -56,11 +56,11 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         termslist = driver.find_element(By.ID, 'colGroupInner')
         items = termslist.find_elements(By.TAG_NAME, "text")
         searchTextItems = iterate.getTextAsList(items)
-        print searchTextItems
+        print(searchTextItems)
         self.assertIn('Foxe1<tm1Rdl>/Foxe1<tm1Rdl>', searchTextItems)
         #find the phenotype grid box for endocrine system for Foxe1<tm1Rdl>/Foxe1<tm1Rdl>
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
-        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row8.col1 > rect.phenoBlue1')
+        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row9.col1 > rect.phenoBlue1')
         rightclass = item.get_attribute('class')
         #rightclass finds the class name of the gridbox
         #now we assert the class name of the gridbox matches the class name of phenoBlue1
@@ -87,7 +87,7 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         termslist = driver.find_element(By.ID, "rowGroupInner")
         items = termslist.find_elements(By.TAG_NAME, 'text')
         searchTextItems = iterate.getTextAsList(items)
-        print searchTextItems
+        print(searchTextItems)
         self.assertIn('mouse', searchTextItems)
         self.assertIn('hemolymphoid system', searchTextItems)
         self.assertIn('hematopoietic system', searchTextItems)
@@ -95,7 +95,7 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         termslist = driver.find_element(By.ID, 'colGroupInner')
         items = termslist.find_elements(By.TAG_NAME, "text")
         searchTextItems = iterate.getTextAsList(items)
-        print searchTextItems
+        print(searchTextItems)
         self.assertIn('Pax4<tm1b(EUCOMM)Hmgu>/Pax4<+>', searchTextItems)
         #find the phenotype grid box for hemolymphoid system for Pax4<tm1b(EUCOMM)Hmgu>/Pax4<+>
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
@@ -133,14 +133,14 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         termslist = driver.find_element(By.ID, "rowGroupInner")
         items = termslist.find_elements(By.TAG_NAME, 'text')
         searchTextItems = iterate.getTextAsList(items)
-        print searchTextItems
+        print(searchTextItems)
         self.assertIn('mouse', searchTextItems)
         self.assertIn('body fluid or substance', searchTextItems)
         #find the Phenotypes Terms column
         termslist = driver.find_element(By.ID, 'colGroupInner')
         items = termslist.find_elements(By.TAG_NAME, "text")
         searchTextItems = iterate.getTextAsList(items)
-        print searchTextItems
+        print(searchTextItems)
         self.assertIn('Avp<tm1Hari>/Avp<+>', searchTextItems)
         #find the phenotype grid box for body fluid or substance for Avp<tm1Hari>/Avp<+>
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
@@ -171,14 +171,14 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         termslist = driver.find_element(By.ID, "rowGroupInner")
         items = termslist.find_elements(By.TAG_NAME, 'text')
         searchTextItems = iterate.getTextAsList(items)
-        print searchTextItems
+        print(searchTextItems)
         self.assertIn('mouse', searchTextItems)
         self.assertIn('conceptus', searchTextItems)
         #find the Phenotypes Terms column
         termslist = driver.find_element(By.ID, 'colGroupInner')
         items = termslist.find_elements(By.TAG_NAME, "text")
         searchTextItems = iterate.getTextAsList(items)
-        print searchTextItems
+        print(searchTextItems)
         self.assertIn('Bmp15<tm1Zuk>/Bmp15<tm1Zuk>', searchTextItems)
         #find the phenotype grid box for conceptus for Bmp15<tm1Zuk>/Bmp15<tm1Zuk>
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
@@ -210,14 +210,14 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         termslist = driver.find_element(By.ID, "rowGroupInner")
         items = termslist.find_elements(By.TAG_NAME, 'text')
         searchTextItems = iterate.getTextAsList(items)
-        print searchTextItems
+        print(searchTextItems)
         self.assertIn('mouse', searchTextItems)
         self.assertIn('integumental system', searchTextItems)
         #find the Phenotypes Terms column
         termslist = driver.find_element(By.ID, 'colGroupInner')
         items = termslist.find_elements(By.TAG_NAME, "text")
         searchTextItems = iterate.getTextAsList(items)
-        print searchTextItems
+        print(searchTextItems)
         self.assertIn('Foxe1<tm1Rdl>/Foxe1<tm1Rdl>', searchTextItems)
         #find the phenotype grid box for integumental system system for Foxe1<tm1Rdl>/Foxe1<tm1Rdl>
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
@@ -248,7 +248,7 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         termslist = driver.find_element(By.ID, "rowGroupInner")
         items = termslist.find_elements(By.TAG_NAME, 'text')
         searchTextItems = iterate.getTextAsList(items)
-        print searchTextItems
+        print(searchTextItems)
         self.assertIn('mouse', searchTextItems)
         self.assertIn('conceptus', searchTextItems)
         self.assertIn('embryo', searchTextItems)
@@ -260,7 +260,7 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         termslist = driver.find_element(By.ID, 'colGroupInner')
         items = termslist.find_elements(By.TAG_NAME, "text")
         searchTextItems = iterate.getTextAsList(items)
-        print searchTextItems
+        print(searchTextItems)
         self.assertIn('Bmp15<tm1Zuk>/Y', searchTextItems)
         #find the phenotype grid box for conceptus for Bmp15<tm1Zuk>/Y
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
@@ -324,14 +324,14 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         termslist = driver.find_element(By.ID, "rowGroupInner")
         items = termslist.find_elements(By.TAG_NAME, 'text')
         searchTextItems = iterate.getTextAsList(items)
-        print searchTextItems
+        print(searchTextItems)
         self.assertIn('musculoskeletal system', searchTextItems)
         self.assertIn('musculature', searchTextItems)
         #find the Phenotypes Terms column
         termslist = driver.find_element(By.ID, 'colGroupInner')
         items = termslist.find_elements(By.TAG_NAME, "text")
         searchTextItems = iterate.getTextAsList(items)
-        print searchTextItems
+        print(searchTextItems)
         self.assertIn('Pax7<tm1.1(HBEGF)Mal>/Pax7<+>', searchTextItems)
         #find the phenotype grid box for musculoskeletal system for Pax7<tm1.1(HBEGF)Mal/Pax7<+>
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
@@ -356,20 +356,20 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         time.sleep(1)
         #click the Gene Expression + Phenotype link
         driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
-        time.sleep(1)
+        time.sleep(2)
         self.driver.switch_to_window(self.driver.window_handles[-1])
         #find the Anatomical Terms column
         termslist = driver.find_element(By.ID, "rowGroupInner")
         items = termslist.find_elements(By.TAG_NAME, 'text')
         searchTextItems = iterate.getTextAsList(items)
-        print searchTextItems
+        print(searchTextItems)
         self.assertIn('mouse', searchTextItems)
         self.assertIn('integumental system', searchTextItems)
         #find the Phenotypes Terms column
         termslist = driver.find_element(By.ID, 'colGroupInner')
         items = termslist.find_elements(By.TAG_NAME, "text")
         searchTextItems = iterate.getTextAsList(items)
-        print searchTextItems
+        print(searchTextItems)
         self.assertIn('Kras<tm2Tyj>/Kras<+>', searchTextItems)
         #find the phenotype grid box for integumental system for Kras<tm2Tyj>/Kras<+>
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
@@ -396,13 +396,13 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         time.sleep(1)
         #click the Gene Expression + Phenotype link
         driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
-        time.sleep(1)
+        time.sleep(2)
         self.driver.switch_to_window(self.driver.window_handles[-1])
         #find the Anatomical Terms column
         termslist = driver.find_element(By.ID, "rowGroupInner")
         items = termslist.find_elements(By.TAG_NAME, 'text')
         searchTextItems = iterate.getTextAsList(items)
-        print searchTextItems
+        print(searchTextItems)
         #verifies that these 7 anatomy terms are displayed
         self.assertIn('mouse', searchTextItems)
         self.assertIn('conceptus', searchTextItems)
@@ -415,7 +415,7 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         termslist = driver.find_element(By.ID, 'colGroupInner')
         items = termslist.find_elements(By.TAG_NAME, "text")
         searchTextItems = iterate.getTextAsList(items)
-        print searchTextItems
+        print(searchTextItems)
         #verifies the allele pair you want to use is listed in the header
         self.assertIn('X/Sry<AKR/J>Sry<RIII>', searchTextItems)
         #find the phenotype grid boxs for mouse, conceptus, embryo, organ system, reproductive system, genitourinary system and visceral organ system  for X/Sry<AKR/J>Sry<RIII>
@@ -424,7 +424,7 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         rightclass = item.get_attribute('class')
         celltext = boxlist.find_elements(By.CSS_SELECTOR, 'g.cell.row0.col1 > text')#locates the text in the box to verify it has an N!
         searchTextItems0 = iterate.getTextAsList(celltext)
-        print searchTextItems0
+        print(searchTextItems0)
         #verifies both an N and a ! is displayed in the mouse/phenotype box
         self.assertEqual(['N', '!'], searchTextItems0)
         self.assertEqual('phenoBlue1', rightclass)
@@ -432,7 +432,7 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         rightclass1 = item1.get_attribute('class')
         celltext1 = boxlist.find_elements(By.CSS_SELECTOR, 'g.cell.row2.col1 > text')#locates the text in the box to verify it has an N!
         searchTextItems1 = iterate.getTextAsList(celltext1)
-        print searchTextItems1
+        print(searchTextItems1)
         #verifies both an N and a ! is displayed in the conceptus/phenotype box
         self.assertEqual(['N', '!'], searchTextItems1)
         self.assertEqual('phenoBlue1', rightclass1)
@@ -440,7 +440,7 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         rightclass2 = item2.get_attribute('class')
         celltext2 = boxlist.find_elements(By.CSS_SELECTOR, 'g.cell.row3.col1 > text')#locates the text in the box to verify it has an N!
         searchTextItems2 = iterate.getTextAsList(celltext2)
-        print searchTextItems2
+        print(searchTextItems2)
         #verifies both an N and a ! is displayed in the embryo/phenotype box
         self.assertEqual(['N', '!'], searchTextItems2)
         self.assertEqual('phenoBlue1', rightclass2)
@@ -448,7 +448,7 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         rightclass3 = item3.get_attribute('class')
         celltext3 = boxlist.find_elements(By.CSS_SELECTOR, 'g.cell.row6.col1 > text')#locates the text in the box to verify it has an N!
         searchTextItems3 = iterate.getTextAsList(celltext3)
-        print searchTextItems3
+        print(searchTextItems3)
         #verifies both an N and a ! is displayed in the organ system/genitourimary system box
         self.assertEqual(['N', '!'], searchTextItems3)
         self.assertEqual('phenoBlue1', rightclass3)
@@ -456,7 +456,7 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         rightclass4 = item4.get_attribute('class')
         celltext4 = boxlist.find_elements(By.CSS_SELECTOR, 'g.cell.row10.col1 > text')#locates the text in the box to verify it has an N!
         searchTextItems4 = iterate.getTextAsList(celltext4)
-        print searchTextItems4
+        print(searchTextItems4)
         #verifies both an N and a ! is displayed in the reproductive system/phenotype box
         self.assertEqual(['N', '!'], searchTextItems4)
         self.assertEqual('phenoBlue1', rightclass4)
@@ -464,7 +464,7 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         rightclass5 = item5.get_attribute('class')
         celltext5 = boxlist.find_elements(By.CSS_SELECTOR, 'g.cell.row19.col1 > text')#locates the text in the box to verify it has an N!
         searchTextItems5 = iterate.getTextAsList(celltext5)
-        print searchTextItems5
+        print(searchTextItems5)
         self.assertEqual(['N', '!'], searchTextItems5)
         self.assertEqual('phenoBlue1', rightclass5)
         
@@ -483,19 +483,19 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         time.sleep(1)
         #click the Gene Expression + Phenotype link
         driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
-        time.sleep(1)
+        time.sleep(2)
         self.driver.switch_to_window(self.driver.window_handles[-1])
         #find the Anatomical Terms column
         termslist = driver.find_element(By.ID, "rowGroupInner")
         items = termslist.find_elements(By.TAG_NAME, 'text')
         searchTextItems = iterate.getTextAsList(items)
-        print searchTextItems
+        print(searchTextItems)
         self.assertIn('mouse', searchTextItems)
         #find the Phenotypes Terms column
         termslist = driver.find_element(By.ID, 'colGroupInner')
         items = termslist.find_elements(By.TAG_NAME, "text")
         searchTextItems = iterate.getTextAsList(items)
-        print searchTextItems
+        print(searchTextItems)
         self.assertIn('Lepr<db>/Lepr<db>', searchTextItems)
         #find the phenotype grid box for mouse for Lepr<db>/Lepr<db>
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')

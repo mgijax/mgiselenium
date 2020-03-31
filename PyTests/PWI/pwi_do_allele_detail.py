@@ -20,7 +20,7 @@ sys.path.append(
 import config
 from config import TEST_PWI_URL
 
-class TestLitIndexByMrk(unittest.TestCase):
+class TestDoAlleleDetail(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Chrome() 
@@ -51,7 +51,7 @@ class TestLitIndexByMrk(unittest.TestCase):
         driver.find_element(By.CSS_SELECTOR, 'dl.detailPageListData:nth-child(1)')
         driver.find_elements(By.TAG_NAME, 'dd.detailPageListData')
         data = driver.find_elements(By.TAG_NAME, 'a')
-        print iterate.getTextAsList(data)#prints out almost all data found on this page, hopefully someday  I can figure out how to capture just the disease annotations section.
+        print (iterate.getTextAsList(data))#prints out almost all data found on this page, hopefully someday  I can figure out how to capture just the disease annotations section.
         time.sleep(5)
         term1 = data[64]
         doid1 = data[65]
@@ -69,7 +69,7 @@ class TestLitIndexByMrk(unittest.TestCase):
         #print searchTextItems
         #verifies all the table headings are correct and in order
         #self.assertEqual(searchTextItems, ['*','Reference','Priority','Conditional'])
-        print "Current working dir : %s" % os.getcwd()
+        print ("Current working dir : %s" % os.getcwd())
         
     def test_page_sort(self):
         """
@@ -168,7 +168,7 @@ class TestLitIndexByMrk(unittest.TestCase):
         
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestLitIndexByMrk))
+    suite.addTest(unittest.makeSuite(TestDoAlleleDetail))
     return suite
 
 if __name__ == "__main__":

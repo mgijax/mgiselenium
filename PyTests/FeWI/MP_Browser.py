@@ -32,7 +32,7 @@ class TestMPBrowser(unittest.TestCase):
         time.sleep(1)
         #identifies the table tags that  contain  parent terms
         parent = driver.find_element(By.ID, 'termPaneDetails').find_elements(By.TAG_NAME, 'td')
-        print [x.text for x in parent]
+        print([x.text for x in parent])
         
         # verifies that the returned part terms are correct
         self.assertEqual(parent[2].text, "is-a mammalian phenotype")
@@ -48,7 +48,7 @@ class TestMPBrowser(unittest.TestCase):
         time.sleep(2)
         termList = driver.find_elements(By.CLASS_NAME, 'jstree-anchor')
         terms = iterate.getTextAsList(termList)
-        print [x.text for x in termList]
+        print([x.text for x in termList])
         
         # slow aging should not be before the 18th item in the list
         self.assertGreater(terms.index('slow aging'), 18)
@@ -65,7 +65,7 @@ class TestMPBrowser(unittest.TestCase):
         time.sleep(2)
         searchList = driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
-        print [x.text for x in searchList]
+        print([x.text for x in searchList])
         
         # These 2 terms should be returned in the anatomy search results
         self.assertIn('aorta TS23-28\npulmonary artery TS17-28', terms, 'these terms are not listed!')
@@ -82,7 +82,7 @@ class TestMPBrowser(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'tissues').click()
         searchList = driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
-        print [x.text for x in searchList]
+        print([x.text for x in searchList])
         time.sleep(2)
         # This 1 term should be returned in the anatomy search results
         self.assertIn('cerebellum TS21-28', terms, 'this term is not listed!')
@@ -98,7 +98,7 @@ class TestMPBrowser(unittest.TestCase):
         time.sleep(2)
         searchList = driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
-        print [x.text for x in searchList]
+        print([x.text for x in searchList])
         
         # This term should be returned in the anatomy search results
         self.assertIn('lambdoidal suture TS25-28', terms, 'this term is not listed!')
@@ -114,7 +114,7 @@ class TestMPBrowser(unittest.TestCase):
         time.sleep(2)
         searchList = driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
-        print [x.text for x in searchList]
+        print([x.text for x in searchList])
         
         # These 2 terms should be returned in the anatomy search results
         self.assertIn('brain TS17-28\ncranium TS20-28\ntissue TS11-28', terms, 'these terms are not listed!')        
@@ -133,7 +133,7 @@ class TestMPBrowser(unittest.TestCase):
         self.driver.switch_to_window(self.driver.window_handles[-1])
         time.sleep(2)
         page_title = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
-        print page_title.text
+        print(page_title.text)
         #Asserts that the strain page is for the correct strain
         self.assertEqual(page_title.text, 'DBA/2J', 'Page title is not correct!')
         

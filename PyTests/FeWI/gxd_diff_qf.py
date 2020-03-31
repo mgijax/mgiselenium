@@ -48,7 +48,7 @@ class TestGXDDifferentialQF(unittest.TestCase):
         actions.click(pickitem2)
         time.sleep(5)
         self.driver.find_element(By.ID, 'submit4').click()
-        time.sleep(10)
+        time.sleep(40)
         self.driver.find_element(By.ID, 'genegridtab')
         #find the Genes column
         self.driver.find_element(By.ID, 'colGroup')
@@ -214,9 +214,9 @@ class TestGXDDifferentialQF(unittest.TestCase):
         actions = ActionChains(driver)
         actions.move_to_element(pickitem2)
         actions.click(pickitem2)
-        time.sleep(5)
+        time.sleep(2)
         self.driver.find_element(By.ID, 'submit4').click()
-        time.sleep(8)
+        time.sleep(28)
         self.driver.find_element(By.ID, 'genegridtab')
         #find the Genes column
         self.driver.find_element(By.ID, 'colGroup')

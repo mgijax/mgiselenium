@@ -49,7 +49,7 @@ class TestEmapaBrowser(unittest.TestCase):
         time.sleep(2)
         termList = driver.find_elements(By.CLASS_NAME, 'ygtvlabel')
         terms = iterate.getTextAsList(termList)
-        print [x.text for x in termList]
+        print([x.text for x in termList])
         time.sleep(2)
         # extra embryonic component should not be 2nd item in list
         self.assertGreater(terms.index('extraembryonic component'), 2)
@@ -66,7 +66,7 @@ class TestEmapaBrowser(unittest.TestCase):
         time.sleep(2)
         searchList = driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
-        print [x.text for x in searchList]
+        print([x.text for x in searchList])
         time.sleep(1)
         # These 2 terms should be returned in the phenotype search results(could be other terms as well)
         self.assertIn('absent sinus venosus\nsinus venosus hypoplasia', terms, 'these terms are not listed!')
@@ -84,12 +84,12 @@ class TestEmapaBrowser(unittest.TestCase):
         time.sleep(2)
         searchList = driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
-        print [x.text for x in searchList]
+        print([x.text for x in searchList])
         time.sleep(1)
         # This term should be returned in the phenotype search results
         self.assertIn('absent amniotic folds', terms, 'this term is not listed!')
         
-    def test_pheno_link_noesxpression(self):
+    def test_pheno_link_noexpression(self):
         """
         @status: Tests that searching by an Emapa term that is associated to a phenotype but has no expression annotations
         @note: EMAPA-ID_Search-4
@@ -100,7 +100,7 @@ class TestEmapaBrowser(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'phenotype terms').click()
         searchList = driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
-        print [x.text for x in searchList]
+        print([x.text for x in searchList])
         time.sleep(1)
         # These 2 terms should be returned in the phenotype search results
         self.assertIn('abnormal blastocoele morphology\nabsent blastocoele', terms, 'these terms are not listed!')
@@ -121,10 +121,10 @@ class TestEmapaBrowser(unittest.TestCase):
         term2 = table.get_cell(6, 1)
         term3 = table.get_cell(14, 1)
         term4 = table.get_cell(16, 1)
-        print term1.text
-        print term2.text
-        print term3.text
-        print term4.text
+        print(term1.text)
+        print(term2.text)
+        print(term3.text)
+        print(term4.text)
         time.sleep(10)
         # verifies the returned terms are the correct terms for this search
         self.assertEqual('abnormal cerebellum deep nucleus morphology', term1.text, 'Term1 is not returning' )
@@ -145,7 +145,7 @@ class TestEmapaBrowser(unittest.TestCase):
         table = Table(results_table)
         #gets the 1st and only row of the Annotated term column
         term1 = table.get_cell(3, 1)
-        print term1.text
+        print(term1.text)
         time.sleep(2)
         # verifies the returned terms are the correct terms for this search
         self.assertEqual("abnormal Peyer's patch epithelium morphology", term1.text, 'Term1 is not returning' )
@@ -164,8 +164,8 @@ class TestEmapaBrowser(unittest.TestCase):
         #gets the 1st,2nd rows of the Annotated term column, only 2 rows exist
         term1 = table.get_cell(3, 1)
         term2 = table.get_cell(4, 1)
-        print term1.text
-        print term2.text
+        print(term1.text)
+        print(term2.text)
         time.sleep(2)
         # verifies the returned terms are the correct terms for this search
         self.assertEqual('abnormal bulbus cordis morphology', term1.text, 'Term1 is not returning' )
@@ -186,7 +186,7 @@ class TestEmapaBrowser(unittest.TestCase):
     def test_zero_pheno_link_zero_exp_link(self):
         """
         @status: Tests that when you have a 1to1 NO mapping for expression or pheno, NO child terms, the phenotype annotations is zero and expression results links in the Treeview section is normal.
-        @note: EMAPA-ID-search-10
+        @note: EMAPA-ID-search-10 * this test fails because example used is no longer valid!!!
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:36322")
@@ -206,7 +206,7 @@ class TestEmapaBrowser(unittest.TestCase):
         wait.forAjax(driver)
         time.sleep(2)
         linkE = driver.find_element(By.CLASS_NAME, 'expressionResultCount') #the expression annotations link found in the Treeview section
-        print linkE.text
+        print(linkE.text)
         # verifies the returned terms are the correct terms for this search
         self.assertEqual('73', linkE.text, 'The 0 expression results link is wrong' )
         self.assertIn('0 phenotype annotations', driver.page_source, 'The 0 phenotypes annotation link is missing')#confirms that o phenotype annitations text is displayed when no results
@@ -222,7 +222,7 @@ class TestEmapaBrowser(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'phenotypeAnnotationCount').click()#clicks the phenotype annotations link found in the Treeview section
         results_table = self.driver.find_element(By.ID, 'resultsTable')
         table = Table(results_table)
-        #gets the 1st-7th rows of the Annotated term column, only 7 rows exist
+        #gets the 1st-8th rows of the Annotated term column, only 8 rows exist
         term1 = table.get_cell(3, 1)
         term2 = table.get_cell(4, 1)
         term3 = table.get_cell(5, 1)
@@ -230,13 +230,15 @@ class TestEmapaBrowser(unittest.TestCase):
         term5 = table.get_cell(7, 1)
         term6 = table.get_cell(8, 1)
         term7 = table.get_cell(9, 1)
-        print term1.text
-        print term2.text
-        print term3.text
-        print term4.text
-        print term5.text
-        print term6.text
-        print term7.text
+        term8 = table.get_cell(10, 1)
+        print(term1.text)
+        print(term2.text)
+        print(term3.text)
+        print(term4.text)
+        print(term5.text)
+        print(term6.text)
+        print(term7.text)
+        print(term8.text)
         time.sleep(2)
         # verifies the returned terms are the correct terms for this search
         self.assertEqual('abnormal renal artery morphology', term1.text, 'Term1 is not returning' )
@@ -245,7 +247,8 @@ class TestEmapaBrowser(unittest.TestCase):
         self.assertEqual('abnormal right renal artery morphology', term4.text, 'Term4 is not returning' )
         self.assertEqual('abnormal right renal artery morphology', term5.text, 'Term5 is not returning' )
         self.assertEqual('abnormal right renal artery morphology', term6.text, 'Term6 is not returning' )
-        self.assertEqual('abnormal right renal artery morphology', term7.text, 'Term7 is not returning' )
+        self.assertEqual('abnormal renal artery morphology', term7.text, 'Term7 is not returning' )
+        self.assertEqual('abnormal right renal artery morphology', term8.text, 'Term8 is not returning' )
         
     def test_pheno_link_with_parent_and_child_treeview(self):
         """
@@ -258,27 +261,25 @@ class TestEmapaBrowser(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'phenotypeAnnotationCount').click()#clicks the phenotype annotations link found in the Treeview section
         results_table = self.driver.find_element(By.ID, 'resultsTable')
         table = Table(results_table)
-        #gets the 1st, 2nd, 4th, 5th, 6th, and 9th rows of the Annotated term column
-        term1 = table.get_cell(4, 1)
-        term2 = table.get_cell(5, 1)
-        term3 = table.get_cell(7, 1)
-        term4 = table.get_cell(8, 1)
-        term5 = table.get_cell(9, 1)
-        term6 = table.get_cell(12, 1)
-        print term1.text
-        print term2.text
-        print term3.text
-        print term4.text
-        print term5.text
-        print term6.text
+        #gets the 1st, 2nd, 4th, 7th, and 9th rows of the Annotated term column
+        term1 = table.get_cell(3, 1)
+        term2 = table.get_cell(4, 1)
+        term3 = table.get_cell(6, 1)
+        term4 = table.get_cell(9, 1)
+        term5 = table.get_cell(11, 1)
+        print(term1.text)
+        print(term2.text)
+        print(term3.text)
+        print(term4.text)
+        print(term5.text)
         time.sleep(2)
         # verifies the returned terms are the correct terms for this search
-        self.assertEqual('absent embryonic cilia', term1.text, 'Term1 is not returning' )
-        self.assertEqual('absent primitive node', term2.text, 'Term2 is not returning' )
-        self.assertEqual('abnormal primitive node morphology', term3.text, 'Term3 is not returning' )
-        self.assertEqual('abnormal motile primary cilium morphology', term4.text, 'Term4 is not returning' )
+        self.assertEqual('abnormal primitive node morphology', term1.text, 'Term1 is not returning' )
+        self.assertEqual('absent embryonic cilia', term2.text, 'Term2 is not returning' )
+        self.assertEqual('absent primitive node', term3.text, 'Term3 is not returning' )
+        self.assertEqual('abnormal primitive node morphology', term4.text, 'Term4 is not returning' )
         self.assertEqual('decreased embryonic cilium length', term5.text, 'Term5 is not returning' )
-        self.assertEqual('abnormal embryonic cilium location or orientation', term6.text, 'Term6 is not returning' )
+        
         
     def test_no_pheno_mapping_zero_exp_link(self):
         """
@@ -299,13 +300,13 @@ class TestEmapaBrowser(unittest.TestCase):
         @note: EMAPA-ID-search-15
         """
         driver = self.driver
-        driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:35371")
+        driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:36473")
         time.sleep(3)
         linkE = driver.find_element(By.CLASS_NAME, 'expressionResultCount') #the expression annotations link found in the Treeview section
         bodyText = driver.find_element(By.TAG_NAME, 'body').text
-        print linkE.text
+        print(linkE.text)
         # verifies the returned terms are the correct terms for this search
-        self.assertEqual('1', linkE.text, 'The expression results link is wrong' )
+        self.assertEqual('251,369', linkE.text, 'The expression results link is wrong' )
         self.assertFalse('phenotype annotations' in bodyText)       
 
     def test_no_pheno_mapping_zero_exp_link2(self):
@@ -332,8 +333,8 @@ class TestEmapaBrowser(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'phenotype terms').click()
         searchList = driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
-        print [x.text for x in searchList]
-        print terms
+        print([x.text for x in searchList])
+        print(terms)
         time.sleep(2)
         # These terms should be returned in the phenotype search results with the order given
         self.assertIn('abnormal pharyngeal arch morphology\nabsent pharyngeal arches\nectopic pharyngeal arch\nenlarged pharyngeal arch\nfused pharyngeal arches\npharyngeal arch hypoplasia\nsmall pharyngeal arch', terms, 'The sort order is not correct' )

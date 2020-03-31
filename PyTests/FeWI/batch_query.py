@@ -26,7 +26,8 @@ class TestBatchQuery(unittest.TestCase):
 
     def setUp(self):
     
-        self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
         self.driver.get(config.TEST_URL + "/batch")
         self.driver.implicitly_wait(10)
 
@@ -44,12 +45,12 @@ class TestBatchQuery(unittest.TestCase):
         #time.sleep(2)
         #locates the Input Type column, find all the rows of data and print it to the console
         type_header = self.driver.find_element(By.ID, 'yui-dt0-th-type')
-        print type_header.text        
+        print(type_header.text)        
         #asserts that the Input Type header is correct
         self.assertEqual('Input\nType', type_header.text) 
         #Find the Input Type field in the first row of data
         row1_type = self.driver.find_element(By.XPATH, '/html/body/div[2]/div[6]/table/tbody[2]/tr/td[2]/div')
-        print row1_type.text
+        print(row1_type.text)
         #Assert that the row1 Input Type is Mouse Genome Project
         self.assertEqual(row1_type.text, 'Mouse Genome Project')
 
@@ -67,7 +68,7 @@ class TestBatchQuery(unittest.TestCase):
         #time.sleep(2)
         #locates the Input column, find all the rows of data and print it to the console
         input_header = self.driver.find_element(By.ID, 'yui-dt0-th-term-liner')
-        print input_header.text        
+        print(input_header.text)        
         #asserts that the Input header is correct
         self.assertEqual('Input', input_header.text) 
         #Find the input field in each row of data
@@ -75,10 +76,10 @@ class TestBatchQuery(unittest.TestCase):
         row2_input = self.driver.find_element(By.XPATH, '//*[@id="yui-rec1"]/td[1]/div')
         row3_input = self.driver.find_element(By.XPATH, '//*[@id="yui-rec2"]/td[1]/div')
         row4_input = self.driver.find_element(By.XPATH, '//*[@id="yui-rec3"]/td[1]/div')
-        print row1_input.text
-        print row2_input.text
-        print row3_input.text
-        print row4_input.text
+        print(row1_input.text)
+        print(row2_input.text)
+        print(row3_input.text)
+        print(row4_input.text)
         
         #Assert that the input field is correct for each row
         self.assertEqual(row1_input.text, 'MGP_CBAJ_G0024006')
@@ -100,7 +101,7 @@ class TestBatchQuery(unittest.TestCase):
         #time.sleep(2)
         #locates the Input column, find all the rows of data and print it to the console
         input_header = self.driver.find_element(By.ID, 'yui-dt0-th-term-liner')
-        print input_header.text        
+        print(input_header.text)        
         #asserts that the Input header is correct
         self.assertEqual('Input', input_header.text) 
         #capture the data for all 6 row results
@@ -109,15 +110,15 @@ class TestBatchQuery(unittest.TestCase):
         row3_data = self.driver.find_element(By.ID, 'yui-rec2')
         row4_data = self.driver.find_element(By.ID, 'yui-rec3')
         #print each row of data to the console
-        print row1_data.text
-        print row2_data.text
-        print row3_data.text
-        print row4_data.text
+        print(row1_data.text)
+        print(row2_data.text)
+        print(row3_data.text)
+        print(row4_data.text)
         #Assert each row of data is correct
-        self.assertEqual(row1_data.text, 'MGP_CBAJ_G0024006\nMouse Genome Project\nMGI:2447322\nPcdha9\nprotocadherin alpha 9\ngene', 'Row1 data is not correct!')
-        self.assertEqual(row2_data.text, 'NM_008089\nRefSeq\nMGI:95661\nGata1\nGATA binding protein 1\ngene', 'Row2 data is not correct!')
-        self.assertEqual(row3_data.text, 'MGP_AJ_G0024271\nMouse Genome Project\nMGI:2447322\nPcdha9\nprotocadherin alpha 9\ngene', 'Row3 data is not correct!')
-        self.assertEqual(row4_data.text, 'MGI:95661\nMGI\nMGI:95661\nGata1\nGATA binding protein 1\ngene', 'Row4 data is not correct!')
+        self.assertEqual(row1_data.text, 'MGP_CBAJ_G0024006\nMouse Genome Project\nMGI:2447322\nPcdha9\nprotocadherin alpha 9\nprotein coding gene', 'Row1 data is not correct!')
+        self.assertEqual(row2_data.text, 'NM_008089\nRefSeq\nMGI:95661\nGata1\nGATA binding protein 1\nprotein coding gene', 'Row2 data is not correct!')
+        self.assertEqual(row3_data.text, 'MGP_AJ_G0024271\nMouse Genome Project\nMGI:2447322\nPcdha9\nprotocadherin alpha 9\nprotein coding gene', 'Row3 data is not correct!')
+        self.assertEqual(row4_data.text, 'MGI:95661\nMGI\nMGI:95661\nGata1\nGATA binding protein 1\nprotein coding gene', 'Row4 data is not correct!')
         
     def test_bq_mgp_ids_has_b6coord(self):
         """
@@ -135,19 +136,15 @@ class TestBatchQuery(unittest.TestCase):
         #time.sleep(2)
         #locates the Input column, find all the rows of data and print it to the console
         input_header = self.driver.find_element(By.ID, 'yui-dt0-th-term-liner')
-        print input_header.text        
+        print(input_header.text)        
         #asserts that the Input header is correct
         self.assertEqual('Input', input_header.text) 
         #capture the data for all 6 row results
-        row1_data = self.driver.find_element(By.ID, 'yui-rec0')
-        
-        
+        row1_data = self.driver.find_element(By.ID, 'yui-rec0')        
         #print each row of data to the console
-        print row1_data.text
-        
-        
+        print(row1_data.text)        
         #Assert each row of data is correct
-        self.assertEqual(row1_data.text, 'MGP_CBAJ_G0024006\nMouse Genome Project\nMGI:2447322\nPcdha9\nprotocadherin alpha 9\ngene\n18\n+\n36997880\n37187657', 'Row1 data is not correct!')
+        self.assertEqual(row1_data.text, 'MGP_CBAJ_G0024006\nMouse Genome Project\nMGI:2447322\nPcdha9\nprotocadherin alpha 9\nprotein coding gene\n18\n+\n36997880\n37187657', 'Row1 data is not correct!')
        
     def test_bq_mgp_ids_has_no_b6coord(self):
         """
@@ -165,12 +162,12 @@ class TestBatchQuery(unittest.TestCase):
         #time.sleep(2)
         #locates the Input column row1
         input_1 = self.driver.find_element(By.CSS_SELECTOR, 'td.yui-dt0-col-term > div:nth-child(1)')
-        print input_1.text        
+        print(input_1.text)        
         #asserts that the Input row1 data is correct
-        self.assertEqual(input_1.text, 'MGP_DBA2J*') 
+        self.assertEqual(input_1.text, 'MGP_DBA2J') 
         #locates the MGI Gene/Marker ID row1
         input_3 = self.driver.find_element(By.CSS_SELECTOR, 'td.yui-dt0-col-markerId > div:nth-child(1)')
-        print input_3.text
+        print(input_3.text)
         #Assert that the MGI Gene/Marker ID row1 data is correct
         self.assertEqual(input_3.text, 'No associated gene', 'Row1 data is not correct!')
 
@@ -190,15 +187,15 @@ class TestBatchQuery(unittest.TestCase):
         #time.sleep(2)
         #locates the Input column, find all the rows of data and print it to the console
         input_header = self.driver.find_element(By.ID, 'yui-dt0-th-term-liner')
-        print input_header.text        
+        print(input_header.text)        
         #asserts that the Input header is correct
         self.assertEqual('Input', input_header.text) 
         #capture the data for all 6 row results
         row1_data = self.driver.find_element(By.ID, 'yui-rec0')   
         #print each row of data to the console
-        print row1_data.text 
+        print(row1_data.text) 
         #Assert each row of data is correct
-        self.assertEqual(row1_data.text, 'MGI_C57BL6J_98660\nMGI Strain Gene\nMGI:98660\nSry\nsex determining region of Chr Y\ngene\nY\n-\n2662471\n2663658', 'Row1 data is not correct!')
+        self.assertEqual(row1_data.text, 'MGI_C57BL6J_98660\nMGI Strain Gene\nMGI:98660\nSry\nsex determining region of Chr Y\nprotein coding gene\nY\n-\n2662471\n2663658', 'Row1 data is not correct!')
 
         
     def tearDown(self):

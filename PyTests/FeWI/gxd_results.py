@@ -14,7 +14,7 @@ from util.table import Table
 from util.form import ModuleForm
 import sys,os.path
 from genericpath import exists
-from test.test_support import get_attribute
+#from test.test_support import get_attribute
 # adjust the path to find config
 sys.path.append(
   os.path.join(os.path.dirname(__file__), '../..',)
@@ -53,9 +53,9 @@ class TestGXDResults(unittest.TestCase):
         #capture the diseases listed in the disease filter popup list
         diseaseElts = self.driver.find_elements_by_name('doFilter')
         diseases = [e.get_attribute('value') for e in diseaseElts]            
-        print diseases
+        print(diseases)
         #assert the list returned is correct.
-        self.assertEquals(diseases, ['benign neoplasm', 'cancer', 'cardiovascular system disease', 'central nervous system disease', 'chromosomal disease', 'disease by infectious agent', 'disease of mental health', 'disease of metabolism', 'endocrine system disease', 'gastrointestinal system disease', 'hematopoietic system disease', 'immune system disease', 'integumentary system disease', 'monogenic disease', 'musculoskeletal system disease', 'nervous system disease', 'peripheral nervous system disease', 'physical disorder', 'polygenic disease', 'reproductive system disease', 'respiratory system disease', 'sensory system disease', 'syndrome', 'thoracic disease', 'urinary system disease'], 'The list is not correct')
+        self.assertEqual(diseases, ['benign neoplasm', 'cancer', 'cardiovascular system disease', 'central nervous system disease', 'chromosomal disease', 'disease by infectious agent', 'disease of mental health', 'disease of metabolism', 'endocrine system disease', 'gastrointestinal system disease', 'hematopoietic system disease', 'immune system disease', 'integumentary system disease', 'monogenic disease', 'musculoskeletal system disease', 'nervous system disease', 'peripheral nervous system disease', 'physical disorder', 'polygenic disease', 'reproductive system disease', 'respiratory system disease', 'sensory system disease', 'syndrome', 'thoracic disease', 'urinary system disease', 'bar'], 'The list is not correct')
 
     def test_gene_tab_do_filter_gene_result(self):
         """
@@ -82,10 +82,10 @@ class TestGXDResults(unittest.TestCase):
         genelist = driver.find_element(By.CLASS_NAME, 'yui-dt-data')
         items = genelist.find_elements(By.CLASS_NAME, 'yui-dt-col-symbol')
         searchTextItems = iterate.getTextAsList(items)
-        print searchTextItems
+        print(searchTextItems)
         time.sleep(2)
         #assert that the genes returned are correct, should be 9 genes as of 8/29/2019
-        self.assertEquals(searchTextItems, ['Ank1', 'Aqp4', 'Cebpb', 'Fcgr2b', 'Hmox1', 'Icam1', 'Ifng', 'Pklr', 'Zeb1'], 'the list of genes is not correct!')   
+        self.assertEqual(searchTextItems, ['Ank1', 'Aqp4', 'Cebpb', 'Fcgr2b', 'Hmox1', 'Icam1', 'Ifng', 'Pklr', 'Zeb1'], 'the list of genes is not correct!')   
         
     def test_gene_tab_do_filter_no_genes(self):
         """
@@ -103,9 +103,9 @@ class TestGXDResults(unittest.TestCase):
         self.driver.find_element_by_id('doFilter').click()
         time.sleep(2)
         eventmsg = self.driver.find_element_by_id('command').text
-        print eventmsg
+        print(eventmsg)
         #asserts that the event msg for no genes with ontology associations is properly displayed
-        self.assertEquals(eventmsg, 'No genes found with ontology associations.', 'the no genes found text is not displaying')
+        self.assertEqual(eventmsg, 'No genes found with ontology associations.', 'the no genes found text is not displaying')
 
     def test_gene_tab_go_molecular_filter_list(self):
         """
@@ -127,9 +127,9 @@ class TestGXDResults(unittest.TestCase):
         #capture the molecular functions listed in the molecular function filter popup list
         molefuncElts = self.driver.find_elements_by_name('goMfFilter')
         molecular = [e.get_attribute('value') for e in molefuncElts]            
-        print molecular
+        print(molecular)
         #assert the list returned is correct.
-        self.assertEquals(molecular, ['carbohydrate derivative binding', 'cytoskeletal protein binding', 'DNA binding', 'enzyme regulator', 'hydrolase', 'ligase', 'lipid binding', 'oxidoreductase', 'RNA binding', 'signaling receptor activity', 'signaling receptor binding', 'transcription', 'transferase', 'transporter'])
+        self.assertEqual(molecular, ['carbohydrate derivative binding', 'cytoskeletal protein binding', 'DNA binding', 'enzyme regulator', 'hydrolase', 'ligase', 'lipid binding', 'oxidoreductase', 'RNA binding', 'signaling receptor activity', 'signaling receptor binding', 'transcription', 'transferase', 'transporter', 'bar'])
 
     def test_gene_tab_go_molecular_filter_gene_result(self):
         """
@@ -152,6 +152,7 @@ class TestGXDResults(unittest.TestCase):
         self.driver.find_elements_by_name('goMfFilter')[5].click()
         #click the Filter button found on the filter by Molecular Function button
         self.driver.find_element_by_id('yui-gen0-button').click()
+        time.sleep(2)
         #locate the Genes tab and click it
         self.driver.find_element_by_id('genestab').click()
         time.sleep(2)
@@ -159,10 +160,10 @@ class TestGXDResults(unittest.TestCase):
         genelist = driver.find_element(By.CLASS_NAME, 'yui-dt-data')
         items = genelist.find_elements(By.CLASS_NAME, 'yui-dt-col-symbol')
         searchTextItems = iterate.getTextAsList(items)
-        print searchTextItems
-        time.sleep(2)
+        print(searchTextItems)
+        time.sleep(5)
         #assert that the genes returned are correct, should be 3 genes as of 8/29/2019
-        self.assertEquals(searchTextItems, ['Aacs', 'Atg7', 'Glul'], 'the list of genes is not correct!')   
+        self.assertEqual(searchTextItems, ['Aacs', 'Acsl4', 'Atg7', 'Glul', 'Ifnar1', 'Kars'], 'the list of genes is not correct!')   
         
     def test_gene_tab_go_molecular_filter_no_genes(self):
         """
@@ -180,9 +181,9 @@ class TestGXDResults(unittest.TestCase):
         self.driver.find_element_by_id('goMfFilter').click()
         time.sleep(2)
         eventmsg = self.driver.find_element_by_id('command').text
-        print eventmsg
+        print(eventmsg)
         #asserts that the event msg for no genes with ontology associations is properly displayed
-        self.assertEquals(eventmsg, 'No genes found with ontology associations.', 'the no genes found text is not displaying')
+        self.assertEqual(eventmsg, 'No genes found with ontology associations.', 'the no genes found text is not displaying')
 
     def test_gene_tab_go_biological_filter_list(self):
         """
@@ -204,9 +205,9 @@ class TestGXDResults(unittest.TestCase):
         #capture the Biological Processes listed in the biological process filter popup list
         biologicElts = self.driver.find_elements_by_name('goBpFilter')
         biologic = [e.get_attribute('value') for e in biologicElts]            
-        print biologic
+        print(biologic)
         #assert the list returned is correct.
-        self.assertEquals(biologic, ['carbohydrate derivative metabolism', 'cell death', 'cell differentiation', 'cell population proliferation', 'cellular component organization', 'establishment of localization', 'homeostatic process', 'immune system process', 'lipid metabolic process', 'nucleic acid-templated transcription', 'protein metabolic process', 'response to stimulus', 'signaling', 'system development'])
+        self.assertEqual(biologic, ['carbohydrate derivative metabolism', 'cell death', 'cell differentiation', 'cell population proliferation', 'cellular component organization', 'establishment of localization', 'homeostatic process', 'immune system process', 'lipid metabolic process', 'nucleic acid-templated transcription', 'protein metabolic process', 'response to stimulus', 'signaling', 'system development', 'bar'])
 
     def test_gene_tab_go_biological_filter_gene_result(self):
         """
@@ -229,6 +230,7 @@ class TestGXDResults(unittest.TestCase):
         self.driver.find_elements_by_name('goBpFilter')[5].click()
         #click the Filter button found on the filter by Biological Process button
         self.driver.find_element_by_id('yui-gen0-button').click()
+        time.sleep(2)
         #locate the Genes tab and click it
         self.driver.find_element_by_id('genestab').click()
         time.sleep(2)
@@ -236,10 +238,10 @@ class TestGXDResults(unittest.TestCase):
         genelist = driver.find_element(By.CLASS_NAME, 'yui-dt-data')
         items = genelist.find_elements(By.CLASS_NAME, 'yui-dt-col-symbol')
         searchTextItems = iterate.getTextAsList(items)
-        print searchTextItems
+        print(searchTextItems)
         time.sleep(2)
         #assert that the genes returned are correct, should be 7 genes as of 8/29/2019
-        self.assertEquals(searchTextItems, ['Arntl', 'Clock', 'Fkbp1b', 'Ryr2', 'Selenos', 'Slc7a11', 'Smpd3'], 'the list of genes is not correct!')   
+        self.assertEqual(searchTextItems, ['Arntl', 'Clock', 'Fkbp1b', 'Ryr2', 'Selenos', 'Slc7a11', 'Smpd3'], 'the list of genes is not correct!')   
         
     def test_gene_tab_go_biological_filter_no_genes(self):
         """
@@ -257,9 +259,9 @@ class TestGXDResults(unittest.TestCase):
         self.driver.find_element_by_id('goBpFilter').click()
         time.sleep(2)
         eventmsg = self.driver.find_element_by_id('command').text
-        print eventmsg
+        print(eventmsg)
         #asserts that the event msg for no genes with ontology associations is properly displayed
-        self.assertEquals(eventmsg, 'No genes found with ontology associations.', 'the no genes found text is not displaying')
+        self.assertEqual(eventmsg, 'No genes found with ontology associations.', 'the no genes found text is not displaying')
 
     def test_gene_tab_go_cellular_filter_list(self):
         """
@@ -281,9 +283,9 @@ class TestGXDResults(unittest.TestCase):
         #capture the Cellular Components listed in the cellular component filter popup list
         cellularElts = self.driver.find_elements_by_name('goCcFilter')
         cellular = [e.get_attribute('value') for e in cellularElts]            
-        print cellular
+        print(cellular)
         #assert the list returned is correct.
-        self.assertEquals(cellular, ['cell projection', 'cytoplasmic vesicle', 'cytoskeleton', 'cytosol', 'endoplasmic reticulum', 'endosome', 'extracellular region', 'Golgi apparatus', 'mitochondrion', 'non-membrane-bounded organelle', 'nucleus', 'organelle envelope', 'organelle lumen', 'plasma membrane', 'synapse', 'vacuole'])
+        self.assertEqual(cellular, ['cell projection', 'cytoplasmic vesicle', 'cytoskeleton', 'cytosol', 'endoplasmic reticulum', 'endosome', 'extracellular region', 'Golgi apparatus', 'mitochondrion', 'non-membrane-bounded organelle', 'nucleus', 'organelle envelope', 'organelle lumen', 'plasma membrane', 'synapse', 'vacuole', 'bar'])
 
     def test_gene_tab_go_cellular_filter_gene_result(self):
         """
@@ -306,6 +308,7 @@ class TestGXDResults(unittest.TestCase):
         self.driver.find_elements_by_name('goCcFilter')[0].click()
         #click the Filter button found on the filter by Cellular Component button
         self.driver.find_element_by_id('yui-gen0-button').click()
+        time.sleep(2)
         #locate the Genes tab and click it
         self.driver.find_element_by_id('genestab').click()
         time.sleep(2)
@@ -313,10 +316,10 @@ class TestGXDResults(unittest.TestCase):
         genelist = driver.find_element(By.CLASS_NAME, 'yui-dt-data')
         items = genelist.find_elements(By.CLASS_NAME, 'yui-dt-col-symbol')
         searchTextItems = iterate.getTextAsList(items)
-        print searchTextItems
+        print(searchTextItems)
         time.sleep(2)
         #assert that the genes returned are correct, should be 2 genes as of 9/10/2019
-        self.assertEquals(searchTextItems, ['Sephs2', 'Siae'], 'the list of genes is not correct!')   
+        self.assertEqual(searchTextItems, ['Siae'], 'the list of genes is not correct!')   
         
     def test_gene_tab_go_cellular_filter_no_genes(self):
         """
@@ -334,9 +337,9 @@ class TestGXDResults(unittest.TestCase):
         self.driver.find_element_by_id('goCcFilter').click()
         time.sleep(2)
         eventmsg = self.driver.find_element_by_id('command').text
-        print eventmsg
+        print(eventmsg)
         #asserts that the event msg for no genes with ontology associations is properly displayed
-        self.assertEquals(eventmsg, 'No genes found with ontology associations.', 'the no genes found text is not displaying')
+        self.assertEqual(eventmsg, 'No genes found with ontology associations.', 'the no genes found text is not displaying')
         
     def test_assay_results_tab_data_link(self):
         """
@@ -366,7 +369,7 @@ class TestGXDResults(unittest.TestCase):
         genelist = driver.find_element(By.ID, 'resultsdata').find_element(By.CLASS_NAME, 'yui-dt-data')
         items = genelist.find_elements(By.CLASS_NAME, 'yui-dt-col-assayID')
         searchTextItems = iterate.getTextAsList(items)
-        print searchTextItems
+        print(searchTextItems)
         #assert that "data" link goes to the correct experiment page.Test result for E-MTAB-5772
         links = self.driver.find_element_by_link_text('data')
         exturl = links.get_attribute('href')
@@ -401,12 +404,12 @@ class TestGXDResults(unittest.TestCase):
         genelist = driver.find_element(By.ID, 'resultsdata').find_element(By.CLASS_NAME, 'yui-dt-data')
         items = genelist.find_elements(By.CLASS_NAME, 'yui-dt-col-reference')
         searchTextItems = iterate.getTextAsList(items)
-        print searchTextItems
+        print(searchTextItems)
         #assert that ID link goes to the correct experiment page.Test result for E-MTAB-5772
         links = self.driver.find_element_by_link_text('E-MTAB-5772')
         inturl = links.get_attribute('href')
         #assert that the link url is correct
-        self.assertEqual(inturl, 'http://scrumdogdev.informatics.jax.org/gxd/htexp_index/summary?arrayExpressID=E-MTAB-5772')           
+        self.assertEqual(inturl, 'http://test.informatics.jax.org/gxd/htexp_index/summary?arrayExpressID=E-MTAB-5772')           
    
     def test_assay_results_tab_tpm_column(self):
         """
@@ -435,7 +438,7 @@ class TestGXDResults(unittest.TestCase):
         genelist = driver.find_element(By.ID, 'resultsdata').find_element(By.CLASS_NAME, 'yui-dt-data')
         items = genelist.find_elements(By.CLASS_NAME, 'yui-dt-col-tpmLevel')
         searchTextItems = iterate.getTextAsList(items)
-        print searchTextItems
+        print(searchTextItems)
         #assert that the TPM column results are displaying  the 4 different options
         self.assertIn('Below Cutoff', searchTextItems, 'Below Cutoff is not being found!') 
         self.assertIn('Low', searchTextItems, 'Low is not being found!')
@@ -468,7 +471,7 @@ class TestGXDResults(unittest.TestCase):
         #locates the table column headings and verify the order of the columns
         cols = driver.find_elements_by_xpath('.//span[@class = "yui-dt-label"]')
         head = iterate.getTextAsList(cols)
-        print head
+        print(head)
         time.sleep(1)
         #assert that the columns are in the correct order
         self.assertEqual(head, ['Gene','Result Details','Assay Type','Age','Structure','Detected?','TPM Level\n(RNA-Seq)','Biological Replicates\n(RNA-Seq)','Images','Mutant Allele(s)','Strain','Sex','Notes\n(RNA-Seq)','Reference',''])
@@ -491,7 +494,7 @@ class TestGXDResults(unittest.TestCase):
         #locates the table column headings and verify the order of the columns
         cols = driver.find_elements_by_xpath('.//span[@class = "yui-dt-label"]')
         head = iterate.getTextAsList(cols)
-        print head
+        print(head)
         time.sleep(1)
         #assert that the columns are in the correct order
         self.assertEqual(head, ['Gene','Result Details','Assay Type','Age','Structure','Detected?','TPM Level\n(RNA-Seq)','','Images','Mutant Allele(s)','','','','Reference',''])
@@ -500,7 +503,7 @@ class TestGXDResults(unittest.TestCase):
         """
         @status: Tests that the assay type column is sorted correctly.
         @note: GXD-aresults-9 sort order is Immunohistochemistry, RNA in situ, In situ reporter (knock in), Northern blot, Western blot, RT-PCR, RNase protection, Nuclease S, RNA-Seq
-        """
+        !!!!this trest breaks! need to change TS28 to TS25 & 26 to limit results"""
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")
         genebox = driver.find_element(By.NAME, 'nomenclature')
@@ -522,9 +525,9 @@ class TestGXDResults(unittest.TestCase):
         genelist = driver.find_element(By.ID, 'resultsdata').find_element(By.CLASS_NAME, 'yui-dt-data')
         items = genelist.find_elements(By.CLASS_NAME, 'yui-dt-col-assayType')
         searchTextItems = iterate.getTextAsList(items)
-        print searchTextItems
+        print(searchTextItems)
         #assert that the TPM column results are displaying  the 4 different options
-        self.assertEqual(searchTextItems, ['Immunohistochemistry', 'Immunohistochemistry', 'Immunohistochemistry', 'Immunohistochemistry', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'In situ reporter (knock in)', 'In situ reporter (knock in)', 'In situ reporter (knock in)', 'In situ reporter (knock in)', 'Northern blot', 'Northern blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'Nuclease S1', 'Nuclease S1', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq']) 
+        self.assertEqual(searchTextItems, ['Immunohistochemistry', 'Immunohistochemistry', 'Immunohistochemistry', 'Immunohistochemistry', 'Immunohistochemistry', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'In situ reporter (knock in)', 'In situ reporter (knock in)', 'In situ reporter (knock in)', 'In situ reporter (knock in)', 'Northern blot', 'Northern blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'Nuclease S1', 'Nuclease S1', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq']) 
                          
     def test_assay_results_tab_cond_mutant(self):
         """
@@ -557,23 +560,24 @@ class TestGXDResults(unittest.TestCase):
         items = genelist.find_elements(By.CLASS_NAME, 'yui-dt-col-notes')
         searchTextItems = iterate.getTextAsList(items)
         time.sleep(2)
-        print searchTextItems[0] + '  line0'
-        print searchTextItems[1] + '  line1'
-        print searchTextItems[2] + '  line2'
-        print searchTextItems[3] + '  line3'
-        print searchTextItems[4] + '  line4'
-        print searchTextItems[5] + '  line5'
-        print searchTextItems[6] + '  line6'
-        print searchTextItems[7] + '  line7'
-        print searchTextItems[8] + '  line8'
-        print searchTextItems[9] + '  line9'
-        print searchTextItems[10] + '  line10'
-        print searchTextItems[11] + '  line11'
+        print(searchTextItems[0] + '  line0')
+        print(searchTextItems[1] + '  line1')
+        print(searchTextItems[2] + '  line2')
+        print(searchTextItems[3] + '  line3')
+        print(searchTextItems[4] + '  line4')
+        print(searchTextItems[5] + '  line5')
+        print(searchTextItems[6] + '  line6')
+        print(searchTextItems[7] + '  line7')
+        print(searchTextItems[8] + '  line8')
+        print(searchTextItems[9] + '  line9')
+        print(searchTextItems[10] + '  line10')
+        print(searchTextItems[11] + '  line11')
+        print(searchTextItems[12] + '  line12')
         #assert that the TPM column results are displaying  the 4 different options
-        self.assertEqual(searchTextItems[9], 'Conditional mutant. day 6 of pregnancy') 
-        self.assertEqual(searchTextItems[12], 'Conditional mutant. day of parturition (within 12 hours after delivery)')      
-        self.assertEqual(searchTextItems[36], 'Conditional mutant.') 
-        self.assertEqual(searchTextItems[38], 'Conditional mutant.')
+        self.assertEqual(searchTextItems[6], 'Conditional mutant. day 6 of pregnancy') 
+        self.assertEqual(searchTextItems[11], 'Conditional mutant. day of parturition (within 12 hours after delivery)')      
+        self.assertEqual(searchTextItems[40], 'Conditional mutant.') 
+        self.assertEqual(searchTextItems[42], 'Conditional mutant.')
 
     def test_assay_results_filter_by_exp(self):
         """
@@ -609,17 +613,17 @@ class TestGXDResults(unittest.TestCase):
         items = reflist.find_elements(By.CLASS_NAME, 'yui-dt-col-reference')
         searchTextItems = iterate.getTextAsList(items)
         time.sleep(2)
-        print searchTextItems[2]
+        print(searchTextItems[2])
         #assert that the reference ID E-MTAB-599 exists in each row checked
-        self.assertIn('E-MTAB-6798 Mouse RNA-seq time-series of the development of seven major organs', searchTextItems[1]) 
-        self.assertIn('E-MTAB-6798 Mouse RNA-seq time-series of the development of seven major organs', searchTextItems[2]) 
-        self.assertIn('E-MTAB-6798 Mouse RNA-seq time-series of the development of seven major organs', searchTextItems[3]) 
-        self.assertIn('E-MTAB-6798 Mouse RNA-seq time-series of the development of seven major organs', searchTextItems[4]) 
-        self.assertIn('E-MTAB-6798 Mouse RNA-seq time-series of the development of seven major organs', searchTextItems[5]) 
-        self.assertIn('E-MTAB-6798 Mouse RNA-seq time-series of the development of seven major organs', searchTextItems[6]) 
-        self.assertIn('E-MTAB-6798 Mouse RNA-seq time-series of the development of seven major organs', searchTextItems[7]) 
-        self.assertIn('E-MTAB-6798 Mouse RNA-seq time-series of the development of seven major organs', searchTextItems[8]) 
-        self.assertIn('E-MTAB-6798 Mouse RNA-seq time-series of the development of seven major organs', searchTextItems[9]) 
+        self.assertIn('E-GEOD-33979 Novel roles for Klf1 in regulating the erythroid transcriptome revealed by mRNA-seq', searchTextItems[1]) 
+        self.assertIn('E-GEOD-45684 Transcription profiling by high throughput sequencing of a Diversity Outbred mice population and the eight founder strains: A/J, 129S1/SvImJ, C57BL/6J, NOD/ShiLtJ, NZO/HlLtJ, CAST/EiJ, PWK/PhJ, and WSB/EiJ', searchTextItems[2]) 
+        self.assertIn('E-GEOD-70484 Transcription profiling by high throughput sequencing of different tissues from mouse to detect maternal or paternal allele expression biases at the tissue level', searchTextItems[3]) 
+        self.assertIn('E-GEOD-72491 Transcription profiling by RNA-seq of fetal liver from poly(C) binding protein 2 (Pcbp2) knockout mice', searchTextItems[4]) 
+        self.assertIn('E-GEOD-74747 RNA-seq of 9 tissues from an adult male C57BL/6 mouse', searchTextItems[5]) 
+        self.assertIn('E-MTAB-599 RNA-seq of mouse DBA/2J x C57BL/6J heart, hippocampus, liver, lung, spleen and thymus', searchTextItems[6]) 
+        self.assertIn('E-MTAB-2328 Transcription profiling by high throughput sequencing of liver and brain during mouse organ development', searchTextItems[7]) 
+        self.assertIn('E-MTAB-2801 Strand-specific RNA-seq of nine mouse tissues', searchTextItems[8]) 
+        self.assertIn('E-MTAB-3662 Pilot KOMP knockout mouse strains', searchTextItems[9]) 
     
     def tearDown(self):
         #self.driver.close()

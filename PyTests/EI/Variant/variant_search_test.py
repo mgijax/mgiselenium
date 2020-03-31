@@ -13,7 +13,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import Select
 #from.selenium.webdriver.support.color import Color
-import HTMLTestRunner
+import HtmlTestRunner
 import json
 import sys,os.pathfrom selenium.webdriver.support.color import Color
 
@@ -62,7 +62,7 @@ class TestVarSearch(unittest.TestCase):
         # print all rows
         cells = table.get_rows()
         symbols = iterate.getTextAsList(cells)
-        print symbols
+        print (symbols)
         #assert all the correct symbols are returned
         self.assertEquals(symbols, ['Rora<tmgc26>'])
         
@@ -85,7 +85,7 @@ class TestVarSearch(unittest.TestCase):
         # print all rows
         cells = table.get_rows()
         symbols = iterate.getTextAsList(cells)
-        print symbols
+        print (symbols)
         #assert all the correct symbols are returned
         self.assertEquals(symbols, ['Cntn1<usl>'])
 
@@ -108,7 +108,7 @@ class TestVarSearch(unittest.TestCase):
         # print all rows
         cells = table.get_rows()
         symbols = iterate.getTextAsList(cells)
-        print symbols
+        print (symbols)
         #assert all the correct symbols are returned
         self.assertEquals(symbols, ['Cntn1<m1J>', 'Cntn1<usl>', 'Cntnap1<M1Btlr>'])
 
@@ -131,7 +131,7 @@ class TestVarSearch(unittest.TestCase):
         # print all rows
         cells = table.get_rows()
         symbols = iterate.getTextAsList(cells)
-        print symbols
+        print (symbols)
         #assert all the correct symbols are returned
         self.assertEquals(symbols, ['Cpe<fat>'])
         
@@ -154,7 +154,7 @@ class TestVarSearch(unittest.TestCase):
         # print all rows
         cells = table.get_rows()
         symbols = iterate.getTextAsList(cells)
-        print symbols
+        print (symbols)
         #assert all the correct symbols are returned
         self.assertEquals(symbols, ['Cntn1<usl>','Cpe<fat>'])
         
@@ -177,7 +177,7 @@ class TestVarSearch(unittest.TestCase):
         # print all rows
         cells = table.get_rows()
         symbols = iterate.getTextAsList(cells)
-        print symbols[0]
+        print (symbols[0])
         #assert some of the correct symbols are returned
         self.assertEqual(symbols[0], 'Arhgap36<em1Seul>', 'symbol0 is wrong')
         self.assertEqual(symbols[1], 'Arx<tm2Kki>', 'symbol0 is wrong')
@@ -208,14 +208,14 @@ class TestVarSearch(unittest.TestCase):
         row2 = table.get_row(1)
         row3 = table.get_row(2)
         row4 = table.get_row(3)
-        print row1.text
-        print row2.text
-        print row3.text
+        print (row1.text)
+        print (row2.text)
+        print (row3.text)
         #assert that the first 3 search results are correct
-        self.assertEqual(row1.text, '2610301B20Rik<em1Jyang>' )
-        self.assertEqual(row2.text, '2610301B20Rik<em2Jyang>')
-        self.assertEqual(row3.text, 'Aars2<tm1.1Htyy>')
-        self.assertEqual(row4.text, 'Aars2<tm2.1Htyy>')
+        self.assertEqual(row1.text, '1700013F07Rik<em1Fuxi>' )
+        self.assertEqual(row2.text, '2610301B20Rik<em1Jyang>')
+        self.assertEqual(row3.text, '2610301B20Rik<em2Jyang>')
+        self.assertEqual(row4.text, 'Aars2<tm1.1Htyy>')
 
     def testVarWithHGVSSearch(self):
         """
@@ -233,7 +233,7 @@ class TestVarSearch(unittest.TestCase):
         #find the HGVS description field
         hgvs_data = self.driver.find_element_by_id("description").get_attribute('value')
         time.sleep(2)
-        print hgvs_data
+        print (hgvs_data)
         #assert the hgvs data is correct
         self.assertEquals(hgvs_data, "Alk:NM_007439.2:c.3836G>A:p.(Arg1279Gln)")
 
@@ -253,7 +253,7 @@ class TestVarSearch(unittest.TestCase):
         #find the Variant reference field
         var_jnum = self.driver.find_element_by_id("variantJnumIDs").get_attribute('value')
         time.sleep(2)
-        print var_jnum
+        print (var_jnum)
         #assert the variant reference data is correct
         self.assertEquals(var_jnum, "J:228124")
 
@@ -273,13 +273,13 @@ class TestVarSearch(unittest.TestCase):
         #find the Public Notes field
         var_pnote = self.driver.find_element_by_id("publicNote").get_attribute('value')
         time.sleep(2)
-        print var_pnote
+        print (var_pnote)
         #assert the variant reference data is correct
         self.assertEquals(var_pnote, "Low impact")
         #find the curator Notes field
         var_cnote = self.driver.find_element_by_id("curatorNote").get_attribute('value')
         time.sleep(2)
-        print var_cnote
+        print (var_cnote)
         #assert the variant reference data is correct
         self.assertEquals(var_cnote, "unknown effect on splice donor site of intron 9")
 
@@ -295,10 +295,10 @@ class TestVarSearch(unittest.TestCase):
         #finds the Strand field and enters a Strand
         driver.find_element_by_id("strand").send_keys('-')
         driver.find_element_by_id('searchButton').click()
-        time.sleep(4)
+        time.sleep(6)
         #Find the strand for the first result and verify it's background color
         rgb = driver.find_element_by_id('strand').value_of_css_property('background-color')
-        print rgb
+        print (rgb)
         #verify the RGB code is correct for the color Red
         self.assertEqual(rgb, 'rgba(255, 0, 0, 1)', 'the wrong RGB code is returning')
 
@@ -324,11 +324,11 @@ class TestVarSearch(unittest.TestCase):
         row3 = table.get_row(2)
         row4 = table.get_row(3)
         row5 = table.get_row(4)
-        print row1.text
-        print row2.text
-        print row3.text
-        print row4.text
-        print row5.text
+        print (row1.text)
+        print (row2.text)
+        print (row3.text)
+        print (row4.text)
+        print (row5.text)
         #assert that the first 3 search results are correct
         self.assertEqual(row3.text, 'GRCm38 24901452 24901452 T G - -')
         self.assertEqual(row4.text, 'GRCm38 24901470 24901470 T G - -')
@@ -354,9 +354,9 @@ class TestVarSearch(unittest.TestCase):
         row1 = table.get_row(0)
         row2 = table.get_row(1)
         row3 = table.get_row(2)
-        print row1.text
-        print row2.text
-        print row3.text
+        print (row1.text)
+        print (row2.text)
+        print (row3.text)
         #assert that the search results are correct, this includes the table headings are correct as well
         self.assertEqual(row1.text, 'Genomic Transcript Polypeptide')
         self.assertEqual(row2.text, 'build start end ref var ID start end ref var ID start end ref var')
@@ -382,9 +382,9 @@ class TestVarSearch(unittest.TestCase):
         row1 = table.get_row(0)
         row2 = table.get_row(1)
         row3 = table.get_row(2)
-        print row1.text
-        print row2.text
-        print row3.text
+        print (row1.text)
+        print (row2.text)
+        print (row3.text)
         #assert that the search results are correct, this variant has a rather long Genomic ref
         self.assertEqual(row3.text, 'GRCm38 122478667 122478680 CTACACGCATCCCA C - -')
 
@@ -408,9 +408,9 @@ class TestVarSearch(unittest.TestCase):
         row1 = table.get_row(0)
         row2 = table.get_row(1)
         row3 = table.get_row(2)
-        print row1.text
-        print row2.text
-        print row3.text
+        print (row1.text)
+        print (row2.text)
+        print (row3.text)
         #assert that the search results are correct, this variant has a rather long Genomic ref
         self.assertEqual(row3.text, 'GRCm38 57322231 57322238 CGGCGCAG GAGGACGA - -')
 
@@ -425,7 +425,7 @@ class TestVarSearch(unittest.TestCase):
             )
         #finds the Sourced Genomic Genome Build pulldown list
         dropdown = Select(driver.find_element_by_id("srcDnaVersion"))
-        print [o.text for o in dropdown.options]
+        print ([o.text for o in dropdown.options])
         #assert that the search results are correct, this includes the table headings are correct as well
         self.assertEqual([o.text for o in dropdown.options], [u'', u'GRCm38 (mm10)\n       ', u'GRCm38.p12 \n       ', u'GRCm38.p11 \n       ', u'GRCm38.p10 \n       ', u'GRCm38.p9 \n       ', u'GRCm38.p8 \n       ', u'GRCm38.p7 \n       ', u'GRCm38.p6 \n       ', u'GRCm38.p5 \n       ', u'GRCm38.p4 \n       ', u'GRCm38.p3 \n       ', u'GRCm38.p2 \n       ', u'NCBI m37 (mm9)\n       ', u'NCBI m36 (mm8)\n       ', u'NCBI m35 (mm7)\n       ', u'NCBI m34 (mm6)\n       ', u'NCBI m33 (mm5)\n       ', u'NCBI m32 (mm4)\n       ', u'NCBI m30 (mm3)\n       ', u'MGSCv3 (mm2)\n       ', u'MGSCv2 (mm1)\n       ', u'Not Specified \n       '])
         
@@ -444,7 +444,7 @@ class TestVarSearch(unittest.TestCase):
         time.sleep(2)
         #find the Allele detail link above the variant table and locate the href text
         allele_link = driver.find_element_by_partial_link_text('Myd88').get_attribute('href')
-        print allele_link
+        print (allele_link)
         #Assert the href is correct
         self.assertEqual(allele_link, 'http://prodwww.informatics.jax.org/pwi/detail/allele/MGI:3641255')
                 
@@ -456,5 +456,5 @@ def suite():
 '''
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    HTMLTestRunner.main()
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))
             

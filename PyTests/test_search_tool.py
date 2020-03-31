@@ -47,7 +47,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[7], 'ID : MGI:87895   and more detail...')
         wait.forAjax(driver)
@@ -68,7 +68,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[2], 'ID : J:14135')
         wait.forAjax(driver)       
@@ -90,7 +90,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[7], 'Function : acetylcholine-gated channel complex (GO:0005892)   and more detail...')
         wait.forAjax(driver) 
@@ -111,7 +111,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[7], 'ID : MGD-MRK-1672   and more detail...')
         wait.forAjax(driver)      
@@ -132,7 +132,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[7], 'ID : FHCRC-GT-S15-11C1 (IGTC)   and more detail...')
         wait.forAjax(driver)
@@ -153,7 +153,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[2], 'ID : MGI:1339505')
         wait.forAjax(driver) 
@@ -174,7 +174,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[7], 'ID : ENSMUSG00000005672 (Ensembl Gene Model)   and more detail...')
         wait.forAjax(driver) 
@@ -195,7 +195,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[7], 'ID : 11539 (Entrez Gene)   and more detail...')
         wait.forAjax(driver) 
@@ -216,7 +216,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[7], 'ID : 181490 (UniGene)   and more detail...')
         wait.forAjax(driver) 
@@ -237,7 +237,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[7], 'ID : Q9ER73 (UniProt, EBI)   and more detail...')
         wait.forAjax(driver) 
@@ -258,7 +258,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[2], 'ID : 125993 (UniSTS)')
         wait.forAjax(driver) 
@@ -301,7 +301,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[3], 'ID : OMIM:168600')
         wait.forAjax(driver) 
@@ -322,7 +322,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[3], 'ID : 168600 (OMIM)')
         wait.forAjax(driver) 
@@ -343,7 +343,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[2], 'ID : OMIM:191170 (OMIM - Human)')
         wait.forAjax(driver) 
@@ -364,7 +364,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[2], 'ID : 191170 (OMIM - Human)')
         wait.forAjax(driver)         
@@ -385,7 +385,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[7], 'ID : 20151 (HomoloGene)   and more detail...')
         wait.forAjax(driver) 
@@ -406,7 +406,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[7], 'ID : HGNC:28837 (HGNC - Human)   and more detail...')
         wait.forAjax(driver) 
@@ -427,7 +427,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[7], 'ID : NM_023876 (RefSeq)   and more detail...')
         wait.forAjax(driver) 
@@ -448,7 +448,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[7], 'ID : 1HU8 (PDB)   and more detail...')
         wait.forAjax(driver) 
@@ -469,7 +469,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[2].find_elements(By.CLASS_NAME, 'qsBucketRow1')[1].find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[2], 'ID : 719230 (ATCC)')
         wait.forAjax(driver) 
@@ -490,7 +490,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[2], 'ID : MGI:200469')
         wait.forAjax(driver) 
@@ -512,7 +512,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         #self.assertEqual(searchTextItems[2], 'ID : 14049 (MGC)')
         wait.forAjax(driver) 
@@ -533,7 +533,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow2').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[2], 'ID : MGI:2420147')
         wait.forAjax(driver) 
@@ -554,7 +554,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[2], 'ID : RP23-100A23 (RPCI-23)')
         wait.forAjax(driver) 
@@ -576,7 +576,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[3], 'ID : IPR003599')
         wait.forAjax(driver) 
@@ -597,7 +597,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[3], 'ID : PIRSF038195')
         wait.forAjax(driver) 
@@ -618,7 +618,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[2], 'ID : 8825637 (PubMed)')
         wait.forAjax(driver) 
@@ -639,7 +639,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[2], 'ID : MGI:3716133')
         wait.forAjax(driver) 
@@ -660,7 +660,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[2], 'SNP : rs3021544')
         wait.forAjax(driver) 
@@ -681,7 +681,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[2], 'ID : S40294 (GenBank, EMBL, DDBJ)')
         wait.forAjax(driver) 
@@ -702,7 +702,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[7], 'ID : 3.4.21.6 (EC)   and more detail...')
         wait.forAjax(driver) 
@@ -723,7 +723,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[7], 'ID : MI0000248 (miRBase)   and more detail...')
         wait.forAjax(driver) 
@@ -744,7 +744,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[7], 'Allele ID : MGI:2156651   and more detail...')
         wait.forAjax(driver) 
@@ -765,7 +765,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[7], 'Cell Line ID : BGB069 (BayGenomics)   and 2 more...')
         wait.forAjax(driver) 
@@ -786,7 +786,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[7], 'Cell Line ID : OST2298 (Lexicon)   and 2 more...')
         wait.forAjax(driver) 
@@ -804,10 +804,10 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'qsBucket')))#waits until the results are displayed on the page
         #finds the Best Match information
         buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
-        match_info = buckets[2].find_elements(By.CLASS_NAME, 'qsBucketRow2')[0].find_elements(By.TAG_NAME, 'td')
+        match_info = buckets[2].find_elements(By.CLASS_NAME, 'qsBucketRow1')[0].find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[2], 'ID : 20423 (NCBI Gene Model)')
         wait.forAjax(driver) 
@@ -828,7 +828,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[2], 'ID : MGI:10980')
         wait.forAjax(driver) 
@@ -849,7 +849,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[2].find_elements(By.CLASS_NAME, 'qsBucketRow2')[0].find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[2], 'ID : MGI:1414340')
         wait.forAjax(driver) 
@@ -870,7 +870,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[2], 'ID : MGD-CREX-2835')
         wait.forAjax(driver) 
@@ -891,7 +891,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[2], 'ID : MA:0000168 (Adult Mouse Anatomy)')
         wait.forAjax(driver) 
@@ -912,7 +912,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[3], 'ID : MP:0002089')
         wait.forAjax(driver) 
@@ -933,7 +933,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[2], 'ID : MGI:4438078')
         wait.forAjax(driver) 
@@ -954,7 +954,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[7], 'Proteoform : mAATK/iso:2 (PR:Q80YE4-2)   and more detail...')
         wait.forAjax(driver) 
@@ -975,7 +975,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[3], 'ID : DOID:1700')
         wait.forAjax(driver) 
@@ -997,7 +997,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[3], 'ID : MGI:2159854')
         wait.forAjax(driver)
@@ -1019,7 +1019,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[3], 'ID : MGI:2164529')
         wait.forAjax(driver)
@@ -1041,7 +1041,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[3], 'ID : 000651')
         wait.forAjax(driver)
@@ -1063,7 +1063,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[3], 'ID : MMRRC:029868')
         wait.forAjax(driver)
@@ -1085,7 +1085,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[3], 'ID : APB:629')
         wait.forAjax(driver)
@@ -1107,7 +1107,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[3], 'ID : ARC:B6')
         wait.forAjax(driver)
@@ -1129,7 +1129,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[3], 'ID : 242')
         wait.forAjax(driver)
@@ -1151,7 +1151,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[3], 'ID : 0076')
         wait.forAjax(driver)
@@ -1173,7 +1173,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[3], 'ID : EM:05001')
         wait.forAjax(driver)
@@ -1195,7 +1195,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[3], 'ID : pacEMS1D')
         wait.forAjax(driver)
@@ -1217,7 +1217,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[3], 'ID : FESA:03299')
         wait.forAjax(driver)
@@ -1239,7 +1239,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[3], 'ID : 11473')
         wait.forAjax(driver)
@@ -1261,7 +1261,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[3], 'ID : 01XH9')
         wait.forAjax(driver)
@@ -1283,7 +1283,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[3], 'ID : 3')
         wait.forAjax(driver)
@@ -1305,7 +1305,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[3], 'ID : M193046')
         wait.forAjax(driver)
@@ -1327,7 +1327,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[3], 'ID : 229')
         wait.forAjax(driver)
@@ -1349,7 +1349,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[3], 'ID : MGI:1861634')
         wait.forAjax(driver)
@@ -1371,7 +1371,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[3], 'ID : OBS:27')
         wait.forAjax(driver)
@@ -1393,7 +1393,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[3], 'ID : ORNL:47BS')
         wait.forAjax(driver)
@@ -1415,7 +1415,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[3], 'ID : RBRC00222')
         wait.forAjax(driver)
@@ -1437,7 +1437,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[3], 'ID : TAC:rag2')
         wait.forAjax(driver)
@@ -1459,7 +1459,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[3], 'ID : RMRC11005')
         wait.forAjax(driver)
@@ -1481,9 +1481,9 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
-        self.assertEqual(searchTextItems[3], 'Name : CD-1/Crl')
+        self.assertEqual(searchTextItems[3], 'Name : Crl:CD-1')
         wait.forAjax(driver)
 
     def test_strain_syn(self):
@@ -1503,7 +1503,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[3], 'Synonym : APPSWE')
         wait.forAjax(driver)
@@ -1525,7 +1525,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[7], 'ID : MGP_DBA2J_G0024137 (Mouse Genome Project)   and more detail...')
         #finds the Other Results By ID Why did this match? information
@@ -1533,7 +1533,7 @@ class TestSearchTool(unittest.TestCase):
         match3_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems3 = iterate.getTextAsList(match3_info)
         wait.forAjax(driver)
-        print searchTextItems3
+        print(searchTextItems3)
         #asserts that the Why did this match? data is correct for the ID searched
         self.assertEqual(searchTextItems3[2], 'ID : MGP_DBA2J_G0024137 (Mouse Genome Project)')
         wait.forAjax(driver)
@@ -1555,7 +1555,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[7], 'Symbol : Mgp   and 6 more...')
         wait.forAjax(driver)
@@ -1577,7 +1577,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[7], 'ID : MGI_C57BL6J_95661 (MGI Strain Gene)   and more detail...')
         #finds the Other Results By ID Why did this match? information
@@ -1585,7 +1585,7 @@ class TestSearchTool(unittest.TestCase):
         match3_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems3 = iterate.getTextAsList(match3_info)
         wait.forAjax(driver)
-        print searchTextItems3
+        print(searchTextItems3)
         #asserts that the Why did this match? data is correct for the ID searched
         self.assertEqual(searchTextItems3[2], 'ID : MGI_C57BL6J_95661 (MGI Strain Gene)')
         wait.forAjax(driver)
@@ -1607,7 +1607,7 @@ class TestSearchTool(unittest.TestCase):
         match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
         searchTextItems = iterate.getTextAsList(match_info)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[2], 'SNP : rs49528167')
         wait.forAjax(driver) 

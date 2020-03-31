@@ -43,45 +43,45 @@ class TestMarkerDetail(unittest.TestCase):
         self.driver.find_element(By.LINK_TEXT, 'Gata1').click()
         time.sleep(2)
         summaryRibbon = self.driver.find_element(By.ID, 'summaryRibbon').find_element(By.CSS_SELECTOR, 'div.header.detailCat1')
-        print summaryRibbon.text
+        print(summaryRibbon.text)
         self.assertEqual(summaryRibbon.text, 'Summary', "Summary ribbon is missing")
         locationribbon = self.driver.find_element(By.ID, 'locationRibbon').find_element(By.CSS_SELECTOR, 'div.header.detailCat2')
-        print locationribbon.text
+        print(locationribbon.text)
         self.assertEqual(locationribbon.text, "Location &\nMaps", "Location & Maps ribbon is missing")
         strainribbon = self.driver.find_element(By.ID, 'strainRibbon').find_element(By.CSS_SELECTOR, 'div.header.detailCat1')
-        print strainribbon.text
+        print(strainribbon.text)
         self.assertEqual(strainribbon.text, "Strain\nComparison", "Strain Comparison ribbon is missing")
         homologyribbon = self.driver.find_element(By.ID, 'homologyRibbon').find_element(By.CSS_SELECTOR, 'div.header.detailCat2')
-        print homologyribbon.text
+        print(homologyribbon.text)
         self.assertEqual(homologyribbon.text, 'Homology', "Homology ribbon is missing")
         diseaseribbon = self.driver.find_element(By.ID, 'diseaseRibbon').find_element(By.CSS_SELECTOR, 'div.header.detailCat1')
         self.assertEqual(diseaseribbon.text, "Human Diseases", "Human Diseases ribbon is missing")
         phenoribbon = self.driver.find_element(By.ID, 'phenotypeRibbon').find_element(By.CSS_SELECTOR, 'div.header.detailCat2')
-        print phenoribbon.text
+        print(phenoribbon.text)
         self.assertEqual(phenoribbon.text, "Mutations,\nAlleles, and\nPhenotypes", "Phenotype ribbon is missing")
         goribbon = self.driver.find_element(By.ID, 'goRibbon').find_element(By.CSS_SELECTOR, 'div.header.detailCat1')
-        print goribbon.text
+        print(goribbon.text)
         self.assertEqual(goribbon.text, "Gene Ontology\n(GO)\nClassifications", "GO ribbon is missing")
         gxdribbon = self.driver.find_element(By.ID, 'expressionRibbon').find_element(By.CSS_SELECTOR, 'div.header.detailCat2')
-        print gxdribbon.text
+        print(gxdribbon.text)
         self.assertEqual(gxdribbon.text, "Expression", "Expression ribbon is missing")
         interactionsRibbon = self.driver.find_element(By.ID, 'interactionRibbon').find_element(By.CSS_SELECTOR, 'div.header.detailCat1')
-        print interactionsRibbon.text
+        print(interactionsRibbon.text)
         self.assertEqual(interactionsRibbon.text, 'Interactions', "Interactions ribbon is missing")
         sequenceribbon = self.driver.find_element(By.ID, 'sequenceRibbon').find_element(By.CSS_SELECTOR, 'div.header.detailCat2')
-        print sequenceribbon.text
+        print(sequenceribbon.text)
         self.assertEqual(sequenceribbon.text, "Sequences &\nGene Models", "Sequence ribbon is missing")
         proteinribbon = self.driver.find_element(By.ID, 'proteinInfoRibbon').find_element(By.CSS_SELECTOR, 'div.header.detailCat1')
-        print proteinribbon.text
+        print(proteinribbon.text)
         self.assertEqual(proteinribbon.text, "Protein\nInformation", "Protein Information ribbon is missing")
         molecularRibbon = self.driver.find_element(By.ID, 'molecularReagentsRibbon').find_element(By.CSS_SELECTOR, 'div.header.detailCat2')
-        print molecularRibbon.text
+        print(molecularRibbon.text)
         self.assertEqual(molecularRibbon.text, 'Molecular\nReagents', "Molecular Reagents ribbon is missing")
         otherRibbon = self.driver.find_element(By.ID, 'otherMgiIdsRibbon').find_element(By.CSS_SELECTOR, 'div.header.detailCat1')
-        print otherRibbon.text
+        print(otherRibbon.text)
         self.assertEqual(otherRibbon.text, 'Other\nAccession IDs', "Other Accession IDs ribbon is missing")
         referencesRibbon = self.driver.find_element(By.ID, 'referenceRibbon').find_element(By.CSS_SELECTOR, 'div.header.detailCat2')
-        print referencesRibbon.text
+        print(referencesRibbon.text)
         self.assertEqual(referencesRibbon.text, 'References', "References ribbon is missing")
         
     def test_apf_link(self):
@@ -111,13 +111,13 @@ class TestMarkerDetail(unittest.TestCase):
         self.driver.find_element(By.LINK_TEXT, 'Vwa3b').click()
         #Find the Transcription link in the summary ribbon section, verify the link text and click it    
         tss_link = self.driver.find_element(By.ID, 'showTss')        
-        print tss_link.text
+        print(tss_link.text)
         self.assertEqual(tss_link.text, '8 TSS', 'The tss link text is not correct!')
         tss_link.click()
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'tssDiv_h')))#waits until the TSS table popup is displayed on the page      
         #find the Tss table popup and verify the table heading
         tss_head = self.driver.find_element(By.ID, 'tssDiv_h')
-        print tss_head.text
+        print(tss_head.text)
         self.assertEqual(tss_head.text, 'TSS for Vwa3b:', 'The TSS table heading is not correct!')
         
         
@@ -140,23 +140,23 @@ class TestMarkerDetail(unittest.TestCase):
         loc_cells = iterate.getTextAsList(cells)      
         #Verify the TSS table locations are correct and in the correct order.
         self.assertEqual(loc_cells[1], 'Chr1:9797795-9797809 (+)')
-        self.assertEquals(loc_cells[2], 'Chr1:9797812-9797823 (+)')
-        self.assertEquals(loc_cells[3], 'Chr1:9797986-9798040 (+)')
-        self.assertEquals(loc_cells[4], 'Chr1:9798123-9798216 (+)')
-        self.assertEquals(loc_cells[5], 'Chr1:9848270-9848285 (+)') 
-        self.assertEquals(loc_cells[6], 'Chr1:9848294-9848362 (+)')
-        self.assertEquals(loc_cells[7], 'Chr1:9848375-9848398 (+)')       
+        self.assertEqual(loc_cells[2], 'Chr1:9797812-9797823 (+)')
+        self.assertEqual(loc_cells[3], 'Chr1:9797986-9798040 (+)')
+        self.assertEqual(loc_cells[4], 'Chr1:9798123-9798216 (+)')
+        self.assertEqual(loc_cells[5], 'Chr1:9848270-9848285 (+)') 
+        self.assertEqual(loc_cells[6], 'Chr1:9848294-9848362 (+)')
+        self.assertEqual(loc_cells[7], 'Chr1:9848375-9848398 (+)')       
         #Iterate the table Distance from Gene 5' -end column
         cells = table.get_column_cells("Distance from Gene 5'-end")
         loc_cells = iterate.getTextAsList(cells)      
         #Verify the TSS table Distance are correct and in the correct order.
         self.assertEqual(loc_cells[1], '-305 bp')
-        self.assertEquals(loc_cells[2], '-289 bp')
-        self.assertEquals(loc_cells[3], '-94 bp')
-        self.assertEquals(loc_cells[4], '63 bp')
-        self.assertEquals(loc_cells[5], '50,171 bp') 
-        self.assertEquals(loc_cells[6], '50,221 bp')
-        self.assertEquals(loc_cells[7], '50,280 bp')        
+        self.assertEqual(loc_cells[2], '-289 bp')
+        self.assertEqual(loc_cells[3], '-94 bp')
+        self.assertEqual(loc_cells[4], '63 bp')
+        self.assertEqual(loc_cells[5], '50,171 bp') 
+        self.assertEqual(loc_cells[6], '50,221 bp')
+        self.assertEqual(loc_cells[7], '50,280 bp')        
 
     def test_tss_detail_link(self):
         '''
@@ -173,14 +173,14 @@ class TestMarkerDetail(unittest.TestCase):
         #locates the TSS table and verify the tss ID is correct
         tss_table = Table(self.driver.find_element_by_id("tssTable"))
         cell = tss_table.get_cell(1, 0)   
-        print cell.text
+        print(cell.text)
         self.assertEqual(cell.text, 'Tssr6917', 'The TSSR ID is not correct!')
         #find and click the Tssr ID
         self.driver.find_element(By.LINK_TEXT, 'Tssr6917').click()
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'titleBarMainTitle')))#waits until the page title is displayed on the page
         page_title = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
         #Assert that the page title is for Tssr6917
-        self.assertEquals(page_title.text, 'Tssr6917') 
+        self.assertEqual(page_title.text, 'Tssr6917') 
         
     def test_strain_table_headings(self):
         '''        
@@ -203,14 +203,14 @@ class TestMarkerDetail(unittest.TestCase):
         header_cells = iterate.getTextAsList(cells)      
         #Verify the strain table headers are correct.
         self.assertEqual(header_cells[0], 'Strain')
-        self.assertEquals(header_cells[1], 'Gene Model ID')
-        self.assertEquals(header_cells[2], 'Feature Type')
-        self.assertEquals(header_cells[3], 'Coordinates')
-        self.assertEquals(header_cells[4], 'Select Strains')        
+        self.assertEqual(header_cells[1], 'Gene Model ID')
+        self.assertEqual(header_cells[2], 'Feature Type')
+        self.assertEqual(header_cells[3], 'Coordinates')
+        self.assertEqual(header_cells[4], 'Select Strains')        
 
     def test_strain_no_annot(self):
         '''        
-        @status this test verifies the strain table is not present in the Strain Comparison ribbon when strains have no annotation.
+        @status this test verifies the strain table(no strain ribbon) is not present in the Strain Comparison ribbon when strains have no annotation.
         @note mrkdetail-strain-2
         '''   
         driver = self.driver      
@@ -219,16 +219,15 @@ class TestMarkerDetail(unittest.TestCase):
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Arp').click()
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
-        #clicks the More toggle(turnstile) to display the strain table
-        self.driver.find_element(By.ID, 'strainRibbon').find_element(By.CSS_SELECTOR, 'div.toggleImage.hdExpand').click()        
-        #asserts that the strains table is not displayed in the Strains Comparison ribbon
-        assert "table_strainMarkers" not in self.driver.page_source  
+        
+        #asserts that the strains ribbon is not displayed on the page
+        assert "table_strainRibbon" not in self.driver.page_source  
         
 
     def test_strain_turnstile_closed(self):
         '''        
         @status this test verifies the Strain Comparison ribbon when the turnstile is closed shows strain annotations, MGV link, SNPs within 2kb(if available).
-        @note mrkdetail-strain-3 
+        @note mrkdetail-strain-3  !!this test needs a rewrite as it no longer works by links but by pulldown menu
         '''        
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys("Ren1")
@@ -239,13 +238,13 @@ class TestMarkerDetail(unittest.TestCase):
         #verify the strain annotations number is correct
         self.assertEqual(strain_annot.text, '16')
         #locate the MGV link
-        mgv_link = self.driver.find_element(By.ID, 'mgvSpan')
-        print mgv_link.text
+        mgv_link = self.driver.find_element(By.ID, 'sgGoButton')
+        print(mgv_link.text)
         #verify the MGV link text is correct
         self.assertEqual(mgv_link.text, 'Multiple Genome Viewer (MGV)')        
         #locate the SNP link
         snp_link = self.driver.find_element(By.ID, 'snpLink')
-        print snp_link.text
+        print(snp_link.text)
         #verify the SNP link text is correct
         self.assertEqual(snp_link.text, '298')
 
@@ -262,7 +261,7 @@ class TestMarkerDetail(unittest.TestCase):
         assert "annotatedStrainMarkerCount" not in self.driver.page_source
         #locate the MGV link
         mgv_link = self.driver.find_element(By.ID, 'mgvSpan')
-        print mgv_link.text
+        print(mgv_link.text)
         #verify the MGV link text is correct
         self.assertEqual(mgv_link.text, 'Multiple Genome Viewer (MGV)')
         #Assert the SNPs within 2kb link is not displayed
@@ -300,7 +299,7 @@ class TestMarkerDetail(unittest.TestCase):
         #time.sleep(2)
         #locates all MGV link on the page
         mgv_link = self.driver.find_element(By.LINK_TEXT, 'Multiple Genome Viewer (MGV)')    
-        print mgv_link.get_attribute('href')
+        print(mgv_link.get_attribute('href'))
         #verify the MGV link href is correct(the 10KB flanking added is in the url)
         self.assertEqual(mgv_link.get_attribute('href'), 'http://proto.informatics.jax.org/prototypes/mgv/#ref=C57BL/6J&genomes=C57BL/6J+129S1/SvImJ+A/J+AKR/J+BALB/cJ+C3H/HeJ+C57BL/6NJ+CAROLI/EIJ+CAST/EiJ+CBA/J+DBA/2J+FVB/NJ+LP/J+NOD/ShiLtJ+NZO/HlLtJ+PAHARI/EIJ+PWK/PhJ+SPRET/EiJ+WSB/EiJ&chr=1&start=133300674&end=133410320&highlight=MGI:97898', 'The MGV link href flanking is incorrect!')
 
@@ -327,7 +326,7 @@ class TestMarkerDetail(unittest.TestCase):
         table = Table(structure_table)
         #Iterate the second row of the disease table
         all_cells = table.get_row('ID/Version')
-        print all_cells.text
+        print(all_cells.text)
         #verify the ID/Version row of data
         self.assertEqual(all_cells.text, 'ID/Version\nMGI_C57BL6J_95661 Multiple Genome Viewer (MGV) Version: MGI_C57BL6J_95661.GRCm38')
         #switch focus back to the Gene Detail page
@@ -341,7 +340,7 @@ class TestMarkerDetail(unittest.TestCase):
         table = Table(structure_table)
         #Iterate the second row of the disease table
         all_cells = table.get_row('ID/Version')
-        print all_cells.text
+        print(all_cells.text)
         #verify the ID/Version row of data
         self.assertEqual(all_cells.text, 'ID/Version\nMGP_129S1SvImJ_G0035536 Multiple Genome Viewer (MGV) Version: MGP_129S1SvImJ_G0035536.Ensembl Release 92')
 
@@ -358,7 +357,7 @@ class TestMarkerDetail(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
         #locate the Sequence Map coordinates
         seq_map = self.driver.find_element(By.XPATH, '//*[@id="templateBodyInsert"]/div[2]/div[2]/div[2]/section[1]/ul/li[1]/div[2]')
-        print seq_map.text
+        print(seq_map.text)
         #verify the coordinates data for the sequence map
         self.assertEqual(seq_map.text, 'Chr8:12385771-12436732 bp, + strand', 'sequence map coordinates have changed!')
         #clicks the More toggle(turnstile) to display the strain table
@@ -369,7 +368,7 @@ class TestMarkerDetail(unittest.TestCase):
         table = Table(strains_table)
         #Iterate the second row of the disease table
         all_cells = table.get_column_cells('Gene Model ID')
-        print all_cells[1].text
+        print(all_cells[1].text)
         #verify the ID/Version row of data
         self.assertEqual(all_cells[1].text, 'no annotation')
         
@@ -386,7 +385,7 @@ class TestMarkerDetail(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
         #locate the Sequence Map coordinates
         seq_map = self.driver.find_element(By.XPATH, '//*[@id="templateBodyInsert"]/div[2]/div[2]/div[2]/section[1]/ul/li[1]/div[2]')
-        print seq_map.text
+        print(seq_map.text)
         #verify the coordinates data for the sequence map
         self.assertEqual(seq_map.text, 'Chr2:105668900-105697364 bp, + strand', 'sequence map coordinates have changed!')
         #clicks the More toggle(turnstile) to display the strain table
@@ -397,7 +396,7 @@ class TestMarkerDetail(unittest.TestCase):
         table = Table(strains_table)
         #Iterate the second row of the disease table
         all_cells = table.get_column_cells('Coordinates')
-        print all_cells[1].text
+        print(all_cells[1].text)
         #verify the ID/Version row of data
         self.assertEqual(all_cells[1].text, 'Chr2:105668896-105698410 (+)')
         
@@ -414,7 +413,7 @@ class TestMarkerDetail(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
         #locate the Sequence Map coordinates
         seq_map = self.driver.find_element(By.XPATH, '//*[@id="locationRibbon"]/div[2]/section[1]/ul/li[1]/div[2]')
-        print seq_map.text
+        print(seq_map.text)
         #verify the coordinates data for the sequence map
         self.assertEqual(seq_map.text, 'Chr12:113365795-113367226 bp, - strand', 'sequence map coordinates have changed!')
         #clicks the More toggle(turnstile) to display the strain table
@@ -425,7 +424,7 @@ class TestMarkerDetail(unittest.TestCase):
         table = Table(strains_table)
         #Iterate the second row of the disease table
         all_cells = table.get_column_cells('Coordinates')
-        print all_cells[1].text
+        print(all_cells[1].text)
         #verify the ID/Version row of data
         self.assertEqual(all_cells[1].text, 'Chr12:113365796-113367227 (-)')
 
@@ -572,7 +571,7 @@ class TestMarkerDetail(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
         #locate the Strain-specific icon and text in the strain comparison ribbon
         specific = self.driver.find_element(By.LINK_TEXT, 'Strain-Specific Marker')
-        print specific.text
+        print(specific.text)
         #verify the Strain-specific icon and text is displayed in the strain comparison ribbon
         self.assertEqual(specific.text, 'Strain-Specific Marker', 'the Strain-specific icon and text is not displaying!')
 
@@ -589,7 +588,7 @@ class TestMarkerDetail(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
         #locate the strain comparison ribbon
         strain_ribbon = self.driver.find_element(By.ID, 'strainRibbon')
-        print strain_ribbon.text
+        print(strain_ribbon.text)
         #verify the Strain-specific icon and text is displayed in the strain comparison ribbon
         self.assertEqual(strain_ribbon.text, 'Strain\nComparison\nmore\nMultiple Genome Viewer (MGV)', 'the Strain Comparison ribbon display has changed!')        
 
@@ -607,7 +606,7 @@ class TestMarkerDetail(unittest.TestCase):
         #locate the strain comparison ribbon
         strain_ribbon = self.driver.find_element(By.ID, 'strainRibbon')
         time.sleep(2)
-        print strain_ribbon.text
+        print(strain_ribbon.text)
         #verify the Strain-specific icon and text is displayed in the strain comparison ribbon
         self.assertEqual(strain_ribbon.text, 'Strain\nComparison\nless\nRFLP\n1', 'the Strain Comparison ribbon display has changed!')     
 
@@ -697,10 +696,10 @@ class TestMarkerDetail(unittest.TestCase):
         #locates the SNPs table and verify the table headers have all the correct strains
         strain_table = Table(self.driver.find_element(By.XPATH, '//*[@id="t_snps_0"]/div[1]/table'))
         cells = strain_table.get_header_cells()
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #time.sleep(5)
         #verify the correct strains are being returned in the header of the table
-        print cells[5].text
+        print(cells[5].text)
         self.assertEqual(cells[5].text, '129S1/SvImJ', '129S1/SvImJ is not a header')
         self.assertEqual(cells[6].text, 'AKR/J', 'AKR/J is not a header')
         self.assertEqual(cells[7].text, 'A/J', 'A/J is not a header')
@@ -737,7 +736,7 @@ class TestMarkerDetail(unittest.TestCase):
         table = Table(strains_table)
         #Iterate the first column of the disease table
         strain_cells = table.get_column_cells('Strain')
-        print strain_cells[1].text
+        print(strain_cells[1].text)
         #verify the rows of data for the Strain column
         self.assertEqual(strain_cells[1].text, 'C57BL/6J')
         self.assertEqual(strain_cells[2].text, '129S1/SvImJ')
@@ -750,16 +749,16 @@ class TestMarkerDetail(unittest.TestCase):
         self.assertEqual(strain_cells[9].text, 'C3H/HeJ')
         #Iterate the second column of the disease table
         model_cells = table.get_column_cells('Gene Model ID')
-        print model_cells[1].text
+        print(model_cells[1].text)
         #verify the Gene Model ID column of data
         self.assertEqual(model_cells[1].text, 'MGI_C57BL6J_105105')
         self.assertEqual(model_cells[2].text, 'MGP_129S1SvImJ_G0005544')
-        self.assertEqual(model_cells[3].text, 'MGP_AJ_G0036786')
-        self.assertEqual(model_cells[4].text, 'MGP_AJ_G0006976')
-        self.assertEqual(model_cells[5].text, 'MGP_AKRJ_G0007264')
-        self.assertEqual(model_cells[6].text, 'MGP_AKRJ_G0036736')
-        self.assertEqual(model_cells[7].text, 'MGP_BALBcJ_G0006952')
-        self.assertEqual(model_cells[8].text, 'MGP_BALBcJ_G0036776')
+        self.assertEqual(model_cells[3].text, 'MGP_AJ_G0006976')
+        self.assertEqual(model_cells[4].text, 'MGP_AJ_G0036786')
+        self.assertEqual(model_cells[5].text, 'MGP_AKRJ_G0036736')
+        self.assertEqual(model_cells[6].text, 'MGP_AKRJ_G0007264')
+        self.assertEqual(model_cells[7].text, 'MGP_BALBcJ_G0036776')
+        self.assertEqual(model_cells[8].text, 'MGP_BALBcJ_G0006952')
         self.assertEqual(model_cells[9].text, 'no annotation')
 
         
@@ -801,16 +800,16 @@ class TestMarkerDetail(unittest.TestCase):
         table = Table(disease_table)
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
-        print iterate.getTextAsList(header_cells)        
+        print(iterate.getTextAsList(header_cells))        
         # print row 1
         cells = table.get_column_cells("Human Disease")
         disease_cells = iterate.getTextAsList(cells)
-        print disease_cells
-        self.assertEquals(disease_cells[1], 'permanent neonatal diabetes mellitus\nIDs')
+        print(disease_cells)
+        self.assertEqual(disease_cells[1], 'permanent neonatal diabetes mellitus\nIDs')
         #self.assertEquals(disease_cells[2], 'maturity-onset diabetes of the young\nIDs')
         #self.assertEquals(disease_cells[3], 'type 1 diabetes mellitus\nIDs')
         #self.assertEquals(disease_cells[4], 'type 2 diabetes mellitus\nIDs')
-        self.assertEquals(disease_cells[5], 'maturity-onset diabetes of the young type 10\nIDs')
+        self.assertEqual(disease_cells[5], 'maturity-onset diabetes of the young type 10\nIDs')
                 
     def test_mouse_model_strain_links(self):
         '''
@@ -858,7 +857,7 @@ class TestMarkerDetail(unittest.TestCase):
         self.driver.switch_to_window(self.driver.window_handles[-1])
         #time.sleep(2)
         page_title = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
-        print page_title.text
+        print(page_title.text)
         #Asserts that the strain page is for the correct strain
         self.assertEqual(page_title.text, 'C57BL/6J-Pde6brd1-2J/J', 'Page title is not correct!')
 
@@ -882,7 +881,7 @@ class TestMarkerDetail(unittest.TestCase):
         self.driver.switch_to_window(self.driver.window_handles[-1])
         #time.sleep(2)
         page_title = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
-        print page_title.text
+        print(page_title.text)
         #Asserts that the strain page is for the correct strain
         self.assertEqual(page_title.text, 'C57BL/6J-Pde6brd1-2J Pde6anmf363', 'Page title is not correct!')
 
@@ -917,7 +916,7 @@ class TestMarkerDetail(unittest.TestCase):
         self.driver.switch_to_window(self.driver.window_handles[-1])
         #time.sleep(2)
         page_title = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
-        print page_title.text
+        print(page_title.text)
         #Asserts that the strain page is for the correct strain detail
         self.assertEqual(page_title.text, 'AKR/J', 'Page title is not correct!')
         #switch focus back to the tab for Phenotypes associated with X/Sry<AKR/J>
@@ -930,7 +929,7 @@ class TestMarkerDetail(unittest.TestCase):
         self.driver.switch_to_window(self.driver.window_handles[-1])
         #time.sleep(2)
         page_title = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
-        print page_title.text
+        print(page_title.text)
         #Asserts that the strain page is for the correct strain detail
         self.assertEqual(page_title.text, 'AKR/J', 'Page title is not correct!')
                 

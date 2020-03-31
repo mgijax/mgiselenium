@@ -10,7 +10,7 @@ import time
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
-import HTMLTestRunner
+import HtmlTestRunner
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -48,7 +48,7 @@ class TestDiseaseTab(unittest.TestCase):
         #identify the Disease Tab and click on it
         disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         time.sleep(2)
-        print disease_tab.text
+        print(disease_tab.text)
         time.sleep(2)
         disease_tab.click()
         disease_table_headers = self.driver.find_element_by_id("diseaseTable").find_element_by_css_selector("tr")
@@ -82,13 +82,13 @@ class TestDiseaseTab(unittest.TestCase):
         #identify the Disease tab and verify the tab's text
         disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         time.sleep(2)
-        print disease_tab.text
+        print(disease_tab.text)
         time.sleep(2)
         
         disease_tab.click()
         disease_table = Table(self.driver.find_element_by_id("diseaseTable"))
         cells = disease_table.get_column_cells("Disease")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         
         diseaseNamesReturned = iterate.getTextAsList(cells)
         
@@ -119,13 +119,13 @@ class TestDiseaseTab(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         time.sleep(2)
-        print disease_tab.text
+        print(disease_tab.text)
         time.sleep(2)
         
         disease_tab.click()
         disease_table = Table(self.driver.find_element_by_id("diseaseTable"))
         cells = disease_table.get_column_cells("Disease")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         
         diseaseNamesReturned = iterate.getTextAsList(cells)
         #asserts that the correct genes in the correct order are returned
@@ -156,13 +156,13 @@ class TestDiseaseTab(unittest.TestCase):
         #identify the Disease Tab and click on it
         disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         time.sleep(2)
-        print disease_tab.text
+        print(disease_tab.text)
         time.sleep(2)
         
         disease_tab.click()
         disease_table = Table(self.driver.find_element_by_id("diseaseTable"))
         cells = disease_table.get_column_cells("DO ID")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         diseaseIdsReturned = iterate.getTextAsList(cells)
         self.assertIn('DOID:0050471', diseaseIdsReturned) #verify DOID entered is returned in Disease Tab
         
@@ -179,4 +179,4 @@ class TestDiseaseTab(unittest.TestCase):
         '''
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    HTMLTestRunner.main() 
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))

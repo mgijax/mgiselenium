@@ -9,7 +9,7 @@ import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
-import HTMLTestRunner
+import HtmlTestRunner
 
 
 import sys,os.path
@@ -60,7 +60,7 @@ class TestShort(unittest.TestCase):
         form.press_tab()
         #finds the citation field
         citation = form.get_value('citation')
-        print citation
+        print(citation)
         try:
             self.assertEqual(citation, 'Abdelwahid E, Cell Tissue Res 2001 Jul;305(1):67-78')
             self.report.AppendToReport("gxdIdx1-0", "testctrrlaltc", "citation text displays", "correct citation text displays", citation, "Pass", "")
@@ -70,7 +70,7 @@ class TestShort(unittest.TestCase):
         form.enter_value('marker_symbol', 'Bmp2')
         marker_symbol = form.get_value('marker_symbol')
         form.press_tab()
-        print marker_symbol
+        print(marker_symbol)
         try:
             self.assertEqual(marker_symbol, 'Bmp2')
             self.report.AppendToReport("gxdIdx1-1", "testctrrlaltc", "marker symbol displays", "correct marker symbol displays", "symbol is ", "Pass", "")
@@ -82,40 +82,40 @@ class TestShort(unittest.TestCase):
         time.sleep(5)
         #finds the citation field
         citation = form.get_value('citation')
-        print citation
+        print(citation)
         self.assertEqual(citation, '')
         #finds the marker field
         marker_symbol = form.get_value('marker_symbol')
-        print marker_symbol
+        print(marker_symbol)
         self.assertEqual(marker_symbol, '')
         #finds the coded? field
         is_coded = form.get_value('is_coded')
         
-        print is_coded
+        print(is_coded)
         self.assertEqual(is_coded, '')
         #finds the priority field
         priority = form.get_selected_text('_priority_key') 
-        print priority
+        print(priority)
         self.assertEqual(priority, 'Search All')
         #finds the conditional mutants field
         conditional = form.get_selected_text('_conditionalmutants_key')
-        print conditional
+        print(conditional)
         self.assertEqual(conditional, 'Search All')
         #finds the created by field
         created_user = form.get_value('createdby_login')
-        print created_user
+        print(created_user)
         self.assertEqual(created_user, '')
         #finds the modified by field
         modified_user = form.get_value('modifiedby_login')#.find_element_by_css_selector('td')
-        print modified_user
+        print(modified_user)
         self.assertEqual(modified_user, '')
         #finds the created by date field
         created_date = form.get_value('creation_date')
-        print created_date
+        print(created_date)
         self.assertEqual(created_date, '')
         #finds the created by date field
         modified_date = form.get_value('modification_date')
-        print modified_date
+        print(modified_date)
         self.assertEqual(modified_date, '')
         #find the table field to check
         table_element = driver.find_element_by_id("indexGrid")
@@ -140,7 +140,7 @@ class TestShort(unittest.TestCase):
         form.press_tab()
         #finds the citation field
         citation = form.get_value('citation')
-        print citation
+        print(citation)
         try:
             self.assertEqual(citation, 'Cheong N, J Biol Chem 2007 Aug 17;282(33):23811-7')
             self.report.AppendToReport("gxdIdx1-2", "testctrrlalts", "Citation is displayed", "correct citation displays", "citation is ", "Pass", "")
@@ -150,39 +150,39 @@ class TestShort(unittest.TestCase):
         time.sleep(5)
         #finds the citation field
         citation = form.get_value('citation')
-        print citation
+        print(citation)
         self.assertEqual(citation, 'Cheong N, J Biol Chem 2007 Aug 17;282(33):23811-7')
         #finds the marker field
         marker_symbol = form.get_value('marker_symbol')
-        print marker_symbol
+        print(marker_symbol)
         self.assertEqual(marker_symbol, 'Abca3')
         #finds the coded? field
         is_coded = form.get_value('is_coded')        
-        print is_coded
+        print(is_coded)
         self.assertEqual(is_coded, 'false')
         #finds the priority field
         priority = form.get_selected_text('_priority_key') 
-        print priority
+        print(priority)
         self.assertEqual(priority, 'Medium')
         #finds the conditional mutants field
         conditional = form.get_selected_text('_conditionalmutants_key')
-        print conditional
+        print(conditional)
         self.assertEqual(conditional, 'Not Specified')
         #finds the created by field
         created_user = form.get_value('createdby_login')
-        print created_user
+        print(created_user)
         self.assertEqual(created_user, 'terryh')
         #finds the modified by field
         modified_user = form.get_value('modifiedby_login')#.find_element_by_css_selector('td')
-        print modified_user
+        print(modified_user)
         self.assertEqual(modified_user, 'terryh')
         #finds the created by date field
         created_date = form.get_value('creation_date')
-        print created_date
+        print(created_date)
         self.assertEqual(created_date, '10/01/2007')
         #finds the created by date field
         modified_date = form.get_value('modification_date')
-        print modified_date
+        print(modified_date)
         self.assertEqual(modified_date, '10/01/2007')
         #find the table field to check
         table_element = driver.find_element_by_id("indexGrid")
@@ -205,4 +205,4 @@ def suite():
 
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    HTMLTestRunner.main() 
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests')) 

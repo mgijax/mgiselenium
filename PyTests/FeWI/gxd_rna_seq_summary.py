@@ -9,7 +9,7 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-import HTMLTestRunner
+import HtmlTestRunner
 # from lib import *
 import sys,os.path
 # adjust the path to find config
@@ -42,7 +42,7 @@ class TestRnaSeqSummary(unittest.TestCase):
         time.sleep(2)
         #identify the View experiment at cell of the first row of results returned
         result_set = self.driver.find_element_by_id("injectedResults").find_elements_by_class_name('extUrl')
-        print result_set[2].text
+        print(result_set[2].text)
         time.sleep(2)
         result_set[2].click()
         time.sleep(2)
@@ -50,7 +50,7 @@ class TestRnaSeqSummary(unittest.TestCase):
         self.driver.switch_to_window(self.driver.window_handles[-1])
         #get the URL of the page
         page_url = self.driver.current_url
-        print page_url
+        print(page_url)
         #Assert the URL is correct
         self.assertEqual(page_url, "https://www.ebi.ac.uk/arrayexpress/experiments/E-ERAD-433/")
      
@@ -67,7 +67,7 @@ class TestRnaSeqSummary(unittest.TestCase):
         time.sleep(2)
         #identify the View experiment at cell of the first row of results returned
         result_set = self.driver.find_element_by_id("injectedResults").find_elements_by_class_name('extUrl')
-        print result_set[0].text
+        print(result_set[0].text)
         time.sleep(2)
         result_set[0].click()
         time.sleep(2)
@@ -75,7 +75,7 @@ class TestRnaSeqSummary(unittest.TestCase):
         self.driver.switch_to_window(self.driver.window_handles[-1])
         #get the URL of the page
         page_url = self.driver.current_url
-        print page_url
+        print(page_url)
         #Assert the URL is correct
         self.assertEqual(page_url, "https://www.ebi.ac.uk/gxa/experiments/E-ERAD-169/Results")
 
@@ -92,7 +92,7 @@ class TestRnaSeqSummary(unittest.TestCase):
         time.sleep(2)
         #identify the View experiment at cell of the third row of results returned
         result_set = self.driver.find_element_by_id("injectedResults").find_elements_by_class_name('extUrl')
-        print result_set[4].text
+        print(result_set[4].text)
         time.sleep(2)
         result_set[4].click()
         time.sleep(2)
@@ -100,7 +100,7 @@ class TestRnaSeqSummary(unittest.TestCase):
         self.driver.switch_to_window(self.driver.window_handles[-1])
         #get the URL of the page
         page_url = self.driver.current_url
-        print page_url
+        print(page_url)
         #Assert the URL is correct
         self.assertEqual(page_url, "https://www.ebi.ac.uk/arrayexpress/experiments/E-GEOD-868/")
                     
@@ -126,7 +126,7 @@ class TestRnaSeqSummary(unittest.TestCase):
         time.sleep(2)
         #identify the Experimental variable row of the results returned
         result_set = self.driver.find_element_by_id("injectedResults").find_elements_by_class_name('variables')
-        print result_set[0].text
+        print(result_set[0].text)
         time.sleep(2)
         #Assert the lone result has an Experimental variable of 'genotype'
         self.assertEqual(result_set[0].text, "developmental stage\ngenotype")
@@ -154,14 +154,14 @@ class TestRnaSeqSummary(unittest.TestCase):
         time.sleep(2)
         #identify the Experimental variable cell of row1 of the results returned
         result_set0 = self.driver.find_element_by_id("variableData0").find_element_by_class_name('variables')
-        print result_set0.text
+        print(result_set0.text)
         #print result_set[1].text
         time.sleep(2)
         #Assert the lone result has an Experimental variable of 'genotype'
         self.assertEqual(result_set0.text, "developmental stage\ngenotype")        
         #identify the Experimental variable cell of row2 of the results returned
         result_set1 = self.driver.find_element_by_id("variableData2").find_element_by_class_name('variables')
-        print result_set1.text
+        print(result_set1.text)
         #print result_set[1].text
         time.sleep(2)
         #Assert the lone result has an Experimental variable of 'genotype'
@@ -189,7 +189,7 @@ class TestRnaSeqSummary(unittest.TestCase):
         time.sleep(2)
         #identify the Experimental variable column of the results returned
         result_set = self.driver.find_element_by_id("studyTypeData0")
-        print result_set.text
+        print(result_set.text)
         time.sleep(2)
         #Assert the lone result has a study type of 'WT vs. Mutant'
         self.assertEqual(result_set.text, "WT vs. Mutant")        
@@ -207,7 +207,7 @@ class TestRnaSeqSummary(unittest.TestCase):
         time.sleep(2)
         #identify the View experiment at cell of the third row of results returned
         result_set = self.driver.find_element_by_id("injectedResults").find_element_by_id('viewData0')
-        print result_set.text
+        print(result_set.text)
         time.sleep(2)
         #Assert the sort order is correct
         self.assertEqual(result_set.text, "GXD: E-ERAD-169\nExpression Atlas: E-ERAD-169\nArrayExpress: E-ERAD-169")
@@ -225,14 +225,14 @@ class TestRnaSeqSummary(unittest.TestCase):
         time.sleep(2)
         #Find the first E-ERAD--169 found in the first row of the View Experiment at column and click it.
         vea_links = self.driver.find_elements_by_link_text('E-ERAD-169')
-        print vea_links[0]
+        print(vea_links[0])
         vea_links[0].click()
         time.sleep(2)
         #switch focus to the next tab
         self.driver.switch_to_window(self.driver.window_handles[-1])
         #get the URL of the page
         page_url = self.driver.current_url
-        print page_url
+        print(page_url)
         #Assert the URL is correct
         self.assertEqual(page_url, "http://test.informatics.jax.org/gxd/experiment/E-ERAD-169")
 
@@ -248,4 +248,4 @@ class TestRnaSeqSummary(unittest.TestCase):
         
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    HTMLTestRunner.main() 
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests')) 

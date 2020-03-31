@@ -44,15 +44,15 @@ class Test(unittest.TestCase):
         self.driver.implicitly_wait(10)
         self.driver.switch_to.window(self.driver.window_handles[1])
         mgiid = self.driver.find_element(By.CLASS_NAME, 'genoID')
-        self.assertEquals(mgiid.text, "MGI:3707321", "This is not the correct MGI ID")#verifies we have the correct MGI ID  
+        self.assertEqual(mgiid.text, "MGI:3707321", "This is not the correct MGI ID")#verifies we have the correct MGI ID  
         hmid = self.driver.find_element(By.CLASS_NAME, 'hmGeno')
-        self.assertEquals(hmid.text, "hm1", "This is not the correct hm ID")#verifies we are bringing the hm1 data back  
+        self.assertEqual(hmid.text, "hm1", "This is not the correct hm ID")#verifies we are bringing the hm1 data back  
         gt = self.driver.find_element(By.CLASS_NAME, 'genotypeCombo')
-        print gt.text
-        self.assertEquals(gt.text, "Pax6132-14Neu/Pax6132-14Neu", "This is not the correct genotype combo")#verifies the Allelic Composition is correct 
+        print(gt.text)
+        self.assertEqual(gt.text, "Pax6132-14Neu/Pax6132-14Neu", "This is not the correct genotype combo")#verifies the Allelic Composition is correct 
              
         link = self.driver.find_element(By.LINK_TEXT, 'C3.Cg-Pax6132-14Neu')
-        self.assertEquals(link.text, 'C3.Cg-Pax6132-14Neu', 'This is not the correct Genetic Background!')#verifies the Genetic Background is correct
+        self.assertEqual(link.text, 'C3.Cg-Pax6132-14Neu', 'This is not the correct Genetic Background!')#verifies the Genetic Background is correct
         
     def test_genotype_gb_link(self):
         '''
@@ -66,8 +66,11 @@ class Test(unittest.TestCase):
         self.driver.find_element(By.LINK_TEXT, 'hm1').click()
         self.driver.implicitly_wait(10)
         self.driver.switch_to.window(self.driver.window_handles[1])
+        time.sleep(2)
         #click the Genetic Background link     
         self.driver.find_element(By.LINK_TEXT, 'C3.Cg-Pax6132-14Neu').click()
+        self.driver.switch_to.window(self.driver.window_handles[2])
+        time.sleep(2)
         ptitle = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
         #Assert the page title is for the correct strain name
         self.assertEqual(ptitle.text, "C3.Cg-Pax6132-14Neu")        
@@ -86,12 +89,12 @@ class Test(unittest.TestCase):
         self.driver.switch_to.window(self.driver.window_handles[1])
         #click the Genetic Background link   
         strain_link = self.driver.find_element(By.LINK_TEXT, 'involves: 102 * C3H')
-        assert  'NoSuchElementException' in  self.driver.page_source
-        #if strain_link.is_displayed():
-            #strain_link.click()
-            #print 'Found the strain link and clicked it!'
-        #else: 
-            #print "Strain link not found"    
+        #assert  'NoSuchElementException' in  self.driver.page_source
+        if strain_link.is_displayed():
+            strain_link.click()
+            print ('Found the strain link and clicked it!')
+        else: 
+            print ("Strain link not found")    
     
     def tearDown(self):
         self.driver.close()

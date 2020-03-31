@@ -14,7 +14,7 @@ import requests
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
-import HTMLTestRunner
+import HtmlTestRunner
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -56,7 +56,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Grid tab and click on it
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         grid_tab.click()
         
         #Grab the human genes displayed on the Grid and verify that KIT is returned (ortholog of gene matched by ID entered)
@@ -87,7 +87,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         grid_tab.click()
         
         #Look for no results message
@@ -115,7 +115,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and check for the gene with this ID.
@@ -147,7 +147,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Grid Tab and click on it
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         grid_tab.click()
         
         #Grab the human genes and verify the human homolog is in the list (GATA1)
@@ -162,7 +162,7 @@ class TestGeneid(unittest.TestCase):
         
         #Switch to the Genes Tab and verify genes are there too
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and verify both mouse and human genes are present
@@ -174,7 +174,7 @@ class TestGeneid(unittest.TestCase):
         
         #Switch to the Disease Tab and verify diseases for mouse and human are present
         disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
-        print disease_tab.text
+        print(disease_tab.text)
         disease_tab.click()
         
         #Get the list of diseases (by DOID)
@@ -208,7 +208,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes Tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and verify both mouse and human genes are present
@@ -237,7 +237,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes Tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and verify both mouse and human genes are present
@@ -266,7 +266,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes Tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and verify both mouse and human genes are present
@@ -298,7 +298,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes Tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and verify both mouse and human genes are present
@@ -327,7 +327,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes Tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and verify both mouse and human genes are present
@@ -356,7 +356,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes Tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and verify both mouse and human genes are present
@@ -388,7 +388,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and verify both mouse and human genes are present
@@ -417,7 +417,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes Tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and verify both mouse and human genes are present
@@ -449,7 +449,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and verify both mouse and human genes are present
@@ -478,7 +478,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes Tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and verify both mouse and human genes are present
@@ -510,7 +510,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and verify both mouse and human genes are present
@@ -539,7 +539,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes Tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and verify both mouse and human genes are present
@@ -570,7 +570,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and verify both mouse and human genes are present
@@ -599,7 +599,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes Tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and verify both mouse and human genes are present
@@ -628,7 +628,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes Tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and verify both mouse and human genes are present
@@ -659,7 +659,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and check for the gene with this ID.
@@ -692,7 +692,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and check for the gene with this ID.
@@ -725,7 +725,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and check for the gene with this ID.
@@ -759,7 +759,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Grid tab and click on it.
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         grid_tab.click()
         
         #Look for no results message
@@ -767,7 +767,7 @@ class TestGeneid(unittest.TestCase):
         
         #identify the Genes tab and verify the tab's text
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         gene_table = Table(self.driver.find_element_by_id("geneTable"))
@@ -798,7 +798,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Look for no results message
@@ -831,7 +831,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Grid Tab and click on it
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         grid_tab.click()
         
         #Grab the human genes and verify the human gene is in the list (PAX9)
@@ -846,7 +846,7 @@ class TestGeneid(unittest.TestCase):
         
         #Switch to the Genes Tab and verify genes are there too
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and verify both mouse and human genes are present
@@ -858,7 +858,7 @@ class TestGeneid(unittest.TestCase):
         
         #Switch to the Disease Tab and verify diseases for mouse and human are present
         disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
-        print disease_tab.text
+        print(disease_tab.text)
         disease_tab.click()
         
         #Get the list of diseases (by DOID)
@@ -889,7 +889,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and verify both mouse and human genes are present
@@ -920,7 +920,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and verify both mouse and human genes are present
@@ -951,7 +951,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and verify both mouse and human genes are present
@@ -982,7 +982,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and verify both mouse and human genes are present
@@ -1013,7 +1013,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes Tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and verify both mouse and human genes are present
@@ -1042,7 +1042,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes Tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Look for no results message
@@ -1069,7 +1069,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes Tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and verify both mouse and human genes are present
@@ -1100,7 +1100,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         gene_table = Table(self.driver.find_element_by_id("geneTable"))
@@ -1133,7 +1133,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes Tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and verify both mouse and human genes are present
@@ -1166,7 +1166,7 @@ class TestGeneid(unittest.TestCase):
         #identify the Genes Tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and verify both mouse and human genes are present
@@ -1188,4 +1188,4 @@ class TestGeneid(unittest.TestCase):
     
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    HTMLTestRunner.main() 
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))

@@ -53,16 +53,16 @@ class TestStrainDetail(unittest.TestCase):
         #switch focus to the new tab for strain detail page
         driver.switch_to_window(self.driver.window_handles[-1])
         summary_ribbon = driver.find_element(By.ID, 'summaryRibbonLabel')#find the Summary Ribbon's title
-        print summary_ribbon.text#print the summary ribbon's title to the console screen
+        print(summary_ribbon.text)#print the summary ribbon's title to the console screen
         self.assertEqual(summary_ribbon.text, 'Summary', 'the summary ribbon is missing!')
         description_ribbon = driver.find_element(By.ID, 'descriptionRibbonLabel')#find the description Ribbon's title
-        print description_ribbon.text#print the description ribbon's title to the console screen
+        print(description_ribbon.text)#print the description ribbon's title to the console screen
         self.assertEqual(description_ribbon.text, 'Description', 'the description ribbon is missing!')
         mutation_ribbon = driver.find_element(By.ID, 'mutationRibbonLabel')#find the Mutation Ribbon's title
-        print mutation_ribbon.text#print the mutation ribbon's title to the console screen
+        print(mutation_ribbon.text)#print the mutation ribbon's title to the console screen
         self.assertEqual(mutation_ribbon.text, 'Associated\nMutations,\nMarkers,\nand QTL', 'the mutation ribbon is missing!')
         reference_ribbon = driver.find_element(By.ID, 'referenceRibbonLabel')#find the Reference Ribbon's title
-        print reference_ribbon.text#print the reference ribbon's title to the console screen
+        print(reference_ribbon.text)#print the reference ribbon's title to the console screen
         self.assertEqual(reference_ribbon.text, 'References', 'the reference ribbon is missing!')
 
     def test_strain_det_ribbon_order2(self):
@@ -86,22 +86,22 @@ class TestStrainDetail(unittest.TestCase):
         #switch focus to the new tab for strain detail page
         driver.switch_to_window(self.driver.window_handles[-1])
         summary_ribbon = driver.find_element(By.ID, 'summaryRibbonLabel')#find the Summary Ribbon's title
-        print summary_ribbon.text#print the summary ribbon's title to the console screen
+        print(summary_ribbon.text)#print the summary ribbon's title to the console screen
         self.assertEqual(summary_ribbon.text, 'Summary', 'the summary ribbon is missing!')
         snp_ribbon = driver.find_element(By.ID, 'snpRibbonLabel')#find the Summary Ribbon's title
-        print snp_ribbon.text#print the summary ribbon's title to the console screen
+        print(snp_ribbon.text)#print the summary ribbon's title to the console screen
         self.assertEqual(snp_ribbon.text, 'SNPs', 'the snps ribbon is missing!')
         mutation_ribbon = driver.find_element(By.ID, 'mutationRibbonLabel')#find the Mutation Ribbon's title
-        print mutation_ribbon.text#print the mutation ribbon's title to the console screen
+        print(mutation_ribbon.text)#print the mutation ribbon's title to the console screen
         self.assertEqual(mutation_ribbon.text, 'Associated\nMutations,\nMarkers,\nand QTL', 'the mutation ribbon is missing!')
         disease_ribbon = driver.find_element(By.ID, 'diseaseRibbonLabel')#find the Diseases Ribbon's title
-        print disease_ribbon.text#print the diseases ribbon's title to the console screen
+        print(disease_ribbon.text)#print the diseases ribbon's title to the console screen
         self.assertEqual(disease_ribbon.text, 'Associated\nPhenotypes', 'the disease/phenotypes ribbon is missing!')
         imsr_ribbon = driver.find_element(By.ID, 'imsrRibbonLabel')#find the imsr Ribbon's title
-        print imsr_ribbon.text#print the imsr ribbon's title to the console screen
+        print(imsr_ribbon.text)#print the imsr ribbon's title to the console screen
         self.assertEqual(imsr_ribbon.text, 'Find Mice (IMSR)', 'the imsr ribbon is missing!')
         reference_ribbon = driver.find_element(By.ID, 'referenceRibbonLabel')#find the Reference Ribbon's title
-        print reference_ribbon.text#print the reference ribbon's title to the console screen
+        print(reference_ribbon.text)#print the reference ribbon's title to the console screen
         self.assertEqual(reference_ribbon.text, 'References', 'the reference ribbon is missing!')
 
     def test_strain_det_nomen_strain_name(self):
@@ -124,10 +124,10 @@ class TestStrainDetail(unittest.TestCase):
         #switch focus to the new tab for strain detail page
         driver.switch_to_window(self.driver.window_handles[-1])
         title = driver.find_element(By.ID, 'titleBarWrapper')#find the page's title
-        print title.text#print the page title to the console screen
+        print(title.text)#print the page title to the console screen
         #locate the strain name  in the nomenclature ribbon
         strain_name = driver.find_element(By.ID, 'strainName')
-        print strain_name.text#print the strain name to the console screen
+        print(strain_name.text)#print the strain name to the console screen
         self.assertIn('C57BL/6J', strain_name.text, 'strain name is incorrect')#assert the strain name is correct
 
     def test_strain_det_nomen_mgi_id(self):
@@ -150,10 +150,10 @@ class TestStrainDetail(unittest.TestCase):
         #switch focus to the new tab for strain detail page
         driver.switch_to_window(self.driver.window_handles[-1])
         title = driver.find_element(By.ID, 'titleBarWrapper')#find the page's title
-        print title.text#print the page title to the console screen
+        print(title.text)#print the page title to the console screen
         #locate the strain MGI ID in the nomenclature ribbon
         mgiid = driver.find_element(By.ID, 'strainPrimaryID')
-        print mgiid.text#print the strain MGI ID to the console screen
+        print(mgiid.text)#print the strain MGI ID to the console screen
         self.assertIn('MGI:3028467', mgiid.text, 'MGI ID is incorrect')#assert the MGI ID is correct        
 
     #def test_strain_det_nomen_approveNo(self):
@@ -222,10 +222,10 @@ class TestStrainDetail(unittest.TestCase):
         #switch focus to the new tab for strain detail page
         driver.switch_to_window(self.driver.window_handles[-1])
         title = driver.find_element(By.ID, 'titleBarWrapper')#find the page's title
-        print title.text#print the page title to the console screen
+        print(title.text)#print the page title to the console screen
         #locate the strain Synonyms in the nomenclature ribbon
         syn = driver.find_element(By.ID, 'strainSynonyms')
-        print syn.text#print the strain synonyms to the console screen
+        print(syn.text)#print the strain synonyms to the console screen
         self.assertEqual(syn.text, 'B6, B6J, Black 6, C57 Black')#assert the synonyms are correct        
 
     def test_strain_det_nomen_attrib(self):
@@ -248,10 +248,10 @@ class TestStrainDetail(unittest.TestCase):
         #switch focus to the new tab for strain detail page
         driver.switch_to_window(self.driver.window_handles[-1])
         title = driver.find_element(By.ID, 'titleBarWrapper')#find the page's title
-        print title.text#print the page title to the console screen
+        print(title.text)#print the page title to the console screen
         #locate the strain attributes in the nomenclature ribbon
         attrib = driver.find_element(By.ID, 'strainAttributes')
-        print attrib.text#print the strain synonyms to the console screen
+        print(attrib.text)#print the strain synonyms to the console screen
         self.assertEqual(attrib.text, 'coisogenic, congenic, major histocompatibility congenic, mutant stock, spontaneous mutation')#assert the synonyms are correct    
   
 
@@ -279,7 +279,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.switch_to_window(self.driver.window_handles[-1])
         #Identify the page title
         title = driver.find_element(By.CLASS_NAME, 'pagetitle')
-        print title.text
+        print(title.text)
         #verify the Page Title is correct
         self.assertEqual(title.text, 'Mouse strain: A/J', 'page title is not correct!')      
 
@@ -308,7 +308,7 @@ class TestStrainDetail(unittest.TestCase):
         #Identify the page title
         time.sleep(3)
         title = driver.find_element(By.CLASS_NAME, 'title')
-        print title.text
+        print(title.text)
         #verify the Page Title is correct
         self.assertEqual(title.text, 'Genome View', 'page title is not correct!')   
 
@@ -337,7 +337,7 @@ class TestStrainDetail(unittest.TestCase):
         #Identify the page title
         time.sleep(3)
         title = driver.find_element(By.ID, 'genomeView')
-        print title.text
+        print(title.text)
         #verify the Page Title is correct
         self.assertEqual(title.text, 'Genome View', 'page title is not correct!')   
 
@@ -361,7 +361,7 @@ class TestStrainDetail(unittest.TestCase):
         #switch focus to the new tab for strain detail page
         driver.switch_to_window(self.driver.window_handles[-1])
         alt_ids = driver.find_element(By.ID, 'otherIDs')#find the alternate IDs
-        print alt_ids.text#print the alt IDs to the console screen
+        print(alt_ids.text)#print the alt IDs to the console screen
         self.assertEqual(alt_ids.text, 'RBRC00636, NIG:143')#assert the alt IDs are correct    
 
     def test_strain_founder_strain(self):
@@ -384,7 +384,7 @@ class TestStrainDetail(unittest.TestCase):
         #switch focus to the new tab for strain detail page
         driver.switch_to_window(self.driver.window_handles[-1])
         collect = driver.find_element(By.ID, 'strainCollection')#find the collection field
-        print collect.text#print the collection to the console screen
+        print(collect.text)#print the collection to the console screen
         self.assertEqual(collect.text, 'DO/CC Founder')#assert the collection field is correct    
 
     def test_strain_strain_fam_link(self):
@@ -407,7 +407,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.switch_to_window(self.driver.window_handles[-1])
         time.sleep(2)
         fam_mem = driver.find_element(By.ID, 'relatedStrains')#find the Strain Family Member link
-        print fam_mem.text#print the strain family member to the console screen
+        print(fam_mem.text)#print the strain family member to the console screen
         self.assertEqual(fam_mem.text, '90')#assert the strain family member link is correct    
 
     def test_strain_desc_small(self):
@@ -424,14 +424,14 @@ class TestStrainDetail(unittest.TestCase):
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
-        #locates the strain name link for CBA/StMs and clicks it
+        #locates the strain name link for C57BL/6NCrl-Clcnkb... and clicks it
         driver.find_element(By.PARTIAL_LINK_TEXT, 'C57BL/6NCrl-Clcnkb').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
         driver.switch_to_window(self.driver.window_handles[-1])
-        desc_field = driver.find_element(By.ID, 'description')#find the description field
-        print desc_field.text#print the description field to the console screen
-        self.assertEqual(desc_field.text, 'CR1475')#assert the text of the description field is correct    
+        syn_section = driver.find_element(By.ID, 'strainSynonyms')#find the synonymn section of the sum,mary ribbon
+        print(syn_section.text)#print the synonym section to the console screen
+        self.assertIn(syn_section.text, 'C57BL/6N-Clcnkbem2(IMPC)Mbp/Ucd, C57BL/6NCrl-Clcnkbem1(IMPC)Mbp/Mmucd, C57BL/6NCrl-Clcnkbem2(IMPC)Mbp/MbpMmucd, CR1475')#assert the text of the description field is correct    
 
     def test_strain_desc_link(self):
         """
@@ -454,7 +454,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.switch_to_window(self.driver.window_handles[-1])
         time.sleep(10)
         desc_field = driver.find_element(By.ID, 'description')#find the description field
-        print desc_field.text#print the description field to the console screen
+        print(desc_field.text)#print the description field to the console screen
         self.assertEqual(desc_field.text, 'Envigo')#assert the text of the description field is correct    
 
     def test_strain_desc_large(self):
@@ -477,7 +477,7 @@ class TestStrainDetail(unittest.TestCase):
         #switch focus to the new tab for strain detail page
         driver.switch_to_window(self.driver.window_handles[-1])
         desc_field = driver.find_element(By.ID, 'description')#find the description field
-        print desc_field.text#print the description field to the console screen
+        print(desc_field.text)#print the description field to the console screen
         self.assertEqual(desc_field.text, 'Envigo')#assert the text of the description field is correct    
 
     def test_strain_snp_comp(self):
@@ -485,7 +485,12 @@ class TestStrainDetail(unittest.TestCase):
         @status: Tests the SNPs for a strain display the correct comparison strains
         @note: Strain-det-snp-1,3,4
         """
+        
+        # set window size
         driver = self.driver
+        driver.set_window_size(1200, 800)
+        print (driver.get_window_size())
+        
         driver.get(config.TEST_URL + "/strains_SNPs.shtml")
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
@@ -500,7 +505,7 @@ class TestStrainDetail(unittest.TestCase):
         #switch focus to the new tab for strain detail page
         driver.switch_to_window(self.driver.window_handles[-1])
         comp_count = driver.find_element(By.ID, 'comparisonStrainCount')#find the Comparison Strains count field
-        print comp_count.text#print the description field to the console screen
+        print(comp_count.text)#print the description field to the console screen
         self.assertEqual(comp_count.text, '86')#asserts the Comparison Strains count is correct
         #clicks the More toggle(turnstile) to display the snps table
         self.driver.find_element(By.ID, 'snpToggle').click()
@@ -509,8 +514,8 @@ class TestStrainDetail(unittest.TestCase):
         table = Table(snphead_table)
         #Iterate and print to the screen all the headers(does not capture the word Chromosomes)
         row1_cells = table.get_row_cells(1)        
-        print iterate.getTextAsList(row1_cells)  
-        time.sleep(4)       
+        print(iterate.getTextAsList(row1_cells))  
+        time.sleep(8)       
         #Verify the header cells are correct for the first 4 and last 3 headings
         self.assertEqual(row1_cells[0].text, 'Comparison Strain')
         self.assertEqual(row1_cells[1].text, '1')
@@ -525,9 +530,9 @@ class TestStrainDetail(unittest.TestCase):
         # print all items found in the Comparison Strain column
         cells = table.get_rows()
         strain_cells = iterate.getTextAsList(cells)
-        print strain_cells
+        print(strain_cells)
         #verifies that the right strains appear and in the correct order
-        self.assertEquals(strain_cells, [u'129/Sv', u'129S1/SvImJ', u'129S4/SvJae', u'129S6/SvEvTac', u'129X1/Sv', u'129X1/SvJ', u'A', u'A/He', u'A/HeJ', u'A/J', u'AKR', u'AVZ/Ms', u'B10.D2-H2d', u'B10.D2-Hc0 H2d H2-T18c/oSnJ', u'BALB/c', u'BALB/cA', u'BALB/cBy', u'BALB/cByJ', u'BALB/cJ', u'BALB/cUcsd', u'BFM/2Ms', u'BLG2/Ms', u'BTBR T+ Itpr3tf/J', u'BUB', u'BUB/BnJ', u'C3H/He', u'C3H/HeJ', u'C57BL/6', u'C57BL/6J', u'C57BL/10J', u'C57BLKS/J', u'C57BR/cdJ', u'C57L/J', u'C58/J', u'CAST/EiJ', u'CBA/J', u'CE/J', u'CHD/Ms', u'CZECHII/EiJ', u'DBA/1J', u'DBA/2', u'DBA/2J', u'DDK/Pas', u'FVB', u'FVB/NJ', u'HMI/Ms', u'I/LnJ', u'JF1/Ms', u'KJR/Ms', u'KK/HlJ', u'LG/J', u'LP/J', u'MA/MyJ', u'MAI/Pas', u'MOLF', u'MOLF/EiJ', u'MRL/Mp', u'MRL/MpJ', u'MSM', u'MSM/Ms', u'NJL/Ms', u'NOD/ShiLtJ', u'NON/ShiLtJ', u'NZB/BlN', u'NZB/BlNJ', u'NZW/Lac', u'NZW/LacJ', u'PERA', u'PERA/EiJ', u'PGN2/Ms', u'PL/J', u'PWD/PhJ', u'RIIIS/J', u'SAMP1', u'SAMP8', u'SEA/GnJ', u'SEG/Pas', u'SJL/J', u'SM/J', u'SPRET/EiJ', u'ST/bJ', u'SWN/Ms', u'SWR/J', u'TSOD', u'WSB/EiJ', u'ZALENDE/EiJ'])
+        self.assertEqual(strain_cells, ['129/Sv', '129S1/SvImJ', '129S4/SvJae', '129S6/SvEvTac', '129X1/Sv', '129X1/SvJ', 'A', 'A/He', 'A/HeJ', 'A/J', 'AKR', 'AVZ/Ms', 'B10.D2-H2d', 'B10.D2-Hc0 H2d H2-T18c/oSnJ', 'BALB/c', 'BALB/cA', 'BALB/cBy', 'BALB/cByJ', 'BALB/cJ', 'BALB/cUcsd', 'BFM/2Ms', 'BLG2/Ms', 'BTBR T+ Itpr3tf/J', 'BUB', 'BUB/BnJ', 'C3H/He', 'C3H/HeJ', 'C57BL/6', 'C57BL/6J', 'C57BL/10J', 'C57BLKS/J', 'C57BR/cdJ', 'C57L/J', 'C58/J', 'CAST/EiJ', 'CBA/J', 'CE/J', 'CHD/Ms', 'CZECHII/EiJ', 'DBA/1J', 'DBA/2', 'DBA/2J', 'DDK/Pas', 'FVB', 'FVB/NJ', 'HMI/Ms', 'I/LnJ', 'JF1/Ms', 'KJR/Ms', 'KK/HlJ', 'LG/J', 'LP/J', 'MA/MyJ', 'MAI/Pas', 'MOLF', 'MOLF/EiJ', 'MRL/Mp', 'MRL/MpJ', 'MSM', 'MSM/Ms', 'NJL/Ms', 'NOD/ShiLtJ', 'NON/ShiLtJ', 'NZB/BlN', 'NZB/BlNJ', 'NZW/Lac', 'NZW/LacJ', 'PERA', 'PERA/EiJ', 'PGN2/Ms', 'PL/J', 'PWD/PhJ', 'RIIIS/J', 'SAMP1', 'SAMP8', 'SEA/GnJ', 'SEG/Pas', 'SJL/J', 'SM/J', 'SPRET/EiJ', 'ST/bJ', 'SWN/Ms', 'SWR/J', 'TSOD', 'WSB/EiJ', 'ZALENDE/EiJ'])
         
     def test_strain_snp_no_snps(self):
         """
@@ -576,8 +581,8 @@ class TestStrainDetail(unittest.TestCase):
         #locate the cell for strain 129S1/SvImJ Chromosome 1
         myelement = driver.find_element(By.CSS_SELECTOR, '#snpTable > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(2)')
         tooltipText = myelement.get_attribute('title')#Get the title text
-        print tooltipText#print the title text to the console
-        self.assertEquals(tooltipText, '590,392 SNPs', 'The hover text for strain 129S1/SvImJ Chromosome 1 is not correct')
+        print(tooltipText)#print the title text to the console
+        self.assertEqual(tooltipText, '590,378 SNPs', 'The hover text for strain 129S1/SvImJ Chromosome 1 is not correct')
         #locate the cell for strain 129S1/SvImJ Chromosome 1 and click it
         driver.find_element(By.CSS_SELECTOR, '#snpTable > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(2)').click()
         #switch focus to the new tab for Mouse SNP Summary page
@@ -610,8 +615,8 @@ class TestStrainDetail(unittest.TestCase):
         
         #locate the involving strain text in the SNP ribbon 
         involvedtext = driver.find_element(By.CLASS_NAME, 'rightLabelSnp')
-        print involvedtext.text#print the title text to the console
-        self.assertEquals(involvedtext.text, 'SNPs Involving BTBR T+ Itpr3tf/J', 'The Involving strain text is not displaying superscipt properly')
+        print(involvedtext.text)#print the title text to the console
+        self.assertEqual(involvedtext.text, 'SNPs Involving BTBR T+ Itpr3tf/J', 'The Involving strain text is not displaying superscipt properly')
         
                     
     def test_strain_det_mut_multi_assoc(self):
@@ -637,19 +642,19 @@ class TestStrainDetail(unittest.TestCase):
         table = Table(mutation_table)
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
-        print iterate.getTextAsList(header_cells)        
+        print(iterate.getTextAsList(header_cells))        
         # print all items found in the Mutation Carried column
         cells = table.get_column_cells("Mutation Carried")
         mut_cells = iterate.getTextAsList(cells)
-        print mut_cells
+        print(mut_cells)
         #verifies that the right mutations appear and in the correct order
-        self.assertEquals(mut_cells, ['Mutation Carried', 'AanatC57BL/6J', 'Ahrb-1', 'Apobec3Rfv3-r', 'Cd5b', 'Cdh23ahl', 'Cox7a2ls', 'Fbrwt1C57BL/6J', 'Fbrwt2C57BL/6J', 'Gluchos1C57BL/6J', 'Gluchos2C57BL/6J', 'Gluchos3C57BL/6J', 'Micrln', 'Mx1s1', 'n-TRtct5m1J', 'Nlrp12C57BL/6J', 'NntC57BL/6J', 'P2rx7P451L'])
+        self.assertEqual(mut_cells, ['Mutation Carried', 'AanatC57BL/6J', 'Ahrb-1', 'Apobec3Rfv3-r', 'Cd5b', 'Cdh23ahl', 'Cox7a2ls', 'Fbrwt1C57BL/6J', 'Fbrwt2C57BL/6J', 'Gabra2C57BL/6J', 'Gluchos1C57BL/6J', 'Gluchos2C57BL/6J', 'Gluchos3C57BL/6J', 'Micrln', 'Mx1s1', 'n-TRtct5m1J', 'Nlrp12C57BL/6J', 'NntC57BL/6J', 'P2rx7P451L'])
         #print all items found in the Gene column
         cells1 = table.get_column_cells("Marker")
         gene_cells = iterate.getTextAsList(cells1)
-        print gene_cells
+        print(gene_cells)
         #verifies that the right genes appear and in the correct order
-        self.assertEquals(gene_cells, ['Marker', 'Aanat', 'Ahr', 'Apobec3', 'Cd5', 'Cdh23', 'Cox7a2l', 'Fbrwt1', 'Fbrwt2', 'Gluchos1', 'Gluchos2', 'Gluchos3', 'Micrl', 'Mx1', 'n-TRtct5', 'Nlrp12', 'Nnt', 'P2rx7'])
+        self.assertEqual(gene_cells, ['Marker', 'Aanat', 'Ahr', 'Apobec3', 'Cd5', 'Cdh23', 'Cox7a2l', 'Fbrwt1', 'Fbrwt2', 'Gabra2', 'Gluchos1', 'Gluchos2', 'Gluchos3', 'Micrl', 'Mx1', 'n-TRtct5', 'Nlrp12', 'Nnt', 'P2rx7'])
         
     def test_strain_det_mut_single_assoc(self):
         """
@@ -674,19 +679,19 @@ class TestStrainDetail(unittest.TestCase):
         table = Table(mutation_table)
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
-        print iterate.getTextAsList(header_cells)        
+        print(iterate.getTextAsList(header_cells))        
         # print all items found in the Mutation Carried column
         cells = table.get_column_cells("Mutation Carried")
         mut_cells = iterate.getTextAsList(cells)
-        print mut_cells
+        print(mut_cells)
         #verifies that the right mutations appear and in the correct order
-        self.assertEquals(mut_cells, ['Mutation Carried', 'Foxc1tm1Blh'])
+        self.assertEqual(mut_cells, ['Mutation Carried', 'Foxc1tm1Blh'])
         #print all items found in the Gene column
         cells1 = table.get_column_cells("Marker")
         gene_cells = iterate.getTextAsList(cells1)
-        print gene_cells
+        print(gene_cells)
         #verifies that the right genes appear and in the correct order
-        self.assertEquals(gene_cells, ['Marker', 'Foxc1'])
+        self.assertEqual(gene_cells, ['Marker', 'Foxc1'])
                      
     def test_strain_det_no_mut(self):
         """
@@ -711,19 +716,19 @@ class TestStrainDetail(unittest.TestCase):
         table = Table(mutation_table)
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
-        print iterate.getTextAsList(header_cells)        
+        print(iterate.getTextAsList(header_cells))        
         # print all items found in the Mutation Carried column
         cells = table.get_column_cells("Mutation Carried")
         mut_cells = iterate.getTextAsList(cells)
-        print mut_cells
+        print(mut_cells)
         #verifies that the right mutations appear and in the correct order
-        self.assertEquals(mut_cells, ['Mutation Carried', ''])
+        self.assertEqual(mut_cells, ['Mutation Carried', ''])
         #print all items found in the Gene column
         cells1 = table.get_column_cells("Marker")
         gene_cells = iterate.getTextAsList(cells1)
-        print gene_cells
+        print(gene_cells)
         #verifies that the right genes appear and in the correct order
-        self.assertEquals(gene_cells, ['Marker', 'Rb(11.14)1Dn'])
+        self.assertEqual(gene_cells, ['Marker', 'Rb(11.14)1Dn'])
                      
     def test_strain_det_mut_tg(self):
         """
@@ -748,19 +753,19 @@ class TestStrainDetail(unittest.TestCase):
         table = Table(mutation_table)
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
-        print iterate.getTextAsList(header_cells)        
+        print(iterate.getTextAsList(header_cells))        
         # print all items found in the Mutation Carried column
         cells = table.get_column_cells("Mutation Carried")
         mut_cells = iterate.getTextAsList(cells)
-        print mut_cells
+        print(mut_cells)
         #verifies that the right mutations appear and in the correct order
-        self.assertEquals(mut_cells, ['Mutation Carried', 'Ddctm1.1Rhrs', 'Tg(Ggt1-cre)M3Egn'])
+        self.assertEqual(mut_cells, ['Mutation Carried', 'Ddctm1.1Rhrs', 'Tg(Ggt1-cre)M3Egn'])
         #print all items found in the Gene column
         cells1 = table.get_column_cells("Marker")
         gene_cells = iterate.getTextAsList(cells1)
-        print gene_cells
+        print(gene_cells)
         #verifies that the right genes appear and in the correct order
-        self.assertEquals(gene_cells, ['Marker', 'Ddc', 'Tg(Ggt1-cre)M3Egn'])
+        self.assertEqual(gene_cells, ['Marker', 'Ddc', 'Tg(Ggt1-cre)M3Egn'])
 
     def test_strain_det_mut_assocnum(self):
         """
@@ -783,8 +788,8 @@ class TestStrainDetail(unittest.TestCase):
         driver.switch_to_window(self.driver.window_handles[-1]) 
         #locate the count and text above the mutations table       
         mut_count = self.driver.find_element(By.CLASS_NAME, 'indented')
-        print mut_count.text
-        self.assertEqual(mut_count.text, '17 associated mutations', 'associated mutations count/text is wrong')
+        print(mut_count.text)
+        self.assertEqual(mut_count.text, '18 associated mutations', 'associated mutations count/text is wrong')
         
     def test_strain_det_mut_showall(self):
         """
@@ -807,11 +812,11 @@ class TestStrainDetail(unittest.TestCase):
         driver.switch_to_window(self.driver.window_handles[-1]) 
         #locate the Show All button in the Associated Mutations, Markers, and QTL ribbon      
         show_all = self.driver.find_element(By.ID, 'mutationButton')
-        print show_all.text
+        print(show_all.text)
         self.assertEqual(show_all.text, 'Show All', 'The Show All button has a problem!') 
         #locate the Show All button in the Associated Mutations, Markers, and QTL ribbon and click it      
         show_all.click()
-        print show_all.text
+        print(show_all.text)
         self.assertEqual(show_all.text, 'Show Less', 'The Show Less button has a problem!')         
 
     def test_strain_det_mut_noshowall(self):
@@ -857,9 +862,9 @@ class TestStrainDetail(unittest.TestCase):
         driver.switch_to_window(self.driver.window_handles[-1])                      
         ahr_mrk = self.driver.find_element(By.XPATH, '//*[@id="mutationSummaryTable"]/tbody/tr[3]/td[2]/a')
         title_text = ahr_mrk.get_attribute('title')
-        print title_text   
+        print(title_text)   
         #verifies that the hover text  for Ahr is correct
-        self.assertEquals(title_text, 'aryl-hydrocarbon receptor')
+        self.assertEqual(title_text, 'aryl-hydrocarbon receptor')
                   
     def test_strain_det_qtl_sort(self):
         """
@@ -884,19 +889,19 @@ class TestStrainDetail(unittest.TestCase):
         table = Table(mutation_table)
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
-        print iterate.getTextAsList(header_cells)        
+        print(iterate.getTextAsList(header_cells))        
         # print all items found in the Allele column of the QTL Table
         cells = table.get_column_cells("Allele")
         allele_cells = iterate.getTextAsList(cells)
-        print allele_cells
+        print(allele_cells)
         #verifies that the right alleles appear and in the correct order
-        self.assertEquals(allele_cells, ['Allele', 'Bomb1SL/Kh', 'Esl1SL/Kh', 'Foc1SL/Kh','llaSL/Kh', 'Lyr2SL/Kh', 'Msmr1SL/Kh', 'Msmr2SL/Kh', 'Tlsm1SL/Kh'  ])
+        self.assertEqual(allele_cells, ['Allele', 'Bomb1SL/Kh', 'Esl1SL/Kh', 'Foc1SL/Kh','llaSL/Kh', 'Lyr2SL/Kh', 'Msmr1SL/Kh', 'Msmr2SL/Kh', 'Tlsm1SL/Kh'  ])
         #print all items found in the Gene column of the QTL table
         cells1 = table.get_column_cells("Marker")
         gene_cells = iterate.getTextAsList(cells1)
-        print gene_cells
+        print(gene_cells)
         #verifies that the right genes appear and in the correct order
-        self.assertEquals(gene_cells, ['Marker', 'Bomb1', 'Esl1', 'Foc1', 'lla', 'Lyr2', 'Msmr1', 'Msmr2', 'Tlsm1'])
+        self.assertEqual(gene_cells, ['Marker', 'Bomb1', 'Esl1', 'Foc1', 'lla', 'Lyr2', 'Msmr1', 'Msmr2', 'Tlsm1'])
                      
     def test_strain_det_qtl_nomut_ribbon(self):
         """
@@ -921,19 +926,19 @@ class TestStrainDetail(unittest.TestCase):
         table = Table(mutation_table)
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
-        print iterate.getTextAsList(header_cells)        
+        print(iterate.getTextAsList(header_cells))        
         # print all items found in the Allele column of the QTL table
         cells = table.get_column_cells("Allele")
         allele_cells = iterate.getTextAsList(cells)
-        print allele_cells
+        print(allele_cells)
         #verifies that the right alleles appear and in the correct order
-        self.assertEquals(allele_cells, ['Allele', 'CfcdBoulder', 'CfcdNorthport', 'OpfaBoulder','OpfaNorthport' ])
+        self.assertEqual(allele_cells, ['Allele', 'CfcdBoulder', 'CfcdNorthport', 'OpfaBoulder','OpfaNorthport' ])
         #print all items found in the Gene column of the QTL table
         cells1 = table.get_column_cells("Marker")
         gene_cells = iterate.getTextAsList(cells1)
-        print gene_cells
+        print(gene_cells)
         #verifies that the right genes appear and in the correct order
-        self.assertEquals(gene_cells, ['Marker', 'Cfcd', 'Cfcd', 'Opfa', 'Opfa'])  
+        self.assertEqual(gene_cells, ['Marker', 'Cfcd', 'Cfcd', 'Opfa', 'Opfa'])  
 
     def test_strain_det_qtl_assocnum(self):
         """
@@ -956,8 +961,8 @@ class TestStrainDetail(unittest.TestCase):
         driver.switch_to_window(self.driver.window_handles[-1]) 
         #locate the count and text above the qtl table       
         qtl_count = self.driver.find_elements(By.CLASS_NAME, 'indented')
-        print qtl_count[2].text
-        self.assertEqual(qtl_count[2].text, '2629 associated QTL', 'associated QTL count/text is wrong')
+        print(qtl_count[2].text)
+        self.assertEqual(qtl_count[2].text, '2648 associated QTL', 'associated QTL count/text is wrong')
         
     def test_strain_det_qtl_showall(self):
         """
@@ -980,11 +985,11 @@ class TestStrainDetail(unittest.TestCase):
         driver.switch_to_window(self.driver.window_handles[-1]) 
         #locate the Show All button in the QTL Mapped with this Strain ribbon      
         show_all = self.driver.find_element(By.ID, 'qtlButton')
-        print show_all.text
+        print(show_all.text)
         self.assertEqual(show_all.text, 'Show All', 'The Show All button has a problem!') 
         #locate the Show All button in the QTL Mapped with this Strain ribbon and click it      
         show_all.click()
-        print show_all.text
+        print(show_all.text)
         self.assertEqual(show_all.text, 'Show Less', 'The Show Less button has a problem!')         
 
     def test_strain_det_qtl_noshowall(self):
@@ -1030,9 +1035,9 @@ class TestStrainDetail(unittest.TestCase):
         driver.switch_to_window(self.driver.window_handles[-1])                      
         aaaq1_mrk = self.driver.find_element(By.XPATH, '//*[@id="qtlSummaryTable"]/tbody/tr[2]/td[2]/a')
         title_text = aaaq1_mrk.get_attribute('title')
-        print title_text   
+        print(title_text)   
         #verifies that the hover text  for Ahr is correct
-        self.assertEquals(title_text, 'aortic arch angle QTL 1')
+        self.assertEqual(title_text, 'aortic arch angle QTL 1')
     
     def test_strain_imsr_jax_link(self):
         """
@@ -1058,7 +1063,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.switch_to_window(self.driver.window_handles[-1])
         #Identify the strain name
         name = driver.find_element(By.LINK_TEXT, 'C57BL/6J')
-        print name.text
+        print(name.text)
         #verify the strain name is correct
         self.assertEqual(name.text, 'C57BL/6J', 'strain is not correct!')   
 
@@ -1091,8 +1096,8 @@ class TestStrainDetail(unittest.TestCase):
         driver.switch_to_window(self.driver.window_handles[-1])
         #verify the Disease name and DOID are correct for this page
         disname = driver.find_element(By.ID, 'diseaseNameID')
-        print disname.text
-        self.assertEquals(disname.text, 'X-linked dominant hypophosphatemic rickets (DOID:0050445)')       
+        print(disname.text)
+        self.assertEqual(disname.text, 'X-linked dominant hypophosphatemic rickets (DOID:0050445)')       
 
     def test_strain_humdis_model_link(self):
         """
@@ -1120,8 +1125,8 @@ class TestStrainDetail(unittest.TestCase):
         driver.switch_to_window(self.driver.window_handles[-1])
         #verify the Disease name and DOID are correct for this page
         strain_link = self.driver.find_element(By.LINK_TEXT, 'A/J')
-        print strain_link.text
-        self.assertEquals(strain_link.text, 'A/J')     
+        print(strain_link.text)
+        self.assertEqual(strain_link.text, 'A/J')     
 
     def test_strain_humdis_multi_disease(self):
         """
@@ -1148,19 +1153,19 @@ class TestStrainDetail(unittest.TestCase):
         table = Table(disease_table)
         #find and print the human diseases in the table, 1 by 1
         dis_cell1 = table.get_cell(1, 0)
-        print dis_cell1.text
+        print(dis_cell1.text)
         dis_cell2 = table.get_cell(2, 0)
-        print dis_cell2.text
+        print(dis_cell2.text)
         dis_cell3 = table.get_cell(3, 0)
-        print dis_cell3.text
+        print(dis_cell3.text)
         dis_cell4 = table.get_cell(4, 0)
-        print dis_cell4.text
+        print(dis_cell4.text)
         dis_cell5 = table.get_cell(5, 0)
-        print dis_cell5.text
+        print(dis_cell5.text)
         dis_cell6 = table.get_cell(6, 0)
-        print dis_cell6.text
+        print(dis_cell6.text)
         dis_cell7 = table.get_cell(7, 0)
-        print dis_cell7.text
+        print(dis_cell7.text)
         #verify the Disease names
         self.assertEqual(dis_cell1.text, 'acromesomelic dysplasia, Grebe type')
         self.assertEqual(dis_cell2.text, 'acromesomelic dysplasia, Hunter-Thompson type')
@@ -1195,7 +1200,7 @@ class TestStrainDetail(unittest.TestCase):
         table = Table(disease_table)
         #Iterate and print the header headers
         head_cells = table.get_header_cells()
-        print iterate.getTextAsList(head_cells)
+        print(iterate.getTextAsList(head_cells))
         #verify the Model headers text
         self.assertEqual(head_cells[1].text, 'model 1')
         self.assertEqual(head_cells[2].text, 'model 2')
@@ -1215,7 +1220,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
         #locate the link for C57BL/6J and click it
-        driver.find_element(By.LINK_TEXT, 'C57BL/6J-Pax3Sp-d').click()
+        driver.find_element(By.PARTIAL_LINK_TEXT, 'C57BL/6J-Pax3Sp').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
         driver.switch_to_window(self.driver.window_handles[-1])
@@ -1225,7 +1230,8 @@ class TestStrainDetail(unittest.TestCase):
         table = Table(disease_table)
         #Iterate the second row of the disease table
         all_cells = table.get_rows()
-        print iterate.getTextAsList(all_cells)
+        data_cells = iterate.getTextAsList(all_cells)
+        print(data_cells)
         #verify the Model headers text
         #self.assertEqual(all_cells[1].text, 'model 1')
         #self.assertEqual(all_cells[2].text, 'model 2')        
@@ -1283,7 +1289,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.switch_to_window(self.driver.window_handles[+2])
         time.sleep(2)
         geno = driver.find_element(By.ID, 'fm66877a')
-        print geno.text
+        print(geno.text)
         self.assertTrue(geno.text, "Gdf5Bp-5J/Gdf5+")
 
     def test_strain_pheno_multi_geno(self):
@@ -1319,13 +1325,13 @@ class TestStrainDetail(unittest.TestCase):
         geno5 = driver.find_element(By.ID, 'fm30510a')
         geno6 = driver.find_element(By.ID, 'fm19624a')
         geno7 = driver.find_element(By.ID, 'fm1a')
-        print geno1.text
-        print geno2.text
-        print geno3.text
-        print geno4.text
-        print geno5.text
-        print geno6.text
-        print geno7.text
+        print(geno1.text)
+        print(geno2.text)
+        print(geno3.text)
+        print(geno4.text)
+        print(geno5.text)
+        print(geno6.text)
+        print(geno7.text)
         self.assertTrue(geno1.text, "Ahrb-1/Ahrb-1")
         self.assertTrue(geno2.text, "Aliq4C57BL/6J/Aliq4C57BL/6J")
         self.assertTrue(geno3.text, "Gluchos1C57BL/6J/Gluchos1C57BL/6J")
@@ -1356,32 +1362,32 @@ class TestStrainDetail(unittest.TestCase):
         #locates the phenogrid box for behavior/neurological and capture it's title
         value1 = driver.find_element(By.ID, 'mpSlimgrid12Div').get_attribute("title")
         #value1 = driver.find_element_by_xpath('/html/body/div[2]/div[4]/div/div[2]/section/div/div[3]/table/tbody/tr[3]/td[2]').get_attribute("title")
-        print value1
+        print(value1)
         #self.assertTrue(value1, "2 annotation(s)")
         #locates the phenogrid box for growth/size/body and capture it's title
         value2 = driver.find_element(By.ID, 'mpSlimgrid9Div').get_attribute("title")
         #value2 = driver.find_element_by_xpath('/html/body/div[2]/div[4]/div/div[2]/section/div/div[3]/table/tbody/tr[3]/td[9]').get_attribute("title")
-        print value2
+        print(value2)
         #self.assertTrue(value2, "1 annotation(s)")
         #locates the phenogrid box for hearing/vestibular/ear and capture it's title
         value3 = driver.find_element(By.ID, 'mpSlimgrid10Div').get_attribute("title")
         #value3 = driver.find_element_by_xpath('/html/body/div[2]/div[4]/div/div[2]/section/div/div[3]/table/tbody/tr[3]/td[10]').get_attribute("title")
-        print value3
+        print(value3)
         #self.assertTrue(value3, "4 annotation(s)")
         #locates the phenogrid box for muscle and capture it's title
         value4 = driver.find_element(By.ID, 'mpSlimgrid18Div').get_attribute("title")
         #value4 = driver.find_element_by_xpath('/html/body/div[2]/div[4]/div/div[2]/section/div/div[3]/table/tbody/tr[3]/td[17]').get_attribute("title")
-        print value4
+        print(value4)
         #self.assertTrue(value4, "1 annotation(s)")
         #locates the phenogrid box for neoplasm and capture it's title
         value5 = driver.find_element(By.ID, 'mpSlimgrid19Div').get_attribute("title")
         #value5 = driver.find_element_by_xpath('/html/body/div[2]/div[4]/div/div[2]/section/div/div[3]/table/tbody/tr[3]/td[18]').get_attribute("title")
-        print value5
+        print(value5)
         #self.assertTrue(value5, "1 annotation(s)")
         #locates the phenogrid box for reproductive system and capture it's title
         value6 = driver.find_element(By.ID, 'mpSlimgrid24Div').get_attribute("title")
         #value6 = driver.find_element_by_xpath('/html/body/div[2]/div[4]/div/div[2]/section/div/div[3]/table/tbody/tr[3]/td[24]').get_attribute("title")
-        print value6
+        print(value6)
         #self.assertTrue(value6, "9 annotation(s)")
             
     def test_strain_ref_early_link(self):
@@ -1433,8 +1439,8 @@ class TestStrainDetail(unittest.TestCase):
         time.sleep(2)
         #verify the MGI number is correct for this page
         mginum = driver.find_element_by_css_selector("#templateBodyInsert > table.summaryHeader > tbody > tr > td.summaryHeaderData1 > span")
-        print mginum.text
-        self.assertEquals(mginum.text, 'MGI:3028467')       
+        print(mginum.text)
+        self.assertEqual(mginum.text, 'MGI:3028467')       
 
 
         

@@ -15,10 +15,11 @@ sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../..',)
 )
 import config
+from configparser import SafeConfigParser
 from util import iterate, wait
 import time
 
-from base_class import EmapaBaseClass
+from .base_class import EmapaBaseClass
 
 # Tests
 

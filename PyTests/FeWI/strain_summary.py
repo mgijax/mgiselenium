@@ -52,9 +52,9 @@ class TestStrainSummary(unittest.TestCase):
         time.sleep(2)
         #locates the 'you searched for' text to verify it is correct correct
         you_srch = driver.find_element(By.ID, 'ysf')
-        print you_srch.text
+        print(you_srch.text)
         #asserts that the following IDs are returned
-        self.assertEquals('You Searched For...\nName/Synonym/ID: equals 101/H searching current names and synonyms', you_srch.text) # You Searched for text
+        self.assertEqual('You Searched For...\nName/Synonym/ID: equals 101/H searching current names and synonyms', you_srch.text) # You Searched for text
                         
     def test_summary_ysf_name_attrib(self):
         """
@@ -74,9 +74,9 @@ class TestStrainSummary(unittest.TestCase):
         time.sleep(2)
         #locates the 'you searched for' text to verify it is correct correct
         you_srch = driver.find_element(By.ID, 'ysf')
-        print you_srch.text
+        print(you_srch.text)
         #asserts that the following IDs are returned
-        self.assertEquals('You Searched For...\nName/Synonym/ID: equals 101/H searching current names and synonyms\nAttributes: inbred strain', you_srch.text) # You Searched for text                           
+        self.assertEqual('You Searched For...\nName/Synonym/ID: equals 101/H searching current names and synonyms\nAttributes: inbred strain', you_srch.text) # You Searched for text                           
                 
     def test_summary_strain_headings(self):
         """
@@ -95,7 +95,7 @@ class TestStrainSummary(unittest.TestCase):
         #locates the strain table and verify the IDs/Links are correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
         headings = strain_table.get_header_cells()
-        print iterate.getTextAsList(headings)
+        print(iterate.getTextAsList(headings))
         hdsReturned = iterate.getTextAsList(headings)
         #asserts that the Headings are correct
         self.assertEqual(['Strain/Stock Name', 'Synonyms', 'Attributes', 'IDs', 'References'], hdsReturned) # ID link
@@ -121,7 +121,7 @@ class TestStrainSummary(unittest.TestCase):
         #switch focus to the new tab for strain detail page
         driver.switch_to_window(self.driver.window_handles[-1])
         tpage = driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
-        print tpage.text
+        print(tpage.text)
         #asserts that the correct page is returned or not
         self.assertEqual('129(B6)-Elf5tm1Mapr', tpage.text, 'The page title is not correct!')   
 
@@ -140,12 +140,12 @@ class TestStrainSummary(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
         #locates the link for the references
-        driver.find_element(By.LINK_TEXT, '6').click()
+        driver.find_element(By.CLASS_NAME, 'referenceLink').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
         driver.switch_to_window(self.driver.window_handles[-1])
         sname = driver.find_element(By.CLASS_NAME, 'symbolLink')
-        print sname.text
+        print(sname.text)
         #asserts that the correct page is returned or not
         self.assertEqual('B6Ei.LT-Y(IsXPAR;Y)Ei/EiJ', sname.text, 'The strain name is not correct!')  
         
@@ -167,7 +167,7 @@ class TestStrainSummary(unittest.TestCase):
         #locates the strain table and verify the IDs are correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
         ids = strain_table.get_column_cells('IDs')
-        print iterate.getTextAsList(ids)
+        print(iterate.getTextAsList(ids))
         idsReturned = iterate.getTextAsList(ids)
         #asserts that the Headings are correct
         self.assertEqual(['IDs','MGI:3037980\nJAX:002448\nMPD:3'], idsReturned) # ID link
@@ -203,7 +203,7 @@ class TestStrainSummary(unittest.TestCase):
         #locates the strain table and verify the Attributes are correct for each of the 5 results
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
         ids = strain_table.get_column_cells('Attributes')
-        print iterate.getTextAsList(ids)
+        print(iterate.getTextAsList(ids))
         idsReturned = iterate.getTextAsList(ids)
         #time.sleep(2)
         #asserts that the Headings are correct

@@ -12,7 +12,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
-import HTMLTestRunner
+import HtmlTestRunner
 import json
 import sys,os.path
 # adjust the path to find config
@@ -58,9 +58,9 @@ class TestImgSearch(unittest.TestCase):
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
         result1 = iterate.getTextAsList(cell1)
-        print result1
+        print(result1)
         #Assert the correct J number detail is returned
-        self.assertEquals(result1, ['J:20443; Thumbnail; 1'])
+        self.assertEqual(result1, ['J:20443; Thumbnail; 1'])
 
     def testImageMgiIdFullSearch(self):
         """
@@ -78,9 +78,9 @@ class TestImgSearch(unittest.TestCase):
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
         result1 = iterate.getTextAsList(cell1)
-        print result1
+        print(result1)
         #Assert the correct J number detail is returned
-        self.assertEquals(result1, ['J:148; Full Size; 10'])
+        self.assertEqual(result1, ['J:148; Full Size; 10'])
 
     def testImageJnumAllSearch(self):
         """
@@ -114,16 +114,16 @@ class TestImgSearch(unittest.TestCase):
         result6 = iterate.getTextAsList(cell6)
         result7 = iterate.getTextAsList(cell7)
         result8 = iterate.getTextAsList(cell8)
-        print result1
+        print(result1)
         #Assert the correct J number details are returned
-        self.assertEquals(result1, ['J:139510; Full Size; 1'])
-        self.assertEquals(result2, ['J:139510; Full Size; 1aleft'])
-        self.assertEquals(result3, ['J:139510; Thumbnail; 1aleft'])        
-        self.assertEquals(result4, ['J:139510; Full Size; 1aright'])
-        self.assertEquals(result5, ['J:139510; Thumbnail; 1aright'])
-        self.assertEquals(result6, ['J:139510; Full Size; 1b'])
-        self.assertEquals(result7, ['J:139510; Thumbnail; 1b'])
-        self.assertEquals(result8, ['J:139510; Full Size; S1'])     
+        self.assertEqual(result1, ['J:139510; Full Size; 1'])
+        self.assertEqual(result2, ['J:139510; Full Size; 1aleft'])
+        self.assertEqual(result3, ['J:139510; Thumbnail; 1aleft'])        
+        self.assertEqual(result4, ['J:139510; Full Size; 1aright'])
+        self.assertEqual(result5, ['J:139510; Thumbnail; 1aright'])
+        self.assertEqual(result6, ['J:139510; Full Size; 1b'])
+        self.assertEqual(result7, ['J:139510; Thumbnail; 1b'])
+        self.assertEqual(result8, ['J:139510; Full Size; S1'])     
 
     def testImageJnumExpSearch(self):
         """
@@ -152,14 +152,14 @@ class TestImgSearch(unittest.TestCase):
         result4 = iterate.getTextAsList(cell4)
         result5 = iterate.getTextAsList(cell5)
         result6 = iterate.getTextAsList(cell6)
-        print result1
+        print(result1)
         #Assert the correct J number details are returned
-        self.assertEquals(result1, ['J:1503; Full Size; 4'])
-        self.assertEquals(result2, ['J:1503; Full Size; 5'])
-        self.assertEquals(result3, ['J:1503; Full Size; 6'])
-        self.assertEquals(result4, ['J:1503; Full Size; 7'])
-        self.assertEquals(result5, ['J:1503; Full Size; 8'])
-        self.assertEquals(result6, ['J:1503; Full Size; 9'])
+        self.assertEqual(result1, ['J:1503; Full Size; 4'])
+        self.assertEqual(result2, ['J:1503; Full Size; 5'])
+        self.assertEqual(result3, ['J:1503; Full Size; 6'])
+        self.assertEqual(result4, ['J:1503; Full Size; 7'])
+        self.assertEqual(result5, ['J:1503; Full Size; 8'])
+        self.assertEqual(result6, ['J:1503; Full Size; 9'])
 
     def testImageJnumPhenoSearch(self):
         """
@@ -202,20 +202,20 @@ class TestImgSearch(unittest.TestCase):
         result10 = iterate.getTextAsList(cell10)
         result17 = iterate.getTextAsList(cell17)
         result18 = iterate.getTextAsList(cell18)
-        print result1
+        print(result1)
         #Assert the correct J number details are returned(for the first 12 results)
-        self.assertEquals(result1, ['J:6708; Full Size; 1'])
-        self.assertEquals(result2, ['J:6708; Thumbnail; 1'])
-        self.assertEquals(result3, ['J:6708; Full Size; 2'])
-        self.assertEquals(result4, ['J:6708; Thumbnail; 2'])
-        self.assertEquals(result5, ['J:6708; Full Size; 3'])
-        self.assertEquals(result6, ['J:6708; Thumbnail; 3'])
-        self.assertEquals(result7, ['J:6708; Full Size; 5'])
-        self.assertEquals(result8, ['J:6708; Thumbnail; 5'])
-        self.assertEquals(result9, ['J:6708; Full Size; 6'])
-        self.assertEquals(result10, ['J:6708; Thumbnail; 6'])
-        self.assertEquals(result17, ['J:6708; Full Size; 10'])
-        self.assertEquals(result18, ['J:6708; Thumbnail; 10'])
+        self.assertEqual(result1, ['J:6708; Full Size; 1'])
+        self.assertEqual(result2, ['J:6708; Thumbnail; 1'])
+        self.assertEqual(result3, ['J:6708; Full Size; 2'])
+        self.assertEqual(result4, ['J:6708; Thumbnail; 2'])
+        self.assertEqual(result5, ['J:6708; Full Size; 3'])
+        self.assertEqual(result6, ['J:6708; Thumbnail; 3'])
+        self.assertEqual(result7, ['J:6708; Full Size; 5'])
+        self.assertEqual(result8, ['J:6708; Thumbnail; 5'])
+        self.assertEqual(result9, ['J:6708; Full Size; 6'])
+        self.assertEqual(result10, ['J:6708; Thumbnail; 6'])
+        self.assertEqual(result17, ['J:6708; Full Size; 10'])
+        self.assertEqual(result18, ['J:6708; Thumbnail; 10'])
 
     def testImageJnumMoleSearch(self):
         """
@@ -238,10 +238,10 @@ class TestImgSearch(unittest.TestCase):
         result1 = iterate.getTextAsList(cell1)
         result2 = iterate.getTextAsList(cell2)
         
-        print result1
+        print(result1)
         #Assert the correct J number details are returned(for the first 6 results)
-        self.assertEquals(result1, ['J:42811; Full Size; 1'])
-        self.assertEquals(result2, ['J:42811; Thumbnail; 1'])
+        self.assertEqual(result1, ['J:42811; Full Size; 1'])
+        self.assertEqual(result2, ['J:42811; Thumbnail; 1'])
 
     def testImageFigLabelSearch(self):
         """
@@ -261,10 +261,10 @@ class TestImgSearch(unittest.TestCase):
         cell2 = table.get_row_cells(1)
         result1 = iterate.getTextAsList(cell1)
         result2 = iterate.getTextAsList(cell2)
-        print result1
+        print(result1)
         #Assert the correct J number details are returned(for the first 6 results)
-        self.assertEquals(result1, ['J:81846; Full Size; 5A'])
-        self.assertEquals(result2, ['J:241606; Full Size; 5A'])
+        self.assertEqual(result1, ['J:81846; Full Size; 5A'])
+        self.assertEqual(result2, ['J:241606; Full Size; 5A'])
 
     def testImageCiteWildSearch(self):
         """
@@ -292,14 +292,14 @@ class TestImgSearch(unittest.TestCase):
         result4 = iterate.getTextAsList(cell4)
         result5 = iterate.getTextAsList(cell5)
         result6 = iterate.getTextAsList(cell6)
-        print result1
+        print(result1)
         #Assert the correct J number details are returned(for the first 6 results)
-        self.assertEquals(result1, ['J:47698; Full Size; 3'])
-        self.assertEquals(result2, ['J:47698; Full Size; 4'])
-        self.assertEquals(result3, ['J:47698; Full Size; 5'])
-        self.assertEquals(result4, ['J:66476; Full Size; 1'])
-        self.assertEquals(result5, ['J:66476; Full Size; 2'])
-        self.assertEquals(result6, ['J:66476; Full Size; 3'])
+        self.assertEqual(result1, ['J:47698; Full Size; 3'])
+        self.assertEqual(result2, ['J:47698; Full Size; 4'])
+        self.assertEqual(result3, ['J:47698; Full Size; 5'])
+        self.assertEqual(result4, ['J:66476; Full Size; 1'])
+        self.assertEqual(result5, ['J:66476; Full Size; 2'])
+        self.assertEqual(result6, ['J:66476; Full Size; 3'])
 
     def testImageClassExpSearch(self):
         """
@@ -331,14 +331,14 @@ class TestImgSearch(unittest.TestCase):
         result4 = iterate.getTextAsList(cell4)
         result5 = iterate.getTextAsList(cell5)
         result6 = iterate.getTextAsList(cell6)        
-        print result1
+        print(result1)
         #Assert the correct J number details are returned(for the first 6 results)
-        self.assertEquals(result1, ['J:25; Full Size; 1'])
-        self.assertEquals(result2, ['J:25; Full Size; 2'])
-        self.assertEquals(result3, ['J:47; Full Size; 1'])
-        self.assertEquals(result4, ['J:47; Full Size; 2'])
-        self.assertEquals(result5, ['J:47; Full Size; 3'])
-        self.assertEquals(result6, ['J:47; Full Size; 4'])
+        self.assertEqual(result1, ['J:25; Full Size; 1'])
+        self.assertEqual(result2, ['J:25; Full Size; 2'])
+        self.assertEqual(result3, ['J:47; Full Size; 1'])
+        self.assertEqual(result4, ['J:47; Full Size; 2'])
+        self.assertEqual(result5, ['J:47; Full Size; 3'])
+        self.assertEqual(result6, ['J:47; Full Size; 4'])
 
     def testImageClassPhenoSearch(self):
         """
@@ -381,20 +381,20 @@ class TestImgSearch(unittest.TestCase):
         result10 = iterate.getTextAsList(cell10)  
         result21 = iterate.getTextAsList(cell21)
         result22 = iterate.getTextAsList(cell22)            
-        print result1
+        print(result1)
         #Assert the correct J number details are returned(for the first 10 results, plus result for image 10)
-        self.assertEquals(result1, ['J:4348; Full Size; 1'])
-        self.assertEquals(result2, ['J:4348; Thumbnail; 1'])
-        self.assertEquals(result3, ['J:4348; Full Size; 2'])
-        self.assertEquals(result4, ['J:4348; Thumbnail; 2'])
-        self.assertEquals(result5, ['J:6708; Full Size; 1'])
-        self.assertEquals(result6, ['J:6708; Thumbnail; 1'])
-        self.assertEquals(result7, ['J:6708; Full Size; 2'])
-        self.assertEquals(result8, ['J:6708; Thumbnail; 2'])
-        self.assertEquals(result9, ['J:6708; Full Size; 3'])
-        self.assertEquals(result10, ['J:6708; Thumbnail; 3'])
-        self.assertEquals(result21, ['J:6708; Full Size; 10'])
-        self.assertEquals(result22, ['J:6708; Thumbnail; 10'])
+        self.assertEqual(result1, ['J:4348; Full Size; 1'])
+        self.assertEqual(result2, ['J:4348; Thumbnail; 1'])
+        self.assertEqual(result3, ['J:4348; Full Size; 2'])
+        self.assertEqual(result4, ['J:4348; Thumbnail; 2'])
+        self.assertEqual(result5, ['J:6708; Full Size; 1'])
+        self.assertEqual(result6, ['J:6708; Thumbnail; 1'])
+        self.assertEqual(result7, ['J:6708; Full Size; 2'])
+        self.assertEqual(result8, ['J:6708; Thumbnail; 2'])
+        self.assertEqual(result9, ['J:6708; Full Size; 3'])
+        self.assertEqual(result10, ['J:6708; Thumbnail; 3'])
+        self.assertEqual(result21, ['J:6708; Full Size; 10'])
+        self.assertEqual(result22, ['J:6708; Thumbnail; 10'])
 
     def testImageClassMolecularSearch(self):
         """
@@ -437,20 +437,20 @@ class TestImgSearch(unittest.TestCase):
         result10 = iterate.getTextAsList(cell10)
         result11 = iterate.getTextAsList(cell11)
         result12 = iterate.getTextAsList(cell12)        
-        print result1
+        print(result1)
         #Assert the correct J number details are returned(for the first 12 results)
-        self.assertEquals(result1, ['J:42811; Full Size; 1'])
-        self.assertEquals(result2, ['J:42811; Thumbnail; 1'])
-        self.assertEquals(result3, ['J:52722; Full Size; 3'])
-        self.assertEquals(result4, ['J:52722; Thumbnail; 3'])
-        self.assertEquals(result5, ['J:77213; Full Size; 1'])
-        self.assertEquals(result6, ['J:77213; Thumbnail; 1'])
-        self.assertEquals(result7, ['J:80319; Full Size; 1a'])
-        self.assertEquals(result8, ['J:80319; Thumbnail; 1a'])
-        self.assertEquals(result9, ['J:80963; Full Size; 1'])
-        self.assertEquals(result10, ['J:80963; Thumbnail; 1'])
-        self.assertEquals(result11, ['J:83279; Full Size; 1B'])
-        self.assertEquals(result12, ['J:83279; Thumbnail; 1B'])
+        self.assertEqual(result1, ['J:42811; Full Size; 1'])
+        self.assertEqual(result2, ['J:42811; Thumbnail; 1'])
+        self.assertEqual(result3, ['J:52722; Full Size; 3'])
+        self.assertEqual(result4, ['J:52722; Thumbnail; 3'])
+        self.assertEqual(result5, ['J:77213; Full Size; 1'])
+        self.assertEqual(result6, ['J:77213; Thumbnail; 1'])
+        self.assertEqual(result7, ['J:80319; Full Size; 1a'])
+        self.assertEqual(result8, ['J:80319; Thumbnail; 1a'])
+        self.assertEqual(result9, ['J:80963; Full Size; 1'])
+        self.assertEqual(result10, ['J:80963; Thumbnail; 1'])
+        self.assertEqual(result11, ['J:83279; Full Size; 1B'])
+        self.assertEqual(result12, ['J:83279; Thumbnail; 1B'])
 
     def testImageCaptionWildSearch(self):
         """
@@ -468,9 +468,9 @@ class TestImgSearch(unittest.TestCase):
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
         result1 = iterate.getTextAsList(cell1)
-        print result1
+        print(result1)
         #Assert the correct J number details are returned
-        self.assertEquals(result1, ['J:47; Full Size; 1'])
+        self.assertEqual(result1, ['J:47; Full Size; 1'])
         
     def testImageCopyrightWildSearch(self):
         """
@@ -491,10 +491,10 @@ class TestImgSearch(unittest.TestCase):
         cell2 = table.get_row_cells(1)
         result1 = iterate.getTextAsList(cell1)
         result2 = iterate.getTextAsList(cell2)
-        print result1
+        print(result1)
         #Assert the correct J number details are returned
-        self.assertEquals(result1, ['J:190949; Full Size; S1'])
-        self.assertEquals(result2, ['J:190949; Full Size; 3'])
+        self.assertEqual(result1, ['J:190949; Full Size; S1'])
+        self.assertEqual(result2, ['J:190949; Full Size; 3'])
 
     def testImageJnumNoCopyrightSearch(self):
         """
@@ -508,7 +508,7 @@ class TestImgSearch(unittest.TestCase):
         time.sleep(2)
         #find the Copyright Field
         cpy = driver.find_element_by_id('copyrightID')
-        print cpy.text
+        print(cpy.text)
         #Assert the copyright field is clear of text
         self.assertEqual(cpy.text, '', 'The copyright field is not empty')
         #find the search results table
@@ -523,12 +523,12 @@ class TestImgSearch(unittest.TestCase):
         result2 = iterate.getTextAsList(cell2)
         result3 = iterate.getTextAsList(cell3)
         result4 = iterate.getTextAsList(cell4)
-        print result1
+        print(result1)
         #Assert the correct J number details are returned
-        self.assertEquals(result1, ['J:2250; Full Size; 4'])
-        self.assertEquals(result2, ['J:2250; Full Size; 5'])
-        self.assertEquals(result3, ['J:2250; Full Size; 6'])
-        self.assertEquals(result4, ['J:2250; Full Size; 7'])
+        self.assertEqual(result1, ['J:2250; Full Size; 4'])
+        self.assertEqual(result2, ['J:2250; Full Size; 5'])
+        self.assertEqual(result3, ['J:2250; Full Size; 6'])
+        self.assertEqual(result4, ['J:2250; Full Size; 7'])
         
         
         #*************************************************************************************************************
@@ -555,8 +555,8 @@ class TestImgSearch(unittest.TestCase):
         cell3 = table.get_row(3)
         cell4 = table.get_row(4)
         cell5 = table.get_row(5)
-        print cell0.text
-        print cell1.text
+        print(cell0.text)
+        print(cell1.text)
         #Assert the correct symbol has been returned in the results table
         self.assertEqual(cell0.text, 'J:25; Full Size; 1')
         self.assertEqual(cell1.text, 'J:25; Full Size; 2')
@@ -590,8 +590,8 @@ class TestImgSearch(unittest.TestCase):
         cell3 = table.get_row(3)
         cell4 = table.get_row(4)
         cell5 = table.get_row(5)
-        print cell0.text
-        print cell1.text
+        print(cell0.text)
+        print(cell1.text)
         #Assert the correct symbol has been returned in the results table
         self.assertEqual(cell0.text, 'J:706; Full Size; 1')
         self.assertEqual(cell1.text, 'J:706; Full Size; 3')
@@ -624,8 +624,8 @@ class TestImgSearch(unittest.TestCase):
         cell3 = table.get_row(3)
         cell4 = table.get_row(4)
         cell5 = table.get_row(5)
-        print cell0.text
-        print cell1.text
+        print(cell0.text)
+        print(cell1.text)
         #Assert the correct symbol has been returned in the results table
         self.assertEqual(cell0.text, 'J:91438; Full Size; 1')
         self.assertEqual(cell1.text, 'J:91438; Full Size; 2')
@@ -658,8 +658,8 @@ class TestImgSearch(unittest.TestCase):
         cell3 = table.get_row(3)
         cell4 = table.get_row(4)
         cell5 = table.get_row(5)
-        print cell0.text
-        print cell1.text
+        print(cell0.text)
+        print(cell1.text)
         #Assert the correct symbol has been returned in the results table
         self.assertEqual(cell0.text, 'J:2959; Full Size; 3')
         self.assertEqual(cell1.text, 'J:2959; Full Size; 4')
@@ -688,8 +688,8 @@ class TestImgSearch(unittest.TestCase):
         # get and print the first 2 rows
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
-        print cell0.text
-        print cell1.text
+        print(cell0.text)
+        print(cell1.text)
         #Assert the correct symbol has been returned in the results table
         self.assertEqual(cell0.text, 'J:47; Full Size; 1')
         self.assertEqual(cell1.text, 'J:886; Full Size; 1')
@@ -714,8 +714,8 @@ class TestImgSearch(unittest.TestCase):
         # get and print the first 2 rows
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
-        print cell0.text
-        print cell1.text
+        print(cell0.text)
+        print(cell1.text)
         #Assert the correct symbol has been returned in the results table
         self.assertEqual(cell0.text, 'J:47; Full Size; 1')
         self.assertEqual(cell1.text, 'J:767; Full Size; 2')
@@ -740,8 +740,8 @@ class TestImgSearch(unittest.TestCase):
         # get and print the first 2 rows
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
-        print cell0.text
-        print cell1.text
+        print(cell0.text)
+        print(cell1.text)
         #Assert the correct symbol has been returned in the results table
         self.assertEqual(cell0.text, 'J:77376; Full Size; 3')
         self.assertEqual(cell1.text, 'J:77376; Full Size; 4')
@@ -769,8 +769,8 @@ class TestImgSearch(unittest.TestCase):
         cell1 = table.get_row(1)
         cell2 = table.get_row(2)
         cell3 = table.get_row(3)
-        print cell0.text
-        print cell1.text
+        print(cell0.text)
+        print(cell1.text)
         #Assert the correct symbol has been returned in the results table
         self.assertEqual(cell0.text, 'J:31122; Full Size; 1')
         self.assertEqual(cell1.text, 'J:31122; Full Size; 2')
@@ -799,8 +799,8 @@ class TestImgSearch(unittest.TestCase):
         cell1 = table.get_row(1)
         cell2 = table.get_row(2)
         cell3 = table.get_row(3)
-        print cell0.text
-        print cell1.text
+        print(cell0.text)
+        print(cell1.text)
         #Assert the correct symbol has been returned in the results table
         self.assertEqual(cell0.text, 'J:31122; Full Size; 1')
         self.assertEqual(cell1.text, 'J:31122; Full Size; 2')
@@ -827,8 +827,8 @@ class TestImgSearch(unittest.TestCase):
         # get and print the first 2 rows
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
-        print cell0.text
-        print cell1.text
+        print(cell0.text)
+        print(cell1.text)
         #Assert the correct symbol has been returned in the results table
         self.assertEqual(cell0.text, 'J:47; Full Size; 1')
         self.assertEqual(cell1.text, 'J:47; Full Size; 2')
@@ -853,8 +853,8 @@ class TestImgSearch(unittest.TestCase):
         # get and print the first 2 rows
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
-        print cell0.text
-        print cell1.text
+        print(cell0.text)
+        print(cell1.text)
         #Assert the correct symbol has been returned in the results table
         self.assertEqual(cell0.text, 'J:1309; Full Size; 1')
         self.assertEqual(cell1.text, 'J:19231; Full Size; 1')
@@ -879,8 +879,8 @@ class TestImgSearch(unittest.TestCase):
         # get and print the first 2 rows
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
-        print cell0.text
-        print cell1.text
+        print(cell0.text)
+        print(cell1.text)
         #Assert the correct symbols has been returned in the results table
         self.assertEqual(cell0.text, 'J:1309; Full Size; 1')
         self.assertEqual(cell1.text, 'J:9556; Full Size; 2')
@@ -905,8 +905,8 @@ class TestImgSearch(unittest.TestCase):
         # get and print the first 2 rows
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
-        print cell0.text
-        print cell1.text
+        print(cell0.text)
+        print(cell1.text)
         #Assert the correct symbols has been returned in the results table
         self.assertEqual(cell0.text, 'J:2250; Full Size; 4')
         #Assert the copyright field is blank
@@ -917,15 +917,15 @@ class TestImgSearch(unittest.TestCase):
         """
         @Status tests that a basic Image Accession Type GenePaint search works
         @attention: The EC webdriverwait code needs to be worked on/fixed when time allows
-        @see pwi-image-search-27
+        @see pwi-image-search-27 **Test passes but is very very slow now! 3/20/2020
         """
         driver = self.driver
         #finds the Image Other Accession Ids pulldown and selects "GenePaint" option, find the Other Accession ID field and enter a genepaint ID, then click the Search button
         Select(driver.find_element_by_id("accidTypeID")).select_by_value('105')
-        driver.find_element_by_id('otherAccId').send_keys('FG,-A%')
+        driver.find_element_by_id('otherAccId').send_keys('%DA,-A82,-Asetstart,%')
         driver.find_element_by_id('searchButton').click()
-        time.sleep(10)
-        #WebDriverWait(driver, 20).until(EC.text_to_be_present_in_element((By.ID, "resultsCount")))
+        time.sleep(90)
+        #WebDriverWait(driver, 90).until(EC.text_to_be_present_in_element((By.ID, "resultsCount")))
         #find the search results table
         results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
@@ -950,27 +950,27 @@ class TestImgSearch(unittest.TestCase):
         result8 = iterate.getTextAsList(cell8)
         result9 = iterate.getTextAsList(cell9)
         result10 = iterate.getTextAsList(cell10)        
-        print result1
+        print(result1)
         #Assert the correct J number details are returned(for the first 10 results)
-        self.assertEquals(result1, ['J:101025; Full Size; FG21'])
-        self.assertEquals(result2, ['J:101025; Full Size; FG24'])
-        self.assertEquals(result3, ['J:101025; Full Size; FG25'])
-        self.assertEquals(result4, ['J:101025; Full Size; FG26'])
-        self.assertEquals(result5, ['J:101025; Full Size; FG32'])
-        self.assertEquals(result6, ['J:101025; Full Size; FG34'])
-        self.assertEquals(result7, ['J:101025; Full Size; FG35'])
-        self.assertEquals(result8, ['J:101025; Full Size; FG36'])
-        self.assertEquals(result9, ['J:101025; Full Size; FG37'])
-        self.assertEquals(result10, ['J:101025; Full Size; FG39'])
+        self.assertEqual(result1, ['J:122989; Full Size; Embryo_DA4_8_1A'])
+        self.assertEqual(result2, ['J:122989; Full Size; Embryo_DA4_8_1B'])
+        self.assertEqual(result3, ['J:122989; Full Size; Embryo_DA4_8_1D'])
+        self.assertEqual(result4, ['J:122989; Full Size; Embryo_DA4_8_2B'])
+        self.assertEqual(result5, ['J:122989; Full Size; Embryo_DA4_8_3A'])
+        self.assertEqual(result6, ['J:122989; Full Size; Embryo_DA4_8_3B'])
+        self.assertEqual(result7, ['J:122989; Full Size; Embryo_DA4_8_3C'])
+        self.assertEqual(result8, ['J:122989; Full Size; Embryo_DA4_8_4A'])
+        self.assertEqual(result9, ['J:122989; Full Size; Embryo_DA4_8_4B'])
+        self.assertEqual(result10, ['J:122989; Full Size; Embryo_DA4_8_5B'])
         #find the Other Accession Ids table
         accid_table = self.driver.find_element_by_id("otherAccIdTable")
         table = Table(accid_table)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
         result1 = iterate.getTextAsList(cell1)
-        print result1
+        print(result1)
         #Assert the correct Acc ID result details are returned
-        self.assertEquals(result1, ['GenePaint', 'FG,-A21,-Asetview'])
+        self.assertEqual(result1, ['GenePaint', 'DA,-A82,-Asetstart,-A1'])
        
     def testAccTypeGudmapSearch(self):
         """
@@ -1008,27 +1008,27 @@ class TestImgSearch(unittest.TestCase):
         result8 = iterate.getTextAsList(cell8)
         result9 = iterate.getTextAsList(cell9)
         result10 = iterate.getTextAsList(cell10)        
-        print result1
+        print(result1)
         #Assert the correct J number details are returned(for the first 10 results)
-        self.assertEquals(result1, ['J:171409; Full Size; GUDMAP:3'])
-        self.assertEquals(result2, ['J:171409; Full Size; GUDMAP:4'])
-        self.assertEquals(result3, ['J:171409; Full Size; GUDMAP:5'])
-        self.assertEquals(result4, ['J:171409; Full Size; GUDMAP:9'])
-        self.assertEquals(result5, ['J:171409; Full Size; GUDMAP:10'])
-        self.assertEquals(result6, ['J:171409; Full Size; GUDMAP:15'])
-        self.assertEquals(result7, ['J:171409; Full Size; GUDMAP:16'])
-        self.assertEquals(result8, ['J:171409; Full Size; GUDMAP:22'])
-        self.assertEquals(result9, ['J:171409; Full Size; GUDMAP:23'])
-        self.assertEquals(result10, ['J:171409; Full Size; GUDMAP:26'])
+        self.assertEqual(result1, ['J:171409; Full Size; GUDMAP:3'])
+        self.assertEqual(result2, ['J:171409; Full Size; GUDMAP:4'])
+        self.assertEqual(result3, ['J:171409; Full Size; GUDMAP:5'])
+        self.assertEqual(result4, ['J:171409; Full Size; GUDMAP:9'])
+        self.assertEqual(result5, ['J:171409; Full Size; GUDMAP:10'])
+        self.assertEqual(result6, ['J:171409; Full Size; GUDMAP:15'])
+        self.assertEqual(result7, ['J:171409; Full Size; GUDMAP:16'])
+        self.assertEqual(result8, ['J:171409; Full Size; GUDMAP:22'])
+        self.assertEqual(result9, ['J:171409; Full Size; GUDMAP:23'])
+        self.assertEqual(result10, ['J:171409; Full Size; GUDMAP:26'])
         #find the Other Accession Ids table
         accid_table = self.driver.find_element_by_id("otherAccIdTable")
         table = Table(accid_table)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
         result1 = iterate.getTextAsList(cell1)
-        print result1
+        print(result1)
         #Assert the correct Acc ID result details are returned
-        self.assertEquals(result1, ['GUDMAP', 'GUDMAP:3'])
+        self.assertEqual(result1, ['GUDMAP', 'GUDMAP:3'])
        
     def testAccTypeEurexpressSearch(self):
         """
@@ -1068,27 +1068,27 @@ class TestImgSearch(unittest.TestCase):
         result8 = iterate.getTextAsList(cell8)
         result9 = iterate.getTextAsList(cell9)
         result10 = iterate.getTextAsList(cell10)        
-        print result1
+        print(result1)
         #Assert the correct J number details are returned(for the first 10 results)
-        self.assertEquals(result1, ['J:153498; Full Size; euxassay_000001_01'])
-        self.assertEquals(result2, ['J:153498; Full Size; euxassay_000001_02'])
-        self.assertEquals(result3, ['J:153498; Full Size; euxassay_000001_03'])
-        self.assertEquals(result4, ['J:153498; Full Size; euxassay_000001_04'])
-        self.assertEquals(result5, ['J:153498; Full Size; euxassay_000001_05'])
-        self.assertEquals(result6, ['J:153498; Full Size; euxassay_000001_06'])
-        self.assertEquals(result7, ['J:153498; Full Size; euxassay_000001_07'])
-        self.assertEquals(result8, ['J:153498; Full Size; euxassay_000001_08'])
-        self.assertEquals(result9, ['J:153498; Full Size; euxassay_000001_09'])
-        self.assertEquals(result10, ['J:153498; Full Size; euxassay_000001_10'])
+        self.assertEqual(result1, ['J:153498; Full Size; euxassay_000001_01'])
+        self.assertEqual(result2, ['J:153498; Full Size; euxassay_000001_02'])
+        self.assertEqual(result3, ['J:153498; Full Size; euxassay_000001_03'])
+        self.assertEqual(result4, ['J:153498; Full Size; euxassay_000001_04'])
+        self.assertEqual(result5, ['J:153498; Full Size; euxassay_000001_05'])
+        self.assertEqual(result6, ['J:153498; Full Size; euxassay_000001_06'])
+        self.assertEqual(result7, ['J:153498; Full Size; euxassay_000001_07'])
+        self.assertEqual(result8, ['J:153498; Full Size; euxassay_000001_08'])
+        self.assertEqual(result9, ['J:153498; Full Size; euxassay_000001_09'])
+        self.assertEqual(result10, ['J:153498; Full Size; euxassay_000001_10'])
         #find the Other Accession Ids table
         accid_table = self.driver.find_element_by_id("otherAccIdTable")
         table = Table(accid_table)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
         result1 = iterate.getTextAsList(cell1)
-        print result1
+        print(result1)
         #Assert the correct Acc ID result details are returned
-        self.assertEquals(result1, ['Eurexpress', 'euxassay_000001_01'])             
+        self.assertEqual(result1, ['Eurexpress', 'euxassay_000001_01'])             
 
 '''
 def suite():
@@ -1098,5 +1098,5 @@ def suite():
 '''
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    HTMLTestRunner.main()
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))
     

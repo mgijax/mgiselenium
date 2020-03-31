@@ -8,7 +8,7 @@ import unittest
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-import HTMLTestRunner
+import HtmlTestRunner
 from selenium.webdriver.common.by import By
 import sys,os.path
 # adjust the path to find config
@@ -55,13 +55,13 @@ class TestAdd(unittest.TestCase):
         form.press_tab()
         #finds the citation field
         citation = form.get_value('citation')
-        print citation
+        print(citation)
         self.assertEqual(citation, 'Alvarez-Saavedra M, Nat Commun 2014;5():4181')
         #finds the marker field
         form.enter_value('marker_symbol', 'Bmp2')
         marker_symbol = form.get_value('marker_symbol')
         form.press_tab()
-        print marker_symbol
+        print(marker_symbol)
         self.assertEqual(marker_symbol, 'Bmp2')
         #find the table field to check
         table_element = driver.find_element_by_id("indexGrid")
@@ -83,13 +83,13 @@ class TestAdd(unittest.TestCase):
         form.press_tab()
         #finds the citation field
         citation = form.get_value('citation')
-        print citation
+        print(citation)
         self.assertEqual(citation, 'Alvarez-Saavedra M, Nat Commun 2014;5():4181')
         #finds the marker field
         form.enter_value('marker_symbol', 'Bmp2')
         marker_symbol = form.get_value('marker_symbol')
         form.press_tab()
-        print marker_symbol
+        print(marker_symbol)
         self.assertEqual(marker_symbol, 'Bmp2')
         #find the table field to check
         table_element = driver.find_element_by_id("indexGrid")
@@ -122,7 +122,7 @@ class TestAdd(unittest.TestCase):
         form.enter_value('marker_symbol', 'ffffff')
         marker_symbol = form.get_value('marker_symbol')
         form.press_tab()
-        print marker_symbol
+        print(marker_symbol)
         #Get the error message that is displayed
         mrk_error = form.get_error_message()
         self.assertEqual(mrk_error, 'Invalid marker symbol ffffff')
@@ -142,13 +142,13 @@ class TestAdd(unittest.TestCase):
         form.enter_value('marker_symbol', 'zyx')
         marker_symbol = form.get_value('marker_symbol')
         form.press_tab()
-        print marker_symbol
+        print(marker_symbol)
         #press the enter key
         driver.find_element_by_id("addButton").click()
         wait.forAngular(driver)
         #Get the error message that is displayed
         priority_error = form.get_error_message()
-        print priority_error
+        print(priority_error)
         self.assertEqual(priority_error, '(psycopg2.InternalError) Priority Required')
 
     def testStageErrMsg(self):
@@ -166,12 +166,12 @@ class TestAdd(unittest.TestCase):
         form.enter_value('marker_symbol', 'Gata1')
         marker_symbol = form.get_value('marker_symbol')
         form.press_tab()
-        print marker_symbol
+        print(marker_symbol)
         #finds the marker field
         form.enter_value('_priority_key', 'Low')
         priority_option = form.get_value('_priority_key')
         form.press_tab()
-        print priority_option
+        print(priority_option)
         #self.assertEqual(priority_option, '74716')
         #press the enter key
         form.click_add()
@@ -179,7 +179,7 @@ class TestAdd(unittest.TestCase):
         
         #Get the error message that is displayed
         stage_error = form.get_error_message()
-        print stage_error
+        print(stage_error)
         self.assertEqual(stage_error, 'No stages have been selected for this record')    
         
         

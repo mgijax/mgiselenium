@@ -48,7 +48,7 @@ class TestStrainQF(unittest.TestCase):
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         
         strainNamesReturned = iterate.getTextAsList(cells)
         
@@ -70,12 +70,12 @@ class TestStrainQF(unittest.TestCase):
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
         self.assertIn('129S6.Cg-Tg(APPSWE)2576Kha/Tac', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("Synonyms")
-        print iterate.getTextAsList(cells1)
+        print(iterate.getTextAsList(cells1))
         strainSynReturned = iterate.getTextAsList(cells1)
         #asserts that the synonym strains are returned
         self.assertIn('129S6.Cg-Tg(APPSWE)2576Kha N20+?\nAPPSWE', strainSynReturned) # synonym strain name
@@ -95,7 +95,7 @@ class TestStrainQF(unittest.TestCase):
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
         self.assertIn('129S6(B6)-Pgk2tm1Dao/Mmnc', strainNamesReturned) # Strain/Stock Name
@@ -120,7 +120,7 @@ class TestStrainQF(unittest.TestCase):
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
         self.assertIn('B6.129-Crygstm1Gwis', strainNamesReturned) # Strain/Stock Name
@@ -145,12 +145,12 @@ class TestStrainQF(unittest.TestCase):
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
         self.assertIn('101/H', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
-        print iterate.getTextAsList(cells1)
+        print(iterate.getTextAsList(cells1))
         idReturned = iterate.getTextAsList(cells1)
         #asserts that the correct ID is  returned
         self.assertIn('MGI:2159854', idReturned) # ID is correct                    
@@ -172,12 +172,12 @@ class TestStrainQF(unittest.TestCase):
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
         self.assertIn('SJL/J', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
-        print iterate.getTextAsList(cells1)
+        print(iterate.getTextAsList(cells1))
         idReturned = iterate.getTextAsList(cells1)
         #asserts that the correct ID is  returned
         self.assertIn('MGI:2159739\nJAX:000686\nMPD:17', idReturned) # ID is correct                    
@@ -199,12 +199,12 @@ class TestStrainQF(unittest.TestCase):
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
         self.assertIn('BALB/cJ', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
-        print iterate.getTextAsList(cells1)
+        print(iterate.getTextAsList(cells1))
         idReturned = iterate.getTextAsList(cells1)
         #asserts that the correct ID is  returned
         self.assertIn('MGI:2159737\nJAX:000651\nMPD:5', idReturned) # ID is correct        
@@ -226,12 +226,12 @@ class TestStrainQF(unittest.TestCase):
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
         self.assertIn('129-Myh7tm1Unc/Mmnc', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
-        print iterate.getTextAsList(cells1)
+        print(iterate.getTextAsList(cells1))
         idReturned = iterate.getTextAsList(cells1)
         #asserts that the correct ID is  returned
         self.assertIn('MGI:4452117\nMMRRC:029868', idReturned) # ID is correct        
@@ -253,12 +253,12 @@ class TestStrainQF(unittest.TestCase):
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
         self.assertIn('129(B6)-Elf5tm1Mapr', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
-        print iterate.getTextAsList(cells1)
+        print(iterate.getTextAsList(cells1))
         idReturned = iterate.getTextAsList(cells1)
         #asserts that the correct ID is  returned
         self.assertIn('MGI:4940861\nAPB:629', idReturned) # ID is correct   
@@ -280,12 +280,12 @@ class TestStrainQF(unittest.TestCase):
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
         self.assertIn('C57BL/6JArc', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
-        print iterate.getTextAsList(cells1)
+        print(iterate.getTextAsList(cells1))
         idReturned = iterate.getTextAsList(cells1)
         #asserts that the correct ID is  returned
         self.assertIn('MGI:5425110\nARC:B6\nMPD:784', idReturned) # ID is correct   
@@ -306,12 +306,12 @@ class TestStrainQF(unittest.TestCase):
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
         self.assertIn('129-Atp6v0ctm1Hka', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
-        print iterate.getTextAsList(cells1)
+        print(iterate.getTextAsList(cells1))
         idReturned = iterate.getTextAsList(cells1)
         #asserts that the correct ID is  returned
         self.assertIn('MGI:3054560\nCARD:242', idReturned) # ID is correct 
@@ -334,12 +334,12 @@ class TestStrainQF(unittest.TestCase):
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
         self.assertIn('129-Alpltm1(cre)Nagy', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
-        print iterate.getTextAsList(cells1)
+        print(iterate.getTextAsList(cells1))
         idReturned = iterate.getTextAsList(cells1)
         #asserts that the correct ID is  returned
         self.assertIn('MGI:4358196\nCMMR:0076', idReturned) # ID is correct 
@@ -362,12 +362,12 @@ class TestStrainQF(unittest.TestCase):
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
         self.assertIn('129-Acaa1btm1Vnf/Orl', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
-        print iterate.getTextAsList(cells1)
+        print(iterate.getTextAsList(cells1))
         idReturned = iterate.getTextAsList(cells1)
         #asserts that the correct ID is  returned
         self.assertIn('MGI:5490030\nEM:05001', idReturned) # ID is correct 
@@ -387,12 +387,12 @@ class TestStrainQF(unittest.TestCase):
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
         self.assertIn('B6.Cg-Tg(NR2E1)11Ems/Ems', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
-        print iterate.getTextAsList(cells1)
+        print(iterate.getTextAsList(cells1))
         idReturned = iterate.getTextAsList(cells1)
         #asserts that the correct ID is  returned
         self.assertIn('MGI:3616881\npacEMS1D', idReturned) # ID is correct 
@@ -415,12 +415,12 @@ class TestStrainQF(unittest.TestCase):
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
         self.assertIn('101/H-Tbob/H', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
-        print iterate.getTextAsList(cells1)
+        print(iterate.getTextAsList(cells1))
         idReturned = iterate.getTextAsList(cells1)
         #asserts that the correct ID is  returned
         self.assertIn('MGI:4821385\nFESA:03299', idReturned) # ID is correct 
@@ -442,12 +442,12 @@ class TestStrainQF(unittest.TestCase):
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
         self.assertIn('C57BL/6J-GckHlb62/J', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
-        print iterate.getTextAsList(cells1)
+        print(iterate.getTextAsList(cells1))
         idReturned = iterate.getTextAsList(cells1)
         #asserts that the correct ID is  returned
         self.assertIn('MGI:3621725\nJAX:004611\nJPGA:11473', idReturned) # ID is correct 
@@ -471,12 +471,12 @@ class TestStrainQF(unittest.TestCase):
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
         self.assertIn('129(Cg)-Mdm2tm1.2Mep', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
-        print iterate.getTextAsList(cells1)
+        print(iterate.getTextAsList(cells1))
         idReturned = iterate.getTextAsList(cells1)
         #asserts that the correct ID is  returned
         self.assertIn('MGI:3618491\nNCIMR:01XH9', idReturned) # ID is correct 
@@ -496,12 +496,12 @@ class TestStrainQF(unittest.TestCase):
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
         self.assertIn('129S6/SvEvTac', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
-        print iterate.getTextAsList(cells1)
+        print(iterate.getTextAsList(cells1))
         idReturned = iterate.getTextAsList(cells1)
         #asserts that the correct ID is  returned
         self.assertIn('MGI:3044417\nTAC:129sve\nMPD:53', idReturned) # ID is correct 
@@ -524,12 +524,12 @@ class TestStrainQF(unittest.TestCase):
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
         self.assertIn('B6;129-Adgre1tm1(cre)Kpf', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
-        print iterate.getTextAsList(cells1)
+        print(iterate.getTextAsList(cells1))
         idReturned = iterate.getTextAsList(cells1)
         #asserts that the correct ID is  returned
         self.assertIn('MGI:4358385\nM193046', idReturned) # ID is correct 
@@ -549,12 +549,12 @@ class TestStrainQF(unittest.TestCase):
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
         self.assertIn('AVZ/Ms', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
-        print iterate.getTextAsList(cells1)
+        print(iterate.getTextAsList(cells1))
         idReturned = iterate.getTextAsList(cells1)
         #asserts that the correct ID is  returned
         self.assertIn('MGI:3610724\nNIG:229', idReturned) # ID is correct 
@@ -576,12 +576,12 @@ class TestStrainQF(unittest.TestCase):
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
         self.assertIn('C57BL/6J-Clockm1Jt/Nwu', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
-        print iterate.getTextAsList(cells1)
+        print(iterate.getTextAsList(cells1))
         idReturned = iterate.getTextAsList(cells1)
         #asserts that the correct ID is  returned
         self.assertIn('MGI:3622461\nMGI:1861634', idReturned) # ID is correct 
@@ -603,12 +603,12 @@ class TestStrainQF(unittest.TestCase):
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
         self.assertIn('B6.129P2-Hrh1tm1Wtn/Obs', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
-        print iterate.getTextAsList(cells1)
+        print(iterate.getTextAsList(cells1))
         idReturned = iterate.getTextAsList(cells1)
         #asserts that the correct ID is  returned
         self.assertIn('MGI:5577152\nOBS:27', idReturned) # ID is correct 
@@ -630,12 +630,12 @@ class TestStrainQF(unittest.TestCase):
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
         self.assertIn('47BS/Rl', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
-        print iterate.getTextAsList(cells1)
+        print(iterate.getTextAsList(cells1))
         idReturned = iterate.getTextAsList(cells1)
         #asserts that the correct ID is  returned
         self.assertIn('MGI:5293354\nORNL:47BS', idReturned) # ID is correct 
@@ -657,12 +657,12 @@ class TestStrainQF(unittest.TestCase):
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
         self.assertIn('SL/KhStmRbrc', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
-        print iterate.getTextAsList(cells1)
+        print(iterate.getTextAsList(cells1))
         idReturned = iterate.getTextAsList(cells1)
         #asserts that the correct ID is  returned
         self.assertIn('MGI:2160561\nRBRC00222\nMPD:981', idReturned) # ID is correct 
@@ -683,12 +683,12 @@ class TestStrainQF(unittest.TestCase):
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
         self.assertIn('129S6/SvEvTac-Rag2tm1Fwa/Tac', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
-        print iterate.getTextAsList(cells1)
+        print(iterate.getTextAsList(cells1))
         idReturned = iterate.getTextAsList(cells1)
         #asserts that the correct ID is  returned
         self.assertIn('MGI:4838311\nTAC:1334\nTAC:rag2', idReturned) # ID is correct 
@@ -711,12 +711,12 @@ class TestStrainQF(unittest.TestCase):
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
         self.assertIn('C57BL/6JNarl', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
-        print iterate.getTextAsList(cells1)
+        print(iterate.getTextAsList(cells1))
         idReturned = iterate.getTextAsList(cells1)
         #asserts that the correct ID is  returned
         self.assertIn('MGI:5699857\nRMRC11005', idReturned) # ID is correct 
@@ -738,7 +738,7 @@ class TestStrainQF(unittest.TestCase):
         #locates the strain table and find the data in the Attributes column
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
         cells = strain_table.get_column_cells("Attributes")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         attributesReturned = iterate.getTextAsList(cells)
         #asserts the following attributes are returned
         self.assertIn('conplastic', attributesReturned) # assert attribute is listed
@@ -761,7 +761,7 @@ class TestStrainQF(unittest.TestCase):
         #locates the strain table and find the data in the Attributes column
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
         cells = strain_table.get_column_cells("Attributes")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         attributesReturned = iterate.getTextAsList(cells)
         #asserts the following attributes are returned
         self.assertIn('conplastic', attributesReturned) # contains this attribute
@@ -788,7 +788,7 @@ class TestStrainQF(unittest.TestCase):
         #locates the strain table and find the data in the Attributes column
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
         cells = strain_table.get_column_cells("Attributes")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         attributesReturned = iterate.getTextAsList(cells)
         time.sleep(2)
         #asserts the following attributes are returned
@@ -796,7 +796,7 @@ class TestStrainQF(unittest.TestCase):
         self.assertIn('closed colony\nmutant stock', attributesReturned) # contains this attribute
         #get data from the Strain/Stock Name column
         cells1 = strain_table.get_column_cells("Strain/Stock Name")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         strainsReturned = iterate.getTextAsList(cells1)
         time.sleep(2)
         #asserts the following strains are returned
@@ -824,7 +824,7 @@ class TestStrainQF(unittest.TestCase):
         #locates the strain table and find the data in the Attributes column
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
         cells = strain_table.get_column_cells("Attributes")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         attributesReturned = iterate.getTextAsList(cells)
         time.sleep(2)
         #asserts the following attributes are returned
@@ -852,7 +852,7 @@ class TestStrainQF(unittest.TestCase):
         #locates the strain table and find the data in the Attributes column
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
         cells = strain_table.get_column_cells("Attributes")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         attributesReturned = iterate.getTextAsList(cells)
         time.sleep(2)
         #asserts the following attributes are returned
@@ -882,7 +882,7 @@ class TestStrainQF(unittest.TestCase):
         #locates the strain table and find the data in the Attributes column
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
         cells = strain_table.get_column_cells("Attributes")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         attributesReturned = iterate.getTextAsList(cells)
         time.sleep(2)
         #asserts the following attributes are returned
@@ -911,7 +911,7 @@ class TestStrainQF(unittest.TestCase):
         #locates the strain table and find the data in the Attributes column
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
         cells = strain_table.get_column_cells("Attributes")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         attributesReturned = iterate.getTextAsList(cells)
         time.sleep(2)
         #asserts the following attributes are returned

@@ -4,15 +4,15 @@ Created on Nov 3, 2017 -- used HMDC_tests.py as the template
 @author: jlewis  
 '''
 import unittest
-from gxdindex_add_delete_test import TestAdd
-from gxdindex_clear_test import TestClear
-from gxdindex_modify_test import TestModify
-from gxdindex_notes_picklist_test import TestNotes
-from gxdindex_search_test import TestSearch
-from gxdindex_shortcuts_test import TestShort
+from .gxdindex_add_delete_test import TestAdd
+from .gxdindex_clear_test import TestClear
+from .gxdindex_modify_test import TestModify
+from .gxdindex_notes_picklist_test import TestNotes
+from .gxdindex_search_test import TestSearch
+from .gxdindex_shortcuts_test import TestShort
 
 import os
-import HTMLTestRunner
+import HtmlTestRunner
 # from EI import gxdindex_add_delete_test, gxdindex_clear_test, gxdindex_modify_test, gxdindex_notes_picklist_test, gxdindex_search_test, gxdindex_shortcuts_test
 
 
@@ -29,7 +29,7 @@ def main():
 #file
     dir = os.getcwd()
     outfile = open(r"C:\WebdriverTests\GXDINDEXtestreport.html", "w")
-    runner = HTMLTestRunner.HTMLTestRunner(stream = outfile,title = 'Test Report',description = 'GXDINDEX Test Report')
+    runner = HtmlTestRunner.HTMLTestRunner(stream = outfile,title = 'Test Report',description = 'GXDINDEX Test Report')
     runner.run(gxdindex_tests)
 
 if __name__=="__main__":

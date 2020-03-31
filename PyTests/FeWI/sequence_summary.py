@@ -22,8 +22,8 @@ from config import TEST_URL
 class TestSequenceSummaryPage(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Firefox() 
-
+        #self.driver = webdriver.Firefox() 
+        self.driver = webdriver.Chrome()
     def test_table_headers(self):
         """
         @status: Tests that the Sequence Summary table headers are correct
@@ -82,25 +82,25 @@ class TestSequenceSummaryPage(unittest.TestCase):
         seqtypelist = driver.find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-seqType .yui-dt-liner')
         searchTextItems = iterate.getTextAsList(seqtypelist)
         time.sleep(2)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the rows of Type data are in correct order
-        self.assertEqual(searchTextItems, [u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'RNA', u'DNA', u'DNA', u'DNA', u'DNA', u'DNA', u'DNA', u'DNA', u'DNA', u'DNA', u'DNA'])
+        self.assertEqual(searchTextItems, ['RNA', 'RNA', 'RNA', 'RNA', 'RNA', 'RNA', 'RNA', 'RNA', 'RNA', 'RNA', 'RNA', 'RNA', 'RNA', 'RNA', 'RNA', 'DNA', 'DNA', 'DNA', 'DNA', 'DNA', 'DNA', 'DNA', 'DNA', 'DNA', 'DNA'])
         
         #finds the Sequence column and then iterates through all items
         seqlist = driver.find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-seqInfo .yui-dt-liner')
         searchTextItems = iterate.getTextAsList(seqlist)
         time.sleep(2)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the rows of length data are in correct order
-        self.assertEqual(searchTextItems, [u'ENSMUST00000018711\n  Ensembl\n  MGI Sequence Detail', u'ENSMUST00000144443\n  Ensembl\n  MGI Sequence Detail', u'ENSMUST00000108592\n  Ensembl\n  MGI Sequence Detail', u'ENSMUST00000139007\n  Ensembl\n  MGI Sequence Detail', u'NM_019749\n  RefSeq\n  MGI Sequence Detail', u'BC030350\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'BC002126\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'BC024621\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'AV029091\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'BC029329\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'AK002879\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'AK011731\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'AF161587\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'KY499680\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'AW124839\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', u'ENSMUSG00000018567\n  Ensembl Gene Model\n  MGI Sequence Detail', u'56486\n  NCBI Gene Model\n  MGI Sequence Detail', u'MGP_129S1SvImJ_G0018575\n  MGI Sequence Detail', u'MGP_WSBEiJ_G0017937\n  MGI Sequence Detail', u'MGP_NODShiLtJ_G0018423\n  MGI Sequence Detail', u'MGP_PWKPhJ_G0017657\n  MGI Sequence Detail', u'MGP_NZOHlLtJ_G0019008\n  MGI Sequence Detail', u'MGP_C3HHeJ_G0018328\n  MGI Sequence Detail', u'MGP_BALBcJ_G0018515\n  MGI Sequence Detail', u'MGP_C57BL6NJ_G0018966\n  MGI Sequence Detail'])
+        self.assertEqual(searchTextItems, ['ENSMUST00000018711\n  Ensembl\n  MGI Sequence Detail', 'ENSMUST00000144443\n  Ensembl\n  MGI Sequence Detail', 'ENSMUST00000108592\n  Ensembl\n  MGI Sequence Detail', 'ENSMUST00000139007\n  Ensembl\n  MGI Sequence Detail', 'NM_019749\n  RefSeq\n  MGI Sequence Detail', 'BC030350\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', 'BC002126\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', 'BC024621\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', 'AV029091\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', 'BC029329\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', 'AK002879\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', 'AK011731\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', 'AF161587\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', 'KY499680\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', 'AW124839\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', 'ENSMUSG00000018567\n  Ensembl Gene Model\n  MGI Sequence Detail', '56486\n  NCBI Gene Model\n  MGI Sequence Detail', 'MGP_129S1SvImJ_G0018575\n  Ensembl\n  MGI Sequence Detail', 'MGP_WSBEiJ_G0017937\n  Ensembl\n  MGI Sequence Detail', 'MGP_NODShiLtJ_G0018423\n  Ensembl\n  MGI Sequence Detail', 'MGP_PWKPhJ_G0017657\n  Ensembl\n  MGI Sequence Detail', 'MGP_NZOHlLtJ_G0019008\n  Ensembl\n  MGI Sequence Detail', 'MGP_C3HHeJ_G0018328\n  Ensembl\n  MGI Sequence Detail', 'MGP_BALBcJ_G0018515\n  Ensembl\n  MGI Sequence Detail', 'MGP_C57BL6NJ_G0018966\n  Ensembl\n  MGI Sequence Detail'])
         
         #finds the Length column and then iterates through all items
         lengthlist = driver.find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-length .yui-dt-liner')
         searchTextItems = iterate.getTextAsList(lengthlist)
         time.sleep(2)
-        print searchTextItems
+        print(searchTextItems)
         #asserts that the rows of length data are in correct order,sort is large to small
-        self.assertEqual(searchTextItems, [u'1351', u'932', u'750', u'454', u'1122', u'1152', u'924', u'899', u'893', u'879', u'872', u'776', u'565', u'492', u'465', u'3809', u'3580', u'6111', u'5983', u'5196', u'4974', u'4641', u'4400', u'3763', u'3731'])
+        self.assertEqual(searchTextItems, ['1351', '932', '750', '454', '1122', '1152', '924', '899', '893', '879', '872', '776', '565', '492', '465', '3809', '3580', '6111', '5983', '5196', '4974', '4641', '4400', '3763', '3731'])
         
     def test_mgp_links(self):
         """

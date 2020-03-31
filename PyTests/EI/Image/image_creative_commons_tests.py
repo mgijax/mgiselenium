@@ -12,7 +12,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
-import HTMLTestRunner
+import HtmlTestRunner
 import json
 import sys,os.path
 # adjust the path to find config
@@ -58,9 +58,9 @@ class TestImgCCSearch(unittest.TestCase):
         #Assert the Creative Commons display is present
         element = self.driver.find_element_by_id('creativeCommonsWarning')
         if element.is_displayed():
-            print "Creative Commons warning  is displayed"
+            print("Creative Commons warning  is displayed")
         else:
-            print "Creative Commons warning is not displaying!"
+            print("Creative Commons warning is not displaying!")
     
     def testImageCCBrainDsp(self):
         """
@@ -77,9 +77,9 @@ class TestImgCCSearch(unittest.TestCase):
         #Assert the Creative Commons display is present
         element = self.driver.find_element_by_id('creativeCommonsWarning')
         if element.is_displayed():
-            print "Creative Commons warning  is displayed"
+            print("Creative Commons warning  is displayed")
         else:
-            print "Creative Commons warning is not displaying!"
+            print("Creative Commons warning is not displaying!")
 
     def testImageCCCarcDsp(self):
         """
@@ -96,9 +96,9 @@ class TestImgCCSearch(unittest.TestCase):
         #Assert the Creative Commons display is present
         element = self.driver.find_element_by_id('creativeCommonsWarning')
         if element.is_displayed():
-            print "Creative Commons warning  is displayed"
+            print("Creative Commons warning  is displayed")
         else:
-            print "Creative Commons warning is not displaying!"
+            print("Creative Commons warning is not displaying!")
 
     def testImageCCCardioDsp(self):
         """
@@ -115,9 +115,9 @@ class TestImgCCSearch(unittest.TestCase):
         #Assert the Creative Commons display is present
         element = self.driver.find_element_by_id('creativeCommonsWarning')
         if element.is_displayed():
-            print "Creative Commons warning  is displayed"
+            print("Creative Commons warning  is displayed")
         else:
-            print "Creative Commons warning is not displaying!"
+            print("Creative Commons warning is not displaying!")
 
     def testImageCCCerebDsp(self):
         """
@@ -134,9 +134,9 @@ class TestImgCCSearch(unittest.TestCase):
         #Assert the Creative Commons display is present
         element = self.driver.find_element_by_id('creativeCommonsWarning')
         if element.is_displayed():
-            print "Creative Commons warning  is displayed"
+            print("Creative Commons warning  is displayed")
         else:
-            print "Creative Commons warning is not displaying!"
+            print("Creative Commons warning is not displaying!")
 
     def testImageCCChemDsp(self):
         """
@@ -153,9 +153,9 @@ class TestImgCCSearch(unittest.TestCase):
         #Assert the Creative Commons display is present
         element = self.driver.find_element_by_id('creativeCommonsWarning')
         if element.is_displayed():
-            print "Creative Commons warning  is displayed"
+            print("Creative Commons warning  is displayed")
         else:
-            print "Creative Commons warning is not displaying!"
+            print("Creative Commons warning is not displaying!")
 
     def testImageCCGlyDsp(self):
         """
@@ -172,9 +172,9 @@ class TestImgCCSearch(unittest.TestCase):
         #Assert the Creative Commons display is present
         element = self.driver.find_element_by_id('creativeCommonsWarning')
         if element.is_displayed():
-            print "Creative Commons warning  is displayed"
+            print("Creative Commons warning  is displayed")
         else:
-            print "Creative Commons warning is not displaying!"
+            print("Creative Commons warning is not displaying!")
 
     def testImageCCHumMolDsp(self):
         """
@@ -191,9 +191,9 @@ class TestImgCCSearch(unittest.TestCase):
         #Assert the Creative Commons display is present
         element = self.driver.find_element_by_id('creativeCommonsWarning')
         if element.is_displayed():
-            print "Creative Commons warning  is displayed"
+            print("Creative Commons warning  is displayed")
         else:
-            print "Creative Commons warning is not displaying!"
+            print("Creative Commons warning is not displaying!")
 
     def testImageCCHumReDsp(self):
         """
@@ -210,9 +210,9 @@ class TestImgCCSearch(unittest.TestCase):
         #Assert the Creative Commons display is present
         element = self.driver.find_element_by_id('creativeCommonsWarning')
         if element.is_displayed():
-            print "Creative Commons warning  is displayed"
+            print("Creative Commons warning  is displayed")
         else:
-            print "Creative Commons warning is not displaying!"
+            print("Creative Commons warning is not displaying!")
 
     def testImageCCJGerDsp(self):
         """
@@ -229,9 +229,9 @@ class TestImgCCSearch(unittest.TestCase):
         #Assert the Creative Commons display is present
         element = self.driver.find_element_by_id('creativeCommonsWarning')
         if element.is_displayed():
-            print "Creative Commons warning  is displayed"
+            print("Creative Commons warning  is displayed")
         else:
-            print "Creative Commons warning is not displaying!"
+            print("Creative Commons warning is not displaying!")
 
     def testImageCCMolBioDsp(self):
         """
@@ -248,9 +248,9 @@ class TestImgCCSearch(unittest.TestCase):
         #Assert the Creative Commons display is present
         element = self.driver.find_element_by_id('creativeCommonsWarning')
         if element.is_displayed():
-            print "Creative Commons warning  is displayed"
+            print("Creative Commons warning  is displayed")
         else:
-            print "Creative Commons warning is not displaying!"
+            print("Creative Commons warning is not displaying!")
 
     def testImageCCToxDsp(self):
         """
@@ -267,9 +267,9 @@ class TestImgCCSearch(unittest.TestCase):
         #Assert the Creative Commons display is present
         element = self.driver.find_element_by_id('creativeCommonsWarning')
         if element.is_displayed():
-            print "Creative Commons warning  is displayed"
+            print("Creative Commons warning  is displayed")
         else:
-            print "Creative Commons warning is not displaying!"
+            print("Creative Commons warning is not displaying!")
 
     def testImageCCEmboDsp(self):
         """
@@ -286,9 +286,9 @@ class TestImgCCSearch(unittest.TestCase):
         #Assert the Creative Commons display is present
         element = self.driver.find_element_by_id('creativeCommonsWarning')
         if element.is_displayed():
-            print "Creative Commons warning  is displayed"
+            print("Creative Commons warning  is displayed")
         else:
-            print "Creative Commons warning is not displaying!"
+            print("Creative Commons warning is not displaying!")
 
     def testImageCCJInvDsp(self):
         """
@@ -305,9 +305,9 @@ class TestImgCCSearch(unittest.TestCase):
         #Assert the Creative Commons display is present
         element = self.driver.find_element_by_id('creativeCommonsWarning')
         if element.is_displayed():
-            print "Creative Commons warning  is displayed"
+            print("Creative Commons warning  is displayed")
         else:
-            print "Creative Commons warning is not displaying!"
+            print("Creative Commons warning is not displaying!")
 
     def testImageCCMolPDsp(self):
         """
@@ -324,9 +324,9 @@ class TestImgCCSearch(unittest.TestCase):
         #Assert the Creative Commons display is present
         element = self.driver.find_element_by_id('creativeCommonsWarning')
         if element.is_displayed():
-            print "Creative Commons warning  is displayed"
+            print("Creative Commons warning  is displayed")
         else:
-            print "Creative Commons warning is not displaying!"
+            print("Creative Commons warning is not displaying!")
 
     def testImageCCCellCycDsp(self):
         """
@@ -343,9 +343,9 @@ class TestImgCCSearch(unittest.TestCase):
         #Assert the Creative Commons display is present
         element = self.driver.find_element_by_id('creativeCommonsWarning')
         if element.is_displayed():
-            print "Creative Commons warning  is displayed"
+            print("Creative Commons warning  is displayed")
         else:
-            print "Creative Commons warning is not displaying!"
+            print("Creative Commons warning is not displaying!")
 
 '''
 def suite():
@@ -355,4 +355,4 @@ def suite():
 '''
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    HTMLTestRunner.main()
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))

@@ -14,7 +14,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
-import HTMLTestRunner
+import HtmlTestRunner
 import json
 import sys,os.path
 from select import select
@@ -89,9 +89,9 @@ class TestMrkAddDelete(unittest.TestCase):
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
         symbol1 = iterate.getTextAsList(cell1)
-        print symbol1
+        print(symbol1)
         #Assert the correct marker symbol and marker type is returned
-        self.assertEquals(symbol1, ['jeffcmarker'])
+        self.assertEqual(symbol1, ['jeffcmarker'])
         #since we search for a particular marker type verify the correct type is displayed
         mrktype = driver.find_element_by_id('markerType').get_attribute('value')
         self.assertEqual(mrktype, 'string:7')#1 equals "Gene"
@@ -120,14 +120,14 @@ class TestMrkAddDelete(unittest.TestCase):
         actionChains.perform()
         #find and click the "Modify" button
         driver.find_element_by_id('updateMarkerButton').click()
-        time.sleep(2)
+        time.sleep(5)
         #find the Type field, ref jnum field, citation field of row 1 of the Reference tab and print them
         typ = driver.find_element_by_id('refAssocType').get_attribute('value')
         refjn = driver.find_element_by_id('refjnumID-0').get_attribute('value')
         cit = driver.find_element_by_id('refAssocCitation-0').get_attribute('value')
-        print typ
-        print refjn
-        print cit
+        print(typ)
+        print(refjn)
+        print(cit)
         #assert the row of Reference data(first 3 fields) 
         self.assertEqual(typ, 'string:1018')
         self.assertEqual(refjn, 'J:28000')
@@ -151,7 +151,7 @@ class TestMrkAddDelete(unittest.TestCase):
         time.sleep(2)        
         #find the Feature Type field and print it
         feat = driver.find_element_by_id('featureID').get_attribute('value')
-        print feat
+        print(feat)
         #assert the feature type is correct for this marker 
         self.assertEqual(feat, 'string:7313348')
         
@@ -190,9 +190,9 @@ class TestMrkAddDelete(unittest.TestCase):
         time.sleep(2)
         #find the Feature Type field and print it
         feat = driver.find_element_by_id('featureID').get_attribute('value')
-        print feat
+        print(feat)
         #assert the feature type is correct for this marker 
-        self.assertEquals(feat, 'string:7196771')  
+        self.assertEqual(feat, 'string:7196771')  
 
     def testQtlFeatureAdd(self):
         """
@@ -229,9 +229,9 @@ class TestMrkAddDelete(unittest.TestCase):
         time.sleep(2)
         #find the Feature Type field and print it
         feat = driver.find_element_by_id('featureID').get_attribute('value')
-        print feat
+        print(feat)
         #assert the feature type is correct for this marker 
-        self.assertEquals(feat, 'string:7288448')  
+        self.assertEqual(feat, 'string:7288448')  
         
     def testBacYacFeatureAdd(self):
         """
@@ -268,9 +268,9 @@ class TestMrkAddDelete(unittest.TestCase):
         time.sleep(2)
         #find the Feature Type field and print it
         feat = driver.find_element_by_id('featureID').get_attribute('value')
-        print feat
+        print(feat)
         #assert the feature type is correct for this marker 
-        self.assertEquals(feat, 'string:7648969')  
+        self.assertEqual(feat, 'string:7648969')  
         
     def testComplexFeatureAdd(self):
         """
@@ -338,18 +338,18 @@ class TestMrkAddDelete(unittest.TestCase):
         time.sleep(2)
         #This gets and then verifies that the first feature type is CpG island(string:15406205)
         feat1 = driver.find_element_by_id('featureID').get_attribute('value')
-        print feat1
-        self.assertEquals(feat1, 'string:15406205')
+        print(feat1)
+        self.assertEqual(feat1, 'string:15406205')
         #This gets and then verifies that the second feature type is minisatellite(string:7648968)
         #even though this was entered third once the adds are modified the feature type resorts by alpha
         row2 = driver.find_element_by_id("featureTypeTable").find_element_by_css_selector('tr:nth-child(2)')
         feat2 = row2.find_element_by_id('featureID').get_attribute('value')
-        self.assertEquals(feat2, 'string:7648968')
+        self.assertEqual(feat2, 'string:7648968')
         #This gets and then verifies that the third feature type is unclassified other genome featyre(string:7648969)
         #even though this was entered second once the adds are modified the feature type resorts by alpha
         row3 = driver.find_element_by_id("featureTypeTable").find_element_by_css_selector('tr:nth-child(3)')
         feat3 = row3.find_element_by_id('featureID').get_attribute('value')
-        self.assertEquals(feat3, 'string:7648969')
+        self.assertEqual(feat3, 'string:7648969')
         
 
     def testBadMrkTypeFeatureAdd(self):
@@ -368,10 +368,10 @@ class TestMrkAddDelete(unittest.TestCase):
         time.sleep(2)
         #capture the javascript alert and press it's OK button
         alertObj = driver.switch_to.alert
-        print alertObj.text
+        print(alertObj.text)
         time.sleep(2)
         #Assert the alert text returned is correct
-        self.assertEquals(alertObj.text, 'Invalid Marker Type/Feature Type combination. ')
+        self.assertEqual(alertObj.text, 'Invalid Marker Type/Feature Type combination. ')
         alertObj.accept()
         
     def testBadFeatureTypeMarkerAdd(self):
@@ -390,10 +390,10 @@ class TestMrkAddDelete(unittest.TestCase):
         time.sleep(2)
         #capture the javascript alert and press it's OK button
         alertObj = driver.switch_to.alert
-        print alertObj.text
+        print(alertObj.text)
         time.sleep(2)
         #Assert the alert text returned is correct
-        self.assertEquals(alertObj.text, 'Invalid Marker Type/Feature Type combination. ')
+        self.assertEqual(alertObj.text, 'Invalid Marker Type/Feature Type combination. ')
         alertObj.accept()
 
 
@@ -410,5 +410,5 @@ def suite():
 '''
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    HTMLTestRunner.main()
+    unittest.main()
     

@@ -34,14 +34,14 @@ class TestAlleleQueryForm(unittest.TestCase):
         '''
         self.driver.find_element_by_name("alleleQueryForm")
         phenotypesdisease = self.driver.find_element_by_css_selector("tr.stripe1 > td.cat1")
-        print phenotypesdisease.text
-        self.assertEquals(phenotypesdisease.text, 'Mouse phenotypes &\nmouse models of\nhuman disease', "heading is incorrect")
+        print(phenotypesdisease.text)
+        self.assertEqual(phenotypesdisease.text, 'Mouse phenotypes &\nmouse models of\nhuman disease', "heading is incorrect")
         nomengenomelocation = self.driver.find_element_by_css_selector("tr.stripe2 > td.cat2")
-        print nomengenomelocation.text
-        self.assertEquals(nomengenomelocation.text, 'Nomenclature\n& genome location', "heading is incorrect")
+        print(nomengenomelocation.text)
+        self.assertEqual(nomengenomelocation.text, 'Nomenclature\n& genome location', "heading is incorrect")
         categories = self.driver.find_element_by_css_selector("tr:nth-child(4).stripe1 > td.cat1")
-        print categories.text
-        self.assertEquals(categories.text, 'Categories', "heading is incorrect")
+        print(categories.text)
+        self.assertEqual(categories.text, 'Categories', "heading is incorrect")
      
     def test_doids_search(self):
         '''

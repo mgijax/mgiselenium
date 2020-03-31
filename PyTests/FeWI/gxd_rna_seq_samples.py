@@ -9,7 +9,7 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-import HTMLTestRunner
+import HtmlTestRunner
 # from lib import *
 import sys,os.path
 # adjust the path to find config
@@ -55,7 +55,7 @@ class TestRnaSeqSamples(unittest.TestCase):
         self.driver.switch_to_window(self.driver.window_handles[-1])
         #get the URL of the page
         page_url = self.driver.current_url
-        print page_url
+        print(page_url)
         #Assert the URL is correct
         self.assertEqual(page_url, "https://www.ebi.ac.uk/arrayexpress/experiments/E-ERAD-433/")
      
@@ -84,7 +84,7 @@ class TestRnaSeqSamples(unittest.TestCase):
         self.driver.switch_to_window(self.driver.window_handles[-1])
         #get the URL of the page
         page_url = self.driver.current_url
-        print page_url
+        print(page_url)
         #Assert the URL is correct
         self.assertEqual(page_url, "https://www.ebi.ac.uk/gxa/experiments/E-ERAD-169/Results")
 
@@ -111,7 +111,7 @@ class TestRnaSeqSamples(unittest.TestCase):
         self.driver.switch_to_window(self.driver.window_handles[-1])
         #get the URL of the page
         page_url = self.driver.current_url
-        print page_url
+        print(page_url)
         #Assert the URL is correct
         self.assertEqual(page_url, "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE868")
                     
@@ -137,7 +137,7 @@ class TestRnaSeqSamples(unittest.TestCase):
         #Iterate and print the Note column data
         muts = table.get_column_cells('Note')
         notes = iterate.getTextAsList(muts)
-        print notes
+        print(notes)
         #Assert the first note field is correct
         self.assertEqual(notes[1], "Conditional mutant. day 6 of pregnancy")
     
@@ -147,4 +147,4 @@ class TestRnaSeqSamples(unittest.TestCase):
         
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    HTMLTestRunner.main() 
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))

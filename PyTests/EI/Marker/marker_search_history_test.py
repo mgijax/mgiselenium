@@ -14,7 +14,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
-import HTMLTestRunner
+import HtmlTestRunner
 import json
 import sys,os.path
 from symbol import sym_name
@@ -67,8 +67,8 @@ class TestMrkHistSearch(unittest.TestCase):
         hist_sym6 = driver.find_element_by_id('historySymbol-6').get_attribute('value') 
         hist_sym7 = driver.find_element_by_id('historySymbol-7').get_attribute('value') 
         hist_sym8 = driver.find_element_by_id('historySymbol-8').get_attribute('value')  
-        print hist_sym
-        print hist_sym8     
+        print(hist_sym)
+        print(hist_sym8)     
         #Assert the second synonym date returned(row2) is correct
         self.assertEqual(hist_sym, 'Hhg1')      
         self.assertEqual(hist_sym1, 'Hhg1') 
@@ -101,12 +101,12 @@ class TestMrkHistSearch(unittest.TestCase):
         cell3 = table.get_row(3)
         cell4 = table.get_row(4)
         cell5 = table.get_row(5)
-        print cell0.text
-        print cell1.text
-        print cell2.text
-        print cell3.text
-        print cell4.text
-        print cell5.text
+        print(cell0.text)
+        print(cell1.text)
+        print(cell2.text)
+        print(cell3.text)
+        print(cell4.text)
+        print(cell5.text)
         #Assert the correct genotype has been returned in the results table
         self.assertEqual(cell0.text, 'Pax1')
         self.assertEqual(cell1.text, 'Pax2')
@@ -137,8 +137,8 @@ class TestMrkHistSearch(unittest.TestCase):
         hist_sym6 = driver.find_element_by_id('historySymbol-6').get_attribute('value') 
         hist_sym7 = driver.find_element_by_id('historySymbol-7').get_attribute('value') 
         hist_sym8 = driver.find_element_by_id('historySymbol-8').get_attribute('value')  
-        print hist_sym
-        print hist_sym8     
+        print(hist_sym)
+        print(hist_sym8)     
         #Assert the second synonym date returned(row2) is correct
         self.assertEqual(hist_sym, 'Hhg1')      
         self.assertEqual(hist_sym1, 'Hhg1') 
@@ -170,8 +170,8 @@ class TestMrkHistSearch(unittest.TestCase):
         hist_sym4 = driver.find_element_by_id('historySymbol-4').get_attribute('value') 
         hist_sym5 = driver.find_element_by_id('historySymbol-5').get_attribute('value') 
         hist_sym6 = driver.find_element_by_id('historySymbol-6').get_attribute('value') 
-        print hist_sym
-        print hist_sym6     
+        print(hist_sym)
+        print(hist_sym6)     
         #Assert the second synonym date returned(row2) is correct
         self.assertEqual(hist_sym, 'Pax-3')      
         self.assertEqual(hist_sym1, 'Pax-3') 
@@ -199,8 +199,8 @@ class TestMrkHistSearch(unittest.TestCase):
         symbl1 = table.get_row(0)
         symbl2 = table.get_row(1)
         symbl3 = table.get_row(2)
-        print symbl2.text
-        print symbl3.text  
+        print(symbl2.text)
+        print(symbl3.text)  
         #Assert the first 6 results are correct
         self.assertEqual(symbl1.text, 'Shs')      
         self.assertEqual(symbl2.text, 'Tg(CAG-MYC,-GFP*)#Rugg') 
@@ -223,8 +223,8 @@ class TestMrkHistSearch(unittest.TestCase):
         table = Table(results_table)
         symbl1 = table.get_row(0)
         symbl2 = table.get_row(1)
-        print symbl1.text
-        print symbl2.text  
+        print(symbl1.text)
+        print(symbl2.text)  
         #Assert the first 6 results are correct
         self.assertEqual(symbl1.text, 'Pax3')      
         self.assertEqual(symbl2.text, 'Del(1)3H') 
@@ -246,8 +246,8 @@ class TestMrkHistSearch(unittest.TestCase):
         table = Table(results_table)
         symbl1 = table.get_row(0)
         symbl2 = table.get_row(1)
-        print symbl1.text
-        print symbl2.text  
+        print(symbl1.text)
+        print(symbl2.text)  
         #Assert the first 6 results are correct
         self.assertEqual(symbl1.text, 'Pax3')      
         self.assertEqual(symbl2.text, 'Del(1)3H') 
@@ -315,7 +315,7 @@ class TestMrkHistSearch(unittest.TestCase):
         results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         symbl1 = table.get_row(0)        
-        print symbl1.text                 
+        print(symbl1.text)                 
         #Assert the first result is correct
         self.assertEqual(symbl1.text, 'Smim4') 
 
@@ -355,7 +355,7 @@ class TestMrkHistSearch(unittest.TestCase):
         results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         symbl1 = table.get_row(0)
-        print symbl1.text
+        print(symbl1.text)
         #Assert the first result is correct
         self.assertEqual(symbl1.text, 'Ak6') 
         
@@ -382,11 +382,11 @@ class TestMrkHistSearch(unittest.TestCase):
         symbl3 = table.get_row(2)
         symbl4 = table.get_row(3)
         symbl5 = table.get_row(4)
-        print symbl1.text
-        print symbl2.text 
-        print symbl3.text
-        print symbl4.text 
-        print symbl5.text
+        print(symbl1.text)
+        print(symbl2.text) 
+        print(symbl3.text)
+        print(symbl4.text) 
+        print(symbl5.text)
         #Assert the first result is correct
         self.assertEqual(symbl1.text, 'Cdk12') 
         self.assertEqual(symbl2.text, 'Esd')
@@ -417,11 +417,11 @@ class TestMrkHistSearch(unittest.TestCase):
         symbl3 = table.get_row(2)
         symbl4 = table.get_row(3)
         symbl5 = table.get_row(4)
-        print symbl1.text
-        print symbl2.text 
-        print symbl3.text
-        print symbl4.text 
-        print symbl5.text
+        print(symbl1.text)
+        print(symbl2.text) 
+        print(symbl3.text)
+        print(symbl4.text) 
+        print(symbl5.text)
         #Assert the first result is correct
         self.assertEqual(symbl1.text, 'Cdk12') 
         self.assertEqual(symbl2.text, 'Esd')
@@ -437,5 +437,5 @@ def suite():
 '''
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    HTMLTestRunner.main()
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))
             

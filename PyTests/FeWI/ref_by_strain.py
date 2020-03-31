@@ -24,8 +24,8 @@ class TestRefByStrain(unittest.TestCase):
 
 
     def setUp(self):
-    
-        self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
         self.driver.get(config.TEST_URL + "/strains_SNPs.shtml")
         self.driver.implicitly_wait(10)
         
@@ -47,12 +47,12 @@ class TestRefByStrain(unittest.TestCase):
         driver.switch_to_window(self.driver.window_handles[-1])
         #verify the strain name is correct for this page
         strname = driver.find_element(By.CLASS_NAME, 'symbolLink')
-        print strname.text
-        self.assertEquals(strname.text, 'C57BL/6J')   
+        print(strname.text)
+        self.assertEqual(strname.text, 'C57BL/6J')   
         #verify the MGI ID is correct for this page
         mginum = driver.find_element_by_css_selector("#templateBodyInsert > table.summaryHeader > tbody > tr > td.summaryHeaderData1 > span")
-        print mginum.text
-        self.assertEquals(mginum.text, 'MGI:3028467')       
+        print(mginum.text)
+        self.assertEqual(mginum.text, 'MGI:3028467')       
 
     def test_ref_by_strain_sort(self):
         """
@@ -76,35 +76,35 @@ class TestRefByStrain(unittest.TestCase):
         time.sleep(2)
         #rows of data for this page and verify sort by asserting correct results
         row1 = driver.find_element_by_xpath("//*[@id='dynamicdata']/table/tbody/tr[1]/td[6]/div")
-        print row1.text
+        print(row1.text)
         row2a = driver.find_element_by_xpath("//*[@id='dynamicdata']/table/tbody/tr[2]/td[1]/div")
-        print row2a.text
+        print(row2a.text)
         row3a = driver.find_element_by_xpath("//*[@id='dynamicdata']/table/tbody/tr[3]/td[1]/div")
-        print row3a.text
+        print(row3a.text)
         row4a = driver.find_element_by_xpath("//*[@id='dynamicdata']/table/tbody/tr[4]/td[1]/div")
-        print row4a.text
+        print(row4a.text)
         row2 = driver.find_element_by_xpath("//*[@id='dynamicdata']/table/tbody/tr[2]/td[6]/div")
-        print row2.text
+        print(row2.text)
         row3 = driver.find_element_by_xpath("//*[@id='dynamicdata']/table/tbody/tr[3]/td[6]/div")
-        print row3.text
+        print(row3.text)
         row4 = driver.find_element_by_xpath("//*[@id='dynamicdata']/table/tbody/tr[4]/td[6]/div")
-        print row4.text
+        print(row4.text)
         row5 = driver.find_element_by_xpath("//*[@id='dynamicdata']/table/tbody/tr[5]/td[6]/div")
-        print row5.text
+        print(row5.text)
         row6 = driver.find_element_by_xpath("//*[@id='dynamicdata']/table/tbody/tr[6]/td[6]/div")
-        print row6.text
+        print(row6.text)
         row7 = driver.find_element_by_xpath("//*[@id='dynamicdata']/table/tbody/tr[7]/td[6]/div")
-        print row7.text
-        self.assertEqual(row1.text, '2018')   
-        self.assertEqual(row2a.text, '29323231\nJ:259713\nJournal Link')
-        self.assertEqual(row3a.text, '29162555\nJ:256655\nJournal Link')
-        self.assertEqual(row4a.text, '29459437\nJ:258482\nJournal Link')       
-        self.assertEqual(row2.text, '2018')
-        self.assertEqual(row3.text, '2018')
-        self.assertEqual(row4.text, '2018')
-        self.assertEqual(row5.text, '2018')
-        self.assertEqual(row6.text, '2018') 
-        self.assertEqual(row7.text, '2018')    
+        print(row7.text)
+        self.assertEqual(row1.text, '2020')   
+        self.assertEqual(row2a.text, '31978056\nJ:284050\nJournal Link')
+        self.assertEqual(row3a.text, '31806625\nJ:284574\nJournal Link')
+        self.assertEqual(row4a.text, '31900962\nJ:285287\nJournal Link')       
+        self.assertEqual(row2.text, '2020')
+        self.assertEqual(row3.text, '2020')
+        self.assertEqual(row4.text, '2020')
+        self.assertEqual(row5.text, '2020')
+        self.assertEqual(row6.text, '2020') 
+        self.assertEqual(row7.text, '2020')    
         
     def tearDown(self):
         #self.driver.close()

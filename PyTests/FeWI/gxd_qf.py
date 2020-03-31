@@ -36,20 +36,20 @@ class TestGXDQF(unittest.TestCase):
         '''
         self.driver.find_element(By.ID, 'gxdQueryForm')
         genesribbon = self.driver.find_element(By.CSS_SELECTOR, 'tr.stripe1 > td.cat1Gxd')
-        print genesribbon.text
-        self.assertEquals(genesribbon.text, 'Genes', "heading is incorrect")
+        print(genesribbon.text)
+        self.assertEqual(genesribbon.text, 'Genes', "heading is incorrect")
         genomelocation = self.driver.find_element(By.CSS_SELECTOR, 'tr.stripe2 > td.cat2Gxd')
-        print genomelocation.text
-        self.assertEquals(genomelocation.text, 'Genome location', "heading is incorrect")
+        print(genomelocation.text)
+        self.assertEqual(genomelocation.text, 'Genome location', "heading is incorrect")
         structurestage = self.driver.find_element(By.CSS_SELECTOR, 'tr:nth-child(4).stripe1 > td.cat1Gxd')
-        print structurestage.text
-        self.assertEquals(structurestage.text, 'Anatomical structure or stage', "heading is incorrect")
+        print(structurestage.text)
+        self.assertEqual(structurestage.text, 'Anatomical structure or stage', "heading is incorrect")
         mutantwt = self.driver.find_element(By.CSS_SELECTOR, 'tr:nth-child(5).stripe2 > td.cat2Gxd')
-        print mutantwt.text
-        self.assertEquals(mutantwt.text, 'Mutant / wild type', "heading is incorrect")
+        print(mutantwt.text)
+        self.assertEqual(mutantwt.text, 'Mutant / wild type', "heading is incorrect")
         assaytype = self.driver.find_element(By.CSS_SELECTOR, 'tr:nth-child(6).stripe1 > td.cat1Gxd')
-        print assaytype.text
-        self.assertEquals(assaytype.text, 'Assay types', "heading is incorrect")
+        print(assaytype.text)
+        self.assertEqual(assaytype.text, 'Assay types', "heading is incorrect")
         
     def test_no_normals(self):
         """
@@ -73,7 +73,7 @@ class TestGXDQF(unittest.TestCase):
         genelist = driver.find_element(By.ID, 'genesdata').find_element(By.CLASS_NAME, 'yui-dt-data')
         items = genelist.find_elements(By.CLASS_NAME, 'yui-dt-col-symbol')
         searchTextItems = iterate.getTextAsList(items)
-        print searchTextItems
+        print(searchTextItems)
         #assert that this gene is not returned since it is associated to a normal phenotype
         self.assertNotIn('Adcy8', searchTextItems, 'Gene Adcy8 is being returned!')   
         #assert that this gene is not returned since it has no expression annotations
@@ -105,7 +105,7 @@ class TestGXDQF(unittest.TestCase):
         reflist = driver.find_element(By.ID, 'assaysdata').find_element(By.CLASS_NAME, 'yui-dt-data')
         items = reflist.find_elements(By.CLASS_NAME, 'yui-dt-col-reference')
         searchTextItems = iterate.getTextAsList(items)
-        print searchTextItems
+        print(searchTextItems)
         time.sleep(2)
         #assert that the Reference column holds the correct reference
         self.assertEqual(searchTextItems, ['E-MTAB-5210 Transcription profiling of wild type and Stella knockout oocytes, wild type and Stella maternal/zygotic knockout embryos to study to the role of Stella in early mouse development'])     
@@ -137,7 +137,7 @@ class TestGXDQF(unittest.TestCase):
         genelist = driver.find_element(By.ID, 'assaysdata').find_element(By.CLASS_NAME, 'yui-dt-data')
         items = genelist.find_elements(By.CLASS_NAME, 'yui-dt-col-gene')
         searchTextItems = iterate.getTextAsList(items)
-        print searchTextItems
+        print(searchTextItems)
         #assert that the Gene column holds the text "Whole Genome"
         assert "Whole Genome" in searchTextItems  
         time.sleep(2)
@@ -145,7 +145,7 @@ class TestGXDQF(unittest.TestCase):
         assaylist = driver.find_element(By.ID, 'assaysdata').find_element(By.CLASS_NAME, 'yui-dt-data')
         items = assaylist.find_elements(By.CLASS_NAME, 'yui-dt-col-assayType')
         searchTextItems1 = iterate.getTextAsList(items)
-        print searchTextItems1
+        print(searchTextItems1)
         #assert that the Assay Type column holds the text "RNA-Seq"
         assert "RNA-Seq" in searchTextItems1  
                    

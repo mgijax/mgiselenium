@@ -24,7 +24,8 @@ class Test(unittest.TestCase):
 
 
     def setUp(self):
-        self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
         self.driver.get(config.TEST_URL + "/marker/")
         self.driver.implicitly_wait(10)
 
@@ -34,10 +35,17 @@ class Test(unittest.TestCase):
         '''
         self.driver.find_element(By.NAME, 'markerQF')
         genemarker = self.driver.find_element(By.CLASS_NAME, 'queryCat1')
-        self.assertEquals(genemarker.text, 'Gene/Marker', "heading is incorrect")
-        featuretype = self.driver.find_element_by_class_name(By.CLASS_NAME, 'queryCat2')
-        self.assertEquals(featuretype.text, 'Feature type', "heading is incorrect")
-     
+        self.assertEqual(genemarker.text, 'Gene/Marker', "heading is incorrect")
+        featuretype = self.driver.find_element(By.CLASS_NAME, 'queryCat2')
+        self.assertEqual(featuretype.text, 'Feature type', "heading is incorrect")
+        genomelocation = self.driver.find_element(By.CLASS_NAME, 'queryCat3')
+        self.assertEqual(genomelocation.text, 'Genome location', "heading is incorrect")
+        geneontclass = self.driver.find_element(By.CLASS_NAME, 'queryCat4')
+        self.assertEqual(geneontclass.text, 'Gene Ontology classifications', "heading is incorrect")
+        proteindomain = self.driver.find_element(By.CLASS_NAME, 'queryCat5')
+        self.assertEqual(proteindomain.text, 'Protein domains', "heading is incorrect")
+        mousepheno = self.driver.find_element(By.CLASS_NAME, 'queryCat6')
+        self.assertEqual(mousepheno.text, 'Mouse phenotypes & mouse models of human disease', "heading is incorrect")
         
         
         

@@ -9,7 +9,7 @@ import unittest
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-import HTMLTestRunner
+import HtmlTestRunner
 
 import sys,os.path
 # adjust the path to find config
@@ -48,39 +48,39 @@ class TestSearch(unittest.TestCase):
         form.click_search()
         #finds the citation field
         citation = form.get_value('citation')
-        print citation
+        print(citation)
         self.assertEqual(citation, 'Harper J, Proc Natl Acad Sci U S A 2011 Jun 28;108(26):10585-90')
         #finds the marker field
         marker_symbol = form.get_value('marker_symbol')
-        print marker_symbol
+        print(marker_symbol)
         self.assertEqual(marker_symbol, '1810065E05Rik')
         #finds the coded? field
         is_coded = form.get_value('is_coded')
-        print is_coded
+        print(is_coded)
         self.assertEqual(is_coded, 'false')
         #finds the priority field
         priority = form.get_selected_text('_priority_key')
-        print priority
+        print(priority)
         self.assertEqual(priority, 'High')
         #finds the conditional mutants field
         conditional = form.get_selected_text('_conditionalmutants_key')
-        print conditional
+        print(conditional)
         self.assertEqual(conditional, 'Conditional')
         #finds the created by field
         created_user = form.get_value('createdby_login')
-        print created_user
+        print(created_user)
         self.assertEqual(created_user, 'jx')
         #finds the modified by field
         modified_user = form.get_value('modifiedby_login')#.find_element_by_css_selector('td')
-        print modified_user
+        print(modified_user)
         self.assertEqual(modified_user, 'jx')
         #finds the created by date field
         created_date = form.get_value('creation_date')
-        print created_date
+        print(created_date)
         self.assertEqual(created_date, '07/26/2011')
         #finds the created by date field
         modified_date = form.get_value('modification_date')
-        print modified_date
+        print(modified_date)
         self.assertEqual(modified_date, '12/12/2011')
         
     def testInvalidJnumSearch(self):
@@ -104,39 +104,39 @@ class TestSearch(unittest.TestCase):
         form.click_search()
         #finds the J number field
         jnumid = form.get_value('jnumid')
-        print jnumid
+        print(jnumid)
         self.assertEqual(jnumid, 'J:278544')
         #finds the citation field
         citation = form.get_value('citation')
-        print citation
+        print(citation)
         self.assertEqual(citation, 'Abdelhamed ZA, Sci Rep 2019 Apr 1;9(1):5446')
         #finds the coded? field
         is_coded = form.get_value('is_coded')
-        print is_coded
+        print(is_coded)
         self.assertEqual(is_coded, 'false')
         #finds the priority field
         priority = form.get_selected_text('_priority_key')
-        print priority
+        print(priority)
         self.assertEqual(priority, 'High')
         #finds the conditional field
         conditional = form.get_selected_text('_conditionalmutants_key')
-        print conditional
+        print(conditional)
         self.assertEqual(conditional, 'Not Applicable')
         #finds the created by field
         created_user = form.get_value('createdby_login')
-        print created_user
+        print(created_user)
         self.assertEqual(created_user, 'jfinger')
         #finds the modified by field
         modified_user = form.get_value('modifiedby_login')#.find_element_by_css_selector('td')
-        print modified_user
+        print(modified_user)
         self.assertEqual(modified_user, 'jfinger')
         #finds the created by date field
         created_date = form.get_value('creation_date')
-        print created_date
+        print(created_date)
         self.assertEqual(created_date, '10/17/2019')
         #finds the created by date field
         modified_date = form.get_value('modification_date')
-        print modified_date
+        print(modified_date)
         self.assertEqual(modified_date, '10/17/2019')
         
     def testMrkWildcardSearch(self):
@@ -157,11 +157,11 @@ class TestSearch(unittest.TestCase):
         table = Table(results_table)
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
-        print iterate.getTextAsList(header_cells)
+        print(iterate.getTextAsList(header_cells))
         
         # print row 1
         cells = table.get_row_cells(1)
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #print column 1
         symbols_cells = table.get_column_cells('Marker')
         symbols = iterate.getTextAsList(symbols_cells)
@@ -185,10 +185,10 @@ class TestSearch(unittest.TestCase):
         table = Table(results_table)
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
-        print iterate.getTextAsList(header_cells)
+        print(iterate.getTextAsList(header_cells))
         # print row 1, the table headers
         cells = table.get_row_cells(1)
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #print column 1, the marker symbols
         symbols_cells = table.get_column_cells('Marker')
         symbols = iterate.getTextAsList(symbols_cells)
@@ -219,14 +219,14 @@ class TestSearch(unittest.TestCase):
         table = Table(results_table)
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
-        print iterate.getTextAsList(header_cells)
+        print(iterate.getTextAsList(header_cells))
         # print row 1, the table headers
         cells = table.get_row_cells(1)
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #print column 1, the marker symbols
         symbols_cells = table.get_column_cells('Marker')
         symbols = iterate.getTextAsList(symbols_cells)
-        print symbols
+        print(symbols)
         self.assertEqual(symbols, ['Marker','Abcb1a', 'Sdc1', 'Sptb', 'Sptbn1'])
                 
     def testWithdrawnMrkSearch(self):
@@ -299,7 +299,7 @@ class TestSearch(unittest.TestCase):
         # verify that display with two markers is shown
         mrkrows = driver.find_elements_by_css_selector(".markerSelections td")
         markers = [r.text for r in mrkrows]
-        print markers
+        print(markers)
         self.assertEqual(len(markers), 2)
         self.assertEqual(markers[0], "T, brachyury, T-box transcription factor T, Chr 17, Band")
         self.assertEqual(markers[1], "t, t-complex, Chr 17, Band")
@@ -330,10 +330,10 @@ class TestSearch(unittest.TestCase):
         table = Table(results_table)
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
-        print iterate.getTextAsList(header_cells)
+        print(iterate.getTextAsList(header_cells))
         # print row 1
         cells = table.get_row_cells(1)
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #print column 1
         symbols_cells = table.get_column_cells('Marker')
         symbols = iterate.getTextAsList(symbols_cells)
@@ -356,18 +356,18 @@ class TestSearch(unittest.TestCase):
         table = Table(results_table)
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
-        print iterate.getTextAsList(header_cells)
+        print(iterate.getTextAsList(header_cells))
         # print row 1
         cells = table.get_row_cells(1)
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #print column 1
         symbols_cells = table.get_column_cells('Marker')
         symbols = iterate.getTextAsList(symbols_cells)
-        self.assertEquals(symbols[1], 'Acta2')
-        self.assertEquals(symbols[2], 'Aldob')
-        self.assertEquals(symbols[3], 'Apoc2')
-        self.assertEquals(symbols[4], 'Aqp4')
-        self.assertEquals(symbols[5], 'Atp12a')
+        self.assertEqual(symbols[1], 'Acta2')
+        self.assertEqual(symbols[2], 'Aldob')
+        self.assertEqual(symbols[3], 'Apob')
+        self.assertEqual(symbols[4], 'Apoc2')
+        self.assertEqual(symbols[5], 'Aqp4')
         
                         
     def testModifiedBySearch(self):
@@ -387,10 +387,10 @@ class TestSearch(unittest.TestCase):
         table = Table(results_table)
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
-        print iterate.getTextAsList(header_cells)
+        print(iterate.getTextAsList(header_cells))
         # print row 1
         cells = table.get_row_cells(1)
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #print column 1
         symbols_cells = table.get_column_cells('Marker')
         symbols = iterate.getTextAsList(symbols_cells)
@@ -411,10 +411,10 @@ class TestSearch(unittest.TestCase):
         table = Table(results_table)
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
-        print iterate.getTextAsList(header_cells)
+        print(iterate.getTextAsList(header_cells))
         # print row 1
         cells = table.get_row_cells(1)
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #print column 1
         symbols_cells = table.get_column_cells('Marker')
         symbols = iterate.getTextAsList(symbols_cells)
@@ -434,10 +434,10 @@ class TestSearch(unittest.TestCase):
         table = Table(results_table)
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
-        print iterate.getTextAsList(header_cells)
+        print(iterate.getTextAsList(header_cells))
         # print row 1
         cells = table.get_row_cells(1)
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #print column 1
         symbols_cells = table.get_column_cells('Marker')
         symbols = iterate.getTextAsList(symbols_cells)
@@ -463,10 +463,10 @@ class TestSearch(unittest.TestCase):
         table = Table(results_table)
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
-        print iterate.getTextAsList(header_cells)
+        print(iterate.getTextAsList(header_cells))
         # print row 1
         cells = table.get_row_cells(1)
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #print column 1
         symbols_cells = table.get_column_cells('Marker')
         symbols = iterate.getTextAsList(symbols_cells)
@@ -492,10 +492,10 @@ class TestSearch(unittest.TestCase):
         table = Table(results_table)
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
-        print iterate.getTextAsList(header_cells)
+        print(iterate.getTextAsList(header_cells))
         # print row 1
         cells = table.get_row_cells(1)
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #print column 1
         symbols_cells = table.get_column_cells('Marker')
         symbols = iterate.getTextAsList(symbols_cells)
@@ -523,10 +523,10 @@ class TestSearch(unittest.TestCase):
         table = Table(results_table)
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
-        print iterate.getTextAsList(header_cells)
+        print(iterate.getTextAsList(header_cells))
         # print row 1
         cells = table.get_row_cells(1)
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #print column 1
         symbols_cells = table.get_column_cells('Marker')
         symbols = iterate.getTextAsList(symbols_cells)
@@ -553,10 +553,10 @@ class TestSearch(unittest.TestCase):
         table = Table(results_table)
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
-        print iterate.getTextAsList(header_cells)
+        print(iterate.getTextAsList(header_cells))
         # print row 1
         cells = table.get_row_cells(1)
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #print column 1
         symbols_cells = table.get_column_cells('Marker')
         symbols = iterate.getTextAsList(symbols_cells)
@@ -584,10 +584,10 @@ class TestSearch(unittest.TestCase):
         table = Table(results_table)
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
-        print iterate.getTextAsList(header_cells)
+        print(iterate.getTextAsList(header_cells))
         # print row 1
         cells = table.get_row_cells(1)
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #print column 1
         symbols_cells = table.get_column_cells('Marker')
         symbols = iterate.getTextAsList(symbols_cells)
@@ -618,10 +618,10 @@ class TestSearch(unittest.TestCase):
         table = Table(results_table)
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
-        print iterate.getTextAsList(header_cells)
+        print(iterate.getTextAsList(header_cells))
         # print row 1
         cells = table.get_row_cells(1)
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #print column 1
         symbols_cells = table.get_column_cells('Marker')
         symbols = iterate.getTextAsList(symbols_cells)
@@ -666,4 +666,4 @@ def suite():
 
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    HTMLTestRunner.main() 
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))

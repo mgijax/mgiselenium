@@ -10,14 +10,13 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
 import sys,os.path
-from dircache import annotate
 # adjust the path to find config
 sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../..')
 )
 import config
 from util import iterate, wait
-from base_class import EmapaBaseClass
+from .base_class import EmapaBaseClass
 
 class TestEmapaDetail(unittest.TestCase, EmapaBaseClass):
 

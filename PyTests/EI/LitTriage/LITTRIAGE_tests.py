@@ -8,7 +8,7 @@ from littriage_search_test import TestLitSearch
 from littriage_summary_test import TestLitSummarySearch
 from littriage_detail_test import TestLitDetail
 import os
-import HTMLTestRunner
+import HtmlTestRunner
 
 #from LitTriage import littriage_search_test, littriage_summary_test
 def main():
@@ -21,7 +21,7 @@ def main():
 #file
     dir = os.getcwd()
     outfile = open(r"C:\WebdriverTests\LitTriagetestreport.html", "w")
-    runner = HTMLTestRunner.HTMLTestRunner(stream = outfile,title = 'Test Report',description = 'Literature Triage Test Report')
+    runner = HtmlTestRunner.HTMLTestRunner(stream = outfile,title = 'Test Report',description = 'Literature Triage Test Report')
     runner.run(littriage_tests)
 
 if __name__=="__main__":

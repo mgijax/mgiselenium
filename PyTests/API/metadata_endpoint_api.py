@@ -32,6 +32,6 @@ class TestTermEndpointAPI(unittest.TestCase):
 
         db_name=jsonData["database_name"]
         
-        print jsonData
+        print(jsonData)
         
         self.assertEqual(db_name,"scrumdog")

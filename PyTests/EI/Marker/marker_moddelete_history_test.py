@@ -12,10 +12,10 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
-import HTMLTestRunner
+import HtmlTestRunner
 import json
 import sys,os.path
-from __builtin__ import True
+#from builtins import True
 # adjust the path to find config
 sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../..',)
@@ -50,7 +50,7 @@ class TestMrkHistUpdateDelete(unittest.TestCase):
     def testSymbolHistoryAdd(self):
         """
         @Status tests that marker history add feature works
-        @see pwi-mrk-det-hist-add-1 
+        @see pwi-mrk-det-hist-add-1 broken!!!!3/20/2020
         """
         driver = self.driver
         #finds the history symbol field and enters a symbol
@@ -61,26 +61,27 @@ class TestMrkHistUpdateDelete(unittest.TestCase):
         time.sleep(2)
         # get the data for the Symbol column for certain rows
         hist_sym = driver.find_element_by_id('historySymbol-0').get_attribute('value')  
-        hist_sym8 = driver.find_element_by_id('historySymbol-8').get_attribute('value')  
-        print hist_sym
-        print hist_sym8     
+        hist_sym7 = driver.find_element_by_id('historySymbol-7').get_attribute('value')  
+        print(hist_sym)
+        print(hist_sym7)     
         #Assert the second synonym date returned(row2) is correct
         self.assertEqual(hist_sym, 'Hhg1')      
-        self.assertEqual(hist_sym8, 'Hxl3') 
+        self.assertEqual(hist_sym7, 'Hxl3') 
         #Find and click the History Add button
         driver.find_element_by_id("addHistoryButton").click()
+        time.sleep(2)
         #find the Event pulldown list
         Select(driver.find_element_by_id('historyEvent'))
         #
-        driver.find_element_by_id('historySymbol-9').clear()
+        driver.find_element_by_id('historySymbol-8').clear()
         time.sleep(2)
         #find the add history Symbol field and enter your symbol
-        driver.find_element_by_id('historySymbol-9').send_keys('Dsh')
+        driver.find_element_by_id('historySymbol-8').send_keys('Dsh')
         #find the add history Name field and enter your name
-        driver.find_element_by_id('historyName-9').send_keys('test')  
-        driver.find_element_by_id('historyJnum-9').clear()      
+        driver.find_element_by_id('historyName-8').send_keys('test')  
+        driver.find_element_by_id('historyJnum-8').clear()      
         #find the add history J number field and enter your J number
-        driver.find_element_by_id('historyJnum-9').send_keys('J:2300')
+        driver.find_element_by_id('historyJnum-8').send_keys('J:2300')
         #find the Event field and select assigned
         Select(driver.find_element_by_id('historyEvent')).select_by_visible_text('assigned')
         #find the Reason field and select Not Specified
@@ -91,21 +92,21 @@ class TestMrkHistUpdateDelete(unittest.TestCase):
         time.sleep(5)
         # get the data for the Symbol column for certain rows
         hist_sym = driver.find_element_by_id('historySymbol-0').get_attribute('value')  
-        hist_sym9 = driver.find_element_by_id('historySymbol-9').get_attribute('value')  
-        print hist_sym
-        print hist_sym9     
+        hist_sym9 = driver.find_element_by_id('historySymbol-8').get_attribute('value')  
+        print(hist_sym)
+        print(hist_sym8)     
         #Assert the second synonym date returned(row2) is correct
         self.assertEqual(hist_sym, 'Hhg1')      
-        self.assertEqual(hist_sym9, 'Dsh') 
+        self.assertEqual(hist_sym8, 'Dsh') 
         #now lets put the symbol back to it's original.
-        driver.find_element_by_id('deleteRow-9').click()
+        driver.find_element_by_id('deleteRow-8').click()
         time.sleep(2)
         #find all the history symbols in the history table and print to screen
         i=0
         while True:
             try:
                 ele = self.driver.find_element_by_id('historySymbol-' + str(i))
-                print ele.get_attribute('value')
+                print(ele.get_attribute('value'))
                 i += 1
             except:
                 break
@@ -129,7 +130,7 @@ class TestMrkHistUpdateDelete(unittest.TestCase):
         while True:
             try:
                 ele = self.driver.find_element_by_id('historySymbol-' + str(i))
-                print ele.get_attribute('value')
+                print(ele.get_attribute('value'))
                 i += 1
             except:
                 break
@@ -146,7 +147,7 @@ class TestMrkHistUpdateDelete(unittest.TestCase):
         last_sym = driver.find_element_by_id('historySymbol-8').get_attribute('value')
         #waits until the element is located or 10 seconds
         #WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element_value((By.ID, 'historySymbol-8', 'Hx')))
-        self.assertEquals(last_sym, 'Hx')
+        self.assertEqual(last_sym, 'Hx')
         #now lets put the symbol back to it's original.
         driver.find_element_by_id('historySymbol-8').clear()
         time.sleep(2)
@@ -177,15 +178,15 @@ class TestMrkHistUpdateDelete(unittest.TestCase):
         symname8 = driver.find_element_by_id('historyName-7').get_attribute('value')
         symname9 = driver.find_element_by_id('historyName-8').get_attribute('value')
         #assert that the symbols are correct and in the correct order
-        self.assertEquals(symname1, 'hedgehog gene 1')
-        self.assertEquals(symname2, 'hedgehog gene 1')
-        self.assertEquals(symname3, 'sonic hedgehog')
-        self.assertEquals(symname4, 'short digits')
-        self.assertEquals(symname5, 'short digits')
-        self.assertEquals(symname6, 'hemimelic extra toes')
-        self.assertEquals(symname7, 'hemimelic extra toes')
-        self.assertEquals(symname8, 'hemimelic extratoes like 3')
-        self.assertEquals(symname9, 'hemimelic extratoes like 3')
+        self.assertEqual(symname1, 'hedgehog gene 1')
+        self.assertEqual(symname2, 'hedgehog gene 1')
+        self.assertEqual(symname3, 'sonic hedgehog')
+        self.assertEqual(symname4, 'short digits')
+        self.assertEqual(symname5, 'short digits')
+        self.assertEqual(symname6, 'hemimelic extra toes')
+        self.assertEqual(symname7, 'hemimelic extra toes')
+        self.assertEqual(symname8, 'hemimelic extratoes like 3')
+        self.assertEqual(symname9, 'hemimelic extratoes like 3')
         #find the fourth row symbol name and change it from short digits to short digits testing
         driver.find_element_by_id('historyName-3').clear()
         time.sleep(2)
@@ -199,7 +200,7 @@ class TestMrkHistUpdateDelete(unittest.TestCase):
         symname4 = driver.find_element_by_id('historyName-3').get_attribute('value')
         #waits until the element is located or 10 seconds
         #WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element_value((By.ID, 'historySymbol-8', 'Hx')))
-        self.assertEquals(symname4, 'short digits testing')
+        self.assertEqual(symname4, 'short digits testing')
         #now lets put the symbol name back to it's original.
         driver.find_element_by_id('historyName-3').clear()
         time.sleep(2)
@@ -228,13 +229,13 @@ class TestMrkHistUpdateDelete(unittest.TestCase):
         symname6 = driver.find_element_by_id('historyName-5').get_attribute('value')
         symname7 = driver.find_element_by_id('historyName-6').get_attribute('value')
         #assert that the symbols are correct and in the correct order
-        self.assertEquals(symname1, 'paired box 3')
-        self.assertEquals(symname2, 'paired box 3')
-        self.assertEquals(symname3, 'paired box 3')
-        self.assertEquals(symname4, 'splotch')
-        self.assertEquals(symname5, 'splotch')
-        self.assertEquals(symname6, 'splotch-like 2')
-        self.assertEquals(symname7, 'splotch-like 2')
+        self.assertEqual(symname1, 'paired box 3')
+        self.assertEqual(symname2, 'paired box 3')
+        self.assertEqual(symname3, 'paired box 3')
+        self.assertEqual(symname4, 'splotch')
+        self.assertEqual(symname5, 'splotch')
+        self.assertEqual(symname6, 'splotch-like 2')
+        self.assertEqual(symname7, 'splotch-like 2')
         #find the fourth row date and change it from 1947-01-01 to 2019-11-19
         driver.find_element_by_id('historyEventDate-3').clear()
         time.sleep(2)
@@ -248,7 +249,7 @@ class TestMrkHistUpdateDelete(unittest.TestCase):
         symdate4 = driver.find_element_by_id('historyEventDate-3').get_attribute('value')
         #waits until the element is located or 10 seconds
         #WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element_value((By.ID, 'historySymbol-8', 'Hx')))
-        self.assertEquals(symdate4, '2019-11-19')
+        self.assertEqual(symdate4, '2019-11-19')
         #now lets put the date back to it's original.
         driver.find_element_by_id('historyEventDate-3').clear()
         time.sleep(2)
@@ -278,13 +279,13 @@ class TestMrkHistUpdateDelete(unittest.TestCase):
         jnumber6 = driver.find_element_by_id('historyJnum-5').get_attribute('value')
         jnumber7 = driver.find_element_by_id('historyJnum-6').get_attribute('value')
         #assert that the symbols are correct and in the correct order
-        self.assertEquals(jnumber1, 'J:14224')
-        self.assertEquals(jnumber2, 'J:15839')
-        self.assertEquals(jnumber3, 'J:15839')
-        self.assertEquals(jnumber4, 'J:12957')
-        self.assertEquals(jnumber5, 'J:2944')
-        self.assertEquals(jnumber6, 'J:162227')
-        self.assertEquals(jnumber7, 'J:222308')
+        self.assertEqual(jnumber1, 'J:14224')
+        self.assertEqual(jnumber2, 'J:15839')
+        self.assertEqual(jnumber3, 'J:15839')
+        self.assertEqual(jnumber4, 'J:12957')
+        self.assertEqual(jnumber5, 'J:2944')
+        self.assertEqual(jnumber6, 'J:162227')
+        self.assertEqual(jnumber7, 'J:222308')
         #find the fourth row J# and change it from J:12957 to J:23000
         driver.find_element_by_id('historyJnum-3').clear()
         time.sleep(2)
@@ -298,7 +299,7 @@ class TestMrkHistUpdateDelete(unittest.TestCase):
         jnumber4 = driver.find_element_by_id('historyJnum-3').get_attribute('value')
         #waits until the element is located or 10 seconds
         #WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element_value((By.ID, 'historySymbol-8', 'Hx')))
-        self.assertEquals(jnumber4, 'J:23000')
+        self.assertEqual(jnumber4, 'J:23000')
         #now lets put the J# back to it's original.
         driver.find_element_by_id('historyJnum-3').clear()
         time.sleep(2)
@@ -327,13 +328,13 @@ class TestMrkHistUpdateDelete(unittest.TestCase):
         jnumber6 = driver.find_element_by_id('historyJnum-5').get_attribute('value')
         jnumber7 = driver.find_element_by_id('historyJnum-6').get_attribute('value')
         #assert that the symbols are correct and in the correct order
-        self.assertEquals(jnumber1, 'J:14224')
-        self.assertEquals(jnumber2, 'J:15839')
-        self.assertEquals(jnumber3, 'J:15839')
-        self.assertEquals(jnumber4, 'J:12957')
-        self.assertEquals(jnumber5, 'J:2944')
-        self.assertEquals(jnumber6, 'J:162227')
-        self.assertEquals(jnumber7, 'J:222308')
+        self.assertEqual(jnumber1, 'J:14224')
+        self.assertEqual(jnumber2, 'J:15839')
+        self.assertEqual(jnumber3, 'J:15839')
+        self.assertEqual(jnumber4, 'J:12957')
+        self.assertEqual(jnumber5, 'J:2944')
+        self.assertEqual(jnumber6, 'J:162227')
+        self.assertEqual(jnumber7, 'J:222308')
         #find the fourth row J# and change it from J:12957 to J:23000
         driver.find_element_by_id('historyJnum-3').clear()
         time.sleep(2)
@@ -347,7 +348,7 @@ class TestMrkHistUpdateDelete(unittest.TestCase):
         jnumber4 = driver.find_element_by_id('historyJnum-3').get_attribute('value')
         #waits until the element is located or 10 seconds
         #WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element_value((By.ID, 'historySymbol-8', 'Hx')))
-        self.assertEquals(jnumber4, 'J:23000')
+        self.assertEqual(jnumber4, 'J:23000')
         #now lets put the J# back to it's original.
         driver.find_element_by_id('historyJnum-3').clear()
         time.sleep(2)
@@ -378,15 +379,15 @@ class TestMrkHistUpdateDelete(unittest.TestCase):
         vent8 = driver.find_element_by_id('historyEvent-7').get_attribute('value')
         vent9 = driver.find_element_by_id('historyEvent-8').get_attribute('value')
         #assert that the symbols are correct and in the correct order
-        self.assertEquals(vent1, 'string:1')#string:1 equals assigned
-        self.assertEquals(vent2, 'string:4')#string:4 equals allele of
-        self.assertEquals(vent3, 'string:1')
-        self.assertEquals(vent4, 'string:4')
-        self.assertEquals(vent5, 'string:1')
-        self.assertEquals(vent6, 'string:4')
-        self.assertEquals(vent7, 'string:1')
-        self.assertEquals(vent8, 'string:2')#string:2 equals rename
-        self.assertEquals(vent9, 'string:1')
+        self.assertEqual(vent1, 'string:1')#string:1 equals assigned
+        self.assertEqual(vent2, 'string:4')#string:4 equals allele of
+        self.assertEqual(vent3, 'string:1')
+        self.assertEqual(vent4, 'string:4')
+        self.assertEqual(vent5, 'string:1')
+        self.assertEqual(vent6, 'string:4')
+        self.assertEqual(vent7, 'string:1')
+        self.assertEqual(vent8, 'string:2')#string:2 equals rename
+        self.assertEqual(vent9, 'string:1')
         #find the seventh row Event and change it from rename to assigned
         time.sleep(2)
         my_select = driver.find_element_by_id('historyEvent-7')
@@ -402,7 +403,7 @@ class TestMrkHistUpdateDelete(unittest.TestCase):
         vent8 = driver.find_element_by_id('historyEvent-7').get_attribute('value')
         #waits until the element is located or 10 seconds
         #WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element_value((By.ID, 'historySymbol-8', 'Hx')))
-        self.assertEquals(vent8, 'string:1')
+        self.assertEqual(vent8, 'string:1')
         #now lets put the Event back to it's original of rename.
         time.sleep(2)
         my_select = driver.find_element_by_id('historyEvent-7')
@@ -431,9 +432,9 @@ class TestMrkHistUpdateDelete(unittest.TestCase):
         vreason3 = driver.find_element_by_id('historyEventReason-2').get_attribute('value')
         
         #assert that the reasons are correct and in the correct order
-        self.assertEquals(vreason1, 'string:-1')#string:-1 equals Not Specified
-        self.assertEquals(vreason2, 'string:3')#string:3 equals personal comm w/authors
-        self.assertEquals(vreason3, 'string:3')
+        self.assertEqual(vreason1, 'string:-1')#string:-1 equals Not Specified
+        self.assertEqual(vreason2, 'string:3')#string:3 equals personal comm w/authors
+        self.assertEqual(vreason3, 'string:3')
         
         #find the second row Reason and change it from personal comm w/authors to per gene family revision
         time.sleep(2)
@@ -450,7 +451,7 @@ class TestMrkHistUpdateDelete(unittest.TestCase):
         vreason2 = driver.find_element_by_id('historyEvent-1').get_attribute('value')
         #waits until the element is located or 10 seconds
         #WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element_value((By.ID, 'historySymbol-8', 'Hx')))
-        self.assertEquals(vreason2, 'string:2')
+        self.assertEqual(vreason2, 'string:2')
         #now lets put the Event back to it's original of rename.
         time.sleep(2)
         my_select = driver.find_element_by_id('historyEventReason-1')
@@ -480,11 +481,11 @@ class TestMrkHistUpdateDelete(unittest.TestCase):
         sym4 = driver.find_element_by_id('historySymbol-3').get_attribute('value')
         sym5 = driver.find_element_by_id('historySymbol-4').get_attribute('value')
         #assert that the symbols are correct and in the correct order
-        self.assertEquals(sym1, 'Gf-1')
-        self.assertEquals(sym2, 'Gf-1')
-        self.assertEquals(sym3, 'Gata-1')
-        self.assertEquals(sym4, 'Gata-1')
-        self.assertEquals(sym5, 'Gata1')
+        self.assertEqual(sym1, 'Gf-1')
+        self.assertEqual(sym2, 'Gf-1')
+        self.assertEqual(sym3, 'Gata-1')
+        self.assertEqual(sym4, 'Gata-1')
+        self.assertEqual(sym5, 'Gata1')
         #find the delete x for row 5 of the history table and click it
         driver.find_element_by_id('deleteRow-4').click()
         time.sleep(2)
@@ -514,7 +515,7 @@ class TestMrkHistUpdateDelete(unittest.TestCase):
         #Find the 5th row and verify the symbol is correct
         sym5 = driver.find_element_by_id('historySymbol-4').get_attribute('value')
         #assert that the symbol for the 5th row is correct
-        self.assertEquals(sym5, 'Gata1')
+        self.assertEqual(sym5, 'Gata1')
         
         
         
@@ -526,5 +527,5 @@ def suite():
 '''
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    HTMLTestRunner.main()
+    unittest.main()
     

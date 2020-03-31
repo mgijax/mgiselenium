@@ -338,7 +338,7 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'm1Hsd').click()
         
         caption = self.driver.find_element(By.ID, 'mutationDescriptionTable').find_element(By.CSS_SELECTOR, 'span.small')
-        self.assertEquals(caption.text, 'Schematic showing the duplication and location of the premature stop codon in the Dock2m1Hsd allele')
+        self.assertEqual(caption.text, 'Schematic showing the duplication and location of the premature stop codon in the Dock2m1Hsd allele')
         
         
     def test_afp_link(self):
@@ -460,7 +460,7 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.switch_to_window(self.driver.window_handles[-1])
         time.sleep(2)
         page_title = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
-        print page_title.text
+        print(page_title.text)
         #Asserts that the strain page is for the correct strain
         self.assertEqual(page_title.text, 'C57BL/6J-ShhDz', 'Page title is not correct!')
         ptitle = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
@@ -592,7 +592,7 @@ class TestAlleleDetail(unittest.TestCase):
         self.assertEqual(geno_type_id.text, 'hm1')
         allelesystems = self.driver.find_elements(By.CLASS_NAME, 'mpSystemRow')
         allelesystems = iterate.getTextAsList(allelesystems)
-        print allelesystems
+        print(allelesystems)
         self.assertEqual(allelesystems, ['homeostasis/metabolism', 'behavior/neurological', 'renal/urinary system'])
   
         '''
@@ -638,13 +638,13 @@ class TestAlleleDetail(unittest.TestCase):
         table = Table(disease_table)
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
-        print iterate.getTextAsList(header_cells)
+        print(iterate.getTextAsList(header_cells))
         
         # print row 1
         cells = table.get_column_cells("Human Diseases")
         disease_cells = iterate.getTextAsList(cells)
-        print disease_cells
-        self.assertEquals(disease_cells[1], 'myelofibrosis\nIDs')
+        print(disease_cells)
+        self.assertEqual(disease_cells[1], 'myelofibrosis\nIDs')
         
     def test_allele_detail_exp_sec_both_links_simple_geno(self):
         '''
@@ -661,7 +661,7 @@ class TestAlleleDetail(unittest.TestCase):
         #Captures the anatomy search results
         searchList = self.driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
-        print [x.text for x in searchList]
+        print([x.text for x in searchList])
         
         # The term 'thymus' should be returned in the anatomy search results
         self.assertIn('thymus TS24-28', terms, 'the term thymus is not listed!')
@@ -681,7 +681,7 @@ class TestAlleleDetail(unittest.TestCase):
         time.sleep(2)
         searchList = self.driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
-        print [x.text for x in searchList]
+        print([x.text for x in searchList])
         
         # There should be 5 structures returned in the anatomy search results
         self.assertIn('mouse TS1-28\nmuscle organ TS28\nmuscle tissue TS12-28\nspinal cord ventral horn TS20-28\nventral grey horn TS21-26\nvertebral column TS27-28', terms, 'the 5 terms are not listed!')        
@@ -702,7 +702,7 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'anatomical structures').click()
         searchList = self.driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
-        print [x.text for x in searchList]
+        print([x.text for x in searchList])
         
         # There should be 5 structures returned in the anatomy search results
         self.assertIn('cardiac muscle tissue TS12-28\nheart TS11-28\nlung epithelium TS15-28\nlung mesenchyme TS15-26\nlung vascular element TS15-28', terms, 'the 5 terms are not listed!')        

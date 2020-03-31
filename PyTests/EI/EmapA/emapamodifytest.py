@@ -17,7 +17,7 @@ sys.path.append(
 )
 import config
 from util import iterate, wait
-from base_class import EmapaBaseClass
+from .base_class import EmapaBaseClass
 
 class TestModifyEmapa(unittest.TestCase, EmapaBaseClass):
 

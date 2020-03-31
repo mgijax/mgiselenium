@@ -9,7 +9,7 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-import HTMLTestRunner
+import HtmlTestRunner
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -51,22 +51,22 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         #cells = table.get_rows()
         cell = table.get_cell(6, 3)
         #Identify the data found in the Mouse Models column for the fifth row(for marker Robo1)
-        print cell.text
+        print(cell.text)
         cell.find_element(By.LINK_TEXT, '1 model').click()
         
         self.driver.switch_to_window(self.driver.window_handles[-1])
         header = self.driver.find_element(By.ID, 'diseaseBrowserModelsPopup')
         model_heading = header.find_element(By.ID, 'diseaseDisplay')
-        print model_heading.text
+        print(model_heading.text)
         
         #assert that the Human Disease Modeled heading above the table is correct
-        self.assertEquals(model_heading.text, "lung cancer")
+        self.assertEqual(model_heading.text, "lung cancer")
         
         assoc_gene_heading = header.find_element(By.ID, 'markerDisplay')
-        print assoc_gene_heading.text
+        print(assoc_gene_heading.text)
         
         #assert that the Associated Mouse Gene heading above the table is correct
-        self.assertEquals(assoc_gene_heading.text, "Robo1")
+        self.assertEqual(assoc_gene_heading.text, "Robo1")
         
     def test_dobrowser_modelspopup_tableheaders2(self):
         '''
@@ -88,22 +88,22 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         #cells = table.get_rows()
         cell = table.get_cell(8, 3)
         #Identify the data found in the Mouse Models column for the second row(for marker Fgfp)
-        print cell.text
+        print(cell.text)
         cell.find_element(By.LINK_TEXT, '1 model').click()
         
         self.driver.switch_to_window(self.driver.window_handles[-1])
         header = self.driver.find_element(By.ID, 'diseaseBrowserModelsPopup')
         model_heading = header.find_element(By.ID, 'diseaseDisplay')
-        print model_heading.text
+        print(model_heading.text)
         
         #assert that the Human Disease Modeled heading above the table is correct
-        self.assertEquals(model_heading.text, "pleuropulmonary blastoma")
+        self.assertEqual(model_heading.text, "pleuropulmonary blastoma")
         
         assoc_gene_heading = header.find_element(By.ID, 'markerDisplay')
-        print assoc_gene_heading.text
+        print(assoc_gene_heading.text)
         
         #assert that the Associated Mouse Gene heading above the table is correct
-        self.assertEquals(assoc_gene_heading.text, "Fgf9")        
+        self.assertEqual(assoc_gene_heading.text, "Fgf9")        
         
     def test_dobrowser_modelspopup_onlynots(self):
         '''
@@ -123,7 +123,7 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         table = Table(gene_table)
         cell = table.get_cell(10, 3)
         #Identify the data found in the Mouse Models column for the ninth row(for marker ROR2)
-        print cell.text
+        print(cell.text)
         cell.find_element(By.LINK_TEXT, '1 "NOT" model').click()
         
         self.driver.switch_to_window(self.driver.window_handles[-1])
@@ -132,8 +132,8 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         #print table1
         row1 = table1.get_row(1)
         #assert the data in the table's first row is correct
-        self.assertEquals(row1.text, 'Ror2tm1Anec/Ror2+ B6.129S1-Ror2tm1Anec J:134490 View', 'Wrong data displayed for row 1!')
-        print row1.text
+        self.assertEqual(row1.text, 'Ror2tm1Anec/Ror2+ B6.129S1-Ror2tm1Anec J:134490 View', 'Wrong data displayed for row 1!')
+        print(row1.text)
         
     def test_dobrowser_modelspopup_onlyhuman(self):
         '''
@@ -154,7 +154,7 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         #cells = table.get_rows()
         cell = table.get_cell(21, 3)
         #Identify the data found in the Mouse Models column for the twenth row(for marker PSEN2)
-        print cell.text
+        print(cell.text)
         cell.find_element(By.LINK_TEXT, '1 model').click()
         
         self.driver.switch_to_window(self.driver.window_handles[-1])
@@ -163,8 +163,8 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         #print table1
         row1 = table1.get_row(1)
         #assert the table data for row 1 is correct
-        self.assertEquals(row1.text, 'Psen1tm1Jzt/Psen1tm1Jzt\nPsen2tm1Ber/Psen2tm1Ber\nTg(Camk2a-cre)T29-1Stl/0 involves: C57BL/6 * CBA J:90685 View', 'Wrong data displayed for row 1!')
-        print row1.text
+        self.assertEqual(row1.text, 'Psen1tm1Jzt/Psen1tm1Jzt\nPsen2tm1Ber/Psen2tm1Ber\nTg(Camk2a-cre)T29-1Stl/0 involves: C57BL/6 * CBA J:90685 View', 'Wrong data displayed for row 1!')
+        print(row1.text)
         
     def test_dobrowser_modelspopup_mouse_nots(self):
         '''
@@ -184,7 +184,7 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         table = Table(gene_table)
         cell = table.get_cell(11, 3)
         #Identify the data found in the Mouse Models column for the tenth row(for marker Ighm)
-        print cell.text
+        print(cell.text)
         cell.find_element(By.LINK_TEXT, '5 models').click()
         
         self.driver.switch_to_window(self.driver.window_handles[-1])
@@ -193,15 +193,15 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         #print table1
         #asserts that each row of data in the table is correct
         row1 = table1.get_row(1)
-        self.assertEquals(row1.text, 'Ighmtm1Cgn/Ighmtm1Cgn\nTg(Igh-VB1-8/Igh-6m)1Mjsk/? NODCaj.Cg-Ighmtm1Cgn Tg(Igh-VB1-8/Igh-6m)1Mjsk/FswJ J:93190 View', 'Wrong data displayed for row 2!')
+        self.assertEqual(row1.text, 'Ighmtm1Cgn/Ighmtm1Cgn\nTg(Igh-VB1-8/Igh-6m)1Mjsk/? NODCaj.Cg-Ighmtm1Cgn Tg(Igh-VB1-8/Igh-6m)1Mjsk/FswJ J:93190 View', 'Wrong data displayed for row 2!')
         row2 = table1.get_row(2)
-        self.assertEquals(row2.text, 'Tg(Igh-6/Igh-V281)3Jwt/0 NOD.B6-Tg(Igh-6/Igh-V281)3Jwt J:91865 View', 'Wrong data displayed for row 1!')
+        self.assertEqual(row2.text, 'Tg(Igh-6/Igh-V281)3Jwt/0 NOD.B6-Tg(Igh-6/Igh-V281)3Jwt J:91865 View', 'Wrong data displayed for row 1!')
         row3 = table1.get_row(3)
-        self.assertEquals(row3.text, 'Tg(Igh-6/Igh-V125)2Jwt/0\nTg(Igk-C/Igk-V125)1Jwt/0 NOD.B6-Tg(Igh-6/Igh-V125)2Jwt Tg(Igk-C/Igk-V125)1Jwt J:91865 View', 'Wrong data displayed for row 3!')
+        self.assertEqual(row3.text, 'Tg(Igh-6/Igh-V125)2Jwt/0\nTg(Igk-C/Igk-V125)1Jwt/0 NOD.B6-Tg(Igh-6/Igh-V125)2Jwt Tg(Igk-C/Igk-V125)1Jwt J:91865 View', 'Wrong data displayed for row 3!')
         row4 = table1.get_row(4)
-        self.assertEquals(row4.text, 'Ighmtm1Cgn/Ighm+\nTg(Igh-6/Igh-V281)3Jwt/0 NOD.Cg-Ighmtm1Cgn Tg(Igh-6/Igh-V281)3Jwt J:91865 View', 'Wrong data displayed for row 4!')
+        self.assertEqual(row4.text, 'Ighmtm1Cgn/Ighm+\nTg(Igh-6/Igh-V281)3Jwt/0 NOD.Cg-Ighmtm1Cgn Tg(Igh-6/Igh-V281)3Jwt J:91865 View', 'Wrong data displayed for row 4!')
         row5 = table1.get_row(5)
-        self.assertEquals(row5.text, 'Ighmtm1Cgn/Ighm+ NOD.129S2-Ighmtm1Cgn J:37287 View', 'Wrong data displayed for row 5!')
+        self.assertEqual(row5.text, 'Ighmtm1Cgn/Ighm+ NOD.129S2-Ighmtm1Cgn J:37287 View', 'Wrong data displayed for row 5!')
         
         
         notmodel_table = self.driver.find_element(By.ID, 'diseaseBrowserNotModelPopupTable')
@@ -209,12 +209,12 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         #print table2
         #asserts that each row of data for NOTs is correct
         row1 = table2.get_row(1)
-        self.assertEquals(row1.text, 'Ighmtm1Cgn/Ighmtm1Cgn NOD.129S2-Ighmtm1Cgn J:37287 View', 'Wrong data displayed for row 1!')
+        self.assertEqual(row1.text, 'Ighmtm1Cgn/Ighmtm1Cgn NOD.129S2-Ighmtm1Cgn J:37287 View', 'Wrong data displayed for row 1!')
         row2 = table2.get_row(2)
         #print row2.text
-        self.assertEquals(row2.text, 'Ighmtm1Cgn/Ighmtm1Cgn NOD.129S2-Ighmtm1Cgn/DvsJ J:80859 View', 'Wrong data displayed for row 2!')
+        self.assertEqual(row2.text, 'Ighmtm1Cgn/Ighmtm1Cgn NOD.129S2-Ighmtm1Cgn/DvsJ J:80859 View', 'Wrong data displayed for row 2!')
         row3 = table2.get_row(3)
-        self.assertEquals(row3.text, 'Ighmtm1Cgn/Ighmtm1Cgn\nTg(IghelMD4)4Ccg/Tg(IghelMD4)4Ccg NOD.Cg-Ighmtm1Cgn Tg(IghelMD4)4Ccg/DvsJ J:80859 View', 'Wrong data displayed for row 3!')
+        self.assertEqual(row3.text, 'Ighmtm1Cgn/Ighmtm1Cgn\nTg(IghelMD4)4Ccg/Tg(IghelMD4)4Ccg NOD.Cg-Ighmtm1Cgn Tg(IghelMD4)4Ccg/DvsJ J:80859 View', 'Wrong data displayed for row 3!')
         
     def test_dobrowser_modelspopup_strain_links(self):
         '''
@@ -236,7 +236,7 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         #cells = table.get_rows()
         cell = table.get_cell(3, 3)
         #Identify the data found in the Mouse Models column for the first row(for marker Snca)
-        print cell.text
+        print(cell.text)
         cell.find_element(By.LINK_TEXT, '23 models').click()
         #switch focus to the popup page
         self.driver.switch_to_window(self.driver.window_handles[-1])
@@ -260,4 +260,4 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.TestDoBrowserModelsPopup']
-    HTMLTestRunner.main() 
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests')) 

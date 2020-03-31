@@ -12,11 +12,11 @@ import config
 import unittest
 
 # import all sub test suites
-import private_allele
-import Emapa_Browser
-import QTL_allele_detail
-import gxd_image_summary
-import test_emboss_data
+from . import private_allele
+from . import Emapa_Browser
+from . import QTL_allele_detail
+from . import gxd_image_summary
+from . import test_emboss_data
 
 # add the test suites
 def master_suite():

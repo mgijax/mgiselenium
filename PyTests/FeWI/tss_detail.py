@@ -51,7 +51,7 @@ class Test(unittest.TestCase):
         cells3 = table.get_row(3)
         cells4 = table.get_row(4)
         cells5 = table.get_row(5)
-        print cells1.text    
+        print(cells1.text)    
         #Verify the TSS table locations are correct and in the correct order.
         self.assertEqual(cells1.text, 'Tssr19250 Chr2:105668888-105668914 (+) 1 bp')
         self.assertEqual(cells2.text, 'Tssr19251 Chr2:105668943-105668950 (+) 47 bp')

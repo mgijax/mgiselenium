@@ -25,8 +25,8 @@ class TestReferenceSummaryStrain(unittest.TestCase):
 
 
     def setUp(self):
-    
-        self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
         self.driver.get(config.TEST_URL + "/reference")
         self.driver.implicitly_wait(10)
 
@@ -47,10 +47,10 @@ class TestReferenceSummaryStrain(unittest.TestCase):
         #locates the strain summary table, find all the rows of data and print it to the console
         strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
         straindata = strain_table.get_rows()
-        print iterate.getTextAsList(straindata)
+        print(iterate.getTextAsList(straindata))
         idsReturned = iterate.getTextAsList(straindata)
         #asserts that the 2 rows of data are correct
-        self.assertEqual(['Official Strain Name Synonyms Attributes IDs References', 'BUB/BnJ BUB/BnJ-Pde6brd1\ninbred strain\nMGI:2159907\nJAX:000653\nMPD:24\n70', 'SF/CamEiJ San Franciscan\ninbred strain\nwild-derived\nMGI:2159978\nJAX:000280\nMPD:159\n18'], idsReturned) 
+        self.assertEqual(['Strain/Stock Name Synonyms Attributes IDs References', 'BUB/BnJ BUB/BnJ-Pde6brd1\ninbred strain\nMGI:2159907\nJAX:000653\nMPD:24\n99', 'SF/CamEiJ San Franciscan\ninbred strain\nwild-derived\nMGI:2159978\nJAX:000280\nMPD:159\n19'], idsReturned) 
         #The reason we brought back all the rows of data is because we needed to make sure the reference counts were correct and it did not bring back duplicate J numbers
         #example BUB/BnJ shows 67 references, in the EI it shows 69 between the two reference tables. The 2 extra references are because both EI tables have J:6844 and J:17601,
         #duplicate J numbers are not displayed in the FEWI strain summary for reference page. 

@@ -92,7 +92,7 @@ class TestAntibodySummaryPage(unittest.TestCase):
         row23 = rows[24]
         row24 = rows[25]
         row25 = rows[26]
-        print row11.text
+        print (row11.text)
         #asserts that the rows of data are correct for the first 18 rows
         self.assertEqual(row1.text, "MGI:4843410 12F8 antibody [] rat Monoclonal Not Specified MGI:3576666 PSA-NCAM Not Specified polysialic acid portion of NCAM Ncam1 J:18836, Hankin MH, J Neurobiol 1994 May;25(5):472-87")
         self.assertEqual(row2.text, "MGI:6143850 5A5 anti-NCAM-PSA mouse, laboratory Monoclonal IgM Obtained from the Developmental Studies Hybridoma Bank, (T. Jessell and J. Dodd). Recognizes proteins from rat and mouse origin. MGI:4359869 PSA-NCAM Not Specified polysialylglycan chain Ncam1 J:19896, Weinstein DC, Cell 1994 Aug 26;78(4):575-88")

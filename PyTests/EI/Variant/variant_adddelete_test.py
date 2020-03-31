@@ -83,9 +83,9 @@ class TestVarAddDelete(unittest.TestCase):
         #find the sourced Transcript ID field
         source_tran = self.driver.find_element_by_id("srcRnaID").get_attribute("value")
     
-        print source_tran
+        print(source_tran)
         #assert the correct ID is saved in the Sourced Transcript ID field
-        self.assertEquals(source_tran, 'XM_006519628')
+        self.assertEqual(source_tran, 'XM_006519628')
         
     def testVarTypesPopup(self):
         """
@@ -110,10 +110,10 @@ class TestVarAddDelete(unittest.TestCase):
         #Iterate and print the Types column
         cell1 = table.get_column_cells('Term')
         alltypes = iterate.getTextAsList(cell1)
-        print alltypes
+        print(alltypes)
         wait.forAngular
         #assert the correct SO Types are listed in the correct order
-        self.assertEquals(alltypes, ['Term', 'point_mutation', 'deletion', 'insertion', 'MNV', 'inversion', 'translocation', 'inversion_breakpoint', 'translocation_breakpoint', 'duplication', 'sequence_length_variant', 'complex_substitution', 'complex_structural_alteration'])
+        self.assertEqual(alltypes, ['Term', 'point_mutation', 'deletion', 'insertion', 'MNV', 'inversion', 'translocation', 'inversion_breakpoint', 'translocation_breakpoint', 'duplication', 'sequence_length_variant', 'complex_substitution', 'complex_structural_alteration'])
 
     def testVarEffectsPopup(self):
         """
@@ -138,10 +138,10 @@ class TestVarAddDelete(unittest.TestCase):
         #Iterate and print the Effect column
         cell1 = table.get_column_cells('Term')
         alleffects = iterate.getTextAsList(cell1)
-        print alleffects
+        print(alleffects)
         wait.forAngular
         #assert the correct SO Effects are listed in the correct order
-        self.assertEquals(alleffects, ['Term', 'missense_variant', 'stop_gained', 'stop_lost', 'start_lost', 'splice_acceptor_variant', 'splice_donor_variant', 'splice_region_variant', 'frameshift_variant', 'frameshift_truncation', 'frameshift_elongation', '5_prime_UTR_premature_start_codon_gain_variant', 'chromosome_number_variation', 'coding_sequence_variant', 'coding_transcript_intron_variant', 'coding_transcript_variant', 'conserved_intergenic_variant', 'conserved_intron_variant', 'disruptive_inframe_deletion', 'disruptive_inframe_insertion', 'downstream_gene_variant', 'exon_loss_variant', 'exon_variant', 'feature_truncation', 'gene_variant', 'inframe_deletion', 'inframe_insertion', 'initiator_codon_variant', 'intergenic_variant', 'internal_feature_elongation', 'intragenic_variant', 'intron_variant', 'non_coding_transcript_exon_variant', 'non_coding_transcript_intron_variant', 'non_coding_transcript_variant', 'rare_amino_acid_variant', 'regulatory_region_variant', 'sequence_variant', 'splicing_variant', 'stop_retained_variant', 'structural_variant', 'synonymous_variant', 'transcript_ablation', 'transcript_variant', 'upstream_gene_variant'])        
+        self.assertEqual(alleffects, ['Term', 'missense_variant', 'stop_gained', 'stop_lost', 'start_lost', 'splice_acceptor_variant', 'splice_donor_variant', 'splice_region_variant', 'frameshift_variant', 'frameshift_truncation', 'frameshift_elongation', '5_prime_UTR_premature_start_codon_gain_variant', 'chromosome_number_variation', 'coding_sequence_variant', 'coding_transcript_intron_variant', 'coding_transcript_variant', 'conserved_intergenic_variant', 'conserved_intron_variant', 'disruptive_inframe_deletion', 'disruptive_inframe_insertion', 'downstream_gene_variant', 'exon_loss_variant', 'exon_variant', 'feature_truncation', 'gene_variant', 'inframe_deletion', 'inframe_insertion', 'initiator_codon_variant', 'intergenic_variant', 'internal_feature_elongation', 'intragenic_variant', 'intron_variant', 'non_coding_transcript_exon_variant', 'non_coding_transcript_intron_variant', 'non_coding_transcript_variant', 'rare_amino_acid_variant', 'regulatory_region_variant', 'sequence_variant', 'splicing_variant', 'stop_retained_variant', 'structural_variant', 'synonymous_variant', 'transcript_ablation', 'transcript_variant', 'upstream_gene_variant'])        
 
     def testVarTypesPopupAdd(self):
         """
@@ -172,9 +172,9 @@ class TestVarAddDelete(unittest.TestCase):
         self.driver.switch_to_window(self.driver.window_handles[-1])#switch focus back to the main window
         #Find the Types display box and get all the SO IDs  in it
         soList = self.driver.find_element_by_id('soTypes').get_attribute('value')
-        print soList
+        print(soList)
         #Assert the correct SO Types are displayed in the Types box
-        self.assertEquals(soList, 'SO:1000008 (point_mutation)\nSO:0000159 (deletion)\nSO:0000667 (insertion)\nSO:0002007 (MNV)\nSO:1000036 (inversion)')
+        self.assertEqual(soList, 'SO:1000008 (point_mutation)\nSO:0000159 (deletion)\nSO:0000667 (insertion)\nSO:0002007 (MNV)\nSO:1000036 (inversion)')
         
 
     def testVarTypesPopupDiscard(self):
@@ -205,9 +205,9 @@ class TestVarAddDelete(unittest.TestCase):
         self.driver.switch_to_window(self.driver.window_handles[-1])#switch focus back to the main window
         #Find the Types display box and get all the SO IDs  in it
         soList = self.driver.find_element_by_id('soTypes').get_attribute('value')
-        print soList
+        print(soList)
         #Assert the correct SO Types are displayed in the Types box
-        self.assertEquals(soList, 'SO:1000008 (point_mutation)')
+        self.assertEqual(soList, 'SO:1000008 (point_mutation)')
 
     def testVarEffectsPopupAdd(self):
         """
@@ -238,9 +238,9 @@ class TestVarAddDelete(unittest.TestCase):
         self.driver.switch_to_window(self.driver.window_handles[-1])#switch focus back to the main window
         #Find the Effects display box and get all the SO IDs  in it
         soList = self.driver.find_element_by_id('soEffects').get_attribute('value')
-        print soList
+        print(soList)
         #Assert the correct SO Types are displayed in the Effects box
-        self.assertEquals(soList, 'SO:0001583 (missense_variant)\nSO:0001587 (stop_gained)\nSO:0001578 (stop_lost)\nSO:0002012 (start_lost)\nSO:0001574 (splice_acceptor_variant)')
+        self.assertEqual(soList, 'SO:0001583 (missense_variant)\nSO:0001587 (stop_gained)\nSO:0001578 (stop_lost)\nSO:0002012 (start_lost)\nSO:0001574 (splice_acceptor_variant)')
 
     def testVarEffectPopupDiscard(self):
         """
@@ -270,9 +270,9 @@ class TestVarAddDelete(unittest.TestCase):
         self.driver.switch_to_window(self.driver.window_handles[-1])#switch focus back to the main window
         #Find the Effects display box and get all the SO IDs  in it
         soList = self.driver.find_element_by_id('soEffects').get_attribute('value')
-        print soList
+        print(soList)
         #Assert the correct SO Types are displayed in the Effects box
-        self.assertEquals(soList, 'SO:0001583 (missense_variant)')
+        self.assertEqual(soList, 'SO:0001583 (missense_variant)')
 
     def testAllVarTable(self):
         """
@@ -295,34 +295,34 @@ class TestVarAddDelete(unittest.TestCase):
         #Iterate and print the search results headers
         cells = table.get_rows()
         symbols = iterate.getTextAsList(cells)
-        print symbols
+        print(symbols)
         gbuild1 = table.get_cell(2, 0)
         gbuild2 = table.get_cell(3, 0)
         tid1 = table.get_cell(2, 5)
         tid2 = table.get_cell(3, 5)
         pid1 = table.get_cell(2, 10)
         pid2 = table.get_cell(3, 10)
-        print gbuild1.text
+        print(gbuild1.text)
         #Assert the correct genome build is returned for row1
-        self.assertEquals(gbuild1.text, 'GRCm38')
+        self.assertEqual(gbuild1.text, 'GRCm38')
         #Assert the correct genome build is returned for row2
-        self.assertEquals(gbuild2.text, 'GRCm38')
+        self.assertEqual(gbuild2.text, 'GRCm38')
         #Assert the correct Transcript ID is returned for row1
-        self.assertEquals(tid1.text, 'NM_009170')
+        self.assertEqual(tid1.text, 'NM_009170')
         #Assert the correct Transcript ID is returned for row2
-        self.assertEquals(tid2.text, 'NM_009170')
+        self.assertEqual(tid2.text, 'NM_009170')
         #Assert the correct Polypeptide ID is returned for row1
-        self.assertEquals(pid1.text, 'NP_033196')
+        self.assertEqual(pid1.text, 'NP_033196')
         #Assert the correct Polypeptide ID is returned for row2
-        self.assertEquals(pid2.text, 'NP_033196')
+        self.assertEqual(pid2.text, 'NP_033196')
         #Assert that the polypeptide ID cell for row1 has a yellow border first by getting it's class
         polyclass = pid1.get_attribute("class")
-        print polyclass
+        print(polyclass)
         #now we need to assert that the polypeptide ID cell has the correct class of isSource
         self.assertEqual(polyclass, 'isSource')
         #Assert that the polypeptide ID cell for row2 has a green border first by getting it's class
         polyclass2 = pid2.get_attribute("class")
-        print polyclass2
+        print(polyclass2)
         #now we need to assert that the polypeptide ID cell has the correct class of isCurated
         self.assertEqual(polyclass2, 'isCurated')
         
@@ -347,7 +347,7 @@ class TestVarAddDelete(unittest.TestCase):
         #Iterate and print the search results headers
         cells = table.get_rows()
         symbols = iterate.getTextAsList(cells)
-        print symbols
+        print(symbols)
         #find the Transcript ID and click it
         self.driver.find_element_by_link_text("XM_006519628").click()
         #switch focus to the newly opened page
@@ -378,7 +378,7 @@ class TestVarAddDelete(unittest.TestCase):
         #Iterate and print the search results headers
         cells = table.get_rows()
         symbols = iterate.getTextAsList(cells)
-        print symbols
+        print(symbols)
         #find the Transcript ID for the first row of data and click it
         self.driver.find_element_by_link_text("ENSMUST00000035342").click()
         #switch focus to the newly opened page
@@ -409,7 +409,7 @@ class TestVarAddDelete(unittest.TestCase):
         #Iterate and print the search results headers
         cells = table.get_rows()
         symbols = iterate.getTextAsList(cells)
-        print symbols
+        print(symbols)
         #find the Transcript ID and click it
         self.driver.find_element_by_link_text("NM_145223").click()
         #switch focus to the newly opened page
@@ -440,7 +440,7 @@ class TestVarAddDelete(unittest.TestCase):
         #Iterate and print the search results headers
         cells = table.get_rows()
         symbols = iterate.getTextAsList(cells)
-        print symbols
+        print(symbols)
         #find the Polypeptide ID and click it
         self.driver.find_element_by_link_text("Q8CJG0").click()
         #switch focus to the newly opened page
@@ -471,7 +471,7 @@ class TestVarAddDelete(unittest.TestCase):
         #Iterate and print the search results headers
         cells = table.get_rows()
         symbols = iterate.getTextAsList(cells)
-        print symbols
+        print(symbols)
         #find the Polypeptide ID and click it
         self.driver.find_element_by_link_text("Q6AXE3").click()
         #switch focus to the newly opened page
@@ -489,5 +489,5 @@ def suite():
 '''
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    HTMLTestRunner.main()
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))
             

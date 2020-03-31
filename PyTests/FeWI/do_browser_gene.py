@@ -11,7 +11,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
-import HTMLTestRunner
+import HtmlTestRunner
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -21,7 +21,7 @@ import config
 from util import iterate, wait
 from util.form import ModuleForm
 from util.table import Table
-# Tests
+# Tests !!!!these tests should be rewritten using the query form instead of the quick search box!!!
 class TestDoBrowserGeneTab(unittest.TestCase):
 
     def setUp(self):
@@ -43,17 +43,17 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         if WebDriverWait(self.driver, 5).until(ec.presence_of_element_located((By.ID, 'diseaseNameID'))):
             print('page loaded')
         header = self.driver.find_element(By.ID, 'diseaseNameID')#identifies the header section of the DO Browser page
-        print header.text
+        print(header.text)
         self.assertEqual(header.text, "lung cancer (DOID:1324)")
         syn = self.driver.find_element(By.ID, 'diseaseSynonym')#identifies the synonym line in the header section of the DO Browser page
-        print syn.text
+        print(syn.text)
         self.assertEqual(syn.text, "lung neoplasm")
         alt_id = self.driver.find_element(By.ID, 'diseaseSecondaryIDs')#identifies the alternate IDs line of the header section of the DO Browser page
-        print alt_id.text
+        print(alt_id.text)
         self.assertEqual(alt_id.text, "OMIM:211980, OMIM:608935, OMIM:612571, OMIM:612593, OMIM:614210, DOID:13075, DOID:1322, DOID:9881, ICD10CM:C34.1, ICD10CM:C34.2, ICD10CM:C34.3, ICD9CM:162.3, ICD9CM:162.4, ICD9CM:162.5, ICD9CM:162.8, UMLS_CUI:C0024624, UMLS_CUI:C0153491, UMLS_CUI:C0153492, UMLS_CUI:C0153493")
         #locates and verifies the definition
         definition = self.driver.find_element(By.ID, 'diseaseDefinition')#identifies the Definition line of the header section of the DO Browser page
-        print definition.text
+        print(definition.text)
         self.assertEqual(definition.text, "A respiratory system cancer that is located_in the lung.")
         
     def test_dobrowser_genestab_modelstab_text(self):
@@ -68,10 +68,10 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         self.driver.find_element(By.LINK_TEXT, 'DiGeorge syndrome').click()
         gene_tab = self.driver.find_element(By.LINK_TEXT, 'Genes (21)')#identifies the Genes tab.
-        print gene_tab.text
+        print(gene_tab.text)
         self.assertEqual(gene_tab.text, "Genes (21)", "The Genes Tab number is not correct")
         model_tab = self.driver.find_element(By.LINK_TEXT, 'Models (44)')#identifies the Genes tab.
-        print model_tab.text
+        print(model_tab.text)
         self.assertEqual(model_tab.text, "Models (44)", "The Models Tab number is not correct")#time.sleep(2)   
         
     def test_dobrowser_genestab_m_hmht(self):
@@ -91,7 +91,7 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         gene_table = self.driver.find_element(By.ID, "geneTabTable")
         table = Table(gene_table)
         cells = table.get_rows()
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #displays each row of gene data
         row1 = cells[2]
         row2 = cells[3]
@@ -138,7 +138,7 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         transgene_table = self.driver.find_element(By.ID, "transgeneTable")
         table = Table(transgene_table)
         cells = table.get_rows()
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #displays each row of transgene data
         row1 = cells[2]
         row2 = cells[3]
@@ -165,7 +165,7 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         gene_table = self.driver.find_element(By.ID, "geneTabTable")
         table = Table(gene_table)
         cells = table.get_rows()
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #displays each row of gene data
         row1 = cells[2]
         row2 = cells[3]
@@ -174,20 +174,18 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         row5 = cells[6]
         row6 = cells[7]
         row7 = cells[8]
-        row8 = cells[9]
         self.assertEqual(row1.text, '       Beckwith-Wiedemann syndrome CDKN1C* Cdkn1c* 2 models HGNC')
         self.assertEqual(row2.text, '       Beckwith-Wiedemann syndrome SPTBN1 Sptbn1* 1 model HomoloGene and HGNC')
         self.assertEqual(row3.text, '       Beckwith-Wiedemann syndrome H19*   HGNC')
         self.assertEqual(row4.text, 'Beckwith-Wiedemann syndrome H19-ICR*  ')
         self.assertEqual(row5.text, 'Beckwith-Wiedemann syndrome IGF2* Igf2   HomoloGene and HGNC')
         self.assertEqual(row6.text, 'Beckwith-Wiedemann syndrome KCNQ1* Kcnq1 1 model HomoloGene and HGNC')
-        self.assertEqual(row7.text, 'Beckwith-Wiedemann syndrome KCNQ1OT1* Kcnq1ot1   HGNC')
-        self.assertEqual(row8.text, 'Beckwith-Wiedemann syndrome NSD1* Nsd1   HomoloGene and HGNC')
+        self.assertEqual(row7.text, 'Beckwith-Wiedemann syndrome KCNQ1OT1* Kcnq1ot1   HGNC')       
         time.sleep(2)
         transgene_table = self.driver.find_element(By.ID, "transgeneTable")
         table = Table(transgene_table)
         cells = table.get_rows()
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #displays each row of transgene data
         row1 = cells[2]
         self.assertEqual(row1.text, '  Beckwith-Wiedemann syndrome Tg(YACW408A5)1952Ricc 1 model')
@@ -209,7 +207,7 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         gene_table = self.driver.find_element(By.ID, "geneTabTable")
         table = Table(gene_table)
         cells = table.get_rows()
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #displays each row of gene data
         row1 = cells[2]
         row2 = cells[3]
@@ -233,7 +231,7 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         gene_table = self.driver.find_element(By.ID, "geneTabTable")
         table = Table(gene_table)
         cells = table.get_rows()
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #displays each row of gene data
         row1 = cells[2]
         self.assertEqual(row1.text, '       Kearns-Sayre syndrome TFAM Tfam* 2 models HomoloGene and HGNC')
@@ -245,28 +243,28 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         '''
         print ("BEGIN test_dobrowser_genestab_ht")
         searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
-        # put your DO ID in the quick search box
-        searchbox.send_keys("DOID:8632")
+        # put your DO ID in the quick search box Use DOID:0050909 if this DOID changes.
+        searchbox.send_keys("DOID:0050637")
         searchbox.send_keys(Keys.RETURN)
         
-        self.driver.find_element(By.LINK_TEXT, "Kaposi's sarcoma").click()
+        self.driver.find_element(By.LINK_TEXT, "Finnish type amyloidosis").click()
         self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Genes tab and clicks it.
         
         gene_table = self.driver.find_element(By.ID, 'geneTabTable')
         table = Table(gene_table)
         cells = table.get_rows()
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #displays each row of gene data
         row1 = cells[2]
-        self.assertEqual(row1.text, "       Kaposi's sarcoma IL6* Il6   HomoloGene and HGNC")
+        self.assertEqual(row1.text, "       Finnish type amyloidosis GSN* Gsn 2 models HomoloGene and HGNC")
         
         transgene_table = self.driver.find_element(By.ID, 'transgeneTable')
         table = Table(transgene_table)
         cells = table.get_rows()
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #displays each row of transgene data
         row1 = cells[2]
-        self.assertEqual(row1.text, "  Kaposi's sarcoma Tg(Acta2-RAC1*G12V)33Pjgc 2 models")
+        self.assertEqual(row1.text, "  Finnish type amyloidosis Tg(Ckm-GSN*D187N)AJewe 2 models")
         
     def test_dobrowser_genestab_h(self):
         '''
@@ -286,7 +284,7 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         gene_table = self.driver.find_element(By.ID, 'geneTabTable')
         table = Table(gene_table)
         cells = table.get_rows()
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #displays each row of gene data
         row1 = cells[2]
         self.assertEqual(row1.text, '       Kahrizi syndrome SRD5A3* Srd5a3   HomoloGene and HGNC')
@@ -308,7 +306,7 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         gene_table = self.driver.find_element(By.ID, 'geneTabTable')
         table = Table(gene_table)
         cells = table.get_rows()
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #displays each row of gene data
         row1 = cells[2]
         self.assertEqual(row1.text, '       Johanson-Blizzard syndrome UBR1* Ubr1* 1 model HomoloGene and HGNC')
@@ -330,7 +328,7 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         gene_table = self.driver.find_element(By.ID, "geneTabTable")
         table = Table(gene_table)
         cells = table.get_rows()
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #displays each row of gene data
         row1 = cells[2]
         row2 = cells[3]
@@ -342,7 +340,7 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         row8 = cells[9]
         row9 = cells[10]
         self.assertEqual(row1.text, '       hemochromatosis type 1 HFE* Hfe* 13 models HomoloGene and HGNC')
-        self.assertEqual(row2.text, 'hemochromatosis type 2A HJV* Hfe2* 2 models HomoloGene and HGNC')
+        self.assertEqual(row2.text, 'hemochromatosis type 2A HJV* Hjv* 2 models HomoloGene and HGNC')
         self.assertEqual(row3.text, 'hemochromatosis type 2B HAMP* Hamp* 1 model HGNC')
         self.assertEqual(row4.text, 'hemochromatosis type 3 TFR2* Tfr2* 2 models HomoloGene and HGNC')
         self.assertEqual(row5.text, 'hemochromatosis type 4 SLC40A1* Slc40a1* 3 models HomoloGene and HGNC')
@@ -368,20 +366,20 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         gene_table = self.driver.find_element(By.ID, 'geneTabTable')
         table = Table(gene_table)
         cells = table.get_rows()
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #displays each row of gene data
         row1 = cells[2]
         row2 = cells[3]
         row3 = cells[4]
         row4 = cells[5]
         self.assertEqual(row1.text, '       dermatomyositis ANGPTL2 Angptl2* 1 model HomoloGene and HGNC')
-        self.assertEqual(row2.text, 'myositis HLA-A H2-K1*, Gm8909, Gm10499, H2-Bl, H2-D1, H2-Q1, H2-Q2, H2-Q4, H2-Q6, H2-Q7, H2-Q10 1 model HomoloGene and HGNC')
+        self.assertEqual(row2.text, 'myositis HLA-A H2-K1*, Gm8909, Gm10499, H2-Bl, H2-D1, H2-Q1, H2-Q2, H2-Q4, H2-Q6, H2-Q7, H2-Q10 1 model HomoloGene')
         self.assertEqual(row3.text, '       inclusion body myositis MYH2* Myh2   HomoloGene and HGNC')
         self.assertEqual(row4.text, 'inclusion body myositis GNE* Gne 1 model HomoloGene and HGNC')
         transgene_table = self.driver.find_element_by_id("transgeneTable")
         table = Table(transgene_table)
         cells = table.get_rows()
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #displays each row of transgene data
         row1 = cells[2]
         row2 = cells[3]
@@ -409,7 +407,7 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         model_table = self.driver.find_element(By.ID, 'geneTabTable')
         table = Table(model_table)
         cells = table.get_rows()
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #displays each row of disease model data
         row1 = cells[2]
         row2 = cells[3]
@@ -438,38 +436,41 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         row25 = cells[26]
         row26 = cells[27]
         row27 = cells[28]
-        
+        row28 = cells[29]
+        row29 = cells[30]
         self.assertEqual(row1.text, '       osteogenesis imperfecta type 1 COL1A1* Col1a1* 2 models HomoloGene and HGNC')
         self.assertEqual(row2.text, 'osteogenesis imperfecta type 10 SERPINH1* Serpinh1* 1 model HomoloGene and HGNC')
         self.assertEqual(row3.text, 'osteogenesis imperfecta type 2 COL1A1* Col1a1* 2 models HomoloGene and HGNC')
-        self.assertEqual(row4.text, 'osteogenesis imperfecta type 3 COL1A1* Col1a1* 1 model HomoloGene and HGNC')
-        self.assertEqual(row5.text, 'osteogenesis imperfecta type 3 COL1A2* Col1a2* 2 models HomoloGene and HGNC')
+        self.assertEqual(row4.text, 'osteogenesis imperfecta type 3 COL1A2* Col1a2* 2 models HomoloGene and HGNC')
+        self.assertEqual(row5.text, 'osteogenesis imperfecta type 3 COL1A1* Col1a1* 1 model HomoloGene and HGNC')
         self.assertEqual(row6.text, 'osteogenesis imperfecta type 4 COL1A1* Col1a1* 3 models HomoloGene and HGNC')
         self.assertEqual(row7.text, 'osteogenesis imperfecta type 6 SERPINF1* Serpinf1* 1 model HomoloGene and HGNC')
         self.assertEqual(row8.text, 'osteogenesis imperfecta type 7 CRTAP* Crtap* 1 model HomoloGene and HGNC')
         self.assertEqual(row9.text, 'osteogenesis imperfecta type 8 P3H1* P3h1* 1 model HomoloGene and HGNC')
         self.assertEqual(row10.text, 'osteogenesis imperfecta type 9 PPIB* Ppib* 2 models HomoloGene and HGNC')
         self.assertEqual(row11.text, '       osteogenesis imperfecta SMPD3 Smpd3* 1 model HomoloGene and HGNC')
-        self.assertEqual(row12.text, 'osteogenesis imperfecta COL1A2 Col1a2* 5 models HomoloGene and HGNC')
-        self.assertEqual(row13.text, 'osteogenesis imperfecta SMAD4 Smad4* 1 model HomoloGene and HGNC')
-        self.assertEqual(row14.text, 'osteogenesis imperfecta type 2 SMPD3 Smpd3* 1 model HomoloGene and HGNC')
-        self.assertEqual(row15.text, 'osteogenesis imperfecta type 3 SMPD3 Smpd3* 1 model HomoloGene and HGNC')
-        self.assertEqual(row16.text, 'osteogenesis imperfecta type 5 SUCO Suco* 1 model HomoloGene and HGNC')
-        self.assertEqual(row17.text, '       Cole-Carpenter syndrome P4HB* P4hb   HomoloGene and HGNC')
-        self.assertEqual(row18.text, 'Cole-Carpenter syndrome SEC24D* Sec24d   HomoloGene and HGNC')
-        self.assertEqual(row19.text, 'osteogenesis imperfecta type 11 FKBP10* Fkbp10   HomoloGene and HGNC')
-        self.assertEqual(row20.text, 'osteogenesis imperfecta type 12 SP7* Sp7   HomoloGene and HGNC')
-        self.assertEqual(row21.text, 'osteogenesis imperfecta type 13 BMP1* Bmp1   HomoloGene and HGNC')
-        self.assertEqual(row22.text, 'osteogenesis imperfecta type 14 TMEM38B* Tmem38b   HomoloGene and HGNC')
-        self.assertEqual(row23.text, 'osteogenesis imperfecta type 15 WNT1* Wnt1   HomoloGene and HGNC')
-        self.assertEqual(row24.text, 'osteogenesis imperfecta type 17 SPARC* Sparc   HomoloGene and HGNC')
-        self.assertEqual(row25.text, 'osteogenesis imperfecta type 2 COL1A2* Col1a2   HomoloGene and HGNC')
-        self.assertEqual(row26.text, 'osteogenesis imperfecta type 4 COL1A2* Col1a2   HomoloGene and HGNC')
-        self.assertEqual(row27.text, 'osteogenesis imperfecta type 5 IFITM5* Ifitm5 1 "NOT" model HomoloGene and HGNC')
+        self.assertEqual(row12.text, 'osteogenesis imperfecta COL1A1 Col1a1* 1 model HomoloGene and HGNC')
+        self.assertEqual(row13.text, 'osteogenesis imperfecta COL1A2 Col1a2* 5 models HomoloGene and HGNC')
+        self.assertEqual(row14.text, 'osteogenesis imperfecta SMAD4 Smad4* 1 model HomoloGene and HGNC')
+        self.assertEqual(row15.text, 'osteogenesis imperfecta type 2 SMPD3 Smpd3* 1 model HomoloGene and HGNC')
+        self.assertEqual(row16.text, 'osteogenesis imperfecta type 3 SMPD3 Smpd3* 1 model HomoloGene and HGNC')
+        self.assertEqual(row17.text, 'osteogenesis imperfecta type 5 SUCO Suco* 1 model HomoloGene and HGNC')
+        self.assertEqual(row18.text, '       Cole-Carpenter syndrome P4HB* P4hb   HomoloGene and HGNC')
+        self.assertEqual(row19.text, 'Cole-Carpenter syndrome SEC24D* Sec24d   HomoloGene and HGNC')
+        self.assertEqual(row20.text, 'osteogenesis imperfecta type 11 FKBP10* Fkbp10   HomoloGene and HGNC')
+        self.assertEqual(row21.text, 'osteogenesis imperfecta type 12 SP7* Sp7   HomoloGene and HGNC')
+        self.assertEqual(row22.text, 'osteogenesis imperfecta type 13 BMP1* Bmp1   HomoloGene and HGNC')
+        self.assertEqual(row23.text, 'osteogenesis imperfecta type 14 TMEM38B* Tmem38b   HomoloGene and HGNC')
+        self.assertEqual(row24.text, 'osteogenesis imperfecta type 15 WNT1* Wnt1   HomoloGene and HGNC')
+        self.assertEqual(row25.text, 'osteogenesis imperfecta type 16 CREB3L1* Creb3l1   HomoloGene and HGNC')
+        self.assertEqual(row26.text, 'osteogenesis imperfecta type 17 SPARC* Sparc   HomoloGene and HGNC')
+        self.assertEqual(row27.text, 'osteogenesis imperfecta type 2 COL1A2* Col1a2   HomoloGene and HGNC')
+        self.assertEqual(row28.text, 'osteogenesis imperfecta type 4 COL1A2* Col1a2   HomoloGene and HGNC')
+        self.assertEqual(row29.text, 'osteogenesis imperfecta type 5 IFITM5* Ifitm5 1 "NOT" model HomoloGene and HGNC')
         transgene_table = self.driver.find_element_by_id("transgeneTable")
         table = Table(transgene_table)
         cells = table.get_rows()
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #displays each row of transgene data
         row1 = cells[2]
         self.assertEqual(row1.text, '  osteogenesis imperfecta type 1 Tg(COL1A1)73Prc 1 model')
@@ -485,4 +486,4 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         '''
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    HTMLTestRunner.main() 
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests')) 

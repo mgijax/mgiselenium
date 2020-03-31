@@ -9,7 +9,7 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-import HTMLTestRunner
+import HtmlTestRunner
 # from lib import *
 import sys,os.path
 # adjust the path to find config
@@ -40,7 +40,7 @@ class TestRnaSeqSearching(unittest.TestCase):
         self.driver.find_element_by_id('submit1').click()
         #identify the titles of the results returned
         result_set = self.driver.find_element_by_id("injectedResults").find_elements_by_class_name('title')
-        print result_set[0].text
+        print(result_set[0].text)
         self.assertEqual(result_set[0].text, "Evolutionary dynamics of gene and isoform regulation in mammalian tissues")
         self.assertEqual(result_set[1].text, "Strand-specific RNA-seq of nine mouse tissues")
         
@@ -60,7 +60,7 @@ class TestRnaSeqSearching(unittest.TestCase):
         time.sleep(2)
         #identify the titles of the results returned
         result_set = self.driver.find_element_by_id("injectedResults").find_elements_by_class_name('title')
-        print result_set[0].text
+        print(result_set[0].text)
         self.assertEqual(result_set[0].text, "Transcription profiling by high throughput sequencing of Oct4 null and wild type mouse embryos at three embryonic stages")
         self.assertEqual(result_set[1].text, "Transcription profiling by array of individual inner cells during mouse blastocyst development")
 
@@ -77,7 +77,7 @@ class TestRnaSeqSearching(unittest.TestCase):
         time.sleep(2)
         #identify the titles of the results returned
         result_set = self.driver.find_element_by_id("injectedResults").find_elements_by_class_name('title')
-        print result_set[0].text
+        print(result_set[0].text)
         self.assertEqual(result_set[0].text, "Transcription profiling of mouse preimplantation development")
         self.assertEqual(result_set[1].text, "Transcription profiling of global gene expression changes during mouse preimplantation development: unfertilized eggs, fertilized egg, 2-cell embryos, 4-cell embryos, 8-cell embryos, morulae, blastocysts")
 
@@ -101,7 +101,7 @@ class TestRnaSeqSearching(unittest.TestCase):
         #Iterate and print the results for column Mutant Allele(s)
         strn = table.get_column_cells('Mutant Allele(s)')
         slist = iterate.getTextAsList(strn)
-        print slist
+        print(slist)
         #verify the genetic backgrounds of each row
         self.assertEqual(slist[1], "Hdac1tm1.1Eno/Hdac1tm1.1Eno\nTg(Zp3-cre)3Mrt/0")
         self.assertEqual(slist[2], "Hdac1tm1.1Eno/Hdac1tm1.1Eno\nTg(Zp3-cre)3Mrt/0")
@@ -140,7 +140,7 @@ class TestRnaSeqSearching(unittest.TestCase):
         #Iterate and print the results for column Mutant Allele(s)
         strn = table.get_column_cells('Mutant Allele(s)')
         slist = iterate.getTextAsList(strn)
-        print slist
+        print(slist)
         #verify the genetic backgrounds of each row
         self.assertEqual(slist[1], "Hnf1atm1.1Ylee/Hnf1atm1.1Ylee")
         self.assertEqual(slist[2], "Hnf1atm1.1Ylee/Hnf1atm1.1Ylee")
@@ -171,7 +171,7 @@ class TestRnaSeqSearching(unittest.TestCase):
         #Iterate and print the results for column Mutant Allele(s)
         strn = table.get_column_cells('Mutant Allele(s)')
         slist = iterate.getTextAsList(strn)
-        print slist
+        print(slist)
         #verify the genetic backgrounds of each row
         self.assertEqual(slist[1], "Gata1tm7Sho/Gata1tm7Sho")
         self.assertEqual(slist[2], "Gata1tm7Sho/Y")
@@ -202,7 +202,7 @@ class TestRnaSeqSearching(unittest.TestCase):
         #Iterate and print the results for column Genetic Background
         strn = table.get_column_cells('Genetic Background')
         slist = iterate.getTextAsList(strn)
-        print slist
+        print(slist)
         #verify the genetic backgrounds of each row(only checks the first 8 results)
         self.assertEqual(slist[1], "C57BL/6JRj")
         self.assertEqual(slist[2], "C57BL/6JRj")
@@ -233,7 +233,7 @@ class TestRnaSeqSearching(unittest.TestCase):
         #Iterate and print the results for column Genetic Background
         strn = table.get_column_cells('Genetic Background')
         slist = iterate.getTextAsList(strn)
-        print slist
+        print(slist)
         #verify the genetic backgrounds of each row
         self.assertEqual(slist[1], "C57BL/6JRcc")
         self.assertEqual(slist[2], "C57BL/6JRcc")
@@ -268,7 +268,7 @@ class TestRnaSeqSearching(unittest.TestCase):
         #Iterate and print the results for column Sex
         strn = table.get_column_cells('Sex')
         slist = iterate.getTextAsList(strn)
-        print slist
+        print(slist)
         #verify the genetic backgrounds of each row
         self.assertEqual(slist[1], "Pooled")
         self.assertEqual(slist[2], "Pooled")
@@ -295,7 +295,7 @@ class TestRnaSeqSearching(unittest.TestCase):
         meth5 = self.driver.find_element_by_id('methodData5')
         meth6 = self.driver.find_element_by_id('methodData6')
         meth7 = self.driver.find_element_by_id('methodData7')
-        print meth0.text
+        print(meth0.text)
         #Assert the Method is RNA-Seq for the first 8 results, all results should be RNA-Seq but we only check the first 8
         self.assertEqual(meth0.text, "RNA-Seq")
         self.assertEqual(meth1.text, "RNA-Seq")
@@ -319,7 +319,7 @@ class TestRnaSeqSearching(unittest.TestCase):
         desc1 = self.driver.find_element_by_id('description0')
         desc2 = self.driver.find_element_by_id('description1')
         desc3 = self.driver.find_element_by_id('description2')
-        print desc1.text
+        print(desc1.text)
         #assert the word SCARKO can be found it the description section of results
         self.assertTrue("SCARKO" in desc1.text)
         self.assertTrue("SCARKO" in desc2.text)
@@ -339,7 +339,7 @@ class TestRnaSeqSearching(unittest.TestCase):
         desc2 = self.driver.find_element_by_id('description1')
         desc3 = self.driver.find_element_by_id('description2')
         desc4 = self.driver.find_element_by_id('description3')
-        print desc1.text
+        print(desc1.text)
         #assert the word spectrophotometry or Spectrophotometry can be found it the description section of results
         self.assertTrue("spectrophotometry" in desc1.text)
         self.assertTrue("Spectrophotometry" in desc2.text)
@@ -357,7 +357,7 @@ class TestRnaSeqSearching(unittest.TestCase):
         self.driver.find_element_by_id('submit1').click()
         #identify the View experiment at field of the results returned
         arrayid = self.driver.find_element_by_id('viewData0')
-        print arrayid.text
+        print(arrayid.text)
         self.assertEqual(arrayid.text, "ArrayExpress: E-GEOD-45719\nGEO: GSE45719")
 
     
@@ -372,7 +372,7 @@ class TestRnaSeqSearching(unittest.TestCase):
         self.driver.find_element_by_id('submit1').click()
         #identify the View experiment at field of the results returned
         geoid = self.driver.find_element_by_id('viewData0')
-        print geoid.text
+        print(geoid.text)
         self.assertEqual(geoid.text, "ArrayExpress: E-GEOD-41637\nGEO: GSE41637")
            
     
@@ -382,4 +382,4 @@ class TestRnaSeqSearching(unittest.TestCase):
         
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    HTMLTestRunner.main() 
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests')) 

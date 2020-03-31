@@ -27,8 +27,8 @@ class TestSnpQF(unittest.TestCase):
 
 
     def setUp(self):
-    
-        self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
         self.driver.get(config.TEST_URL + "/snp")
         self.driver.implicitly_wait(10)
 
@@ -57,10 +57,10 @@ class TestSnpQF(unittest.TestCase):
         #locates the SNP summary table and verify the rs IDs returned are correct
         snp_table = Table(self.driver.find_element_by_id("snpSummaryTable"))
         cells = snp_table.get_column_cells("SNP ID\n(dbSNP Build 142)")
-        print iterate.getTextAsList(cells)     
+        print(iterate.getTextAsList(cells))     
         rsReturned = iterate.getTextAsList(cells)        
         #asserts that the following rs IDs are returned
-        self.assertEqual([u'SNP ID\n(dbSNP Build 142)', u'rs33674412\nMPD | dbSNP | MGI SNP Detail', u'rs108198781\nMPD | dbSNP | MGI SNP Detail', u'rs108778547\nMPD | dbSNP | MGI SNP Detail', u'rs29729942\nMPD | dbSNP | MGI SNP Detail', u'rs33485416\nMPD | dbSNP | MGI SNP Detail', u'rs33068028\nMPD | dbSNP | MGI SNP Detail', u'rs29682823\nMPD | dbSNP | MGI SNP Detail', u'rs33133952\nMPD | dbSNP | MGI SNP Detail', u'rs33181672\nMPD | dbSNP | MGI SNP Detail', u'rs48089243\nMPD | dbSNP | MGI SNP Detail', u'rs33541793\nMPD | dbSNP | MGI SNP Detail', u'rs33746193\nMPD | dbSNP | MGI SNP Detail', u'rs33214222\nMPD | dbSNP | MGI SNP Detail', u'rs33285952\nMPD | dbSNP | MGI SNP Detail', u'rs33560337\nMPD | dbSNP | MGI SNP Detail', u'rs33259009\nMPD | dbSNP | MGI SNP Detail', u'rs29727180\nMPD | dbSNP | MGI SNP Detail', u'rs33735948\nMPD | dbSNP | MGI SNP Detail', u'rs33682898\nMPD | dbSNP | MGI SNP Detail', u'rs51528487\nMPD | dbSNP | MGI SNP Detail', u'rs29676307\nMPD | dbSNP | MGI SNP Detail', u'rs33455132\nMPD | dbSNP | MGI SNP Detail', u'rs29562835\nMPD | dbSNP | MGI SNP Detail', u'rs33112153\nMPD | dbSNP | MGI SNP Detail', u'rs29530423\nMPD | dbSNP | MGI SNP Detail', u'SNP ID\n(dbSNP Build 142)', u'rs29733217\nMPD | dbSNP | MGI SNP Detail'], rsReturned) # this is all the data returned from the SNP ID column
+        self.assertEqual(['SNP ID\n(dbSNP Build 142)', 'rs33674412\ndbSNP | MGI SNP Detail', 'rs108198781\ndbSNP | MGI SNP Detail', 'rs108778547\ndbSNP | MGI SNP Detail', 'rs29729942\ndbSNP | MGI SNP Detail', 'rs33485416\ndbSNP | MGI SNP Detail', 'rs33068028\ndbSNP | MGI SNP Detail', 'rs29682823\ndbSNP | MGI SNP Detail', 'rs33133952\ndbSNP | MGI SNP Detail', 'rs33181672\ndbSNP | MGI SNP Detail', 'rs48089243\ndbSNP | MGI SNP Detail', 'rs33541793\ndbSNP | MGI SNP Detail', 'rs33746193\ndbSNP | MGI SNP Detail', 'rs33214222\ndbSNP | MGI SNP Detail', 'rs33285952\ndbSNP | MGI SNP Detail', 'rs33560337\ndbSNP | MGI SNP Detail', 'rs33259009\ndbSNP | MGI SNP Detail', 'rs29727180\ndbSNP | MGI SNP Detail', 'rs33735948\ndbSNP | MGI SNP Detail', 'rs33682898\ndbSNP | MGI SNP Detail', 'rs51528487\ndbSNP | MGI SNP Detail', 'rs29676307\ndbSNP | MGI SNP Detail', 'rs33455132\ndbSNP | MGI SNP Detail', 'rs29562835\ndbSNP | MGI SNP Detail', 'rs33112153\ndbSNP | MGI SNP Detail', 'rs29530423\ndbSNP | MGI SNP Detail', 'SNP ID\n(dbSNP Build 142)', 'rs29733217\ndbSNP | MGI SNP Detail'], rsReturned) # this is all the data returned from the SNP ID column
  
     def test_search_1_ref_strain_different(self):
         """
@@ -92,10 +92,10 @@ class TestSnpQF(unittest.TestCase):
         #locates the SNP summary table and verify the rs IDs returned are correct
         snp_table = Table(self.driver.find_element_by_id("snpSummaryTable"))
         cells = snp_table.get_column_cells("SNP ID\n(dbSNP Build 142)")
-        print iterate.getTextAsList(cells)     
+        print(iterate.getTextAsList(cells))     
         rsReturned = iterate.getTextAsList(cells)        
         #asserts that the following rs IDs are returned
-        self.assertEqual([u'SNP ID\n(dbSNP Build 142)', u'rs108198781\nMPD | dbSNP | MGI SNP Detail'], rsReturned) # this is all the data returned from the SNP ID column
+        self.assertEqual(['SNP ID\n(dbSNP Build 142)', 'rs108198781\ndbSNP | MGI SNP Detail'], rsReturned) # this is all the data returned from the SNP ID column
         
     def test_search_1_ref_strain_same(self):
         """
@@ -127,10 +127,10 @@ class TestSnpQF(unittest.TestCase):
         #locates the SNP summary table and verify the rs IDs returned are correct
         snp_table = Table(self.driver.find_element_by_id("snpSummaryTable"))
         cells = snp_table.get_column_cells("SNP ID\n(dbSNP Build 142)")
-        print iterate.getTextAsList(cells)     
+        print(iterate.getTextAsList(cells))     
         rsReturned = iterate.getTextAsList(cells)        
         #asserts that the following rs IDs are returned
-        self.assertEqual([u'SNP ID\n(dbSNP Build 142)', u'rs51528487\nMPD | dbSNP | MGI SNP Detail'], rsReturned) # this is all the data returned from the SNP ID column
+        self.assertEqual(['SNP ID\n(dbSNP Build 142)', 'rs51528487\ndbSNP | MGI SNP Detail'], rsReturned) # this is all the data returned from the SNP ID column
       
         
     def test_search_multi_ref_strain(self):
@@ -198,24 +198,24 @@ class TestSnpQF(unittest.TestCase):
         #locates the SNP summary table and verify the rs IDs returned are correct, strains returned are correct
         snp_table = Table(self.driver.find_element_by_id("snpSummaryTable"))
         cells = snp_table.get_column_cells("SNP ID\n(dbSNP Build 142)")
-        print iterate.getTextAsList(cells)     
+        print(iterate.getTextAsList(cells))     
         rsReturned = iterate.getTextAsList(cells)        
         #asserts that the following rs IDs are returned
-        self.assertEqual([u'SNP ID\n(dbSNP Build 142)', u'rs3021544\nMPD | dbSNP | MGI SNP Detail', u'rs3021927\nMPD | dbSNP | MGI SNP Detail', u'rs3021928\nMPD | dbSNP | MGI SNP Detail', u'rs3021931\nMPD | dbSNP | MGI SNP Detail', u'rs3021868\nMPD | dbSNP | MGI SNP Detail'], rsReturned) # this is all the data returned from the SNP ID column currently 5 IDs as of 9/1218
+        self.assertEqual(['SNP ID\n(dbSNP Build 142)', 'rs3021544\ndbSNP | MGI SNP Detail', 'rs3021927\ndbSNP | MGI SNP Detail', 'rs3021928\ndbSNP | MGI SNP Detail', 'rs3021931\ndbSNP | MGI SNP Detail', 'rs3021868\ndbSNP | MGI SNP Detail'], rsReturned) # this is all the data returned from the SNP ID column currently 5 IDs as of 9/1218
         cells1 = snp_table.get_header_cells()
-        print iterate.getTextAsList(cells1)  
+        print(iterate.getTextAsList(cells1))  
         #print cells1[14].text   
-        self.assertEquals(cells1[5].text, 'A/HeJ', 'The first ref strain is not A/HeJ')
-        self.assertEquals(cells1[6].text, 'A/J', 'The second ref strain is not A/J')
-        self.assertEquals(cells1[7].text, 'B10.D2-Hc<0> H2<d> H2-T18<c>/oSnJ', 'The third ref strain is not B10.D2-Hc<0> H2<d> H2-T18<c>/oSnJ')
-        self.assertEquals(cells1[8].text, 'BALB/cJ', 'The fourth ref strain is not BALB/cJ')
-        self.assertEquals(cells1[9].text, 'C3H/HeJ', 'The fifth ref strain is not C3H/HeJ')
-        self.assertEquals(cells1[10].text, 'C57BL/6J', 'The sixth ref strain is not C57BL/6J')
-        self.assertEquals(cells1[11].text, '129S1/SvImJ', 'The first comparison strain is not 129S1/SvImJ')
-        self.assertEquals(cells1[12].text, 'AKR/J', 'The second comparison strain is not AKR/J')
-        self.assertEquals(cells1[13].text, 'DBA/2J', 'The third comparison strain is not DBA/2J')
-        self.assertEquals(cells1[14].text, 'NZB/BlNJ', 'The fourth comparison strain is not NZB/B1NJ')
-        self.assertEquals(cells1[15].text, 'NZW/LacJ', 'The fifth comparison strain is not NZW/LacJ')
+        self.assertEqual(cells1[5].text, 'A/HeJ', 'The first ref strain is not A/HeJ')
+        self.assertEqual(cells1[6].text, 'A/J', 'The second ref strain is not A/J')
+        self.assertEqual(cells1[7].text, 'B10.D2-Hc<0> H2<d> H2-T18<c>/oSnJ', 'The third ref strain is not B10.D2-Hc<0> H2<d> H2-T18<c>/oSnJ')
+        self.assertEqual(cells1[8].text, 'BALB/cJ', 'The fourth ref strain is not BALB/cJ')
+        self.assertEqual(cells1[9].text, 'C3H/HeJ', 'The fifth ref strain is not C3H/HeJ')
+        self.assertEqual(cells1[10].text, 'C57BL/6J', 'The sixth ref strain is not C57BL/6J')
+        self.assertEqual(cells1[11].text, '129S1/SvImJ', 'The first comparison strain is not 129S1/SvImJ')
+        self.assertEqual(cells1[12].text, 'AKR/J', 'The second comparison strain is not AKR/J')
+        self.assertEqual(cells1[13].text, 'DBA/2J', 'The third comparison strain is not DBA/2J')
+        self.assertEqual(cells1[14].text, 'NZB/BlNJ', 'The fourth comparison strain is not NZB/B1NJ')
+        self.assertEqual(cells1[15].text, 'NZW/LacJ', 'The fifth comparison strain is not NZW/LacJ')
            
         
     def tearDown(self):

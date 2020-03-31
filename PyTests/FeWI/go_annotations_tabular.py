@@ -48,7 +48,7 @@ class TestGoAnnotationsPage(unittest.TestCase):
         items = tabularheaderlist.find_elements(By.TAG_NAME, 'th')
         searchTextItems = iterate.getTextAsList(items)
         wait.forAjax(driver)
-        print searchTextItems
+        print(searchTextItems)
         #verifies all the table headings are correct and in order
         self.assertEqual(searchTextItems, ['Aspect','Category','Classification Term', 'Context', 'Proteoform', 'Evidence', 'Inferred From', 'Reference(s)'])
 
@@ -73,14 +73,14 @@ class TestGoAnnotationsPage(unittest.TestCase):
         #finds the Type column and then iterates through all items
         #contextlist = driver.find_elements(By.CSS_SELECTOR, 'td.yui-dt-annotationExtensions div.goProperties.span.value')
         webElement = driver.find_elements_by_class_name('goProperties')
-        print webElement
+        print(webElement)
         #searchTextItems = iterate.getTextAsList(webElement)
         #wait.forAjax(driver)
         #print searchTextItems
         time.sleep(5)
         element = driver.find_element_by_class_name('goProperties')
         elementText = element.text
-        print elementText
+        print(elementText)
         #asserts that the rows of Context data are in correct order and displayed correctly
         #self.assertEqual(searchTextItems, [u'', u'', u'', u'', u'', u'', u'', u'', u'happens in lung\nhappens in larynx mucous membrane\nresults in the movement of macrophage', u'', u'', u'', u'', u'', u'', u''])
         #self.assertIn(elementText, ['happens in lung\nhappens in larynx mucous membrane\nresults in the movement of macrophage'])
@@ -112,8 +112,8 @@ class TestGoAnnotationsPage(unittest.TestCase):
         items = tabularheaderlist.find_elements(By.TAG_NAME, 'div')
         searchTextItems = iterate.getTextAsList(items)
         wait.forAjax(driver)
-        print searchTextItems
-        print searchTextItems[10]
+        print(searchTextItems)
+        print(searchTextItems[10])
         #verifies all the table headings are correct and in order
         #self.assertEqual(searchTextItems, ['Aspect','Category','Classification Term', 'Context', 'Proteoform', 'Evidence', 'Inferred From', 'Reference(s)'])    
         

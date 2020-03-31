@@ -12,7 +12,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
-import HTMLTestRunner
+import HtmlTestRunner
 import json
 import sys,os.path
 from test.test_base64 import BaseXYTestCase
@@ -59,35 +59,35 @@ class TestMpannotSearch(unittest.TestCase):
         #Iterate and print the table results
         header_cells = table.get_header_cells()
         headings = iterate.getTextAsList(header_cells)
-        print headings
+        print(headings)
         #assert the headers are correct
         self.assertEqual(headings, ['', '', '', 'MP Term', 'Vocabulary Term', 'Qualifier', 'J#', 'Citation', 'Evidence', 'Sex', 'Modified', 'Date', 'Created', 'Date'])
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'termID-1')))
         #find the search results table first row of data
         term0 = driver.find_element_by_id('termID-0').get_property('value')
-        print term0
+        print(term0)
         voc_term = driver.find_element_by_class_name('term')
-        print voc_term.text
+        print(voc_term.text)
         qualfy = driver.find_element_by_id('qualifierAbbreviation-0').get_property('value')
         #value should be 'string:2181423' that equals (none)
-        print qualfy
+        print(qualfy)
         j_num = driver.find_element_by_id('jnumID-0').get_property('value')
-        print j_num
+        print(j_num)
         cite = driver.find_element_by_class_name('short_citation')
-        print cite.text
+        print(cite.text)
         evid = driver.find_element_by_id('evidenceAbbreviation-0').get_property('value')#value should be "string:52280" which is EXP
-        print evid
+        print(evid)
         sex_abbrev = driver.find_element_by_id('sexAbbreviation-0').get_property('value')#value should be "string:NA"
-        print sex_abbrev
+        print(sex_abbrev)
         mod_by = driver.find_element_by_id('modifiedBy-0').get_property('value')
-        print mod_by
+        print(mod_by)
         mod_date = driver.find_element_by_id('modifiedDate-0').get_property('value')
-        print mod_date
+        print(mod_date)
         create_by = driver.find_element_by_id('createdBy-0').get_property('value')
-        print create_by
+        print(create_by)
         create_date = driver.find_element_by_id('createdDate-0').get_property('value')
-        print create_date
+        print(create_date)
         #we are asserting the first row of data is correct
         self.assertEqual(term0, 'MP:0001927')
         self.assertEqual(voc_term.text, 'abnormal estrous cycle')
@@ -117,27 +117,27 @@ class TestMpannotSearch(unittest.TestCase):
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'termID-8')))
         #find the search results table first row of data
         term0 = driver.find_element_by_id('termID-0').get_property('value')
-        print term0
+        print(term0)
         voc_term = driver.find_element_by_class_name('term')
-        print voc_term.text
+        print(voc_term.text)
         qualfy = driver.find_element_by_id('qualifierAbbreviation-0').get_property('value')#value should be 'string:2181423' that equals (none)
-        print qualfy
+        print(qualfy)
         j_num = driver.find_element_by_id('jnumID-0').get_property('value')
-        print j_num
+        print(j_num)
         cite = driver.find_element_by_class_name('short_citation')
-        print cite.text
+        print(cite.text)
         evid = driver.find_element_by_id('evidenceAbbreviation-0').get_property('value')#value should be "string:52280" which is EXP
-        print evid
+        print(evid)
         sex_abbrev = driver.find_element_by_id('sexAbbreviation-0').get_property('value')#value should be "string:NA"
-        print sex_abbrev
+        print(sex_abbrev)
         mod_by = driver.find_element_by_id('modifiedBy-0').get_property('value')
-        print mod_by
+        print(mod_by)
         mod_date = driver.find_element_by_id('modifiedDate-0').get_property('value')
-        print mod_date
+        print(mod_date)
         create_by = driver.find_element_by_id('createdBy-0').get_property('value')
-        print create_by
+        print(create_by)
         create_date = driver.find_element_by_id('createdDate-0').get_property('value')
-        print create_date
+        print(create_date)
         #we are asserting the first row of data is correct
         self.assertEqual(term0, 'MP:0003743')
         self.assertEqual(voc_term.text, 'abnormal facial morphology')
@@ -169,27 +169,27 @@ class TestMpannotSearch(unittest.TestCase):
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'termID-3')))
         #find the search results table first row of data
         term0 = driver.find_element_by_id('termID-0').get_property('value')
-        print term0
+        print(term0)
         voc_term = driver.find_element_by_class_name('term')
-        print voc_term.text
+        print(voc_term.text)
         qualfy = driver.find_element_by_id('qualifierAbbreviation-0').get_property('value')#value should be 'string:2181423' that equals (none)
-        print qualfy
+        print(qualfy)
         j_num = driver.find_element_by_id('jnumID-0').get_property('value')
-        print j_num
+        print(j_num)
         cite = driver.find_element_by_class_name('short_citation')
-        print cite.text
+        print(cite.text)
         evid = driver.find_element_by_id('evidenceAbbreviation-0').get_property('value')#value should be "string:107" which is TAS
-        print evid
+        print(evid)
         sex_abbrev = driver.find_element_by_id('sexAbbreviation-0').get_property('value')#value should be "string:M"
-        print sex_abbrev
+        print(sex_abbrev)
         mod_by = driver.find_element_by_id('modifiedBy-0').get_property('value')
-        print mod_by
+        print(mod_by)
         mod_date = driver.find_element_by_id('modifiedDate-0').get_property('value')
-        print mod_date
+        print(mod_date)
         create_by = driver.find_element_by_id('createdBy-0').get_property('value')
-        print create_by
+        print(create_by)
         create_date = driver.find_element_by_id('createdDate-0').get_property('value')
-        print create_date
+        print(create_date)
         #we are asserting the first row of data is correct
         self.assertEqual(term0, 'MP:0001447')
         self.assertEqual(voc_term.text, 'abnormal nest building behavior')
@@ -204,7 +204,7 @@ class TestMpannotSearch(unittest.TestCase):
         self.assertEqual(create_date, '2008-11-21')
         #now lets find the Term ID for the 9th row and verify it is MP:0010768
         term8 = driver.find_element_by_id('termID-8').get_property('value')
-        print term8
+        print(term8)
         self.assertEqual(term8, 'MP:0010768')
 
     def testMPQualSearch(self):
@@ -226,29 +226,29 @@ class TestMpannotSearch(unittest.TestCase):
         #Iterate and print the search results
         cell2 = table.get_row_cells(2)
         result1 = iterate.getTextAsList(cell2)
-        print result1
+        print(result1)
         term0 = driver.find_element_by_id('termID-0').get_property('value')
-        print term0
+        print(term0)
         voc_term = driver.find_elements_by_class_name('term')[0]
-        print voc_term.text
+        print(voc_term.text)
         qualfy = driver.find_elements_by_id('qualifierAbbreviation-0')[0].get_property('value')#value should be 'string:2181423' that equals (none)
-        print qualfy
+        print(qualfy)
         j_num = driver.find_element_by_id('jnumID-0').get_property('value')
-        print j_num
+        print(j_num)
         cite = driver.find_elements_by_class_name('short_citation')[0]
-        print cite.text
+        print(cite.text)
         evid = driver.find_elements_by_id('evidenceAbbreviation-0')[0].get_property('value')#value should be "string:108" which is ND
-        print evid
+        print(evid)
         sex_abbrev = driver.find_elements_by_id('sexAbbreviation-0')[0].get_property('value')#value should be "string:NA"
-        print sex_abbrev
+        print(sex_abbrev)
         mod_by = driver.find_elements_by_id('modifiedBy-0')[0].get_property('value')
-        print mod_by
+        print(mod_by)
         mod_date = driver.find_elements_by_id('modifiedDate-0')[0].get_property('value')
-        print mod_date
+        print(mod_date)
         create_by = driver.find_elements_by_id('createdBy-0')[0].get_property('value')
-        print create_by
+        print(create_by)
         create_date = driver.find_elements_by_id('createdDate-0')[0].get_property('value')
-        print create_date
+        print(create_date)
         #we are asserting the third row of data is correct
         self.assertEqual(term0, 'MP:0003012')
         self.assertEqual(voc_term.text, 'no phenotypic analysis')
@@ -280,27 +280,27 @@ class TestMpannotSearch(unittest.TestCase):
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'termID-3')))
         #find the search results table seventh row of data
         term0 = driver.find_element_by_id('termID-6').get_property('value')
-        print term0
+        print(term0)
         voc_term = driver.find_elements_by_class_name('term')[6]
-        print voc_term.text
+        print(voc_term.text)
         qualfy = driver.find_element_by_id('qualifierAbbreviation-6').get_property('value')#value should be 'string:2181423' that equals (none)
-        print qualfy
+        print(qualfy)
         j_num = driver.find_element_by_id('jnumID-6').get_property('value')
-        print j_num
+        print(j_num)
         cite = driver.find_elements_by_class_name('short_citation')[6]
-        print cite.text
+        print(cite.text)
         evid = driver.find_element_by_id('evidenceAbbreviation-6').get_property('value')#value should be "string:52280" which is EXP
-        print evid
+        print(evid)
         sex_abbrev = driver.find_element_by_id('sexAbbreviation-6').get_property('value')#value should be "string:NA"
-        print sex_abbrev
+        print(sex_abbrev)
         mod_by = driver.find_element_by_id('modifiedBy-6').get_property('value')
-        print mod_by
+        print(mod_by)
         mod_date = driver.find_element_by_id('modifiedDate-6').get_property('value')
-        print mod_date
+        print(mod_date)
         create_by = driver.find_element_by_id('createdBy-6').get_property('value')
-        print create_by
+        print(create_by)
         create_date = driver.find_element_by_id('createdDate-6').get_property('value')
-        print create_date
+        print(create_date)
         #we are asserting the seventh row of data is correct
         self.assertEqual(term0, 'MP:0000705')
         self.assertEqual(voc_term.text, 'athymia')
@@ -331,27 +331,27 @@ class TestMpannotSearch(unittest.TestCase):
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'termID-3')))
         #find the search results table thirteenth row of data
         term0 = driver.find_element_by_id('termID-12').get_property('value')
-        print term0
+        print(term0)
         voc_term = driver.find_elements_by_class_name('term')[12]
-        print voc_term.text
+        print(voc_term.text)
         qualfy = driver.find_element_by_id('qualifierAbbreviation-12').get_property('value')#value should be 'string:2181423' that equals (none)
-        print qualfy
+        print(qualfy)
         j_num = driver.find_element_by_id('jnumID-12').get_property('value')
-        print j_num
+        print(j_num)
         cite = driver.find_elements_by_class_name('short_citation')[12]
-        print cite.text
+        print(cite.text)
         evid = driver.find_element_by_id('evidenceAbbreviation-12').get_property('value')#value should be "string:6126026" which is NAS
-        print evid
+        print(evid)
         sex_abbrev = driver.find_element_by_id('sexAbbreviation-12').get_property('value')#value should be "string:NA"
-        print sex_abbrev
+        print(sex_abbrev)
         mod_by = driver.find_element_by_id('modifiedBy-12').get_property('value')
-        print mod_by
+        print(mod_by)
         mod_date = driver.find_element_by_id('modifiedDate-12').get_property('value')
-        print mod_date
+        print(mod_date)
         create_by = driver.find_element_by_id('createdBy-12').get_property('value')
-        print create_by
+        print(create_by)
         create_date = driver.find_element_by_id('createdDate-12').get_property('value')
-        print create_date
+        print(create_date)
         #we are asserting the thirteenth row of data is correct
         self.assertEqual(term0, 'MP:0011099')
         self.assertEqual(voc_term.text, 'lethality throughout fetal growth and development, complete penetrance')
@@ -380,30 +380,30 @@ class TestMpannotSearch(unittest.TestCase):
         time.sleep(2)
         driver.find_element_by_id('searchButton').click()
         #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'termID-3')))
+        WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located((By.ID, 'termID-3')))
         #find the search results table first row of data
         term0 = driver.find_element_by_id('termID-0').get_property('value')
-        print term0
+        print(term0)
         voc_term = driver.find_element_by_class_name('term')
-        print voc_term.text
+        print(voc_term.text)
         qualfy = driver.find_element_by_id('qualifierAbbreviation-0').get_property('value')#value should be 'string:2181424' that equals (norm)
-        print qualfy
+        print(qualfy)
         j_num = driver.find_element_by_id('jnumID-0').get_property('value')
-        print j_num
+        print(j_num)
         cite = driver.find_elements_by_class_name('short_citation')[0]
-        print cite.text
+        print(cite.text)
         evid = driver.find_element_by_id('evidenceAbbreviation-0').get_property('value')#value should be "string:52280" which is EXP
-        print evid
+        print(evid)
         sex_abbrev = driver.find_element_by_id('sexAbbreviation-0').get_property('value')#value should be "string:M"
-        print sex_abbrev
+        print(sex_abbrev)
         mod_by = driver.find_element_by_id('modifiedBy-0').get_property('value')
-        print mod_by
+        print(mod_by)
         mod_date = driver.find_element_by_id('modifiedDate-0').get_property('value')
-        print mod_date
+        print(mod_date)
         create_by = driver.find_element_by_id('createdBy-0').get_property('value')
-        print create_by
+        print(create_by)
         create_date = driver.find_element_by_id('createdDate-0').get_property('value')
-        print create_date
+        print(create_date)
         #we are asserting the thirteenth row of data is correct
         self.assertEqual(term0, 'MP:0003631')
         self.assertEqual(voc_term.text, 'nervous system phenotype')
@@ -441,8 +441,8 @@ class TestMpannotSearch(unittest.TestCase):
         cell3 = table.get_row(3)
         cell4 = table.get_row(4)
         cell5 = table.get_row(5)
-        print cell0.text
-        print cell1.text
+        print(cell0.text)
+        print(cell1.text)
         #Assert the correct genotype has been returned in the results table
         self.assertEqual(cell0.text, '129P2/OlaHsd-Jmjd6<Gt(RRJ099)Byg> Jmjd6<Gt(RRJ099)Byg>,Jmjd6<Gt(RRJ099)Byg>')
         self.assertEqual(cell1.text, '129S1.Cg-Mgrn1<md-nc> Mgrn1<md-nc>,Mgrn1<md-nc>')
@@ -476,12 +476,12 @@ class TestMpannotSearch(unittest.TestCase):
         cell3 = table.get_row(3)
         cell4 = table.get_row(4)
         cell5 = table.get_row(5)
-        print cell0.text
-        print cell1.text
-        print cell2.text
-        print cell3.text
-        print cell4.text
-        print cell5.text
+        print(cell0.text)
+        print(cell1.text)
+        print(cell2.text)
+        print(cell3.text)
+        print(cell4.text)
+        print(cell5.text)
         #Assert the correct genotypes have been returned in the results table
         self.assertEqual(cell0.text, '(129S6.129P2-Mecp2<tm1Bird> x C57BL/6)F1 Mecp2<tm1Bird>')
         self.assertEqual(cell1.text, '(129S6.129P2-Mecp2<tm1Bird> x FVB/N)F1 Mecp2<tm1Bird>')
@@ -515,12 +515,12 @@ class TestMpannotSearch(unittest.TestCase):
         cell3 = table.get_row(3)
         cell4 = table.get_row(4)
         cell5 = table.get_row(5)
-        print cell0.text
-        print cell1.text
-        print cell2.text
-        print cell3.text
-        print cell4.text
-        print cell5.text
+        print(cell0.text)
+        print(cell1.text)
+        print(cell2.text)
+        print(cell3.text)
+        print(cell4.text)
+        print(cell5.text)
         #Assert the correct genotypes have been returned in the results table
         self.assertEqual(cell0.text, 'A/J Nrg3<ska>,Nrg3<ska>')
         self.assertEqual(cell1.text, 'B6.Cg-Tg(GFAP-tTA)67Pop Tg(tetO-Ifng)184Pop Tg(GFAP-tTA)67Pop,Tg(tetO-Ifng)184Pop')
@@ -551,95 +551,17 @@ class TestMpannotSearch(unittest.TestCase):
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
         cell2 = table.get_row(2)
-        print cell0.text
-        print cell1.text
-        print cell2.text
+        print(cell0.text)
+        print(cell1.text)
+        print(cell2.text)
         #Assert the correct genotypes have been returned in the results table
         self.assertEqual(cell0.text, 'involves: 129P2/OlaHsd * C57BL/6J Cbs<tm1Unc>,Cbs<tm1Unc>,Tg(CBS)11181Eri')
         self.assertEqual(cell1.text, 'involves: 129S1/Sv * 129X1/SvJ Mthfr<tm1Rzn>,Mthfr<tm1Rzn>')
         self.assertEqual(cell2.text, 'involves: FVB/N Tg(GFAP-tTA)6Hyms,Tg(tetO-HMOX1)6Hyms')
         #Assert the correct Creation Name is returned in the Creation Date field
         modifydate = driver.find_element_by_id('modifiedDate-0').get_attribute('value')
-        self.assertEqual(modifydate, '2013-02-08')        
-
-    def testMpannotModifyDateGreaterSearch(self):
-        """
-        @Status tests that a basic Modification Date by Greater than works
-        @see pwi-mp-date-search-5 
-        """
-        driver = self.driver
-        #finds the Modification Date field, enters a Date with greater than symbol
-        driver.find_element_by_id("modifiedDate-0").send_keys('>2019-05-06')
-        #finds the Search button and clicks it
-        driver.find_element_by_id('searchButton').click()
-        #wait until the Results list is displayed on the page    
-        wait.forAngular(self.driver)
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
-        table = Table(results_table)
-        # get and print the first 2 rows
-        cell0 = table.get_row(0)
-        cell1 = table.get_row(1)
-        cell2 = table.get_row(2)
-        cell3 = table.get_row(3)
-        cell4 = table.get_row(4)
-        cell5 = table.get_row(5)
-        print cell0.text
-        print cell1.text
-        print cell2.text
-        print cell3.text
-        print cell4.text
-        print cell5.text
-        #Assert the correct genotypes have been returned in the results table
-        self.assertEqual(cell0.text, '(C57BL/6NJ-Zpld1<em1(IMPC)J>/Mmjax x B6(129S4)-Zpld1<sprl>/Kjn)F1 Zpld1<em1(IMPC)J>,Zpld1<sprl>')
-        self.assertEqual(cell1.text, '(CWD/LeJ x B10.SM-H2<v> H2-T18<b>/(70NS)SnJ)F1 Hephl1<cw>,Hephl1<cw-2J>')
-        self.assertEqual(cell2.text, '129P1/ReJ-Lama2<dy>/J Lama2<dy>,Lama2<dy>')
-        self.assertEqual(cell3.text, '129P3/J-Ush1c<dfcr-4J>/J Ush1c<dfcr-4J>,Ush1c<dfcr-4J>')
-        self.assertEqual(cell4.text, '129S/SvEv-Coq3<tm1Hek> Coq3<tm1Hek>,Coq3<+>')
-        self.assertEqual(cell5.text, '129S/SvEv-Coq3<tm1Hek> Coq3<tm1Hek>,Coq3<tm1Hek>')
-        #Assert the correct Modification Date is returned in the Modification Date field
-        modifydate = driver.find_element_by_id('modifiedDate-0').get_attribute('value')
-        self.assertEqual(modifydate, '2019-09-03')        
-
-    def testMpannotModifyDateGreaterEqualSearch(self):
-        """
-        @Status tests that a basic Modification Date by greater than equals works
-        @see pwi-mp-date-search-6 
-        """
-        driver = self.driver
-        #finds the Modification Date field, enters a Date with greater than equals symbols
-        driver.find_element_by_id("modifiedDate-0").send_keys('>=2019-05-09')
-        #finds the Search button and clicks it
-        driver.find_element_by_id('searchButton').click()
-        #wait until the Results list is displayed on the page    
-        wait.forAngular(self.driver)
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
-        table = Table(results_table)
-        # get and print the first 2 rows
-        cell0 = table.get_row(0)
-        cell1 = table.get_row(1)
-        cell2 = table.get_row(2)
-        cell3 = table.get_row(3)
-        cell4 = table.get_row(4)
-        cell5 = table.get_row(5)
-        print cell0.text
-        print cell1.text
-        print cell2.text
-        print cell3.text
-        print cell4.text
-        print cell5.text
-        #Assert the correct genotypes have been returned in the results table
-        self.assertEqual(cell0.text, '(C57BL/6NJ-Zpld1<em1(IMPC)J>/Mmjax x B6(129S4)-Zpld1<sprl>/Kjn)F1 Zpld1<em1(IMPC)J>,Zpld1<sprl>')
-        self.assertEqual(cell1.text, '(CWD/LeJ x B10.SM-H2<v> H2-T18<b>/(70NS)SnJ)F1 Hephl1<cw>,Hephl1<cw-2J>')
-        self.assertEqual(cell2.text, '129P1/ReJ-Lama2<dy>/J Lama2<dy>,Lama2<dy>')
-        self.assertEqual(cell3.text, '129P3/J-Ush1c<dfcr-4J>/J Ush1c<dfcr-4J>,Ush1c<dfcr-4J>')
-        self.assertEqual(cell4.text, '129S/SvEv-Coq3<tm1Hek> Coq3<tm1Hek>,Coq3<+>')
-        self.assertEqual(cell5.text, '129S/SvEv-Coq3<tm1Hek> Coq3<tm1Hek>,Coq3<tm1Hek>')
-        #Assert the correct Modification Date is returned in the Modification Date field
-        modifydate = driver.find_element_by_id('modifiedDate-0').get_attribute('value')
-        self.assertEqual(modifydate, '2019-09-03')    
-
+        self.assertEqual(modifydate, '2013-02-08')            
+       
     def testMpannotModifyDateLessSearch(self):
         """
         @Status tests that a basic Modification Date by less than works
@@ -658,8 +580,8 @@ class TestMpannotSearch(unittest.TestCase):
         # get and print the first 2 rows
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
-        print cell0.text
-        print cell1.text
+        print(cell0.text)
+        print(cell1.text)
         #Assert the correct genotypes have been returned in the results table
         self.assertEqual(cell0.text, '(129/Sv x BALB/c)F1 Slc11a1<r>,Slc11a1<s>')
         self.assertEqual(cell1.text, '(129P2/Ola x BALB/c)F1 Cbx2<tm1Cim>,Cbx2<tm1Cim>')
@@ -685,8 +607,8 @@ class TestMpannotSearch(unittest.TestCase):
         # get and print the first 2 rows
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
-        print cell0.text
-        print cell1.text
+        print(cell0.text)
+        print(cell1.text)
         #Assert the correct gentypes have been returned in the results table
         self.assertEqual(cell0.text, '(BALB/c x 129)F1 Tz,Tz<+>')
         self.assertEqual(cell1.text, '129S/SvEv-Nodal<TgR(MPSVNeo)413.dRob> Nodal<TgR(MPSVNeo)413.dRob>,Nodal<TgR(MPSVNeo)413.dRob>')
@@ -712,93 +634,15 @@ class TestMpannotSearch(unittest.TestCase):
         # get and print the first 2 rows
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
-        print cell0.text
-        print cell1.text
+        print(cell0.text)
+        print(cell1.text)
         #Assert the correct genotypes have been returned in the results table
         self.assertEqual(cell0.text, 'B6.Cg-Atg16l1<tm1Kuv> Tg(Vil1-cre)997Gum Atg16l1<tm1Kuv>,Atg16l1<tm1Kuv>,Tg(Vil1-cre)997Gum')
         self.assertEqual(cell1.text, 'B6.Cg-Atg16l1<tm1Kuv> Xbp1<tm2Glm> Tg(Vil1-cre)997Gum Atg16l1<tm1Kuv>,Atg16l1<tm1Kuv>,Tg(Vil1-cre)997Gum,Xbp1<tm2Glm>,Xbp1<tm2Glm>')
         #Assert the correct Modification Date is returned in the Modification Date field
         modifydate = driver.find_element_by_id('modifiedDate-0').get_attribute('value')
         self.assertEqual(modifydate, '2019-05-08')  
-              
-    def testMpannotCreateDateGreaterSearch(self):
-        """
-        @Status tests that a basic Creation Date by Greater than works
-        @see pwi-mp-date-search-10 
-        """
-        driver = self.driver
-        #finds the Created Date field, enters a Date with greater than symbol
-        driver.find_element_by_id("createdDate-0").send_keys('>2019-05-08')
-        #finds the Search button and clicks it
-        driver.find_element_by_id('searchButton').click()
-        #wait until the Results list is displayed on the page    
-        wait.forAngular(self.driver)
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
-        table = Table(results_table)
-        # get and print the first 2 rows
-        cell0 = table.get_row(0)
-        cell1 = table.get_row(1)
-        cell2 = table.get_row(2)
-        cell3 = table.get_row(3)
-        cell4 = table.get_row(4)
-        cell5 = table.get_row(5)
-        print cell0.text
-        print cell1.text
-        print cell2.text
-        print cell3.text
-        print cell4.text
-        print cell5.text
-        #Assert the correct genotypes have been returned in the results table
-        self.assertEqual(cell0.text, '(C57BL/6NJ-Zpld1<em1(IMPC)J>/Mmjax x B6(129S4)-Zpld1<sprl>/Kjn)F1 Zpld1<em1(IMPC)J>,Zpld1<sprl>')
-        self.assertEqual(cell1.text, '(CWD/LeJ x B10.SM-H2<v> H2-T18<b>/(70NS)SnJ)F1 Hephl1<cw>,Hephl1<cw-2J>')
-        self.assertEqual(cell2.text, '129P1/ReJ-Lama2<dy>/J Lama2<dy>,Lama2<dy>')
-        self.assertEqual(cell3.text, '129P3/J-Ush1c<dfcr-4J>/J Ush1c<dfcr-4J>,Ush1c<dfcr-4J>')
-        self.assertEqual(cell4.text, '129S/SvEv-Coq3<tm1Hek> Coq3<tm1Hek>,Coq3<+>')
-        self.assertEqual(cell5.text, '129S/SvEv-Coq3<tm1Hek> Coq3<tm1Hek>,Coq3<tm1Hek>')
-        #Assert the correct Modification Date is returned in the Modification Date field
-        modifydate = driver.find_element_by_id('createdDate-0').get_attribute('value')
-        self.assertEqual(modifydate, '2019-09-03')        
-
-    def testMpannotCreateDateGreaterEqualSearch(self):
-        """
-        @Status tests that a basic Creation Date by greater than equals works
-        @see pwi-mp-date-search-11 
-        """
-        driver = self.driver
-        #finds the Creation Date field, enters a Date with greater than and equals symbols
-        driver.find_element_by_id("createdDate-0").send_keys('>=2019-05-09')
-        #finds the Search button and clicks it
-        driver.find_element_by_id('searchButton').click()
-        #wait until the Results list is displayed on the page    
-        wait.forAngular(self.driver)
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
-        table = Table(results_table)
-        # get and print the first 2 rows
-        cell0 = table.get_row(0)
-        cell1 = table.get_row(1)
-        cell2 = table.get_row(2)
-        cell3 = table.get_row(3)
-        cell4 = table.get_row(4)
-        cell5 = table.get_row(5)
-        print cell0.text
-        print cell1.text
-        print cell2.text
-        print cell3.text
-        print cell4.text
-        print cell5.text
-        #Assert the correct genotypes have been returned in the results table
-        self.assertEqual(cell0.text, '(C57BL/6NJ-Zpld1<em1(IMPC)J>/Mmjax x B6(129S4)-Zpld1<sprl>/Kjn)F1 Zpld1<em1(IMPC)J>,Zpld1<sprl>')
-        self.assertEqual(cell1.text, '(CWD/LeJ x B10.SM-H2<v> H2-T18<b>/(70NS)SnJ)F1 Hephl1<cw>,Hephl1<cw-2J>')
-        self.assertEqual(cell2.text, '129P1/ReJ-Lama2<dy>/J Lama2<dy>,Lama2<dy>')
-        self.assertEqual(cell3.text, '129P3/J-Ush1c<dfcr-4J>/J Ush1c<dfcr-4J>,Ush1c<dfcr-4J>')
-        self.assertEqual(cell4.text, '129S/SvEv-Coq3<tm1Hek> Coq3<tm1Hek>,Coq3<+>')
-        self.assertEqual(cell5.text, '129S/SvEv-Coq3<tm1Hek> Coq3<tm1Hek>,Coq3<tm1Hek>')
-        #Assert the correct Modification Date is returned in the Modification Date field
-        modifydate = driver.find_element_by_id('createdDate-0').get_attribute('value')
-        self.assertEqual(modifydate, '2019-09-03')    
-        
+       
     def testMpannotCreateDateLessSearch(self):
         """
         @Status tests that a basic Creation Date by less than works
@@ -817,8 +661,8 @@ class TestMpannotSearch(unittest.TestCase):
         # get and print the first 2 rows
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
-        print cell0.text
-        print cell1.text
+        print(cell0.text)
+        print(cell1.text)
         #Assert the correct genotypes have been returned in the results table
         self.assertEqual(cell0.text, '(129/Sv x BALB/c)F1 Slc11a1<r>,Slc11a1<s>')
         self.assertEqual(cell1.text, '(129/Sv x C57BL/6J)F1 Slc11a1<s>,Slc11a1<r>')
@@ -844,8 +688,8 @@ class TestMpannotSearch(unittest.TestCase):
         # get and print the first 2 rows
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
-        print cell0.text
-        print cell1.text
+        print(cell0.text)
+        print(cell1.text)
         #Assert the correct genotypes have been returned in the results table
         self.assertEqual(cell0.text, '129P2/OlaHsd-Prnp<tm1Edin> Prnp<tm1Edin>,Prnp<tm1Edin>')
         self.assertEqual(cell1.text, '129P2/OlaHsd-Prnp<tm1Rcm> Prnp<tm1Rcm>,Prnp<tm1Rcm>')
@@ -871,17 +715,14 @@ class TestMpannotSearch(unittest.TestCase):
         # get and print the first 2 rows
         cell0 = table.get_row(0)
         cell1 = table.get_row(1)
-        print cell0.text
-        print cell1.text
+        print(cell0.text)
+        print(cell1.text)
         #Assert the correct genotypes have been returned in the results table
         self.assertEqual(cell0.text, 'B6.129S4-Mdfi<tm1Krt> Mdfi<tm1Krt>,Mdfi<tm1Krt>')
         self.assertEqual(cell1.text, 'B6EiC3Sn a/A-Egfr<wa2> Wnt3a<vt>/J Egfr<wa2>,Egfr<wa2>')
         #Assert the correct Creation Date is returned in the Creation Date field
         createdate = driver.find_element_by_id('createdDate-0').get_attribute('value')
-        self.assertEqual(createdate, '2002-03-28')        
-
-
-            
+        self.assertEqual(createdate, '2002-03-28')                  
 
 '''
 def suite():
@@ -891,5 +732,5 @@ def suite():
 '''
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    HTMLTestRunner.main()
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))
     

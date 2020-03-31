@@ -32,7 +32,7 @@ class TestHPOBrowser(unittest.TestCase):
         time.sleep(1)
         #identifies the table tags that  contain  parent terms
         parent = driver.find_element(By.ID, 'termPaneDetails').find_elements(By.TAG_NAME, 'td')
-        print [x.text for x in parent]
+        print([x.text for x in parent])
         
         # verifies that the returned part terms are correct
         #self.assertEqual(parent[3].text, "is-a All")
@@ -48,7 +48,7 @@ class TestHPOBrowser(unittest.TestCase):
         time.sleep(2)
         termList = driver.find_elements(By.CLASS_NAME, 'jstree-anchor')
         terms = iterate.getTextAsList(termList)
-        print [x.text for x in termList]
+        print([x.text for x in termList])
         
         # Heterogeneous should not be before the 10th item in the list
         self.assertGreater(terms.index('Heterogeneous'), 10)
@@ -62,15 +62,15 @@ class TestHPOBrowser(unittest.TestCase):
         driver.get(config.TEST_URL + "/vocab/hp_ontology/")
         searchbox = driver.find_element(By.ID, 'searchTerm')
         # put your HPO search term in the search box
-        searchbox.send_keys("Abnormality of the ear")
+        searchbox.send_keys("Abnormality of the chin")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
         searchList = driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
-        print [x.text for x in searchList]
+        print([x.text for x in searchList])
         
         # This term should be returned in the HPO search results
-        self.assertIn('Abnormality of the ear', terms)        
+        self.assertIn('Abnormality of the chin', terms)        
         
     def tearDown(self):
         pass

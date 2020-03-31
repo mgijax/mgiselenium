@@ -11,7 +11,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
-import HTMLTestRunner
+import HtmlTestRunner
 import json
 import sys,os.path
 # adjust the path to find config
@@ -55,7 +55,7 @@ class TestLitSearch(unittest.TestCase):
         #finds the results table and iterates through the table
         result = self.driver.find_element_by_id("resultsTable")
         data = result.find_elements_by_tag_name("td")
-        print iterate.getTextAsList(data)
+        print(iterate.getTextAsList(data))
         #finds the Journal field
         mgiid = data[1].text
         self.assertEqual(mgiid, 'MGI:5812656')        
@@ -105,8 +105,8 @@ class TestLitSearch(unittest.TestCase):
         #finds the J number column and returns all of this columns results
         jnum_cells = table.get_column_cells(2)
         jnums = iterate.getTextAsList(jnum_cells)
-        print jnums
-        self.assertEquals(jnums, ['','J:182573', 'J:173534', 'J:155845', 'J:151466', 'J:136110', 'J:134667', 'J:109968', 'J:75187', 'J:43743', 'J:23392', 'J:23389'])
+        print(jnums)
+        self.assertEqual(jnums, ['','J:182573', 'J:173534', 'J:155845', 'J:151466', 'J:136110', 'J:134667', 'J:109968', 'J:75187', 'J:43743', 'J:23392', 'J:23389'])
         
     def testMultiJnumSpaceSearch(self):
         """
@@ -122,8 +122,8 @@ class TestLitSearch(unittest.TestCase):
         #finds the J number column and returns all of this columns results
         jnum_cells = table.get_column_cells(2)
         jnums = iterate.getTextAsList(jnum_cells)
-        print jnums
-        self.assertEquals(jnums, ['','J:182573', 'J:173534', 'J:155845', 'J:151466', 'J:136110', 'J:134667', 'J:109968', 'J:75187', 'J:43743', 'J:23392', 'J:23389'])
+        print(jnums)
+        self.assertEqual(jnums, ['','J:182573', 'J:173534', 'J:155845', 'J:151466', 'J:136110', 'J:134667', 'J:109968', 'J:75187', 'J:43743', 'J:23392', 'J:23389'])
                        
     def testMultiAssortedSpaceSearch(self):
         """
@@ -139,8 +139,8 @@ class TestLitSearch(unittest.TestCase):
         #finds the J number column and returns all of this columns results
         jnum_cells = table.get_column_cells(2)
         jnums = iterate.getTextAsList(jnum_cells)
-        print jnums
-        self.assertEquals(jnums, ['','J:237402', 'J:212979', 'J:161428', 'J:151466'])
+        print(jnums)
+        self.assertEqual(jnums, ['','J:237402', 'J:212979', 'J:161428', 'J:151466'])
         
             
     def testPubMedSearch(self):
@@ -330,7 +330,7 @@ class TestLitSearch(unittest.TestCase):
         #finds the J number column and returns all of this columns results
         jnum_cells = table.get_column_cells(2)
         jnums = iterate.getTextAsList(jnum_cells)
-        print jnums
+        print(jnums)
         JnumbersReturned = iterate.getTextAsList(jnum_cells)
         #asserts that the following J numbers are returned
         self.assertIn('J:120220', JnumbersReturned)
@@ -353,7 +353,7 @@ class TestLitSearch(unittest.TestCase):
         #finds the J number column and returns all of this columns results
         jnum_cells = table.get_column_cells(2)
         jnums = iterate.getTextAsList(jnum_cells)
-        print jnums
+        print(jnums)
         JnumbersReturned = iterate.getTextAsList(jnum_cells)
         #asserts that the following J numbers are returned
         self.assertIn('J:27973', JnumbersReturned)
@@ -379,7 +379,7 @@ class TestLitSearch(unittest.TestCase):
         #finds the J number column and returns all of this columns results
         jnum_cells = table.get_column_cells(2)
         jnums = iterate.getTextAsList(jnum_cells)
-        print jnums               
+        print(jnums)               
         JnumbersReturned = iterate.getTextAsList(jnum_cells)
         
         #asserts that the following J number is returned
@@ -411,7 +411,7 @@ class TestLitSearch(unittest.TestCase):
         #finds the J number column and returns all of this columns results
         jnum_cells = table.get_column_cells(2)
         jnums = iterate.getTextAsList(jnum_cells)
-        print jnums               
+        print(jnums)               
         JnumbersReturned = iterate.getTextAsList(jnum_cells)
         
         #asserts that the following J number is returned
@@ -453,7 +453,7 @@ class TestLitSearch(unittest.TestCase):
         #finds the selected tags column and verified it contains the added tag
         sel_tags = table.get_column_cells(1)
         used_tags = iterate.getTextAsList(sel_tags)
-        print used_tags
+        print(used_tags)
         #asserts that the following J numbers are returned
         self.assertIn('MGI:NoAbstract', used_tags)
          
@@ -495,14 +495,14 @@ class TestLitSearch(unittest.TestCase):
         go_cell1 = table.get_cell(3,8)
         go_cell2 = table.get_cell(2,8)
         time.sleep(1)
-        self.assertEquals(ap_cell1.text, "Indexed", 'AP is not routed')
-        self.assertEquals(ap_cell2.text, "Full-coded", 'AP is not full-coded')
-        self.assertEquals(go_cell1.text, "Full-coded", 'GO is not routed')
-        self.assertEquals(go_cell2.text, "Indexed", 'GO is not full-coded')
-        print ap_cell1.text
-        print ap_cell2.text
-        print go_cell1.text
-        print go_cell2.text
+        self.assertEqual(ap_cell1.text, "Indexed", 'AP is not routed')
+        self.assertEqual(ap_cell2.text, "Full-coded", 'AP is not full-coded')
+        self.assertEqual(go_cell1.text, "Full-coded", 'GO is not routed')
+        self.assertEqual(go_cell2.text, "Indexed", 'GO is not full-coded')
+        print(ap_cell1.text)
+        print(ap_cell2.text)
+        print(go_cell1.text)
+        print(go_cell2.text)
         
     def testMultiStatusANDSearch(self):
         """
@@ -537,10 +537,10 @@ class TestLitSearch(unittest.TestCase):
         
         time.sleep(2)
         #verifies the 16th AP item is rejected, the 1st AP item is Indexed, the 5th GO item is Rejected and the 1st GO item is Indexed
-        self.assertEquals(ap_cell1.text, "Rejected", 'AP is not indexed')
-        self.assertEquals(go_cell2.text, "Indexed", 'GO is not indexed')
-        print ap_cell1.text
-        print go_cell2.text
+        self.assertEqual(ap_cell1.text, "Rejected", 'AP is not indexed')
+        self.assertEqual(go_cell2.text, "Indexed", 'GO is not indexed')
+        print(ap_cell1.text)
+        print(go_cell2.text)
 
     def testEditorsWildSearch(self):
         """
@@ -556,8 +556,8 @@ class TestLitSearch(unittest.TestCase):
         #finds the J number column and returns all of this columns results
         jnum_cells = table.get_column_cells(2)
         jnums = iterate.getTextAsList(jnum_cells)
-        print jnums
-        self.assertEquals(jnums, ['', 'J:195038'])
+        print(jnums)
+        self.assertEqual(jnums, ['', 'J:195038'])
 
     def testBookTitleWildSearch(self):
         """
@@ -573,8 +573,8 @@ class TestLitSearch(unittest.TestCase):
         #finds the J number column and returns all of this columns results
         jnum_cells = table.get_column_cells(2)
         jnums = iterate.getTextAsList(jnum_cells)
-        print jnums
-        self.assertEquals(jnums, ['', 'J:195038'])     
+        print(jnums)
+        self.assertEqual(jnums, ['', 'J:195038'])     
 
     def testPlaceWildSearch(self):
         """
@@ -590,8 +590,8 @@ class TestLitSearch(unittest.TestCase):
         #finds the J number column and returns all of this columns results
         jnum_cells = table.get_column_cells(2)
         jnums = iterate.getTextAsList(jnum_cells)
-        print jnums
-        self.assertEquals(jnums, ['', 'J:195038', 'J:31532', 'J:30784', 'J:30695'])     
+        print(jnums)
+        self.assertEqual(jnums, ['', 'J:195038', 'J:31532', 'J:30784', 'J:30695'])     
 
     def testPublisherWildSearch(self):
         """
@@ -607,8 +607,8 @@ class TestLitSearch(unittest.TestCase):
         #finds the J number column and returns all of this columns results
         jnum_cells = table.get_column_cells(2)
         jnums = iterate.getTextAsList(jnum_cells)
-        print jnums
-        self.assertEquals(jnums, ['', 'J:195038', 'J:30695', 'J:19241'])     
+        print(jnums)
+        self.assertEqual(jnums, ['', 'J:195038', 'J:30695', 'J:19241'])     
 
     def testEditionWildSearch(self):
         """
@@ -624,8 +624,8 @@ class TestLitSearch(unittest.TestCase):
         #finds the J number column and returns all of this columns results
         jnum_cells = table.get_column_cells(2)
         jnums = iterate.getTextAsList(jnum_cells)
-        print jnums
-        self.assertEquals(jnums, ['', 'J:19241'])     
+        print(jnums)
+        self.assertEqual(jnums, ['', 'J:19241'])     
                           
 '''
 def suite():
@@ -635,5 +635,5 @@ def suite():
 '''
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    HTMLTestRunner.main()
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))
     

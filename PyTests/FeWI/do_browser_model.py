@@ -9,7 +9,7 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-import HTMLTestRunner
+import HtmlTestRunner
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -44,20 +44,20 @@ class TestDoBrowserModelTab(unittest.TestCase):
         self.driver.find_element(By.LINK_TEXT, 'lung cancer').click()
         
         header = self.driver.find_element(By.ID, 'diseaseNameID')#identifies the header section of the DO Browser page
-        print header.text
+        print(header.text)
         
         self.assertEqual(header.text, "lung cancer (DOID:1324)")
         syn = self.driver.find_element(By.ID, 'diseaseSynonym')#identifies the synonym line in the header section of the DO Browser page
-        print syn.text
+        print(syn.text)
         
         self.assertEqual(syn.text, "lung neoplasm")
         alt_id = self.driver.find_element(By.ID, 'diseaseSecondaryIDs')#identifies the alternate IDs line of the header section of the DO Browser page
-        print alt_id.text
+        print(alt_id.text)
         
         self.assertEqual(alt_id.text, "OMIM:211980, OMIM:608935, OMIM:612571, OMIM:612593, OMIM:614210, DOID:13075, DOID:1322, DOID:9881, ICD10CM:C34.1, ICD10CM:C34.2, ICD10CM:C34.3, ICD9CM:162.3, ICD9CM:162.4, ICD9CM:162.5, ICD9CM:162.8, UMLS_CUI:C0024624, UMLS_CUI:C0153491, UMLS_CUI:C0153492, UMLS_CUI:C0153493")
         #locates and verifies the definition
         definition = self.driver.find_element(By.ID, 'diseaseDefinition')#identifies the Definition line of the header section of the DO Browser page
-        print definition.text
+        print(definition.text)
         
         self.assertEqual(definition.text, "A respiratory system cancer that is located_in the lung.")
         
@@ -65,7 +65,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         '''
         @status this test verifies the correct genes, models and source are returned. This test example displays a disease that returns
         results for associations to mouse/human(6), just mouse(1), and 3 NOT models
-        BUG: not sorting as espected, should be smart alpha
+        BUG: not sorting as expected, should be smart alpha. **Hard to fix with no secondary sort!!!
         '''
         print ("BEGIN test_dobrowser_modeltab_mh_m_not")
         searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
@@ -80,7 +80,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         model_table = self.driver.find_element(By.ID, "modelTabTable")
         table = Table(model_table)
         cells = table.get_rows()
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #displays each row of disease model data
         row1 = cells[2]
         row2 = cells[3]
@@ -89,19 +89,24 @@ class TestDoBrowserModelTab(unittest.TestCase):
         row5 = cells[6]
         row6 = cells[7]
         row7 = cells[8]
+        row8 = cells[9]
+        row9 = cells[10]
         
         self.assertEqual(row1.text, '         distal arthrogryposis Fbn2fp-4J/Fbn2fp-4J BALB/cByJ-Fbn2fp-4J/GrsrJ J:222308 View')
-        self.assertEqual(row2.text, 'distal arthrogryposis Fbn2tm1Rmz/Fbn2tm1Rmz either: (involves: 129/Sv) or (involves: 129/Sv * C57BL/6J) J:70592 View')
-        self.assertEqual(row3.text, 'distal arthrogryposis Ecel1tm1Hiki/Ecel1tm1Hiki\nTg(Hlxb9-GFP)1Tmj/0 involves: 129S1/Sv * 129X1/SvJ * C57BL/6 * CBA J:262090 View')
-        self.assertEqual(row4.text, 'distal arthrogryposis Fbn2tm1Rmz/Fbn2tm1Rmz involves: 129S/SvEv J:166786 View')
-        self.assertEqual(row5.text, 'distal arthrogryposis Fbn2mz/Fbn2mz involves: BALB/cAnNCrl * C3H/HeH J:157998 View')
-        self.assertEqual(row6.text, 'distal arthrogryposis Ecel1em1Hiki/Ecel1em1Hiki\nTg(Hlxb9-GFP)1Tmj/0 involves: C57BL/6 * CBA J:262090 View')
-        self.assertEqual(row7.text, '         distal arthrogryposis b2b2966Clo/b2b2966Clo C57BL/6J-b2b2966Clo J:175213 View')
+        self.assertEqual(row2.text, 'distal arthrogryposis b2b2966Clo/b2b2966Clo C57BL/6J-b2b2966Clo J:175213 View')
+        self.assertEqual(row3.text, 'distal arthrogryposis Fbn2tm1Rmz/Fbn2tm1Rmz either: (involves: 129/Sv) or (involves: 129/Sv * C57BL/6J) J:70592 View')
+        self.assertEqual(row4.text, 'distal arthrogryposis Tnni2tm1Sgao/Tnni2t involves: 129 * ICR J:228857 View')
+        self.assertEqual(row5.text, '')                 
+        self.assertEqual(row6.text, 'distal arthrogryposis Ecel1tm1Hiki/Ecel1tm1Hiki\nTg(Hlxb9-GFP)1Tmj/0 involves: 129S1/Sv * 129X1/SvJ * C57BL/6 * CBA J:262090 View')
+        self.assertEqual(row7.text, 'distal arthrogryposis Fbn2tm1Rmz/Fbn2tm1Rmz involves: 129S/SvEv J:166786 View')
+        self.assertEqual(row8.text, 'distal arthrogryposis Fbn2mz/Fbn2mz involves: BALB/cAnNCrl * C3H/HeH J:157998 View')
+        self.assertEqual(row9.text, 'distal arthrogryposis Ecel1em1Hiki/Ecel1em1Hiki\nTg(Hlxb9-GFP)1Tmj/0 involves: C57BL/6 * CBA J:262090 View')
+        
         time.sleep(2)
         notmodel_table = self.driver.find_element(By.ID, 'modelTabNotTable')
         table = Table(notmodel_table)
         cells = table.get_rows()
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #displays each row of NOT models data
         row1 = cells[2]
         row2 = cells[3]
@@ -128,7 +133,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         model_table = self.driver.find_element(By.ID, 'modelTabTable')
         table = Table(model_table)
         cells = table.get_rows()
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #displays each row of disease model data
         row1 = cells[2]
         self.assertEqual(row1.text, 'Transgenes and\nOther Mutations        Sotos syndrome Del(13Simc1-B4galt7)2Dja/+ involves: 129P2/OlaHad * 129S7/SvEvBrd * C57BL/6J J:190741 View')
@@ -136,7 +141,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         notmodel_table = self.driver.find_element(By.ID, 'modelTabNotTable')
         table = Table(notmodel_table)
         cells = table.get_rows()
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #displays each row of NOT models data
         row1 = cells[2]
         self.assertEqual(row1.text, 'NOT Models         Sotos syndrome Nsd1tm1.1Pcn/Nsd1tm1.1Pcn involves: 129/Sv * C57BL/6 J:83923 View')
@@ -159,7 +164,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         model_table = self.driver.find_element(By.ID, 'modelTabTable')
         table = Table(model_table)
         cells = table.get_rows()
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #displays each row of disease model data
         row1 = cells[2]
         row2 = cells[3]
@@ -182,7 +187,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         notmodel_table = self.driver.find_element(By.ID, 'modelTabNotTable')
         table = Table(notmodel_table)
         cells = table.get_rows()
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #displays each row of NOT models data
         row1 = cells[2]
         row2 = cells[3]
@@ -211,7 +216,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         model_table = self.driver.find_element(By.ID, 'modelTabTable')
         table = Table(model_table)
         cells = table.get_rows()
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #displays each row of disease model data
         row1 = cells[2]
         row2 = cells[3]
@@ -234,7 +239,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         notmodel_table = self.driver.find_element(By.ID, 'modelTabNotTable')
         table = Table(notmodel_table)
         cells = table.get_rows()
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #displays each row of NOT models data
         row1 = cells[2]
         row2 = cells[3]
@@ -261,7 +266,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         model_table = self.driver.find_element(By.ID, 'modelTabTable')
         table = Table(model_table)
         cells = table.get_rows()
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #displays each row of disease model data
         row1 = cells[2]
         row2 = cells[3]
@@ -272,7 +277,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         notmodel_table = self.driver.find_element(By.ID, 'modelTabNotTable')
         table = Table(notmodel_table)
         cells = table.get_rows()
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #displays fourth row of NOT models data
         row4 = cells[5]
         self.assertEqual(row4.text, 'pheochromocytoma Rettm1Cos/Rettm2.1Cos involves: 129S/SvEv * 129S1/Sv * C57BL/6J * FVB/N * MF1 J:60659 View')
@@ -294,7 +299,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         model_table = self.driver.find_element(By.ID, 'modelTabTable')
         table = Table(model_table)
         cells = table.get_rows()
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #displays each row of disease model data
         row1 = cells[2]
         row2 = cells[3]
@@ -336,7 +341,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         notmodel_table = self.driver.find_element(By.ID, 'modelTabNotTable')
         table = Table(notmodel_table)
         cells = table.get_rows()
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #displays each row of NOT models data
         row1 = cells[2]
         self.assertEqual(row1.text, 'NOT Models         rheumatoid arthritis Ighmtm1Cgn/Ighmtm1Cgn\nTg(TcraR28,TcrbR28)KRNDim/0 involves: 129S2/SvPas * C57BL/6 * NOD * SJL J:36815 View')
@@ -358,7 +363,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         model_table = self.driver.find_element(By.ID, 'modelTabTable')
         table = Table(model_table)
         cells = table.get_rows()
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #displays each row of gene data
         row1 = cells[2]
         row2 = cells[3]
@@ -389,7 +394,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         model_table = self.driver.find_element(By.ID, 'modelTabTable')
         table = Table(model_table)
         cells = table.get_rows()
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #displays each row of disease model data
         row1 = cells[2]
         self.assertEqual(row1.text, '         porphyria cutanea tarda Hfetm2Nca/Hfetm2Nca\nUrodtm1Kush/Urod+ involves: C57BL/6J J:66704 View')
@@ -411,7 +416,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         model_table = self.driver.find_element(By.ID, 'modelTabTable')
         table = Table(model_table)
         cells = table.get_rows()
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #displays each row of disease model data
         row1 = cells[2]
         row2 = cells[3]
@@ -485,7 +490,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         notmodel_table = self.driver.find_element(By.ID, 'modelTabNotTable')
         table = Table(notmodel_table)
         cells = table.get_rows()
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #displays each row of NOT models data
         row1 = cells[2]
         row2 = cells[3]
@@ -523,4 +528,4 @@ def suite():
         
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.TestDoBrowserModelTab']
-    HTMLTestRunner.main() 
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))

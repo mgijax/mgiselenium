@@ -5,13 +5,13 @@ Created on Jun 8, 2018
 '''
 
 import unittest
-from strain_qf import TestStrainQF
-from strain_detail import TestStrainDetail
-from strain_summary import TestStrainSummary
-from ref_by_strain import TestRefByStrain
-from reference_summary_bystrain import TestReferenceSummaryStrain
+from .strain_qf import TestStrainQF
+from .strain_detail import TestStrainDetail
+from .strain_summary import TestStrainSummary
+from .ref_by_strain import TestRefByStrain
+from .reference_summary_bystrain import TestReferenceSummaryStrain
 import os
-import HTMLTestRunner
+import HtmlTestRunner
 from FeWI import strain_qf, strain_detail, strain_summary, ref_by_strain, reference_summary_bystrain
 
 def main():
@@ -26,7 +26,7 @@ def main():
 #file
     dir = os.getcwd()
     outfile = open(r"C:\WebdriverTests\Straintestreport.html", "w")
-    runner = HTMLTestRunner.HTMLTestRunner(stream = outfile,title = 'Test Report',description = 'Strains Test Report')
+    runner = HtmlTestRunner.HTMLTestRunner(stream = outfile,title = 'Test Report',description = 'Strains Test Report')
     runner.run(strain_tests)
 
 if __name__=="__main__":

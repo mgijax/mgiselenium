@@ -12,7 +12,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-import HTMLTestRunner
+import HtmlTestRunner
 import sys,os.path
 from selenium.webdriver.support.wait import WebDriverWait
 # adjust the path to find config
@@ -50,7 +50,7 @@ class TestLitEdit(unittest.TestCase):
     def testRefStatusEdit(self):
         """
         @Status tests that changing a "not routed" reference to "chosen" assigns it a J number
-        @attention: This test works but once you have chnaged it to chosen the J number will always be present
+        @attention: This test works but once you have changed it to chosen the J number will always be present
         @see MBIB-edit-1,2 (1)
         """
         #enter text into the authors filed,click the alleles Not Routed box then search
@@ -77,7 +77,7 @@ class TestLitEdit(unittest.TestCase):
         #Verifies Chosen status is selected for AP now in the table
         chosen1 = self.driver.find_element_by_name('90')
         self.assertTrue( chosen1.is_selected())
-        print chosen1.text
+        print(chosen1.text)
         #select the not routed status for AP tp put the data back to normal
         table_element1 = self.driver.find_element_by_id('editTabWorkFlowStatus')
         norouted = table_element1.find_element_by_css_selector('tbody>tr:nth-child(1)>td:nth-child(2)>input').click()
@@ -94,7 +94,7 @@ class TestLitEdit(unittest.TestCase):
         form.click_search()
         #finds the Reference Type field and return it's text value
         ref_type = self.driver.find_element_by_id("editTabRefType").get_attribute('value')
-        print ref_type
+        print(ref_type)
         self.assertEqual(ref_type, '31576686')#31576686 = MGI Curation Record
         #finds the Reference type field and modify its value
         select = Select(self.driver.find_element_by_id("editTabRefType"))
@@ -155,7 +155,7 @@ class TestLitEdit(unittest.TestCase):
         #finds the selected tags column and verified it contains the added tag
         sel_tags = table.get_column_cells(1)
         used_tags = iterate.getTextAsList(sel_tags)
-        print used_tags
+        print(used_tags)
         #asserts that the following J numbers are returned
         self.assertIn('MGI:CorrectionAdded', used_tags)
         
@@ -177,7 +177,7 @@ class TestLitEdit(unittest.TestCase):
         wait.forAngular(self.driver)
         #finds the Supplemental and verifies the correct option is selected.
         supp = self.driver.find_element_by_id("editTabSuppData").get_attribute('value')
-        print supp
+        print(supp)
         #asserts that the following J numbers are returned
         self.assertEqual(supp, 'Supplement attached', 'The wrong supplemental is displayed!')
         

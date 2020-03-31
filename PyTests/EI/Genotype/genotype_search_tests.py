@@ -12,7 +12,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
-import HTMLTestRunner
+import HtmlTestRunner
 import json
 import sys,os.path
 from test.test_base64 import BaseXYTestCase
@@ -61,24 +61,24 @@ class TestGenotypeSearch(unittest.TestCase):
         #Iterate and print the table results
         header_cells = table.get_header_cells()
         headings = iterate.getTextAsList(header_cells)
-        print headings
+        print(headings)
         #assert the headers are correct
         self.assertEqual(headings, ['', '#', 'Chr', 'Marker', 'Allele 1', 'Allele 2', 'State', 'Compound', 'Mutant 1', 'Mutant 2'])
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'alleleDetailNote')))
         #find the search results table first row of data
         mrk1 = driver.find_element_by_id('markerSymbol-0').get_property('value')
-        print mrk1
+        print(mrk1)
         al1 = driver.find_element_by_id('allele1-0').get_property('value')
-        print al1
+        print(al1)
         al2 = driver.find_element_by_id('allele2-0').get_property('value')
-        print al2
+        print(al2)
         state1 = driver.find_element_by_id('pairState-0').get_property('value')#value should be 'string:847138' that equals Homozygous
-        print state1
+        print(state1)
         cmpd1 = driver.find_element_by_id('compound-0').get_property('value')#value should be 'string:847167' that equals Not Applicable
-        print cmpd1        
+        print(cmpd1)        
         disply = driver.find_element_by_id('alleleDetailNote').get_property('value')
-        print disply
+        print(disply)
         #we are asserting the first row of data plus Allele Detail Display is correct
         self.assertEqual(mrk1, 'Adamts13')
         self.assertEqual(al1, 'Adamts13<s>')
@@ -105,7 +105,7 @@ class TestGenotypeSearch(unittest.TestCase):
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'alleleDetailNote')))
         #find the Conditionally Targeted field and confirm it is Yes
         contar = driver.find_element_by_id('isConditional').get_property('value')
-        print contar
+        print(contar)
         #we are asserting the Conditionally Targeted field is Yes for the first result
         self.assertEqual(contar, 'string:1')#string:1 equals Yes
         
@@ -127,7 +127,7 @@ class TestGenotypeSearch(unittest.TestCase):
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'resultsTable')))
         #find the search Genotype Exista as field and get it's value
         exists0 = driver.find_element_by_id('existsAs').get_property('value')
-        print exists0    
+        print(exists0)    
         #we are asserting the Genotype Exists as field is correct, should be string:3982947 which is Cell Line
         self.assertEqual(exists0, 'string:3982947')
         
@@ -149,7 +149,7 @@ class TestGenotypeSearch(unittest.TestCase):
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'resultsTable')))
         #find the search Genotype Exista as field and get it's value
         exists0 = driver.find_element_by_id('existsAs').get_property('value')
-        print exists0    
+        print(exists0)    
         #we are asserting the Genotype Exists as field is correct, should be string:3982948 which is Chimeric
         self.assertEqual(exists0, 'string:3982948')
 
@@ -171,7 +171,7 @@ class TestGenotypeSearch(unittest.TestCase):
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'resultsTable')))
         #find the search Genotype Exista as field and get it's value
         exists0 = driver.find_element_by_id('existsAs').get_property('value')
-        print exists0    
+        print(exists0)    
         #we are asserting the Genotype Exists as field is correct, should be string:3982946 which is Mouse Line
         self.assertEqual(exists0, 'string:3982946')
 
@@ -193,7 +193,7 @@ class TestGenotypeSearch(unittest.TestCase):
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'resultsTable')))
         #find the search Genotype Exista as field and get it's value
         exists0 = driver.find_element_by_id('existsAs').get_property('value')
-        print exists0    
+        print(exists0)    
         #we are asserting the Genotype Exists as field is correct, should be string:3982949 which is Not Specified
         self.assertEqual(exists0, 'string:3982949')
 
@@ -216,7 +216,7 @@ class TestGenotypeSearch(unittest.TestCase):
         #find the chromosone field of the first row
         chrom0 = driver.find_element_by_id('chromsome-0').get_property('value')
         time.sleep(2)
-        print chrom0
+        print(chrom0)
         #we are asserting the chromosome data is correct
         self.assertEqual(chrom0, 'string:X')
 
@@ -238,14 +238,14 @@ class TestGenotypeSearch(unittest.TestCase):
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'resultsTable')))
         #find the marker field and get it's value
         mrksym0 = driver.find_element_by_id('markerSymbol-0').get_property('value')
-        print mrksym0    
+        print(mrksym0)    
         #we are asserting the marker field is correct
         self.assertEqual(mrksym0, 'Gata1')
 
     def testGenoAlleleSearch(self):
         """
         @Status tests that a basic genotype allele symbol search works
-        @see pwi-geno-search-9
+        @see pwi-geno-search-9 ***this test breaks but why it can't find the Allele1 symbol is a mystery to me.
         """
         driver = self.driver
         #finds the Allele 1 field and then enters text, then clicks the Search button
@@ -257,12 +257,11 @@ class TestGenotypeSearch(unittest.TestCase):
         time.sleep(2)
         driver.find_element_by_id('searchButton').click()
         #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'jnum-0')))
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'resultsTable')))
         #find the Allele 1 field for row 2 and get it's value
         allsym1 = driver.find_element_by_id('allele1-1').get_property('value')
-        time.sleep(2)
-        print allsym1    
-        #we are asserting the marker field is correct
+        print(allsym1)    
+        #we are asserting the allele1 field is correct
         self.assertEqual(allsym1, 'Dmd<mdx>')
 
     def testGenoStateSearch(self):
@@ -280,7 +279,7 @@ class TestGenotypeSearch(unittest.TestCase):
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'resultsTable')))
         #find the State field and get it's value
         state0 = driver.find_element_by_id('pairState-0').get_property('value')
-        print state0    
+        print(state0)    
         #we are asserting the State field is correct, should be string:7107400 which is Homoplasmic
         self.assertEqual(state0, 'string:7107400')            
 
@@ -299,7 +298,7 @@ class TestGenotypeSearch(unittest.TestCase):
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'resultsTable')))
         #find the Compound field and get it's value
         cmpd0 = driver.find_element_by_id('compound-0').get_property('value')
-        print cmpd0    
+        print(cmpd0)    
         #we are asserting the Compound field is correct, should be string:847165 which is Top
         self.assertEqual(cmpd0, 'string:847165')     
 
@@ -322,7 +321,7 @@ class TestGenotypeSearch(unittest.TestCase):
         #find the J# field and get it's value
         jnumber = driver.find_element_by_id('jnum-0').get_property('value')
         time.sleep(2)
-        print jnumber    
+        print(jnumber)    
         #we are asserting the J# field is correct
         self.assertEqual(jnumber, 'J:124405')
 
@@ -335,5 +334,5 @@ def suite():
 '''
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    HTMLTestRunner.main()
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))
     

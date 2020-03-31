@@ -54,7 +54,7 @@ class TestFile(unittest.TestCase):
                 os.path.join(os.path.dirname(__file__), 
                 '..', '..', 'data','embossdata.txt')
         )
-        print embossIds
+        print(embossIds)
     
         for embossId in embossIds:
             chrLine = None
@@ -74,7 +74,7 @@ class TestFile(unittest.TestCase):
                 try:
                     self.assertNotIn("An error occurred", self.driver.page_source)
                 except:
-                    print embossId + ' ID has an error.'
+                    print(embossId + ' ID has an error.')
                     pass
                 self.assertIn(embossId, self.driver.page_source)
                 

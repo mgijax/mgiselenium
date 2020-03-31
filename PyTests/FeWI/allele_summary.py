@@ -80,13 +80,13 @@ class TestAlleleSummary(unittest.TestCase):
         table = Table(disease_table)
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
-        print iterate.getTextAsList(header_cells)
+        print(iterate.getTextAsList(header_cells))
         
         # print row 1
         cells = table.get_column_cells("Human Diseases")
         disease_cells = iterate.getTextAsList(cells)
-        print disease_cells
-        self.assertEquals(disease_cells[1], 'myelofibrosis\nIDs')
+        print(disease_cells)
+        self.assertEqual(disease_cells[1], 'myelofibrosis\nIDs')
         
     def test_disease_doids_bymarker(self):
         '''
@@ -99,9 +99,9 @@ class TestAlleleSummary(unittest.TestCase):
         #this is finding all the cells in every row so you need to count cells to find the item you want
         cells = data_table.find_elements_by_tag_name("td")
         searchTextItems = iterate.getTextAsList(cells)
-        print searchTextItems
-        #this is the 11th cell which corresponds to the Human Disease odel result for the second allele 
-        self.assertEqual(searchTextItems[23], 'brachydactyly type A1 (IDs)')
+        print(searchTextItems)
+        #this is the 41st cell which corresponds to the Human Disease model result for the seventh allele 
+        self.assertEqual(searchTextItems[41], 'brachydactyly type A1 (IDs)')
         
         
     def tearDown(self):

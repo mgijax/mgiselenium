@@ -3,7 +3,7 @@ Created on Nov 1, 2016
 
 @author: jeffc
 '''
-from cStringIO import StringIO
+from io import StringIO
 class Report (object):
     _report_string=None
     

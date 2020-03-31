@@ -202,10 +202,10 @@ class TestImagePanePage(unittest.TestCase):
         row18 = rows[18]
         row19 = rows[19]
         #asserts that the rows of data are correct for the first 18 rows
-        self.assertEqual(row1.text, 'MGI:3522445\n1 Syndecan-1 MGI:3522591 (Sdc1) RT-PCR')
-        self.assertEqual(row2.text, 'MGI:3522445\n1 Syndecan-2 MGI:3522592 (Sdc2) RT-PCR')
-        self.assertEqual(row3.text, 'MGI:3522445\n1 Syndecan-3 MGI:3522593 (Sdc3) RT-PCR')
-        self.assertEqual(row4.text, 'MGI:3522445\n1 Syndecan-4 MGI:3522594 (Sdc4) RT-PCR')
+        self.assertEqual(row1.text, 'MGI:3522445\n1 _Syndecan-1 MGI:3522591 (Sdc1) RT-PCR')
+        self.assertEqual(row2.text, 'MGI:3522445\n1 _Syndecan-2 MGI:3522592 (Sdc2) RT-PCR')
+        self.assertEqual(row3.text, 'MGI:3522445\n1 _Syndecan-3 MGI:3522593 (Sdc3) RT-PCR')
+        self.assertEqual(row4.text, 'MGI:3522445\n1 _Syndecan-4 MGI:3522594 (Sdc4) RT-PCR')
         self.assertEqual(row5.text, 'MGI:3522448\n2 A 2A MGI:3522619 (Sdc1) Immunohistochemistry')
         self.assertEqual(row6.text, "2A MGI:3522621 (Hspg2) Immunohistochemistry")
         self.assertEqual(row7.text, "2A MGI:3522624 (Tubb3) Immunohistochemistry")
@@ -309,7 +309,7 @@ class TestImagePanePage(unittest.TestCase):
         accidbox = driver.find_element_by_id('accids')
         # put your J number in the box
         accidbox.send_keys("J:85638")
-        accidbox.send_keys(Keys.RETURN)
+        accidbox.send_keys(Keys.RETURN) 
         time.sleep(3)
         #finds the specimens link and clicks it
         driver.find_element_by_link_text("Exp Images").click()
@@ -331,20 +331,26 @@ class TestImagePanePage(unittest.TestCase):
         row11 = rows[11]
         row12 = rows[12]
         row13 = rows[13]
+        print(row1.text)
+        print(row2.text)
+        print(row3.text)
+        print(row4.text)
+        print(row5.text)
+        print(row6.text)
         #asserts that the rows of data are correct for the first 13 rows
         self.assertEqual(row1.text, 'MGI:5750634\n3 A MGI:5750650 (H13) Northern blot')
         self.assertEqual(row2.text, 'MGI:5750637\n4 A 4A MGI:5750680 (H13) RNA in situ')
         self.assertEqual(row3.text, 'MGI:5750637\n4 B 4B MGI:5750680 (H13) RNA in situ')
         self.assertEqual(row4.text, 'MGI:5750637\n4 C 4C MGI:5750680 (H13) RNA in situ')
-        self.assertEqual(row5.text, 'MGI:5750638\n5 E5.5 5 E5.5 embryo, 5 E5.5 mother MGI:5750680 (H13) RNA in situ')
-        self.assertEqual(row6.text, 'MGI:5750638\n5 E6.5 5 E6.5 embryo, 5 E6.5 mother MGI:5750680 (H13) RNA in situ')
-        self.assertEqual(row7.text, 'MGI:5750638\n5 E7.5 5 E7.5 embryo, 5 E7.5 mother MGI:5750680 (H13) RNA in situ')
-        self.assertEqual(row8.text, 'MGI:5750638\n5 E8.5 5 E8.5 embryo, 5 E8.5 mother MGI:5750680 (H13) RNA in situ')
-        self.assertEqual(row9.text, 'MGI:5750638\n5 E9.5 5 E9.5 embryo, 5 E9.5 mother MGI:5750680 (H13) RNA in situ')
-        self.assertEqual(row10.text, 'MGI:5750639\n6 E10.5 6 E10.5 MGI:5750680 (H13) RNA in situ')
-        self.assertEqual(row11.text, 'MGI:5750639\n6 E11.5 6 E11.5 MGI:5750680 (H13) RNA in situ')
-        self.assertEqual(row12.text, 'MGI:5750639\n6 E13.5 6 E13.5 MGI:5750680 (H13) RNA in situ')
-        self.assertEqual(row13.text, 'MGI:5750639\n6 E14.5 6 E14.5 MGI:5750680 (H13) RNA in situ')
+        self.assertEqual(row5.text, 'MGI:5750638\n5 _E5.5 5 E5.5 embryo, 5 E5.5 mother MGI:5750680 (H13) RNA in situ')
+        self.assertEqual(row6.text, 'MGI:5750638\n5 _E6.5 5 E6.5 embryo, 5 E6.5 mother MGI:5750680 (H13) RNA in situ')
+        self.assertEqual(row7.text, 'MGI:5750638\n5 _E7.5 5 E7.5 embryo, 5 E7.5 mother MGI:5750680 (H13) RNA in situ')
+        self.assertEqual(row8.text, 'MGI:5750638\n5 _E8.5 5 E8.5 embryo, 5 E8.5 mother MGI:5750680 (H13) RNA in situ')
+        self.assertEqual(row9.text, 'MGI:5750638\n5 _E9.5 5 E9.5 embryo, 5 E9.5 mother MGI:5750680 (H13) RNA in situ')
+        self.assertEqual(row10.text, 'MGI:5750639\n6 _E10.5 6 E10.5 MGI:5750680 (H13) RNA in situ')
+        self.assertEqual(row11.text, 'MGI:5750639\n6 _E11.5 6 E11.5 MGI:5750680 (H13) RNA in situ')
+        self.assertEqual(row12.text, 'MGI:5750639\n6 _E13.5 6 E13.5 MGI:5750680 (H13) RNA in situ')
+        self.assertEqual(row13.text, 'MGI:5750639\n6 _E14.5 6 E14.5 MGI:5750680 (H13) RNA in situ')
 
     def test_images_noassay(self):
         """

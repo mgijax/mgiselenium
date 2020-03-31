@@ -10,12 +10,12 @@ import sys,os.path
 sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../..',)
 )
-import config
+
+from configparser import SafeConfigParser
 from util import iterate, wait
 import time
 
-# constants
-BROWSER_URL = config.TEST_PWI_URL + "/edit/emapaBrowser"
+
 
 class EmapaBaseClass(object):
     """
@@ -23,6 +23,12 @@ class EmapaBaseClass(object):
     """
     
     def init(self):
+        parser = SafeConfigParser()
+        parser.read("..\..\..\config\config.ini")
+        base_url = parser.get('testpwi', 'test_dogdev_pwi_url')
+        print('>>>', base_url)
+        # constants
+        BROWSER_URL = base_url + "/edit/emapaBrowser"
         self.driver = webdriver.Chrome()
         self.driver.get(BROWSER_URL)
         self.driver.implicitly_wait(10)

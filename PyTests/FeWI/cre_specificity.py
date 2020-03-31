@@ -46,8 +46,8 @@ class TestCreSpecificity(unittest.TestCase):
         term1 = table.get_cell(3, 0)
         term2 = table.get_cell(3, 1)
         
-        print term1.text
-        print term2.text
+        print(term1.text)
+        print(term2.text)
         time.sleep(2)
         # verifies the returned terms are the correct terms for this search
         self.assertEqual('Project Collection:', term1.text, 'Term1 is not returning' )
@@ -81,7 +81,7 @@ class TestCreSpecificity(unittest.TestCase):
         #gets the data found on the Project collection row of the Mutation origin ribbon
         term1 = table.get_cell(5, 3)
         
-        print term1.text
+        print(term1.text)
         time.sleep(2)
         # verifies the returned terms are the correct terms for this search
         #self.assertEqual('Project Collection:', term1.text, 'Term1 is not returning' )

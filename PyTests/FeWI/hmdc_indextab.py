@@ -10,7 +10,7 @@ import time
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
-import HTMLTestRunner
+import HtmlTestRunner
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -25,7 +25,7 @@ class TestHmdcIndex(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Chrome()
-        self.driver.get(config.TEST_URL + "/humanDisease.shtml")
+        self.driver.get(config.TEST_URL + "/diseasePortal")
         self.driver.implicitly_wait(10)
         
     def test_index_tab_headers(self):
@@ -46,7 +46,7 @@ class TestHmdcIndex(unittest.TestCase):
         self.driver.find_element_by_id("searchButton").click()
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
-        print grid_tab.text
+        print(grid_tab.text)
         time.sleep(2)
         self.assertIn("Gene Homologs x Phenotypes/Diseases (", grid_tab.text)
         grid_tab.click()
@@ -74,7 +74,7 @@ class TestHmdcIndex(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         grid_tab.click()
         
         #captures all the table data blocks of phenotypes and diseases on the first row of data
@@ -87,7 +87,7 @@ class TestHmdcIndex(unittest.TestCase):
         time.sleep(1)
         matching_text = "Human Genes and Mouse Models for hematopoietic system disease and GATA1/Gata1"
         #asserts the heading text is correct in page source
-        print self.driver.title
+        print(self.driver.title)
         self.assertIn(matching_text, self.driver.title, 'matching mouse/human text not displayed')
         self.driver.close()
         self.driver.switch_to_window(parentWindowID)
@@ -95,7 +95,7 @@ class TestHmdcIndex(unittest.TestCase):
         #click on disease cell with only human annotations; verify pop-up title
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         
         grid_tab.click()
         phenoDiseaseCells[23].click() #clicks the first phenotype data cell to open up the craniofacial phenotype popup page
@@ -103,7 +103,7 @@ class TestHmdcIndex(unittest.TestCase):
         time.sleep(2)
         matching_text = "Human Genes for chromosomal disease and GATA1/Gata1"
         #asserts the heading text is correct in page source
-        print self.driver.title
+        print(self.driver.title)
         self.assertIn(matching_text, self.driver.title, 'matching human only text not displayed')
         self.driver.close()
         self.driver.switch_to_window(parentWindowID)
@@ -111,7 +111,7 @@ class TestHmdcIndex(unittest.TestCase):
         #click on disease cell with only mouse annotations; verify pop-up title
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         
         grid_tab.click()
         phenoDiseaseCells[25].click() #clicks the first phenotype data cell to open up the craniofacial phenotype popup page
@@ -119,16 +119,16 @@ class TestHmdcIndex(unittest.TestCase):
         time.sleep(2)
         matching_text = "Mouse Models for immune system disease and GATA1/Gata1"
         #asserts the heading text is correct in page source
-        print self.driver.title
+        print(self.driver.title)
         self.assertIn(matching_text, self.driver.title, 'matching mouse only text not displayed')
         
         #Identify the table
         mouse_geno_table = self.driver.find_element_by_class_name("popupTable")
         data = mouse_geno_table.find_element_by_tag_name("td")
-        print data.text
+        print(data.text)
         #find all the TR tags in the table and iterate through them
         cells = mouse_geno_table.find_elements_by_tag_name("tr")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         
         #move mouse genotype data
         mouseGenotypeRows = iterate.getTextAsList(cells)
@@ -161,10 +161,10 @@ class TestHmdcIndex(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         grid_tab.click()
         hgenes = self.driver.find_element_by_css_selector("td.ngc.left.middle.cell.first")
-        print hgenes.text
+        print(hgenes.text)
         self.assertEqual(hgenes.text, 'GATA1') #returned due to gene nomenclature match
         mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
         
@@ -173,7 +173,7 @@ class TestHmdcIndex(unittest.TestCase):
         self.assertIn("Tg(Gata1)#Mym", searchTermItems) #returned due to Expressed Component w/ rolled up genocluster
         self.assertIn("Tg(Gata1*V205G)1Mym", searchTermItems) #returned due to Expressed Component w/ rolled up genocluster
         self.assertIn("Tg(HBB-Gata1)G4Phi", searchTermItems) #returned due to Expressed Component w/ rolled up genocluster
-        print searchTermItems
+        print(searchTermItems)
         
     def test_index_tab_genes_Unique_symbol(self):
         '''
@@ -195,14 +195,14 @@ class TestHmdcIndex(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         
         grid_tab.click()
         mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
         
         searchTermItems = iterate.getTextAsList(mgenes)
         self.assertEqual(searchTermItems[0], "Tg(IGH@*)SALed")
-        print searchTermItems
+        print(searchTermItems)
         
     def test_genotype_popup(self):
         '''
@@ -225,7 +225,7 @@ class TestHmdcIndex(unittest.TestCase):
         #identify the Grid tab and print out tab text
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         
         grid_tab.click()
         #captures all the table data blocks of phenotypes on the first row of data
@@ -244,7 +244,7 @@ class TestHmdcIndex(unittest.TestCase):
         # Grid pop-up for a Phenotype System with only Human annotations
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         
         grid_tab.click()
         phenocells[2].click() #clicks the first phenotype data cell to open up the craniofacial phenotype popup page
@@ -252,7 +252,7 @@ class TestHmdcIndex(unittest.TestCase):
         time.sleep(2)
         matching_text = "Human craniofacial abnormalities for GATA1/Gata1"
         #asserts the heading text is correct in page source
-        print self.driver.title
+        print(self.driver.title)
         self.assertIn(matching_text, self.driver.title, 'matching human only text not displayed')
         self.driver.close()
         self.driver.switch_to_window(parentWindowID)
@@ -260,7 +260,7 @@ class TestHmdcIndex(unittest.TestCase):
         # Grid popup for a Phenotype System with only Mouse annotations
         grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
-        print grid_tab.text
+        print(grid_tab.text)
         
         grid_tab.click()
         phenocells[13].click() #clicks the phenotype data cell to open up the Phenotype popup page
@@ -273,10 +273,10 @@ class TestHmdcIndex(unittest.TestCase):
         #Identify the table
         mouse_geno_table = self.driver.find_element_by_css_selector("p > table.popupTable ")
         data = mouse_geno_table.find_element_by_tag_name("td")
-        print data.text
+        print(data.text)
         #find all the TR tags in the table and iterate through them
         cells = mouse_geno_table.find_elements_by_tag_name("tr")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         
         #move mouse genotype data
         mouseGenotypeRows = iterate.getTextAsList(cells)
@@ -292,4 +292,4 @@ class TestHmdcIndex(unittest.TestCase):
         
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    HTMLTestRunner.main() 
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))

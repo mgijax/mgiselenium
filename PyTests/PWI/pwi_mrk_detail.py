@@ -48,23 +48,23 @@ class TestPwiMrkDetail(unittest.TestCase):
         #WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.ID, 'deleteIconColumn')))
         #WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'deleteIconColumn')))
         mrk_symbol = driver.find_element(By.ID, 'markerSymbol')#finds the marker symbol
-        print mrk_symbol.text   
+        print (mrk_symbol.text)   
         mrk_id = driver.find_element(By.ID, 'accIdQuery')#finds the marker ID
-        print mrk_id.text
+        print (mrk_id.text)
         mrk_status = driver.find_element(By.ID, 'markerStatus')#finds the Marker status
-        print mrk_status.text
+        print (mrk_status.text)
         mrk_name = driver.find_element(By.ID, 'markerName')#finds the Current Name
-        print mrk_name.text
+        print (mrk_name.text)
         mrk_type = driver.find_element(By.ID, 'markerType')#finds the Marker Type
-        print mrk_type.text
+        print (mrk_type.text)
         mrk_feature = driver.find_element(By.ID, 'featureTypeTable')#finds the Feature Type
-        print mrk_feature.text
+        print (mrk_feature.text)
         mrk_chrom = driver.find_element(By.ID, 'chromosome')#finds the Chromosome
-        print mrk_chrom.text
+        print (mrk_chrom.text)
         mrk_band = driver.find_element(By.ID, 'cytogeneticOffset')#finds the Cytogenetic band
-        print mrk_band.text
+        print (mrk_band.text)
         mrk_posit = driver.find_element(By.ID, 'cmOffset')#finds the Marker Detail cM position
-        print mrk_posit.text    
+        print (mrk_posit.text)    
         #Verifies that the returned data is all correct for the 11 fields
         #self.assertEqual(mrk_symbol.text, 'Kit', 'The Symbol is not correct!')
         self.assertEqual(mrk_id.text, 'MGI:96677', 'The MGI ID is not correct!')
@@ -96,27 +96,27 @@ class TestPwiMrkDetail(unittest.TestCase):
         #time.sleep(10)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Alleles')))#waits until the results are displayed on the page by looking for the MGI ID to be displayed
         mrk_symbol = driver.find_element(By.ID, 'mrkDetail_Symbol')#finds the marker symbol
-        print mrk_symbol.text    
+        print (mrk_symbol.text)    
         mrk_id = driver.find_element(By.ID, 'mrkDetail_ID')#finds the marker ID
-        print mrk_id.text
+        print (mrk_id.text)
         mrk_sec = driver.find_element(By.ID, 'mrkDetail_secondaryIDs')#finds the secondary IDs
-        print mrk_sec.text
+        print (mrk_sec.text)
         mrk_status = driver.find_element(By.ID, 'mrkDetail_status')#finds the Marker status
-        print mrk_status.text
+        print (mrk_status.text)
         mrk_name = driver.find_element(By.ID, 'mrkDetail_name')#finds the Current Name
-        print mrk_name.text
+        print (mrk_name.text)
         mrk_syn = driver.find_element(By.ID, 'mrkDetail_synonyms')#finds the Synonymns
-        print mrk_syn.text
+        print (mrk_syn.text)
         mrk_type = driver.find_element(By.ID, 'mrkDetail_mrkType')#finds the Marker Type
-        print mrk_type.text
+        print (mrk_type.text)
         mrk_feature = driver.find_element(By.ID, 'mrkDetail_featureType')#finds the Feature Type
-        print mrk_feature.text
+        print (mrk_feature.text)
         mrk_biotype = driver.find_element(By.ID, 'mrkDetail_biotypes')#finds the Biotypes
-        print mrk_biotype.text
+        print (mrk_biotype.text)
         mrk_location = driver.find_element(By.ID, 'mrkDetail_location')#finds the Location
-        print mrk_location.text
+        print (mrk_location.text)
         mrk_clip = driver.find_element(By.ID, 'mrkDetail_clip')#finds the Marker Detail Clip
-        print mrk_clip.text    
+        print (mrk_clip.text)    
         #Verifies that the returned data is all correct for the 11 fields
         self.assertEqual(mrk_symbol.text, 'Alm - Public Alm Page', 'The Symbol is not correct!')
         self.assertEqual(mrk_id.text, 'MGI:87996', 'The MGI ID is not correct!')
@@ -150,27 +150,27 @@ class TestPwiMrkDetail(unittest.TestCase):
         #time.sleep(10)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Alleles')))#waits until the results are displayed on the page by looking for the MGI ID to be displayed
         mrk_symbol = driver.find_element(By.ID, 'mrkDetail_Symbol')#finds the marker symbol
-        print mrk_symbol.text    
+        print (mrk_symbol.text)    
         mrk_id = driver.find_element(By.ID, 'mrkDetail_ID')#finds the marker ID
-        print mrk_id.text
+        print (mrk_id.text)
         mrk_sec = driver.find_element(By.ID, 'mrkDetail_secondaryIDs')#finds the secondary IDs
-        print mrk_sec.text
+        print (mrk_sec.text)
         mrk_status = driver.find_element(By.ID, 'mrkDetail_status')#finds the Marker status
-        print mrk_status.text
+        print (mrk_status.text)
         mrk_name = driver.find_element(By.ID, 'mrkDetail_name')#finds the Current Name
-        print mrk_name.text
+        print (mrk_name.text)
         mrk_syn = driver.find_element(By.ID, 'mrkDetail_synonyms')#finds the Synonymns
-        print mrk_syn.text
+        print (mrk_syn.text)
         mrk_type = driver.find_element(By.ID, 'mrkDetail_mrkType')#finds the Marker Type
-        print mrk_type.text
+        print (mrk_type.text)
         mrk_feature = driver.find_element(By.ID, 'mrkDetail_featureType')#finds the Feature Type
-        print mrk_feature.text
+        print (mrk_feature.text)
         mrk_biotype = driver.find_element(By.ID, 'mrkDetail_biotypes')#finds the Biotypes
-        print mrk_biotype.text
+        print (mrk_biotype.text)
         mrk_location = driver.find_element(By.ID, 'mrkDetail_location')#finds the Location
-        print mrk_location.text
+        print (mrk_location.text)
         mrk_clip = driver.find_element(By.ID, 'mrkDetail_clip')#finds the Marker Detail Clip
-        print mrk_clip.text    
+        print (mrk_clip.text)    
         #Verifies that the returned data is all correct for the 11 fields
         self.assertEqual(mrk_symbol.text, 'Aanq1 - Public Aanq1 Page', 'The Symbol is not correct!')
         self.assertEqual(mrk_id.text, 'MGI:5002524', 'The MGI ID is not correct!')
@@ -204,27 +204,27 @@ class TestPwiMrkDetail(unittest.TestCase):
         #time.sleep(10)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Alleles')))#waits until the results are displayed on the page by looking for the MGI ID to be displayed
         mrk_symbol = driver.find_element(By.ID, 'mrkDetail_Symbol')#finds the marker symbol
-        print mrk_symbol.text    
+        print (mrk_symbol.text)    
         mrk_id = driver.find_element(By.ID, 'mrkDetail_ID')#finds the marker ID
-        print mrk_id.text
+        print (mrk_id.text)
         mrk_sec = driver.find_element(By.ID, 'mrkDetail_secondaryIDs')#finds the secondary IDs
-        print mrk_sec.text
+        print (mrk_sec.text)
         mrk_status = driver.find_element(By.ID, 'mrkDetail_status')#finds the Marker status
-        print mrk_status.text
+        print (mrk_status.text)
         mrk_name = driver.find_element(By.ID, 'mrkDetail_name')#finds the Current Name
-        print mrk_name.text
+        print (mrk_name.text)
         mrk_syn = driver.find_element(By.ID, 'mrkDetail_synonyms')#finds the Synonymns
-        print mrk_syn.text
+        print (mrk_syn.text)
         mrk_type = driver.find_element(By.ID, 'mrkDetail_mrkType')#finds the Marker Type
-        print mrk_type.text
+        print (mrk_type.text)
         mrk_feature = driver.find_element(By.ID, 'mrkDetail_featureType')#finds the Feature Type
-        print mrk_feature.text
+        print (mrk_feature.text)
         mrk_biotype = driver.find_element(By.ID, 'mrkDetail_biotypes')#finds the Biotypes
-        print mrk_biotype.text
+        print (mrk_biotype.text)
         mrk_location = driver.find_element(By.ID, 'mrkDetail_location')#finds the Location
-        print mrk_location.text
+        print (mrk_location.text)
         mrk_clip = driver.find_element(By.ID, 'mrkDetail_clip')#finds the Marker Detail Clip
-        print mrk_clip.text    
+        print (mrk_clip.text)    
         #Verifies that the returned data is all correct for the 11 fields
         self.assertEqual(mrk_symbol.text, 'Et(cre/ERT2)8131Rdav - Public Et(cre/ERT2)8131Rdav Page', 'The Symbol is not correct!')
         self.assertEqual(mrk_id.text, 'MGI:3852242', 'The MGI ID is not correct!')
@@ -258,27 +258,27 @@ class TestPwiMrkDetail(unittest.TestCase):
         #time.sleep(10)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Alleles')))#waits until the results are displayed on the page by looking for the MGI ID to be displayed
         mrk_symbol = driver.find_element(By.ID, 'mrkDetail_Symbol')#finds the marker symbol
-        print mrk_symbol.text    
+        print (mrk_symbol.text)    
         mrk_id = driver.find_element(By.ID, 'mrkDetail_ID')#finds the marker ID
-        print mrk_id.text
+        print (mrk_id.text)
         mrk_sec = driver.find_element(By.ID, 'mrkDetail_secondaryIDs')#finds the secondary IDs
-        print mrk_sec.text
+        print (mrk_sec.text)
         mrk_status = driver.find_element(By.ID, 'mrkDetail_status')#finds the Marker status
-        print mrk_status.text
+        print (mrk_status.text)
         mrk_name = driver.find_element(By.ID, 'mrkDetail_name')#finds the Current Name
-        print mrk_name.text
+        print (mrk_name.text)
         mrk_syn = driver.find_element(By.ID, 'mrkDetail_synonyms')#finds the Synonymns
-        print mrk_syn.text
+        print (mrk_syn.text)
         mrk_type = driver.find_element(By.ID, 'mrkDetail_mrkType')#finds the Marker Type
-        print mrk_type.text
+        print (mrk_type.text)
         mrk_feature = driver.find_element(By.ID, 'mrkDetail_featureType')#finds the Feature Type
-        print mrk_feature.text
+        print (mrk_feature.text)
         mrk_biotype = driver.find_element(By.ID, 'mrkDetail_biotypes')#finds the Biotypes
-        print mrk_biotype.text
+        print (mrk_biotype.text)
         mrk_location = driver.find_element(By.ID, 'mrkDetail_location')#finds the Location
-        print mrk_location.text
+        print (mrk_location.text)
         mrk_clip = driver.find_element(By.ID, 'mrkDetail_clip')#finds the Marker Detail Clip
-        print mrk_clip.text    
+        print (mrk_clip.text)    
         #Verifies that the returned data is all correct for the 11 fields
         self.assertEqual(mrk_symbol.text, 'Csn - Public Csn Page', 'The Symbol is not correct!')
         self.assertEqual(mrk_id.text, 'MGI:88539', 'The MGI ID is not correct!')
@@ -312,27 +312,27 @@ class TestPwiMrkDetail(unittest.TestCase):
         #time.sleep(10)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Alleles')))#waits until the results are displayed on the page by looking for the MGI ID to be displayed
         mrk_symbol = driver.find_element(By.ID, 'mrkDetail_Symbol')#finds the marker symbol
-        print mrk_symbol.text    
+        print (mrk_symbol.text)    
         mrk_id = driver.find_element(By.ID, 'mrkDetail_ID')#finds the marker ID
-        print mrk_id.text
+        print (mrk_id.text)
         mrk_sec = driver.find_element(By.ID, 'mrkDetail_secondaryIDs')#finds the secondary IDs
-        print mrk_sec.text
+        print (mrk_sec.text)
         mrk_status = driver.find_element(By.ID, 'mrkDetail_status')#finds the Marker status
-        print mrk_status.text
+        print (mrk_status.text)
         mrk_name = driver.find_element(By.ID, 'mrkDetail_name')#finds the Current Name
-        print mrk_name.text
+        print (mrk_name.text)
         mrk_syn = driver.find_element(By.ID, 'mrkDetail_synonyms')#finds the Synonymns
-        print mrk_syn.text
+        print (mrk_syn.text)
         mrk_type = driver.find_element(By.ID, 'mrkDetail_mrkType')#finds the Marker Type
-        print mrk_type.text
+        print (mrk_type.text)
         mrk_feature = driver.find_element(By.ID, 'mrkDetail_featureType')#finds the Feature Type
-        print mrk_feature.text
+        print (mrk_feature.text)
         mrk_biotype = driver.find_element(By.ID, 'mrkDetail_biotypes')#finds the Biotypes
-        print mrk_biotype.text
+        print (mrk_biotype.text)
         mrk_location = driver.find_element(By.ID, 'mrkDetail_location')#finds the Location
-        print mrk_location.text
+        print (mrk_location.text)
         mrk_clip = driver.find_element(By.ID, 'mrkDetail_clip')#finds the Marker Detail Clip
-        print mrk_clip.text    
+        print (mrk_clip.text)    
         #Verifies that the returned data is all correct for the 11 fields
         self.assertEqual(mrk_symbol.text, 'Del(Y)1Tac - Public Del(Y)1Tac Page', 'The Symbol is not correct!')
         self.assertEqual(mrk_id.text, 'MGI:6156853', 'The MGI ID is not correct!')
@@ -366,27 +366,27 @@ class TestPwiMrkDetail(unittest.TestCase):
         #time.sleep(10)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Alleles')))#waits until the results are displayed on the page by looking for the MGI ID to be displayed
         mrk_symbol = driver.find_element(By.ID, 'mrkDetail_Symbol')#finds the marker symbol
-        print mrk_symbol.text    
+        print (mrk_symbol.text)    
         mrk_id = driver.find_element(By.ID, 'mrkDetail_ID')#finds the marker ID
-        print mrk_id.text
+        print (mrk_id.text)
         mrk_sec = driver.find_element(By.ID, 'mrkDetail_secondaryIDs')#finds the secondary IDs
-        print mrk_sec.text
+        print (mrk_sec.text)
         mrk_status = driver.find_element(By.ID, 'mrkDetail_status')#finds the Marker status
-        print mrk_status.text
+        print (mrk_status.text)
         mrk_name = driver.find_element(By.ID, 'mrkDetail_name')#finds the Current Name
-        print mrk_name.text
+        print (mrk_name.text)
         mrk_syn = driver.find_element(By.ID, 'mrkDetail_synonyms')#finds the Synonymns
-        print mrk_syn.text
+        print (mrk_syn.text)
         mrk_type = driver.find_element(By.ID, 'mrkDetail_mrkType')#finds the Marker Type
-        print mrk_type.text
+        print (mrk_type.text)
         mrk_feature = driver.find_element(By.ID, 'mrkDetail_featureType')#finds the Feature Type
-        print mrk_feature.text
+        print (mrk_feature.text)
         mrk_biotype = driver.find_element(By.ID, 'mrkDetail_biotypes')#finds the Biotypes
-        print mrk_biotype.text
+        print (mrk_biotype.text)
         mrk_location = driver.find_element(By.ID, 'mrkDetail_location')#finds the Location
-        print mrk_location.text
+        print (mrk_location.text)
         mrk_clip = driver.find_element(By.ID, 'mrkDetail_clip')#finds the Marker Detail Clip
-        print mrk_clip.text    
+        print (mrk_clip.text)    
         #Verifies that the returned data is all correct for the 11 fields
         self.assertEqual(mrk_symbol.text, '10S - Public 10S Page', 'The Symbol is not correct!')
         self.assertEqual(mrk_id.text, 'MGI:1336996', 'The MGI ID is not correct!')
@@ -420,27 +420,27 @@ class TestPwiMrkDetail(unittest.TestCase):
         #time.sleep(10)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Alleles')))#waits until the results are displayed on the page by looking for the MGI ID to be displayed
         mrk_symbol = driver.find_element(By.ID, 'mrkDetail_Symbol')#finds the marker symbol
-        print mrk_symbol.text    
+        print (mrk_symbol.text)    
         mrk_id = driver.find_element(By.ID, 'mrkDetail_ID')#finds the marker ID
-        print mrk_id.text
+        print (mrk_id.text)
         mrk_sec = driver.find_element(By.ID, 'mrkDetail_secondaryIDs')#finds the secondary IDs
-        print mrk_sec.text
+        print (mrk_sec.text)
         mrk_status = driver.find_element(By.ID, 'mrkDetail_status')#finds the Marker status
-        print mrk_status.text
+        print (mrk_status.text)
         mrk_name = driver.find_element(By.ID, 'mrkDetail_name')#finds the Current Name
-        print mrk_name.text
+        print (mrk_name.text)
         mrk_syn = driver.find_element(By.ID, 'mrkDetail_synonyms')#finds the Synonymns
-        print mrk_syn.text
+        print (mrk_syn.text)
         mrk_type = driver.find_element(By.ID, 'mrkDetail_mrkType')#finds the Marker Type
-        print mrk_type.text
+        print (mrk_type.text)
         mrk_feature = driver.find_element(By.ID, 'mrkDetail_featureType')#finds the Feature Type
-        print mrk_feature.text
+        print (mrk_feature.text)
         mrk_biotype = driver.find_element(By.ID, 'mrkDetail_biotypes')#finds the Biotypes
-        print mrk_biotype.text
+        print (mrk_biotype.text)
         mrk_location = driver.find_element(By.ID, 'mrkDetail_location')#finds the Location
-        print mrk_location.text
+        print (mrk_location.text)
         mrk_clip = driver.find_element(By.ID, 'mrkDetail_clip')#finds the Marker Detail Clip
-        print mrk_clip.text    
+        print (mrk_clip.text)    
         #Verifies that the returned data is all correct for the 11 fields
         self.assertEqual(mrk_symbol.text, 'AA414768 - Public AA414768 Page', 'The Symbol is not correct!')
         self.assertEqual(mrk_id.text, 'MGI:3035137', 'The MGI ID is not correct!')
@@ -474,27 +474,27 @@ class TestPwiMrkDetail(unittest.TestCase):
         #time.sleep(10)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Alleles')))#waits until the results are displayed on the page by looking for the MGI ID to be displayed
         mrk_symbol = driver.find_element(By.ID, 'mrkDetail_Symbol')#finds the marker symbol
-        print mrk_symbol.text    
+        print (mrk_symbol.text)    
         mrk_id = driver.find_element(By.ID, 'mrkDetail_ID')#finds the marker ID
-        print mrk_id.text
+        print (mrk_id.text)
         mrk_sec = driver.find_element(By.ID, 'mrkDetail_secondaryIDs')#finds the secondary IDs
-        print mrk_sec.text
+        print (mrk_sec.text)
         mrk_status = driver.find_element(By.ID, 'mrkDetail_status')#finds the Marker status
-        print mrk_status.text
+        print (mrk_status.text)
         mrk_name = driver.find_element(By.ID, 'mrkDetail_name')#finds the Current Name
-        print mrk_name.text
+        print (mrk_name.text)
         mrk_syn = driver.find_element(By.ID, 'mrkDetail_synonyms')#finds the Synonymns
-        print mrk_syn.text
+        print (mrk_syn.text)
         mrk_type = driver.find_element(By.ID, 'mrkDetail_mrkType')#finds the Marker Type
-        print mrk_type.text
+        print (mrk_type.text)
         mrk_feature = driver.find_element(By.ID, 'mrkDetail_featureType')#finds the Feature Type
-        print mrk_feature.text
+        print (mrk_feature.text)
         mrk_biotype = driver.find_element(By.ID, 'mrkDetail_biotypes')#finds the Biotypes
-        print mrk_biotype.text
+        print (mrk_biotype.text)
         mrk_location = driver.find_element(By.ID, 'mrkDetail_location')#finds the Location
-        print mrk_location.text
+        print (mrk_location.text)
         mrk_clip = driver.find_element(By.ID, 'mrkDetail_clip')#finds the Marker Detail Clip
-        print mrk_clip.text    
+        print (mrk_clip.text)    
         #Verifies that the returned data is all correct for the 11 fields
         self.assertEqual(mrk_symbol.text, 'Acf1 - Public Acf1 Page', 'The Symbol is not correct!')
         self.assertEqual(mrk_id.text, 'MGI:87875', 'The MGI ID is not correct!')
@@ -524,27 +524,27 @@ class TestPwiMrkDetail(unittest.TestCase):
         #nomenbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Public Ccm1 Page')))#waits until the Gata1 link is displayed on the page
         mrk_symbol = driver.find_element(By.ID, 'mrkDetail_Symbol')#finds the marker symbol
-        print mrk_symbol.text    
+        print (mrk_symbol.text)    
         mrk_id = driver.find_element(By.ID, 'mrkDetail_ID')#finds the marker ID
-        print mrk_id.text
+        print (mrk_id.text)
         mrk_sec = driver.find_element(By.ID, 'mrkDetail_secondaryIDs')#finds the secondary IDs
-        print mrk_sec.text
+        print (mrk_sec.text)
         mrk_status = driver.find_element(By.ID, 'mrkDetail_status')#finds the Marker status
-        print mrk_status.text
+        print (mrk_status.text)
         mrk_name = driver.find_element(By.ID, 'mrkDetail_name')#finds the Current Name
-        print mrk_name.text
+        print (mrk_name.text)
         mrk_syn = driver.find_element(By.ID, 'mrkDetail_synonyms')#finds the Synonymns
-        print mrk_syn.text
+        print (mrk_syn.text)
         mrk_type = driver.find_element(By.ID, 'mrkDetail_mrkType')#finds the Marker Type
-        print mrk_type.text
+        print (mrk_type.text)
         mrk_feature = driver.find_element(By.ID, 'mrkDetail_featureType')#finds the Feature Type
-        print mrk_feature.text
+        print (mrk_feature.text)
         mrk_biotype = driver.find_element(By.ID, 'mrkDetail_biotypes')#finds the Biotypes
-        print mrk_biotype.text
+        print (mrk_biotype.text)
         mrk_location = driver.find_element(By.ID, 'mrkDetail_location')#finds the Location
-        print mrk_location.text
+        print (mrk_location.text)
         mrk_clip = driver.find_element(By.ID, 'mrkDetail_clip')#finds the Marker Detail Clip
-        print mrk_clip.text    
+        print (mrk_clip.text)    
         #Verifies that the returned data is all correct for the 11 fields
         self.assertEqual(mrk_symbol.text, 'Ccm1 - Public Ccm1 Page', 'The Symbol is not correct!')
         self.assertEqual(mrk_id.text, '', 'The MGI ID is not correct!')

@@ -31,6 +31,6 @@ class TestTermEndpointAPI(unittest.TestCase):
 
         term_key=jsonData["_term_key"]
         
-        print jsonData
+        print(jsonData)
         
         self.assertEqual(term_key,847165)

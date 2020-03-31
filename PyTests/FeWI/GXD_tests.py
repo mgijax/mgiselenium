@@ -5,18 +5,18 @@ Created on Apr 23, 2018
 '''
 
 import unittest
-from gxd_diff_qf import TestGXDDifferentialQF
-from gxd_image_summary import TestGXDImageSummary
-from gxd_qf import TestGXDQF
-from gxd_results import TestGXDResults
-from gxd_rna_seq_qf_autocomplete_list import TestStructureAutocomplete
-from gxd_rna_seq_qf_search import TestRnaSeqSearching
-from gxd_rna_seq_samples import TestRnaSeqSamples
-from gxd_rna_seq_summary import TestRnaSeqSummary
-from gxd_txp_matrix import TestGXDTissuePhenotypeMatrix
-from gxd_txs_matrix import TestGXDTissueStageMatrix
+from .gxd_diff_qf import TestGXDDifferentialQF
+from .gxd_image_summary import TestGXDImageSummary
+from .gxd_qf import TestGXDQF
+from .gxd_results import TestGXDResults
+from .gxd_rna_seq_qf_autocomplete_list import TestStructureAutocomplete
+from .gxd_rna_seq_qf_search import TestRnaSeqSearching
+from .gxd_rna_seq_samples import TestRnaSeqSamples
+from .gxd_rna_seq_summary import TestRnaSeqSummary
+from .gxd_txp_matrix import TestGXDTissuePhenotypeMatrix
+from .gxd_txs_matrix import TestGXDTissueStageMatrix
 import os
-import HTMLTestRunner
+import HtmlTestRunner
 from FeWI import gxd_diff_qf, gxd_image_summary, gxd_qf, gxd_results, gxd_rna_seq_qf_autocomplete_list, gxd_rna_seq_qf_search, gxd_rna_seq_samples, gxd_rna_seq_summary, gxd_txp_matrix, gxd_txs_matrix
 
 #from fewi import TestGXDDifferentialQF, TestGXDImageSummary, TestGXDQF, TestGXDTissuePhenotypeMatrix, TestGXDTissueStageMatrix
@@ -37,7 +37,7 @@ def main():
 #file
     dir = os.getcwd()
     outfile = open(r"C:\WebdriverTests\Fewigxdreport.html", "w")
-    runner = HTMLTestRunner.HTMLTestRunner(stream = outfile,title = 'Test Report',description = 'Fewi GXD Test Report')
+    runner = HtmlTestRunner.HTMLTestRunner(stream = outfile,title = 'Test Report',description = 'Fewi GXD Test Report')
     runner.run(gxd_tests)
 
 if __name__=="__main__":

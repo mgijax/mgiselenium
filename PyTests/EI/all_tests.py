@@ -12,8 +12,8 @@ import config
 import unittest
 
 # import all sub test suites
-from EmapA import all_tests as emapa_tests
-import Logintest
+from .EmapA import all_tests as emapa_tests
+from . import Logintest
 
 # add the test suites
 def master_suite():

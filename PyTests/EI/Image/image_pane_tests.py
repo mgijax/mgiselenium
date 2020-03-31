@@ -12,7 +12,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
-import HTMLTestRunner
+import HtmlTestRunner
 import json
 import sys,os.path
 # adjust the path to find config
@@ -60,9 +60,9 @@ class TestImgPaneSearch(unittest.TestCase):
         
         third_row = self.driver.find_element_by_id("paneLabelID480566").get_attribute("value")
         time.sleep(2)
-        print third_row
+        print(third_row)
         #Assert the correct details are returned, the third Pane Label should be 'A heart WT
-        self.assertEquals(third_row, 'A heart WT')
+        self.assertEqual(third_row, 'A heart WT')
 
     def testImagePaneSearchWild(self):
         """
@@ -84,17 +84,17 @@ class TestImgPaneSearch(unittest.TestCase):
         row4 = self.driver.find_element_by_id("paneLabelID480568").get_attribute("value")
         row5 = self.driver.find_element_by_id("paneLabelID480571").get_attribute("value")
         time.sleep(2)
-        print row1
-        print row2
-        print row3
-        print row4
-        print row5
+        print(row1)
+        print(row2)
+        print(row3)
+        print(row4)
+        print(row5)
         #Assert the correct details are returned
-        self.assertEquals(row1, 'A heart Paxx-/-')
-        self.assertEquals(row2, 'A heart Paxx-/-;Xlf-/-')
-        self.assertEquals(row3, 'A heart WT')
-        self.assertEquals(row4, 'A heart Xlf-/-')
-        self.assertEquals(row5, 'A liver Paxx-/-')
+        self.assertEqual(row1, 'A heart Paxx-/-')
+        self.assertEqual(row2, 'A heart Paxx-/-;Xlf-/-')
+        self.assertEqual(row3, 'A heart WT')
+        self.assertEqual(row4, 'A heart Xlf-/-')
+        self.assertEqual(row5, 'A liver Paxx-/-')
 
     def testImagePaneSearchSpecChr(self):
         """
@@ -113,10 +113,10 @@ class TestImgPaneSearch(unittest.TestCase):
         row14 = self.driver.find_element_by_id("paneLabelID480840").get_attribute("value")
         row15 = self.driver.find_element_by_id("paneLabelID480847").get_attribute("value")
         time.sleep(2)
-        print row14
+        print(row14)
         #Assert the correct details are returned
-        self.assertEquals(row14, "k/k'")
-        self.assertEquals(row15, "l/l'")
+        self.assertEqual(row14, "k/k'")
+        self.assertEqual(row15, "l/l'")
 
     def testImagePaneLabelSearch(self):
         """
@@ -135,10 +135,10 @@ class TestImgPaneSearch(unittest.TestCase):
         row8 = self.driver.find_element_by_id("paneLabelID313902").get_attribute("value")
         row9 = self.driver.find_element_by_id("paneLabelID313901").get_attribute("value")
         time.sleep(5)
-        print row8
+        print(row8)
         #Assert the correct details are returned
-        self.assertEquals(row8, 'C merge (EFGP and choline acetyltransferase immunoreactivity)')
-        self.assertEquals(row9, "Ci (expanded boxed region in B)")
+        self.assertEqual(row8, 'C merge (EFGP and choline acetyltransferase immunoreactivity)')
+        self.assertEqual(row9, "Ci (expanded boxed region in B)")
 
     def testImagePaneNoLabelSearch(self):
         """
@@ -153,9 +153,9 @@ class TestImgPaneSearch(unittest.TestCase):
         #find the Pane Labels results table
         pane_row1 = self.driver.find_element_by_id("paneLabelID6895").get_attribute("value")
         #prints the pane label for row 1(should be blank)
-        print pane_row1
+        print(pane_row1)
         #Assert the correct details are returned
-        self.assertEquals(pane_row1, '')
+        self.assertEqual(pane_row1, '')
         
     def testImagePaneUnderscoreSearch(self):
         """
@@ -171,11 +171,11 @@ class TestImgPaneSearch(unittest.TestCase):
         pane_row1 = self.driver.find_element_by_id("paneLabelID472753").get_attribute('value')
         pane_row2 = self.driver.find_element_by_id("paneLabelID472754").get_attribute('value')
         #prints the pane label for row 1(should be blank)
-        print pane_row1
-        print pane_row2
+        print(pane_row1)
+        print(pane_row2)
         #Assert the correct details are returned
-        self.assertEquals(pane_row1, '_Hox-4-4')
-        self.assertEquals(pane_row2, '_Hox-4-5')
+        self.assertEqual(pane_row1, '_Hox-4-4')
+        self.assertEqual(pane_row2, '_Hox-4-5')
 
     def testImagePaneSortSearch(self):
         """
@@ -197,17 +197,17 @@ class TestImgPaneSearch(unittest.TestCase):
         pane_row7 = self.driver.find_element_by_id("paneLabelID465632").get_attribute('value')
         pane_row8 = self.driver.find_element_by_id("paneLabelID465631").get_attribute('value')
         #Iterate and print the search results, checking the 1st result
-        print pane_row1
-        print pane_row2
+        print(pane_row1)
+        print(pane_row2)
         #Assert the correct details are returned
-        self.assertEquals(pane_row1, '_ptc E14.5')
-        self.assertEquals(pane_row2, '_ptc E17')
-        self.assertEquals(pane_row3, '_ptc P14')
-        self.assertEquals(pane_row4, '_ptc P7')
-        self.assertEquals(pane_row5, '_Shh E14.5')
-        self.assertEquals(pane_row6, '_Shh E17')
-        self.assertEquals(pane_row7, '_Shh P14')
-        self.assertEquals(pane_row8, '_Shh P7')
+        self.assertEqual(pane_row1, '_ptc E14.5')
+        self.assertEqual(pane_row2, '_ptc E17')
+        self.assertEqual(pane_row3, '_ptc P14')
+        self.assertEqual(pane_row4, '_ptc P7')
+        self.assertEqual(pane_row5, '_Shh E14.5')
+        self.assertEqual(pane_row6, '_Shh E17')
+        self.assertEqual(pane_row7, '_Shh P14')
+        self.assertEqual(pane_row8, '_Shh P7')
 
 '''
 def suite():
@@ -217,5 +217,5 @@ def suite():
 '''
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    HTMLTestRunner.main()
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))
     

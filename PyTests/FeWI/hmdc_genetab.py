@@ -9,7 +9,7 @@ import time
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
-import HTMLTestRunner
+import HtmlTestRunner
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -49,7 +49,7 @@ class TestGeneTab(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         
         gene_tab.click()
         gene_table_headers = self.driver.find_element_by_id("geneTable").find_element_by_css_selector("tr")
@@ -83,12 +83,12 @@ class TestGeneTab(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         
         gene_tab.click()
         gene_table = Table(self.driver.find_element_by_id("geneTable"))
         cells = gene_table.get_column_cells("Gene Symbol")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
        
         geneSymbolsReturned = iterate.getTextAsList(cells)
        
@@ -117,12 +117,12 @@ class TestGeneTab(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text
+        print(gene_tab.text)
         
         gene_tab.click()
         gene_table = Table(self.driver.find_element_by_id("geneTable"))
         cells = gene_table.get_column_cells("Gene Symbol")
-        print iterate.getTextAsList(cells)
+        print(iterate.getTextAsList(cells))
         #displays each row of gene data
         gene1 = cells[1]
         #asserts that the correct genes in the correct order are returned
@@ -147,13 +147,13 @@ class TestGeneTab(unittest.TestCase):
         #identify the Genes tab and verify the tab's text
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
-        print gene_tab.text 
+        print(gene_tab.text) 
         
         gene_tab.click()
         gene_table = Table(self.driver.find_element_by_id("geneTable"))
         cells = gene_table.get_column_cells("Associated Human Diseases (Source)")
         assocHumanDiseases = iterate.getTextAsList(cells)
-        print assocHumanDiseases
+        print(assocHumanDiseases)
         #asserts that the expected diseases are returned for these genes
         self.assertIn('myelodysplastic syndrome\nmyelofibrosis\nthrombocytopenia', assocHumanDiseases) #diseases associated to Gata1
         self.assertIn('Down syndrome\nthrombocytopenia', assocHumanDiseases) #diseases associated to GATA1
@@ -165,4 +165,4 @@ class TestGeneTab(unittest.TestCase):
        
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    HTMLTestRunner.main() 
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))

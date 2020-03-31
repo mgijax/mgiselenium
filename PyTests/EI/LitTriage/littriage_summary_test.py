@@ -8,7 +8,7 @@ import unittest
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-import HTMLTestRunner
+import HtmlTestRunner
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -56,9 +56,9 @@ class TestLitSummarySearch(unittest.TestCase):
         #switches focus to the newly opened tab
         driver.switch_to_window(driver.window_handles[-1])
         page_title = driver.find_element_by_id('page-title')
-        print page_title.text
+        print(page_title.text)
         #asserts the page title for this page is correct
-        self.assertEquals(page_title.text, 'Silencing of OB-RGRP in mouse hypothalamic arcuate nucleus increases leptin receptor signaling and prevents diet-induced obesity', 'Title is not displaying from source!')
+        self.assertEqual(page_title.text, 'Silencing of OB-RGRP in mouse hypothalamic arcuate nucleus increases leptin receptor signaling and prevents diet-induced obesity', 'Title is not displaying from source!')
         
     def testJournalFieldBlankSearch(self):
         """
@@ -96,9 +96,9 @@ class TestLitSummarySearch(unittest.TestCase):
         #switches focus to the newly opened tab
         driver.switch_to_window(driver.window_handles[-1])
         page_title = driver.find_element_by_class_name('rprt_all').find_element_by_tag_name('h1')
-        print page_title.text
+        print(page_title.text)
         #asserts the page title for this page is correct
-        self.assertEquals(page_title.text, 'Silencing of OB-RGRP in mouse hypothalamic arcuate nucleus increases leptin receptor signaling and prevents diet-induced obesity.', 'Title is not displaying from source!')
+        self.assertEqual(page_title.text, 'Silencing of OB-RGRP in mouse hypothalamic arcuate nucleus increases leptin receptor signaling and prevents diet-induced obesity.', 'Title is not displaying from source!')
         
     def testPubmedFieldBlankSearch(self):
         """
@@ -240,4 +240,4 @@ def suite():
 '''
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    HTMLTestRunner.main()
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))

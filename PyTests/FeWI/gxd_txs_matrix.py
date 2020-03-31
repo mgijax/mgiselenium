@@ -48,7 +48,7 @@ class TestGXDTissueStageMatrix(unittest.TestCase):
         termslist = driver.find_element(By.ID, 'stagegriddata').find_element(By.ID, 'rowGroupInner')
         items = termslist.find_elements(By.TAG_NAME, 'text')
         searchTextItems = iterate.getTextAsList(items)
-        print searchTextItems
+        print(searchTextItems)
         self.assertIn('extraembryonic component', searchTextItems)
         self.assertIn('body fluid or substance', searchTextItems)
         self.assertIn('body region', searchTextItems)
@@ -85,7 +85,7 @@ class TestGXDTissueStageMatrix(unittest.TestCase):
         termslist = driver.find_element(By.ID, "stagegriddata").find_element(By.ID, 'rowGroupInner')
         items = termslist.find_elements(By.TAG_NAME, "text")
         searchTextItems = iterate.getTextAsList(items)
-        print searchTextItems
+        print(searchTextItems)
         self.assertIn('mouse', searchTextItems)
         self.assertIn('embryo', searchTextItems)
         self.assertIn('extraembryonic component', searchTextItems)
@@ -95,7 +95,7 @@ class TestGXDTissueStageMatrix(unittest.TestCase):
         termslist = driver.find_element(By.ID, "stagegriddata").find_element(By.ID, 'colGroupInner')
         items = termslist.find_elements(By.TAG_NAME, "text")
         searchTextItems = iterate.getTextAsList(items)
-        print searchTextItems
+        print(searchTextItems)
         self.assertIn('TS11', searchTextItems)
         self.assertIn('TS23', searchTextItems)
         

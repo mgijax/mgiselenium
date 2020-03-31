@@ -8,7 +8,7 @@ import time
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
-import HTMLTestRunner
+import HtmlTestRunner
 # from lib import *
 import sys,os.path
 # adjust the path to find config
@@ -34,7 +34,7 @@ class TestHMDCAutocomplete(unittest.TestCase):
     def test_index_tab_headers(self):
         '''
         @status this test verifies the auto complete list is displaying the terms associated to the text you entered.
-        @see HMDC-DQ-??
+        @see HMDC-DQ-?? !! broken!!!
         '''
         print ("BEGIN test_index_tab_headers")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
@@ -50,7 +50,7 @@ class TestHMDCAutocomplete(unittest.TestCase):
         items = auto_list.find_elements_by_tag_name("li")
         for item in items:
             text = item.text
-            print text
+            print(text)
         self.assertEqual(items[0].text, "systemic lupus", "Term 0 is not visible!")
         self.assertEqual(items[1].text, "systemic lupus erythematosus", "Term 1 is not visible!")
         self.assertEqual(items[2].text, "Lupus Erythematosus, systemic", "Term 2 is not visible!")
@@ -67,4 +67,4 @@ class TestHMDCAutocomplete(unittest.TestCase):
         
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    HTMLTestRunner.main() 
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests')) 

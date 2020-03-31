@@ -26,6 +26,7 @@ from config import TEST_URL
 class TestSequenceDetail(unittest.TestCase):
 
     def setUp(self):
+        #self.driver = webdriver.Firefox()
         self.driver = webdriver.Chrome()
         #self.driver.get("http://www.informatics.jax.org")
         #self.driver.get("http://bluebob.informatics.jax.org")
@@ -51,7 +52,7 @@ class TestSequenceDetail(unittest.TestCase):
         #locates the first row of the Sequence table
         seq_table = Table(self.driver.find_element(By.ID, "seqIdTable"))
         cells = seq_table.get_row(0)
-        print cells.text
+        print(cells.text)
         #time.sleep(2)
         #asserts the ID ribbon data is correct
         self.assertEqual('MGP_AKRJ_G0023142 Multiple Genome Viewer (MGV) Version: MGP_AKRJ_G0023142.Ensembl Release 92', cells.text)         
@@ -75,7 +76,7 @@ class TestSequenceDetail(unittest.TestCase):
         #locates the first row of the sequence table
         seq_table = Table(self.driver.find_element(By.ID, "seqIdTable"))
         cells = seq_table.get_row(0)
-        print cells.text
+        print(cells.text)
         #time.sleep(2)
         #asserts the ID ribbon data is correct
         self.assertEqual('MGI_C57BL6J_5804994 Multiple Genome Viewer (MGV) Version: MGI_C57BL6J_5804994.GRCm38', cells.text)          
@@ -99,10 +100,10 @@ class TestSequenceDetail(unittest.TestCase):
         self.driver.find_element(By.LINK_TEXT, 'Ensembl').click()
         #time.sleep(2)
         page_title = self.driver.find_element(By.CLASS_NAME, 'species')
-        print page_title.text
+        print(page_title.text)
         #Asserts that the emsembl page is for the correct strain
         sum_head = self.driver.find_element(By.CLASS_NAME, 'summary-heading')
-        print sum_head.text   
+        print(sum_head.text)   
         self.assertEqual('Gene: Vmn2r106 MGP_AKRJ_G0023142', sum_head.text) 
 
     def test_mgp_seq_desc(self):
@@ -124,7 +125,7 @@ class TestSequenceDetail(unittest.TestCase):
         #locates the second row of the Sequence table
         seq_table = Table(self.driver.find_element(By.CLASS_NAME, 'detailStructureTable'))
         cells = seq_table.get_cell(2, 1)
-        print cells.text
+        print(cells.text)
         #time.sleep(2)
         #asserts the sequence description ribbon data is correct
         self.assertEqual("chr18:34262022-34436126, + strand. Annotation of mouse strain CAROLI/EiJ genome assembly provided by the University of California Santa Cruz (UCSC) Genome Browser Group and the Wellcome Sanger Institute's Mouse Genomes Project (MGP). Distributed via Ensembl Release 92. Gene type: protein coding gene; Gene Name: Pcdha9.", cells.text)         
@@ -148,7 +149,7 @@ class TestSequenceDetail(unittest.TestCase):
         #locates the second row of the Sequence table
         seq_table = Table(self.driver.find_element(By.CLASS_NAME, 'detailStructureTable'))
         cells = seq_table.get_cell(2, 1)
-        print cells.text
+        print(cells.text)
         #time.sleep(2)
         #asserts the sequence description ribbon data is correct
         self.assertEqual('ChrX:7959260-7978071, - strand. MGI derived this sequence for the C57BL/6J strain version of Gene: Gata1, Gene type: protein coding gene, from outermost boundary coordinates of combined annotations to mouse reference assembly GRCm38 provided by: ENSEMBL:ENSMUSG00000031162,NCBI_Gene:14460. Note that the source annotations for this representation of the C57BL/6J gene model sequence can derive from different assembly patches (J:262996).', cells.text)         
@@ -172,7 +173,7 @@ class TestSequenceDetail(unittest.TestCase):
         #locates the third row, second cell of the Sequence table
         seq_table = Table(self.driver.find_element(By.CLASS_NAME, 'detailStructureTable'))
         cells = seq_table.get_cell(3, 1)
-        print cells.text
+        print(cells.text)
         #asserts the provider ribbon data is correct
         self.assertEqual("Wellcome Sanger Institute's Mouse Genomes Project (MGP) Strain Gene Model", cells.text)         
 
@@ -195,7 +196,7 @@ class TestSequenceDetail(unittest.TestCase):
         #locates the third row, second cell of the Sequence table
         seq_table = Table(self.driver.find_element(By.CLASS_NAME, 'detailStructureTable'))
         cells = seq_table.get_cell(3, 1)
-        print cells.text
+        print(cells.text)
         time.sleep(2)
         #asserts the Provider ribbon data is correct
         self.assertEqual('MGI C57BL/6J Strain Gene Model', cells.text)         
@@ -324,7 +325,7 @@ class TestSequenceDetail(unittest.TestCase):
         #locates the fourth row, second cell of the Sequence table
         seq_table = Table(self.driver.find_element(By.CLASS_NAME, 'detailStructureTable'))
         cells = seq_table.get_cell(4, 1)
-        print cells.text
+        print(cells.text)
         #asserts the Sequence ribbon data is correct
         self.assertIn('DNA 174105 bp', cells.text)         
 
@@ -347,7 +348,7 @@ class TestSequenceDetail(unittest.TestCase):
         #locates the fourth row, second cell of the Sequence table
         seq_table = Table(self.driver.find_element(By.CLASS_NAME, 'detailStructureTable'))
         cells = seq_table.get_cell(4, 1)
-        print cells.text
+        print(cells.text)
         #asserts the Sequence ribbon data is correct
         self.assertIn('DNA 1188 bp', cells.text)         
 
@@ -371,33 +372,33 @@ class TestSequenceDetail(unittest.TestCase):
         src_table = Table(self.driver.find_element(By.ID, 'sourceTable'))
         #find the source name cell, print it and assert it to be correct
         cell1 = src_table.get_cell(1, 1)
-        print cell1.text
+        print(cell1.text)
         self.assertIn('Sequenced Mouse Inbred Strain Genome Meta-data', cell1.text)          
         #find the organism cell, print it and assert it to be correct
         cell2 = src_table.get_cell(2, 1)
-        print cell2.text
+        print(cell2.text)
         self.assertIn('mouse', cell2.text)
         #find the Strain/Species cell, print it and assert it to be correct
         cell3 = src_table.get_cell(3, 1)
-        print cell3.text
+        print(cell3.text)
         self.assertIn('CAST/EiJ', cell3.text)   
         #find the sex cell, print it and assert it to be correct
         cell4 = src_table.get_cell(4, 1)
-        print cell4.text
+        print(cell4.text)
         self.assertIn('Not Loaded', cell4.text)  
         #locates the Inner Source table
         in_src_table = Table(self.driver.find_element(By.ID, 'sourceTableInner2'))
         #find the Age cell, print it and assert it to be correct
         cell5 = in_src_table.get_cell(0, 1)
-        print cell5.text
+        print(cell5.text)
         self.assertIn('Not Specified', cell5.text)          
         #find the Tissue cell, print it and assert it to be correct
         cell6 = in_src_table.get_cell(1, 1)
-        print cell6.text
+        print(cell6.text)
         self.assertIn('Not Specified', cell6.text)
         #find the Cell Line cell, print it and assert it to be correct
         cell7 = in_src_table.get_cell(2, 1)
-        print cell7.text
+        print(cell7.text)
         self.assertIn('Not Applicable', cell7.text)    
               
 
@@ -421,33 +422,33 @@ class TestSequenceDetail(unittest.TestCase):
         src_table = Table(self.driver.find_element(By.ID, 'sourceTable'))
         #find the source name cell, print it and assert it to be correct
         cell1 = src_table.get_cell(1, 1)
-        print cell1.text
+        print(cell1.text)
         self.assertIn('Sequenced Mouse Strain C57BL/6J Genome Meta-data', cell1.text)          
         #find the organism cell, print it and assert it to be correct
         cell2 = src_table.get_cell(2, 1)
-        print cell2.text
+        print(cell2.text)
         self.assertIn('mouse', cell2.text)
         #find the Strain/Species cell, print it and assert it to be correct
         cell3 = src_table.get_cell(3, 1)
-        print cell3.text
+        print(cell3.text)
         self.assertIn('C57BL/6J', cell3.text)   
         #find the sex cell, print it and assert it to be correct
         cell4 = src_table.get_cell(4, 1)
-        print cell4.text
+        print(cell4.text)
         self.assertIn('Not Loaded', cell4.text)  
         #locates the Inner Source table
         in_src_table = Table(self.driver.find_element(By.ID, 'sourceTableInner2'))
         #find the Age cell, print it and assert it to be correct
         cell5 = in_src_table.get_cell(0, 1)
-        print cell5.text
+        print(cell5.text)
         self.assertIn('Not Specified', cell5.text)          
         #find the Tissue cell, print it and assert it to be correct
         cell6 = in_src_table.get_cell(1, 1)
-        print cell6.text
+        print(cell6.text)
         self.assertIn('Not Specified', cell6.text)
         #find the Cell Line cell, print it and assert it to be correct
         cell7 = in_src_table.get_cell(2, 1)
-        print cell7.text
+        print(cell7.text)
         self.assertIn('Not Applicable', cell7.text)     
 
     def test_mgp_chr_data(self):
@@ -467,7 +468,7 @@ class TestSequenceDetail(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'detailStructureTable')))#waits until the sequence ID table is  displayed on the page
         #find the chromosome data in the Chromosome ribbon
         chromo = self.driver.find_element(By.CSS_SELECTOR, '.detailStructureTable > tbody:nth-child(1) > tr:nth-child(6) > td:nth-child(2)')
-        print chromo.text
+        print(chromo.text)
         self.assertEqual('6', chromo.text)
 
     def test_mgi_chr_data(self):
@@ -487,7 +488,7 @@ class TestSequenceDetail(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'detailStructureTable')))#waits until the sequence ID table is  displayed on the page
         #find the chromosome data in the Chromosome ribbon
         chromo = self.driver.find_element(By.CSS_SELECTOR, '.detailStructureTable > tbody:nth-child(1) > tr:nth-child(6) > td:nth-child(2)')
-        print chromo.text
+        print(chromo.text)
         self.assertEqual('Y', chromo.text)
 
     def test_mgp_assoc_gene(self):
@@ -509,31 +510,31 @@ class TestSequenceDetail(unittest.TestCase):
         mrk_table = Table(self.driver.find_element(By.ID, 'markerTable'))
         #find the Type cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 0)
-        print cell1.text
+        print(cell1.text)
         self.assertIn('Gene', cell1.text)     
         #find the Symbol cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 1)
-        print cell1.text
+        print(cell1.text)
         self.assertIn('Gm17216', cell1.text) 
         #find the Name cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 2)
-        print cell1.text
+        print(cell1.text)
         self.assertIn('predicted gene 17216', cell1.text) 
         #find the GO Terms cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 3)
-        print cell1.text
+        print(cell1.text)
         self.assertIn('0', cell1.text) 
         #find the Expression Assays cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 4)
-        print cell1.text
+        print(cell1.text)
         self.assertIn('0', cell1.text) 
         #find the Orthologs cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 5)
-        print cell1.text
+        print(cell1.text)
         self.assertIn('0', cell1.text) 
         #find the Phenotypic Alleles cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 6)
-        print cell1.text
+        print(cell1.text)
         self.assertIn('0', cell1.text) 
 
     def test_mgi_assoc_gene(self):
@@ -555,32 +556,32 @@ class TestSequenceDetail(unittest.TestCase):
         mrk_table = Table(self.driver.find_element(By.ID, 'markerTable'))
         #find the Type cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 0)
-        print cell1.text
+        print(cell1.text)
         self.assertIn('Gene', cell1.text)     
         #find the Symbol cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 1)
-        print cell1.text
+        print(cell1.text)
         self.assertIn('Sry', cell1.text) 
         #find the Name cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 2)
-        print cell1.text
+        print(cell1.text)
         self.assertIn('sex determining region of Chr Y', cell1.text) 
         #find the GO Terms cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 3)
-        print cell1.text
-        self.assertIn('22', cell1.text) 
+        print(cell1.text)
+        self.assertIn('26', cell1.text) 
         #find the Expression Assays cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 4)
-        print cell1.text
-        self.assertIn('86', cell1.text) 
+        print(cell1.text)
+        self.assertIn('163', cell1.text) 
         #find the Orthologs cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 5)
-        print cell1.text
+        print(cell1.text)
         self.assertIn('0', cell1.text) 
         #find the Phenotypic Alleles cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 6)
-        print cell1.text
-        self.assertIn('33', cell1.text) 
+        print(cell1.text)
+        self.assertIn('39', cell1.text) 
         
     def tearDown(self):
         self.driver.quit()

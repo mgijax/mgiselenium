@@ -9,7 +9,7 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-import HTMLTestRunner
+import HtmlTestRunner
 # from lib import *
 import sys,os.path
 # adjust the path to find config
@@ -45,7 +45,7 @@ class TestStructureAutocomplete(unittest.TestCase):
         items = auto_list.find_elements_by_tag_name("li")
         for item in items:
             text = item.text
-            print text
+            print(text)
         self.assertEqual(items[0].text, "heart", "Term 0 is not visible!")
         self.assertEqual(items[1].text, "heart apex", "Term 1 is not visible!")
         self.assertEqual(items[2].text, "heart atrium", "Term 2 is not visible!")
@@ -63,4 +63,4 @@ class TestStructureAutocomplete(unittest.TestCase):
         
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    HTMLTestRunner.main() 
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests')) 
