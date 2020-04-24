@@ -5,6 +5,7 @@ Created on Apr 22, 2016
 '''
 import unittest
 import time
+import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -189,7 +190,7 @@ class TestEmapaBrowser(unittest.TestCase):
         @note: EMAPA-ID-search-10 * this test fails because example used is no longer valid!!!
         """
         driver = self.driver
-        driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:36322")
+        driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:37435")
         wait.forAjax(driver)
         time.sleep(2)      
         # verifies the returned results are zero for this search
@@ -202,13 +203,13 @@ class TestEmapaBrowser(unittest.TestCase):
         @note: EMAPA-ID-search-11 
         """
         driver = self.driver
-        driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:17342")
+        driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:16824")
         wait.forAjax(driver)
         time.sleep(2)
         linkE = driver.find_element(By.CLASS_NAME, 'expressionResultCount') #the expression annotations link found in the Treeview section
         print(linkE.text)
         # verifies the returned terms are the correct terms for this search
-        self.assertEqual('73', linkE.text, 'The 0 expression results link is wrong' )
+        self.assertEqual('3', linkE.text, 'The 0 expression results link is wrong' )
         self.assertIn('0 phenotype annotations', driver.page_source, 'The 0 phenotypes annotation link is missing')#confirms that o phenotype annitations text is displayed when no results
         
     def test_pheno_link_withparent3child_treeview(self):
@@ -349,6 +350,5 @@ def suite():
     suite.addTest(unittest.makeSuite(TestEmapaBrowser))
     return suite
         
-if __name__ == "__main__":
-    unittest.main() 
-    
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))    

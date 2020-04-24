@@ -27,7 +27,7 @@ from util.table import Table
 
 # Tests
 
-class TestGenotypeSearch(unittest.TestCase):
+class TestEiGenotypeSearch(unittest.TestCase):
     """
     @status Test Genotype searching, etc
     """
@@ -245,11 +245,11 @@ class TestGenotypeSearch(unittest.TestCase):
     def testGenoAlleleSearch(self):
         """
         @Status tests that a basic genotype allele symbol search works
-        @see pwi-geno-search-9 ***this test breaks but why it can't find the Allele1 symbol is a mystery to me.
+        @see pwi-geno-search-9 *Tested 4-13-2020
         """
         driver = self.driver
         #finds the Allele 1 field and then enters text, then clicks the Search button
-        driver.find_element_by_id("allele1-0").send_keys('Dmd<mdx>')
+        driver.find_element_by_id("allele1-0").send_keys('Slc11a1<r>')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -258,11 +258,11 @@ class TestGenotypeSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'resultsTable')))
-        #find the Allele 1 field for row 2 and get it's value
-        allsym1 = driver.find_element_by_id('allele1-1').get_property('value')
+        #find the Allele 1 field for row 1 and get it's value
+        allsym1 = driver.find_element_by_id('allele1-0').get_property('value')
         print(allsym1)    
         #we are asserting the allele1 field is correct
-        self.assertEqual(allsym1, 'Dmd<mdx>')
+        self.assertEqual(allsym1, 'Slc11a1<r>')
 
     def testGenoStateSearch(self):
         """
@@ -325,14 +325,11 @@ class TestGenotypeSearch(unittest.TestCase):
         #we are asserting the J# field is correct
         self.assertEqual(jnumber, 'J:124405')
 
-
-'''
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestImgSearch))
+    suite.addTest(unittest.makeSuite(TestEiGenotypeSearch))
     return suite
-'''
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))
+
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
     

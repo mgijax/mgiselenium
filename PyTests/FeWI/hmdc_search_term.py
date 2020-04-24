@@ -9,7 +9,6 @@ import unittest
 import time
 #import requests
 from selenium import webdriver
-
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
 import HtmlTestRunner
@@ -25,7 +24,7 @@ from util.table import Table
 
 # Tests
 
-class TestSearchTerm(unittest.TestCase):
+class TestHmdcSearchTerm(unittest.TestCase):
 
     def setUp(self):
         
@@ -890,13 +889,10 @@ class TestSearchTerm(unittest.TestCase):
     def tearDown(self):
         self.driver.close()
        
-        '''
-        These tests should NEVER!!!! be run against a production system!!
-        def suite():
-        suite = unittest.TestSuite()
-        suite.addTest(unittest.makeSuite(TestAdd))
-        return suite
-        '''
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests')) 
+def suite():
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(TestHmdcSearchTerm))
+    return suite
+
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests')) 

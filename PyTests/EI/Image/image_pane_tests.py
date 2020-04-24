@@ -29,7 +29,7 @@ from util.table import Table
 
 # Tests
 
-class TestImgPaneSearch(unittest.TestCase):
+class TestEiImagePaneSearch(unittest.TestCase):
     """
     @status Test Image Pane searching, etc
     """
@@ -209,13 +209,12 @@ class TestImgPaneSearch(unittest.TestCase):
         self.assertEqual(pane_row7, '_Shh P14')
         self.assertEqual(pane_row8, '_Shh P7')
 
-'''
+
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestImgSearch))
+    suite.addTest(unittest.makeSuite(TestEiImagePaneSearch))
     return suite
-'''
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))
+
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
     

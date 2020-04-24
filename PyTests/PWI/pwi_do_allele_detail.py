@@ -6,6 +6,7 @@ These tests start out using the Marker form THE MARKER FOM IS NOW GONE reevaluat
 
 import unittest
 import time
+import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -20,7 +21,7 @@ sys.path.append(
 import config
 from config import TEST_PWI_URL
 
-class TestDoAlleleDetail(unittest.TestCase):
+class TestPwiDoAlleleDetail(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Chrome() 
@@ -168,9 +169,10 @@ class TestDoAlleleDetail(unittest.TestCase):
         
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestDoAlleleDetail))
+    suite.addTest(unittest.makeSuite(TestPwiDoAlleleDetail))
     return suite
 
-if __name__ == "__main__":
-    #import sys;sys.argv = ['', 'Test.testSpecSumByRef']
-    unittest.main()
+
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))    
+        

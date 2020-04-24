@@ -7,6 +7,7 @@ Created on Nov 2, 2017
 
 import unittest
 import time
+import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -255,7 +256,6 @@ def suite():
     suite.addTest(unittest.makeSuite(TestGXDTissueStageMatrix))
     return suite
         
-
-if __name__ == "__main__":
-    unittest.main()
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
     

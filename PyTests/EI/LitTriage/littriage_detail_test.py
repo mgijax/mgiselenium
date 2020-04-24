@@ -19,7 +19,7 @@ from util.table import Table
 
 # Tests
 
-class TestLitDetail(unittest.TestCase):
+class TestEiLitTriageDetail(unittest.TestCase):
     """
     @status Test Literature Triage search using J number, etc
     """
@@ -254,13 +254,10 @@ class TestLitDetail(unittest.TestCase):
         self.assertEqual(allele1_id, 'MGI:1855962')
         self.assertEqual(mrk1.text, 'Tyrp1')
 
-        
-'''
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestSearch))
+    suite.addTest(unittest.makeSuite(TestEiLitTriageDetail))
     return suite
-'''
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))
+        
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))

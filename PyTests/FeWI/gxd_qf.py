@@ -5,6 +5,7 @@ This set of tests verifies items found on the Gene Expression query form page
 '''
 import unittest
 import time
+import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -20,7 +21,7 @@ from util import wait, iterate
 import config
 from config import TEST_URL
 
-class TestGXDQF(unittest.TestCase):
+class TestGxdQF(unittest.TestCase):
 
 
     def setUp(self):
@@ -158,9 +159,8 @@ class TestGXDQF(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(Test))
+    suite.addTest(unittest.makeSuite(TestGxdQF))
     return suite
 
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'TestGXDQF.testName']
-    unittest.main()                
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))               

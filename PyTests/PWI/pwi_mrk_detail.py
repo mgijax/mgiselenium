@@ -9,6 +9,7 @@ These tests start out using the Marker form to display and test Marker Details
 
 import unittest
 import time
+import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -567,6 +568,5 @@ def suite():
     suite.addTest(unittest.makeSuite(TestPwiMrkDetail))
     return suite
 
-if __name__ == "__main__":
-    #import sys;sys.argv = ['', 'Test.testSpecSumByRef']
-    unittest.main()
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))

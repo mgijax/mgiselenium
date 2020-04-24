@@ -5,6 +5,7 @@ Created on Apr 4, 2016
 '''
 import unittest
 import time
+import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import sys,os.path
@@ -16,7 +17,7 @@ sys.path.append(
 import config
 from config import TEST_PWI_URL
 
-class TestSpecSumByRef(unittest.TestCase):
+class TestPwiGxdSpecSumByRef(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Chrome() 
@@ -240,9 +241,8 @@ class TestSpecSumByRef(unittest.TestCase):
         
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestSpecSumByRef))
+    suite.addTest(unittest.makeSuite(TestPwiGxdSpecSumByRef))
     return suite
 
-if __name__ == "__main__":
-    #import sys;sys.argv = ['', 'Test.testSpecSumByRef']
-    unittest.main()
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))

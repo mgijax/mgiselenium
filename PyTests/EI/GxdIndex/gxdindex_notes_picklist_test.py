@@ -27,7 +27,7 @@ from util.table import Table
 
 # Tests
 
-class TestNotes(unittest.TestCase):
+class TestEiGxdIndexNotesPicklist(unittest.TestCase):
     """
     @status Test GXD Index browser for ability to modify marker and notes data, later will need to verify created and modified by/dates
     """
@@ -232,9 +232,8 @@ class TestNotes(unittest.TestCase):
        
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestNotes))
+    suite.addTest(unittest.makeSuite(TestEiGxdIndexNotesPicklist))
     return suite
 
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests')) 
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests')) 

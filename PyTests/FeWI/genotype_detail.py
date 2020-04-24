@@ -5,6 +5,7 @@ These tests were created to verify details on the Genotype detail pages(genoview
 '''
 import unittest
 import time
+import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -24,7 +25,7 @@ from util.table import Table
 
 # Tests
 
-class Test(unittest.TestCase):
+class TestGenotypeDetail(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Chrome()
@@ -102,9 +103,8 @@ class Test(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestAdd))
+    suite.addTest(unittest.makeSuite(TestGenotypeDetail))
     return suite
 
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main() 
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))

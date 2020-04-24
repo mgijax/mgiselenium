@@ -24,7 +24,7 @@ from util.table import Table
 
 # Tests
 
-class TestGeneTab(unittest.TestCase):
+class TestHmdcGeneTab(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Chrome()
@@ -162,7 +162,11 @@ class TestGeneTab(unittest.TestCase):
     
     def tearDown(self):
         self.driver.close()
+
+def suite():
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(TestHmdcGeneTab))
+    return suite 
        
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))

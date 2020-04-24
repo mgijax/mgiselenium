@@ -5,7 +5,7 @@ This set of tests verifies items found on the Recombinase specificity page
 '''
 
 import unittest
-
+import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
@@ -101,6 +101,5 @@ def suite():
     suite.addTest(unittest.makeSuite(TestCreSpecificity))
     return suite
 
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main()    
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))   

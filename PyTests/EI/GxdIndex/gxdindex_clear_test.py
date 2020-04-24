@@ -24,7 +24,7 @@ from util.table import Table
 
 # Tests
 
-class TestClear(unittest.TestCase):
+class TestEiGxdIndexClear(unittest.TestCase):
     """
     @status Test GXD Index browser for the correct fields being cleared
     """
@@ -183,9 +183,8 @@ class TestClear(unittest.TestCase):
 These tests should NEVER!!!! be run against a production system!!'''
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestClear))
+    suite.addTest(unittest.makeSuite(TestEiGxdIndexClear))
     return suite
 
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests')) 
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests')) 

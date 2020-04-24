@@ -24,8 +24,8 @@ def main():
 #Put them in an Array
     strain_tests = unittest.TestSuite([strain_qf_test, strain_detail_test, strain_summary_test, ref_by_strain_test, refeference_summary_bystrain_test])
 #file
-    dir = os.getcwd()
-    outfile = open(r"C:\WebdriverTests\Straintestreport.html", "w")
+    result_dir = os.getcwd()
+    outfile = open(result_dir + "C:\WebdriverTests\Straintestreport.html", "w")
     runner = HtmlTestRunner.HTMLTestRunner(stream = outfile,title = 'Test Report',description = 'Strains Test Report')
     runner.run(strain_tests)
 

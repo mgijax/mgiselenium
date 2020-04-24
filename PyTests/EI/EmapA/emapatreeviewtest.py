@@ -6,7 +6,7 @@ This test verifies searching within the EmapA module
 import unittest
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-
+import HtmlTestRunner
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -19,7 +19,7 @@ from .base_class import EmapaBaseClass
 
 # Tests
 
-class TestTreeView(unittest.TestCase, EmapaBaseClass):
+class TestEiEmapaTreeView(unittest.TestCase, EmapaBaseClass):
     """
     Test EMAPA browser treeview
     """
@@ -177,9 +177,8 @@ class TestTreeView(unittest.TestCase, EmapaBaseClass):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestTreeView))
+    suite.addTest(unittest.makeSuite(TestEiEmapaTreeView))
     return suite
 
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main()
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))

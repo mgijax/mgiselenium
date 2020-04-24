@@ -29,7 +29,7 @@ from util.table import Table
 
 # Tests
 
-class TestImgCCSearch(unittest.TestCase):
+class TestEiImageCCSearch(unittest.TestCase):
     """
     @status Test Image Creative Commons display
     """
@@ -347,12 +347,11 @@ class TestImgCCSearch(unittest.TestCase):
         else:
             print("Creative Commons warning is not displaying!")
 
-'''
+
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestImgSearch))
+    suite.addTest(unittest.makeSuite(TestEiImageCCSearch))
     return suite
-'''
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))
+
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))

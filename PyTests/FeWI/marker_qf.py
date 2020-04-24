@@ -5,7 +5,7 @@ Created on Jun 7, 2016
 This set of tests verifies items found on the marker query form page.
 '''
 import unittest
-
+import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -20,7 +20,7 @@ from util import wait, iterate
 import config
 from config import TEST_URL
 
-class Test(unittest.TestCase):
+class TestMarkerQF(unittest.TestCase):
 
 
     def setUp(self):
@@ -34,18 +34,18 @@ class Test(unittest.TestCase):
         @status This test verifies the ribbons are being displayed in the correct order on the page.
         '''
         self.driver.find_element(By.NAME, 'markerQF')
-        genemarker = self.driver.find_element(By.CLASS_NAME, 'queryCat1')
+        genemarker = self.driver.find_element_by_css_selector('.queryStructureTable > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(1)')
         self.assertEqual(genemarker.text, 'Gene/Marker', "heading is incorrect")
-        featuretype = self.driver.find_element(By.CLASS_NAME, 'queryCat2')
+        featuretype = self.driver.find_element_by_css_selector('.queryStructureTable > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(1)')
         self.assertEqual(featuretype.text, 'Feature type', "heading is incorrect")
-        genomelocation = self.driver.find_element(By.CLASS_NAME, 'queryCat3')
+        genomelocation = self.driver.find_element_by_css_selector('.queryStructureTable > tbody:nth-child(1) > tr:nth-child(4) > td:nth-child(1)')
         self.assertEqual(genomelocation.text, 'Genome location', "heading is incorrect")
-        geneontclass = self.driver.find_element(By.CLASS_NAME, 'queryCat4')
-        self.assertEqual(geneontclass.text, 'Gene Ontology classifications', "heading is incorrect")
-        proteindomain = self.driver.find_element(By.CLASS_NAME, 'queryCat5')
+        geneontclass = self.driver.find_element_by_css_selector('.queryStructureTable > tbody:nth-child(1) > tr:nth-child(5) > td:nth-child(1)')
+        self.assertEqual(geneontclass.text, 'Gene Ontology\nclassifications', "heading is incorrect")
+        proteindomain = self.driver.find_element_by_css_selector('.queryStructureTable > tbody:nth-child(1) > tr:nth-child(6) > td:nth-child(1)')
         self.assertEqual(proteindomain.text, 'Protein domains', "heading is incorrect")
-        mousepheno = self.driver.find_element(By.CLASS_NAME, 'queryCat6')
-        self.assertEqual(mousepheno.text, 'Mouse phenotypes & mouse models of human disease', "heading is incorrect")
+        mousepheno = self.driver.find_element_by_css_selector('.queryStructureTable > tbody:nth-child(1) > tr:nth-child(7) > td:nth-child(1)')
+        self.assertEqual(mousepheno.text, 'Mouse phenotypes &\nmouse models of\nhuman disease', "heading is incorrect")
         
         
         
@@ -59,9 +59,8 @@ class Test(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(Test))
+    suite.addTest(unittest.makeSuite(TestMarkerQF))
     return suite
 
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main()                
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))              

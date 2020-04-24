@@ -5,6 +5,7 @@ This set of tests verifies items found on the allele query form page
 '''
 import unittest
 import time
+import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
@@ -78,6 +79,8 @@ def suite():
     suite.addTest(unittest.makeSuite(TestAlleleQueryForm))
     return suite
 
-if __name__ == "__main__":
+#if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main()                
+    #unittest.main()                
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))        

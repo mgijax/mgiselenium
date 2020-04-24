@@ -5,6 +5,7 @@ This page is linked to from the Marker detail page
 '''
 import unittest
 import time
+import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -90,9 +91,9 @@ class TestGoAnnotationsPage(unittest.TestCase):
         
     def test_aspect_sort(self):
         """
-        @status: Tests that the sorting of Aspect column is by smart alpha/reverse  smart alpha
+        @status: Tests that the sorting of Aspect column is by smart alpha/reverse smart alpha
         Note: annotations with Proteoform data always display at top of table
-        Under construction!!!!!
+        Note: this test is not perfect but it does test the basic sorting  of aspect
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/marker")
@@ -107,17 +108,26 @@ class TestGoAnnotationsPage(unittest.TestCase):
         #Finds the All GO Annotations link and clicks it
         driver.find_element(By.CLASS_NAME, 'goRibbon').find_element(By.ID, 'goAnnotLink').click()
         wait.forAjax(driver)
-        #Locates the marker header table and finds the table headings
+        #Locates  the table by row
         tabularheaderlist = driver.find_element(By.ID, 'dynamicdata')
         items = tabularheaderlist.find_elements(By.TAG_NAME, 'div')
         searchTextItems = iterate.getTextAsList(items)
+        asp1 = driver.find_element_by_id('yui-rec0')
+        asp10 = driver.find_element_by_id('yui-rec9')
+        asp17 = driver.find_element_by_id('yui-rec16')
+        print(asp1.text)
+        print(asp10.text)
+        print(asp17.text)
         wait.forAjax(driver)
-        print(searchTextItems)
-        print(searchTextItems[10])
+        #print(searchTextItems)
+        #print(searchTextItems[10])
         #verifies all the table headings are correct and in order
         #self.assertEqual(searchTextItems, ['Aspect','Category','Classification Term', 'Context', 'Proteoform', 'Evidence', 'Inferred From', 'Reference(s)'])    
-        
-        
+        self.assertEqual(asp1.text, 'Molecular Function\nsignaling receptor activity\nendothelin receptor activity\nIDA\nJ:81728 [PMID:12441350]', 'the aspect is wrong')
+        self.assertEqual(asp10.text, 'Cellular Component\nintegral component of membrane\nIEA\nIPR000276 | IPR000499 | IPR001112 | IPR017452\nJ:72247', 'the aspect is wrong')
+        self.assertEqual(asp17.text, 'Biological Process\nresponse to stimulus, signaling\ncalcium-mediated signaling\nISO\nP24530\nJ:164563', 'the aspect is wrong')
+    
+    
         
     def tearDown(self):
         self.driver.close()
@@ -127,6 +137,5 @@ def suite():
     suite.addTest(unittest.makeSuite(TestGoAnnotationsPage))
     return suite
 
-if __name__ == "__main__":
-    #import sys;sys.argv = ['', 'Test.testSpecSumByRef']
-    unittest.main()
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))

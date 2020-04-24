@@ -25,7 +25,7 @@ from util.table import Table
 
 # Tests
 
-class TestModify(unittest.TestCase):
+class TestEiGxdIndexModify(unittest.TestCase):
     """
     @status Test GXD Index browser for ability to modify marker and notes data, later will need to verify created and modified by/dates
     """
@@ -138,9 +138,8 @@ class TestModify(unittest.TestCase):
 These tests should NEVER!!!! be run against a production system!!'''
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestModify))
+    suite.addTest(unittest.makeSuite(TestEiGxdIndexModify))
     return suite
 
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests')) 
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests')) 

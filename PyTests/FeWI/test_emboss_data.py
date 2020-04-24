@@ -5,6 +5,7 @@ Created on Feb 22, 2016
 This test verifies EMBOSS data is being returned from the EMBOSS server.
 '''
 import unittest
+import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -24,7 +25,7 @@ from config import PUBLIC_URL
 SEQUENCE_URL = PUBLIC_URL + "/sequence/"
 
 
-class TestFile(unittest.TestCase):
+class TestEmbossData(unittest.TestCase):
 
 
     def get_data(self, fileName):
@@ -86,10 +87,8 @@ class TestFile(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestFile))
+    suite.addTest(unittest.makeSuite(TestEmbossData))
     return suite
 
-
-if __name__ == "__main__":
-    #import sys;sys.argv = ['', 'Test.testName']
-    unittest.main()
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))

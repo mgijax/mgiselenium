@@ -6,7 +6,7 @@ Add'l 4 tests added August 2016; jlewis
 @author: jeffc
 '''
 import unittest
-
+import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
@@ -23,7 +23,7 @@ from .base_class import EmapaBaseClass
 
 # Tests
 
-class TestSearch(unittest.TestCase, EmapaBaseClass):
+class TestEiEmapaSearch(unittest.TestCase, EmapaBaseClass):
     """
     @status Test EMAPA browser search using terms, stages, synonymns
     """
@@ -220,9 +220,8 @@ class TestSearch(unittest.TestCase, EmapaBaseClass):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestSearch))
+    suite.addTest(unittest.makeSuite(TestEiEmapaSearch))
     return suite
 
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main()
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))

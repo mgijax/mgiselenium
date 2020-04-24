@@ -32,7 +32,7 @@ from util.table import Table
 
 # Tests
 
-class TestMrkHistSearch(unittest.TestCase):
+class TestEiMrkSearchHistory(unittest.TestCase):
     """
     @status Test Marker History search fields
     """
@@ -429,13 +429,12 @@ class TestMrkHistSearch(unittest.TestCase):
         self.assertEqual(symbl4.text, 'Kdm3b')
         self.assertEqual(symbl5.text, 'Kdm6b')
         
-'''
+
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestMrkSearch))
+    suite.addTest(unittest.makeSuite(TestEiMrkSearchHistory))
     return suite
-'''
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))
+
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
             

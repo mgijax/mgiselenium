@@ -5,6 +5,7 @@ Created on Jun 20, 2018
 '''
 import unittest
 import time
+import HtmlTestRunner
 from selenium import webdriver
 #from selenium.webdriver.common.keys import Keys
 
@@ -20,7 +21,7 @@ import config
 from selenium.webdriver.common.by import By
 from config import TEST_URL
 
-class Test(unittest.TestCase):
+class TestTssDetail(unittest.TestCase):
 
 
     def setUp(self):
@@ -65,11 +66,9 @@ class Test(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(Test))
+    suite.addTest(unittest.makeSuite(TestTssDetail))
     return suite
 
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main()        
-        
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests')) 
         

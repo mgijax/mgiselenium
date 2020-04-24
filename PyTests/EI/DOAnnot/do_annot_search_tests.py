@@ -28,7 +28,7 @@ from util.table import Table
 
 # Tests
 
-class TestDoannotSearch(unittest.TestCase):
+class TestEIDoannotSearch(unittest.TestCase):
     """
     @status Test DO Annotations searching, etc
     """
@@ -869,14 +869,11 @@ class TestDoannotSearch(unittest.TestCase):
         createdate = driver.find_element_by_id('createdDate-0').get_attribute('value')
         self.assertEqual(createdate, '2005-05-10')        
          
-
-'''
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestImgSearch))
+    suite.addTest(unittest.makeSuite(TestEIDoannotSearch))
     return suite
-'''
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))
+
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
     

@@ -14,7 +14,7 @@ sys.path.append(
 )
 import config
 
-class Test(unittest.TestCase):
+class TestLogintest(unittest.TestCase):
 
 
     def setUp(self):
@@ -74,7 +74,7 @@ class Test(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(Test))
+    suite.addTest(unittest.makeSuite(TestLogintest))
     return suite
 
 if __name__ == "__main__":

@@ -28,7 +28,7 @@ from util.table import Table
 
 # Tests
 
-class TestLitSearch(unittest.TestCase):
+class TestEiLitTriageSearch(unittest.TestCase):
     """
     @status Test Literature Triage search using J number, etc
     """
@@ -627,13 +627,12 @@ class TestLitSearch(unittest.TestCase):
         print(jnums)
         self.assertEqual(jnums, ['', 'J:19241'])     
                           
-'''
+
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestLitSearch))
+    suite.addTest(unittest.makeSuite(TestEiLitTriageSearch))
     return suite
-'''
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))
+
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
     

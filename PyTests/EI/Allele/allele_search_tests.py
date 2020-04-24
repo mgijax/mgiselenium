@@ -27,7 +27,7 @@ from util.table import Table
 
 # Tests
 
-class TestAlleleSearch(unittest.TestCase):
+class TestEIAlleleSearch(unittest.TestCase):
     """
     @status Test Genotype searching, etc
     """
@@ -1451,10 +1451,11 @@ class TestAlleleSearch(unittest.TestCase):
         print(create_date)
         #Assert the  Creation Date field returned is correct 
         self.assertEqual(create_date, '2004-02-03')
-        
-'''
+
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestAlleleSearch))
+    suite.addTest(unittest.makeSuite(TestEIAlleleSearch))
     return suite
-'''                              
+
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))                                     

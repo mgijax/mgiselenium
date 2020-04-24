@@ -32,7 +32,7 @@ from util.table import Table
 
 # Tests
 
-class TestMrkAddDelete(unittest.TestCase):
+class TestEiMrkAddDelete(unittest.TestCase):
     """
     @status Tests you can add and delete markers of various types and statuses
     @see: 
@@ -367,7 +367,7 @@ class TestMrkAddDelete(unittest.TestCase):
         Select(driver.find_element_by_id("markerType")).select_by_value('string:9')
         time.sleep(2)
         #capture the javascript alert and press it's OK button
-        alertObj = driver.switch_to.alert
+        alertObj = driver.switch_to_alert()
         print(alertObj.text)
         time.sleep(2)
         #Assert the alert text returned is correct
@@ -397,18 +397,11 @@ class TestMrkAddDelete(unittest.TestCase):
         alertObj.accept()
 
 
-
-
-
-
-            
-'''
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestMrkSearch))
+    suite.addTest(unittest.makeSuite(TestEiMrkAddDelete))
     return suite
-'''
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main()
+
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
     

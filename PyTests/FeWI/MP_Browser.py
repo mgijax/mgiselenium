@@ -6,6 +6,7 @@ Created on Dec 7, 2017
 
 import unittest
 import time
+import HtmlTestRunner
 from selenium import webdriver
 #from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -106,10 +107,10 @@ class TestMPBrowser(unittest.TestCase):
     def test_tissue_link_results_sort(self):
         """
         @status: Tests that searching by an MP ID that is associated with multiple expressions return the correct results in alphanumeric sort order
-        @note: MP-ID-Search-5
+        @note: MP-ID-Search-5 *test passed 4-20-2020
         """
         driver = self.driver
-        driver.get(config.TEST_URL + "/vocab/mp_ontology/MP:0012260")
+        driver.get(config.TEST_URL + "/vocab/mp_ontology/MP:0000914")
         driver.find_element(By.LINK_TEXT, 'tissues').click()
         time.sleep(2)
         searchList = driver.find_elements(By.ID, 'searchResults')
@@ -117,17 +118,17 @@ class TestMPBrowser(unittest.TestCase):
         print([x.text for x in searchList])
         
         # These 2 terms should be returned in the anatomy search results
-        self.assertIn('brain TS17-28\ncranium TS20-28\ntissue TS11-28', terms, 'these terms are not listed!')        
+        self.assertIn('brain TS17-28\nconnective tissue TS20-28\ncranium TS20-28', terms, 'these terms are not listed!')        
 
     def test_strain_link_from_summary(self):
         """
         @status: Tests that strains listed in the Genetic Background column of an MP query summary goes to it's strain detail page
-        @note: MP-summary-1
+        @note: MP-summary-1 *tested 4-20-2020
         """
         driver = self.driver
-        driver.get(config.TEST_URL + "/mp/annotations/MP:0003731")
+        driver.get(config.TEST_URL + "/mp/annotations/MP:0006209")
         time.sleep(2)
-        driver.find_element(By.LINK_TEXT, 'DBA/2J').click()
+        driver.find_element(By.LINK_TEXT, 'C57BL/6J-Enpp1asj/GrsrJ').click()
         time.sleep(2)
         #switch focus to the new tab for Strain detail page
         self.driver.switch_to_window(self.driver.window_handles[-1])
@@ -135,7 +136,7 @@ class TestMPBrowser(unittest.TestCase):
         page_title = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
         print(page_title.text)
         #Asserts that the strain page is for the correct strain
-        self.assertEqual(page_title.text, 'DBA/2J', 'Page title is not correct!')
+        self.assertEqual(page_title.text, 'C57BL/6J-Enpp1asj/GrsrJ', 'Page title is not correct!')
         
     def tearDown(self):
         pass
@@ -146,6 +147,6 @@ def suite():
     suite.addTest(unittest.makeSuite(TestMPBrowser))
     return suite
         
-if __name__ == "__main__":
-    unittest.main() 
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
     

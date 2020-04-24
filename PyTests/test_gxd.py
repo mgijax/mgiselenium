@@ -4,7 +4,7 @@ Created on Jan 4, 2016
 @author: jeffc
 '''
 import unittest
-
+import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
@@ -19,7 +19,7 @@ import config
 @Attention: This file does not have tests yet. Need to add them
 '''
 
-class GxdTest(unittest.TestCase):
+class TestGxd(unittest.TestCase):
 
 
     def setUp(self):
@@ -33,7 +33,10 @@ class GxdTest(unittest.TestCase):
     def tearDown(self):
         self.driver.close()
 
+def suite():
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(TestGxd))
+    return suite
 
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main()
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))

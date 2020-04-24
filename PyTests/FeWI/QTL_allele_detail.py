@@ -5,7 +5,7 @@ Created on Feb 10, 2016
 This suite of tests are for QTL allele pages
 '''
 import unittest
-
+import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
@@ -18,7 +18,7 @@ from util import wait, iterate
 import config
 from config import PUBLIC_URL
 
-class Test(unittest.TestCase):
+class TestAlleleDetailQTL(unittest.TestCase):
 
 
     def setUp(self):
@@ -51,9 +51,8 @@ class Test(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(Test))
+    suite.addTest(unittest.makeSuite(TestAlleleDetailQTL))
     return suite
 
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main()
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))

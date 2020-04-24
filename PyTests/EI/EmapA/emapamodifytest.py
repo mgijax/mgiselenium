@@ -6,7 +6,7 @@ Created on Jan 28, 2016
 @author: jeffc
 '''
 import unittest
-
+import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
@@ -19,7 +19,7 @@ import config
 from util import iterate, wait
 from .base_class import EmapaBaseClass
 
-class TestModifyEmapa(unittest.TestCase, EmapaBaseClass):
+class TestEiEmapaModify(unittest.TestCase, EmapaBaseClass):
 
 
     def setUp(self):
@@ -36,10 +36,8 @@ class TestModifyEmapa(unittest.TestCase, EmapaBaseClass):
         
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestModifyEmapa))
+    suite.addTest(unittest.makeSuite(TestEiEmapaModify))
     return suite
 
-
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main()
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))

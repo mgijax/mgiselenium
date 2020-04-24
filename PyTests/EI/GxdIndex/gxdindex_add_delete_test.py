@@ -24,7 +24,7 @@ from util.table import Table
 
 # Tests
 
-class TestAdd(unittest.TestCase):
+class TestEiGxdIndexAddDelete(unittest.TestCase):
     """
     @status Test GXD Index browser for ability to add an index
     """
@@ -195,9 +195,8 @@ class TestAdd(unittest.TestCase):
        
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestAdd))
+    suite.addTest(unittest.makeSuite(TestEiGxdIndexAddDelete))
     return suite
 
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    HTMLTestRunner.main() 
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))

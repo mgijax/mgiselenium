@@ -22,7 +22,7 @@ from util.form import ModuleForm
 from util.table import Table
 # Tests
 
-class TestRnaSeqSearching(unittest.TestCase):
+class TestGxdRnaSeqSearching(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Chrome()
@@ -379,7 +379,10 @@ class TestRnaSeqSearching(unittest.TestCase):
     def tearDown(self):
         self.driver.close()
        
-        
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests')) 
+def suite():
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(TestGxdRnaSeqSearching))
+    return suite 
+
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))                

@@ -5,6 +5,7 @@ This test verifies correct functioning of the clip board features within the Ema
 '''
 import unittest
 import time
+import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
@@ -23,7 +24,7 @@ from .base_class import EmapaBaseClass
 
 # Tests
 
-class TestClipboard(unittest.TestCase, EmapaBaseClass):
+class TestEiEmapaClipboard(unittest.TestCase, EmapaBaseClass):
     """
     Tests various features connected with the clipboard.
     """
@@ -397,10 +398,8 @@ class TestClipboard(unittest.TestCase, EmapaBaseClass):
         
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestClipboard))
+    suite.addTest(unittest.makeSuite(TestEiEmapaClipboard))
     return suite
 
-
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main()
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))

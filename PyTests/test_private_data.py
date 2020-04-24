@@ -4,7 +4,7 @@ Created on Dec 22, 2015
 @author: jeffc
 '''
 import unittest
-
+import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -75,6 +75,5 @@ def suite():
     suite.addTest(unittest.makeSuite(TestPrivateData))
     return suite
         
-if __name__ == "__main__":
-    unittest.main() 
-    
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))    

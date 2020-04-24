@@ -31,7 +31,7 @@ from util.table import Table
 
 # Tests
 
-class TestMrkSearch(unittest.TestCase):
+class TestEiMrkSearchHistory(unittest.TestCase):
     """
     @status Test Literature Triage search using J number, etc
     """
@@ -133,7 +133,7 @@ class TestMrkSearch(unittest.TestCase):
         cell1 = table.get_row_cells(0)
         symbol1 = iterate.getTextAsList(cell1)
         print(symbol1)
-        self.assertEqual(symbol1, ['Et(cre/ERT2)119Rdav'])
+        self.assertEqual(symbol1, ['Del(8Nat1-Nat2)1Kss'])
         #since we search for a particular marker type verify the correct type is displayed
         mrktype = driver.find_element_by_id('markerType').get_attribute('value')
         self.assertEqual(mrktype, 'string:12')#12 equals "Transgene"
@@ -1250,13 +1250,10 @@ class TestMrkSearch(unittest.TestCase):
         #Assert the Acc IDs are in the correct sort order
         self.assertEqual(acc_list, ['AccID', '69681', '10382779', '1460472_at', '110085_at', 'MGI:1916931', 'ENSMUSG00000092300', 'ENSMUSP00000134251', 'ENSMUST00000173567', 'ENSMUST00000174177', 'ENSMUST00000174248', '69681', '1916931', '69681', 'NR_004853', 'Q80YP0', '33677'])
         
-'''
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestMrkSearch))
+    suite.addTest(unittest.makeSuite(TestEiMrkSearchHistory))
     return suite
-'''
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))
-    
+
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))    

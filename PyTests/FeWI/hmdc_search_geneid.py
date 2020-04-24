@@ -10,7 +10,7 @@ Tests are organized in this order in the file:  Mouse gene ID tests, Human gene 
 '''
 import unittest
 import time
-import requests
+#import requests
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
@@ -25,7 +25,7 @@ from util import iterate, wait
 from util.form import ModuleForm
 from util.table import Table
 
-class TestGeneid(unittest.TestCase):
+class TestHmdcSearchGeneid(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Chrome()
@@ -1180,12 +1180,13 @@ class TestGeneid(unittest.TestCase):
         self.assertIn('Lep', geneList)
         self.assertIn('LEP', geneList)
 
-
-
     def tearDown(self):
         self.driver.close()
+
+def suite():
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(TestHmdcSearchGeneid))
+    return suite
        
-    
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))

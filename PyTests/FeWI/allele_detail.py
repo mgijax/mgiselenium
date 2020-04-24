@@ -5,7 +5,7 @@ Created on May 23, 2016
 This suite of tests are for allele detail pages
 '''
 import unittest
-
+import HtmlTestRunner
 from selenium import webdriver
 #from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -761,6 +761,6 @@ def suite():
     suite.addTest(unittest.makeSuite(TestAlleleDetail))
     return suite
 
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main()
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))    
+        

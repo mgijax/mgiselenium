@@ -526,6 +526,5 @@ def suite():
         suite.addTest(unittest.makeSuite(TestDoBrowserModelTab))
         return suite
         
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.TestDoBrowserModelTab']
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))

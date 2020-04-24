@@ -258,6 +258,5 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
             suite.addTest(unittest.makeSuite(TestDoBrowserModelsPopup))
             return suite
         
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.TestDoBrowserModelsPopup']
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests')) 
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests')) 

@@ -28,7 +28,7 @@ from util.table import Table
 
 # Tests
 
-class TestVarSearch(unittest.TestCase):
+class TestEiVariantSearch(unittest.TestCase):
     """
     @status Test Variant search fields
     """
@@ -448,13 +448,11 @@ class TestVarSearch(unittest.TestCase):
         #Assert the href is correct
         self.assertEqual(allele_link, 'http://prodwww.informatics.jax.org/pwi/detail/allele/MGI:3641255')
                 
-'''
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestVarSearch))
+    suite.addTest(unittest.makeSuite(TestEiVariantSearch))
     return suite
-'''
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))
+
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
             

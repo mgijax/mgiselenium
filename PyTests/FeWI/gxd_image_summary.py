@@ -6,6 +6,7 @@ A work in progress, bringing back data but now need to figure how to apply it.
 '''
 import unittest
 import time
+import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -19,7 +20,7 @@ sys.path.append(
 from util import wait, iterate
 import config
 
-class TestGXDImageSummary(unittest.TestCase):
+class TestGxdImageSummary(unittest.TestCase):
 
 
     def setUp(self):
@@ -201,11 +202,9 @@ class TestGXDImageSummary(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestGXDImageSummary))
+    suite.addTest(unittest.makeSuite(TestGxdImageSummary))
     return suite
         
-
-if __name__ == "__main__":
-    unittest.main()
-    
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))    
     

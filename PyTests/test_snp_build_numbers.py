@@ -4,7 +4,8 @@ Created on Mar 21, 2016
 @author: jeffc
 '''
 import unittest
-
+import time
+import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -22,7 +23,7 @@ import config
 #from util import iterate, wait
 
 
-class TestSnpBuild(unittest.TestCase):
+class TestSnpBuildNumbers(unittest.TestCase):
 
 
     def setUp(self):
@@ -65,9 +66,10 @@ class TestSnpBuild(unittest.TestCase):
         print ("BEGIN test_mrk_detail_build")
         #displays the marker detail page for pax6
         self.driver.get(PUBLIC_URL + "/marker/MGI:1096368")
+        time.sleep(2)
         #opens the Location & Maps section
-        self.driver.find_element(By.CLASS_NAME, 'toggleImage').click()
-        #finds the build number at the top of the snp QF page
+        self.driver.find_element(By.ID, 'lmToggle').click()
+        #finds the build number in the Sequence map section
         seqmapLabel = self.driver.find_element(By.CLASS_NAME, 'detailData2').find_element(By.CLASS_NAME, 'closed').find_element(By.CSS_SELECTOR, 'div.value')
         #verifies GRCm38 is displayed in this section
         self.assertIn("GRCm38", seqmapLabel.text)
@@ -142,10 +144,8 @@ class TestSnpBuild(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestSnpBuild))
+    suite.addTest(unittest.makeSuite(TestSnpBuildNumbers))
     return suite
 
-
-if __name__ == "__main__":
-    #import sys;sys.argv = ['', 'Test.testName']
-    unittest.main()
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))

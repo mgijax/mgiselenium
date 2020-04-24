@@ -5,6 +5,7 @@ This page is linked to from the References page
 '''
 import unittest
 import time
+import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import sys,os.path
@@ -16,7 +17,7 @@ sys.path.append(
 import config
 from config import TEST_PWI_URL
 
-class TestImagePanePage(unittest.TestCase):
+class TestPwiGxdImagePanePage(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Chrome() 
@@ -456,10 +457,8 @@ class TestImagePanePage(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestImagePanePage))
+    suite.addTest(unittest.makeSuite(TestPwiGxdImagePanePage))
     return suite
 
-
-if __name__ == "__main__":
-    #import sys;sys.argv = ['', 'Test.testSpecSumByRef']
-    unittest.main()
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))

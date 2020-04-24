@@ -10,7 +10,6 @@ import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import HtmlTestRunner
-
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -23,7 +22,7 @@ from util.table import Table
 
 # Tests
 
-class TestSearch(unittest.TestCase):
+class TestEiGxdIndexSearch(unittest.TestCase):
     """
     @status Test GXD Index browser search using J number, marker symbol, ???
     """
@@ -661,9 +660,8 @@ class TestSearch(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestSearch))
+    suite.addTest(unittest.makeSuite(TestEiGxdIndexSearch))
     return suite
 
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))

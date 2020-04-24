@@ -4,7 +4,7 @@ Created on Dec 22, 2015
 @author: jeffc
 '''
 import unittest
-
+import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
@@ -16,7 +16,7 @@ sys.path.append(
 import config
 
 
-class PythonOrgSearch(unittest.TestCase):
+class TestPythonOrgSearch(unittest.TestCase):
 
     def setUp(self):
         #self.driver = webdriver.Firefox()
@@ -34,5 +34,10 @@ class PythonOrgSearch(unittest.TestCase):
     def tearDown(self):
         self.driver.close()
 
-if __name__ == "__main__":
-    unittest.main()
+def suite():
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(TestPythonOrgSearch))
+    return suite
+
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))

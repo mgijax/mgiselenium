@@ -4,7 +4,7 @@ Created on Jan 5, 2016
 @author: jeffc
 '''
 import unittest
-
+import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
@@ -67,6 +67,5 @@ def suite():
     suite.addTest(unittest.makeSuite(TestPrivateAllele))
     return suite
 
-if __name__ == "__main__":
-
-    unittest.main()
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))

@@ -5,7 +5,7 @@ Created on Jun 6, 2016
 '''
 
 import unittest
-
+import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
@@ -109,9 +109,8 @@ class TestAlleleSummary(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(Test))
+    suite.addTest(unittest.makeSuite(TestAlleleSummary))
     return suite
 
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'TestAlleleSummary.testName']
-    unittest.main()        
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))     

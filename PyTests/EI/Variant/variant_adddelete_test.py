@@ -14,7 +14,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import Select
 #from.selenium.webdriver.support.color import Color
-import HTMLTestRunner
+import HtmlTestRunner
 import json
 import sys,os.path
 from selenium.webdriver.support.color import Color
@@ -30,7 +30,7 @@ from util.table import Table
 
 # Tests
 
-class TestVarAddDelete(unittest.TestCase):
+class TestEiVariantAddDelete(unittest.TestCase):
     """
     @status Test Variant search fields
     """
@@ -481,13 +481,11 @@ class TestVarAddDelete(unittest.TestCase):
         #Assert you do not find "No items found" text on the page  
         assert "No items found" not in self.driver.page_source 
                         
-'''
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestVarSearch))
+    suite.addTest(unittest.makeSuite(TestEiVariantAddDelete))
     return suite
-'''
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))
+
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
             

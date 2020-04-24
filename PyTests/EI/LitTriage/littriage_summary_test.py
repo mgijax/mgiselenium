@@ -21,7 +21,7 @@ from util.table import Table
 
 # Tests
 
-class TestLitSummarySearch(unittest.TestCase):
+class TestEiLitTriageSummarySearch(unittest.TestCase):
     """
     @status Test Literature Triage search results setup
     """
@@ -232,12 +232,10 @@ class TestLitSummarySearch(unittest.TestCase):
         #asserts the link text found in the title column is correct
         self.assertEqual(title_cell.text, '')
            
-'''
 def suite():
-    #suite = unittest.TestSuite()
-    #suite.addTest(unittest.makeSuite(TestLitSummarySearch))
-    #return suite
-'''
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(TestEiLitTriageSummarySearch))
+    return suite
+
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))

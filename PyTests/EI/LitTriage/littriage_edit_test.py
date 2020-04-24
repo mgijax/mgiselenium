@@ -26,7 +26,7 @@ from util.table import Table
 
 # Tests
 
-class TestLitEdit(unittest.TestCase):
+class TestEiLitTriageEdit(unittest.TestCase):
     """
     @status Test Literature Triage editing features
     """
@@ -181,12 +181,10 @@ class TestLitEdit(unittest.TestCase):
         #asserts that the following J numbers are returned
         self.assertEqual(supp, 'Supplement attached', 'The wrong supplemental is displayed!')
         
-'''
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestSearch))
+    suite.addTest(unittest.makeSuite(TestEiLitTriageEdit))
     return suite
-'''
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main()
+
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))

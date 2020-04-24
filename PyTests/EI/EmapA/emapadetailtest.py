@@ -6,6 +6,7 @@ Add'l 4 tests added Aug 2016; jlewis
 '''
 import unittest
 import time 
+import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
@@ -18,7 +19,7 @@ import config
 from util import iterate, wait
 from .base_class import EmapaBaseClass
 
-class TestEmapaDetail(unittest.TestCase, EmapaBaseClass):
+class TestEiEmapaDetail(unittest.TestCase, EmapaBaseClass):
 
 
     def setUp(self):
@@ -256,9 +257,8 @@ class TestEmapaDetail(unittest.TestCase, EmapaBaseClass):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestEmapaDetail))
+    suite.addTest(unittest.makeSuite(TestEiEmapaDetail))
     return suite
 
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main()
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))

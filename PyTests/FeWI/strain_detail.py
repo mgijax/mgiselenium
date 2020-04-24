@@ -5,6 +5,7 @@ This set of tests verifies the Strains detail page results
 '''
 import unittest
 import time
+import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
@@ -1207,8 +1208,8 @@ class TestStrainDetail(unittest.TestCase):
             
     def test_strain_humdis_disease_not(self):
         """
-        @status: Tests that the page can display NOTs as well as  diseases in the Associated Diseases ribbon
-        @note: Strain-det-disease-5 This test is not fully functional until I can figure out how to capture NOT image in the disease table!
+        @status: Tests that the page can display NOTs as well as diseases in the Associated Diseases ribbon
+        @note: Strain-det-disease-5 This test captures the alt NOT text since it can't get the image in the disease table
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/strains_SNPs.shtml")
@@ -1220,21 +1221,25 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
         #locate the link for C57BL/6J and click it
-        driver.find_element(By.PARTIAL_LINK_TEXT, 'C57BL/6J-Pax3Sp').click()
+        driver.find_element(By.PARTIAL_LINK_TEXT, 'C57BL/6J-Pax3Sp-d').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
         driver.switch_to_window(self.driver.window_handles[-1])
         #locates the Human Disease table
         time.sleep(2)
-        disease_table = self.driver.find_element(By.ID, 'diseaseSummaryTable')
-        table = Table(disease_table)
-        #Iterate the second row of the disease table
-        all_cells = table.get_rows()
-        data_cells = iterate.getTextAsList(all_cells)
-        print(data_cells)
-        #verify the Model headers text
-        #self.assertEqual(all_cells[1].text, 'model 1')
-        #self.assertEqual(all_cells[2].text, 'model 2')        
+        #locates the first column of row 2 and captures the text, also prints to screen
+        row2col1 = self.driver.find_element_by_css_selector('#diseaseSummaryTable > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(1) > a:nth-child(1)')
+        print (row2col1.text)
+        #locates the second column of row 2 and captures the ALT text(since can't capture the image), also prints to screen
+        row2col2 = self.driver.find_element_by_css_selector('#diseaseSummaryTable > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(2) > img:nth-child(1)').get_attribute('alt')
+        print(row2col2)
+        #locates the third column of row 2 and captures the ALT text(since can't capture the image), also prints to screen
+        row2col3 = self.driver.find_element_by_css_selector('#diseaseSummaryTable > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(3) > img:nth-child(1)').get_attribute('alt')
+        print(row2col3)
+        #verify the second row of Disease table data
+        self.assertEqual(row2col1.text, 'Waardenburg syndrome type 3')
+        self.assertEqual(row2col2, 'NOT') 
+        self.assertEqual(row2col3, 'NOT')        
         
     '''def test_strain_humdis_assoc_diseases(self):
         """
@@ -1453,6 +1458,5 @@ def suite():
     suite.addTest(unittest.makeSuite(TestStrainDetail))
     return suite
 
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'TestStrainDetail.testName']
-    unittest.main()         
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))        

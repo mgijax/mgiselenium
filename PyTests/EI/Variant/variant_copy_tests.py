@@ -13,7 +13,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import Select
 #from.selenium.webdriver.support.color import Color
-import HTMLTestRunner
+import HtmlTestRunner
 import json
 import sys,os.path
 from selenium.webdriver.support.color import Color
@@ -29,7 +29,7 @@ from util.table import Table
 
 # Tests
 
-class TestVarCopy(unittest.TestCase):
+class TestEiVariantCopy(unittest.TestCase):
     """
     @status Test the Copy functions of the variant module
     @attention: under construction
@@ -398,15 +398,12 @@ class TestVarCopy(unittest.TestCase):
         #Find the Create button and verify it is active(enabled)
         self.assertTrue(driver.find_element_by_id('createVariantButton').is_enabled(), "Create button is not enabled")
 
-        
-'''
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestVarSearch))
+    suite.addTest(unittest.makeSuite(TestEiVariantCopy))
     return suite
-'''
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))
+
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
                     
         

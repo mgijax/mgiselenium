@@ -6,6 +6,7 @@ This suite of tests are for marker detail pages
 '''
 import unittest
 import time
+import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
@@ -226,8 +227,8 @@ class TestMarkerDetail(unittest.TestCase):
 
     def test_strain_turnstile_closed(self):
         '''        
-        @status this test verifies the Strain Comparison ribbon when the turnstile is closed shows strain annotations, MGV link, SNPs within 2kb(if available).
-        @note mrkdetail-strain-3  !!this test needs a rewrite as it no longer works by links but by pulldown menu
+        @status this test verifies the Strain Comparison ribbon when the turnstile is closed shows strain annotations and SNPs within 2kb(if available).
+        @note mrkdetail-strain-3  
         '''        
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys("Ren1")
@@ -236,21 +237,15 @@ class TestMarkerDetail(unittest.TestCase):
         #locate the number of strain annotations
         strain_annot = self.driver.find_element(By.ID, 'annotatedStrainMarkerCount')
         #verify the strain annotations number is correct
-        self.assertEqual(strain_annot.text, '16')
-        #locate the MGV link
-        mgv_link = self.driver.find_element(By.ID, 'sgGoButton')
-        print(mgv_link.text)
-        #verify the MGV link text is correct
-        self.assertEqual(mgv_link.text, 'Multiple Genome Viewer (MGV)')        
-        #locate the SNP link
-        snp_link = self.driver.find_element(By.ID, 'snpLink')
-        print(snp_link.text)
-        #verify the SNP link text is correct
-        self.assertEqual(snp_link.text, '298')
-
-    def test_strain_turnstile_closed_nostrain_snp(self):
+        self.assertEqual(strain_annot.text, '16')      
+        #verify the SNP URL
+        snp_s = self.driver.find_element_by_id('snpLink')
+        self.assertEquals(snp_s.text, '295')
+ 
+        
+    def test_strain_turnstile_nostrain_snp_data(self):
         '''        
-        @status this test verifies the Strain Comparison ribbon when the turnstile is closed shows no Annotation Data or SNP Data when none exist.
+        @status this test verifies the Strain Comparison ribbon does not display when no Annotation Data or SNP Data exists.
         @note mrkdetail-strain-4 
         '''        
         self.driver.find_element(By.NAME, 'nomen').clear()
@@ -259,11 +254,6 @@ class TestMarkerDetail(unittest.TestCase):
         self.driver.find_element(By.LINK_TEXT, 'Arp').click()
         #verify the strain annotations number is not displayed
         assert "annotatedStrainMarkerCount" not in self.driver.page_source
-        #locate the MGV link
-        mgv_link = self.driver.find_element(By.ID, 'mgvSpan')
-        print(mgv_link.text)
-        #verify the MGV link text is correct
-        self.assertEqual(mgv_link.text, 'Multiple Genome Viewer (MGV)')
         #Assert the SNPs within 2kb link is not displayed
         assert "snpLink" not in self.driver.page_source
         
@@ -279,14 +269,14 @@ class TestMarkerDetail(unittest.TestCase):
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Ren2').click()
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
-        #verify the MGV link is correctly not displayed in the Strain Comparison ribbon
-        assert "Multiple Genome Viewer (MGV)" not in self.driver.page_source
+        #verify the there is no strain table in the Strain Comparison ribbon
+        assert "id='table_strainMarkers'" not in self.driver.page_source
         
 
     def test_mgv_link_10kb_flank(self):
         '''        
         @status this test verifies the Multiple Genome Viewer(MGV) has 10kb flanking on each end of the sequence link URL.
-        @note mrkdetail-strain-6 
+        @note mrkdetail-strain-6 *this is no longer a requirement?
         '''       
         driver = self.driver 
         self.driver.find_element(By.NAME, 'nomen').clear()
@@ -296,6 +286,22 @@ class TestMarkerDetail(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
         #clicks the More toggle(turnstile) to display the strain distribution data
         self.driver.find_element(By.ID, 'strainRibbon').find_element(By.CSS_SELECTOR, 'div.toggleImage.hdExpand').click()
+        #find the "Get FASTA" option in the pulldown list located above the strain table and select it
+        Select (self.driver.find_element(By.NAME, 'strainOp')).select_by_visible_text('Get FASTA')
+        time.sleep(2)
+        #find and click the 'Go' button
+        self.driver.find_elements(By.CLASS_NAME, 'sgButton')[0].click()
+        #time.sleep(2)
+        #switch focus to the new tab for the FASTA results
+        self.driver.switch_to_window(self.driver.window_handles[-1])
+        #time.sleep(2)
+        #verify the correct sequence is being returned
+        assert 'MGI_C57BL6J_95661 X:7959260-7978071' in self.driver.page_source 
+        
+        
+        
+        
+        
         #time.sleep(2)
         #locates all MGV link on the page
         mgv_link = self.driver.find_element(By.LINK_TEXT, 'Multiple Genome Viewer (MGV)')    
@@ -342,7 +348,7 @@ class TestMarkerDetail(unittest.TestCase):
         all_cells = table.get_row('ID/Version')
         print(all_cells.text)
         #verify the ID/Version row of data
-        self.assertEqual(all_cells.text, 'ID/Version\nMGP_129S1SvImJ_G0035536 Multiple Genome Viewer (MGV) Version: MGP_129S1SvImJ_G0035536.Ensembl Release 92')
+        self.assertEqual(all_cells.text, 'ID/Version\nMGP_129S1SvImJ_G0035536 (Ensembl) Multiple Genome Viewer (MGV) Version: MGP_129S1SvImJ_G0035536.Ensembl Release 92')
 
     def test_strain_table_vs_seqmap_noB6(self):
         '''        
@@ -351,15 +357,15 @@ class TestMarkerDetail(unittest.TestCase):
         '''   
         driver = self.driver      
         self.driver.find_element(By.NAME, 'nomen').clear()
-        self.driver.find_element(By.NAME, 'nomen').send_keys("Sox1ot")
+        self.driver.find_element(By.NAME, 'nomen').send_keys("Gcom1")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element(By.LINK_TEXT, 'Sox1ot').click()
+        self.driver.find_element(By.LINK_TEXT, 'Gcom1').click()
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
         #locate the Sequence Map coordinates
         seq_map = self.driver.find_element(By.XPATH, '//*[@id="templateBodyInsert"]/div[2]/div[2]/div[2]/section[1]/ul/li[1]/div[2]')
         print(seq_map.text)
         #verify the coordinates data for the sequence map
-        self.assertEqual(seq_map.text, 'Chr8:12385771-12436732 bp, + strand', 'sequence map coordinates have changed!')
+        self.assertEqual(seq_map.text, 'Genome coordinates not available', 'sequence map coordinates have changed!')
         #clicks the More toggle(turnstile) to display the strain table
         self.driver.find_element(By.ID, 'strainRibbon').find_element(By.CSS_SELECTOR, 'div.toggleImage.hdExpand').click()
         #find the Gene Model ID column of the strains table
@@ -446,7 +452,10 @@ class TestMarkerDetail(unittest.TestCase):
         #find and select the the Select Strain box for the strain A/J
         self.driver.find_elements(By.CLASS_NAME, 'sgCheckbox')[2].click()
         #time.sleep(2)
-        #find and click the 'Go' button with default set as Get FASTA
+        #find the "Get FASTA" option in the pulldown list located above the strain table and select it
+        Select (self.driver.find_element(By.NAME, 'strainOp')).select_by_visible_text('Get FASTA')
+        time.sleep(2)
+        #find and click the 'Go' button
         self.driver.find_elements(By.CLASS_NAME, 'sgButton')[0].click()
         #time.sleep(2)
         #switch focus to the new tab for the FASTA results
@@ -475,7 +484,10 @@ class TestMarkerDetail(unittest.TestCase):
         self.driver.find_elements(By.CLASS_NAME, 'sgCheckbox')[5].click()
         self.driver.find_elements(By.CLASS_NAME, 'sgCheckbox')[9].click()
         #time.sleep(2)
-        #find and click the 'Get FASTA' button
+        #find the "Get FASTA" option in the pulldown list located above the strain table and select it
+        Select (self.driver.find_element(By.NAME, 'strainOp')).select_by_visible_text('Get FASTA')
+        time.sleep(2)
+        #find and click the 'Go' button
         self.driver.find_elements(By.CLASS_NAME, 'sgButton')[0].click()
         #time.sleep(2)
         #switch focus to the new tab for the FASTA results
@@ -504,7 +516,10 @@ class TestMarkerDetail(unittest.TestCase):
         #find and select the the Download box for the strain C57BL/6J
         self.driver.find_elements(By.CLASS_NAME, 'sgCheckbox')[0].click()
         #time.sleep(2)
-        #find and click the 'Get FASTA' button
+        #find the "Get FASTA" option in the pulldown list located above the strain table and select it
+        Select (self.driver.find_element(By.NAME, 'strainOp')).select_by_visible_text('Get FASTA')
+        time.sleep(2)
+        #find and click the 'Go' button
         self.driver.find_elements(By.CLASS_NAME, 'sgButton')[0].click()
         #time.sleep(2)
         #switch focus to the new tab for the FASTA results
@@ -577,20 +592,20 @@ class TestMarkerDetail(unittest.TestCase):
 
     def test_strain_only_coord(self):
         '''        
-        @status this test verifies that only the Multiple Genome Viwer (MGV) link exists in the Strain Comparison ribbon when no strain available
+        @status this test verifies that only the SNPs within 2kb, PCR,and RFLP links exists in the Strain Comparison ribbon when no strain available
         @note mrkdetail-strain-19  
         '''  
         driver = self.driver      
         self.driver.find_element(By.NAME, 'nomen').clear()
-        self.driver.find_element(By.NAME, 'nomen').send_keys("Arp")
+        self.driver.find_element(By.NAME, 'nomen').send_keys("Ifna")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element(By.LINK_TEXT, 'Arp').click()
+        self.driver.find_element(By.LINK_TEXT, 'Ifna').click()
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
         #locate the strain comparison ribbon
         strain_ribbon = self.driver.find_element(By.ID, 'strainRibbon')
         print(strain_ribbon.text)
         #verify the Strain-specific icon and text is displayed in the strain comparison ribbon
-        self.assertEqual(strain_ribbon.text, 'Strain\nComparison\nmore\nMultiple Genome Viewer (MGV)', 'the Strain Comparison ribbon display has changed!')        
+        self.assertEqual(strain_ribbon.text, 'Strain\nComparison\nmore\nSNPs within 2kb\n52 from dbSNP Build 142', 'the Strain Comparison ribbon display has changed!')        
 
     def test_strain_only_poly(self):
         '''        
@@ -903,14 +918,15 @@ class TestMarkerDetail(unittest.TestCase):
         #pheno_table.get_cell(2, 21).click()
         #switch focus to the new tab for Phenotype annotations related to reproductive System
         self.driver.switch_to_window(self.driver.window_handles[-1])
-        #time.sleep(2)        
+        #time.sleep(2) 
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'popupTable')))#waits until the phenogrid table is displayed on the page       
         #find and click the Mouse Genotype for X/Sry<AKR/J>
-        self.driver.find_element(By.XPATH, '//*[@id="fm9638a"]').click()
+        self.driver.find_element(By.XPATH, '//*[@id="fm10561a"]').click()
         #switch focus to the new tab for Phenotypes associated with X/Sry<AKR/J>
         self.driver.switch_to_window(self.driver.window_handles[-1])
         #time.sleep(2) 
         #Locate the Genetic Background column and click the link found there(Summary ribbon)
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/table/tbody/tr/td[2]/div/table/tbody/tr[2]/td[3]/a').click()
+        self.driver.find_element(By.XPATH, '//*[@id="templateBodyInsert"]/div[2]/div[1]/div/div[2]/table/tbody/tr/td[1]/table/tbody/tr[2]/td[2]/a').click()
         #time.sleep(2) 
         #switch focus to the new tab for strain detail page
         self.driver.switch_to_window(self.driver.window_handles[-1])
@@ -941,6 +957,5 @@ def suite():
     suite.addTest(unittest.makeSuite(TestMarkerDetail))
     return suite
 
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.MarkerDetail']
-    unittest.main()
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))

@@ -158,13 +158,10 @@ class TestDoBrowserGeneral(unittest.TestCase):
     def tearDown(self):
         self.driver.close()
        
-        '''
-        These tests should NEVER!!!! be run against a production system!!
-        def suite():
-        suite = unittest.TestSuite()
-        suite.addTest(unittest.makeSuite(TestAdd))
-        return suite
-        '''
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))
+def suite():
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(TestDoBrowserGeneral))
+    return suite
+
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))

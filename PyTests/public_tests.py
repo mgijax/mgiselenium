@@ -10,13 +10,13 @@ sys.path.append(
 import config
 
 import unittest
-
+import HtmlTestRunner
 # import all sub test suites
 from .FeWI import all_tests as fewi_tests
 
-from . import test_mrk_detail_links
-from . import test_private_data
-from . import test_snp_build_numbers
+import test_mrk_detail_links
+import test_private_data
+import test_snp_build_numbers
 
 # add the test suites
 def master_suite():
@@ -32,8 +32,7 @@ def master_suite():
     return master_suite
 
 if __name__ == '__main__':
-    test_suite = master_suite()
-    runner = unittest.TextTestRunner()
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
 
     ret = not runner.run(test_suite).wasSuccessful()
     sys.exit(ret)

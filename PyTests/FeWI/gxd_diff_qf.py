@@ -5,6 +5,7 @@ These tests check the finctionality of the the GXD Differental query form
 '''
 import unittest
 import time
+import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -19,7 +20,7 @@ sys.path.append(
 from util import iterate, wait
 import config
 
-class TestGXDDifferentialQF(unittest.TestCase):
+class TestGxdDifferentialQF(unittest.TestCase):
 
 
     def setUp(self):
@@ -231,11 +232,11 @@ class TestGXDDifferentialQF(unittest.TestCase):
         #self.assertIn('Pkm', searchTextItems)
         #find the tissue grid box for liver for marker A2m
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
-        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row0.col10 > rect.blue2')
+        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row0.col19 > rect')
         rightclass = item.get_attribute('class')
         #rightclass finds the class name of the gridbox
-        #now we assert the class name of the gridbox matches the class name of blue2
-        self.assertEqual(rightclass, 'blue2')
+        #now we assert the class name of the gridbox matches the class name of blue1
+        self.assertEqual(rightclass, 'blue1')
         #find the Anatomical Systems column
         termslist = driver.find_element(By.ID, "rowGroupInner")
         items = termslist.find_elements(By.TAG_NAME, 'text')
@@ -250,10 +251,9 @@ class TestGXDDifferentialQF(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestGXDDifferentialQF))
+    suite.addTest(unittest.makeSuite(TestGxdDifferentialQF))
     return suite
         
-
-if __name__ == "__main__":
-    unittest.main()
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
     

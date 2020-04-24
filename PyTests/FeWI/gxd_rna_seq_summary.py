@@ -22,7 +22,7 @@ from util.form import ModuleForm
 from util.table import Table
 # Tests
 
-class TestRnaSeqSummary(unittest.TestCase):
+class TestGxdRnaSeqSummary(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Chrome()
@@ -236,16 +236,14 @@ class TestRnaSeqSummary(unittest.TestCase):
         #Assert the URL is correct
         self.assertEqual(page_url, "http://test.informatics.jax.org/gxd/experiment/E-ERAD-169")
 
-
-
-
-
-    
-    
+  
     def tearDown(self):
         self.driver.close()
+
+def suite():
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(TestGxdRnaSeqSummary))
+    return suite 
        
-        
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests')) 
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))

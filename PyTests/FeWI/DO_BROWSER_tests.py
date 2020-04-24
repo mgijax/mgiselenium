@@ -23,8 +23,8 @@ def main():
 #Put them in an Array
     do_browser_tests = unittest.TestSuite([do_browser_general_test, do_browser_term_tab_test, do_browser_gene_tab_test, do_browser_model_tab_test, do_browser_models_popup_test])
 #file
-    dir = os.getcwd()
-    outfile = open(r"C:\WebdriverTests\DOBROWSERtestreport.html", "w")
+    result_dir = os.getcwd()
+    outfile = open(result_dir + "C:\WebdriverTests\DOBROWSERtestreport.html", "w")
     runner = HtmlTestRunner.HTMLTestRunner(stream = outfile,title = 'Test Report',description = 'DO Browser Test Report')
     runner.run(do_browser_tests)
 

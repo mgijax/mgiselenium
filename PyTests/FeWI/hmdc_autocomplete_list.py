@@ -24,7 +24,7 @@ from util.table import Table
 
 # Tests
 
-class TestHMDCAutocomplete(unittest.TestCase):
+class TestHmdcAutocomplete(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Chrome()
@@ -34,7 +34,7 @@ class TestHMDCAutocomplete(unittest.TestCase):
     def test_index_tab_headers(self):
         '''
         @status this test verifies the auto complete list is displaying the terms associated to the text you entered.
-        @see HMDC-DQ-?? !! broken!!!
+        @see HMDC-DQ-?? passed 4-15-2020
         '''
         print ("BEGIN test_index_tab_headers")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
@@ -55,8 +55,8 @@ class TestHMDCAutocomplete(unittest.TestCase):
         self.assertEqual(items[1].text, "systemic lupus erythematosus", "Term 1 is not visible!")
         self.assertEqual(items[2].text, "Lupus Erythematosus, systemic", "Term 2 is not visible!")
         self.assertEqual(items[3].text, "SLE - Lupus Erythematosus, systemic", "Term 3 is not visible!")
-        self.assertEqual(items[4].text, "decreased susceptibility to systemic lupus erythematosus", "Term 4 is not visible!")
-        self.assertEqual(items[5].text, "increased susceptibility to systemic lupus erythematosus", "Term 5 is not visible!")
+        self.assertEqual(items[4].text, "increased susceptibility to systemic lupus erythematosus", "Term 4 is not visible!")
+        self.assertEqual(items[5].text, "decreased susceptibility to systemic lupus erythematosus", "Term 5 is not visible!")
         self.assertEqual(items[6].text, "increased resistance to systemic lupus erythematosus", "Term 6 is not visible!")                                                                                                                                 
         self.assertEqual(items[7].text, "reduced susceptibility to systemic lupus erythematosus", "Term 7 is not visible!")
         self.assertEqual(items[8].text, "decreased resistance to systemic lupus erythematosus", "Term 8 is not visible!")
@@ -64,7 +64,10 @@ class TestHMDCAutocomplete(unittest.TestCase):
     def tearDown(self):
         self.driver.close()
        
-        
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests')) 
+def suite():
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(TestHmdcAutocomplete))
+    return suite 
+
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))

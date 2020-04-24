@@ -26,7 +26,7 @@ from util.table import Table
 
 # Tests
 
-class TestImgSearch(unittest.TestCase):
+class TestEiImageSearch(unittest.TestCase):
     """
     @status Test Image searching, etc
     """
@@ -1090,13 +1090,12 @@ class TestImgSearch(unittest.TestCase):
         #Assert the correct Acc ID result details are returned
         self.assertEqual(result1, ['Eurexpress', 'euxassay_000001_01'])             
 
-'''
+
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestImgSearch))
+    suite.addTest(unittest.makeSuite(TestEiImageSearch))
     return suite
-'''
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))
+
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
     

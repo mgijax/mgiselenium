@@ -10,8 +10,6 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 import HtmlTestRunner
-
-
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -26,7 +24,7 @@ from util.TestResultUtility import Report
 
 # Tests
 
-class TestShort(unittest.TestCase):
+class TestEiGxdIndexShortcuts(unittest.TestCase):
     """
     @status Test GXD Index browser for the correct fields being cleared
     @attention: This will only work on the Chrome browser. Only contains 2 shortcut tests, others can be added later as time permits
@@ -200,9 +198,8 @@ class TestShort(unittest.TestCase):
        
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestShort))
+    suite.addTest(unittest.makeSuite(TestEiGxdIndexShortcuts))
     return suite
 
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests')) 
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests')) 

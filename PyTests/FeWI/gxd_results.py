@@ -5,6 +5,7 @@ This set of tests verifies results you might get from the GXD query form, it cov
 '''
 import unittest
 import time
+import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
@@ -23,7 +24,7 @@ from util import wait, iterate
 import config
 from config import TEST_URL
 
-class TestGXDResults(unittest.TestCase):
+class TestGxdResults(unittest.TestCase):
 
 
     def setUp(self):
@@ -527,7 +528,7 @@ class TestGXDResults(unittest.TestCase):
         searchTextItems = iterate.getTextAsList(items)
         print(searchTextItems)
         #assert that the TPM column results are displaying  the 4 different options
-        self.assertEqual(searchTextItems, ['Immunohistochemistry', 'Immunohistochemistry', 'Immunohistochemistry', 'Immunohistochemistry', 'Immunohistochemistry', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'In situ reporter (knock in)', 'In situ reporter (knock in)', 'In situ reporter (knock in)', 'In situ reporter (knock in)', 'Northern blot', 'Northern blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'Nuclease S1', 'Nuclease S1', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq']) 
+        self.assertEqual(searchTextItems, ['Immunohistochemistry', 'Immunohistochemistry', 'Immunohistochemistry', 'Immunohistochemistry', 'Immunohistochemistry', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'In situ reporter (knock in)', 'In situ reporter (knock in)', 'In situ reporter (knock in)', 'In situ reporter (knock in)', 'Northern blot', 'Northern blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'Nuclease S1', 'Nuclease S1', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq']) 
                          
     def test_assay_results_tab_cond_mutant(self):
         """
@@ -579,10 +580,10 @@ class TestGXDResults(unittest.TestCase):
         self.assertEqual(searchTextItems[40], 'Conditional mutant.') 
         self.assertEqual(searchTextItems[42], 'Conditional mutant.')
 
-    def test_assay_results_filter_by_exp(self):
+    def test_assay_results_filter_by_assay_type(self):
         """
-        @status: Tests that the filter by experiment option on the assays tab Assays Detail column works as expected.
-        @note: GXD-aresults-11 !!broken, can't click filter icon until given an ID or class.
+        @status: Tests that the filter by assay type option on the assays tab Assays Detail column works as expected.
+        @note: GXD-aresults-11 !!broken, can't click filter open 'RNA-Seq", maybe focus on popup needed?
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")
@@ -593,9 +594,9 @@ class TestGXDResults(unittest.TestCase):
         anat_struct.send_keys(Keys.TAB)
         time.sleep(2)
         #find the In Situ Assays check box and uncheck it
-        self.driver.find_element_by_id('inSituAll').click()
+        #self.driver.find_element_by_id('inSituAll').click()
         #find the Blot Assays check box and uncheck it
-        self.driver.find_element_by_id('blotAll').click()
+        #self.driver.find_element_by_id('blotAll').click()
         #find the Whole Genome assays check box and check it
         driver.find_element(By.ID, 'wholeGenomeAll').click()
         #find the search button and click it
@@ -605,8 +606,8 @@ class TestGXDResults(unittest.TestCase):
         #locate the Assays tab and click it
         self.driver.find_element_by_id('assaystab').click()
         time.sleep(2)
-        flink = driver.find_elements_by_class_name('rsFilterLink')
-        flink[0].click()
+        Select(driver.find_element(By.ID, 'assayTypeFilter')).select_by_value('RNA-Seq')#finds the Filter by Assay Type popup and selects "RNA-Seq".
+        driver.find_element_by_id('yui-gen0-button').click()
         time.sleep(4)
         #locates the Reference column and finds all the data in the column
         reflist = driver.find_element(By.ID, 'resultsdata').find_element(By.CLASS_NAME, 'yui-dt-data')
@@ -631,9 +632,9 @@ class TestGXDResults(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(Test))
+    suite.addTest(unittest.makeSuite(TestGxdResults))
     return suite
 
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'TestGXDQF.testName']
-    unittest.main()                
+
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))    

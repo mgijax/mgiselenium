@@ -21,7 +21,7 @@ from util import iterate, wait
 from util.form import ModuleForm
 from util.table import Table
 
-class TestDiseaseTab(unittest.TestCase):
+class TestHmdcDiseaseTab(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Chrome()
@@ -32,7 +32,7 @@ class TestDiseaseTab(unittest.TestCase):
         '''
         @status This test verifies the column headings on the Disease Tab are correct and in the correct order.  Updated July 2017 to be 
                 more tolerant of data changes by removing disease count.
-        @see HMDC-disease-17 (column headings on Diseaes Tab)
+        @see HMDC-disease-17 (column headings on Diseases Tab)
         '''
         print ("BEGIN test_diseases_tab_headers")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
@@ -170,13 +170,10 @@ class TestDiseaseTab(unittest.TestCase):
     def tearDown(self):
         self.driver.close()
        
-        '''
-        These tests should NEVER!!!! be run against a production system!!
-        def suite():
-        suite = unittest.TestSuite()
-        suite.addTest(unittest.makeSuite(TestAdd))
-        return suite
-        '''
-if __name__ == "__main__":
-    # import sys;sys.argv = ['', 'Test.testName']
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='WebdriverTests'))
+def suite():
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(TestHmdcDiseaseTab))
+    return suite 
+
+if __name__ == '__main__':
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
