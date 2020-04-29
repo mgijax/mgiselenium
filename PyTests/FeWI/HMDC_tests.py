@@ -3,36 +3,34 @@ Created on Jan 27, 2017
 
 @author: jeffc
 '''
-import unittest
-from .hmdc_autocomplete_list import TestHMDCAutocomplete
-from .hmdc_diseasetab import TestDiseaseTab
-from .hmdc_genetab import TestGeneTab
-from .hmdc_indextab import TestHmdcIndex
-from .hmdc_search_gene import TestGenesSearch
-from .hmdc_search_geneid import TestGeneid
-from .hmdc_search_id import TestHmdcSearchID
-from .hmdc_search_term import TestSearchTerm
-import os
 import HtmlTestRunner
-from FeWI import hmdc_autocomplete_list, hmdc_diseasetab, hmdc_genetab, hmdc_indextab, hmdc_search_gene, hmdc_search_gene, hmdc_search_geneid, hmdc_search_id, hmdc_search_term
+from unittest import TestLoader, TestSuite
+from HtmlTestRunner import HTMLTestRunner
+from hmdc_autocomplete_list import TestHmdcAutocomplete
+from hmdc_diseasetab import TestHmdcDiseaseTab
+from hmdc_genetab import TestHmdcGeneTab
+from hmdc_indextab import TestHmdcIndex
+from hmdc_search_gene import TestHmdcGenesSearch
+from hmdc_search_geneid import TestHmdcSearchGeneid
+from hmdc_search_id import TestHmdcSearchID
+from hmdc_search_term import TestHmdcSearchTerm
 
-
-def main():
-    hmdc_autocomplete_test = unittest.TestLoader().loadTestsFromTestCase(TestHMDCAutocomplete)
-    hmdc_diseasetab_test = unittest.TestLoader().loadTestsFromTestCase(TestDiseaseTab)
-    hmdc_genetab_test = unittest.TestLoader().loadTestsFromTestCase(TestGeneTab)
-    hmdc_indextab_test = unittest.TestLoader().loadTestsFromTestCase(TestHmdcIndex)
-    hmdc_genesearch_test = unittest.TestLoader().loadTestsFromTestCase(TestGenesSearch)
-    hmdc_geneidsearch_test = unittest.TestLoader().loadTestsFromTestCase(TestGeneid)
-    hmdc_idsearch_test = unittest.TestLoader().loadTestsFromTestCase(TestHmdcSearchID)
-    hmdc_termsearch_test = unittest.TestLoader().loadTestsFromTestCase(TestSearchTerm)
+print('Begin HMDC testing')
+hmdc_autocomplete_test = TestLoader().loadTestsFromTestCase(TestHmdcAutocomplete)
+hmdc_diseasetab_test = TestLoader().loadTestsFromTestCase(TestHmdcDiseaseTab)
+hmdc_genetab_test = TestLoader().loadTestsFromTestCase(TestHmdcGeneTab)
+hmdc_indextab_test = TestLoader().loadTestsFromTestCase(TestHmdcIndex)
+hmdc_genesearch_test = TestLoader().loadTestsFromTestCase(TestHmdcGenesSearch)
+hmdc_geneidsearch_test = TestLoader().loadTestsFromTestCase(TestHmdcSearchGeneid)
+hmdc_idsearch_test = TestLoader().loadTestsFromTestCase(TestHmdcSearchID)
+hmdc_termsearch_test = TestLoader().loadTestsFromTestCase(TestHmdcSearchTerm)
 #Put them in an Array
-    hmdc_tests = unittest.TestSuite([hmdc_autocomplete_test, hmdc_diseasetab_test, hmdc_genetab_test, hmdc_indextab_test, hmdc_genesearch_test, hmdc_geneidsearch_test, hmdc_idsearch_test, hmdc_termsearch_test])
+hmdc_suite = TestSuite([hmdc_autocomplete_test, hmdc_diseasetab_test, hmdc_genetab_test, hmdc_indextab_test, hmdc_genesearch_test, hmdc_geneidsearch_test, hmdc_idsearch_test, hmdc_termsearch_test])
+print('End HMDC testing')
 #file
-    dir = os.getcwd()
-    outfile = open(r"C:\WebdriverTests\HMDCtestreport.html", "w")
-    runner = HtmlTestRunner.HTMLTestRunner(stream = outfile,title = 'Test Report',description = 'HMDC Test Report')
-    runner.run(hmdc_tests)
+runner = HTMLTestRunner(output='C://WebdriverTests/hmdc_suite')
+h = HtmlTestRunner.HTMLTestRunner(combine_reports=True, report_name="MyHMDCReport", add_timestamp=False).run(hmdc_suite)
+runner.run(hmdc_suite)
 
 if __name__=="__main__":
     main()

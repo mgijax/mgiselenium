@@ -25,7 +25,7 @@ class EmapaBaseClass(object):
     def init(self):
         parser = SafeConfigParser()
         parser.read("..\..\..\config\config.ini")
-        base_url = parser.get('testpwi', 'test_dogdev_pwi_url')
+        base_url = parser.get('testpwi', 'url')
         print('>>>', base_url)
         # constants
         BROWSER_URL = base_url + "/edit/emapaBrowser"

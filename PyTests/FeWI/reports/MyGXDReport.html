@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Unittest Results</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2 class="text-capitalize">Unittest Results</h2>
+                <p class='attribute'><strong>Start Time: </strong>2020-04-27 11:52:21</p>
+                <p class='attribute'><strong>Duration: </strong>1097.83 s</p>
+                <p class='attribute'><strong>Summary: </strong>Total: 77, Pass: 73, Fail: 2, Error: 2</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-10 col-md-10">
+                <table class='table table-hover table-responsive'>
+                    <thead>
+                        <tr>
+                            <th>gxd_diff_qf.TestGxdDifferentialQF</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class='warning'>
+                            <td class="col-xs-10">test_diff_exp_notexp</td>
+                            <td class="col-xs-1">
+                                <span class="label label-warning" style="display:block;width:40px;">Error</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p style="color:maroon;">StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=64.0.3282.186)
+  (Driver info: chromedriver=2.33.506120 (e3e53437346286c0bc2d2dc9aa4915ba81d9023f),platform=Windows NT 6.1.7601 SP1 x86_64)
+</p><p style="color:maroon;">Traceback (most recent call last):
+  File "C:\Users\jeffc\git\mgiselenium\PyTests\FeWI\gxd_diff_qf.py", line 226, in test_diff_exp_notexp
+    searchTextItems = iterate.getTextAsList(items)
+  File "C:\Users\jeffc\git\mgiselenium\util\iterate.py", line 14, in getTextAsList
+    textItems.append(element.text)
+  File "C:\Users\jeffc\AppData\Local\Programs\Python\Python38\lib\site-packages\selenium\webdriver\remote\webelement.py", line 76, in text
+    return self._execute(Command.GET_ELEMENT_TEXT)['value']
+  File "C:\Users\jeffc\AppData\Local\Programs\Python\Python38\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\jeffc\AppData\Local\Programs\Python\Python38\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\jeffc\AppData\Local\Programs\Python\Python38\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=64.0.3282.186)
+  (Driver info: chromedriver=2.33.506120 (e3e53437346286c0bc2d2dc9aa4915ba81d9023f),platform=Windows NT 6.1.7601 SP1 x86_64)
+
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_diff_parent</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_diff_systems</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_diff_wt_results</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Total: 4, Pass: 3, Error: 1 -- Duration: 237.96 s
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-10 col-md-10">
+                <table class='table table-hover table-responsive'>
+                    <thead>
+                        <tr>
+                            <th>gxd_image_summary.TestGxdImageSummary</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_assaytype_column_sort</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_default_sort_assaytype</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                            </td>
+                        </tr>
+                        <tr class='danger'>
+                            <td class="col-xs-10">test_default_sort_genes</td>
+                            <td class="col-xs-1">
+                                <span class="label label-danger" style="display:block;width:40px;">Fail</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p style="color:maroon;">AssertionError: Lists differ: ['Ctnnd2', 'Pax6'] != ['Eomes', 'Pax6', 'Sox2']
+
+First differing element 0:
+'Ctnnd2'
+'Eomes'
+
+Second list contains 1 additional elements.
+First extra element 2:
+'Sox2'
+
+- ['Ctnnd2', 'Pax6']
++ ['Eomes', 'Pax6', 'Sox2']</p><p style="color:maroon;">Traceback (most recent call last):
+  File "C:\Users\jeffc\git\mgiselenium\PyTests\FeWI\gxd_image_summary.py", line 47, in test_default_sort_genes
+    self.assertEqual(searchTextItems, ["Eomes", "Pax6", "Sox2"])
+AssertionError: Lists differ: ['Ctnnd2', 'Pax6'] != ['Eomes', 'Pax6', 'Sox2']
+
+First differing element 0:
+'Ctnnd2'
+'Eomes'
+
+Second list contains 1 additional elements.
+First extra element 2:
+'Sox2'
+
+- ['Ctnnd2', 'Pax6']
++ ['Eomes', 'Pax6', 'Sox2']
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_default_sort_specimentype</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_gene_column_sort</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_specimentype_column_sort</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Total: 6, Pass: 5, Fail: 1 -- Duration: 61.95 s
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-10 col-md-10">
+                <table class='table table-hover table-responsive'>
+                    <thead>
+                        <tr>
+                            <th>gxd_qf.TestGxdQF</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_no_normals</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>['Adcy3', 'Adh7', 'Ano2', 'Apoe', 'App', 'Aqp3', 'Ascl1', 'Atf5', 'Atp6v0a4', 'Atp6v1b1', 'B3gnt2', 'Bbs1', 'Bbs2', 'Bbs4', 'Bdnf', 'Calhm1', 'Casp3', 'Casp9', 'Cckar', 'Cd36', 'Cetn2', 'Cfap69', 'Chl1', 'Chrna7', 'Cnga2', 'Cnr1', 'Cntnap2', 'Csf1r', 'Csk', 'Ctnnb1', 'Dkk1', 'Dlx5', 'Dst', 'E2f4', 'Ebf2', 'Eno2', 'Entpd2', 'Fezf1', 'Ffar4', 'Foxg1', 'Fst', 'Fyn', 'Fzd2', 'Gabrr1', 'Gdf11', 'Gfy', 'Gjb4', 'Gli3', 'Gnal', 'Gnat3', 'Gng13', 'Grk3', 'Gsc', 'Gsx2', 'Gucy2d', 'H2bc21', 'Hes1', 'Hesx1', 'Hhex', 'Htt', 'Id2', 'Insm1', 'Itgb4', 'Itpr3', 'Lgals1', 'Magel2', 'Magi2', 'Marveld2', 'Mkks', 'Nav2', 'Ncam2', 'Ngfr', 'Nlgn3', 'Notch2', 'Npc1', 'Npy1r', 'Npy2r', 'Olfr16', 'Olfr124', 'Olfr151', 'Olfr160', 'Omp', 'Otx2', 'Pax6', 'Pde1c', 'Pebp1', 'Pink1', 'Pkd2l1', 'Plcb2', 'Pou2f3', 'Prune2', 'Ptch1', 'Pten', 'Ptprs', 'Rdh10', 'Rora', 'Scn7a', 'Scn9a', 'Shank3', 'Six1']
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_ribbon_locations</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>Genes
+Genome location
+Anatomical structure or stage
+Mutant / wild type
+Assay types
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_specimen_mut_gene</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>['E-MTAB-5210 Transcription profiling of wild type and Stella knockout oocytes, wild type and Stella maternal/zygotic knockout embryos to study to the role of Stella in early mouse development']
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_specimen_wild_type_only</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>['Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome', 'Whole Genome']
+['RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq']
+</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Total: 4, Pass: 4 -- Duration: 50.42 s
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-10 col-md-10">
+                <table class='table table-hover table-responsive'>
+                    <thead>
+                        <tr>
+                            <th>gxd_results.TestGxdResults</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class='warning'>
+                            <td class="col-xs-10">test_assay_results_filter_by_assay_type</td>
+                            <td class="col-xs-1">
+                                <span class="label label-warning" style="display:block;width:40px;">Error</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p style="color:maroon;">UnexpectedTagNameException: Message: Select only works on <select> elements, not on <a>
+</p><p style="color:maroon;">Traceback (most recent call last):
+  File "C:\Users\jeffc\git\mgiselenium\PyTests\FeWI\gxd_results.py", line 609, in test_assay_results_filter_by_assay_type
+    Select(driver.find_element(By.ID, 'assayTypeFilter')).select_by_value('RNA-Seq')#finds the Filter by Assay Type popup and selects "RNA-Seq".
+  File "C:\Users\jeffc\AppData\Local\Programs\Python\Python38\lib\site-packages\selenium\webdriver\support\select.py", line 37, in __init__
+    raise UnexpectedTagNameException(
+selenium.common.exceptions.UnexpectedTagNameException: Message: Select only works on <select> elements, not on <a>
+
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_assay_results_tab_add_sample_data_on</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>['Gene', 'Result Details', 'Assay Type', 'Age', 'Structure', 'Detected?', 'TPM Level\n(RNA-Seq)', 'Biological Replicates\n(RNA-Seq)', 'Images', 'Mutant Allele(s)', 'Strain', 'Sex', 'Notes\n(RNA-Seq)', 'Reference', '']
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_assay_results_tab_assay_type_col_sort</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>['Immunohistochemistry', 'Immunohistochemistry', 'Immunohistochemistry', 'Immunohistochemistry', 'Immunohistochemistry', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'In situ reporter (knock in)', 'In situ reporter (knock in)', 'In situ reporter (knock in)', 'In situ reporter (knock in)', 'Northern blot', 'Northern blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'Nuclease S1', 'Nuclease S1', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq']
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_assay_results_tab_column_headings</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>['Gene', 'Result Details', 'Assay Type', 'Age', 'Structure', 'Detected?', 'TPM Level\n(RNA-Seq)', '', 'Images', 'Mutant Allele(s)', '', '', '', 'Reference', '']
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_assay_results_tab_cond_mutant</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>these alleles have been used by these authors in publications  line0
+wild type  line1
+   line2
+wild type  line3
+these alleles have been used by these authors in publications  line4
+day of parturition (within 12 hours after delivery)  line5
+Conditional mutant. day 6 of pregnancy  line6
+day 6 of pregnancy  line7
+day 6 of pregnancy  line8
+day 6 of pregnancy  line9
+day of parturition (within 12 hours after delivery)  line10
+Conditional mutant. day of parturition (within 12 hours after delivery)  line11
+day 6 of pregnancy  line12
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_assay_results_tab_data_link</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>['data\n(E-MTAB-5772)']
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_assay_results_tab_ref_exp_id</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>['E-MTAB-5772 Transcription profiling of wild type and XY Nrg1 knock out male pooled embryonic gonads to decipher the role of this gene in sexual differentiation']
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_assay_results_tab_tpm_column</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>['Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'High', 'Low', 'Medium', 'Medium', 'Medium', 'Medium', 'Medium', 'Medium', 'High', 'Medium', 'High', 'Low', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Low', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Low', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Low', 'Low', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Low', 'Low', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Low', 'Low', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Low', 'Low', 'Low', 'Low', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Below Cutoff', 'Low']
+</p>
+                            </td>
+                        </tr>
+                        <tr class='danger'>
+                            <td class="col-xs-10">test_gene_tab_do_filter_gene_result</td>
+                            <td class="col-xs-1">
+                                <span class="label label-danger" style="display:block;width:40px;">Fail</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>['', '', '', '', '', '', '', '', '', '']
+</p><p style="color:maroon;">AssertionError: Lists differ: ['', '', '', '', '', '', '', '', '', ''] != ['Ank1', 'Aqp4', 'Cebpb', 'Fcgr2b', 'Hmox1', 'Icam1', 'Ifng', 'Pklr', 'Zeb1']
+
+First differing element 0:
+''
+'Ank1'
+
+First list contains 1 additional elements.
+First extra element 9:
+''
+
+- ['', '', '', '', '', '', '', '', '', '']
++ ['Ank1', 'Aqp4', 'Cebpb', 'Fcgr2b', 'Hmox1', 'Icam1', 'Ifng', 'Pklr', 'Zeb1'] : the list of genes is not correct!</p><p style="color:maroon;">Traceback (most recent call last):
+  File "C:\Users\jeffc\git\mgiselenium\PyTests\FeWI\gxd_results.py", line 89, in test_gene_tab_do_filter_gene_result
+    self.assertEqual(searchTextItems, ['Ank1', 'Aqp4', 'Cebpb', 'Fcgr2b', 'Hmox1', 'Icam1', 'Ifng', 'Pklr', 'Zeb1'], 'the list of genes is not correct!')
+AssertionError: Lists differ: ['', '', '', '', '', '', '', '', '', ''] != ['Ank1', 'Aqp4', 'Cebpb', 'Fcgr2b', 'Hmox1', 'Icam1', 'Ifng', 'Pklr', 'Zeb1']
+
+First differing element 0:
+''
+'Ank1'
+
+First list contains 1 additional elements.
+First extra element 9:
+''
+
+- ['', '', '', '', '', '', '', '', '', '']
++ ['Ank1', 'Aqp4', 'Cebpb', 'Fcgr2b', 'Hmox1', 'Icam1', 'Ifng', 'Pklr', 'Zeb1'] : the list of genes is not correct!
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_gene_tab_do_filter_list</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>['benign neoplasm', 'cancer', 'cardiovascular system disease', 'central nervous system disease', 'chromosomal disease', 'disease by infectious agent', 'disease of mental health', 'disease of metabolism', 'endocrine system disease', 'gastrointestinal system disease', 'hematopoietic system disease', 'immune system disease', 'integumentary system disease', 'monogenic disease', 'musculoskeletal system disease', 'nervous system disease', 'peripheral nervous system disease', 'physical disorder', 'polygenic disease', 'reproductive system disease', 'respiratory system disease', 'sensory system disease', 'syndrome', 'thoracic disease', 'urinary system disease', 'bar']
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_gene_tab_do_filter_no_genes</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>No genes found with ontology associations.
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_gene_tab_go_biological_filter_gene_result</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>['Arntl', 'Clock', 'Fkbp1b', 'Ryr2', 'Selenos', 'Slc7a11', 'Smpd3']
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_gene_tab_go_biological_filter_list</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>['carbohydrate derivative metabolism', 'cell death', 'cell differentiation', 'cell population proliferation', 'cellular component organization', 'establishment of localization', 'homeostatic process', 'immune system process', 'lipid metabolic process', 'nucleic acid-templated transcription', 'protein metabolic process', 'response to stimulus', 'signaling', 'system development', 'bar']
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_gene_tab_go_biological_filter_no_genes</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>No genes found with ontology associations.
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_gene_tab_go_cellular_filter_gene_result</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>['Siae']
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_gene_tab_go_cellular_filter_list</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>['cell projection', 'cytoplasmic vesicle', 'cytoskeleton', 'cytosol', 'endoplasmic reticulum', 'endosome', 'extracellular region', 'Golgi apparatus', 'mitochondrion', 'non-membrane-bounded organelle', 'nucleus', 'organelle envelope', 'organelle lumen', 'plasma membrane', 'synapse', 'vacuole', 'bar']
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_gene_tab_go_cellular_filter_no_genes</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>No genes found with ontology associations.
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_gene_tab_go_molecular_filter_gene_result</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>['Aacs', 'Acsl4', 'Atg7', 'Glul', 'Ifnar1', 'Kars']
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_gene_tab_go_molecular_filter_list</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>['carbohydrate derivative binding', 'cytoskeletal protein binding', 'DNA binding', 'enzyme regulator', 'hydrolase', 'ligase', 'lipid binding', 'oxidoreductase', 'RNA binding', 'signaling receptor activity', 'signaling receptor binding', 'transcription', 'transferase', 'transporter', 'bar']
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_gene_tab_go_molecular_filter_no_genes</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>No genes found with ontology associations.
+</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Total: 20, Pass: 18, Fail: 1, Error: 1 -- Duration: 284.05 s
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-10 col-md-10">
+                <table class='table table-hover table-responsive'>
+                    <thead>
+                        <tr>
+                            <th>gxd_rna_seq_qf_autocomplete_list.TestGxdRnaSeqAutocomplete</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_index_structureAC_headers</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>BEGIN test_structureAC_headers
+heart
+heart apex
+heart atrium
+heart endothelium
+heart mesenchyme
+heart mesentery
+heart septum
+heart trabecula
+heart valve
+heart ventricle
+heart and pericardium
+heart anulus fibrosus
+heart blood vessel
+heart elastic tissue
+heart left ventricle
+heart papillary muscle
+heart right ventricle
+heart valve primordium
+heart ventricle papillary muscle
+heart ventricle wall
+heart muscle[syn. of cardiac muscle tissue]
+heart rudiment[syn. of cardiogenic plate]
+anterior heart field[syn. of secondary heart field]
+apex of heart ventricle
+dorsal heart mesentery[syn. of dorsal mesocardium]
+dorsal mesentery of heart[syn. of dorsal mesocardium]
+great vein of heart
+great vessel of heart
+heart great vessel[syn. of great vessel of heart]
+primary heart field
+primitive heart tube
+second heart field[syn. of secondary heart field]
+secondary heart field
+primitive heart tube cardiac jelly
+primitive heart tube cardiac muscle
+primitive heart tube endocardial tube
+</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Total: 1, Pass: 1 -- Duration: 7.07 s
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-10 col-md-10">
+                <table class='table table-hover table-responsive'>
+                    <thead>
+                        <tr>
+                            <th>gxd_rna_seq_qf_search.TestGxdRnaSeqSearching</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_rnaseq_age_search</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>BEGIN test_rnaseq_age_search
+Transcription profiling of mouse preimplantation development
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_rnaseq_array_id_search</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>BEGIN test_rnaseq_array_id_search
+ArrayExpress: E-GEOD-45719
+GEO: GSE45719
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_rnaseq_geo_id_search</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>BEGIN test_rnaseq_geo_id_search
+ArrayExpress: E-GEOD-41637
+GEO: GSE41637
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_rnaseq_method_search</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>BEGIN test_rnaseq_method_search
+RNA-Seq
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_rnaseq_mutant_search</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>BEGIN test_rnaseq_mutant_search
+['Mutant Allele(s)', 'Hdac1tm1.1Eno/Hdac1tm1.1Eno\nTg(Zp3-cre)3Mrt/0', 'Hdac1tm1.1Eno/Hdac1tm1.1Eno\nTg(Zp3-cre)3Mrt/0', 'Hdac1tm1.1Eno/Hdac1tm1.1Eno\nTg(Zp3-cre)3Mrt/0', 'Hdac1tm1.1Eno/Hdac1tm1.1Eno\nTg(Zp3-cre)3Mrt/0', 'Hdac2tm1.1Eno/Hdac2tm1.1Eno\nTg(Zp3-cre)3Mrt/0', 'Hdac2tm1.1Eno/Hdac2tm1.1Eno\nTg(Zp3-cre)3Mrt/0', 'Hdac2tm1.1Eno/Hdac2tm1.1Eno\nTg(Zp3-cre)3Mrt/0', 'Hdac2tm1.1Eno/Hdac2tm1.1Eno\nTg(Zp3-cre)3Mrt/0', 'Hdac2tm1.1Eno/Hdac2tm1.1Eno\nHdac1tm1.1Eno/Hdac1tm1.1Eno\nTg(Zp3-cre)3Mrt/0', 'Hdac2tm1.1Eno/Hdac2tm1.1Eno\nHdac1tm1.1Eno/Hdac1tm1.1Eno\nTg(Zp3-cre)3Mrt/0', 'Hdac2tm1.1Eno/Hdac2tm1.1Eno\nHdac1tm1.1Eno/Hdac1tm1.1Eno\nTg(Zp3-cre)3Mrt/0', 'Hdac2tm1.1Eno/Hdac2tm1.1Eno\nHdac1tm1.1Eno/Hdac1tm1.1Eno\nTg(Zp3-cre)3Mrt/0', 'Hdac2tm1.1Eno/Hdac2tm1.1Eno\nHdac1tm1.1Eno/Hdac1tm1.1Eno', 'Hdac2tm1.1Eno/Hdac2tm1.1Eno\nHdac1tm1.1Eno/Hdac1tm1.1Eno', 'Hdac2tm1.1Eno/Hdac2tm1.1Eno\nHdac1tm1.1Eno/Hdac1tm1.1Eno', 'Hdac2tm1.1Eno/Hdac2tm1.1Eno\nHdac1tm1.1Eno/Hdac1tm1.1Eno']
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_rnaseq_mutant_search1</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>BEGIN test_rnaseq_mutant_search1
+['Mutant Allele(s)', 'Hnf1atm1.1Ylee/Hnf1atm1.1Ylee', 'Hnf1atm1.1Ylee/Hnf1atm1.1Ylee', 'Hnf1atm1.1Ylee/Hnf1atm1.1Ylee', 'Hnf1atm1.1Ylee/Hnf1atm1.1Ylee', '', '', '', '']
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_rnaseq_mutant_search2</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>BEGIN test_rnaseq_mutant_search2
+['Mutant Allele(s)', 'Gata1tm7Sho/Gata1tm7Sho', 'Gata1tm7Sho/Y', 'Gata1tm7Sho/Gata1tm7Sho', 'Gata1tm7Sho/Y', '', '', '', '']
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_rnaseq_sex_search</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>BEGIN test_rnaseq_sex_search
+['Sex', 'Pooled', 'Pooled', 'Pooled', 'Pooled', 'Pooled', 'Pooled']
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_rnaseq_strain_search</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>BEGIN test_rnaseq_strain_search
+['Genetic Background', 'C57BL/6JRj', 'C57BL/6JRj', 'C57BL/6JRj', 'C57BL/6JRj', 'C57BL/6JRj', 'C57BL/6JRj', 'C57BL/6JRj', 'C57BL/6JRj', 'C57BL/6JRj', 'C57BL/6JRj', 'C57BL/6JRj', 'C57BL/6JRj', 'C57BL/6JRj', 'C57BL/6JRj', 'C57BL/6JRj', 'C57BL/6JRj', 'C57BL/6JRj', 'C57BL/6JRj']
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_rnaseq_strain_wild_search</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>BEGIN test_rnaseq_strain_wild_search
+['Genetic Background', 'C57BL/6JRcc', 'C57BL/6JRcc', 'C57BL/6JRcc', 'C57BL/6JRcc', 'C57BL/6JRcc', 'C57BL/6JRcc', 'B6JRccHsd.Cg-Ppt1tm1Aj Cln5tm1Pltn', 'B6JRccHsd.Cg-Ppt1tm1Aj Cln5tm1Pltn', 'B6JRccHsd.Cg-Ppt1tm1Aj Cln5tm1Pltn', 'B6JRccHsd.Cg-Ppt1tm1Aj Cln5tm1Pltn', 'B6JRccHsd.Cg-Ppt1tm1Aj Cln5tm1Pltn', 'B6JRccHsd.Cg-Ppt1tm1Aj Cln5tm1Pltn']
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_rnaseq_structure_search</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>BEGIN test_rnaseq_structure_search
+Evolutionary dynamics of gene and isoform regulation in mammalian tissues
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_rnaseq_text_search</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>BEGIN test_rnaseq_text_search
+To unravel the molecular mechanisms mediating the effects of androgens on spermatogenesis, testicular gene expression was compared in mice with a Sertoli cell-selective androgen receptor knockout (SCARKO) and littermate controls on postnatal d 10. At this age testicular cell composition is still comparable in SCARKOs and controls. Microarray analysis identified 692 genes with significant differences in expression. A more than 2-fold up- or downregulation by androgen action in Sertoli cells was observed for 28 and 6 genes respectively. The biological relevance of the "strongly" upregulated genes was supported by the finding that several of them were previously described to be androgen-regulated or essential for spermatogenesis. Serine protease inhibitors were overrepresented in the same subgroup suggesting a role for androgens in cell junction dynamics and tissue restructuring events during spermatogenesis. A time course experiment (d8-d20), followed by cluster analysis allowed the identification of typical expression patterns of differentially expressed testicular genes during initiation of spermatogenesis. Three genes with a pattern closely resembling that of Pem, a prototypal androgen-regulated gene in Sertoli cells, were selected for confirmation by RT-PCR and further analysis. The data confirm that the SCARKO model allows identification of novel androgen-regulated genes in the testis. This series represents the time course data from d 8, d 10, d 12, d 16 and d 20. The expression data from the additional SCARKO vs control comparison on d 10 is represented by series GSE2260 (Testicular gene expression in SCARKO mice at day 10). Keywords = SCARKO Keywords = testis Keywords = spermatogenesis Keywords = androgens Keywords = microarray Keywords = Pem Keywords = serine protease inhibitor
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_rnaseq_text_wild_search</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>BEGIN test_rnaseq_text_wild_search
+To understand the molecular and cellular mechanisms of pathogenesis of autosomal recessive polycystic kidney disease , we performed a microarray gene expression profiling in early stage kidneys of B6C3Fe a/a-bpck mutant and wild-type mice at postnatal day 3. Genes with over 1.5-fold expression changes in mutant kidneys compared with age matched wild-type tissues were selected for analysis. This study represents the first widespread profiling of B6C3Fe a/a-bpck mutant mouse kidney and provides a valuable platform for better understanding the molecular mechanisms of polycystic kidney disease in human. Mutational analysis was performed in accordance with the protocol of Jackson Laboratory, total RNA was extracted from kidneys of 3 days of postnatal age using a monophasic solution of phenol/guanidine isothiocyanate and TRIzol reagent (Invitrogen) according to their manual, and the samples were incubated with RNase-free DNase I (Ambion). The quality and concentration of each sample were confirmed by spectrophotometry. Affymetrix 430 2.0 arrays were used according to standard Affymetrix procedures. Data analysis was performed with dChip software (Dec.2010 version). These measurements were confirmed by Real-Time PCR.
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_rnaseq_theiler_search</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>BEGIN test_rnaseq_theiler_search
+Transcription profiling by high throughput sequencing of Oct4 null and wild type mouse embryos at three embryonic stages
+</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Total: 14, Pass: 14 -- Duration: 119.89 s
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-10 col-md-10">
+                <table class='table table-hover table-responsive'>
+                    <thead>
+                        <tr>
+                            <th>gxd_rna_seq_samples.TestGxdRnaSeqSamples</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_rnaseq_samples_array_express_link</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>BEGIN test_rnaseq_samples_array_express_link
+https://www.ebi.ac.uk/arrayexpress/experiments/E-ERAD-433/
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_rnaseq_samples_exp_atlas_link</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>BEGIN test_rnaseq_samples_exp_atlas_link
+https://www.ebi.ac.uk/gxa/experiments/E-ERAD-169/Results
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_rnaseq_samples_geo_link</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>BEGIN test_rnaseq_samples_geo_link
+https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE868
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_rnaseq_samples_mutant_note</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>BEGIN test_rnaseq_samples_mutant_note
+['Note', 'Conditional mutant. day 6 of pregnancy', 'Conditional mutant. day 6 of pregnancy', 'Conditional mutant. day 6 of pregnancy', 'day 6 of pregnancy', 'day 6 of pregnancy', 'day 6 of pregnancy', 'day 6 of pregnancy', 'day 6 of pregnancy', 'day 6 of pregnancy', 'day 6 of pregnancy', 'day 6 of pregnancy', 'day 6 of pregnancy', 'day 6 of pregnancy', 'day 6 of pregnancy', 'day 6 of pregnancy', 'day 6 of pregnancy', 'day 6 of pregnancy', 'day 6 of pregnancy', 'Conditional mutant. day of parturition (within 12 hours after delivery)', 'Conditional mutant. day of parturition (within 12 hours after delivery)', 'day of parturition (within 12 hours after delivery)', 'day of parturition (within 12 hours after delivery)', 'day of parturition (within 12 hours after delivery)', 'day of parturition (within 12 hours after delivery)', 'day of parturition (within 12 hours after delivery)', 'day of parturition (within 12 hours after delivery)', 'day of parturition (within 12 hours after delivery)', 'day of parturition (within 12 hours after delivery)', 'day of parturition (within 12 hours after delivery)', 'day of parturition (within 12 hours after delivery)', 'day of parturition (within 12 hours after delivery)']
+</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Total: 4, Pass: 4 -- Duration: 48.32 s
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-10 col-md-10">
+                <table class='table table-hover table-responsive'>
+                    <thead>
+                        <tr>
+                            <th>gxd_rna_seq_summary.TestGxdRnaSeqSummary</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_rnaseq_summary_array_express_link</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>BEGIN test_rnaseq_summary_array_express_link
+E-ERAD-433
+https://www.ebi.ac.uk/arrayexpress/experiments/E-ERAD-433/
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_rnaseq_summary_exp_atlas_link</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>BEGIN test_rnaseq_summary_exp_atlas_link
+E-ERAD-169
+https://www.ebi.ac.uk/gxa/experiments/E-ERAD-169/Results
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_rnaseq_summary_geo_link</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>BEGIN test_rnaseq_summary_geo_link
+E-GEOD-868
+https://www.ebi.ac.uk/arrayexpress/experiments/E-GEOD-868/
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_rnaseq_summary_gxd_link</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>BEGIN test_rnaseq_summary_gxd_link
+<selenium.webdriver.remote.webelement.WebElement (session="ef71cfdcbce34c00337ce225a82bf4e3", element="0.8837367726842533-1")>
+http://test.informatics.jax.org/gxd/experiment/E-ERAD-169
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_rnaseq_summary_multi_var_filter</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>BEGIN test_rnaseq_summary_multi_var_filter
+developmental stage
+genotype
+anatomical structure
+developmental stage
+genotype
+single cell variation
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_rnaseq_summary_single_var_filter</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>BEGIN test_rnaseq_summary_single_var_filter
+developmental stage
+genotype
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_rnaseq_summary_study_filter</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>BEGIN test_rnaseq_summary_study_filter
+WT vs. Mutant
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_rnaseq_summary_vea_sort_order</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>BEGIN test_rnaseq_summary_vea_sort_order
+GXD: E-ERAD-169
+Expression Atlas: E-ERAD-169
+ArrayExpress: E-ERAD-169
+</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Total: 8, Pass: 8 -- Duration: 109.02 s
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-10 col-md-10">
+                <table class='table table-hover table-responsive'>
+                    <thead>
+                        <tr>
+                            <th>gxd_txp_matrix.TestGXDTissuePhenotypeMatrix</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_bkgrnd_sense_and_normal</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>['mouse', 'body region', 'conceptus', 'embryo', 'germ layer', 'organ', 'organ system', 'alimentary system', 'cardiovascular system', 'endocrine system', 'genitourinary system', 'hematopoietic system', 'hemolymphoid system', 'immune system', 'integumental system', 'liver and biliary system', 'musculature', 'musculoskeletal system', 'nervous system', 'reproductive system', 'respiratory system', 'sensory organ system', 'urinary system', 'visceral organ system', 'tissue']
+['Sry - gene expression', 'X/Sry<AKR/J>Sry<RIII>', 'Tg(Sry)1Ei/0', 'Tg(Sry)1Rlb/0', 'Tg(Sry)2Ei/0', 'Tg(Sry)3Ei/0', 'X/Sry<AKR/J>', 'X/Sry<CB>', 'X/Sry<em1Takas>', 'X/Sry<POS>']
+['N', '!']
+['N', '!']
+['N', '!']
+['N', '!']
+['N', '!']
+['N', '!']
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_bkgrnd_sense_mp</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>['mouse', 'body fluid or substance', 'body region', 'cavity or lining', 'conceptus', 'early embryo', 'embryo', 'extraembryonic component', 'germ layer', 'organ', 'organ system', 'alimentary system', 'cardiovascular system', 'endocrine system', 'exocrine system', 'genitourinary system', 'hematopoietic system', 'hemolymphoid system', 'immune system', 'integumental system', 'liver and biliary system', 'musculature', 'musculoskeletal system', 'nervous system', 'reproductive system', 'respiratory system', 'sensory organ system', 'urinary system', 'visceral organ system', 'tissue', 'umbilical or vitelline vessel']
+['Kras - gene expression', 'Kras<b>/Kras<b>', 'Kras<tm1(Hras)Rdl>/Kras<tm1(Hras...', 'Kras<tm1Mok>/Kras<tm1Mok>', 'Kras<tm1Tyj>/Kras<tm1Tyj>', 'Kras<tm3Tyj>/Kras<tm3Tyj>', 'Kras<tm4.1Bbd>/Kras<tm4.1Bbd>', 'Kras<tm2Tyj>/Kras<+>', 'Kras<tm3Tyj>/Kras<+>', 'Kras<tm4.1Bbd>/Kras<+>', 'Kras<tm4.1Tyj>/Kras<+>', 'Kras<tm4Tyj>/Kras<+>', 'Kras<tm1Bbd>/Kras<+> Tg(CMV-cre)...', 'Kras<tm1Bbd>/Kras<+> Tg(CMV-cre/...', 'Kras<tm1Bbd>/Kras<+> Tg(Pbsn-cre...', 'Kras<tm1Bbd>/Kras<tm2Bbd> Polr2a...', 'Kras<tm4Tyj>/Kras<+>', 'Kras<tm4Tyj>/Kras<+> Gt(ROSA)26S...', 'Kras<tm4Tyj>/Kras<+> Krt19<tm1(c...', 'Kras<tm4Tyj>/Kras<+> Lyz2<tm1(cr...', 'Kras<tm4Tyj>/Kras<+> Meox2<tm1(c...', 'Kras<tm4Tyj>/Kras<+> Ptf1a<tm1.1...', 'Kras<tm4Tyj>/Kras<+> Ptf1a<tm1.1...', 'Kras<tm4Tyj>/Kras<+> Scgb1a1<tm1...', 'Kras<tm4Tyj>/Kras<+> Shh<tm2(cre...', 'Kras<tm4Tyj>/Kras<+> Speer6-ps1<...', 'Kras<tm4Tyj>/Kras<+> Tg(Cela1-cr...', 'Kras<tm4Tyj>/Kras<+> Tg(Fabp1-cr...', 'Kras<tm4Tyj>/Kras<+> Tg(Fabp1-cr...', 'Kras<tm4Tyj>/Kras<+> Tg(Fabp7-cr...', 'Kras<tm4Tyj>/Kras<+> Tg(IVL-cre/...', 'Kras<tm4Tyj>/Kras<+> Tg(Krt1-15-...', 'Kras<tm4Tyj>/Kras<+> Tg(KRT5-cre...', 'Kras<tm4Tyj>/Kras<+> Tg(KRT14-cr...', 'Kras<tm4Tyj>/Kras<+> Tg(MMTV-cre...', 'Kras<tm4Tyj>/Kras<+> Tg(Mx1-cre)...', 'Kras<tm4Tyj>/Kras<+> Tg(Pbsn-cre...', 'Kras<tm4Tyj>/Kras<+> Tg(Pdx1-cre...', 'Kras<tm4Tyj>/Kras<+> Tg(Pdx1-cre...', 'Kras<tm4Tyj>/Kras<+> Tg(Pdx1-cre...', 'Kras<tm4Tyj>/Kras<+> Tg(Prm-cre)...', 'Kras<tm4Tyj>/Kras<+> Tg(Scgb1a1-...', 'Kras<tm4Tyj>/Kras<+> Tg(SFTPC-rt...', 'Kras<tm4Tyj>/Kras<+> Tg(Tek-cre)...', 'Kras<tm4Tyj>/Kras<+> Tg(Tg-cre/E...', 'Kras<tm4Tyj>/Kras<+> Tg(TPO-cre)...', 'Kras<tm4Tyj>/Kras<+> Tg(Upk2-cre...', 'Kras<tm4Tyj>/Kras<tm4Tyj> Tg(Pdx...', 'Kras<tm5Tyj>/Kras<+>']
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_high_cell_color</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>['mouse', 'body fluid or substance', 'body region', 'conceptus', 'early embryo', 'embryo', 'extraembryonic component', 'germ layer', 'organ', 'organ system', 'alimentary system', 'cardiovascular system', 'endocrine system', 'exocrine system', 'genitourinary system', 'hematopoietic system', 'hemolymphoid system', 'immune system', 'integumental system', 'liver and biliary system', 'musculature', 'musculoskeletal system', 'nervous system', 'reproductive system', 'respiratory system', 'sensory organ system', 'urinary system', 'visceral organ system', 'tissue']
+['Lepr - gene expression', 'Lepr<brta>/Lepr<brta>', 'Lepr<db-1R>/Lepr<db-1R>', 'Lepr<Db-2Btlr>/Lepr<Db-2Btlr>', 'Lepr<db-2J>/Lepr<db-2J>', 'Lepr<db-3J>/Lepr<db-3J>', 'Lepr<db-5J>/Lepr<db-5J>', 'Lepr<db-9J>/Lepr<db-9J>', 'Lepr<db-ad>/Lepr<db-ad>', 'Lepr<Db-Btlr>/Lepr<Db-Btlr>', 'Lepr<db-dmpg>/Lepr<db-dmpg>', 'Lepr<db-lb>/Lepr<db-lb>', 'Lepr<db-NCSU>/Lepr<db-NCSU>', 'Lepr<db-Pas>/Lepr<db-Pas>', 'Lepr<db-rlpy>/Lepr<db-rlpy>', 'Lepr<db-rtnd>/Lepr<db-rtnd>', 'Lepr<db>/Lepr<db>', 'Lepr<KK>/Lepr<KK>', 'Lepr<m1Anu>/Lepr<m1Anu>', 'Lepr<m1Clo>/Lepr<m1Clo>', 'Lepr<m3Btlr>/Lepr<m3Btlr>', 'Lepr<m5Btlr>/Lepr<m5Btlr>', 'Lepr<m6Btlr>/Lepr<m6Btlr>', 'Lepr<m7Btlr>/Lepr<m7Btlr>', 'Lepr<m8Btlr>/Lepr<m8Btlr>', 'Lepr<m9Btlr>/Lepr<m9Btlr>', 'Lepr<m10Btlr>/Lepr<m10Btlr>', 'Lepr<Tg(Mth11)1Aig>/Lepr<Tg(Mth1...', 'Lepr<tm1.1Chua>/Lepr<tm1.1Chua>', 'Lepr<tm1.1Rck>/Lepr<tm1.1Rck>', 'Lepr<tm1.2Chua>/Lepr<tm1.2Chua>', 'Lepr<tm1b(EUCOMM)Wtsi>/Lepr<tm1b...', 'Lepr<tm1Chua>/Lepr<tm1Chua>', 'Lepr<tm1Jke>/Lepr<tm1Jke>', 'Lepr<tm1Mgmj>/Lepr<tm1Mgmj>', 'Lepr<tm1Yli>/Lepr<tm1Yli>', 'Lepr<tm2Mgmj>/Lepr<tm2Mgmj>', 'Lepr<tm2Yli>/Lepr<tm2Yli>', 'Lepr<tm3.1Yli>/Lepr<tm3.1Yli>', 'Lepr<tm4Mgmj>/Lepr<tm4Mgmj>', 'Lepr<tm5Mgmj>/Lepr<tm5Mgmj>', 'Lepr<Db-2Btlr>/Lepr<+>', 'Lepr<Db-Btlr>/Lepr<+>', 'Lepr<db>/Lepr<+>', 'Lepr<db>/Lepr<db-5J>', 'Lepr<m6Btlr>/Lepr<+>', 'Lepr<tm1Mgmj>/Lepr<+>', 'Lepr<tm2Mgmj>/Lepr<+>', 'Agrp<tm1(cre)Lowl>/Agrp<+> Lepr<...', 'Agrp<tm1(cre)Lowl>/Agrp<+> Lepr<...', 'Lepr<tm1.1Chua>/Lepr<+> Tg(Gh1-c...', 'Lepr<tm1.1Chua>/Lepr<tm1.1Chua> ...', 'Lepr<tm1.1Chua>/Lepr<tm1.1Chua> ...', 'Lepr<tm1.1Chua>/Lepr<tm1.1Chua> ...', 'Lepr<tm1.1Chua>/Lepr<tm1.1Chua> ...', 'Lepr<tm1.1Chua>/Lepr<tm1.1Chua> ...', 'Lepr<tm1.1Chua>/Lepr<tm1.1Chua> ...', 'Lepr<tm1.1Chua>/Lepr<tm1.1Chua> ...', 'Lepr<tm1.1Chua>/Lepr<tm1.1Chua> ...', 'Lepr<tm1.1Chua>/Lepr<tm1.1Chua> ...', 'Lepr<tm1.1Chua>/Lepr<tm1.1Chua> ...', 'Lepr<tm1.1Chua>/Lepr<tm1.1Chua> ...', 'Lepr<tm1.1Chua>/Lepr<tm1.1Chua> ...', 'Lepr<tm1.1Chua>/Lepr<tm1.2Chua> ...', 'Lepr<tm1Jke>/Lepr<tm1Jke> Tg(Pom...', 'Lepr<tm1Rck>/Lepr<tm1.1Rck> Tg(S...', 'Tg(Apoe-Lepr)1Kry/0', 'Lepr<m4Btlr>/?']
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_mp_emapa_child</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>['mouse', 'body fluid or substance', 'body region', 'conceptus', 'embryo', 'germ layer', 'organ', 'organ system', 'alimentary system', 'cardiovascular system', 'endocrine system', 'exocrine system', 'genitourinary system', 'hematopoietic system', 'hemolymphoid system', 'immune system', 'integumental system', 'liver and biliary system', 'musculature', 'musculoskeletal system', 'nervous system', 'reproductive system', 'respiratory system', 'sensory organ system', 'urinary system', 'visceral organ system', 'tissue']
+['Avp - gene expression', 'Avp<tm1Hari>/Avp<+>', 'Avp<tm1Lja>/Avp<+>']
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_mp_emapa_jnum_diff</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>['mouse', 'body region', 'conceptus', 'early embryo', 'embryo', 'germ layer', 'organ', 'organ system', 'alimentary system', 'cardiovascular system', 'endocrine system', 'genitourinary system', 'hemolymphoid system', 'immune system', 'integumental system', 'liver and biliary system', 'musculature', 'musculoskeletal system', 'nervous system', 'reproductive system', 'respiratory system', 'sensory organ system', 'urinary system', 'visceral organ system', 'tissue']
+['Bmp15 - gene expression', 'Bmp15<tm1Zuk>/Bmp15<tm1Zuk>', 'Bmp15<tm1Zuk>/Y']
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_mp_emapa_multi_geno</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>['mouse', 'body region', 'conceptus', 'embryo', 'germ layer', 'organ', 'organ system', 'alimentary system', 'cardiovascular system', 'endocrine system', 'genitourinary system', 'hematopoietic system', 'hemolymphoid system', 'immune system', 'integumental system', 'liver and biliary system', 'musculature', 'musculoskeletal system', 'nervous system', 'reproductive system', 'respiratory system', 'sensory organ system', 'urinary system', 'visceral organ system', 'tissue']
+['Pax4 - gene expression', 'Pax4<tm1(cre/ERT2)Sosa>/Pax4<tm1...', 'Pax4<tm1Pgr>/Pax4<tm1Pgr>', 'Pax4<tm1b(EUCOMM)Hmgu>/Pax4<+>']
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_mp_emapa_single_system</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>['mouse', 'body region', 'conceptus', 'embryo', 'germ layer', 'organ', 'organ system', 'alimentary system', 'cardiovascular system', 'endocrine system', 'genitourinary system', 'hematopoietic system', 'hemolymphoid system', 'immune system', 'integumental system', 'liver and biliary system', 'musculature', 'musculoskeletal system', 'nervous system', 'reproductive system', 'respiratory system', 'sensory organ system', 'urinary system', 'visceral organ system', 'tissue']
+['Foxe1 - gene expression', 'Foxe1<tm1Rdl>/Foxe1<tm1Rdl>']
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_multi_mp_same_emapa</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>['mouse', 'body region', 'conceptus', 'embryo', 'germ layer', 'organ', 'organ system', 'alimentary system', 'cardiovascular system', 'endocrine system', 'genitourinary system', 'hematopoietic system', 'hemolymphoid system', 'immune system', 'integumental system', 'liver and biliary system', 'musculature', 'musculoskeletal system', 'nervous system', 'reproductive system', 'respiratory system', 'sensory organ system', 'urinary system', 'visceral organ system', 'tissue']
+['Foxe1 - gene expression', 'Foxe1<tm1Rdl>/Foxe1<tm1Rdl>']
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_norm_mp_only</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>['mouse', 'body region', 'conceptus', 'early embryo', 'embryo', 'germ layer', 'organ', 'organ system', 'alimentary system', 'cardiovascular system', 'endocrine system', 'genitourinary system', 'hemolymphoid system', 'immune system', 'integumental system', 'liver and biliary system', 'musculature', 'musculoskeletal system', 'nervous system', 'reproductive system', 'respiratory system', 'sensory organ system', 'urinary system', 'visceral organ system', 'tissue']
+['Bmp15 - gene expression', 'Bmp15<tm1Zuk>/Bmp15<tm1Zuk>', 'Bmp15<tm1Zuk>/Y']
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_norm_mp_other_mp</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>['mouse', 'body region', 'cavity or lining', 'conceptus', 'early embryo', 'embryo', 'germ layer', 'organ', 'organ system', 'alimentary system', 'cardiovascular system', 'endocrine system', 'exocrine system', 'genitourinary system', 'hemolymphoid system', 'immune system', 'integumental system', 'liver and biliary system', 'musculature', 'musculoskeletal system', 'nervous system', 'reproductive system', 'respiratory system', 'sensory organ system', 'urinary system', 'visceral organ system', 'tissue']
+['Pax7 - gene expression', 'Pax7<tm1.1(rtTA)Sjl>/Pax7<tm1.1(...', 'Pax7<tm1.2Fan>/Pax7<tm1.2Fan>', 'Pax7<tm1Pgr>/Pax7<tm1Pgr>', 'Pax7<tm2Pgr>/Pax7<tm2Pgr>', 'Pax7<tm1.1(HBEGF)Mal>/Pax7<+>', 'Pax7<tm1.1(KOMP)Vlcg>/Pax7<+>', 'Pax7<tm1.1Thbr>/Pax7<tm1.1Thbr> ...', 'Pax7<tm1.1Thbr>/Pax7<tm1.1Thbr> ...', 'Pax7<tm1.1Thbr>/Pax7<tm2.1(cre/E...', 'Pax7<tm1.1(HBEGF)Mal>/Pax7<+> Tg...']
+</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Total: 10, Pass: 10 -- Duration: 111.08 s
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-10 col-md-10">
+                <table class='table table-hover table-responsive'>
+                    <thead>
+                        <tr>
+                            <th>gxd_txs_matrix.TestGXDTissueStageMatrix</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_anat_terms_results</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>['mouse', 'conceptus', 'embryo', 'extraembryonic component', 'organ system', 'musculoskeletal system']
+['TS11', 'E7.25-8', 'TS23', 'E15']
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_assaytype_column_sort</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_default_sort_specimentype</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_gene_column_sort</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_specimentype_column_sort</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_structure_names_sort</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>['mouse', 'body fluid or substance', 'body region', 'cavity or lining', 'conceptus', 'early embryo', 'embryo', 'extracellular matrix', 'extraembryonic component', 'germ layer', 'organ', 'organ system', 'alimentary system', 'cardiovascular system', 'endocrine system', 'exocrine system', 'genitourinary system', 'hematopoietic system', 'hemolymphoid system', 'immune system', 'integumental system', 'liver and biliary system', 'musculature', 'musculoskeletal system', 'nervous system', 'reproductive system', 'respiratory system', 'sensory organ system', 'urinary system', 'visceral organ system', 'tissue', 'umbilical or vitelline vessel']
+</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Total: 6, Pass: 6 -- Duration: 68.07 s
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('td').on('click', '.btn', function(e){
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                var $this = $(this);
+                var $nextRow = $this.closest('tr').next('tr');
+                $nextRow.slideToggle("fast");
+                $this.text(function(i, text){
+                    if (text === 'View') {
+                        return 'Hide';
+                    } else {
+                        return 'View';
+                    };
+                });
+            });
+        });
+    </script>
+</body>
+</html

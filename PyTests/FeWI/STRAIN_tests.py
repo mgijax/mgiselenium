@@ -3,31 +3,28 @@ Created on Jun 8, 2018
 
 @author: jeffc
 '''
-
-import unittest
-from .strain_qf import TestStrainQF
-from .strain_detail import TestStrainDetail
-from .strain_summary import TestStrainSummary
-from .ref_by_strain import TestRefByStrain
-from .reference_summary_bystrain import TestReferenceSummaryStrain
-import os
 import HtmlTestRunner
-from FeWI import strain_qf, strain_detail, strain_summary, ref_by_strain, reference_summary_bystrain
+from unittest import TestLoader, TestSuite
+from HtmlTestRunner import HTMLTestRunner
+from strain_qf import TestStrainQF
+from strain_detail import TestStrainDetail
+from strain_summary import TestStrainSummary
+from ref_by_strain import TestRefByStrain
+from reference_summary_bystrain import TestReferenceSummaryStrain
 
-def main():
-    strain_qf_test = unittest.TestLoader().loadTestsFromTestCase(TestStrainQF)
-    strain_detail_test = unittest.TestLoader().loadTestsFromTestCase(TestStrainDetail)
-    strain_summary_test = unittest.TestLoader().loadTestsFromTestCase(TestStrainSummary)
-    ref_by_strain_test = unittest.TestLoader().loadTestsFromTestCase(TestRefByStrain)
-    refeference_summary_bystrain_test = unittest.TestLoader().loadTestsFromTestCase(TestReferenceSummaryStrain)
-
+print('Begin Strain testing')
+strain_qf_test = TestLoader().loadTestsFromTestCase(TestStrainQF)
+strain_detail_test = TestLoader().loadTestsFromTestCase(TestStrainDetail)
+strain_summary_test = TestLoader().loadTestsFromTestCase(TestStrainSummary)
+ref_by_strain_test = TestLoader().loadTestsFromTestCase(TestRefByStrain)
+refeference_summary_bystrain_test = TestLoader().loadTestsFromTestCase(TestReferenceSummaryStrain)
 #Put them in an Array
-    strain_tests = unittest.TestSuite([strain_qf_test, strain_detail_test, strain_summary_test, ref_by_strain_test, refeference_summary_bystrain_test])
+strain_test_suite = TestSuite([strain_qf_test, strain_detail_test, strain_summary_test, ref_by_strain_test, refeference_summary_bystrain_test])
+print('End Strain testing')
 #file
-    result_dir = os.getcwd()
-    outfile = open(result_dir + "C:\WebdriverTests\Straintestreport.html", "w")
-    runner = HtmlTestRunner.HTMLTestRunner(stream = outfile,title = 'Test Report',description = 'Strains Test Report')
-    runner.run(strain_tests)
+runner = HTMLTestRunner(output='C://WebdriverTests/strain_test_suite')
+h = HtmlTestRunner.HTMLTestRunner(combine_reports=True, report_name="MyStrainReport", add_timestamp=False).run(strain_test_suite)
+runner.run(strain_test_suite)
 
 if __name__=="__main__":
     main()
