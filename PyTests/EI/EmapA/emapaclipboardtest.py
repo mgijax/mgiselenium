@@ -4,34 +4,33 @@ This test verifies correct functioning of the clip board features within the Ema
 @author: jeffc
 '''
 import unittest
-import time
 import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 import sys,os.path
-
 # adjust the path to find config
 sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../..',)
 )
 import config
-from configparser import SafeConfigParser
+
 from util import iterate, wait
+from util.form import ModuleForm
+from util.table import Table
 import time
-
-from .base_class import EmapaBaseClass
-
 # Tests
 
-class TestEiEmapaClipboard(unittest.TestCase, EmapaBaseClass):
+class TestEiEmapaClipboard(unittest.TestCase):
     """
     Tests various features connected with the clipboard.
     """
 
     def setUp(self):
-        self.init()
-        
+        #self.driver = webdriver.Firefox() 
+        self.driver = webdriver.Chrome()
+        self.form = ModuleForm(self.driver)
+        self.form.get_module(config.TEST_PWI_URL + "/edit/emapaBrowser")        
         # logging in for all tests
         username = self.driver.find_element_by_name('user')#finds the user login box
         username.send_keys(config.PWI_LOGIN) #enters the username
@@ -40,14 +39,20 @@ class TestEiEmapaClipboard(unittest.TestCase, EmapaBaseClass):
         submit = self.driver.find_element_by_name("submit") #Find the Login button
         submit.click() #click the login button
         time.sleep(1)
-        
+   
+    def tearDown(self):
+        self.driver.close()        
 
     def testOutRangeStage(self):        
         """
         @status adding a stage that is out of range for a selected term.
         """        
         wait.forAngular(self.driver)
-        self.performSearch(term="brain")
+        #find the "Term Search" box and enter the term brain 
+        self.driver.find_element_by_id("termSearch").send_keys('brain')
+        time.sleep(2)
+        #find the Search button and click it
+        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
         wait.forAngular(self.driver)
         result = self.driver.find_element_by_id("termResultList").find_element_by_css_selector("mark")
         result.click()
@@ -72,8 +77,12 @@ class TestEiEmapaClipboard(unittest.TestCase, EmapaBaseClass):
         """
         @status trying to add a duplicate term/stage to the clip board.
         """
-        self.performSearch(term="brain")
-        
+        #find the "Term Search" box and enter the term brain 
+        self.driver.find_element_by_id("termSearch").send_keys('brain')
+        time.sleep(2)
+        #find the Search button and click it
+        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        wait.forAngular(self.driver)
         result = self.driver.find_element_by_id("termResultList").find_element_by_css_selector("mark")
         result.click()
         wait.forAngular(self.driver)
@@ -98,8 +107,12 @@ class TestEiEmapaClipboard(unittest.TestCase, EmapaBaseClass):
         """
         @status adding a single stage to the clipboard.
         """
-        self.performSearch(term="tail")
-        
+        #find the "Term Search" box and enter the term tail 
+        self.driver.find_element_by_id("termSearch").send_keys('tail')
+        time.sleep(2)
+        #find the Search button and click it
+        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        wait.forAngular(self.driver)        
         result = self.driver.find_element_by_id("termResultList").find_element_by_css_selector("mark")
         result.click()
         wait.forAngular(self.driver)
@@ -123,8 +136,12 @@ class TestEiEmapaClipboard(unittest.TestCase, EmapaBaseClass):
         """
         @status adding stages to the clipboard separated by commas.
         """
-        self.performSearch(term="epithelium")
-        
+        #find the "Term Search" box and enter the term epithelium 
+        self.driver.find_element_by_id("termSearch").send_keys('epithelium')
+        time.sleep(2)
+        #find the Search button and click it
+        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        wait.forAngular(self.driver)
         result = self.driver.find_element_by_id("termResultList").find_element_by_css_selector("mark")
         result.click()
         wait.forAngular(self.driver)
@@ -149,8 +166,12 @@ class TestEiEmapaClipboard(unittest.TestCase, EmapaBaseClass):
         """
         @status adding stages to the clip board separated by a dash.
         """
-        self.performSearch(term="neck")
-        
+        #find the "Term Search" box and enter the term neck 
+        self.driver.find_element_by_id("termSearch").send_keys('neck')
+        time.sleep(2)
+        #find the Search button and click it
+        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        wait.forAngular(self.driver)
         result = self.driver.find_element_by_id("termResultList").find_element_by_css_selector("mark")
         result.click()
         wait.forAngular(self.driver)
@@ -175,8 +196,12 @@ class TestEiEmapaClipboard(unittest.TestCase, EmapaBaseClass):
         """
         @status adding all stages to clip board using a *.
         """
-        self.performSearch(term="epiblast")
-        
+        #find the "Term Search" box and enter the term epiblast 
+        self.driver.find_element_by_id("termSearch").send_keys('epiblast')
+        time.sleep(2)
+        #find the Search button and click it
+        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        wait.forAngular(self.driver)
         result = self.driver.find_element_by_id("termResultList").find_element_by_css_selector("mark")
         result.click()
         wait.forAngular(self.driver)
@@ -201,8 +226,12 @@ class TestEiEmapaClipboard(unittest.TestCase, EmapaBaseClass):
         """
         @status trying to add a stage to the clip board using a non-numeric number.
         """
-        self.performSearch(term="epiblast")
-        
+        #find the "Term Search" box and enter the term brain 
+        self.driver.find_element_by_id("termSearch").send_keys('epiblast')
+        time.sleep(2)
+        #find the Search button and click it
+        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        wait.forAngular(self.driver)
         result = self.driver.find_element_by_id("termResultList").find_element_by_css_selector("mark")
         result.click()   
         clipbox = self.driver.find_element_by_id("clipboardInput")
@@ -217,8 +246,12 @@ class TestEiEmapaClipboard(unittest.TestCase, EmapaBaseClass):
         """
         @status trying to add stages to the clipboard using an invalid range.
         """
-        self.performSearch(term="epiblast")
-        
+        #find the "Term Search" box and enter the term epiblast 
+        self.driver.find_element_by_id("termSearch").send_keys('epiblast')
+        time.sleep(2)
+        #find the Search button and click it
+        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        wait.forAngular(self.driver)
         result = self.driver.find_element_by_id("termResultList").find_element_by_css_selector("mark")
         result.click()
         wait.forAngular(self.driver)
@@ -235,8 +268,12 @@ class TestEiEmapaClipboard(unittest.TestCase, EmapaBaseClass):
         """
         @status tests you can delete one item from the clipboard.
         """
-        self.performSearch(term="emb%")
-        
+        #find the "Term Search" box and enter the term emb% 
+        self.driver.find_element_by_id("termSearch").send_keys('emb%')
+        time.sleep(2)
+        #find the Search button and click it
+        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        wait.forAngular(self.driver)
         result = self.driver.find_element_by_id("termResultList").find_elements_by_link_text("embryo")
         clear = self.driver.find_element_by_id("clipboardFunctions").find_element_by_id("clipboardClear")
         clear.click()
@@ -269,8 +306,12 @@ class TestEiEmapaClipboard(unittest.TestCase, EmapaBaseClass):
         """
         @status tests you can delete multiple items from the clipboard.
         """
-        self.performSearch(term="neck")
-        
+        #find the "Term Search" box and enter the term neck 
+        self.driver.find_element_by_id("termSearch").send_keys('neck')
+        time.sleep(2)
+        #find the Search button and click it
+        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        wait.forAngular(self.driver)
         clear = self.driver.find_element_by_id("clipboardFunctions").find_element_by_id("clipboardClear")
         clear.click()
         wait.forAngular(self.driver)
@@ -310,9 +351,12 @@ class TestEiEmapaClipboard(unittest.TestCase, EmapaBaseClass):
         """
         @status tests that a basic sort works by displaying the clip board results in smart alpha order.
         """
-        
-        self.performSearch(term="emb%")
-        
+        #find the "Term Search" box and enter the term emb% 
+        self.driver.find_element_by_id("termSearch").send_keys('emb%')
+        time.sleep(2)
+        #find the Search button and click it
+        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        wait.forAngular(self.driver)
         result = self.driver.find_element_by_id("termResultList").find_elements_by_link_text("embryo")
         clear = self.driver.find_element_by_id("clipboardFunctions").find_element_by_id("clipboardClear")
         clear.click()
@@ -330,10 +374,15 @@ class TestEiEmapaClipboard(unittest.TestCase, EmapaBaseClass):
 
         self.assertEqual(["TS5; embryo","TS6; embryo","TS7; embryo"], searchTreeItems)
         clipbox.clear()
-        
+        #find the Clear button and click it to clear the form
+        self.driver.find_element_by_id("formClear").click()
         # do a new search for endoderm
-        self.performSearch(term="endoderm")
-        
+        #find the "Term Search" box and enter the term endoderm 
+        self.driver.find_element_by_id("termSearch").send_keys('endoderm')
+        time.sleep(2)
+        #find the Search button and click it
+        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        wait.forAngular(self.driver)
         result = self.driver.find_element_by_id("termResultList").find_elements_by_link_text("endoderm")
 
         clipbox = self.driver.find_element_by_id("clipboardInput")
@@ -363,9 +412,12 @@ class TestEiEmapaClipboard(unittest.TestCase, EmapaBaseClass):
         @status confirm the shortcut keys(CTRL + ALT + k) resets the clipboard input box
         """
         actions = ActionChains(self.driver)
-        #search for the term tail
-        self.performSearch(term="tail")
-        
+        #find the "Term Search" box and enter the term tail 
+        self.driver.find_element_by_id("termSearch").send_keys('tail')
+        time.sleep(2)
+        #find the Search button and click it
+        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        wait.forAngular(self.driver)
         result = self.driver.find_element_by_id("termResultList").find_element_by_css_selector("mark")
         result.click()
         wait.forAngular(self.driver)
@@ -391,10 +443,6 @@ class TestEiEmapaClipboard(unittest.TestCase, EmapaBaseClass):
         searchTreeItems = iterate.getTextAsList(items)
         #Assert that the clipboard is empty
         self.assertEqual([], searchTreeItems)
-            
-    def tearDown(self):
-        #self.closeAllWindows()
-        self.driver.quit()
         
 def suite():
     suite = unittest.TestSuite()

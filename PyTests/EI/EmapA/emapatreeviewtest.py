@@ -4,6 +4,7 @@ This test verifies searching within the EmapA module
 @author: jeffc
 '''
 import unittest
+import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import HtmlTestRunner
@@ -14,18 +15,29 @@ sys.path.append(
 )
 import config
 from util import iterate, wait
-
-from .base_class import EmapaBaseClass
+from util.form import ModuleForm
+from util.table import Table
 
 # Tests
 
-class TestEiEmapaTreeView(unittest.TestCase, EmapaBaseClass):
+class TestEiEmapaTreeView(unittest.TestCase):
     """
     Test EMAPA browser treeview
     """
 
     def setUp(self):
-        self.init()
+        #self.driver = webdriver.Firefox() 
+        self.driver = webdriver.Chrome()
+        self.form = ModuleForm(self.driver)
+        self.form.get_module(config.TEST_PWI_URL + "/edit/emapaBrowser")        
+        # logging in for all tests
+        username = self.driver.find_element_by_name('user')#finds the user login box
+        username.send_keys(config.PWI_LOGIN) #enters the username
+        passwd = self.driver.find_element_by_name('password')#finds the password box
+        passwd.send_keys(config.PWI_PASSWORD) #enters a valid password
+        submit = self.driver.find_element_by_name("submit") #Find the Login button
+        submit.click() #click the login button
+        time.sleep(1)  
 
     def testBasicSort(self):
         """
@@ -33,8 +45,13 @@ class TestEiEmapaTreeView(unittest.TestCase, EmapaBaseClass):
         @status: test works
         @todo: add comments
         """
-        self.performSearch(term="mouse")
-        
+        wait.forAngular(self.driver)
+        #find the "Term Search" box and enter the term mouse 
+        self.driver.find_element_by_id("termSearch").send_keys('mouse')
+        time.sleep(2)
+        #find the Search button and click it
+        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        wait.forAngular(self.driver)
         treesort = self.driver.find_element_by_id("emapaTree").find_element_by_class_name("mgitreeview")
         items = treesort.find_elements_by_css_selector(".node")
         
@@ -49,8 +66,13 @@ class TestEiEmapaTreeView(unittest.TestCase, EmapaBaseClass):
         @status: test works
         @todo: add comments
         """
-        self.performSearch(term="embryo")
-        
+        wait.forAngular(self.driver)
+        #find the "Term Search" box and enter the term embryo
+        self.driver.find_element_by_id("termSearch").send_keys('embryo')
+        time.sleep(2)
+        #find the Search button and click it
+        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        wait.forAngular(self.driver)
         # select specific stage
         stage20 = self.driver.find_element_by_id("stageList").find_element_by_link_text("20")
         stage20.click()
@@ -69,8 +91,13 @@ class TestEiEmapaTreeView(unittest.TestCase, EmapaBaseClass):
         @status:  test works
         @todo: needs comments
         """
-        self.performSearch(term="cortical renal tubule")
-        
+        wait.forAngular(self.driver)
+        #find the "Term Search" box and enter the term cortical renal tubule 
+        self.driver.find_element_by_id("termSearch").send_keys('cortical renal tubule')
+        time.sleep(2)
+        #find the Search button and click it
+        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        wait.forAngular(self.driver)
         term_det = self.driver.find_element_by_id("termDetailContent")
         items = term_det.find_elements_by_tag_name("dd")
         self.assertEqual(items[0].text, "cortical renal tubule")
@@ -110,8 +137,13 @@ class TestEiEmapaTreeView(unittest.TestCase, EmapaBaseClass):
         @status: works fine
         @todo: add comments
         """
-        self.performSearch(term="3rd ventricle%")
-        
+        wait.forAngular(self.driver)
+        #find the "Term Search" box and enter the term 3rd ventricle% 
+        self.driver.find_element_by_id("termSearch").send_keys('3rd ventricle%')
+        time.sleep(2)
+        #find the Search button and click it
+        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        wait.forAngular(self.driver)
         term_det = self.driver.find_element_by_id("termDetailContent")
         items = term_det.find_elements_by_tag_name("dd")
         self.assertEqual(items[0].text, "3rd ventricle")
@@ -152,10 +184,16 @@ class TestEiEmapaTreeView(unittest.TestCase, EmapaBaseClass):
         tests that if a term is clicked, the detail updates,
             and also that node expands
         """
-        self.performSearch(term="mouse")
-        
+        wait.forAngular(self.driver)
+        #find the "Term Search" box and enter the term mouse
+        self.driver.find_element_by_id("termSearch").send_keys('mouse')
+        time.sleep(2)
+        #find the Search button and click it
+        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        wait.forAngular(self.driver)
         # click tissue node in tree
         tree = self.driver.find_element_by_id("emapaTree")
+        time.sleep(1)
         tissueNode = tree.find_element_by_link_text("tissue")
         tissueNode.click()
         wait.forAngular(self.driver)
@@ -172,7 +210,7 @@ class TestEiEmapaTreeView(unittest.TestCase, EmapaBaseClass):
         self.assertTrue("muscle tissue" in tree.text, "muscle tissue should be in tree view")
              
     def tearDown(self):
-        self.closeAllWindows()
+        self.driver.close()
 
 
 def suite():

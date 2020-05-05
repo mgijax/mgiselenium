@@ -54,7 +54,7 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         #finds the results table and iterates through the table
         Select(driver.find_element_by_id("markerType")).select_by_value('string:2')
         driver.find_element_by_id('searchButton').click()
-        time.sleep(2)
+        time.sleep(5)
         #find the search results table
         results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
@@ -215,7 +215,8 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         driver = self.driver
         #finds the marker type pseudogene and selects it, then selects chromosome 16 to narrow down results set
         Select(driver.find_element_by_id("markerType")).select_by_value('string:7')
-        Select(driver.find_element_by_id("chromosome")).select_by_value('string:16')
+        driver.find_element_by_id('chromosome').clear();
+        driver.find_element_by_id('chromosome').send_keys("16");
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
@@ -238,7 +239,8 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         driver = self.driver
         #finds the Marker Type field and select the Other Genome Feature option, then selects chromosome 16 to narrow down search results
         Select(driver.find_element_by_id("markerType")).select_by_value('string:9')
-        Select(driver.find_element_by_id("chromosome")).select_by_value('string:16')
+        driver.find_element_by_id('chromosome').clear();
+        driver.find_element_by_id('chromosome').send_keys("16");
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
@@ -283,7 +285,8 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         driver = self.driver
         #finds the Marker Status field, selects the option Official and Chromosome 16, then clicks search
         Select(driver.find_element_by_id("markerStatus")).select_by_value('string:1')
-        Select(driver.find_element_by_id("chromosome")).select_by_value('string:16')
+        driver.find_element_by_id('chromosome').clear();
+        driver.find_element_by_id('chromosome').send_keys("16");
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
@@ -307,7 +310,8 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         driver = self.driver
         #finds the Marker Status field, selects the option Withdrawn, selects chromosome 16 and clicks search
         Select(driver.find_element_by_id("markerStatus")).select_by_value('string:2')
-        Select(driver.find_element_by_id("chromosome")).select_by_value('string:16')
+        driver.find_element_by_id('chromosome').clear();
+        driver.find_element_by_id('chromosome').send_keys("16");
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
         #find the search results table
@@ -834,12 +838,12 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         """
         driver = self.driver
         #finds the Synonym Type field and selects the type of "Broad"
-        Select(driver.find_element_by_id("synonymType")).select_by_value('string:1006')
+        Select(driver.find_element_by_id("synonymType-0")).select_by_value('string:1006')
         #finds the Search button and clicks it
         driver.find_element_by_id('searchButton').click()
         time.sleep(4)
         #find the synonym results table type column row 5
-        syn_type = driver.find_elements_by_id('synonymType')[4].get_attribute('value')
+        syn_type = driver.find_element_by_id('synonymType-4').get_attribute('value')
         print(syn_type)
         #Assert the fith synonym type returned(row5) is correct
         self.assertEqual(syn_type, 'string:1006')#string:1006  equals synonym type Broad

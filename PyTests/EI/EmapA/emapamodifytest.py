@@ -17,22 +17,27 @@ sys.path.append(
 )
 import config
 from util import iterate, wait
-from .base_class import EmapaBaseClass
+from util.form import ModuleForm
+from util.table import Table
 
-class TestEiEmapaModify(unittest.TestCase, EmapaBaseClass):
-
+class TestEiEmapaModify(unittest.TestCase):
 
     def setUp(self):
-        self.init()
-
-    def testName(self):
-        # example term search
-        #self.performSearch(term="mouse")
-        pass
-
+        #self.driver = webdriver.Firefox() 
+        self.driver = webdriver.Chrome()
+        self.form = ModuleForm(self.driver)
+        self.form.get_module(config.TEST_PWI_URL + "/edit/emapaBrowser")        
+        # logging in for all tests
+        username = self.driver.find_element_by_name('user')#finds the user login box
+        username.send_keys(config.PWI_LOGIN) #enters the username
+        passwd = self.driver.find_element_by_name('password')#finds the password box
+        passwd.send_keys(config.PWI_PASSWORD) #enters a valid password
+        submit = self.driver.find_element_by_name("submit") #Find the Login button
+        submit.click() #click the login button
+        time.sleep(1)
+   
     def tearDown(self):
-        self.closeAllWindows()
-        
+        self.driver.close()      
         
 def suite():
     suite = unittest.TestSuite()

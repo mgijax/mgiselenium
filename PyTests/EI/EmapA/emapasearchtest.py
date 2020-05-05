@@ -9,7 +9,7 @@ import unittest
 import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-
+import time
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -17,26 +17,43 @@ sys.path.append(
 )
 import config
 from util import iterate, wait
-
-from .base_class import EmapaBaseClass
-
-
+from util.form import ModuleForm
+from util.table import Table
 # Tests
 
-class TestEiEmapaSearch(unittest.TestCase, EmapaBaseClass):
+class TestEiEmapaSearch(unittest.TestCase):
     """
     @status Test EMAPA browser search using terms, stages, synonymns
     """
 
     def setUp(self):
-        self.init()
+        #self.driver = webdriver.Firefox() 
+        self.driver = webdriver.Chrome()
+        self.form = ModuleForm(self.driver)
+        self.form.get_module(config.TEST_PWI_URL + "/edit/emapaBrowser")        
+        # logging in for all tests
+        username = self.driver.find_element_by_name('user')#finds the user login box
+        username.send_keys(config.PWI_LOGIN) #enters the username
+        passwd = self.driver.find_element_by_name('password')#finds the password box
+        passwd.send_keys(config.PWI_PASSWORD) #enters a valid password
+        submit = self.driver.find_element_by_name("submit") #Find the Login button
+        submit.click() #click the login button
+        time.sleep(1)
+   
+    def tearDown(self):
+        self.driver.close()     
 
     def testBasicSearch(self):
         """
         tests that a basic term search works
         """
-        self.performSearch(term="brain")
-        
+        wait.forAngular(self.driver)
+        #find the "Term Search" box and enter the term brain 
+        self.driver.find_element_by_id("termSearch").send_keys('brain')
+        time.sleep(2)
+        #find the Search button and click it
+        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        wait.forAngular(self.driver)
         term_result = self.driver.find_element_by_id("termResultList")
         items = term_result.find_elements_by_tag_name("li")
         
@@ -49,8 +66,13 @@ class TestEiEmapaSearch(unittest.TestCase, EmapaBaseClass):
         """
         tests that a synonym term search works
         """
-        self.performSearch(term="myocardium")
-        
+        wait.forAngular(self.driver)
+        #find the "Term Search" box and enter the term myocardium 
+        self.driver.find_element_by_id("termSearch").send_keys('myocardium')
+        time.sleep(2)
+        #find the Search button and click it
+        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        wait.forAngular(self.driver)
         term_result = self.driver.find_element_by_id("emapTermArea")
         items = term_result.find_elements_by_tag_name("li")
         
@@ -64,8 +86,13 @@ class TestEiEmapaSearch(unittest.TestCase, EmapaBaseClass):
         """
         tests that a wildcard term search works
         """
-        self.performSearch(term="%tectum")
-        
+        wait.forAngular(self.driver)
+        #find the "Term Search" box and enter the term %tectum 
+        self.driver.find_element_by_id("termSearch").send_keys('%tectum')
+        time.sleep(2)
+        #find the Search button and click it
+        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        wait.forAngular(self.driver)
         term_result = self.driver.find_element_by_id("termResultList")
         items = term_result.find_elements_by_tag_name("li")
         
@@ -79,8 +106,13 @@ class TestEiEmapaSearch(unittest.TestCase, EmapaBaseClass):
         """
         tests that a stage search works
         """
-        self.performSearch(stage="10")
-        
+        wait.forAngular(self.driver)
+        #find the "Stage Search" box and enter the stage "10" 
+        self.driver.find_element_by_id("stageSearch").send_keys('10')
+        time.sleep(2)
+        #find the Search button and click it
+        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        wait.forAngular(self.driver)
         term_result = self.driver.find_element_by_id("emapTermArea")
         items = term_result.find_elements_by_tag_name("li")
         
@@ -97,8 +129,13 @@ class TestEiEmapaSearch(unittest.TestCase, EmapaBaseClass):
         """
         tests that a multiple stages search works.
         """
-        self.performSearch(stage="10,11,12")
-        
+        wait.forAngular(self.driver)
+        #find the "Stage Search" box and enter the stages "10,11,12" 
+        self.driver.find_element_by_id("stageSearch").send_keys('10,11,12')
+        time.sleep(2)
+        #find the Search button and click it
+        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        wait.forAngular(self.driver)
         term_result = self.driver.find_element_by_id("emapTermArea")
         items = term_result.find_elements_by_tag_name("li")
         
@@ -116,8 +153,15 @@ class TestEiEmapaSearch(unittest.TestCase, EmapaBaseClass):
         """
         tests that the shortcut ALT + c clears the term and stage fields
         """
-        self.performSearch(term="brain", stage="20,21,22")
-        
+        wait.forAngular(self.driver)
+        #find the "Term Search" box and enter the term brain 
+        self.driver.find_element_by_id("termSearch").send_keys('brain')
+        #find the "Stage Search" box and enter the stages "20,21,22" 
+        self.driver.find_element_by_id("stageSearch").send_keys('20,21,22')
+        time.sleep(2)
+        #find the Search button and click it
+        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        wait.forAngular(self.driver)
         term_result = self.driver.find_element_by_id("termResultList")
         items = term_result.find_elements_by_tag_name("li")
         
@@ -135,8 +179,15 @@ class TestEiEmapaSearch(unittest.TestCase, EmapaBaseClass):
         """
         tests that a combined search of term and stage works; also includes wild cards; jlewis
         """
-        self.performSearch(term="%renal artery%", stage="27")
-        
+        wait.forAngular(self.driver)
+        #find the "Term Search" box and enter the term %renal artery% 
+        self.driver.find_element_by_id("termSearch").send_keys('%renal artery%')
+        #find the "Stage Search" box and enter the stage "27" 
+        self.driver.find_element_by_id("stageSearch").send_keys('27')
+        time.sleep(2)
+        #find the Search button and click it
+        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        wait.forAngular(self.driver)
         term_result = self.driver.find_element_by_id("termResultList")
         items = term_result.find_elements_by_tag_name("li")
         
@@ -149,8 +200,13 @@ class TestEiEmapaSearch(unittest.TestCase, EmapaBaseClass):
         """
         tests that a term with a special character works; jlewis
         """
-        self.performSearch(term="rathke's pouch")
-        
+        wait.forAngular(self.driver)
+        #find the "Term Search" box and enter the term rathke's pouch 
+        self.driver.find_element_by_id("termSearch").send_keys("rathke's pouch")
+        time.sleep(2)
+        #find the Search button and click it
+        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        wait.forAngular(self.driver)
         term_result = self.driver.find_element_by_id("emapTermArea")
         items = term_result.find_elements_by_tag_name("li")
         
@@ -164,8 +220,13 @@ class TestEiEmapaSearch(unittest.TestCase, EmapaBaseClass):
         """
         tests that a search with multiple terms works; semi-colon is the delimiter; jlewis
         """
-        self.performSearch(term="liver; brain; heart")
-        
+        wait.forAngular(self.driver)
+        #find the "Term Search" box and enter the term "liver; brain; heart" 
+        self.driver.find_element_by_id("termSearch").send_keys("liver; brain; heart")
+        time.sleep(2)
+        #find the Search button and click it
+        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        wait.forAngular(self.driver)
         term_result = self.driver.find_element_by_id("termResultList")
         items = term_result.find_elements_by_tag_name("li")
         
@@ -180,8 +241,13 @@ class TestEiEmapaSearch(unittest.TestCase, EmapaBaseClass):
         """
         tests that a search for a range of stages works; jlewis
         """
-        self.performSearch(stage="1-3")
-        
+        wait.forAngular(self.driver)
+        #find the "Stage Search" box and enter the stages "1-3" 
+        self.driver.find_element_by_id("stageSearch").send_keys("1-3")
+        time.sleep(2)
+        #find the Search button and click it
+        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        wait.forAngular(self.driver)
         term_result = self.driver.find_element_by_id("emapTermArea")
         items = term_result.find_elements_by_tag_name("li")
         
@@ -211,12 +277,6 @@ class TestEiEmapaSearch(unittest.TestCase, EmapaBaseClass):
             terms.append(term)
             
         return terms
-        
-        
-            
-    def tearDown(self):
-        self.closeAllWindows()
-
 
 def suite():
     suite = unittest.TestSuite()

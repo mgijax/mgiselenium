@@ -67,7 +67,9 @@ class TestEiMrkAddDelete(unittest.TestCase):
         Select(driver.find_element_by_id("markerStatus")).select_by_value('string:1')
         time.sleep(2)
         #Finds the Chromosome pulldown list and selects Chromosome "2"
-        Select(driver.find_element_by_id("chromosome")).select_by_value('string:2')
+        driver.find_element_by_id('chromosome').clear();
+        driver.find_element_by_id('chromosome').send_keys("2");
+        #Select(driver.find_element_by_id("browser")).select_by_value('2')
         time.sleep(2)
         #Finds the Symbol field and enters a new symbol
         driver.find_element_by_id("markerSymbol").send_keys('jeffcmarker')

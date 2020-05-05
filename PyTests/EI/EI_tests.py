@@ -21,9 +21,9 @@ from GxdIndex.gxdindex_shortcuts_test import TestEiGxdIndexShortcuts
 from Image.image_creative_commons_tests import TestEiImageCCSearch
 from Image.image_pane_tests import TestEiImagePaneSearch
 from Image.image_search_test import TestEiImageSearch
-from LiTriage.littriage_detail_test import TestEiLitTriageDetail
-from LiTriage.littriage_search_test import TestEiLitTriageSearch
-from LiTriage.littriage_summary_test import TestEiLitTriageSummarySearch
+from LitTriage.littriage_detail_test import TestEiLitTriageDetail
+from LitTriage.littriage_search_test import TestEiLitTriageSearch
+from LitTriage.littriage_summary_test import TestEiLitTriageSummarySearch
 from Marker.marker_search_history_test import TestEiMrkSearchHistory 
 from Marker.marker_search_test import TestEiMrkSearchHistory 
 from MPAnnot.mp_annot_search_tests import TestEiMpannotSearch

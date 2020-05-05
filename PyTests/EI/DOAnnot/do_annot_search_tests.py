@@ -12,16 +12,16 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
-from configparser import SafeConfigParser
+#from configparser import SafeConfigParser
 import HtmlTestRunner
 import json
+import config
 import sys,os.path
 from test.test_base64 import BaseXYTestCase
 # adjust the path to find config
 sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../..',)
 )
-#import config
 from util import iterate, wait
 from util.form import ModuleForm
 from util.table import Table
@@ -34,14 +34,10 @@ class TestEIDoannotSearch(unittest.TestCase):
     """
 
     def setUp(self):
-        parser = SafeConfigParser()
-        parser.read("..\..\..\config\config.ini")
-        base_url = parser.get('testpwi', 'test_dogdev_pwi_url')
-        print('>>>', base_url)
         #self.driver = webdriver.Firefox() 
         self.driver = webdriver.Chrome()
         self.form = ModuleForm(self.driver)
-        self.form.get_module(base_url + "/edit/doannot")
+        self.form.get_module(config.TEST_PWI_URL + "/edit/doannot")
     
     def tearDown(self):
         self.driver.close()
@@ -72,7 +68,7 @@ class TestEIDoannotSearch(unittest.TestCase):
         headings = iterate.getTextAsList(header_cells)
         print(headings)
         #assert the headers are correct
-        self.assertEqual(headings, ['', '', '', 'DO Term', 'Vocabulary Term', 'Qualifier', 'J#', 'Citation', 'Evidence', 'Modified', 'Date', 'Created', 'Date'])
+        self.assertEqual(headings, ['', 'DO Term', 'Vocabulary Term', 'Qualifier', 'J#', 'Citation', 'Evidence', 'Modified', 'Date', 'Created', 'Date'])
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'termID-1')))
         #find the search results table first row of data
