@@ -921,7 +921,7 @@ class TestMarkerDetail(unittest.TestCase):
         #time.sleep(2) 
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'popupTable')))#waits until the phenogrid table is displayed on the page       
         #find and click the Mouse Genotype for X/Sry<AKR/J>
-        self.driver.find_element(By.XPATH, '//*[@id="fm10561a"]').click()
+        self.driver.find_element(By.XPATH, '//*[@id="fm10743a"]').click()
         #switch focus to the new tab for Phenotypes associated with X/Sry<AKR/J>
         self.driver.switch_to_window(self.driver.window_handles[-1])
         #time.sleep(2) 

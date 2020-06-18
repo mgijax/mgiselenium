@@ -216,6 +216,7 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         '''
         @status this test verifies the gxd link on the RNA-Seq summary results page is correct.
         @see GXD-RNASeq-summary-14 
+        @note: this test will fail unless ran against Test due to assert asked for.
         '''
         print ("BEGIN test_rnaseq_summary_gxd_link")
         #finds the strain field and enters text

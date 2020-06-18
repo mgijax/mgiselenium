@@ -82,7 +82,7 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         time.sleep(1)
         #click the Gene Expression + Phenotype link
         driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
-        time.sleep(1)
+        time.sleep(2)
         self.driver.switch_to_window(self.driver.window_handles[-1])
         #find the Anatomical Terms column
         termslist = driver.find_element(By.ID, "rowGroupInner")
@@ -130,6 +130,7 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
         time.sleep(1)
         self.driver.switch_to_window(self.driver.window_handles[-1])
+        time.sleep(2)
         #find the Anatomical Terms column
         termslist = driver.find_element(By.ID, "rowGroupInner")
         items = termslist.find_elements(By.TAG_NAME, 'text')
@@ -166,7 +167,7 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         time.sleep(1)
         #click the Gene Expression + Phenotype link
         driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
-        time.sleep(1)
+        time.sleep(2)
         self.driver.switch_to_window(self.driver.window_handles[-1])
         #find the Anatomical Terms column
         termslist = driver.find_element(By.ID, "rowGroupInner")
@@ -205,7 +206,7 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         time.sleep(1)
         #click the Gene Expression + Phenotype link
         driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
-        time.sleep(1)
+        time.sleep(2)
         self.driver.switch_to_window(self.driver.window_handles[-1])
         #find the Anatomical Terms column
         termslist = driver.find_element(By.ID, "rowGroupInner")
@@ -243,7 +244,7 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         time.sleep(1)
         #click the Gene Expression + Phenotype link
         driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
-        time.sleep(1)
+        time.sleep(2)
         self.driver.switch_to_window(self.driver.window_handles[-1])
         #find the Anatomical Terms column
         termslist = driver.find_element(By.ID, "rowGroupInner")
@@ -319,7 +320,7 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         time.sleep(1)
         #click the Gene Expression + Phenotype link
         driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
-        time.sleep(1)
+        time.sleep(2)
         self.driver.switch_to_window(self.driver.window_handles[-1])
         #find the Anatomical Terms column
         termslist = driver.find_element(By.ID, "rowGroupInner")

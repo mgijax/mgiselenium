@@ -200,7 +200,7 @@ class TestGxdDifferentialQF(unittest.TestCase):
         @status: Tests that query for detected in "A", Not detected in "B", where a gene has both "expressed" and "not expressed" results for "A"
         and has no results and/or "not expressed" results for "B" should return the gene.
         @note: GXD-Diff-6
-        @attention: the time sleeps need to be replaced by expected conditions code
+        @attention: the time sleeps need to be replaced by expected conditions code. This test has a long sleep because something is slow!
         """
         driver = self.driver
         driver.get(config.TEST_URL + '/gxd/differential')

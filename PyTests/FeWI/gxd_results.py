@@ -10,7 +10,9 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.common.action_chains import ActionChains
 from util.table import Table
 from util.form import ModuleForm
 import sys,os.path
@@ -34,7 +36,7 @@ class TestGxdResults(unittest.TestCase):
         self.driver.get(config.TEST_URL + "/gxd/")
         self.driver.implicitly_wait(10)
         self.form = ModuleForm(self.driver)
-        
+        #wait = WebDriverWait(driver, 10)
      
     def test_gene_tab_do_filter_list(self):
         """
@@ -77,8 +79,10 @@ class TestGxdResults(unittest.TestCase):
         self.driver.find_elements_by_name('doFilter')[5].click()
         #click the Filter button found on the filter by disease button
         self.driver.find_element_by_id('yui-gen0-button').click()
+        time.sleep(2)
         #locate the Genes tab and click it
         self.driver.find_element_by_id('genestab').click()
+        time.sleep(2)
         #locates the genes column and lists the genes found
         genelist = driver.find_element(By.CLASS_NAME, 'yui-dt-data')
         items = genelist.find_elements(By.CLASS_NAME, 'yui-dt-col-symbol')
@@ -86,7 +90,7 @@ class TestGxdResults(unittest.TestCase):
         print(searchTextItems)
         time.sleep(2)
         #assert that the genes returned are correct, should be 9 genes as of 8/29/2019
-        self.assertEqual(searchTextItems, ['Ank1', 'Aqp4', 'Cebpb', 'Fcgr2b', 'Hmox1', 'Icam1', 'Ifng', 'Pklr', 'Zeb1'], 'the list of genes is not correct!')   
+        self.assertEqual(searchTextItems, ['Ank1', 'Aqp4', 'Cebpb', 'Dpp4', 'Fcgr2b', 'Hmox1', 'Icam1', 'Ifng', 'Pklr', 'Zeb1'], 'the list of genes is not correct!')   
         
     def test_gene_tab_do_filter_no_genes(self):
         """
@@ -381,6 +385,7 @@ class TestGxdResults(unittest.TestCase):
         """
         @status: Tests that the ID link in the Reference column goes to the correct website and experiment page.
         @note: GXD-aresults-3, 4 
+        @note: this test will fail unless run against test machine due to assert result.
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")
@@ -593,10 +598,6 @@ class TestGxdResults(unittest.TestCase):
         time.sleep(2)
         anat_struct.send_keys(Keys.TAB)
         time.sleep(2)
-        #find the In Situ Assays check box and uncheck it
-        #self.driver.find_element_by_id('inSituAll').click()
-        #find the Blot Assays check box and uncheck it
-        #self.driver.find_element_by_id('blotAll').click()
         #find the Whole Genome assays check box and check it
         driver.find_element(By.ID, 'wholeGenomeAll').click()
         #find the search button and click it
@@ -606,25 +607,41 @@ class TestGxdResults(unittest.TestCase):
         #locate the Assays tab and click it
         self.driver.find_element_by_id('assaystab').click()
         time.sleep(2)
-        Select(driver.find_element(By.ID, 'assayTypeFilter')).select_by_value('RNA-Seq')#finds the Filter by Assay Type popup and selects "RNA-Seq".
+        #finds the Filter by Assay Type popup and selects "RNA-Seq".
+        driver.find_element_by_id('assayTypeFilter').click()
+        driver.find_element_by_css_selector('#command > label:nth-child(11) > input:nth-child(1)').click()
+        #time.sleep(2)
         driver.find_element_by_id('yui-gen0-button').click()
-        time.sleep(4)
+        time.sleep(2)
         #locates the Reference column and finds all the data in the column
-        reflist = driver.find_element(By.ID, 'resultsdata').find_element(By.CLASS_NAME, 'yui-dt-data')
+        reflist = driver.find_element(By.ID, 'assaysdata').find_element(By.CLASS_NAME, 'yui-dt-data')
         items = reflist.find_elements(By.CLASS_NAME, 'yui-dt-col-reference')
         searchTextItems = iterate.getTextAsList(items)
         time.sleep(2)
-        print(searchTextItems[2])
+        print(searchTextItems[0] + '  line0')
+        print(searchTextItems[1] + '  line1')
+        print(searchTextItems[2] + '  line2')
+        print(searchTextItems[3] + '  line3')
+        print(searchTextItems[4] + '  line4')
+        print(searchTextItems[5] + '  line5')
+        print(searchTextItems[6] + '  line6')
+        print(searchTextItems[7] + '  line7')
+        print(searchTextItems[8] + '  line8')
+        print(searchTextItems[9] + '  line9')
+        print(searchTextItems[10] + '  line10')
+        print(searchTextItems[11] + '  line11')
+        print(searchTextItems[12] + '  line12')
+        time.sleep(5)
         #assert that the reference ID E-MTAB-599 exists in each row checked
-        self.assertIn('E-GEOD-33979 Novel roles for Klf1 in regulating the erythroid transcriptome revealed by mRNA-seq', searchTextItems[1]) 
-        self.assertIn('E-GEOD-45684 Transcription profiling by high throughput sequencing of a Diversity Outbred mice population and the eight founder strains: A/J, 129S1/SvImJ, C57BL/6J, NOD/ShiLtJ, NZO/HlLtJ, CAST/EiJ, PWK/PhJ, and WSB/EiJ', searchTextItems[2]) 
-        self.assertIn('E-GEOD-70484 Transcription profiling by high throughput sequencing of different tissues from mouse to detect maternal or paternal allele expression biases at the tissue level', searchTextItems[3]) 
-        self.assertIn('E-GEOD-72491 Transcription profiling by RNA-seq of fetal liver from poly(C) binding protein 2 (Pcbp2) knockout mice', searchTextItems[4]) 
-        self.assertIn('E-GEOD-74747 RNA-seq of 9 tissues from an adult male C57BL/6 mouse', searchTextItems[5]) 
-        self.assertIn('E-MTAB-599 RNA-seq of mouse DBA/2J x C57BL/6J heart, hippocampus, liver, lung, spleen and thymus', searchTextItems[6]) 
-        self.assertIn('E-MTAB-2328 Transcription profiling by high throughput sequencing of liver and brain during mouse organ development', searchTextItems[7]) 
-        self.assertIn('E-MTAB-2801 Strand-specific RNA-seq of nine mouse tissues', searchTextItems[8]) 
-        self.assertIn('E-MTAB-3662 Pilot KOMP knockout mouse strains', searchTextItems[9]) 
+        self.assertIn('E-GEOD-33979 Novel roles for Klf1 in regulating the erythroid transcriptome revealed by mRNA-seq', searchTextItems[0]) 
+        self.assertIn('E-GEOD-45684 Transcription profiling by high throughput sequencing of a Diversity Outbred mice population and the eight founder strains: A/J, 129S1/SvImJ, C57BL/6J, NOD/ShiLtJ, NZO/HlLtJ, CAST/EiJ, PWK/PhJ, and WSB/EiJ', searchTextItems[1]) 
+        self.assertIn('E-GEOD-70484 Transcription profiling by high throughput sequencing of different tissues from mouse to detect maternal or paternal allele expression biases at the tissue level', searchTextItems[2]) 
+        self.assertIn('E-GEOD-72491 Transcription profiling by RNA-seq of fetal liver from poly(C) binding protein 2 (Pcbp2) knockout mice', searchTextItems[3]) 
+        self.assertIn('E-GEOD-74747 RNA-seq of 9 tissues from an adult male C57BL/6 mouse', searchTextItems[4]) 
+        self.assertIn('E-MTAB-599 RNA-seq of mouse DBA/2J x C57BL/6J heart, hippocampus, liver, lung, spleen and thymus', searchTextItems[5]) 
+        self.assertIn('E-MTAB-2328 Transcription profiling by high throughput sequencing of liver and brain during mouse organ development', searchTextItems[6]) 
+        self.assertIn('E-MTAB-2801 Strand-specific RNA-seq of nine mouse tissues', searchTextItems[7]) 
+        self.assertIn('E-MTAB-3662 Pilot KOMP knockout mouse strains', searchTextItems[8]) 
     
     def tearDown(self):
         #self.driver.close()

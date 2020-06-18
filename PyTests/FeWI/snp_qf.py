@@ -108,7 +108,7 @@ class TestSnpQF(unittest.TestCase):
         genesearchbox = driver.find_element(By.ID, 'nomen')
         # Enter your Gene symbol
         genesearchbox.send_keys("shh")
-        time.sleep(2)
+        time.sleep(4)
         #find the Yes button for comparing to one or more Reference strains and click it
         self.driver.find_element(By.XPATH, ".//input[@name='referenceMode' and @value='yes']").click()        
         time.sleep(2)
@@ -122,6 +122,7 @@ class TestSnpQF(unittest.TestCase):
         driver.find_element(By.ID, 'alleleAgreementFilter').click()
         time.sleep(2)
         driver.find_element(By.XPATH, ".//input[@name='alleleAgreementFilter' and @value='All reference strains agree and all comparison strains agree with reference']").click()
+        
         #find and click the Filter button
         driver.find_element(By.ID, 'yui-gen0-button').click()
         time.sleep(2)
@@ -131,6 +132,7 @@ class TestSnpQF(unittest.TestCase):
         print(iterate.getTextAsList(cells))     
         rsReturned = iterate.getTextAsList(cells)        
         #asserts that the following rs IDs are returned
+        
         self.assertEqual(['SNP ID\n(dbSNP Build 142)', 'rs51528487\ndbSNP | MGI SNP Detail'], rsReturned) # this is all the data returned from the SNP ID column
       
         

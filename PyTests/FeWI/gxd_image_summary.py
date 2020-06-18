@@ -32,7 +32,7 @@ class TestGxdImageSummary(unittest.TestCase):
         @status: Tests that the genes column sorts genes result correctly
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL + "/gxd")
+        driver.get(config.TEST_URL + "/gxd")
         genebox = driver.find_element(By.NAME, 'nomenclature')
         # put your marker symbol
         genebox.send_keys("pax6")
@@ -40,9 +40,13 @@ class TestGxdImageSummary(unittest.TestCase):
         time.sleep(5)
         #finds the Images tab and clicks it
         driver.find_element(By.ID, 'imagestab').click()
+        time.sleep(2)
         #locates the genes column and lists the genes found
         genelist = driver.find_element(By.ID, 'imagesdata').find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-gene')
-        items = genelist[15].find_elements(By.TAG_NAME, 'li')
+        items = genelist[19].find_elements(By.TAG_NAME, 'li')
+        print(items[0].text)
+        print(items[1].text)
+        print(items[2].text)
         searchTextItems = iterate.getTextAsList(items)
         self.assertEqual(searchTextItems, ["Eomes", "Pax6", "Sox2"])
         
