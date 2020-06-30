@@ -3,6 +3,7 @@ Created on Jan 27, 2017
 
 @author: jeffc
 '''
+import unittest
 import HtmlTestRunner
 from unittest import TestLoader, TestSuite
 from HtmlTestRunner import HTMLTestRunner
@@ -30,7 +31,8 @@ print('End HMDC testing')
 #file
 runner = HTMLTestRunner(output='C://WebdriverTests/hmdc_suite')
 h = HtmlTestRunner.HTMLTestRunner(combine_reports=True, report_name="MyHMDCReport", add_timestamp=False).run(hmdc_suite)
-runner.run(hmdc_suite)
+#runner.run(hmdc_suite)
 
 if __name__=="__main__":
-    main()
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner())
+#reports generated Users/jeffc/git/mgiselenium/PyTests/PWI/reports  

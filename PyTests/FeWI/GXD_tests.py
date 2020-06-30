@@ -4,6 +4,7 @@ Created on Apr 23, 2018
 @author: jeffc
 '''
 import HtmlTestRunner
+import unittest
 from unittest import TestLoader, TestSuite
 from HtmlTestRunner import HTMLTestRunner
 from gxd_diff_qf import TestGxdDifferentialQF
@@ -32,9 +33,10 @@ gxd_txs_matrix_test = TestLoader().loadTestsFromTestCase(TestGXDTissueStageMatri
 gxd_suite = TestSuite([gxd_diff_qf_test, gxd_image_summary_test, gxd_qf_test, gxd_results_test, gxd_rna_seq_qf_autocomplete_test, gxd_rna_seq_qf_search_test, gxd_rna_seq_samples_test, gxd_rna_seq_summary_test, gxd_txp_matrix_test, gxd_txs_matrix_test])
 print('End GXD testing') 
 #file
-runner = HTMLTestRunner(output='C://WebdriverTests/gxd_suite')
+runner = HTMLTestRunner(output='C://WebdriverTests')
 h = HtmlTestRunner.HTMLTestRunner(combine_reports=True, report_name="MyGXDReport", add_timestamp=False).run(gxd_suite)
-runner.run(gxd_suite)
+#runner.run(gxd_suite)
 
 if __name__=="__main__":
-    main()
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner())
+#reports generated Users/jeffc/git/mgiselenium/PyTests/PWI/reports    

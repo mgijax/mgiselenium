@@ -3,6 +3,7 @@ Created on Jan 30, 2017
 
 @author: jeffc
 '''
+import unittest
 import HtmlTestRunner
 from unittest import TestLoader, TestSuite
 from HtmlTestRunner import HTMLTestRunner
@@ -24,7 +25,8 @@ print('End DO browser testing')
 #file
 runner = HTMLTestRunner(output='C://WebdriverTests/do_browser_suite')
 h = HtmlTestRunner.HTMLTestRunner(combine_reports=True, report_name="MyDoBrowserReport", add_timestamp=False).run(do_browser_suite)
-runner.run(do_browser_suite)
+#runner.run(do_browser_suite)
 
 if __name__=="__main__":
-    main()
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner())
+#reports generated Users/jeffc/git/mgiselenium/PyTests/PWI/reports  

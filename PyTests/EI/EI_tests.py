@@ -3,7 +3,7 @@ Created on Apr 28, 2020
 
 @author: jeffc
 '''
-
+import unittest
 import HtmlTestRunner
 from unittest import TestLoader, TestSuite
 from HtmlTestRunner import HTMLTestRunner
@@ -58,7 +58,8 @@ print('End EI testing')
 #file
 runner = HTMLTestRunner(output='C://WebdriverTests/ei_test_suite')
 h = HtmlTestRunner.HTMLTestRunner(combine_reports=True, report_name="MyEIReport", add_timestamp=False).run(ei_test_suite)
-runner.run(ei_test_suite)
+#runner.run(ei_test_suite)
 
 if __name__=="__main__":
-    main()
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner())
+#reports generated Users/jeffc/git/mgiselenium/PyTests/EI/reports  

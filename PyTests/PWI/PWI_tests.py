@@ -3,7 +3,7 @@ Created on Apr 28, 2020
 
 @author: jeffc
 '''
-
+import unittest
 import HtmlTestRunner
 from unittest import TestLoader, TestSuite
 from HtmlTestRunner import HTMLTestRunner
@@ -32,4 +32,5 @@ h = HtmlTestRunner.HTMLTestRunner(combine_reports=True, report_name="MyPWIReport
 runner.run(pwi_test_suite)
 
 if __name__=="__main__":
-    main()
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner())
+#reports generated Users/jeffc/git/mgiselenium/PyTests/PWI/reports  

@@ -3,6 +3,7 @@ Created on Jun 8, 2018
 
 @author: jeffc
 '''
+import unittest
 import HtmlTestRunner
 from unittest import TestLoader, TestSuite
 from HtmlTestRunner import HTMLTestRunner
@@ -24,7 +25,8 @@ print('End Strain testing')
 #file
 runner = HTMLTestRunner(output='C://WebdriverTests/strain_test_suite')
 h = HtmlTestRunner.HTMLTestRunner(combine_reports=True, report_name="MyStrainReport", add_timestamp=False).run(strain_test_suite)
-runner.run(strain_test_suite)
+#runner.run(strain_test_suite)
 
 if __name__=="__main__":
-    main()
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner())
+#reports generated Users/jeffc/git/mgiselenium/PyTests/PWI/reports  

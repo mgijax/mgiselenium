@@ -3,6 +3,7 @@ Created on Apr 23, 2018
 
 @author: jeffc
 '''
+import unittest
 import HtmlTestRunner
 from HtmlTestRunner import HTMLTestRunner
 from unittest import TestLoader, TestSuite
@@ -20,9 +21,10 @@ private_allele_test = TestLoader().loadTestsFromTestCase(TestPrivateAllele)
 allele_tests_suite = TestSuite([allele_detail_test, allele_summary_test, allele_qf_test, private_allele_test])
 print('End allele testing')
 #file
-runner = HTMLTestRunner(output='C://WebdriverTests/allele_suite')
+runner = HTMLTestRunner(output='C://WebdriverTests/allele_tests_suite')
 h = HtmlTestRunner.HTMLTestRunner(combine_reports=True, report_name="MyAlleleReport", add_timestamp=False).run(allele_tests_suite)
-runner.run(allele_tests_suite)
+#runner.run(allele_tests_suite)
 
 if __name__=="__main__":
-    main()
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner())
+#reports generated Users/jeffc/git/mgiselenium/PyTests/PWI/reports   
