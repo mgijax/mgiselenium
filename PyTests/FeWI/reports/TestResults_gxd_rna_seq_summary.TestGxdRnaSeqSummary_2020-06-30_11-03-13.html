@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Unittest Results</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2 class="text-capitalize">Unittest Results</h2>
+                <p class='attribute'><strong>Start Time: </strong>2020-06-30 11:03:13</p>
+                <p class='attribute'><strong>Duration: </strong>113.12 s</p>
+                <p class='attribute'><strong>Summary: </strong>Total: 8, Pass: 7, Fail: 1</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-10 col-md-10">
+                <table class='table table-hover table-responsive'>
+                    <thead>
+                        <tr>
+                            <th>gxd_rna_seq_summary.TestGxdRnaSeqSummary</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_rnaseq_summary_array_express_link</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>BEGIN test_rnaseq_summary_array_express_link
+E-ERAD-433
+https://www.ebi.ac.uk/arrayexpress/experiments/E-ERAD-433/
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_rnaseq_summary_exp_atlas_link</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>BEGIN test_rnaseq_summary_exp_atlas_link
+E-ERAD-169
+https://www.ebi.ac.uk/gxa/experiments/E-ERAD-169/Results
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_rnaseq_summary_geo_link</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>BEGIN test_rnaseq_summary_geo_link
+E-GEOD-868
+https://www.ebi.ac.uk/arrayexpress/experiments/E-GEOD-868/
+</p>
+                            </td>
+                        </tr>
+                        <tr class='danger'>
+                            <td class="col-xs-10">test_rnaseq_summary_gxd_link</td>
+                            <td class="col-xs-1">
+                                <span class="label label-danger" style="display:block;width:40px;">Fail</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>BEGIN test_rnaseq_summary_gxd_link
+<selenium.webdriver.remote.webelement.WebElement (session="8bb388f12e4de26ef12248705ce9effa", element="0.37594340856907493-1")>
+http://scrumdogdev.informatics.jax.org/gxd/experiment/E-ERAD-169
+</p><p style="color:maroon;">AssertionError: 'http://scrumdogdev.informatics.jax.org/gxd/experiment/E-ERAD-169' != 'http://test.informatics.jax.org/gxd/experiment/E-ERAD-169'
+- http://scrumdogdev.informatics.jax.org/gxd/experiment/E-ERAD-169
+?         ^^^^^^^^^^
++ http://test.informatics.jax.org/gxd/experiment/E-ERAD-169
+?        ++ ^
+</p><p style="color:maroon;">Traceback (most recent call last):
+  File "C:\Users\jeffc\git\mgiselenium\PyTests\FeWI\gxd_rna_seq_summary.py", line 238, in test_rnaseq_summary_gxd_link
+    self.assertEqual(page_url, "http://test.informatics.jax.org/gxd/experiment/E-ERAD-169")
+AssertionError: 'http://scrumdogdev.informatics.jax.org/gxd/experiment/E-ERAD-169' != 'http://test.informatics.jax.org/gxd/experiment/E-ERAD-169'
+- http://scrumdogdev.informatics.jax.org/gxd/experiment/E-ERAD-169
+?         ^^^^^^^^^^
++ http://test.informatics.jax.org/gxd/experiment/E-ERAD-169
+?        ++ ^
+
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_rnaseq_summary_multi_var_filter</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>BEGIN test_rnaseq_summary_multi_var_filter
+developmental stage
+genotype
+anatomical structure
+developmental stage
+genotype
+single cell variation
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_rnaseq_summary_single_var_filter</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>BEGIN test_rnaseq_summary_single_var_filter
+developmental stage
+genotype
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_rnaseq_summary_study_filter</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>BEGIN test_rnaseq_summary_study_filter
+WT vs. Mutant
+</p>
+                            </td>
+                        </tr>
+                        <tr class='success'>
+                            <td class="col-xs-10">test_rnaseq_summary_vea_sort_order</td>
+                            <td class="col-xs-1">
+                                <span class="label label-success" style="display:block;width:40px;">Pass</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>BEGIN test_rnaseq_summary_vea_sort_order
+GXD: E-ERAD-169
+Expression Atlas: E-ERAD-169
+ArrayExpress: E-ERAD-169
+</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Total: 8, Pass: 7, Fail: 1 -- Duration: 113.12 s
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('td').on('click', '.btn', function(e){
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                var $this = $(this);
+                var $nextRow = $this.closest('tr').next('tr');
+                $nextRow.slideToggle("fast");
+                $this.text(function(i, text){
+                    if (text === 'View') {
+                        return 'Hide';
+                    } else {
+                        return 'View';
+                    };
+                });
+            });
+        });
+    </script>
+</body>
+</html

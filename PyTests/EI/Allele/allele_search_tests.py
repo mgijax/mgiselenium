@@ -262,7 +262,7 @@ class TestEIAlleleSearch(unittest.TestCase):
     def testAlleleStatus2Search(self):
         """
         @Status tests that a basic allele status search for Reserved works
-        @see pwi-allele-search-8
+        @see pwi-allele-search-9
         """
         driver = self.driver
         #finds the Allele Symbol field and enters a symbol w/wildcard, tabs out of the field then clicks the Search button
@@ -1233,6 +1233,267 @@ class TestEIAlleleSearch(unittest.TestCase):
         #check alert text
         self.assertEqual('Invalid Parent Cell Line: test', alert_text)
 
+
+    def testAlleleSynonymSearch1(self):
+        """
+        @Status tests that a basic allele Synonym search
+        @see pwi-allele-search-45
+        """
+        driver = self.driver
+        #finds the Allele Synonym field and enters a text string, tabs out of the field then clicks the Search button
+        driver.find_element_by_id("synonymName-0").send_keys('NKD')
+        time.sleep(2)
+        actions = ActionChains(driver) 
+        actions.send_keys(Keys.TAB)
+        actions.perform()
+        time.sleep(2)
+        driver.find_element_by_id('searchButton').click()
+        #time.sleep(5)
+        #waits until the element is located or 10 seconds
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Atf2<Tg(Gzma-Klra1)7Wum>'))
+        #find the search results table
+        results_table = self.driver.find_element_by_id("resultsTable")
+        table = Table(results_table)
+        #Iterate and print the search results headers
+        cell1 = table.get_row_cells(0)
+        symbol1 = iterate.getTextAsList(cell1)
+        print(symbol1)
+        #Assert the correct allele symbol is returned, this is the only result
+        self.assertEqual(symbol1, ['Atf2<Tg(Gzma-Klra1)7Wum>']) 
+
+    def testAlleleSynonymSearch2(self):
+        """
+        @Status tests that a basic allele Synonym search
+        @see pwi-allele-search-45
+        """
+        driver = self.driver
+        #finds the Allele Synonym field and enters a text string, tabs out of the field then clicks the Search button
+        driver.find_element_by_id("synonymName-0").send_keys('ATF3-KO')
+        time.sleep(2)
+        actions = ActionChains(driver) 
+        actions.send_keys(Keys.TAB)
+        actions.perform()
+        time.sleep(2)
+        driver.find_element_by_id('searchButton').click()
+        #time.sleep(5)
+        #waits until the element is located or 10 seconds
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Atf3<tm1Dron>'))
+        #find the search results table
+        results_table = self.driver.find_element_by_id("resultsTable")
+        table = Table(results_table)
+        #Iterate and print the search results headers
+        cell1 = table.get_row_cells(0)
+        symbol1 = iterate.getTextAsList(cell1)
+        print(symbol1)
+        #Assert the correct allele symbol is returned, this is the only result
+        self.assertEqual(symbol1, ['Atf3<tm1Dron>'])    
+
+    def testAlleleAttribEndoSearch(self):
+        """
+        @Status tests that an Attribute by Endonuclease search works
+        @see pwi-allele-search-46
+        """
+        driver = self.driver
+        #finds the Allele Synonym field and enters a text string, tabs out of the field
+        driver.find_element_by_id("synonymName-0").send_keys('H11<Cas9>')
+        time.sleep(2)
+        actions = ActionChains(driver) 
+        actions.send_keys(Keys.TAB)
+        actions.perform()
+        time.sleep(2)
+        #finds the Attribute pulldown and select the option 'Endonuclease'value=string:38853195, tabs out of the field then clicks the Search button
+        Select(driver.find_element_by_id("subtype")).select_by_value('string:38853195')
+        time.sleep(2)
+        actions = ActionChains(driver) 
+        actions.send_keys(Keys.TAB)
+        actions.perform()
+        time.sleep(2)
+        driver.find_element_by_id('searchButton').click()
+        #time.sleep(5)
+        #waits until the element is located or 10 seconds
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Igs2<tm1.1(CAG-cas9*)Mmw>'))
+        #find the search results table
+        results_table = self.driver.find_element_by_id("resultsTable")
+        table = Table(results_table)
+        #Iterate and print the search results headers
+        cell1 = table.get_row_cells(0)
+        symbol1 = iterate.getTextAsList(cell1)
+        print(symbol1)
+        #Assert the correct allele symbol is returned, this is the only result
+        self.assertEqual(symbol1, ['Igs2<tm1.1(CAG-cas9*)Mmw>'])
+        #verify the correct option for attribute is selected 
+        select = Select(driver.find_element_by_id('subtype'))
+        selected_option = select.first_selected_option
+        print (selected_option.text)
+        self.assertEqual(selected_option.text, 'Endonuclease') 
+
+    def testAlleleAttribTransposaseSearch(self):
+        """
+        @Status tests that an Attribute by Transposase search works
+        @see pwi-allele-search-46
+        """
+        driver = self.driver
+        #finds the Attribute pulldown and select the option 'Transposase'value=string:11025590, tabs out of the field then clicks the Search button
+        Select(driver.find_element_by_id("subtype")).select_by_value('string:11025590')
+        time.sleep(2)
+        actions = ActionChains(driver) 
+        actions.send_keys(Keys.TAB)
+        actions.perform()
+        time.sleep(2)
+        driver.find_element_by_id('searchButton').click()
+        #time.sleep(5)
+        #waits until the element is located or 10 seconds
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Tg(Prm-sb10)2Tcb'))
+        #find the search results table
+        results_table = self.driver.find_element_by_id("resultsTable")
+        table = Table(results_table)
+        #Iterate and print the search results headers
+        cell1 = table.get_row_cells(0)
+        symbol1 = iterate.getTextAsList(cell1)
+        print(symbol1)
+        #Assert the correct allele symbol is returned, this is the only result
+        self.assertEqual(symbol1, ['Tg(Prm-sb10)2Tcb'])
+        #verify the correct option for attribute is selected 
+        select = Select(driver.find_element_by_id('subtype'))
+        selected_option = select.first_selected_option
+        print (selected_option.text)
+        self.assertEqual(selected_option.text, 'Transposase') 
+
+    def testAlleleMolecularMutNucleotideSearch(self):
+        """
+        @Status tests that a Molecular Mutations of Nucleotide repeat expansion search works
+        @see pwi-allele-search-47
+        """
+        driver = self.driver
+        #finds the Allele Synonym field and enters a text string, tabs out of the field
+        driver.find_element_by_id("synonymName-0").send_keys('CGG(98)')
+        time.sleep(2)
+        actions = ActionChains(driver) 
+        actions.send_keys(Keys.TAB)
+        actions.perform()
+        time.sleep(2)
+        #finds the Molecular Mutations pulldown and select the option 'Nucleotide repeat expansion'value=string:847100, tabs out of the field then clicks the Search button
+        Select(driver.find_element_by_id("mutation")).select_by_value('string:847100')
+        time.sleep(2)
+        actions = ActionChains(driver) 
+        actions.send_keys(Keys.TAB)
+        actions.perform()
+        time.sleep(2)
+        driver.find_element_by_id('searchButton').click()
+        #time.sleep(5)
+        #waits until the element is located or 10 seconds
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Fmr1<tm2Cgr>'))
+        #find the search results table
+        results_table = self.driver.find_element_by_id("resultsTable")
+        table = Table(results_table)
+        #Iterate and print the search results headers
+        cell1 = table.get_row_cells(0)
+        symbol1 = iterate.getTextAsList(cell1)
+        print(symbol1)
+        #Assert the correct allele symbol is returned, this is the only result
+        self.assertEqual(symbol1, ['Fmr1<tm2Cgr>'])
+        #verify the correct option for molecular mutation is selected 
+        select = Select(driver.find_element_by_id('mutation'))
+        selected_option = select.first_selected_option
+        print (selected_option.text)
+        self.assertEqual(selected_option.text, 'Nucleotide repeat expansion') 
+
+    def testAlleleMolecularMutViralinsertionSearch(self):
+        """
+        @Status tests that a Molecular Mutations of Viral insertion search works
+        @see pwi-allele-search-47
+        """
+        driver = self.driver
+        #finds the Molecular Mutations pulldown and select the option 'Viral insertion'value=string:847108, tabs out of the field then clicks the Search button
+        Select(driver.find_element_by_id("mutation")).select_by_value('string:847108')
+        time.sleep(2)
+        actions = ActionChains(driver) 
+        actions.send_keys(Keys.TAB)
+        actions.perform()
+        time.sleep(2)
+        driver.find_element_by_id('searchButton').click()
+        #time.sleep(5)
+        #waits until the element is located or 10 seconds
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Afg3l2<Emv66>'))
+        #find the search results table
+        results_table = self.driver.find_element_by_id("resultsTable")
+        table = Table(results_table)
+        #Iterate and print the search results headers
+        cell1 = table.get_row_cells(2)
+        symbol1 = iterate.getTextAsList(cell1)
+        print(symbol1)
+        #Assert the correct allele symbol is returned, this is the only result
+        self.assertEqual(symbol1, ['Afg3l2<Emv66>'])
+        #verify the correct option for molecular mutation is selected 
+        select = Select(driver.find_element_by_id('mutation'))
+        selected_option = select.first_selected_option
+        print (selected_option.text) 
+        self.assertEqual(selected_option.text, 'Viral insertion') 
+        
+    def testAlleleDrivergeneBaboonSearch(self):
+        """
+        @Status tests that a Driver gene of baboon, olive search works
+        @see pwi-allele-search-48
+        """
+        driver = self.driver
+        #finds the Driver gene pulldown and select the option 'baboon, olive'value=string:125, tabs out of the field then clicks the Search button
+        Select(driver.find_element_by_id("organism")).select_by_value('string:125')
+        time.sleep(2)
+        actions = ActionChains(driver) 
+        actions.send_keys(Keys.TAB)
+        actions.perform()
+        time.sleep(2)
+        driver.find_element_by_id('searchButton').click()
+        #time.sleep(5)
+        #waits until the element is located or 10 seconds
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Tg(CMA1-cre)6Thhe'))
+        #find the search results table
+        results_table = self.driver.find_element_by_id("resultsTable")
+        table = Table(results_table)
+        #Iterate and print the search results headers
+        cell1 = table.get_row_cells(0)
+        symbol1 = iterate.getTextAsList(cell1)
+        print(symbol1)
+        #Assert the correct allele symbol is returned, this is the only result
+        self.assertEqual(symbol1, ['Tg(CMA1-cre)6Thhe']) 
+        #verify the correct option  for driver gene is selected 
+        select = Select(driver.find_element_by_id('organism'))
+        selected_option = select.first_selected_option
+        print (selected_option.text) 
+        self.assertEqual(selected_option.text, 'baboon, olive')        
+        
+    def testAlleleDrivergeneSheepSearch(self):
+        """
+        @Status tests that a Driver gene of Sheep search works
+        @see pwi-allele-search-48
+        """
+        driver = self.driver
+        #finds the Driver gene pulldown and select the option 'sheep'value=string:44, tabs out of the field then clicks the Search button
+        Select(driver.find_element_by_id("organism")).select_by_value('string:44')
+        time.sleep(2)
+        actions = ActionChains(driver) 
+        actions.send_keys(Keys.TAB)
+        actions.perform()
+        time.sleep(2)
+        driver.find_element_by_id('searchButton').click()
+        #time.sleep(5)
+        #waits until the element is located or 10 seconds
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Tg(FSHB-icre)#Kmar'))
+        #find the search results table
+        results_table = self.driver.find_element_by_id("resultsTable")
+        table = Table(results_table)
+        #Iterate and print the search results headers
+        cell1 = table.get_row_cells(0)
+        symbol1 = iterate.getTextAsList(cell1)
+        print(symbol1)
+        #Assert the correct allele symbol is returned, this is the first of only 2 results
+        self.assertEqual(symbol1, ['Tg(FSHB-icre)#Kmar']) 
+        #verify the correct option  for driver gene is selected 
+        select = Select(driver.find_element_by_id('organism'))
+        selected_option = select.first_selected_option
+        print (selected_option.text) 
+        self.assertEqual(selected_option.text, 'sheep')
+                                                            
     def testAlleleCreateBySearch(self):
         """
         @Status tests that an allele search using the Created By field returns correct data
@@ -1451,267 +1712,6 @@ class TestEIAlleleSearch(unittest.TestCase):
         print(create_date)
         #Assert the  Creation Date field returned is correct 
         self.assertEqual(create_date, '2004-02-03')
-
-    def testAlleleSynonymSearch1(self):
-        """
-        @Status tests that a basic allele Synonym search
-        @see pwi-allele-search-45
-        """
-        driver = self.driver
-        #finds the Allele Synonym field and enters a text string, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("synonymName-0").send_keys('NKD')
-        time.sleep(2)
-        actions = ActionChains(driver) 
-        actions.send_keys(Keys.TAB)
-        actions.perform()
-        time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
-        #time.sleep(5)
-        #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Atf2<Tg(Gzma-Klra1)7Wum>'))
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
-        table = Table(results_table)
-        #Iterate and print the search results headers
-        cell1 = table.get_row_cells(0)
-        symbol1 = iterate.getTextAsList(cell1)
-        print(symbol1)
-        #Assert the correct allele symbol is returned, this is the only result
-        self.assertEqual(symbol1, ['Atf2<Tg(Gzma-Klra1)7Wum>']) 
-
-    def testAlleleSynonymSearch2(self):
-        """
-        @Status tests that a basic allele Synonym search
-        @see pwi-allele-search-45
-        """
-        driver = self.driver
-        #finds the Allele Synonym field and enters a text string, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("synonymName-0").send_keys('ATF3-KO')
-        time.sleep(2)
-        actions = ActionChains(driver) 
-        actions.send_keys(Keys.TAB)
-        actions.perform()
-        time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
-        #time.sleep(5)
-        #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Atf3<tm1Dron>'))
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
-        table = Table(results_table)
-        #Iterate and print the search results headers
-        cell1 = table.get_row_cells(0)
-        symbol1 = iterate.getTextAsList(cell1)
-        print(symbol1)
-        #Assert the correct allele symbol is returned, this is the only result
-        self.assertEqual(symbol1, ['Atf3<tm1Dron>'])    
-
-    def testAlleleAttribEndoSearch(self):
-        """
-        @Status tests that an Attribute by Endonuclease search works
-        @see pwi-allele-search-46
-        """
-        driver = self.driver
-        #finds the Allele Synonym field and enters a text string, tabs out of the field
-        driver.find_element_by_id("synonymName-0").send_keys('H11<Cas9>')
-        time.sleep(2)
-        actions = ActionChains(driver) 
-        actions.send_keys(Keys.TAB)
-        actions.perform()
-        time.sleep(2)
-        #finds the Attribute pulldown and select the option 'Endonuclease'value=string:38853195, tabs out of the field then clicks the Search button
-        Select(driver.find_element_by_id("subtype")).select_by_value('string:38853195')
-        time.sleep(2)
-        actions = ActionChains(driver) 
-        actions.send_keys(Keys.TAB)
-        actions.perform()
-        time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
-        #time.sleep(5)
-        #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Igs2<tm1.1(CAG-cas9*)Mmw>'))
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
-        table = Table(results_table)
-        #Iterate and print the search results headers
-        cell1 = table.get_row_cells(0)
-        symbol1 = iterate.getTextAsList(cell1)
-        print(symbol1)
-        #Assert the correct allele symbol is returned, this is the only result
-        self.assertEqual(symbol1, ['Igs2<tm1.1(CAG-cas9*)Mmw>'])
-        #verify the correct option for attribute is selected 
-        select = Select(driver.find_element_by_id('subtype'))
-        selected_option = select.first_selected_option
-        print (selected_option.text)
-        self.assertEqual(selected_option.text, 'Endonuclease') 
-
-
-    def testAlleleAttribTransposaseSearch(self):
-        """
-        @Status tests that an Attribute by Transposase search works
-        @see pwi-allele-search-46
-        """
-        driver = self.driver
-        #finds the Attribute pulldown and select the option 'Transposase'value=string:11025590, tabs out of the field then clicks the Search button
-        Select(driver.find_element_by_id("subtype")).select_by_value('string:11025590')
-        time.sleep(2)
-        actions = ActionChains(driver) 
-        actions.send_keys(Keys.TAB)
-        actions.perform()
-        time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
-        #time.sleep(5)
-        #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Tg(Prm-sb10)2Tcb'))
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
-        table = Table(results_table)
-        #Iterate and print the search results headers
-        cell1 = table.get_row_cells(0)
-        symbol1 = iterate.getTextAsList(cell1)
-        print(symbol1)
-        #Assert the correct allele symbol is returned, this is the only result
-        self.assertEqual(symbol1, ['Tg(Prm-sb10)2Tcb'])
-        #verify the correct option for attribute is selected 
-        select = Select(driver.find_element_by_id('subtype'))
-        selected_option = select.first_selected_option
-        print (selected_option.text)
-        self.assertEqual(selected_option.text, 'Transposase') 
-
-    def testAlleleMolecularMutNucleotideSearch(self):
-        """
-        @Status tests that a Molecular Mutations of Nucleotide repeat expansion search works
-        @see pwi-allele-search-47
-        """
-        driver = self.driver
-        #finds the Allele Synonym field and enters a text string, tabs out of the field
-        driver.find_element_by_id("synonymName-0").send_keys('CGG(98)')
-        time.sleep(2)
-        actions = ActionChains(driver) 
-        actions.send_keys(Keys.TAB)
-        actions.perform()
-        time.sleep(2)
-        #finds the Molecular Mutations pulldown and select the option 'Nucleotide repeat expansion'value=string:847100, tabs out of the field then clicks the Search button
-        Select(driver.find_element_by_id("mutation")).select_by_value('string:847100')
-        time.sleep(2)
-        actions = ActionChains(driver) 
-        actions.send_keys(Keys.TAB)
-        actions.perform()
-        time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
-        #time.sleep(5)
-        #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Fmr1<tm2Cgr>'))
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
-        table = Table(results_table)
-        #Iterate and print the search results headers
-        cell1 = table.get_row_cells(0)
-        symbol1 = iterate.getTextAsList(cell1)
-        print(symbol1)
-        #Assert the correct allele symbol is returned, this is the only result
-        self.assertEqual(symbol1, ['Fmr1<tm2Cgr>'])
-        #verify the correct option for molecular mutation is selected 
-        select = Select(driver.find_element_by_id('mutation'))
-        selected_option = select.first_selected_option
-        print (selected_option.text)
-        self.assertEqual(selected_option.text, 'Nucleotide repeat expansion') 
-
-    def testAlleleMolecularMutViralinsertionSearch(self):
-        """
-        @Status tests that a Molecular Mutations of Viral insertion search works
-        @see pwi-allele-search-47
-        """
-        driver = self.driver
-        #finds the Molecular Mutations pulldown and select the option 'Viral insertion'value=string:847108, tabs out of the field then clicks the Search button
-        Select(driver.find_element_by_id("mutation")).select_by_value('string:847108')
-        time.sleep(2)
-        actions = ActionChains(driver) 
-        actions.send_keys(Keys.TAB)
-        actions.perform()
-        time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
-        #time.sleep(5)
-        #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Afg3l2<Emv66>'))
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
-        table = Table(results_table)
-        #Iterate and print the search results headers
-        cell1 = table.get_row_cells(2)
-        symbol1 = iterate.getTextAsList(cell1)
-        print(symbol1)
-        #Assert the correct allele symbol is returned, this is the only result
-        self.assertEqual(symbol1, ['Afg3l2<Emv66>'])
-        #verify the correct option for molecular mutation is selected 
-        select = Select(driver.find_element_by_id('mutation'))
-        selected_option = select.first_selected_option
-        print (selected_option.text) 
-        self.assertEqual(selected_option.text, 'Viral insertion') 
-        
-    def testAlleleDrivergeneBaboonSearch(self):
-        """
-        @Status tests that a Driver gene of baboon, olive search works
-        @see pwi-allele-search-48
-        """
-        driver = self.driver
-        #finds the Driver gene pulldown and select the option 'baboon, olive'value=string:125, tabs out of the field then clicks the Search button
-        Select(driver.find_element_by_id("organism")).select_by_value('string:125')
-        time.sleep(2)
-        actions = ActionChains(driver) 
-        actions.send_keys(Keys.TAB)
-        actions.perform()
-        time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
-        #time.sleep(5)
-        #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Tg(CMA1-cre)6Thhe'))
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
-        table = Table(results_table)
-        #Iterate and print the search results headers
-        cell1 = table.get_row_cells(0)
-        symbol1 = iterate.getTextAsList(cell1)
-        print(symbol1)
-        #Assert the correct allele symbol is returned, this is the only result
-        self.assertEqual(symbol1, ['Tg(CMA1-cre)6Thhe']) 
-        #verify the correct option  for driver gene is selected 
-        select = Select(driver.find_element_by_id('organism'))
-        selected_option = select.first_selected_option
-        print (selected_option.text) 
-        self.assertEqual(selected_option.text, 'baboon, olive')        
-        
-    def testAlleleDrivergeneSheepSearch(self):
-        """
-        @Status tests that a Driver gene of Sheep search works
-        @see pwi-allele-search-48
-        """
-        driver = self.driver
-        #finds the Driver gene pulldown and select the option 'sheep'value=string:44, tabs out of the field then clicks the Search button
-        Select(driver.find_element_by_id("organism")).select_by_value('string:44')
-        time.sleep(2)
-        actions = ActionChains(driver) 
-        actions.send_keys(Keys.TAB)
-        actions.perform()
-        time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
-        #time.sleep(5)
-        #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Tg(FSHB-icre)#Kmar'))
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
-        table = Table(results_table)
-        #Iterate and print the search results headers
-        cell1 = table.get_row_cells(0)
-        symbol1 = iterate.getTextAsList(cell1)
-        print(symbol1)
-        #Assert the correct allele symbol is returned, this is the first of only 2 results
-        self.assertEqual(symbol1, ['Tg(FSHB-icre)#Kmar']) 
-        #verify the correct option  for driver gene is selected 
-        select = Select(driver.find_element_by_id('organism'))
-        selected_option = select.first_selected_option
-        print (selected_option.text) 
-        self.assertEqual(selected_option.text, 'sheep')                                                    
 
 def suite():
     suite = unittest.TestSuite()
