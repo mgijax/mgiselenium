@@ -27,6 +27,7 @@ class TestPrivateData(unittest.TestCase):
     def setUp(self):
 
         self.driver = webdriver.Chrome() 
+        #self.driver = webdriver.Firefox()
         self.driver.get(config.PUBLIC_URL)
         self.driver.implicitly_wait(4)
 

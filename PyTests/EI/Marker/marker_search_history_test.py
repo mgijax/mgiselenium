@@ -56,29 +56,22 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         driver.find_element_by_id("historySymbol-0").send_keys('Dsh')
         driver.find_element_by_id('searchButton').click()
         #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'synonymModification_date-2')))
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historySymbol-2')))
         # get the data for the Symbol column for all 9 rows
         hist_sym = driver.find_element_by_id('historySymbol-0').get_attribute('value')  
         hist_sym1 = driver.find_element_by_id('historySymbol-1').get_attribute('value') 
         hist_sym2 = driver.find_element_by_id('historySymbol-2').get_attribute('value') 
         hist_sym3 = driver.find_element_by_id('historySymbol-3').get_attribute('value') 
         hist_sym4 = driver.find_element_by_id('historySymbol-4').get_attribute('value') 
-        hist_sym5 = driver.find_element_by_id('historySymbol-5').get_attribute('value') 
-        hist_sym6 = driver.find_element_by_id('historySymbol-6').get_attribute('value') 
-        hist_sym7 = driver.find_element_by_id('historySymbol-7').get_attribute('value') 
-        hist_sym8 = driver.find_element_by_id('historySymbol-8').get_attribute('value')  
+         
         print(hist_sym)
-        print(hist_sym8)     
+        print(hist_sym4)     
         #Assert the second synonym date returned(row2) is correct
         self.assertEqual(hist_sym, 'Hhg1')      
         self.assertEqual(hist_sym1, 'Hhg1') 
         self.assertEqual(hist_sym2, 'Shh') 
         self.assertEqual(hist_sym3, 'Dsh') 
         self.assertEqual(hist_sym4, 'Dsh') 
-        self.assertEqual(hist_sym5, 'Hx') 
-        self.assertEqual(hist_sym6, 'Hx') 
-        self.assertEqual(hist_sym7, 'Hxl3') 
-        self.assertEqual(hist_sym8, 'Hxl3') 
         
     def testSymbolHistoryWildSearch(self):
         """
@@ -125,7 +118,7 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         driver.find_element_by_id("historyName-0").send_keys('sonic hedgehog')
         driver.find_element_by_id('searchButton').click()
         #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'synonymModification_date-2')))
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historySymbol-2')))
         #time.sleep(2)
         # get the data for the Symbol column for all 9 rows
         hist_sym = driver.find_element_by_id('historySymbol-0').get_attribute('value')  
@@ -133,22 +126,16 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         hist_sym2 = driver.find_element_by_id('historySymbol-2').get_attribute('value') 
         hist_sym3 = driver.find_element_by_id('historySymbol-3').get_attribute('value') 
         hist_sym4 = driver.find_element_by_id('historySymbol-4').get_attribute('value') 
-        hist_sym5 = driver.find_element_by_id('historySymbol-5').get_attribute('value') 
-        hist_sym6 = driver.find_element_by_id('historySymbol-6').get_attribute('value') 
-        hist_sym7 = driver.find_element_by_id('historySymbol-7').get_attribute('value') 
-        hist_sym8 = driver.find_element_by_id('historySymbol-8').get_attribute('value')  
+          
         print(hist_sym)
-        print(hist_sym8)     
+        print(hist_sym4)     
         #Assert the second synonym date returned(row2) is correct
         self.assertEqual(hist_sym, 'Hhg1')      
         self.assertEqual(hist_sym1, 'Hhg1') 
         self.assertEqual(hist_sym2, 'Shh') 
         self.assertEqual(hist_sym3, 'Dsh') 
         self.assertEqual(hist_sym4, 'Dsh') 
-        self.assertEqual(hist_sym5, 'Hx') 
-        self.assertEqual(hist_sym6, 'Hx') 
-        self.assertEqual(hist_sym7, 'Hxl3') 
-        self.assertEqual(hist_sym8, 'Hxl3') 
+
         
     def testNameHistoryWildSearch(self):
         """

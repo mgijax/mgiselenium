@@ -1,6 +1,6 @@
 '''
-Created on Jul 13, 2020
-These tests verify testing of the search feature for the Antigen EI/PWI module.
+Created on Aug 3, 2020
+Tests the search features for the Mutant Cell Lines  EI module
 @author: jeffc
 '''
 import unittest
@@ -27,28 +27,28 @@ from util.table import Table
 
 # Tests
 
-class TestEIAntigenSearch(unittest.TestCase):
+class TestEIMCLSearch(unittest.TestCase):
     """
-    @status Test Antigen searching, etc
+    @status Test Mutant Cell Lines searching, etc
     """
 
     def setUp(self):
         #self.driver = webdriver.Firefox() 
         self.driver = webdriver.Chrome()
         self.form = ModuleForm(self.driver)
-        self.form.get_module(config.TEST_PWI_URL + "/edit/antigen")
+        self.form.get_module(config.TEST_PWI_URL + "/edit/mutantcellline")
     
     def tearDown(self):
         self.driver.close()
 
-    def testAntigenNameSearch(self):
+    def testMclWildSearch(self):
         """
-        @Status tests that a basic antigen name search works
-        @see pwi-antigen-search-1
+        @Status tests that a basic mutant cell line with wildcard search works
+        @see pwi-mcl-search-1
         """
         driver = self.driver
-        #finds the Antigen Name field and enters an antigen name, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("antigenName").send_keys('Ant-1')
+        #finds the Mutant Cell Line field and enters a cell line, tabs out of the field then clicks the Search button
+        driver.find_element_by_id("cellLine").send_keys('CT14%')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -61,19 +61,25 @@ class TestEIAntigenSearch(unittest.TestCase):
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
+        cell2 = table.get_row_cells(1)
+        cell3 = table.get_row_cells(2)
         symbol1 = iterate.getTextAsList(cell1)
+        symbol2 = iterate.getTextAsList(cell2)
+        symbol3 = iterate.getTextAsList(cell3)
         print(symbol1)
-        #Assert the correct antigen is returned
-        self.assertEqual(symbol1, ['Ant-1'])
+        #Assert the correct mutant cewll lines are returned
+        self.assertEqual(symbol1, ['CT141'])
+        self.assertEqual(symbol2, ['CT143'])
+        self.assertEqual(symbol3, ['CT146'])
 
-    def testAntigenName2Search(self):
+    def testMclSearch(self):
         """
-        @Status tests that a basic antigen name search works
-        @see pwi-antigen-search-1
+        @Status tests that a basic mutant cell line search works
+        @see pwi-mcl-search-1
         """
         driver = self.driver
-        #finds the Antigen Name field and enters an antigen name w/wildcard, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("antigenName").send_keys('bre%')
+        #finds the Mutant Cell Line field and enters a mutant cell line, tabs out of the field then clicks the Search button
+        driver.find_element_by_id("cellLine").send_keys('CT45')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -88,17 +94,17 @@ class TestEIAntigenSearch(unittest.TestCase):
         cell1 = table.get_row_cells(0)
         symbol1 = iterate.getTextAsList(cell1)
         print(symbol1)
-        #Assert the correct antigen is returned
-        self.assertEqual(symbol1, ['brevican'])
+        #Assert the correct mutant cell line is returned
+        self.assertEqual(symbol1, ['CT45'])
 
-    def testAntigenRegionSearch(self):
+    def testMclCreatorSearch(self):
         """
-        @Status tests that a basic region search works
-        @see pwi-antigen-search-2
+        @Status tests that a basic MCL Creator search works
+        @see pwi-mcl-search-2
         """
         driver = self.driver
-        #finds the region field and enters an region name, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("regionCovered").send_keys('amino acids 1-76')
+        #finds the Creator filed and selects the option 'shinichi Aizawa'(string:4811539), tabs out of the field then clicks the Search button
+        Select(driver.find_element_by_id("creator")).select_by_value('string:4811539')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -113,17 +119,17 @@ class TestEIAntigenSearch(unittest.TestCase):
         cell1 = table.get_row_cells(0)
         symbol1 = iterate.getTextAsList(cell1)
         print(symbol1)
-        #Assert the correct antigen is returned
-        self.assertEqual(symbol1, ['5-HT-2A-R (N-terminus)'])
+        #Assert the correct mutant cell line is returned
+        self.assertEqual(symbol1, ['PAT-12'])
         
-    def testAntigenRegion2Search(self):
+    def testMclPclSearch(self):
         """
-        @Status tests that a basic region search works with wildcard
-        @see pwi-antigen-search-2
+        @Status tests that a basic parent cell line search works 
+        @see pwi-mcl-search-3
         """
         driver = self.driver
-        #finds the region field and enters an region name w/wildcard, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("regionCovered").send_keys('GDVES%')
+        #finds the parent cell line field and enters a parent cell line, tabs out of the field then clicks the Search button
+        driver.find_element_by_id("parentCellLine").send_keys('RENKA')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -136,26 +142,32 @@ class TestEIAntigenSearch(unittest.TestCase):
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
+        cell2 = table.get_row_cells(1)
+        cell3 = table.get_row_cells(2)
         symbol1 = iterate.getTextAsList(cell1)
+        symbol2 = iterate.getTextAsList(cell2)
+        symbol3 = iterate.getTextAsList(cell3)
         print(symbol1)
         #Assert the correct antigen is returned
-        self.assertEqual(symbol1, ['2A peptide'])
+        self.assertEqual(symbol1, ['Not Specified'])
+        self.assertEqual(symbol2, ['Not Specified'])
+        self.assertEqual(symbol3, ['Not Specified'])
         
-    def testAntigenNotesSearch(self):
+    def testMclPclStrainSearch(self):
         """
-        @Status tests that a basic notes search works 
-        @see pwi-antigen-search-3
+        @Status tests that a basic parent cell line strain search works 
+        @see pwi-mcl-search-4
         """
         driver = self.driver
         #finds the notes field and enters test, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("antigenNote").send_keys('recombinant protein')
+        driver.find_element_by_id("parentCellLineStrain").send_keys('129S7/SvEvBrd-Hprt%')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element_by_id('searchButton').click()
-        time.sleep(2)
+        time.sleep(4)
         #find the search results table
         results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
@@ -171,21 +183,21 @@ class TestEIAntigenSearch(unittest.TestCase):
         symbol4 = iterate.getTextAsList(cell4)
         symbol5 = iterate.getTextAsList(cell5)
         print(symbol1)
-        #Assert the correct antigens are returned(first 5)
-        self.assertEqual(symbol1, ['ALDH1L1'])
-        self.assertEqual(symbol2, ['AMH'])
-        self.assertEqual(symbol3, ['AML1-b'])
-        self.assertEqual(symbol4, ['antithrombin'])
-        self.assertEqual(symbol5, ['APC'])
+        #Assert the correct mutant cell lines are returned(first 5)
+        self.assertEqual(symbol1, ['10C6'])
+        self.assertEqual(symbol2, ['6E6'])
+        self.assertEqual(symbol3, ['6F11'])
+        self.assertEqual(symbol4, ['8A8'])
+        self.assertEqual(symbol5, ['8D7'])
         
-    def testAntigenNotes1Search(self):
+    def testMclCellLineTypeSearch(self):
         """
-        @Status tests that a basic notes search w/wildcard works 
-        @see pwi-antigen-search-3
+        @Status tests that a basic Cell Line Type works 
+        @see pwi-mcl-search-5 
         """
         driver = self.driver
-        #finds the notes field and enters text w/wildcard, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("antigenNote").send_keys('%fragment')
+        #finds the cell line type field and select the option 'spermatogonial stem cell'(string:3982969), tabs out of the field then clicks the Search button
+        Select(driver.find_element_by_id("cellLineType")).select_by_value('string:3982969')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -193,6 +205,60 @@ class TestEIAntigenSearch(unittest.TestCase):
         time.sleep(2)
         driver.find_element_by_id('searchButton').click()
         time.sleep(2)
+        #find the search results table
+        results_table = self.driver.find_element_by_id("resultsTable")
+        table = Table(results_table)
+        #Iterate and print the search results headers
+        cell1 = table.get_row_cells(0)
+        cell2 = table.get_row_cells(1)
+        symbol1 = iterate.getTextAsList(cell1)
+        symbol2 = iterate.getTextAsList(cell2)
+        print(symbol1)
+        #Assert the correct antigens are returned(first 5)
+        self.assertEqual(symbol1, ['Not Specified'])
+        self.assertEqual(symbol2, ['Not Specified'])
+        
+        
+    def testMclDerivationTypeSearch(self):
+        """
+        @Status tests that a basic derivation type search works
+        @see pwi-mcl-search-6
+        """
+        driver = self.driver
+        #finds the derivation type field and selects the option 'transposon induced' (value='string:2327161), tabs out of the field then clicks the Search button
+        Select(driver.find_element_by_id("derivationType")).select_by_value('string:2327161')
+        time.sleep(2)
+        actions = ActionChains(driver) 
+        actions.send_keys(Keys.TAB)
+        actions.perform()
+        time.sleep(2)
+        driver.find_element_by_id('searchButton').click()
+        time.sleep(2)
+        #find the search results table
+        results_table = self.driver.find_element_by_id("resultsTable")
+        table = Table(results_table)
+        #Iterate and print the search results headers
+        cell1 = table.get_row_cells(0)
+        symbol1 = iterate.getTextAsList(cell1)
+        print(symbol1)
+        #Assert the correct antigen is returned
+        self.assertEqual(symbol1, ['Not Specified'])               
+        
+    def testMclVectorNameSearch(self):
+        """
+        @Status tests that a basic Vector Name search works
+        @see pwi-mcl-search-7
+        """
+        driver = self.driver
+        #finds the vector name field and enters a vector, tabs out of the field then clicks the Search button
+        driver.find_element_by_id("vector").send_keys('pGT0lxf')
+        time.sleep(2)
+        actions = ActionChains(driver) 
+        actions.send_keys(Keys.TAB)
+        actions.perform()
+        time.sleep(2)
+        driver.find_element_by_id('searchButton').click()
+        time.sleep(5)
         #find the search results table
         results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
@@ -208,77 +274,30 @@ class TestEIAntigenSearch(unittest.TestCase):
         symbol4 = iterate.getTextAsList(cell4)
         symbol5 = iterate.getTextAsList(cell5)
         print(symbol1)
-        #Assert the correct antigens are returned(first 5)
-        self.assertEqual(symbol1, ['E-cadherin'])
-        self.assertEqual(symbol2, ['EFTUD2'])
-        self.assertEqual(symbol3, ['Epha4, C-terminus'])
-        self.assertEqual(symbol4, ['HAND2'])
-        self.assertEqual(symbol5, ['Integrin beta 4'])\
+        #Assert the correct mutant cell lines are returned(first 5)
+        self.assertEqual(symbol1, ['XP0008'])
+        self.assertEqual(symbol2, ['XP0009'])
+        self.assertEqual(symbol3, ['XP0010'])
+        self.assertEqual(symbol4, ['XP0011'])
+        self.assertEqual(symbol5, ['XP0012'])
         
-    def testAntigenOrganismSearch(self):
+    def testMclVectorNameWildSearch(self):
         """
-        @Status tests that a basic organism search works
-        @see pwi-antigen-search-4
-        """
-        driver = self.driver
-        #finds the organism field and selects the option "Carp' (value='string:62), tabs out of the field then clicks the Search button
-        Select(driver.find_element_by_id("organism")).select_by_value('string:62')
-        time.sleep(2)
-        actions = ActionChains(driver) 
-        actions.send_keys(Keys.TAB)
-        actions.perform()
-        time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
-        time.sleep(2)
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
-        table = Table(results_table)
-        #Iterate and print the search results headers
-        cell1 = table.get_row_cells(0)
-        symbol1 = iterate.getTextAsList(cell1)
-        print(symbol1)
-        #Assert the correct antigen is returned
-        self.assertEqual(symbol1, ['carp-II parvalbumin'])               
-        
-    def testAntigenStrainSearch(self):
-        """
-        @Status tests that a basic strain search works
-        @see pwi-antigen-search-5
-        """
-        driver = self.driver
-        time.sleep(2)
-        #finds the strain field and enters a strain, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("editTabStrain").send_keys('AKR')
-        actions = ActionChains(driver) 
-        actions.send_keys(Keys.TAB)
-        actions.perform()
-        time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
-        time.sleep(2)
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
-        table = Table(results_table)
-        #Iterate and print the search results headers
-        cell1 = table.get_row_cells(0)
-        symbol1 = iterate.getTextAsList(cell1)
-        print(symbol1)
-        #Assert the correct antigen is returned
-        self.assertEqual(symbol1, ['CD49d'])
-        
-    def testAntigenStrain1Search(self):
-        """
-        @Status tests that a basic strain search w/wildcard works
-        @see pwi-antigen-search-5
+        @Status tests that a basic vector name w/wildcard search works
+        @see pwi-mcl-search-7
         """
         driver = self.driver
         #finds the strain field and enters a strain w/wildcard, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("editTabStrain").send_keys('C3H%')
+        driver.find_element_by_id("vector").send_keys('ROSANB%')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element_by_id('searchButton').click()
+        #Does a webdriver wait until the results table is present so we know the page is loaded
+        #if WebDriverWait(self.driver, 15).until(EC.presence_of_element_located((By.ID, 'resultsCount'))):
+            #print('page loaded')
         time.sleep(2)
         #find the search results table
         results_table = self.driver.find_element_by_id("resultsTable")
@@ -287,48 +306,26 @@ class TestEIAntigenSearch(unittest.TestCase):
         cell1 = table.get_row_cells(0)
         cell2 = table.get_row_cells(1)
         cell3 = table.get_row_cells(2)
+        cell4 = table.get_row_cells(3)
         symbol1 = iterate.getTextAsList(cell1)
         symbol2 = iterate.getTextAsList(cell2)
         symbol3 = iterate.getTextAsList(cell3)
+        symbol4 = iterate.getTextAsList(cell4)
         print(symbol1)
-        #Assert the correct antigens are returned
-        self.assertEqual(symbol1, ['32D leukocyte'])
-        self.assertEqual(symbol2, ['hsc74'])    
-        self.assertEqual(symbol3, ['PECAM1'])
+        #Assert the correct mutant cell lines are returned
+        self.assertEqual(symbol1, ['10C2'])
+        self.assertEqual(symbol2, ['15C3'])    
+        self.assertEqual(symbol3, ['5B4'])
+        self.assertEqual(symbol4, ['CN3'])
         
-    def testAntigenTissueSearch(self):
+    def testMclVectorTypeSearch(self):
         """
         @Status tests that a basic tissue search works
-        @see pwi-antigen-search-6
+        @see pwi-mcl-search-8
         """
         driver = self.driver
-        #finds the tissue field and enters a tissue, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("editTabTissue").send_keys('intestine')
-        time.sleep(2)
-        actions = ActionChains(driver) 
-        actions.send_keys(Keys.TAB)
-        actions.perform()
-        time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
-        time.sleep(2)
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
-        table = Table(results_table)
-        #Iterate and print the search results headers
-        cell1 = table.get_row_cells(0)
-        symbol1 = iterate.getTextAsList(cell1)
-        print(symbol1)
-        #Assert the correct antigen is returned
-        self.assertEqual(symbol1, ['28 K CaBP'])
-        
-    def testAntigenTissue1Search(self):
-        """
-        @Status tests that a basic tissue search w/wildcard works
-        @see pwi-antigen-search-6
-        """
-        driver = self.driver
-        #finds the tissue field and enters a tissue w/wildcard, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("editTabTissue").send_keys('test%')
+        #finds the vector type field and select the option 'enhancer trap'(string:3982972, tabs out of the field then clicks the Search button
+        Select(driver.find_element_by_id("vectorType")).select_by_value('string:3982972')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -347,19 +344,19 @@ class TestEIAntigenSearch(unittest.TestCase):
         symbol2 = iterate.getTextAsList(cell2)
         symbol3 = iterate.getTextAsList(cell3)
         print(symbol1)
-        #Assert the correct antigens are returned(first 3)
-        self.assertEqual(symbol1, ['Acrogranin'])
-        self.assertEqual(symbol2, ['Clone 4'])    
-        self.assertEqual(symbol3, ['JLP'])
+        #Assert the correct mutant cell lines are returned
+        self.assertEqual(symbol1, ['6028'])
+        self.assertEqual(symbol2, ['6029'])
+        self.assertEqual(symbol3, ['gt216'])
         
-    def testAntigenTissueDescSearch(self):
+    def testMclAlleleSearch(self):
         """
-        @Status tests that a basic tissue description search works
-        @see pwi-antigen-search-7
+        @Status tests that a basic allele search works
+        @see pwi-mcl-search-11
         """
         driver = self.driver
-        #finds the tissue description field and enters a description, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("description").send_keys('cell lysates')
+        #finds the allele field and enters an allele, tabs out of the field then clicks the Search button
+        driver.find_element_by_id("alleleSymbols").send_keys('Gata1<tm1Phi>')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -374,17 +371,18 @@ class TestEIAntigenSearch(unittest.TestCase):
         cell1 = table.get_row_cells(0)
         symbol1 = iterate.getTextAsList(cell1)
         print(symbol1)
-        #Assert the correct antigen is returned
-        self.assertEqual(symbol1, ['JLP'])
+        #Assert the correct mutant cell lines are returned
+        self.assertEqual(symbol1, ['Not Specified'])
+
         
-    def testAntigenTissueDesc1Search(self):
+    def testMclAlleleWildSearch(self):
         """
-        @Status tests that a basic tissue description search w/wildcard works
-        @see pwi-antigen-search-7
+        @Status tests that a basic allele symbol w/wildcard search works
+        @see pwi-antigen-search-11
         """
         driver = self.driver
-        #finds the tissue Description field and enters a description w/wildcard, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("description").send_keys('membrane%')
+        #finds the allelesymbols field and enters an allele symbol w/wildcard, tabs out of the field then clicks the Search button
+        driver.find_element_by_id("alleleSymbols").send_keys('Meg3%')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -400,25 +398,59 @@ class TestEIAntigenSearch(unittest.TestCase):
         cell2 = table.get_row_cells(1)
         cell3 = table.get_row_cells(2)
         cell4 = table.get_row_cells(3)
+        cell5 = table.get_row_cells(4)
         symbol1 = iterate.getTextAsList(cell1)
         symbol2 = iterate.getTextAsList(cell2)
         symbol3 = iterate.getTextAsList(cell3)
         symbol4 = iterate.getTextAsList(cell4)
+        symbol5 = iterate.getTextAsList(cell5)
         print(symbol1)
-        #Assert the correct antigens are returned(first 3)
-        self.assertEqual(symbol1, ['alpha-dystroglycan'])
-        self.assertEqual(symbol2, ['brain membrane'])
-        self.assertEqual(symbol3, ['KCC2'])    
-        self.assertEqual(symbol4, ['Na+/K+ ATPase alpha-1'])
+        #Assert the correct mutant cell lines are returned
+        self.assertEqual(symbol1, ['gt216'])
+        self.assertEqual(symbol2, ['Not Specified'])
+        self.assertEqual(symbol3, ['Not Specified'])
+        self.assertEqual(symbol4, ['Not Specified'])
+        self.assertEqual(symbol5, ['Not Specified'])
         
-    def testAntigenCelllineSearch(self):
+    def testMclLogicaldbSearch(self):
         """
-        @Status tests that a basic cell line search works
-        @see pwi-antigen-search-8
+        @Status tests that a basic logical DB search works
+        @see pwi-mcl-search-12
         """
         driver = self.driver
-        #finds the cell line field and enter a cell line, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("editTabCellLine").send_keys('HEK293T')
+        #finds the logical bd field and select the option 'TIGM'(string:97), tabs out of the field then clicks the Search button
+        Select(driver.find_element_by_id("accName")).select_by_value('string:97')
+        time.sleep(2)
+        actions = ActionChains(driver) 
+        actions.send_keys(Keys.TAB)
+        actions.perform()
+        time.sleep(2)
+        driver.find_element_by_id('searchButton').click()
+        time.sleep(2)
+        #find the search results table
+        results_table = self.driver.find_element_by_id("resultsTable")
+        table = Table(results_table)
+        #Iterate and print the search results headers
+        cell1 = table.get_row_cells(0)
+        cell2 = table.get_row_cells(1)
+        cell3 = table.get_row_cells(2)
+        symbol1 = iterate.getTextAsList(cell1)
+        symbol2 = iterate.getTextAsList(cell2)
+        symbol3 = iterate.getTextAsList(cell3)
+        print(symbol1)
+        #Assert the correct mutant cell lines are returned
+        self.assertEqual(symbol1, ['IST10006D1HMF1'])
+        self.assertEqual(symbol2, ['OST489724'])    
+        self.assertEqual(symbol3, ['SGT207T1'])
+        
+    def testMclAccNameSearch(self):
+        """
+        @Status tests that a basic Acc Name search works
+        @see pwi-mcl-search-13
+        """
+        driver = self.driver
+        #finds the Acc Name field and enter a name, tabs out of the field then clicks the Search button
+        driver.find_element_by_id("accName-0").send_keys('E209G12')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -433,17 +465,17 @@ class TestEIAntigenSearch(unittest.TestCase):
         cell1 = table.get_row_cells(0)
         symbol1 = iterate.getTextAsList(cell1)
         print(symbol1)
-        #Assert the correct antigen is returned
-        self.assertEqual(symbol1, ['agrin'])
+        #Assert the correct mutant cell line is returned
+        self.assertEqual(symbol1, ['E209G12'])
         
-    def testAntigenCellline1Search(self):
+    def testMclAccNameWildSearch(self):
         """
-        @Status tests that a basic cell line search w/wildcard works
-        @see pwi-antigen-search-8
+        @Status tests that a basic Acc Name search w/wildcard works
+        @see pwi-antigen-search-13
         """
         driver = self.driver
         #finds the cell line field and enters a description w/wildcard, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("editTabCellLine").send_keys('%cell Line%')
+        driver.find_element_by_id("accName-0").send_keys('E209G0% ')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -458,133 +490,29 @@ class TestEIAntigenSearch(unittest.TestCase):
         cell1 = table.get_row_cells(0)
         cell2 = table.get_row_cells(1)
         cell3 = table.get_row_cells(2)
+        cell4 = table.get_row_cells(3)
+        cell5 = table.get_row_cells(4)
         symbol1 = iterate.getTextAsList(cell1)
         symbol2 = iterate.getTextAsList(cell2)
         symbol3 = iterate.getTextAsList(cell3)
+        symbol4 = iterate.getTextAsList(cell4)
+        symbol5 = iterate.getTextAsList(cell5)
         print(symbol1)
-        #Assert the correct antigens are returned(first 3)
-        self.assertEqual(symbol1, ['alpha6 integrin'])
-        self.assertEqual(symbol2, ['CD31/PECAM-1'])    
-        self.assertEqual(symbol3, ['cerberus 1'])
+        #Assert the correct mutant cell lines are returned
+        self.assertEqual(symbol1, ['E209G01'])
+        self.assertEqual(symbol2, ['E209G02'])    
+        self.assertEqual(symbol3, ['E209G03'])
+        self.assertEqual(symbol4, ['E209G04'])
+        self.assertEqual(symbol5, ['E209G06'])
         
-    def testAntigenAgePrefixSearch(self):
+    def testMclMultiAllelesSearch(self):
         """
-        @Status tests that a basic age prefix search works
-        @see pwi-antigen-search-9
+        @Status tests that a basic mutant cell line search works and brings back multiple alles in the Allele Symbol(s) field
+        @see pwi-mcl-search-14
         """
         driver = self.driver
-        #finds the age prefix field and select the option 'postnatal day', tabs out of the field then clicks the Search button
-        Select(driver.find_element_by_id("age")).select_by_value('string:postnatal day')
-        time.sleep(2)
-        actions = ActionChains(driver) 
-        actions.send_keys(Keys.TAB)
-        actions.perform()
-        time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
-        time.sleep(2)
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
-        table = Table(results_table)
-        #Iterate and print the search results headers
-        cell1 = table.get_row_cells(0)
-        cell2 = table.get_row_cells(1)
-        cell3 = table.get_row_cells(2)
-        symbol1 = iterate.getTextAsList(cell1)
-        symbol2 = iterate.getTextAsList(cell2)
-        symbol3 = iterate.getTextAsList(cell3)
-        print(symbol1)
-        #Assert the correct antigen is returned
-        self.assertEqual(symbol1, ['CAII'])
-        self.assertEqual(symbol2, ['L1 antigen'])    
-        self.assertEqual(symbol3, ['L1cam'])
-        
-    def testAntigenAgeRangeSearch(self):
-        """
-        @Status tests that a basic age range search works
-        @see pwi-antigen-search-9
-        """
-        driver = self.driver
-        #finds the age range field and enters an age range, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("ageStage").send_keys('8-10')
-        time.sleep(2)
-        actions = ActionChains(driver) 
-        actions.send_keys(Keys.TAB)
-        actions.perform()
-        time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
-        time.sleep(2)
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
-        table = Table(results_table)
-        #Iterate and print the search results headers
-        cell1 = table.get_row_cells(0)
-        cell2 = table.get_row_cells(1)
-        symbol1 = iterate.getTextAsList(cell1)
-        symbol2 = iterate.getTextAsList(cell2)
-        print(symbol1)
-        #Assert the correct antigens are returned(first 3)
-        self.assertEqual(symbol1, ['L1 antigen'])
-        self.assertEqual(symbol2, ['neural cell adhesion molecule L1'])    
-        
-    def testAntigenGenderSearch(self):
-        """
-        @Status tests that a basic gender search works
-        @see pwi-antigen-search-10
-        """
-        driver = self.driver
-        #finds the gender field and enter the option 'female'(string:315164, tabs out of the field then clicks the Search button
-        Select(driver.find_element_by_id("gender")).select_by_value('string:315164')
-        time.sleep(2)
-        actions = ActionChains(driver) 
-        actions.send_keys(Keys.TAB)
-        actions.perform()
-        time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
-        time.sleep(2)
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
-        table = Table(results_table)
-        #Iterate and print the search results headers
-        cell1 = table.get_row_cells(0)
-        symbol1 = iterate.getTextAsList(cell1)
-        print(symbol1)
-        #Assert the correct antigens are returned(first 3)
-        self.assertEqual(symbol1, ['p120 CEA-related protein'])  
-
-        
-    def testAntigenAccIDSearch(self):
-        """
-        @Status tests that a basic ACC ID search works
-        @see pwi-antigen-search-11
-        """
-        driver = self.driver
-        #finds the ACC ID field and enter an ID, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("antibodyID-0").send_keys('MGI:3829719')
-        time.sleep(2)
-        actions = ActionChains(driver) 
-        actions.send_keys(Keys.TAB)
-        actions.perform()
-        time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
-        time.sleep(2)
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
-        table = Table(results_table)
-        #Iterate and print the search results headers
-        cell1 = table.get_row_cells(0)
-        symbol1 = iterate.getTextAsList(cell1)
-        print(symbol1)
-        #Assert the correct antigens are returned
-        self.assertEqual(symbol1, ['thiolase A'])
-        
-    def testAntigenAntibodyNameSearch(self):
-        """
-        @Status tests that a basic antibody name search works
-        @see pwi-antigen-search-12
-        """
-        driver = self.driver
-        #finds the antibody name field and enter a name, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("antibodyName-0").send_keys('thiolase A antibody')
+        #finds the mutant cell line field and enter a cell line, tabs out of the field then clicks the Search button
+        driver.find_element_by_id("cellLine").send_keys('10226A-A7 ')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -600,32 +528,12 @@ class TestEIAntigenSearch(unittest.TestCase):
         symbol1 = iterate.getTextAsList(cell1)
         print(symbol1)
         #Assert the correct antigen is returned
-        self.assertEqual(symbol1, ['thiolase A'])
+        self.assertEqual(symbol1, ['10226A-A7'])
+        sym = driver.find_element_by_id("alleleSymbols").get_attribute('value')
+        print(sym)
+        self.assertEqual(sym, "Cbln3<tm1(KOMP)Vlcg>,Cbln3<tm1.1(KOMP)Vlcg>")
         
-    def testAntigenAntibodyName1Search(self):
-        """
-        @Status tests that a basic antidoby name search w/wildcard works
-        @see pwi-antigen-search-12
-        """
-        driver = self.driver
-        #finds the antibody name field and enters a name w/wildcard, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("antibodyName-0").send_keys('TES101%')
-        time.sleep(2)
-        actions = ActionChains(driver) 
-        actions.send_keys(Keys.TAB)
-        actions.perform()
-        time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
-        time.sleep(2)
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
-        table = Table(results_table)
-        #Iterate and print the search results headers
-        cell1 = table.get_row_cells(0)
-        symbol1 = iterate.getTextAsList(cell1)
-        print(symbol1)
-        #Assert the correct antigens are returned
-        self.assertEqual(symbol1, ['testes'])
+#all the tests after this point need to be rewritten for the mutant cell line module
                                                             
     def testAntigenCreateBySearch(self):
         """
@@ -837,4 +745,4 @@ def suite():
     return suite
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))                                     
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))  

@@ -95,9 +95,9 @@ class TestEiMpannotSearch(unittest.TestCase):
         self.assertEqual(j_num, 'J:189146')
         self.assertEqual(cite.text, 'Burnicka-Turek O, Endocrinology 2012 Oct;153(10):4655-65')
         self.assertEqual(evid, 'string:52280')
-        self.assertEqual(sex_abbrev, 'string:NA')
-        self.assertEqual(mod_by, 'mnk')
-        self.assertEqual(mod_date, '2012-12-13')
+        self.assertEqual(sex_abbrev, 'string:F')
+        self.assertEqual(mod_by, 'smb')
+        self.assertEqual(mod_date, '2020-05-12')
         self.assertEqual(create_by, 'mnk')
         self.assertEqual(create_date, '2012-12-13')
 
@@ -691,7 +691,7 @@ class TestEiMpannotSearch(unittest.TestCase):
         print(cell0.text)
         print(cell1.text)
         #Assert the correct genotypes have been returned in the results table
-        self.assertEqual(cell0.text, '129P2/OlaHsd-Prnp<tm1Edin> Prnp<tm1Edin>,Prnp<tm1Edin>')
+        self.assertEqual(cell0.text, '129P2/OlaHsd-Prnp<tm1Edin>/Edin Prnp<tm1Edin>,Prnp<tm1Edin>')
         self.assertEqual(cell1.text, '129P2/OlaHsd-Prnp<tm1Rcm> Prnp<tm1Rcm>,Prnp<tm1Rcm>')
         #Assert the correct Creation Date is returned in the Creation Date field
         createdate = driver.find_element_by_id('createdDate-0').get_attribute('value')

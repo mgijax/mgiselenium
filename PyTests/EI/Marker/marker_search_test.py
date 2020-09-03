@@ -133,7 +133,7 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         cell1 = table.get_row_cells(0)
         symbol1 = iterate.getTextAsList(cell1)
         print(symbol1)
-        self.assertEqual(symbol1, ['Del(8Nat1-Nat2)1Kss'])
+        self.assertEqual(symbol1, ['Del(3Gpr89-Prkab2)4Tac'])
         #since we search for a particular marker type verify the correct type is displayed
         mrktype = driver.find_element_by_id('markerType').get_attribute('value')
         self.assertEqual(mrktype, 'string:12')#12 equals "Transgene"
@@ -942,11 +942,11 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         driver.find_element_by_id("synonymName-0").send_keys("Sqn5")
         #finds the Search button and clicks it
         driver.find_element_by_id('searchButton').click()
-        time.sleep(5)
+        time.sleep(2)
         #find the synonym results table type column row 5
-        syn_type1 = driver.find_elements_by_id('synonymType')[0].get_attribute('value')
-        syn_type2 = driver.find_elements_by_id('synonymType')[1].get_attribute('value')
-        syn_type3 = driver.find_elements_by_id('synonymType')[2].get_attribute('value')
+        syn_type1 = driver.find_element_by_id('synonymType-0').get_attribute('value')
+        syn_type2 = driver.find_element_by_id('synonymType-1').get_attribute('value')
+        syn_type3 = driver.find_element_by_id('synonymType-2').get_attribute('value')
         print(syn_type1)
         #Assert the  synonym types returned are in the correct order
         self.assertEqual(syn_type1, 'string:1004')#string:1004  equals synonym type exact

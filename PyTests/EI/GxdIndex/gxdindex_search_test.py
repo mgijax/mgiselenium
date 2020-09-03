@@ -300,11 +300,11 @@ class TestEiGxdIndexSearch(unittest.TestCase):
         markers = [r.text for r in mrkrows]
         print(markers)
         self.assertEqual(len(markers), 2)
-        self.assertEqual(markers[0], "T, brachyury, T-box transcription factor T, Chr 17, Band")
-        self.assertEqual(markers[1], "t, t-complex, Chr 17, Band")
+        self.assertEqual(markers[0], "t, t-complex, Chr 17, Band")
+        self.assertEqual(markers[1], "T, brachyury, T-box transcription factor T, Chr 17, Band")
         
         #form.press_enter()
-        mrkrows[0].click()
+        mrkrows[1].click()
         wait.forAngular(driver)
         
         # marker T should be selected
@@ -313,13 +313,15 @@ class TestEiGxdIndexSearch(unittest.TestCase):
     
     def testMultiFieldSearch(self):
         """
-        @Status tests that searching by priority, conditional, and coded fields gives the correct results
+        @Status tests that searching by marker, priority, conditional, and coded fields gives the correct results
         
         """
         form = self.form
+        form.enter_value('marker_symbol', 'Bmp4')
+        form.press_tab()
         form.enter_value('_priority_key', 'Medium')
         form.press_tab()
-        form.enter_value('_conditionalmutants_key', 'Conditional (minor)')
+        form.enter_value('_conditionalmutants_key', 'Conditional')
         form.press_tab()
         form.enter_value('is_coded', 'Yes')
         form.press_tab()
@@ -336,7 +338,7 @@ class TestEiGxdIndexSearch(unittest.TestCase):
         #print column 1
         symbols_cells = table.get_column_cells('Marker')
         symbols = iterate.getTextAsList(symbols_cells)
-        self.assertEqual(symbols, ['Marker', 'Acta2', 'Aqp2', 'Clec1b', 'Emcn', 'Fgf8', 'Lmx1b', 'Lyve1', 'Pdpn', 'Postn', 'Tagln', 'Upk1b', 'Upk3a', 'Upk3b', 'Wnt7a'])
+        self.assertEqual(symbols, ['Marker', 'Bmp4', 'Bmp4', 'Bmp4', 'Bmp4', 'Bmp4', 'Bmp4', 'Bmp4', 'Bmp4'])
 
     def testCreatededBySearch(self):
         """
@@ -501,66 +503,7 @@ class TestEiGxdIndexSearch(unittest.TestCase):
         self.assertEqual(symbols, ['Marker', 'Clec1b', 'Fgf8', 'Lmx1b', 'Lyve1', 'Pdpn', 'Wnt7a'])
             
             
-    def testGreaterThanDateSearch(self):
-        """
-        @Status tests that searching by greater than created by date gives the correct results
-        
-        """
-        form = self.form
-        form.enter_value('_priority_key', 'Medium')
-        form.press_tab()
-        form.enter_value('_conditionalmutants_key', 'Conditional (minor)')
-        form.press_tab()
-        form.enter_value('is_coded', 'Yes')
-        form.press_tab()
-        form.enter_value('creation_date', ">05/10/2015")
-        form.press_tab()
-        wait.forAngular(self.driver)
-        form.click_search()#click the search button
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
-        table = Table(results_table)
-        #Iterate and print the search results headers
-        header_cells = table.get_header_cells()
-        print(iterate.getTextAsList(header_cells))
-        # print row 1
-        cells = table.get_row_cells(1)
-        print(iterate.getTextAsList(cells))
-        #print column 1
-        symbols_cells = table.get_column_cells('Marker')
-        symbols = iterate.getTextAsList(symbols_cells)
-        self.assertEqual(symbols, ['Marker', 'Acta2', 'Aqp2', 'Emcn', 'Postn', 'Tagln', 'Upk1b', 'Upk3a', 'Upk3b'])
-            
-    def testGreaterThanEqualDateSearch(self):
-        """
-        @Status tests that searching by greater than or equal to created by date gives the correct results
-        
-        """
-        form = self.form
-        form.enter_value('_priority_key', 'Medium')
-        form.press_tab()
-        form.enter_value('_conditionalmutants_key', 'Conditional (minor)')
-        form.press_tab()
-        form.enter_value('is_coded', 'Yes')
-        form.press_tab()
-        form.enter_value('creation_date', ">=11/10/2015")
-        form.press_tab()
-        wait.forAngular(self.driver)
-        form.click_search()#click the search button
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
-        table = Table(results_table)
-        #Iterate and print the search results headers
-        header_cells = table.get_header_cells()
-        print(iterate.getTextAsList(header_cells))
-        # print row 1
-        cells = table.get_row_cells(1)
-        print(iterate.getTextAsList(cells))
-        #print column 1
-        symbols_cells = table.get_column_cells('Marker')
-        symbols = iterate.getTextAsList(symbols_cells)
-        self.assertEqual(symbols, ['Marker', 'Acta2', 'Aqp2', 'Emcn', 'Postn', 'Tagln', 'Upk1b', 'Upk3a', 'Upk3b'])
-            
+    
             
     def testBetweenDateSearch(self):
         """

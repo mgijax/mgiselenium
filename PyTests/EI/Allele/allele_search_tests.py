@@ -98,7 +98,7 @@ class TestEIAlleleSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Strain field and enters a strain w/wildcard, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("markerSymbol").send_keys('Espn')
+        driver.find_element_by_id("markerSymbol-0").send_keys('Espn')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -153,7 +153,7 @@ class TestEIAlleleSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Marker Curated field and select the option 'curated'value=string:4268545, tabs out of the field then clicks the Search button
-        Select(driver.find_element_by_id("markerStatus")).select_by_value('string:4268545')
+        Select(driver.find_element_by_id("markerAlleleStatus")).select_by_value('string:4268545')
         #finds the Created by field and enters the name hdene
         driver.find_element_by_id("createdBy").send_keys('hdene')
         time.sleep(2)
@@ -181,7 +181,7 @@ class TestEIAlleleSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Marker status field and select the option 'curated invalidated'value=string:4268546, tabs out of the field then clicks the Search button
-        Select(driver.find_element_by_id("markerStatus")).select_by_value('string:4268546')
+        Select(driver.find_element_by_id("markerAlleleStatus")).select_by_value('string:4268546')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -210,7 +210,7 @@ class TestEIAlleleSearch(unittest.TestCase):
         #finds the Allele Symbol field and enters a symbol w/wildcard, tabs out of the field then clicks the Search button
         driver.find_element_by_id("symbol").send_keys('Acp1%')
         #finds the Marker status field and select the option 'loaded'value=string:4268544, tabs out of the field then clicks the Search button
-        Select(driver.find_element_by_id("markerStatus")).select_by_value('string:4268544')
+        Select(driver.find_element_by_id("markerAlleleStatus")).select_by_value('string:4268544')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -545,7 +545,7 @@ class TestEIAlleleSearch(unittest.TestCase):
 
     def testAlleleMutantCellLineSearch(self):
         """
-        @Status tests that a basic allele Muatant Cell Line search works
+        @Status tests that a basic allele Mutant Cell Line search works
         @see pwi-allele-search-20
         """
         driver = self.driver
@@ -597,7 +597,7 @@ class TestEIAlleleSearch(unittest.TestCase):
         symbol1 = iterate.getTextAsList(cell1)
         print(symbol1)
         #Assert the correct allele symbol is returned, this is the first result of 2?
-        self.assertEqual(symbol1, ['Cnot4<tm1(KOMP)Vlcg>']) 
+        self.assertEqual(symbol1, ['Cnot1<tm1a(EUCOMM)Hmgu>']) 
 
     def testAlleleMutantCellLineModBySearch(self):
         """
@@ -1210,7 +1210,7 @@ class TestEIAlleleSearch(unittest.TestCase):
         alert_text = alert.text
         print(alert_text)
         #check alert text
-        self.assertEqual('Invalid Mutant Cell Line: test', alert_text)
+        self.assertEqual(alert_text, 'Invalid Mutant Cell Line: test')
 
     def testAlleleParentcellineValidSearch(self):
         """

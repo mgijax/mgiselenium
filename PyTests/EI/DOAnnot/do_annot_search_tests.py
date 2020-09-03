@@ -68,7 +68,7 @@ class TestEIDoannotSearch(unittest.TestCase):
         headings = iterate.getTextAsList(header_cells)
         print(headings)
         #assert the headers are correct
-        self.assertEqual(headings, ['', 'DO Term', 'Vocabulary Term', 'Qualifier', 'J#', 'Citation', 'Evidence', 'Modified', 'Date', 'Created', 'Date'])
+        self.assertEqual(headings, ['', '', '', 'DO Term', 'Vocabulary Term', 'Qualifier', 'J#', 'Citation', 'Evidence', 'Modified', 'Date', 'Created', 'Date'])
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'termID-1')))
         #find the search results table first row of data

@@ -1,6 +1,6 @@
 '''
 Created on May 17, 2019
-These are tests that check the searching otions of the IMage module
+These are tests that check the searching options of the Image module
 @author: jeffc
 '''
 import unittest
@@ -749,66 +749,7 @@ class TestEiImageSearch(unittest.TestCase):
         modifydate = driver.find_element_by_id('objectModificationDate').get_attribute('value')
         self.assertEqual(modifydate, '2019-05-09')  
               
-    def testCreateDateGreaterSearch(self):
-        """
-        @Status tests that a basic Creation Date by Greater than works
-        @see pwi-image-date-search-10
-        """
-        driver = self.driver
-        #finds the Created Date field, enters a Date with greater than symbol
-        driver.find_element_by_id("objectCreationDate").send_keys('>2019-12-16')
-        #finds the Search button and clicks it
-        driver.find_element_by_id('searchButton').click()
-        time.sleep(2)
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
-        table = Table(results_table)
-        time.sleep(4)
-        # get and print the first 2 rows
-        cell0 = table.get_row(0)
-        cell1 = table.get_row(1)
-        cell2 = table.get_row(2)
-        cell3 = table.get_row(3)
-        print(cell0.text)
-        print(cell1.text)
-        #Assert the correct symbol has been returned in the results table
-        self.assertEqual(cell0.text, 'J:31122; Full Size; 1')
-        self.assertEqual(cell1.text, 'J:31122; Full Size; 2')
-        self.assertEqual(cell2.text, 'J:31122; Full Size; 3')
-        self.assertEqual(cell3.text, 'J:33398; Full Size; 2')
-        #Assert the correct Modification Date is returned in the Modification Date field
-        modifydate = driver.find_element_by_id('objectCreationDate').get_attribute('value')
-        self.assertEqual(modifydate, '2020-01-06')        
 
-    def testCreateDateGreaterEqualSearch(self):
-        """
-        @Status tests that a basic Creation Date by greater than equals works
-        @see pwi-image-date-search-11
-        """
-        driver = self.driver
-        #finds the Creation Date field, enters a Date with greater than and equals symbols
-        driver.find_element_by_id("objectCreationDate").send_keys('>=2019-12-16')
-        #finds the Search button and clicks it
-        driver.find_element_by_id('searchButton').click()
-        time.sleep(2)
-        #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
-        table = Table(results_table)
-        # get and print the first 2 rows
-        cell0 = table.get_row(0)
-        cell1 = table.get_row(1)
-        cell2 = table.get_row(2)
-        cell3 = table.get_row(3)
-        print(cell0.text)
-        print(cell1.text)
-        #Assert the correct symbol has been returned in the results table
-        self.assertEqual(cell0.text, 'J:31122; Full Size; 1')
-        self.assertEqual(cell1.text, 'J:31122; Full Size; 2')
-        self.assertEqual(cell2.text, 'J:31122; Full Size; 3')
-        self.assertEqual(cell3.text, 'J:33398; Full Size; 2')
-        #Assert the correct Modification Date is returned in the Modification Date field
-        modifydate = driver.find_element_by_id('objectCreationDate').get_attribute('value')
-        self.assertEqual(modifydate, '2020-01-06')    
         
     def testCreateDateLessSearch(self):
         """

@@ -110,7 +110,7 @@ class TestEiVariantSearch(unittest.TestCase):
         symbols = iterate.getTextAsList(cells)
         print (symbols)
         #assert all the correct symbols are returned
-        self.assertEquals(symbols, ['Cntn1<m1J>', 'Cntn1<usl>', 'Cntnap1<M1Btlr>'])
+        self.assertEquals(symbols, ['Cntn1<m1J>', 'Cntn1<usl>', 'Cntnap1<M1Btlr>', 'Cntnap1<shm-5J>'])
 
     def testVarRefSearch(self):
         """
@@ -179,12 +179,12 @@ class TestEiVariantSearch(unittest.TestCase):
         symbols = iterate.getTextAsList(cells)
         print (symbols[0])
         #assert some of the correct symbols are returned
-        self.assertEqual(symbols[0], 'Arhgap36<em1Seul>', 'symbol0 is wrong')
-        self.assertEqual(symbols[1], 'Arx<tm2Kki>', 'symbol0 is wrong')
-        self.assertEqual(symbols[2], 'Arx<tm3Kki>', 'symbol1 is wrong')
-        self.assertEqual(symbols[3], 'Arx<tm4Kki>', 'symbol2 is wrong')
-        self.assertEqual(symbols[4], 'Arx<tm5Kki>', 'symbol3 is wrong')
-        self.assertEqual(symbols[5], 'Atp11c<m1Btlr>', 'symbol4 is wrong')
+        self.assertEqual(symbols[0], 'Ace2<em2Shyy>', 'symbol0 is wrong')
+        self.assertEqual(symbols[1], 'Arhgap36<em1Seul>', 'symbol0 is wrong')
+        self.assertEqual(symbols[2], 'Arx<tm2Kki>', 'symbol0 is wrong')
+        self.assertEqual(symbols[3], 'Arx<tm3Kki>', 'symbol1 is wrong')
+        self.assertEqual(symbols[4], 'Arx<tm4Kki>', 'symbol2 is wrong')
+        self.assertEqual(symbols[5], 'Arx<tm5Kki>', 'symbol3 is wrong')
 
     def testVarStrandSearch(self):
         """
@@ -202,7 +202,7 @@ class TestEiVariantSearch(unittest.TestCase):
         #find the search results table
         results_table = self.driver.find_element_by_id("resultsTableHeader")
         table = Table(results_table)
-        time.sleep(2)
+        time.sleep(4)
         # print row one through three
         row1 = table.get_row(0)
         row2 = table.get_row(1)
@@ -215,7 +215,7 @@ class TestEiVariantSearch(unittest.TestCase):
         self.assertEqual(row1.text, '1700013F07Rik<em1Fuxi>' )
         self.assertEqual(row2.text, '2610301B20Rik<em1Jyang>')
         self.assertEqual(row3.text, '2610301B20Rik<em2Jyang>')
-        self.assertEqual(row4.text, 'Aars2<tm1.1Htyy>')
+        self.assertEqual(row4.text, 'a<22R>')
 
     def testVarWithHGVSSearch(self):
         """
