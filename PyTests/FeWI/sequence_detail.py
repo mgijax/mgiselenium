@@ -570,7 +570,7 @@ class TestSequenceDetail(unittest.TestCase):
         #find the GO Terms cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 3)
         print(cell1.text)
-        self.assertIn('26', cell1.text) 
+        self.assertIn('27', cell1.text) 
         #find the Expression Assays cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 4)
         print(cell1.text)

@@ -1052,13 +1052,13 @@ class TestEIAntigenSearch(unittest.TestCase):
         self.assertEqual(symbol5, ['anti-SRY (Mab #15)'])
         self.assertEqual(symbol6, ['MoY1-A antiserum'])
                                                             
-    def testAntigenCreateBySearch(self):
+    def testAntibodyCreateBySearch(self):
         """
-        @Status tests that an antigen search using the Created By field returns correct data
-        @see pwi-antigen-date-search-
+        @Status tests that an antibody search using the Created By field returns correct data
+        @see pwi-antibody-date-search-1
         """
         driver = self.driver
-        #find the antigen Created By field and enter the name
+        #find the Created By field and enter the name
         driver.find_element_by_id("createdBy").send_keys("jx")
         #find the Search button and click it
         driver.find_element_by_id('searchButton').click()
@@ -1075,68 +1075,68 @@ class TestEIAntigenSearch(unittest.TestCase):
         #Assert the  Creation Date field returned is correct 
         self.assertEqual(create_date, '2020-06-18')
 
-    def testAntigenModBySearch(self):
+    def testAntibodyModBySearch(self):
         """
-        @Status tests that an antigen search using the Modified By field returns correct data
-        @see pwi-antigen-date-search-
+        @Status tests that an antibody search using the Modified By field returns correct data
+        @see pwi-antibody-date-search-2
         """
         driver = self.driver
-        #find the alleles Modified by field and enter the name
-        driver.find_element_by_id("modifiedBy").send_keys("terryh")
+        #find the Modified by field and enter the name
+        driver.find_element_by_id("modifiedBy").send_keys("jx")
         #find the Search button and click it
         driver.find_element_by_id('searchButton').click()
         #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), '921-L'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), '281-2'))
         #find the Modified by field
         mod_by = driver.find_element_by_id('modifiedBy').get_attribute('value')
         print(mod_by)
         #Assert the  Modified By field returned is correct 
-        self.assertEqual(mod_by, 'terryh')
+        self.assertEqual(mod_by, 'jx')
         #find the Modification Date field
         mod_date = driver.find_element_by_id('modificationDate').get_attribute('value')
         print(mod_date)
         #Assert the Modification Date field returned is correct 
-        self.assertEqual(mod_date, '2015-06-23')
+        self.assertEqual(mod_date, '2020-06-18')
 
-    def testAntigenCreateDateSearch(self):
+    def testAntibodyCreateDateSearch(self):
         """
-        @Status tests that an antigen search using the Creation Date field returns correct data
-        @see pwi-antigen-date-search-
+        @Status tests that an antibody search using the Creation Date field returns correct data
+        @see pwi-antibody-date-search-3
         """
         driver = self.driver
-        #find the antigen Creation Date field and enter a date
+        #find the Creation Date field and enter a date
         driver.find_element_by_id("creationDate").send_keys("2013-01-23")
         #find the Search button and click it
         driver.find_element_by_id('searchButton').click()
         #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'M-cadherin'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Anti-M-cadherin'))
         create_date = driver.find_element_by_id('creationDate').get_attribute('value')
         print(create_date)
         #Assert the  Creation Date field returned is correct 
         self.assertEqual(create_date, '2013-01-23')
 
-    def testAntigenModDateSearch(self):
+    def testAntibodyModDateSearch(self):
         """
-        @Status tests that an antigen search using the Modified By field returns correct data
-        @see pwi-antigen-date-search-
+        @Status tests that an antibody search using the Modified By field returns correct data
+        @see pwi-antibody-date-search-4
         """
         driver = self.driver
-        #find the antigen Modification Date field and enter a date
+        #find the Modification Date field and enter a date
         driver.find_element_by_id("modificationDate").send_keys("2013-01-02")
         #find the Search button and click it
         driver.find_element_by_id('searchButton').click()
         #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'ephrin-B1'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'EphA4 antibody'))
         #find the Modification Date field
         mod_date = driver.find_element_by_id('modificationDate').get_attribute('value')
         print(mod_date)
         #Assert the Modification Date field returned is correct 
         self.assertEqual(mod_date, '2013-01-02')
 
-    def testAntigenModDateLessSearch(self):
+    def testAntibodyModDateLessSearch(self):
         """
-        @Status tests that an antigen search using the Modified By field and less than returns correct data
-        @see pwi-antigen-date-search-
+        @Status tests that an antibody search using the Modified By field and less than returns correct data
+        @see pwi-antigen-date-search-7
         """
         driver = self.driver
         #find the antigen Modification Date field and enter a date
@@ -1144,7 +1144,7 @@ class TestEIAntigenSearch(unittest.TestCase):
         #find the Search button and click it
         driver.find_element_by_id('searchButton').click()
         #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Syk'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-p107'))
         #find the Modified by field
         mod_by = driver.find_element_by_id('modifiedBy').get_attribute('value')
         print(mod_by)
@@ -1154,20 +1154,20 @@ class TestEIAntigenSearch(unittest.TestCase):
         mod_date = driver.find_element_by_id('modificationDate').get_attribute('value')
         print(mod_date)
         #Assert the Modification Date field returned is correct 
-        self.assertEqual(mod_date, '1998-08-10')
+        self.assertEqual(mod_date, '1998-08-04')
 
-    def testAntigenModDateLessEqualSearch(self):
+    def testAntibodyModDateLessEqualSearch(self):
         """
-        @Status tests that an antigen search using the Modified By field and less than or equal to returns correct data
-        @see pwi-antigen-date-search-
+        @Status tests that an antibody search using the Modified By field and less than or equal to returns correct data
+        @see pwi-antibody-date-search-8
         """
         driver = self.driver
-        #find the antigen Modification Date field and enter a date
+        #find the Modification Date field and enter a date
         driver.find_element_by_id("modificationDate").send_keys("<=1998-09-14")
         #find the Search button and click it
         driver.find_element_by_id('searchButton').click()
         #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Syk'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-p107'))
         #find the Modified by field
         mod_by = driver.find_element_by_id('modifiedBy').get_attribute('value')
         print(mod_by)
@@ -1179,18 +1179,18 @@ class TestEIAntigenSearch(unittest.TestCase):
         #Assert the Modification Date field returned is correct 
         self.assertEqual(mod_date, '1998-09-14')
 
-    def testAntigenModDateBetweenSearch(self):
+    def testAntibodyModDateBetweenSearch(self):
         """
-        @Status tests that an antigen search using the Modified By field and between dates returns correct data
-        @see pwi-antigen-date-search-
+        @Status tests that an antibody search using the Modified By field and between dates returns correct data
+        @see pwi-antibody-date-search-9
         """
         driver = self.driver
-        #find the antigen Modification Date field and enter a date
+        #find the Modification Date field and enter a date
         driver.find_element_by_id("modificationDate").send_keys("1998-08-04..1998-08-10")
         #find the Search button and click it
         driver.find_element_by_id('searchButton').click()
         #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Syk'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-p107'))
         #find the Modified by field
         mod_by = driver.find_element_by_id('modifiedBy').get_attribute('value')
         print(mod_by)
@@ -1200,58 +1200,58 @@ class TestEIAntigenSearch(unittest.TestCase):
         mod_date = driver.find_element_by_id('modificationDate').get_attribute('value')
         print(mod_date)
         #Assert the Modification Date field returned is correct 
-        self.assertEqual(mod_date, '1998-08-10')
+        self.assertEqual(mod_date, '1998-08-04')
 
-    def testAntigenCreateDateLessSearch(self):
+    def testAntibodyCreateDateLessSearch(self):
         """
-        @Status tests that an antigen search using the Creation Date field and Less than returns correct data
-        @see pwi-antigen-date-search-
+        @Status tests that an antibody search using the Creation Date field and Less than returns correct data
+        @see pwi-antibody-date-search-12
         """
         driver = self.driver
-        #find the antigen Creation Date field and enter a date
+        #find the Creation Date field and enter a date
         driver.find_element_by_id("creationDate").send_keys("<1998-06-23")
         #find the Search button and click it
         driver.find_element_by_id('searchButton').click()
         #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'uvomorulin'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-GLUT1'))
         create_date = driver.find_element_by_id('creationDate').get_attribute('value')
         print(create_date)
         #Assert the  Creation Date field returned is correct 
         self.assertEqual(create_date, '1998-06-22')
 
-    def testAntigenCreateDateLessEqualSearch(self):
+    def testAntibodyCreateDateLessEqualSearch(self):
         """
-        @Status tests that an antigen search using the Creation Date field and Less than, equals to returns correct data
-        @see pwi-antigen-date-search-
+        @Status tests that an antibody search using the Creation Date field and Less than, equals to returns correct data
+        @see pwi-antibody-date-search-13
         """
         driver = self.driver
-        #find the alleles Creation Date field and enter a date
+        #find the Creation Date field and enter a date
         driver.find_element_by_id("creationDate").send_keys("<=1998-06-23")
         #find the Search button and click it
         driver.find_element_by_id('searchButton').click()
         #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'uvomorulin'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-GLUT1'))
         create_date = driver.find_element_by_id('creationDate').get_attribute('value')
         print(create_date)
         #Assert the  Creation Date field returned is correct 
         self.assertEqual(create_date, '1998-06-22')
 
-    def testAntigenCreateDateBetweenSearch(self):
+    def testAntibodyCreateDateBetweenSearch(self):
         """
-        @Status tests that an antigen search using the Creation Date field and Between dates returns correct data
-        @see pwi-antigen-date-search-
+        @Status tests that an antibody search using the Creation Date field and Between dates returns correct data
+        @see pwi-antibody-date-search-14
         """
         driver = self.driver
-        #find the antigen Creation Date field and enter a date
+        #find the antibody Creation Date field and enter a date
         driver.find_element_by_id("creationDate").send_keys("1998-06-22..1998-07-09")
         #find the Search button and click it
         driver.find_element_by_id('searchButton').click()
         #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'uvomorulin'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-GLUT1'))
         create_date = driver.find_element_by_id('creationDate').get_attribute('value')
         print(create_date)
         #Assert the  Creation Date field returned is correct 
-        self.assertEqual(create_date, '1998-07-09')
+        self.assertEqual(create_date, '1998-06-22')
 
 
 

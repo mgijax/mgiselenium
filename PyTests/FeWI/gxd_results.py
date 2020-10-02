@@ -75,8 +75,8 @@ class TestGxdResults(unittest.TestCase):
         time.sleep(2)
         self.driver.find_element_by_id('doFilter').click()
         time.sleep(2)        
-        #select the filter option 'disease by infectious agent'
-        self.driver.find_elements_by_name('doFilter')[5].click()
+        #select the filter option 'benign neoplasm'
+        self.driver.find_elements_by_name('doFilter')[0].click()
         #click the Filter button found on the filter by disease button
         self.driver.find_element_by_id('yui-gen0-button').click()
         time.sleep(2)
@@ -89,8 +89,8 @@ class TestGxdResults(unittest.TestCase):
         searchTextItems = iterate.getTextAsList(items)
         print(searchTextItems)
         time.sleep(2)
-        #assert that the genes returned are correct, should be 9 genes as of 8/29/2019
-        self.assertEqual(searchTextItems, ['Ank1', 'Aqp4', 'Cebpb', 'Dpp4', 'Fcgr2b', 'Hmox1', 'Icam1', 'Ifng', 'Pklr', 'Zeb1'], 'the list of genes is not correct!')   
+        #assert that the genes returned are correct, should be 12 genes as of 9/11/2020
+        self.assertEqual(searchTextItems, ['Acvrl1', 'Eng', 'Foxo3', 'Men1', 'Notch4', 'Pdgfrb', 'Ptpn11', 'Ret', 'Sdhc', 'Sdhd', 'Tsc2', 'Vhl'], 'the list of genes is not correct!')   
         
     def test_gene_tab_do_filter_no_genes(self):
         """
@@ -139,7 +139,7 @@ class TestGxdResults(unittest.TestCase):
     def test_gene_tab_go_molecular_filter_gene_result(self):
         """
         @status: Tests that the GO molecular filter is correctly returning the right genes for molecular function ligase.
-        @note: GXD-go-molec-filter-2
+        @note: GXD-go-molec-filter-2 !! too many results, need to find a better structure for filtering!!!
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")

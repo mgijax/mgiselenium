@@ -409,7 +409,7 @@ class TestStrainDetail(unittest.TestCase):
         time.sleep(2)
         fam_mem = driver.find_element(By.ID, 'relatedStrains')#find the Strain Family Member link
         print(fam_mem.text)#print the strain family member to the console screen
-        self.assertEqual(fam_mem.text, '90')#assert the strain family member link is correct    
+        self.assertEqual(fam_mem.text, '92')#assert the strain family member link is correct    
 
     def test_strain_desc_small(self):
         """
@@ -649,7 +649,7 @@ class TestStrainDetail(unittest.TestCase):
         mut_cells = iterate.getTextAsList(cells)
         print(mut_cells)
         #verifies that the right mutations appear and in the correct order
-        self.assertEqual(mut_cells, ['Mutation Carried', 'AanatC57BL/6J', 'Ahrb-1', 'Apobec3Rfv3-r', 'Cd5b', 'Cdh23ahl', 'Cox7a2ls', 'Fbrwt1C57BL/6J', 'Fbrwt2C57BL/6J', 'Gabra2C57BL/6J', 'Gluchos1C57BL/6J', 'Gluchos2C57BL/6J', 'Gluchos3C57BL/6J', 'Micrln', 'Mx1s1', 'n-TRtct5m1J', 'Nlrp12C57BL/6J', 'NntC57BL/6J', 'P2rx7P451L'])
+        self.assertEqual(mut_cells, ['Mutation Carried', 'Aanatrs216509331-A', 'Ahrb-1', 'Apobec3Rfv3-r', 'Cd5b', 'Cdh23ahl', 'Cox7a2ls', 'Fbrwt1C57BL/6J', 'Fbrwt2C57BL/6J', 'Gabra2C57BL/6J', 'Gluchos1C57BL/6J', 'Gluchos2C57BL/6J', 'Gluchos3C57BL/6J', 'Micrln', 'Mx1s1', 'n-TRtct5m1J', 'Nlrp12C57BL/6J', 'NntC57BL/6J', 'P2rx7rs48804829-T'])
         #print all items found in the Gene column
         cells1 = table.get_column_cells("Marker")
         gene_cells = iterate.getTextAsList(cells1)
@@ -963,7 +963,7 @@ class TestStrainDetail(unittest.TestCase):
         #locate the count and text above the qtl table       
         qtl_count = self.driver.find_elements(By.CLASS_NAME, 'indented')
         print(qtl_count[2].text)
-        self.assertEqual(qtl_count[2].text, '2648 associated QTL', 'associated QTL count/text is wrong')
+        self.assertEqual(qtl_count[2].text, '2681 associated QTL', 'associated QTL count/text is wrong')
         
     def test_strain_det_qtl_showall(self):
         """

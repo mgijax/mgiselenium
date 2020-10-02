@@ -187,12 +187,12 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         
        
         
-    def test_gene_all_vega_ids(self):
-        '''
+    '''def test_gene_all_vega_ids(self):
+        
         @status This test is for searching by a mouse gene ID using a VEGA Gene Model ID, Transcript ID, and Protein ID.  All these queries 
-                return the mouse gene and its human ortholog.
+                return the mouse gene and its human ortholog.***this test is no longer valid since Vega is removed from the system**
         @see: HMDC-GQ-19 (VEGA gene model ID, transcript ID, protein ID)
-        '''
+        
         print ("BEGIN test_gene_all_vega_ids")
         my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
@@ -275,7 +275,7 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         geneList = iterate.getTextAsList(cells)
         self.assertIn('Ttc19', geneList)
         self.assertIn('TTC19', geneList)
-        
+     '''   
         
     def test_gene_all_ensembl_ids(self):
         '''

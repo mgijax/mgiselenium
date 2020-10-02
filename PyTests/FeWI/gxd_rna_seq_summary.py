@@ -107,14 +107,14 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
     def test_rnaseq_summary_single_var_filter(self):
         '''
         @status this test verifies the filtering by a single variable on the RNA-Seq summary  results page.
-        @see GXD-RNASeq-summary-8
+        @see GXD-RNASeq-summary-8 !!!broken, will not click variable filter!!!
         '''
         print ("BEGIN test_rnaseq_summary_single_var_filter")
         Select(self.driver.find_element(By.ID, 'age')).deselect_by_value('ANY')#deselect the default option
         Select(self.driver.find_element(By.ID, 'age')).select_by_value('4')#finds the age list and select the E4.0 option
         #find the Search button and click it
         self.driver.find_element_by_id('submit1').click()
-        time.sleep(2)
+        #time.sleep(2)
         #Find the Variable filer button and click it
         self.driver.find_element_by_id("variableFilter").click()
         time.sleep(2)
@@ -134,7 +134,7 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
     def test_rnaseq_summary_multi_var_filter(self):
         '''
         @status this test verifies the filtering by multiple variables on the RNA-Seq summary  results page.
-        @see GXD-RNASeq-summary-9
+        @see GXD-RNASeq-summary-9 !!!broken, will not click variable filter!!!
         '''
         print ("BEGIN test_rnaseq_summary_multi_var_filter")
         Select(self.driver.find_element(By.ID, 'age')).deselect_by_value('ANY')#deselect the default option
@@ -170,7 +170,7 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
     def test_rnaseq_summary_study_filter(self):
         '''
         @status this test verifies the filtering by a single study type on the RNA-Seq summary results page.
-        @see GXD-RNASeq-summary-10
+        @see GXD-RNASeq-summary-10 !!!broken, will not click study filter!!!
         '''
         print ("BEGIN test_rnaseq_summary_study_filter")
         Select(self.driver.find_element(By.ID, 'age')).deselect_by_value('ANY')#deselect the default option

@@ -93,7 +93,7 @@ class TestGoAnnotationsPage(unittest.TestCase):
         """
         @status: Tests that the sorting of Aspect column is by smart alpha/reverse smart alpha
         Note: annotations with Proteoform data always display at top of table
-        Note: this test is not perfect but it does test the basic sorting  of aspect
+        Note: this test is not perfect but it does test the basic sorting  of aspect!! needs to be fixed!
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/marker")
@@ -112,7 +112,7 @@ class TestGoAnnotationsPage(unittest.TestCase):
         tabularheaderlist = driver.find_element(By.ID, 'dynamicdata')
         items = tabularheaderlist.find_elements(By.TAG_NAME, 'div')
         searchTextItems = iterate.getTextAsList(items)
-        asp1 = driver.find_element_by_id('yui-rec0')
+        asp1 = driver.find_element_by_id('yui-reco')
         asp10 = driver.find_element_by_id('yui-rec9')
         asp17 = driver.find_element_by_id('yui-rec16')
         print(asp1.text)

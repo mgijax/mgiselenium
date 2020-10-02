@@ -273,11 +273,11 @@ class TestMarkerDetail(unittest.TestCase):
         assert "id='table_strainMarkers'" not in self.driver.page_source
         
 
-    def test_mgv_link_10kb_flank(self):
-        '''        
+    '''def test_mgv_link_10kb_flank(self):
+                
         @status this test verifies the Multiple Genome Viewer(MGV) has 10kb flanking on each end of the sequence link URL.
         @note mrkdetail-strain-6 *this is no longer a requirement?
-        '''       
+              
         driver = self.driver 
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys("Ren1")
@@ -308,7 +308,7 @@ class TestMarkerDetail(unittest.TestCase):
         print(mgv_link.get_attribute('href'))
         #verify the MGV link href is correct(the 10KB flanking added is in the url)
         self.assertEqual(mgv_link.get_attribute('href'), 'http://proto.informatics.jax.org/prototypes/mgv/#ref=C57BL/6J&genomes=C57BL/6J+129S1/SvImJ+A/J+AKR/J+BALB/cJ+C3H/HeJ+C57BL/6NJ+CAROLI/EIJ+CAST/EiJ+CBA/J+DBA/2J+FVB/NJ+LP/J+NOD/ShiLtJ+NZO/HlLtJ+PAHARI/EIJ+PWK/PhJ+SPRET/EiJ+WSB/EiJ&chr=1&start=133300674&end=133410320&highlight=MGI:97898', 'The MGV link href flanking is incorrect!')
-
+'''
     def test_strain_table_genemodelid_links(self):
         '''        
         @status this test verifies that the Gene Model IDs in the strains table link to their MGI gene model sequence, found in the Strain Comparison ribbon. (only verifying 1 link of 18)
@@ -770,8 +770,8 @@ class TestMarkerDetail(unittest.TestCase):
         self.assertEqual(model_cells[2].text, 'MGP_129S1SvImJ_G0005544')
         self.assertEqual(model_cells[3].text, 'MGP_AJ_G0006976')
         self.assertEqual(model_cells[4].text, 'MGP_AJ_G0036786')
-        self.assertEqual(model_cells[5].text, 'MGP_AKRJ_G0036736')
-        self.assertEqual(model_cells[6].text, 'MGP_AKRJ_G0007264')
+        self.assertEqual(model_cells[5].text, 'MGP_AKRJ_G0007264')
+        self.assertEqual(model_cells[6].text, 'MGP_AKRJ_G0036736')
         self.assertEqual(model_cells[7].text, 'MGP_BALBcJ_G0036776')
         self.assertEqual(model_cells[8].text, 'MGP_BALBcJ_G0006952')
         self.assertEqual(model_cells[9].text, 'no annotation')

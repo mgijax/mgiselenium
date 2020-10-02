@@ -156,7 +156,7 @@ class TestHmdcGeneTab(unittest.TestCase):
         print(assocHumanDiseases)
         #asserts that the expected diseases are returned for these genes
         self.assertIn('myelodysplastic syndrome\nmyelofibrosis\nthrombocytopenia', assocHumanDiseases) #diseases associated to Gata1
-        self.assertIn('Down syndrome\nthrombocytopenia', assocHumanDiseases) #diseases associated to GATA1
+        self.assertIn('Down syndrome\nthrombocytopenia\nX-linked thrombocytopenia with beta-thalassemia', assocHumanDiseases) #diseases associated to GATA1
         
         
     

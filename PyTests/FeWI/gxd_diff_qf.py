@@ -80,7 +80,7 @@ class TestGxdDifferentialQF(unittest.TestCase):
         """
         @status: Tests that query for detected in "A", Not detected in "B", where "A" and "B" are in different anatomical systems
         @note: GXD-Diff-3(partial test)
-        @attention: the time sleeps need to be replaced by expected conditions code
+        @attention: the time sleeps need to be replaced by expected conditions code!!needs to be fixed broken!!
         """
         driver = self.driver
         driver.get(config.TEST_URL + '/gxd/differential')
