@@ -83,10 +83,10 @@ class TestSnpQF(unittest.TestCase):
         #find the search button and click it
         driver.find_element(By.ID, 'geneSearch').click()
         time.sleep(2)
-        #find the allele agreement filter for "All reference strains agree and all comparison strains agree with reference" and select it
         driver.find_element(By.ID, 'alleleAgreementFilter').click()
-        time.sleep(2)
-        driver.find_element(By.XPATH, ".//input[@name='alleleAgreementFilter' and @value='All reference strains agree and all comparison strains differ from reference']").click()
+        #find the allele agreement filter for "All reference strains agree and all comparison strains differ with reference" and select it
+        alleleFil = driver.find_element(By.XPATH, (".//input[@name='alleleAgreementFilter' and @value='All reference strains agree and all comparison strains differ from reference']"));
+        driver.execute_script("arguments[0].click();", alleleFil)
         #find and click the Filter button
         driver.find_element(By.ID, 'yui-gen0-button').click()
         time.sleep(2)
@@ -121,8 +121,8 @@ class TestSnpQF(unittest.TestCase):
         #find the allele agreement filter for "All reference strains agree and all comparison strains agree with reference" and select it
         driver.find_element(By.ID, 'alleleAgreementFilter').click()
         time.sleep(2)
-        driver.find_element(By.XPATH, ".//input[@name='alleleAgreementFilter' and @value='All reference strains agree and all comparison strains agree with reference']").click()
-        
+        alleleFil = driver.find_element(By.XPATH, (".//input[@name='alleleAgreementFilter' and @value='All reference strains agree and all comparison strains agree with reference']"));
+        driver.execute_script("arguments[0].click();", alleleFil)
         #find and click the Filter button
         driver.find_element(By.ID, 'yui-gen0-button').click()
         time.sleep(2)

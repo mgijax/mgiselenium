@@ -137,6 +137,7 @@ class TestDoBrowserTermTab(unittest.TestCase):
     def test_dobrowser_many_children(self):
         '''
         @status this test verifies the correct Parent Terms, Siblings, and Children are returned for this query. This test example has many children(shows no rollup used)
+        @bug: fails because sort order of children terms is no longer smart alpha!!!!!!
         '''
         print ("BEGIN test_dobrowser_many_children")
         searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
@@ -207,7 +208,7 @@ class TestDoBrowserTermTab(unittest.TestCase):
         #locate the siblings terms box
         siblings = self.driver.find_elements(By.ID, 'termTabTermWrapper')
         searchTermItems = iterate.getTextAsList(siblings)
-        self.assertIn(searchTermItems[0], "tauopathy +\n\nagenesis of the corpus callosum with peripheral neuropathy\namyotrophic lateral sclerosis-parkinsonism/dementia complex 1\ndemyelinating disease +\neyelid degenerative disease\nfamilial encephalopathy with neuroserpin inclusion bodies\nhereditary ataxia +\nHuntington's disease\nHuntington's disease-like 2\ninfantile cerebellar-retinal degeneration\nmotor neuron disease +\nmyoclonic cerebellar dyssynergia\nneuroacanthocytosis +\nneurodegeneration with brain iron accumulation +\nolivopontocerebellar atrophy\nPick's disease\nplexopathy\npontocerebellar hypoplasia +\nprimary cerebellar degeneration\nsecondary Parkinson disease +\nSPOAN syndrome\nsynucleinopathy +")
+        self.assertIn(searchTermItems[0], "tauopathy +\n\nagenesis of the corpus callosum with peripheral neuropathy\namyotrophic lateral sclerosis-parkinsonism/dementia complex 1\ndemyelinating disease +\neyelid degenerative disease\nfamilial encephalopathy with neuroserpin inclusion bodies\nhereditary ataxia +\nHuntington's disease\nHuntington's disease-like 2\ninfantile cerebellar-retinal degeneration\nmotor neuron disease +\nmyoclonic cerebellar dyssynergia\nneuroacanthocytosis +\nneurodegeneration with brain iron accumulation +\nolivopontocerebellar atrophy\nPick's disease\nplexopathy\npontocerebellar hypoplasia +\nprimary cerebellar degeneration\nsecondary Parkinson disease +\nSPOAN syndrome\nstress-induced childhood-onset neurodegeneration with variable ataxia and seizures\nsynucleinopathy +")
         print(searchTermItems)
         #locate the children terms box
         children = self.driver.find_elements(By.ID, 'termTabChildWrapper')

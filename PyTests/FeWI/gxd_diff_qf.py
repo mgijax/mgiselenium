@@ -37,13 +37,13 @@ class TestGxdDifferentialQF(unittest.TestCase):
         driver = self.driver
         driver.get(config.TEST_URL + '/gxd/differential')
         #self.driver.find_element(By.ID, 'difStructure3').clear()
-        pickitem = self.driver.find_element(By.ID, 'difStructure3').send_keys('bladder')
+        pickitem = self.driver.find_element(By.ID, 'difStructure3').send_keys('bladder TS22-28')
         actions = ActionChains(driver)
         actions.move_to_element(pickitem)
         actions.click(pickitem)
         time.sleep(2)
         #self.driver.find_element(By.ID, 'difStructure4').clear()
-        pickitem2 = self.driver.find_element(By.ID, 'difStructure4').send_keys('adventitia of bladder')
+        pickitem2 = self.driver.find_element(By.ID, 'difStructure4').send_keys('adventitia of bladder TS22-28')
         actions = ActionChains(driver)
         actions.move_to_element(pickitem2)
         actions.click(pickitem2)
@@ -59,7 +59,7 @@ class TestGxdDifferentialQF(unittest.TestCase):
         #print searchTextItems
         #self.assertIn('Adgrb2', searchTextItems)
         self.assertIn('Agtr2', searchTextItems)
-        self.assertIn('Cldn2', searchTextItems)
+        #self.assertIn('Cldn2', searchTextItems)
         #find the tissue grid box for bladder for marker Agtr2
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
         item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row0.col88 > rect.blue1')

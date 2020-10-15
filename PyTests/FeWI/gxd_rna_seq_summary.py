@@ -26,6 +26,7 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Chrome()
+        self.driver.set_window_size(1080,800)
         self.driver.get(config.TEST_URL + "/gxd/htexp_index")
         self.driver.implicitly_wait(10)
 
@@ -106,7 +107,7 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
                     
     def test_rnaseq_summary_single_var_filter(self):
         '''
-        @status this test verifies the filtering by a single variable on the RNA-Seq summary  results page.
+        @status this test verifies the filtering by a single variable on the RNA-Seq summary results page.
         @see GXD-RNASeq-summary-8 !!!broken, will not click variable filter!!!
         '''
         print ("BEGIN test_rnaseq_summary_single_var_filter")
@@ -115,7 +116,7 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         #find the Search button and click it
         self.driver.find_element_by_id('submit1').click()
         #time.sleep(2)
-        #Find the Variable filer button and click it
+        #Find the Variable filter button and click it
         self.driver.find_element_by_id("variableFilter").click()
         time.sleep(2)
         #Find the Variable filter list of options. then select the option "genotype"

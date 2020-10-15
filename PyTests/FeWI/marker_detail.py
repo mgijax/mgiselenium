@@ -448,7 +448,7 @@ class TestMarkerDetail(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
         #clicks the More toggle(turnstile) to display the strain table
         self.driver.find_element(By.ID, 'strainRibbon').find_element(By.CSS_SELECTOR, 'div.toggleImage.hdExpand').click()
-        #time.sleep(2)
+        time.sleep(2)
         #find and select the the Select Strain box for the strain A/J
         self.driver.find_elements(By.CLASS_NAME, 'sgCheckbox')[2].click()
         #time.sleep(2)
@@ -921,7 +921,7 @@ class TestMarkerDetail(unittest.TestCase):
         #time.sleep(2) 
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'popupTable')))#waits until the phenogrid table is displayed on the page       
         #find and click the Mouse Genotype for X/Sry<AKR/J>
-        self.driver.find_element(By.XPATH, '//*[@id="fm10743a"]').click()
+        self.driver.find_element(By.XPATH, '//*[@id="fm43268a"]').click()
         #switch focus to the new tab for Phenotypes associated with X/Sry<AKR/J>
         self.driver.switch_to_window(self.driver.window_handles[-1])
         #time.sleep(2) 

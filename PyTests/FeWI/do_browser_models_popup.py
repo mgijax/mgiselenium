@@ -152,8 +152,8 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         gene_table = self.driver.find_element(By.ID, 'geneTabTable')
         table = Table(gene_table)
         #cells = table.get_rows()
-        cell = table.get_cell(21, 3)
-        #Identify the data found in the Mouse Models column for the twenth row(for marker PSEN2)
+        cell = table.get_cell(20, 3)
+        #Identify the data found in the Mouse Models column for the nineteenth row(for marker PSEN2)
         print(cell.text)
         cell.find_element(By.LINK_TEXT, '1 model').click()
         

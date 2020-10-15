@@ -173,14 +173,12 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         row4 = cells[5]
         row5 = cells[6]
         row6 = cells[7]
-        row7 = cells[8]
         self.assertEqual(row1.text, '       Beckwith-Wiedemann syndrome CDKN1C* Cdkn1c* 2 models HGNC')
         self.assertEqual(row2.text, '       Beckwith-Wiedemann syndrome SPTBN1 Sptbn1* 1 model HomoloGene and HGNC')
-        self.assertEqual(row3.text, '       Beckwith-Wiedemann syndrome H19*   HGNC')
-        self.assertEqual(row4.text, 'Beckwith-Wiedemann syndrome H19-ICR*  ')
-        self.assertEqual(row5.text, 'Beckwith-Wiedemann syndrome IGF2* Igf2   HomoloGene and HGNC')
-        self.assertEqual(row6.text, 'Beckwith-Wiedemann syndrome KCNQ1* Kcnq1 1 model HomoloGene and HGNC')
-        self.assertEqual(row7.text, 'Beckwith-Wiedemann syndrome KCNQ1OT1* Kcnq1ot1   HGNC')       
+        self.assertEqual(row3.text, '       Beckwith-Wiedemann syndrome H19-ICR*  ')
+        self.assertEqual(row4.text, 'Beckwith-Wiedemann syndrome IGF2* Igf2   HomoloGene and HGNC')
+        self.assertEqual(row5.text, 'Beckwith-Wiedemann syndrome KCNQ1* Kcnq1 1 model HomoloGene and HGNC')
+        self.assertEqual(row6.text, 'Beckwith-Wiedemann syndrome KCNQ1OT1* Kcnq1ot1   HGNC')       
         time.sleep(2)
         transgene_table = self.driver.find_element(By.ID, "transgeneTable")
         table = Table(transgene_table)
@@ -370,12 +368,8 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         #displays each row of gene data
         row1 = cells[2]
         row2 = cells[3]
-        row3 = cells[4]
-        row4 = cells[5]
         self.assertEqual(row1.text, '       dermatomyositis ANGPTL2 Angptl2* 1 model HomoloGene and HGNC')
         self.assertEqual(row2.text, 'myositis HLA-A H2-K1*, Gm8909, Gm10499, H2-Bl, H2-D1, H2-Q1, H2-Q2, H2-Q4, H2-Q6, H2-Q7, H2-Q10 1 model HomoloGene')
-        self.assertEqual(row3.text, '       inclusion body myositis MYH2* Myh2   HomoloGene and HGNC')
-        self.assertEqual(row4.text, 'inclusion body myositis GNE* Gne 1 model HomoloGene and HGNC')
         transgene_table = self.driver.find_element_by_id("transgeneTable")
         table = Table(transgene_table)
         cells = table.get_rows()
@@ -386,8 +380,8 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         row3 = cells[4]
         row4 = cells[5]
         self.assertEqual(row1.text, '  dermatomyositis Tg(Krt14-Angptl2)1Yo 1 model')
-        self.assertEqual(row2.text, '  inclusion body myositis Tg(Ckm-APPSw)A6Lfa 1 model')
-        self.assertEqual(row3.text, '  inclusion body myositis Tg(Ckm-APPSw)A2Lfa 1 model')
+        self.assertEqual(row2.text, '  inclusion body myositis Tg(Ckm-APPSw)A2Lfa 1 model')
+        self.assertEqual(row3.text, '  inclusion body myositis Tg(Ckm-APPSw)A6Lfa 1 model')
         self.assertEqual(row4.text, '  myositis Tg(tetO-H2-K1)#Papl 1 model')
 
     def test_dobrowser_genestab_same_gene_mult_subtypes(self):
@@ -438,20 +432,23 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         row27 = cells[28]
         row28 = cells[29]
         row29 = cells[30]
+        row30 = cells[31]
+        row31 = cells[32]
+        row32 = cells[33]
         self.assertEqual(row1.text, '       osteogenesis imperfecta type 1 COL1A1* Col1a1* 2 models HomoloGene and HGNC')
         self.assertEqual(row2.text, 'osteogenesis imperfecta type 10 SERPINH1* Serpinh1* 1 model HomoloGene and HGNC')
         self.assertEqual(row3.text, 'osteogenesis imperfecta type 2 COL1A1* Col1a1* 2 models HomoloGene and HGNC')
-        self.assertEqual(row4.text, 'osteogenesis imperfecta type 3 COL1A2* Col1a2* 2 models HomoloGene and HGNC')
-        self.assertEqual(row5.text, 'osteogenesis imperfecta type 3 COL1A1* Col1a1* 1 model HomoloGene and HGNC')
+        self.assertEqual(row4.text, 'osteogenesis imperfecta type 3 COL1A1* Col1a1* 1 model HomoloGene and HGNC')
+        self.assertEqual(row5.text, 'osteogenesis imperfecta type 3 COL1A2* Col1a2* 2 models HomoloGene and HGNC')
         self.assertEqual(row6.text, 'osteogenesis imperfecta type 4 COL1A1* Col1a1* 3 models HomoloGene and HGNC')
         self.assertEqual(row7.text, 'osteogenesis imperfecta type 6 SERPINF1* Serpinf1* 1 model HomoloGene and HGNC')
         self.assertEqual(row8.text, 'osteogenesis imperfecta type 7 CRTAP* Crtap* 1 model HomoloGene and HGNC')
         self.assertEqual(row9.text, 'osteogenesis imperfecta type 8 P3H1* P3h1* 1 model HomoloGene and HGNC')
         self.assertEqual(row10.text, 'osteogenesis imperfecta type 9 PPIB* Ppib* 2 models HomoloGene and HGNC')
-        self.assertEqual(row11.text, '       osteogenesis imperfecta SMPD3 Smpd3* 1 model HomoloGene and HGNC')
-        self.assertEqual(row12.text, 'osteogenesis imperfecta COL1A1 Col1a1* 1 model HomoloGene and HGNC')
-        self.assertEqual(row13.text, 'osteogenesis imperfecta COL1A2 Col1a2* 5 models HomoloGene and HGNC')
-        self.assertEqual(row14.text, 'osteogenesis imperfecta SMAD4 Smad4* 1 model HomoloGene and HGNC')
+        self.assertEqual(row11.text, '       osteogenesis imperfecta COL1A1 Col1a1* 1 model HomoloGene and HGNC')
+        self.assertEqual(row12.text, 'osteogenesis imperfecta COL1A2 Col1a2* 5 models HomoloGene and HGNC')
+        self.assertEqual(row13.text, 'osteogenesis imperfecta SMAD4 Smad4* 1 model HomoloGene and HGNC')
+        self.assertEqual(row14.text, 'osteogenesis imperfecta SMPD3 Smpd3* 1 model HomoloGene and HGNC')
         self.assertEqual(row15.text, 'osteogenesis imperfecta type 2 SMPD3 Smpd3* 1 model HomoloGene and HGNC')
         self.assertEqual(row16.text, 'osteogenesis imperfecta type 3 SMPD3 Smpd3* 1 model HomoloGene and HGNC')
         self.assertEqual(row17.text, 'osteogenesis imperfecta type 5 SUCO Suco* 1 model HomoloGene and HGNC')
@@ -464,17 +461,21 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         self.assertEqual(row24.text, 'osteogenesis imperfecta type 15 WNT1* Wnt1   HomoloGene and HGNC')
         self.assertEqual(row25.text, 'osteogenesis imperfecta type 16 CREB3L1* Creb3l1   HomoloGene and HGNC')
         self.assertEqual(row26.text, 'osteogenesis imperfecta type 17 SPARC* Sparc   HomoloGene and HGNC')
-        self.assertEqual(row27.text, 'osteogenesis imperfecta type 2 COL1A2* Col1a2   HomoloGene and HGNC')
-        self.assertEqual(row28.text, 'osteogenesis imperfecta type 4 COL1A2* Col1a2   HomoloGene and HGNC')
-        self.assertEqual(row29.text, 'osteogenesis imperfecta type 5 IFITM5* Ifitm5 1 "NOT" model HomoloGene and HGNC')
+        self.assertEqual(row27.text, 'osteogenesis imperfecta type 18 TENT5A* Tent5a   HomoloGene and HGNC')
+        self.assertEqual(row28.text, 'osteogenesis imperfecta type 19 MBTPS2* Mbtps2   HomoloGene and HGNC')
+        self.assertEqual(row29.text, 'osteogenesis imperfecta type 2 COL1A2* Col1a2   HomoloGene and HGNC')
+        self.assertEqual(row30.text, 'osteogenesis imperfecta type 20 MESD* Mesd   HomoloGene and HGNC')
+        self.assertEqual(row31.text, 'osteogenesis imperfecta type 4 COL1A2* Col1a2   HomoloGene and HGNC')
+        self.assertEqual(row32.text, 'osteogenesis imperfecta type 5 IFITM5* Ifitm5 1 "NOT" model HomoloGene and HGNC')
         transgene_table = self.driver.find_element_by_id("transgeneTable")
         table = Table(transgene_table)
         cells = table.get_rows()
         print(iterate.getTextAsList(cells))
         #displays each row of transgene data
         row1 = cells[2]
+        row2 = cells[3]
         self.assertEqual(row1.text, '  osteogenesis imperfecta type 1 Tg(COL1A1)73Prc 1 model')
-
+        self.assertEqual(row2.text, '  osteogenesis imperfecta type 5 Tg(Col1a1-Ifitm5*)1Brle 1 model')
             
         def tearDown(self):
             self.driver.close()

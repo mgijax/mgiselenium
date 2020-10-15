@@ -56,7 +56,7 @@ class TestSequenceDetail(unittest.TestCase):
         print(cells.text)
         #time.sleep(2)
         #asserts the ID ribbon data is correct
-        self.assertEqual('MGP_AKRJ_G0023142 Multiple Genome Viewer (MGV) Version: MGP_AKRJ_G0023142.Ensembl Release 92', cells.text)         
+        self.assertEqual("MGP_AKRJ_G0023142 (Ensembl) Multiple Genome Viewer (MGV) Version: MGP_AKRJ_G0023142.Ensembl Release 92", cells.text)         
         
     def test_mgi_b6_id(self):
         """
@@ -153,7 +153,7 @@ class TestSequenceDetail(unittest.TestCase):
         print(cells.text)
         #time.sleep(2)
         #asserts the sequence description ribbon data is correct
-        self.assertEqual('ChrX:7959260-7978071, - strand. MGI derived this sequence for the C57BL/6J strain version of Gene: Gata1, Gene type: protein coding gene, from outermost boundary coordinates of combined annotations to mouse reference assembly GRCm38 provided by: ENSEMBL:ENSMUSG00000031162,NCBI_Gene:14460. Note that the source annotations for this representation of the C57BL/6J gene model sequence can derive from different assembly patches (J:262996).', cells.text)         
+        self.assertEqual('ChrX:7959260-7978071, - strand. MGI derived this sequence for the C57BL/6J strain version of Gene: Gata1, Gene type: protein coding gene, from outermost boundary coordinates of combined annotations to mouse reference assembly GRCm38 provided by: NCBI_Gene:14460,ENSEMBL:ENSMUSG00000031162. Note that the source annotations for this representation of the C57BL/6J gene model sequence can derive from different assembly patches (J:262996).', cells.text)         
 
     def test_mgp_seq_provider(self):
         """
@@ -574,7 +574,7 @@ class TestSequenceDetail(unittest.TestCase):
         #find the Expression Assays cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 4)
         print(cell1.text)
-        self.assertIn('163', cell1.text) 
+        self.assertIn('164', cell1.text) 
         #find the Orthologs cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 5)
         print(cell1.text)

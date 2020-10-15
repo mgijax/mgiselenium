@@ -139,13 +139,13 @@ class TestGxdResults(unittest.TestCase):
     def test_gene_tab_go_molecular_filter_gene_result(self):
         """
         @status: Tests that the GO molecular filter is correctly returning the right genes for molecular function ligase.
-        @note: GXD-go-molec-filter-2 !! too many results, need to find a better structure for filtering!!!
+        @note: GXD-go-molec-filter-2 
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")
         phenobox = driver.find_element(By.ID, 'vocabTerm')
         # Enter your molecular function in the pheno box, (cell-cell signaling)
-        phenobox.send_keys("cell-cell signaling")
+        phenobox.send_keys("cell blebbing")
         time.sleep(2)
         phenobox.send_keys(Keys.ENTER)
         #time.sleep(2)
@@ -166,9 +166,9 @@ class TestGxdResults(unittest.TestCase):
         items = genelist.find_elements(By.CLASS_NAME, 'yui-dt-col-symbol')
         searchTextItems = iterate.getTextAsList(items)
         print(searchTextItems)
-        time.sleep(5)
+        time.sleep(2)
         #assert that the genes returned are correct, should be 3 genes as of 8/29/2019
-        self.assertEqual(searchTextItems, ['Aacs', 'Acsl4', 'Atg7', 'Glul', 'Ifnar1', 'Kars'], 'the list of genes is not correct!')   
+        self.assertEqual(searchTextItems, ['Prdx6'], 'the list of genes is not correct!')   
         
     def test_gene_tab_go_molecular_filter_no_genes(self):
         """

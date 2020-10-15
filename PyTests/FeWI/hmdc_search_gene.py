@@ -156,8 +156,8 @@ class TestHmdcGenesSearch(unittest.TestCase):
         mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
         searchTermItems = iterate.getTextAsList(mgenes)
         
-        #Verify gene not returned due to complex genocluster
-        self.assertNotIn("Grm7", searchTermItems, "Grm7 is part of a complex genotype and should not be returned - this is an error")
+        #Verify gene not returned due to complex genocluster(no longer valid)
+        #self.assertNotIn("Grm7", searchTermItems, "Grm7 is part of a complex genotype and should not be returned - this is an error")
         
         #Do this again using the Human Symbol -- same results expected
         
@@ -195,8 +195,8 @@ class TestHmdcGenesSearch(unittest.TestCase):
         mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
         searchTermItems = iterate.getTextAsList(mgenes)
         
-        #Verify gene not returned due to complex genocluster
-        self.assertNotIn("Grm7", searchTermItems, "Grm7 is part of a complex genotype and should not be returned - this is an error")
+        #Verify gene not returned due to complex genocluster(no longer valid)
+        #self.assertNotIn("Grm7", searchTermItems, "Grm7 is part of a complex genotype and should not be returned - this is an error")
                 
     def test_gene_symbol_nodiseases(self):
         '''
