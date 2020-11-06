@@ -772,8 +772,8 @@ class TestMarkerDetail(unittest.TestCase):
         self.assertEqual(model_cells[4].text, 'MGP_AJ_G0036786')
         self.assertEqual(model_cells[5].text, 'MGP_AKRJ_G0007264')
         self.assertEqual(model_cells[6].text, 'MGP_AKRJ_G0036736')
-        self.assertEqual(model_cells[7].text, 'MGP_BALBcJ_G0036776')
-        self.assertEqual(model_cells[8].text, 'MGP_BALBcJ_G0006952')
+        self.assertEqual(model_cells[7].text, 'MGP_BALBcJ_G0006952')
+        self.assertEqual(model_cells[8].text, 'MGP_BALBcJ_G0036776')
         self.assertEqual(model_cells[9].text, 'no annotation')
 
         
@@ -921,7 +921,7 @@ class TestMarkerDetail(unittest.TestCase):
         #time.sleep(2) 
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'popupTable')))#waits until the phenogrid table is displayed on the page       
         #find and click the Mouse Genotype for X/Sry<AKR/J>
-        self.driver.find_element(By.XPATH, '//*[@id="fm43268a"]').click()
+        self.driver.find_element(By.XPATH, '//*[@id="fm33447a"]').click()
         #switch focus to the new tab for Phenotypes associated with X/Sry<AKR/J>
         self.driver.switch_to_window(self.driver.window_handles[-1])
         #time.sleep(2) 

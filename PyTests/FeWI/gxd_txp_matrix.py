@@ -146,7 +146,7 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         self.assertIn('Avp<tm1Hari>/Avp<+>', searchTextItems)
         #find the phenotype grid box for body fluid or substance for Avp<tm1Hari>/Avp<+>
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
-        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row1.col1 > rect.phenoBlue1')
+        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row1.col2 > rect.phenoBlue1')
         rightclass = item.get_attribute('class')
         #rightclass finds the class name of the gridbox
         #now we assert the class name of the gridbox matches the class name of phenoBlue1
@@ -337,11 +337,11 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         self.assertIn('Pax7<tm1.1(HBEGF)Mal>/Pax7<+>', searchTextItems)
         #find the phenotype grid box for musculoskeletal system for Pax7<tm1.1(HBEGF)Mal/Pax7<+>
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
-        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row19.col4 > rect.phenoBlue1')
+        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row20.col5> rect.phenoBlue2')
         rightclass = item.get_attribute('class')
         #rightclass finds the class name of the gridbox
         #now we assert the class name of the gridbox matches the class name of phenoBlue2
-        self.assertEqual(rightclass, 'phenoBlue1')
+        self.assertEqual(rightclass, 'phenoBlue2')
         
     def test_bkgrnd_sense_mp(self):
         """

@@ -13,9 +13,9 @@ import HtmlTestRunner
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
-  os.path.join(os.path.dirname(__file__), '../../..',)
+  os.path.join(os.path.dirname(__file__), '../../config',)
 )
-import config
+from config import TEST_URL
 from util import iterate, wait
 from util.form import ModuleForm
 from util.table import Table
@@ -27,8 +27,9 @@ from util.table import Table
 class TestDoBrowserTermTab(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Chrome()
-        self.driver.get(config.TEST_URL)
+        #self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox()
+        self.driver.get(TEST_URL)
         self.driver.implicitly_wait(10)
         
     def test_dobrowser_header(self):
@@ -137,7 +138,7 @@ class TestDoBrowserTermTab(unittest.TestCase):
     def test_dobrowser_many_children(self):
         '''
         @status this test verifies the correct Parent Terms, Siblings, and Children are returned for this query. This test example has many children(shows no rollup used)
-        @bug: fails because sort order of children terms is no longer smart alpha!!!!!!
+        @bug: fails because sort order of children terms is no longer smart alpha!!!!!! temporarily fixed(10/21/2020)
         '''
         print ("BEGIN test_dobrowser_many_children")
         searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
@@ -160,7 +161,7 @@ class TestDoBrowserTermTab(unittest.TestCase):
         #locate the children terms box
         children = self.driver.find_elements(By.ID, 'termTabChildWrapper')
         searchTermItems = iterate.getTextAsList(children)
-        self.assertEqual(searchTermItems[0], "Kartagener syndrome\nprimary ciliary dyskinesia 1\nprimary ciliary dyskinesia 10\nprimary ciliary dyskinesia 11\nprimary ciliary dyskinesia 12\nprimary ciliary dyskinesia 13\nprimary ciliary dyskinesia 14\nprimary ciliary dyskinesia 15\nprimary ciliary dyskinesia 16\nprimary ciliary dyskinesia 17\nprimary ciliary dyskinesia 18\nprimary ciliary dyskinesia 19\nprimary ciliary dyskinesia 2\nprimary ciliary dyskinesia 20\nprimary ciliary dyskinesia 21\nprimary ciliary dyskinesia 22\nprimary ciliary dyskinesia 23\nprimary ciliary dyskinesia 24\nprimary ciliary dyskinesia 25\nprimary ciliary dyskinesia 26\nprimary ciliary dyskinesia 27\nprimary ciliary dyskinesia 28\nprimary ciliary dyskinesia 29\nprimary ciliary dyskinesia 3\nprimary ciliary dyskinesia 30\nprimary ciliary dyskinesia 32\nprimary ciliary dyskinesia 33\nprimary ciliary dyskinesia 34\nprimary ciliary dyskinesia 35\nprimary ciliary dyskinesia 37\nprimary ciliary dyskinesia 4\nprimary ciliary dyskinesia 5\nprimary ciliary dyskinesia 6\nprimary ciliary dyskinesia 7\nprimary ciliary dyskinesia 8\nprimary ciliary dyskinesia 9\nStromme syndrome")
+        self.assertEqual(searchTermItems[0], "Kartagener syndrome\nprimary ciliary dyskinesia 1\nprimary ciliary dyskinesia 10\nprimary ciliary dyskinesia 11\nprimary ciliary dyskinesia 12\nprimary ciliary dyskinesia 13\nprimary ciliary dyskinesia 14\nprimary ciliary dyskinesia 15\nprimary ciliary dyskinesia 16\nprimary ciliary dyskinesia 17\nprimary ciliary dyskinesia 18\nprimary ciliary dyskinesia 19\nprimary ciliary dyskinesia 2\nprimary ciliary dyskinesia 20\nprimary ciliary dyskinesia 21\nprimary ciliary dyskinesia 22\nprimary ciliary dyskinesia 23\nprimary ciliary dyskinesia 24\nprimary ciliary dyskinesia 25\nprimary ciliary dyskinesia 26\nprimary ciliary dyskinesia 27\nprimary ciliary dyskinesia 28\nprimary ciliary dyskinesia 29\nprimary ciliary dyskinesia 3\nprimary ciliary dyskinesia 30\nprimary ciliary dyskinesia 32\nprimary ciliary dyskinesia 33\nprimary ciliary dyskinesia 34\nprimary ciliary dyskinesia 35\nprimary ciliary dyskinesia 36\nprimary ciliary dyskinesia 37\nprimary ciliary dyskinesia 38\nprimary ciliary dyskinesia 39\nprimary ciliary dyskinesia 4\nprimary ciliary dyskinesia 40\nprimary ciliary dyskinesia 41\nprimary ciliary dyskinesia 42\nprimary ciliary dyskinesia 43\nprimary ciliary dyskinesia 44\nprimary ciliary dyskinesia 45\nprimary ciliary dyskinesia 5\nprimary ciliary dyskinesia 6\nprimary ciliary dyskinesia 7\nprimary ciliary dyskinesia 8\nprimary ciliary dyskinesia 9\nStromme syndrome")
         print(searchTermItems)
 
     def test_dobrowser_noomim(self):

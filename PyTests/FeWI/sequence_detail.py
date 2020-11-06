@@ -41,9 +41,10 @@ class TestSequenceDetail(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
+        time.sleep(1)
         searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene ID in the quick search box
-        searchbox.send_keys('"MGP_AKRJ_G0023142"')
+        searchbox.send_keys('MGP_AKRJ_G0023142')
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
@@ -67,8 +68,10 @@ class TestSequenceDetail(unittest.TestCase):
         driver.get(config.TEST_URL)
         searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene ID in the quick search box
-        searchbox.send_keys('"MGI_C57BL6J_5804994"')
+        searchbox.send_keys('MGI_C57BL6J_5804994')
         searchbox.send_keys(Keys.RETURN)
+        driver.find_element(By.ID, 'searchToolButton').click()
+        time.sleep(2)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
@@ -91,7 +94,7 @@ class TestSequenceDetail(unittest.TestCase):
         driver.get(config.TEST_URL)
         searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene ID in the quick search box
-        searchbox.send_keys('"MGP_AKRJ_G0023142"')
+        searchbox.send_keys('MGP_AKRJ_G0023142')
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
@@ -116,7 +119,7 @@ class TestSequenceDetail(unittest.TestCase):
         driver.get(config.TEST_URL)
         searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene ID in the quick search box
-        searchbox.send_keys('"MGP_CAROLIEiJ_G0022151"')
+        searchbox.send_keys('MGP_CAROLIEiJ_G0022151')
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
@@ -140,7 +143,7 @@ class TestSequenceDetail(unittest.TestCase):
         driver.get(config.TEST_URL)
         searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene ID in the quick search box
-        searchbox.send_keys('"MGI_C57BL6J_95661"')
+        searchbox.send_keys('MGI_C57BL6J_95661')
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
@@ -164,7 +167,7 @@ class TestSequenceDetail(unittest.TestCase):
         driver.get(config.TEST_URL)
         searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene ID in the quick search box
-        searchbox.send_keys('"MGP_CAROLIEiJ_G0022151"')
+        searchbox.send_keys('MGP_CAROLIEiJ_G0022151')
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
@@ -187,7 +190,7 @@ class TestSequenceDetail(unittest.TestCase):
         driver.get(config.TEST_URL)
         searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene ID in the quick search box
-        searchbox.send_keys('"MGI_C57BL6J_95661"')
+        searchbox.send_keys('MGI_C57BL6J_95661')
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
@@ -212,7 +215,7 @@ class TestSequenceDetail(unittest.TestCase):
         driver.get(config.TEST_URL)
         searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene ID in the quick search box
-        searchbox.send_keys('"MGP_AKRJ_G0020754"')
+        searchbox.send_keys('MGP_AKRJ_G0020754')
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
@@ -233,7 +236,7 @@ class TestSequenceDetail(unittest.TestCase):
         driver.get(config.TEST_URL)
         searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene ID in the quick search box
-        searchbox.send_keys('"MGP_AKRJ_G0020754"')
+        searchbox.send_keys('MGP_AKRJ_G0020754')
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
@@ -265,7 +268,7 @@ class TestSequenceDetail(unittest.TestCase):
         driver.get(config.TEST_URL)
         searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene ID in the quick search box
-        searchbox.send_keys('"MGI_C57BL6J_98660"')
+        searchbox.send_keys('MGI_C57BL6J_98660')
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
@@ -286,7 +289,7 @@ class TestSequenceDetail(unittest.TestCase):
         driver.get(config.TEST_URL)
         searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene ID in the quick search box
-        searchbox.send_keys('"MGI_C57BL6J_98660"')
+        searchbox.send_keys('MGI_C57BL6J_98660')
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
@@ -316,7 +319,7 @@ class TestSequenceDetail(unittest.TestCase):
         driver.get(config.TEST_URL)
         searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene ID in the quick search box
-        searchbox.send_keys('"MGP_CAROLIEiJ_G0022151"')
+        searchbox.send_keys('MGP_CAROLIEiJ_G0022151')
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
@@ -339,7 +342,7 @@ class TestSequenceDetail(unittest.TestCase):
         driver.get(config.TEST_URL)
         searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene ID in the quick search box
-        searchbox.send_keys('"MGI_C57BL6J_98660"')
+        searchbox.send_keys('MGI_C57BL6J_98660')
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
@@ -362,7 +365,7 @@ class TestSequenceDetail(unittest.TestCase):
         driver.get(config.TEST_URL)
         searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene ID in the quick search box
-        searchbox.send_keys('"MGP_CASTEiJ_G0006926"')
+        searchbox.send_keys('MGP_CASTEiJ_G0006926')
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
@@ -412,7 +415,7 @@ class TestSequenceDetail(unittest.TestCase):
         driver.get(config.TEST_URL)
         searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene ID in the quick search box
-        searchbox.send_keys('"MGI_C57BL6J_98660"')
+        searchbox.send_keys('MGI_C57BL6J_98660')
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
@@ -461,7 +464,7 @@ class TestSequenceDetail(unittest.TestCase):
         driver.get(config.TEST_URL)
         searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene ID in the quick search box
-        searchbox.send_keys('"MGP_CASTEiJ_G0006926"')
+        searchbox.send_keys('MGP_CASTEiJ_G0006926')
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
@@ -481,7 +484,7 @@ class TestSequenceDetail(unittest.TestCase):
         driver.get(config.TEST_URL)
         searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene ID in the quick search box
-        searchbox.send_keys('"MGI_C57BL6J_98660"')
+        searchbox.send_keys('MGI_C57BL6J_98660')
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
@@ -501,7 +504,7 @@ class TestSequenceDetail(unittest.TestCase):
         driver.get(config.TEST_URL)
         searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene ID in the quick search box
-        searchbox.send_keys('"MGP_CASTEiJ_G0006926"')
+        searchbox.send_keys('MGP_CASTEiJ_G0006926')
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
@@ -547,7 +550,7 @@ class TestSequenceDetail(unittest.TestCase):
         driver.get(config.TEST_URL)
         searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene ID in the quick search box
-        searchbox.send_keys('"MGI_C57BL6J_98660"')
+        searchbox.send_keys('MGI_C57BL6J_98660')
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it

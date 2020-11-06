@@ -15,7 +15,7 @@ import unittest
 from PWI import pwi_gxd_antibody_summary
 from PWI import pwi_gxd_assay_summary
 from PWI import pwi_gxd_image_pane_summary
-from PWI import pwi_gxd_lit_index_by_mrk
+from PWI import pwi_mrk_detail
 from PWI import pwi_gxd_spec_summary_by_ref
 
 # add the test suites
@@ -24,7 +24,7 @@ def master_suite():
         suites.append(pwi_gxd_antibody_summary.suite())
         suites.append(pwi_gxd_assay_summary.suite())
         suites.append(pwi_gxd_image_pane_summary.suite())
-        suites.append(pwi_gxd_lit_index_by_mrk.suite())
+        suites.append(pwi_mrk_detail.suite())
         suites.append(pwi_gxd_spec_summary_by_ref.suite())
         
         master_suite = unittest.TestSuite(suites)

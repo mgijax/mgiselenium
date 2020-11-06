@@ -43,7 +43,7 @@ class TestGxdImageSummary(unittest.TestCase):
         time.sleep(2)
         #locates the genes column and lists the genes found
         genelist = driver.find_element(By.ID, 'imagesdata').find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-gene')
-        items = genelist[19].find_elements(By.TAG_NAME, 'li')
+        items = genelist[20].find_elements(By.TAG_NAME, 'li')
         print(items[0].text)
         print(items[1].text)
         print(items[2].text)

@@ -1415,10 +1415,10 @@ class TestStrainDetail(unittest.TestCase):
         #switch focus to the new tab for strain detail page
         driver.switch_to_window(self.driver.window_handles[-1])
         #locates the earliest reference link and clicks it
-        driver.find_element(By.LINK_TEXT, 'J:22753').click()
+        driver.find_element(By.LINK_TEXT, 'J:84245').click()
         #time.sleep(2)
         #verify the J number J:6835 exists on this page
-        assert "J:22753" in self.driver.page_source        
+        assert "J:84245" in self.driver.page_source        
         
     def test_strain_ref_allref_link(self):
         """

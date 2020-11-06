@@ -102,7 +102,7 @@ class TestEmapaBrowser(unittest.TestCase):
         searchList = driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
         print([x.text for x in searchList])
-        time.sleep(1)
+        time.sleep(5)
         # These 2 terms should be returned in the phenotype search results
         self.assertIn('abnormal blastocoele morphology\nabsent blastocoele', terms, 'these terms are not listed!')
         
@@ -307,7 +307,7 @@ class TestEmapaBrowser(unittest.TestCase):
         bodyText = driver.find_element(By.TAG_NAME, 'body').text
         print(linkE.text)
         # verifies the returned terms are the correct terms for this search
-        self.assertEqual('252,283', linkE.text, 'The expression results link is wrong' )
+        self.assertEqual('252,456', linkE.text, 'The expression results link is wrong' )
         self.assertFalse('phenotype annotations' in bodyText)       
 
     def test_no_pheno_mapping_zero_exp_link2(self):

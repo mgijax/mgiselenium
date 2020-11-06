@@ -81,7 +81,7 @@ class TestGXDTissueStageMatrix(unittest.TestCase):
         #click the Tissue x Matrix tab
         tissuestagetab.click()
         
-        time.sleep(1)
+        time.sleep(2)
         #find the Anatomical Terms column
         termslist = driver.find_element(By.ID, "stagegriddata").find_element(By.ID, 'rowGroupInner')
         items = termslist.find_elements(By.TAG_NAME, "text")

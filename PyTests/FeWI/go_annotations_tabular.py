@@ -107,7 +107,7 @@ class TestGoAnnotationsPage(unittest.TestCase):
         time.sleep(3)
         #Finds the All GO Annotations link and clicks it
         driver.find_element(By.CLASS_NAME, 'goRibbon').find_element(By.ID, 'goAnnotLink').click()
-        wait.forAjax(driver)
+        time.sleep(3)
         #Locates  the table by row
         tabularheaderlist = driver.find_element(By.ID, 'dynamicdata')
         items = tabularheaderlist.find_elements(By.TAG_NAME, 'div')
