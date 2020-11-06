@@ -84,3 +84,298 @@ this.PromiseWalker.scheduleWalkerLoop/<@resource://gre/modules/Promise.jsm -> re
 Line: 1281, column: 20
 [Child 8700] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
 [Child 8700] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+1602769787509	geckodriver	INFO	Listening on 127.0.0.1:51318
+1602769788004	mozrunner::runner	INFO	Running command: "C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\jeffc\\AppData\\Local\\Temp\\rust_mozprofilefmNkha"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1602769790944	Marionette	INFO	Listening on port 51323
+1602769791223	Marionette	WARN	TLS certificate errors will be ignored for this session
+1602769888745	Marionette	INFO	Stopped listening on port 51323
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ocal\\Temp\\rust_mozprofile8iW9xX"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1602769862053	Marionette	INFO	Listening on port 51440
+1602769862464	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://bluebob.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 208: Error: Invalid autocomplete selectedIndex
+JavaScript warning: http://bluebob.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://bluebob.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://bluebob.informatics.jax.org/assets/js/external/viz.js, line 1164: asm.js type error: incompatible argument types to function
+1602769887037	Marionette	INFO	Stopped listening on port 51440
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1603287120489	geckodriver	INFO	Listening on 127.0.0.1:58547
+1603287121012	mozrunner::runner	INFO	Running command: "C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\jeffc\\AppData\\Local\\Temp\\rust_mozprofile4PPJoI"
+1603287122147	geckodriver	INFO	Listening on 127.0.0.1:58557
+1603287122655	mozrunner::runner	INFO	Running command: "C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\jeffc\\AppData\\Local\\Temp\\rust_mozprofiley5Q7In"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1603287124714	Marionette	INFO	Listening on port 58563
+1603287124774	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 208: Error: Invalid autocomplete selectedIndex
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://test.informatics.jax.org/assets/js/external/viz.js, line 1164: asm.js type error: incompatible argument types to function
+1603288485231	Marionette	INFO	Stopped listening on port 58563
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ocal\\Temp\\rust_mozprofilecTIOTI"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1603287134741	Marionette	INFO	Listening on port 58624
+1603287135155	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 208: Error: Invalid autocomplete selectedIndex
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://test.informatics.jax.org/assets/js/external/viz.js, line 1164: asm.js type error: incompatible argument types to function
+JavaScript error: , line 0: NS_ERROR_NOT_AVAILABLE
+1603454878653	Marionette	INFO	Stopped listening on port 58624
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1603287142047	Marionette	INFO	Listening on port 58719
+1603287142171	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 208: Error: Invalid autocomplete selectedIndex
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://test.informatics.jax.org/assets/js/external/viz.js, line 1164: asm.js type error: incompatible argument types to function
+1603288387193	Marionette	INFO	Stopped listening on port 58719
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+efox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\jeffc\\AppData\\Local\\Temp\\rust_mozprofilek4sSwa"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1603287149929	Marionette	INFO	Listening on port 58779
+1603287150031	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 208: Error: Invalid autocomplete selectedIndex
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://test.informatics.jax.org/assets/js/external/viz.js, line 1164: asm.js type error: incompatible argument types to function
+1603288383153	Marionette	INFO	Stopped listening on port 58779
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ocal\\Temp\\rust_mozprofilelq0gQB"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1603287157882	Marionette	INFO	Listening on port 58836
+1603287158048	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 208: Error: Invalid autocomplete selectedIndex
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://test.informatics.jax.org/assets/js/external/viz.js, line 1164: asm.js type error: incompatible argument types to function
+1603288381596	Marionette	INFO	Stopped listening on port 58836
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ocal\\Temp\\rust_mozprofileGSnfbq"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1603287166552	Marionette	INFO	Listening on port 58893
+1603287166681	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 208: Error: Invalid autocomplete selectedIndex
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://test.informatics.jax.org/assets/js/external/viz.js, line 1164: asm.js type error: incompatible argument types to function
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "http://test.informatics.jax.org"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 119: TypeError: gRecipeManager is null
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://test.informatics.jax.org/assets/js/external/viz.js, line 1164: asm.js type error: incompatible argument types to function
+1603287918350	Marionette	INFO	Stopped listening on port 58893
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1603287928191	geckodriver	INFO	Listening on 127.0.0.1:59128
+1603287928720	mozrunner::runner	INFO	Running command: "C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\jeffc\\AppData\\Local\\Temp\\rust_mozprofilelrBNAg"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1603287930618	Marionette	INFO	Listening on port 59134
+1603287930844	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 208: Error: Invalid autocomplete selectedIndex
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://test.informatics.jax.org/assets/js/external/viz.js, line 1164: asm.js type error: incompatible argument types to function
+1603288378799	Marionette	INFO	Stopped listening on port 59134
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ocal\\Temp\\rust_mozprofilebhBqAG"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1603288013106	Marionette	INFO	Listening on port 59205
+1603288013298	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 208: Error: Invalid autocomplete selectedIndex
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://test.informatics.jax.org/assets/js/external/viz.js, line 1164: asm.js type error: incompatible argument types to function
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js, line 3: Script terminated by timeout at:
+dispatch@https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js:3:9896
+add/q.handle@https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js:3:8342
+trigger@https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js:4:5808
+simulate@https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js:4:6226
+c@https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js:4:6923
+
+JavaScript warning: http://www.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://www.informatics.jax.org/assets/js/external/viz.js, line 1164: asm.js type error: incompatible argument types to function
+1603288223549	Marionette	INFO	Stopped listening on port 59205
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1603288227375	geckodriver	INFO	Listening on 127.0.0.1:59326
+1603288227893	mozrunner::runner	INFO	Running command: "C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\jeffc\\AppData\\Local\\Temp\\rust_mozprofilehWBHqN"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1603288229830	Marionette	INFO	Listening on port 59332
+1603288230006	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 208: Error: Invalid autocomplete selectedIndex
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://test.informatics.jax.org/assets/js/external/viz.js, line 1164: asm.js type error: incompatible argument types to function
+1603288377772	Marionette	INFO	Stopped listening on port 59332
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ocal\\Temp\\rust_mozprofileAeMgtA"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1603288237564	Marionette	INFO	Listening on port 59390
+1603288238002	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 208: Error: Invalid autocomplete selectedIndex
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://test.informatics.jax.org/assets/js/external/viz.js, line 1164: asm.js type error: incompatible argument types to function
+1603288376944	Marionette	INFO	Stopped listening on port 59390
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ocal\\Temp\\rust_mozprofile0O3HoH"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1603288245401	Marionette	INFO	Listening on port 59454
+1603288245487	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 208: Error: Invalid autocomplete selectedIndex
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://test.informatics.jax.org/assets/js/external/viz.js, line 1164: asm.js type error: incompatible argument types to function
+1603288375698	Marionette	INFO	Stopped listening on port 59454
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ocal\\Temp\\rust_mozprofilePFcciy"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1603288253271	Marionette	INFO	Listening on port 59514
+1603288253642	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 208: Error: Invalid autocomplete selectedIndex
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://test.informatics.jax.org/assets/js/external/viz.js, line 1164: asm.js type error: incompatible argument types to function
+1603288374902	Marionette	INFO	Stopped listening on port 59514
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ocal\\Temp\\rust_mozprofileDE33BM"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1603288261461	Marionette	INFO	Listening on port 59573
+1603288261629	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 208: Error: Invalid autocomplete selectedIndex
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://test.informatics.jax.org/assets/js/external/viz.js, line 1164: asm.js type error: incompatible argument types to function
+1603288373148	Marionette	INFO	Stopped listening on port 59573
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+efox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\jeffc\\AppData\\Local\\Temp\\rust_mozprofile48IgMM"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1603288269343	Marionette	INFO	Listening on port 59628
+1603288269385	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 208: Error: Invalid autocomplete selectedIndex
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://test.informatics.jax.org/assets/js/external/viz.js, line 1164: asm.js type error: incompatible argument types to function
+1603288370485	Marionette	INFO	Stopped listening on port 59628
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ocal\\Temp\\rust_mozprofileTJLgCw"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1603288276938	Marionette	INFO	Listening on port 59690
+1603288276970	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 208: Error: Invalid autocomplete selectedIndex
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://test.informatics.jax.org/assets/js/external/viz.js, line 1164: asm.js type error: incompatible argument types to function
+1603288360873	Marionette	INFO	Stopped listening on port 59690
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1603288396215	geckodriver	INFO	Listening on 127.0.0.1:59776
+1603288396745	mozrunner::runner	INFO	Running command: "C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\jeffc\\AppData\\Local\\Temp\\rust_mozprofilebwpFj2"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1603288398658	Marionette	INFO	Listening on port 59782
+1603288398880	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 208: Error: Invalid autocomplete selectedIndex
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://test.informatics.jax.org/webshare/js/jquery-1.10.2.min.js, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://test.informatics.jax.org/assets/js/external/viz.js, line 1164: asm.js type error: incompatible argument types to function
+JavaScript error: , line 0: NS_ERROR_NOT_AVAILABLE
+1603454877439	Marionette	INFO	Stopped listening on port 59782
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
