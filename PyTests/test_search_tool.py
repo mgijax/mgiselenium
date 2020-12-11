@@ -37,7 +37,7 @@ class TestSearchTool(unittest.TestCase):
 
     def test_gene_id(self):
         """
-        @status: Tests that a Gene ID search brings back the proper information
+        @status: Tests that a Gene ID-primary search brings back the proper information
         """
         driver = self.driver
         driver.get(config.TEST_URL)
@@ -103,7 +103,7 @@ class TestSearchTool(unittest.TestCase):
 
     def test_old_gene_id(self):
         """
-        @status: Tests that an Old Gene ID search brings back the proper information
+        @status: Tests that an Old Gene ID-secondary search brings back the proper information
         """
         driver = self.driver
         driver.get(config.TEST_URL)
@@ -119,7 +119,7 @@ class TestSearchTool(unittest.TestCase):
         all_cells = table.get_column_cells('Best Match')
         print(all_cells[1].text)
         #asserts that the Best Match data is correct for the ID searched
-        self.assertEqual(all_cells[1].text, 'ID: MGD-MRK-1672')    
+        self.assertEqual(all_cells[1].text, 'MGI: MGD-MRK-1672')    
 
     def test_genetrap_id(self):
         """
@@ -161,36 +161,6 @@ class TestSearchTool(unittest.TestCase):
         print(all_cells[1].text)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(all_cells[1].text, 'Assay: MGI:1339505') 
-        
-
-    def test_ensembl_id(self):
-        """
-        @status: Tests that an Ensembl ID brings back the proper information
-        """
-        driver = self.driver
-        driver.get(config.TEST_URL)
-        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
-        # put your Ensembl ID in the quick search box
-        searchbox.send_keys("ENSMUSG00000005672")
-        searchbox.send_keys(Keys.RETURN)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b1Table')))#waits until the results are displayed on the page
-        #find the results table
-        results_table = self.driver.find_element(By.ID, 'b1Table')
-        table = Table(results_table)
-        #Iterate the first row of data to find the Best Match column of the table
-        all_cells = table.get_column_cells('Best Match')
-        print(all_cells[1].text)
-        #asserts that the Best Match data is correct for the ID searched
-        self.assertEqual(all_cells[1].text, 'ID: ENSMUSG00000005672') 
-        #find the results table
-        results_table = self.driver.find_element(By.ID, 'b3Table')
-        table = Table(results_table)
-        #Iterate the first row of data to find the Why did this match? column of the table
-        all_cells = table.get_column_cells('Why did this match?')
-        print(all_cells[2].text)
-        #asserts that the Best Match data is correct for the ID searched
-        self.assertEqual(all_cells[2].text, 'Sequence: ENSMUSG00000005672') 
-        
 
     def test_entrezgene_id(self):
         """
@@ -210,15 +180,249 @@ class TestSearchTool(unittest.TestCase):
         all_cells = table.get_column_cells('Best Match')
         print(all_cells[1].text)
         #asserts that the Best Match data is correct for the ID searched
-        self.assertEqual(all_cells[1].text, 'ID: 11539') 
+        self.assertEqual(all_cells[1].text, 'Entrez Gene: 11539') 
         #find the results table
         results_table = self.driver.find_element(By.ID, 'b3Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
         all_cells = table.get_column_cells('Why did this match?')
-        print(all_cells[3].text)
+        print(all_cells[2].text)
         #asserts that the Best Match data is correct for the ID searched
-        self.assertEqual(all_cells[3].text, 'Sequence: 11539') 
+        self.assertEqual(all_cells[2].text, 'Sequence: 11539') 
+
+    def test_ncbi_id(self):
+        """
+        @status: Tests that a NCBI ID brings back the proper information
+        @bug: sort is different each time on new QS
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL)
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
+        # put your NCBI ID in the quick search box
+        searchbox.send_keys("20423")
+        searchbox.send_keys(Keys.RETURN)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b3Table')))#waits until the results are displayed on the page 
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b1Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Why did this match? column of the table
+        all_cells = table.get_column_cells('Best Match')
+        print(all_cells[1].text)
+        print(all_cells[5].text)
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'HomoloGene: 20423')
+        self.assertEqual(all_cells[2].text, 'Entrez Gene: 20423')
+        self.assertEqual(all_cells[3].text, 'Name: CpG island 20423')
+        self.assertEqual(all_cells[4].text, 'Name: predicted gene 20423')
+        self.assertEqual(all_cells[5].text, 'Name: transcription start site region 20423')
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b3Table')))#waits until the results are displayed on the page 
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b3Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Why did this match? column of the table
+        all_cells = table.get_column_cells('Why did this match?')
+        print(all_cells[1].text)
+        print(all_cells[3].text)
+        #asserts that the Why did this match? data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'Reference: J:20423')
+        self.assertEqual(all_cells[2].text, 'Homology Class: 20423') 
+        self.assertEqual(all_cells[3].text, 'Sequence: 20423')
+                
+    def test_ensembl_id(self):
+        """
+        @status: Tests that an Ensembl Gene Model ID brings back the proper information
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL)
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
+        # put your Ensembl ID in the quick search box
+        searchbox.send_keys("ENSMUSG00000005672")
+        searchbox.send_keys(Keys.RETURN)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b1Table')))#waits until the results are displayed on the page
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b1Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Best Match column of the table
+        all_cells = table.get_column_cells('Best Match')
+        print(all_cells[1].text)
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'Ensembl Gene Model: ENSMUSG00000005672') 
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b3Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Why did this match? column of the table
+        all_cells = table.get_column_cells('Why did this match?')
+        print(all_cells[1].text)
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'Sequence: ENSMUSG00000005672') 
+
+    def test_ensembl_t_id(self):
+        """
+        @status: Tests that an Ensembl Transcript ID brings back the proper information
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL)
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
+        # put your Ensembl ID in the quick search box
+        searchbox.send_keys("ENSMUST00000033380")
+        searchbox.send_keys(Keys.RETURN)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b1Table')))#waits until the results are displayed on the page
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b1Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Best Match column of the table
+        all_cells = table.get_column_cells('Best Match')
+        print(all_cells[1].text)
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'Ensembl Transcript: ENSMUST00000033380') 
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b3Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Why did this match? column of the table
+        all_cells = table.get_column_cells('Why did this match?')
+        print(all_cells[1].text)
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'Sequence: ENSMUST00000033380')         
+
+    def test_ensembl_p_id(self):
+        """
+        @status: Tests that an Ensembl Protein ID brings back the proper information
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL)
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
+        # put your Ensembl ID in the quick search box
+        searchbox.send_keys("ENSMUSP00000102131")
+        searchbox.send_keys(Keys.RETURN)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b1Table')))#waits until the results are displayed on the page
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b1Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Best Match column of the table
+        all_cells = table.get_column_cells('Best Match')
+        print(all_cells[1].text)
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'Ensembl Protein: ENSMUSP00000102131') 
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b3Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Why did this match? column of the table
+        all_cells = table.get_column_cells('Why did this match?')
+        print(all_cells[1].text)
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'Sequence: ENSMUSP00000102131')   
+
+    def test_refseq_p_id(self):
+        """
+        @status: Tests that a RefSeq-primary ID brings back the proper information
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL)
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
+        # put your RegSeq ID in the quick search box
+        searchbox.send_keys("NM_023876")
+        searchbox.send_keys(Keys.RETURN)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b1Table')))#waits until the results are displayed on the page
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b1Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Best Match column of the table
+        all_cells = table.get_column_cells('Best Match')
+        print(all_cells[1].text)
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'RefSeq: NM_023876') 
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b3Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Why did this match? column of the table
+        all_cells = table.get_column_cells('Why did this match?')
+        print(all_cells[1].text)
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'Sequence: NM_023876')
+
+    def test_refseq_s_id(self):
+        """
+        @status: Tests that a RefSeq-secondary ID brings back the proper information
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL)
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
+        # put your RegSeq ID in the quick search box
+        searchbox.send_keys("XP_001477707")
+        searchbox.send_keys(Keys.RETURN)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b1Table')))#waits until the results are displayed on the page
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b1Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Best Match column of the table
+        all_cells = table.get_column_cells('Best Match')
+        print(all_cells[1].text)
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'RefSeq: XP_001477707') 
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b3Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Why did this match? column of the table
+        all_cells = table.get_column_cells('Why did this match?')
+        print(all_cells[1].text)
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'Sequence: NP_937813')
+
+    def test_SeqDB_p_id(self):
+        '''
+        @status: Tests that a Sequence DB primary ID brings back the proper information
+        '''
+        driver = self.driver
+        driver.get(config.TEST_URL)
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
+        # put your RegSeq ID in the quick search box
+        searchbox.send_keys("AK145957")
+        searchbox.send_keys(Keys.RETURN)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b1Table')))#waits until the results are displayed on the page
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b1Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Best Match column of the table
+        all_cells = table.get_column_cells('Best Match')
+        print(all_cells[1].text)
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'Sequence DB: AK145957') 
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b3Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Why did this match? column of the table
+        all_cells = table.get_column_cells('Why did this match?')
+        print(all_cells[1].text)
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'Sequence: AK145957')
+
+    def test_SeqDB_s_id(self):
+        '''
+        @status: Tests that a Sequence DB secondary ID brings back the proper information
+        '''
+        driver = self.driver
+        driver.get(config.TEST_URL)
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
+        # put your RegSeq ID in the quick search box
+        searchbox.send_keys("D87828")
+        searchbox.send_keys(Keys.RETURN)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b1Table')))#waits until the results are displayed on the page
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b1Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Best Match column of the table
+        all_cells = table.get_column_cells('Best Match')
+        print(all_cells[1].text)
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'Sequence DB: D87828') 
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b3Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Why did this match? column of the table
+        all_cells = table.get_column_cells('Why did this match?')
+        print(all_cells[1].text)
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'Sequence: D87831')        
 
     """def test_unigene_id(self):
         
@@ -243,9 +447,9 @@ class TestSearchTool(unittest.TestCase):
         wait.forAjax(driver) 
         """
         
-    def test_uniprot_id(self):
+    def test_swissprot_p_id(self):
         """
-        @status: Tests that an Ensembl ID brings back the proper information
+        @status: Tests that an swissprot primary ID brings back the proper information
         """
         driver = self.driver
         driver.get(config.TEST_URL)
@@ -261,7 +465,91 @@ class TestSearchTool(unittest.TestCase):
         all_cells = table.get_column_cells('Best Match')
         print(all_cells[1].text)
         #asserts that the Best Match data is correct for the ID searched
-        self.assertEqual(all_cells[1].text, 'ID: Q9ER73') 
+        self.assertEqual(all_cells[1].text, 'SWISS-PROT: Q9ER73') 
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b3Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Why did this match? column of the table
+        all_cells = table.get_column_cells('Why did this match?')
+        print(all_cells[1].text)
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'Sequence: Q9ER73')
+        
+    def test_swissprot_s_id(self):
+        """
+        @status: Tests that an swissprot secondary ID brings back the proper information
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL)
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
+        # put your UniProt ID in the quick search box
+        searchbox.send_keys("Q91YT1")
+        searchbox.send_keys(Keys.RETURN)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b1Table')))#waits until the results are displayed on the page
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b1Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Best Match column of the table
+        all_cells = table.get_column_cells('Best Match')
+        print(all_cells[1].text)
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'SWISS-PROT: Q91YT1') 
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b3Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Why did this match? column of the table
+        all_cells = table.get_column_cells('Why did this match?')
+        print(all_cells[1].text)
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'Sequence: Q3UPH1')
+        
+    def test_trembl_p_id(self):
+        """
+        @status: Tests that an trembl primary ID brings back the proper information
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL)
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
+        # put your UniProt ID in the quick search box
+        searchbox.send_keys("B8JK67")
+        searchbox.send_keys(Keys.RETURN)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b1Table')))#waits until the results are displayed on the page
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b1Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Best Match column of the table
+        all_cells = table.get_column_cells('Best Match')
+        print(all_cells[1].text)
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'TrEMBL: B8JK67') 
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b3Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Why did this match? column of the table
+        all_cells = table.get_column_cells('Why did this match?')
+        print(all_cells[1].text)
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'Sequence: B8JK67')
+                
+    def test_homologene_id(self):
+        """
+        @status: Tests that an HomoloGene ID brings back the proper information
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL)
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
+        # put your HomoloGene ID in the quick search box
+        searchbox.send_keys("20151")
+        searchbox.send_keys(Keys.RETURN)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b1Table')))#waits until the results are displayed on the page
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b1Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Best Match column of the table
+        all_cells = table.get_column_cells('Best Match')
+        print(all_cells[1].text)
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'HomoloGene: 20151') 
         #find the results table
         results_table = self.driver.find_element(By.ID, 'b3Table')
         table = Table(results_table)
@@ -269,52 +557,250 @@ class TestSearchTool(unittest.TestCase):
         all_cells = table.get_column_cells('Why did this match?')
         print(all_cells[2].text)
         #asserts that the Best Match data is correct for the ID searched
-        self.assertEqual(all_cells[2].text, 'Sequence: Q9ER73')
-
-    def test_unists_id(self):
+        self.assertEqual(all_cells[2].text, 'Homology Class: 20151')
+ 
+    def test_consensus_CDS_id(self):
         """
-        @status: Tests that an Ensembl ID brings back the proper information
-        @attention: does Unists still exist??????
-        """
-        driver = self.driver
-        driver.get(config.TEST_URL)
-        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
-        # put your UniSTS ID in the quick search box
-        searchbox.send_keys("125993")
-        searchbox.send_keys(Keys.RETURN)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'qsBucket')))#waits until the results are displayed on the page
-        #finds the Best Match information
-        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
-        match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
-        searchTextItems = iterate.getTextAsList(match_info)
-        wait.forAjax(driver)
-        print(searchTextItems)
-        #asserts that the Best Match data is correct for the ID searched
-        self.assertEqual(searchTextItems[2], 'ID : 125993 (UniSTS)')
-        wait.forAjax(driver) 
-
-    '''def test_vega_id(self):
-        """
-        @status: Tests that a VEGA ID brings back the proper information
-        @note this test will need to change from a VEGA ID to an MGI gene model ID for Project Fevah!!
+        @status: Tests that a Consensus CDS Project ID brings back the proper information
         """
         driver = self.driver
         driver.get(config.TEST_URL)
         searchbox = driver.find_element(By.ID, 'searchToolTextArea')
-        # put your VEGA ID in the quick search box
-        searchbox.send_keys("OTTMUSG00000010935")
+        # put your HomoloGene ID in the quick search box
+        searchbox.send_keys("CCDS28624.1")
         searchbox.send_keys(Keys.RETURN)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'qsBucket')))#waits until the results are displayed on the page
-        #finds the Best Match information
-        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
-        match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
-        searchTextItems = iterate.getTextAsList(match_info)
-        wait.forAjax(driver)
-        print searchTextItems
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b1Table')))#waits until the results are displayed on the page
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b1Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Best Match column of the table
+        all_cells = table.get_column_cells('Best Match')
+        print(all_cells[1].text)
         #asserts that the Best Match data is correct for the ID searched
-        self.assertEqual(searchTextItems[7], 'ID : OTTMUSG00000010935 (VEGA Gene Model)   and more detail...')
-        wait.forAjax(driver) 
-    '''
+        self.assertEqual(all_cells[1].text, 'Consensus CDS Project: CCDS28624.1') 
+
+    def test_Unigene_id(self):
+        """
+        @status: Tests that an UniGene ID brings back the proper information
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL)
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
+        # put your HomoloGene ID in the quick search box
+        searchbox.send_keys("8122")
+        searchbox.send_keys(Keys.RETURN)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b1Table')))#waits until the results are displayed on the page
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b1Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Best Match column of the table
+        all_cells = table.get_column_cells('Best Match')
+        print(all_cells[1].text)
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'UniGene: 8122') 
+        self.assertEqual(all_cells[2].text, 'HomoloGene: 8122') 
+        self.assertEqual(all_cells[3].text, 'Name: CpG island 8122') 
+        self.assertEqual(all_cells[4].text, 'Name: predicted gene 8122') 
+        self.assertEqual(all_cells[5].text, 'Name: transcription start site region 8122') 
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b3Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Why did this match? column of the table
+        all_cells = table.get_column_cells('Why did this match?')
+        print(all_cells[2].text)
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'Reference: J:8122')
+        self.assertEqual(all_cells[2].text, 'Homology Class: 8122') 
+
+    def test_protein_ont_id(self):
+        """
+        @status: Tests that an Protein Ontology ID brings back the proper information
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL)
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
+        # put your HomoloGene ID in the quick search box
+        searchbox.send_keys("PR:000008517")
+        searchbox.send_keys(Keys.RETURN)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b1Table')))#waits until the results are displayed on the page
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b1Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Best Match column of the table
+        all_cells = table.get_column_cells('Best Match')
+        print(all_cells[1].text)
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'Protein Ontology: PR:000008517') 
+
+    def test_ec_id(self):
+        """
+        @status: Tests that a EC ID brings back the proper information
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL)
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
+        # put your EC ID in the quick search box
+        searchbox.send_keys("3.4.21.6")
+        searchbox.send_keys(Keys.RETURN)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b1Table')))#waits until the results are displayed on the page 
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b1Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Why did this match? column of the table
+        all_cells = table.get_column_cells('Best Match')
+        print(all_cells[1].text)
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'EC: 3.4.21.6')
+
+    def test_pdb_id(self):
+        """
+        @status: Tests that a PDB ID brings back the proper information
+        @attention: does not now identify it's a pdb ID
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL)
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
+        # put your PDB ID in the quick search box
+        searchbox.send_keys("1HU8")
+        searchbox.send_keys(Keys.RETURN)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b1Table')))#waits until the results are displayed on the page
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b1Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Best Match column of the table
+        all_cells = table.get_column_cells('Best Match')
+        print(all_cells[1].text)
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'PDB: 1HU8') 
+        
+    def test_mirbase_id(self):
+        """
+        @status: Tests that a miRBase ID brings back the proper information
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL)
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
+        # put your mirBasee ID in the quick search box
+        searchbox.send_keys("MI0000248")
+        searchbox.send_keys(Keys.RETURN)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b1Table')))#waits until the results are displayed on the page 
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b1Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Why did this match? column of the table
+        all_cells = table.get_column_cells('Best Match')
+        print(all_cells[1].text)
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'miRBase: MI0000248')        
+        
+    def test_qtl_archive_id(self):
+        """
+        @status: Tests that a QTL Archive ID brings back the proper information
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL)
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
+        # put your PDB ID in the quick search box
+        searchbox.send_keys("Brich1")
+        searchbox.send_keys(Keys.RETURN)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b1Table')))#waits until the results are displayed on the page
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b1Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Best Match column of the table
+        all_cells = table.get_column_cells('Best Match')
+        print(all_cells[1].text)
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'Download data from the QTL Archive: Brich1') 
+
+    def test_ncbi_gme_id(self):
+        """
+        @status: Tests that an NCBI Gene Model Evidence ID brings back the proper information
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL)
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
+        # put your HomoloGene ID in the quick search box
+        searchbox.send_keys("NT_187055")
+        searchbox.send_keys(Keys.RETURN)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b1Table')))#waits until the results are displayed on the page
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b1Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Best Match column of the table
+        all_cells = table.get_column_cells('Best Match')
+        print(all_cells[1].text)
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'NCBI Gene Model Evidence: NT_187055') 
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b3Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Why did this match? column of the table
+        all_cells = table.get_column_cells('Why did this match?')
+        print(all_cells[2].text)
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(all_cells[2].text, 'Sequence: NT_187055')
+
+    def test_affy1_st_id(self):
+        """
+        @status: Tests that an Affy 1.0 ST ID brings back the proper information
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL)
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
+        # put your HomoloGene ID in the quick search box
+        searchbox.send_keys("10388707")
+        searchbox.send_keys(Keys.RETURN)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b1Table')))#waits until the results are displayed on the page
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b1Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Best Match column of the table
+        all_cells = table.get_column_cells('Best Match')
+        print(all_cells[1].text)
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'Affy 1.0 ST: 10388707') 
+
+    def test_affy430_2_id(self):
+        """
+        @status: Tests that an Affy 430 2.0 ID brings back the proper information
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL)
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
+        # put your HomoloGene ID in the quick search box
+        searchbox.send_keys("1416346_at")
+        searchbox.send_keys(Keys.RETURN)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b1Table')))#waits until the results are displayed on the page
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b1Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Best Match column of the table
+        all_cells = table.get_column_cells('Best Match')
+        print(all_cells[1].text)
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'Affy 430 2.0: 1416346_at') 
+ 
+    def test_affy_U74_id(self):
+        """
+        @status: Tests that an Affy U74 ID brings back the proper information
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL)
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
+        # put your HomoloGene ID in the quick search box
+        searchbox.send_keys("107044_at")
+        searchbox.send_keys(Keys.RETURN)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b1Table')))#waits until the results are displayed on the page
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b1Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Best Match column of the table
+        all_cells = table.get_column_cells('Best Match')
+        print(all_cells[1].text)
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'Affy U74: 107044_at') 
+                        
     def test_omim_id(self):
         """
         @status: Tests that an OMIM ID brings back the proper information
@@ -333,20 +819,19 @@ class TestSearchTool(unittest.TestCase):
         all_cells = table.get_column_cells('Best Match')
         print(all_cells[1].text)
         #asserts that the Best Match data is correct for the ID searched
-        self.assertEqual(all_cells[1].text, 'ID: OMIM:168600') 
+        self.assertEqual(all_cells[1].text, 'OMIM: OMIM:168600') 
         #find the results table
-        results_table = self.driver.find_element(By.ID, 'b3Table')
-        table = Table(results_table)
+        #results_table = self.driver.find_element(By.ID, 'b3Table')
+        #table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
-        all_cells = table.get_column_cells('Why did this match?')
-        print(all_cells[1].text)
+        #all_cells = table.get_column_cells('Why did this match?')
+        #print(all_cells[1].text)
         #asserts that the Best Match data is correct for the ID searched
-        self.assertEqual(all_cells[1].text, 'OMIM:: OMIM:168600')
+        #self.assertEqual(all_cells[1].text, 'OMIM:: OMIM:168600')
 
     def test_omim_id_no_pre(self):
         """
         @status: Tests that an OMIM ID without the prefix of OMIM: brings back the proper information
-        @attention: does not work in neew quick search fix? remove test?
         """
         driver = self.driver
         driver.get(config.TEST_URL)
@@ -354,16 +839,23 @@ class TestSearchTool(unittest.TestCase):
         # put your OMIM ID in the quick search box
         searchbox.send_keys("168600")
         searchbox.send_keys(Keys.RETURN)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'qsBucket')))#waits until the results are displayed on the page
-        #finds the Best Match information
-        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
-        match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
-        searchTextItems = iterate.getTextAsList(match_info)
-        wait.forAjax(driver)
-        print(searchTextItems)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b2Table')))#waits until the results are displayed on the page
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b2Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Best Match column of the table
+        all_cells = table.get_column_cells('Best Match')
+        print(all_cells[1].text)
         #asserts that the Best Match data is correct for the ID searched
-        self.assertEqual(searchTextItems[3], 'ID : 168600 (OMIM)')
-        wait.forAjax(driver) 
+        self.assertEqual(all_cells[1].text, 'OMIM: 168600') 
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b3Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Why did this match? column of the table
+        all_cells = table.get_column_cells('Why did this match?')
+        print(all_cells[1].text)
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'Reference: J:168600')
         
     def test_omim_gene_id(self):
         """
@@ -376,16 +868,26 @@ class TestSearchTool(unittest.TestCase):
         # put your OMIM ID in the quick search box
         searchbox.send_keys("OMIM:191170")
         searchbox.send_keys(Keys.RETURN)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'qsBucket')))#waits until the results are displayed on the page
-        #finds the Best Match information
-        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
-        match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
-        searchTextItems = iterate.getTextAsList(match_info)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b1Table')))#waits until the results are displayed on the page
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b1Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Best Match column of the table
+        all_cells = table.get_column_cells('Best Match')
+        print(all_cells[1].text)
         wait.forAjax(driver)
-        print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
-        self.assertEqual(searchTextItems[2], 'ID : OMIM:191170 (OMIM - Human)')
+        self.assertEqual(all_cells[1].text, 'ID : OMIM:191170 (OMIM - Human)')
         wait.forAjax(driver) 
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b3Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Why did this match? column of the table
+        all_cells = table.get_column_cells('Why did this match?')
+        print(all_cells[1].text)
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'ID : OMIM:191170 (OMIM - Human)')
+        
 
     def test_omim_gene_id_no_pre(self):
         """
@@ -407,36 +909,7 @@ class TestSearchTool(unittest.TestCase):
         print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(searchTextItems[2], 'ID : 191170 (OMIM - Human)')
-        wait.forAjax(driver)         
-        
-    def test_homologene_id(self):
-        """
-        @status: Tests that an HomoloGene ID brings back the proper information
-        """
-        driver = self.driver
-        driver.get(config.TEST_URL)
-        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
-        # put your HomoloGene ID in the quick search box
-        searchbox.send_keys("20151")
-        searchbox.send_keys(Keys.RETURN)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b1Table')))#waits until the results are displayed on the page
-        #find the results table
-        results_table = self.driver.find_element(By.ID, 'b1Table')
-        table = Table(results_table)
-        #Iterate the first row of data to find the Best Match column of the table
-        all_cells = table.get_column_cells('Best Match')
-        print(all_cells[1].text)
-        #asserts that the Best Match data is correct for the ID searched
-        self.assertEqual(all_cells[1].text, 'ID: 20151') 
-        #find the results table
-        results_table = self.driver.find_element(By.ID, 'b3Table')
-        table = Table(results_table)
-        #Iterate the first row of data to find the Why did this match? column of the table
-        all_cells = table.get_column_cells('Why did this match?')
-        print(all_cells[3].text)
-        #asserts that the Best Match data is correct for the ID searched
-        self.assertEqual(all_cells[3].text, 'Homology Class: 20151')
- 
+        wait.forAjax(driver)                 
 
     def test_hgnc_id(self):
         """
@@ -460,55 +933,6 @@ class TestSearchTool(unittest.TestCase):
         self.assertEqual(searchTextItems[7], 'ID : HGNC:28837 (HGNC - Human)   and more detail...')
         wait.forAjax(driver) 
 
-    def test_refseq_id(self):
-        """
-        @status: Tests that a RefSeq ID brings back the proper information
-        """
-        driver = self.driver
-        driver.get(config.TEST_URL)
-        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
-        # put your RegSeq ID in the quick search box
-        searchbox.send_keys("NM_023876")
-        searchbox.send_keys(Keys.RETURN)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b1Table')))#waits until the results are displayed on the page
-        #find the results table
-        results_table = self.driver.find_element(By.ID, 'b1Table')
-        table = Table(results_table)
-        #Iterate the first row of data to find the Best Match column of the table
-        all_cells = table.get_column_cells('Best Match')
-        print(all_cells[1].text)
-        #asserts that the Best Match data is correct for the ID searched
-        self.assertEqual(all_cells[1].text, 'ID: NM_023876') 
-        #find the results table
-        results_table = self.driver.find_element(By.ID, 'b3Table')
-        table = Table(results_table)
-        #Iterate the first row of data to find the Why did this match? column of the table
-        all_cells = table.get_column_cells('Why did this match?')
-        print(all_cells[2].text)
-        #asserts that the Best Match data is correct for the ID searched
-        self.assertEqual(all_cells[2].text, 'Sequence: NM_023876')
-
-    def test_pdb_id(self):
-        """
-        @status: Tests that a PDB ID brings back the proper information
-        @attention: Not working in new quick search
-        """
-        driver = self.driver
-        driver.get(config.TEST_URL)
-        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
-        # put your PDB ID in the quick search box
-        searchbox.send_keys("1HU8")
-        searchbox.send_keys(Keys.RETURN)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'qsBucket')))#waits until the results are displayed on the page
-        #finds the Best Match information
-        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
-        match_info = buckets[0].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
-        searchTextItems = iterate.getTextAsList(match_info)
-        wait.forAjax(driver)
-        print(searchTextItems)
-        #asserts that the Best Match data is correct for the ID searched
-        self.assertEqual(searchTextItems[7], 'ID : 1HU8 (PDB)   and more detail...')
-        wait.forAjax(driver) 
 
     def test_atcc_clone_id(self):
         """
@@ -529,8 +953,7 @@ class TestSearchTool(unittest.TestCase):
         wait.forAjax(driver)
         print(searchTextItems)
         #asserts that the Best Match data is correct for the ID searched
-        self.assertEqual(searchTextItems[2], 'ID : 719230 (ATCC)')
-        wait.forAjax(driver) 
+        self.assertEqual(searchTextItems[2], 'ID : 719230 (ATCC)') 
 
     def test_image_clone_id(self):
         """
@@ -557,8 +980,8 @@ class TestSearchTool(unittest.TestCase):
     def test_mgc_id(self):
         """
         @status: Tests that an MGC ID brings back the proper information
-        @note: result sort is making this test fail on bluebob!
-        @attention: Not finding  probe/clone in bucket 3 of new quick search
+        @note: does not tell you the ID is MGC
+        @attention: Not finding  probe/clone or RNA sequences in bucket 3 of new quick search
         """
         driver = self.driver
         driver.get(config.TEST_URL)
@@ -566,16 +989,30 @@ class TestSearchTool(unittest.TestCase):
         # put your MGC ID in the quick search box
         searchbox.send_keys("14049")
         searchbox.send_keys(Keys.RETURN)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'qsBucket')))#waits until the results are displayed on the page
-        #finds the Best Match information
-        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
-        match_info = buckets[2].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
-        searchTextItems = iterate.getTextAsList(match_info)
-        wait.forAjax(driver)
-        print(searchTextItems)
-        #asserts that the Best Match data is correct for the ID searched
-        #self.assertEqual(searchTextItems[2], 'ID : 14049 (MGC)')
-        wait.forAjax(driver) 
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b3Table')))#waits until the results are displayed on the page
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b1Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Why did this match? column of the table
+        all_cells = table.get_column_cells('Best Match')
+        print(all_cells[1].text)
+        #asserts that the Why did this match? data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'ID: 14049') 
+        self.assertEqual(all_cells[2].text, 'Sequence: W09270')
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b3Table')
+        table = Table(results_table)
+        #Iterate the first 3 rows of data to find the Why did this match? column of the table
+        all_cells = table.get_column_cells('Why did this match?')
+        print(all_cells[1].text)
+        print(all_cells[2].text)
+        print(all_cells[3].text)
+        print(all_cells[4].text)
+        #asserts that the Why did this match? data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'Probe/Clone: MGI:200469') 
+        self.assertEqual(all_cells[2].text, 'Sequence: 14049')
+        self.assertEqual(all_cells[3].text, 'Sequence: 14049')
+        self.assertEqual(all_cells[4].text, 'Sequence: 14049')
 
     def test_riken_clone_id(self):
         """
@@ -638,7 +1075,7 @@ class TestSearchTool(unittest.TestCase):
         all_cells = table.get_column_cells('Best Match')
         print(all_cells[1].text)
         #asserts that the Best Match data is correct for the ID searched
-        self.assertEqual(all_cells[1].text, 'Protein Domain: IPR003599') 
+        self.assertEqual(all_cells[1].text, "Protein Domain: Immunoglobulin subtype (IPR003599)") 
         #find the results table
         results_table = self.driver.find_element(By.ID, 'b2Table')
         table = Table(results_table)
@@ -646,7 +1083,7 @@ class TestSearchTool(unittest.TestCase):
         all_cells = table.get_column_cells('Best Match')
         print(all_cells[1].text)
         #asserts that the Best Match data is correct for the ID searched
-        self.assertEqual(all_cells[1].text, 'ID: IPR003599') 
+        self.assertEqual(all_cells[1].text, 'InterPro: IPR003599') 
         #find the results table
         results_table = self.driver.find_element(By.ID, 'b3Table')
         table = Table(results_table)
@@ -659,7 +1096,7 @@ class TestSearchTool(unittest.TestCase):
     def test_pirsf_id(self):
         """
         @status: Tests that a PIRSF ID brings back the proper information
-        @attention: new quick search brings back different results
+        @attention: new quick search not bringing back the protein coding genes in table 1
         """
         driver = self.driver
         driver.get(config.TEST_URL)
@@ -667,16 +1104,26 @@ class TestSearchTool(unittest.TestCase):
         # put your PIRSF ID in the quick search box
         searchbox.send_keys("PIRSF038195")
         searchbox.send_keys(Keys.RETURN)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'qsBucket')))#waits until the results are displayed on the page
-        #finds the Best Match information
-        buckets = driver.find_elements(By.CLASS_NAME, 'qsBucket')
-        match_info = buckets[1].find_element(By.CLASS_NAME, 'qsBucketRow1').find_elements(By.TAG_NAME, 'td')
-        searchTextItems = iterate.getTextAsList(match_info)
-        wait.forAjax(driver)
-        print(searchTextItems)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b1Table')))#waits until the results are displayed on the page
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b1Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Best Match column of the table
+        all_cells = table.get_column_cells('Best Match')
+        print(all_cells[1].text)
+        print(all_cells[2].text)
+        print(all_cells[3].text)
+        print(all_cells[4].text)
         #asserts that the Best Match data is correct for the ID searched
-        self.assertEqual(searchTextItems[3], 'ID : PIRSF038195')
-        wait.forAjax(driver) 
+        self.assertEqual(all_cells[1].text, 'ID: PIRSF038195') 
+        #find the results table
+        results_table = self.driver.find_element(By.ID, 'b2Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Best Match column of the table
+        all_cells = table.get_column_cells('Best Match')
+        print(all_cells[1].text)
+        #asserts that the Best Match data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'ID: PIRSF038195') 
 
     def test_pubmed_id(self):
         """
@@ -741,6 +1188,7 @@ class TestSearchTool(unittest.TestCase):
     def test_genbank_id(self):
         """
         @status: Tests that a GenBank ID brings back the proper information
+        @attention: new QS brings back 2 sequence details but why match is first ID not one searched for.
         """
         driver = self.driver
         driver.get(config.TEST_URL)
@@ -767,64 +1215,6 @@ class TestSearchTool(unittest.TestCase):
         #asserts that the Why did this match? data is correct for the ID searched
         self.assertEqual(all_cells[1].text, 'protein coding gene: MGI:96677') 
 
-    def test_ec_id(self):
-        """
-        @status: Tests that a EC ID brings back the proper information
-        """
-        driver = self.driver
-        driver.get(config.TEST_URL)
-        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
-        # put your EC ID in the quick search box
-        searchbox.send_keys("3.4.21.6")
-        searchbox.send_keys(Keys.RETURN)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b3Table')))#waits until the results are displayed on the page 
-        #find the results table
-        results_table = self.driver.find_element(By.ID, 'b1Table')
-        table = Table(results_table)
-        #Iterate the first row of data to find the Why did this match? column of the table
-        all_cells = table.get_column_cells('Best Match')
-        print(all_cells[1].text)
-        #asserts that the Best Match data is correct for the ID searched
-        self.assertEqual(all_cells[1].text, 'ID: 3.4.21.6')
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b3Table')))#waits until the results are displayed on the page 
-        #find the results table
-        results_table = self.driver.find_element(By.ID, 'b3Table')
-        table = Table(results_table)
-        #Iterate the first row of data to find the Why did this match? column of the table
-        all_cells = table.get_column_cells('Why did this match?')
-        print(all_cells[1].text)
-        #asserts that the Why did this match? data is correct for the ID searched
-        self.assertEqual(all_cells[1].text, 'protein coding gene: MGI:103107') 
-
-    def test_mirbase_id(self):
-        """
-        @status: Tests that a miRBase ID brings back the proper information
-        """
-        driver = self.driver
-        driver.get(config.TEST_URL)
-        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
-        # put your mirBasee ID in the quick search box
-        searchbox.send_keys("MI0000248")
-        searchbox.send_keys(Keys.RETURN)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b3Table')))#waits until the results are displayed on the page 
-        #find the results table
-        results_table = self.driver.find_element(By.ID, 'b1Table')
-        table = Table(results_table)
-        #Iterate the first row of data to find the Why did this match? column of the table
-        all_cells = table.get_column_cells('Best Match')
-        print(all_cells[1].text)
-        #asserts that the Best Match data is correct for the ID searched
-        self.assertEqual(all_cells[1].text, 'ID: MI0000248')
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b3Table')))#waits until the results are displayed on the page 
-        #find the results table
-        results_table = self.driver.find_element(By.ID, 'b3Table')
-        table = Table(results_table)
-        #Iterate the first row of data to find the Why did this match? column of the table
-        all_cells = table.get_column_cells('Why did this match?')
-        print(all_cells[1].text)
-        #asserts that the Why did this match? data is correct for the ID searched
-        self.assertEqual(all_cells[1].text, 'miRNA gene: MGI:2676880') 
-
     def test_allele_id(self):
         """
         @status: Tests that an allele ID(knockout) brings back the proper information
@@ -835,7 +1225,7 @@ class TestSearchTool(unittest.TestCase):
         # put your Allele ID in the quick search box
         searchbox.send_keys("MGI:2156651")
         searchbox.send_keys(Keys.RETURN)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b3Table')))#waits until the results are displayed on the page 
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b1Table')))#waits until the results are displayed on the page 
         #find the results table
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
@@ -844,15 +1234,6 @@ class TestSearchTool(unittest.TestCase):
         print(all_cells[1].text)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(all_cells[1].text, 'ID: MGI:2156651')
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b3Table')))#waits until the results are displayed on the page 
-        #find the results table
-        results_table = self.driver.find_element(By.ID, 'b3Table')
-        table = Table(results_table)
-        #Iterate the first row of data to find the Why did this match? column of the table
-        all_cells = table.get_column_cells('Why did this match?')
-        print(all_cells[1].text)
-        #asserts that the Why did this match? data is correct for the ID searched
-        self.assertEqual(all_cells[1].text, 'Targeted: MGI:2156651')
 
     def test_escellline_igtc_id(self):
         """
@@ -872,7 +1253,7 @@ class TestSearchTool(unittest.TestCase):
         all_cells = table.get_column_cells('Best Match')
         print(all_cells[1].text)
         #asserts that the Best Match data is correct for the ID searched
-        self.assertEqual(all_cells[1].text, 'symbol: PhbGt(BGB069)Byg')
+        self.assertEqual(all_cells[1].text, 'Name: gene trap BGB069, BayGenomics')
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b3Table')))#waits until the results are displayed on the page 
         #find the results table
         results_table = self.driver.find_element(By.ID, 'b3Table')
@@ -901,7 +1282,7 @@ class TestSearchTool(unittest.TestCase):
         all_cells = table.get_column_cells('Best Match')
         print(all_cells[1].text)
         #asserts that the Best Match data is correct for the ID searched
-        self.assertEqual(all_cells[1].text, 'symbol: Slc9a3r2Gt(OST2298)Lex')
+        self.assertEqual(all_cells[1].text, 'Symbol: Slc9a3r2Gt(OST2298)Lex')
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b3Table')))#waits until the results are displayed on the page 
         #find the results table
         results_table = self.driver.find_element(By.ID, 'b3Table')
@@ -911,46 +1292,6 @@ class TestSearchTool(unittest.TestCase):
         print(all_cells[1].text)
         #asserts that the Why did this match? data is correct for the ID searched
         self.assertEqual(all_cells[1].text, 'Sequence: OST2298')
-
-
-    def test_ncbi_id(self):
-        """
-        @status: Tests that a NCBI ID brings back the proper information
-        """
-        driver = self.driver
-        driver.get(config.TEST_URL)
-        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
-        # put your NCBI ID in the quick search box
-        searchbox.send_keys("20423")
-        searchbox.send_keys(Keys.RETURN)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b3Table')))#waits until the results are displayed on the page 
-        #find the results table
-        results_table = self.driver.find_element(By.ID, 'b1Table')
-        table = Table(results_table)
-        #Iterate the first row of data to find the Why did this match? column of the table
-        all_cells = table.get_column_cells('Best Match')
-        print(all_cells[1].text)
-        print(all_cells[5].text)
-        #asserts that the Best Match data is correct for the ID searched
-        self.assertEqual(all_cells[1].text, 'ID: 20423')
-        self.assertEqual(all_cells[2].text, 'ID: 20423')
-        self.assertEqual(all_cells[3].text, 'symbol: Gm20423')
-        self.assertEqual(all_cells[4].text, 'synonym: CGI20423')
-        self.assertEqual(all_cells[5].text, 'name: transcription start site region 20423')
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b3Table')))#waits until the results are displayed on the page 
-        #find the results table
-        results_table = self.driver.find_element(By.ID, 'b3Table')
-        table = Table(results_table)
-        #Iterate the first row of data to find the Why did this match? column of the table
-        all_cells = table.get_column_cells('Why did this match?')
-        print(all_cells[1].text)
-        print(all_cells[5].text)
-        #asserts that the Why did this match? data is correct for the ID searched
-        self.assertEqual(all_cells[1].text, 'protein coding gene: MGI:98297')
-        self.assertEqual(all_cells[2].text, 'protein coding gene: MGI:102805') 
-        self.assertEqual(all_cells[3].text, 'Reference: J:20423')
-        self.assertEqual(all_cells[4].text, 'Homology Class: 20423')
-        self.assertEqual(all_cells[5].text, 'Sequence: 20423')
 
     def test_probe_id(self):
         """
@@ -972,7 +1313,6 @@ class TestSearchTool(unittest.TestCase):
         #asserts that the Why did this match? data is correct for the ID searched
         self.assertEqual(all_cells[1].text, 'Probe/Clone: MGI:10980')
         
-
     def test_mgc_clone_id(self):
         """
         @status: Tests that an MGC Clone ID brings back the proper information
@@ -1022,7 +1362,6 @@ class TestSearchTool(unittest.TestCase):
     def test_mouse_anat_id(self):
         """
         @status: Tests that an Adult Mouse Anatomy ID brings back the proper information
-        @attention: data display issue for new quick search
         """
         driver = self.driver
         driver.get(config.TEST_URL)
@@ -1038,12 +1377,11 @@ class TestSearchTool(unittest.TestCase):
         all_cells = table.get_column_cells('Why did this match?')
         print(all_cells[1].text)
         #asserts that the Why did this match? data is correct for the ID searched
-        self.assertEqual(all_cells[1].text, 'MA:: MA:0000168')
+        self.assertEqual(all_cells[1].text, 'ID: MA:0000168')
 
     def test_mp_id(self):
         """
         @status: Tests that an MP ID brings back the proper information
-        @attention: problem with double colons on new search query form
         """
         driver = self.driver
         driver.get(config.TEST_URL)
@@ -1051,15 +1389,15 @@ class TestSearchTool(unittest.TestCase):
         # put your MP ID in the quick search box
         searchbox.send_keys("MP:0002089")
         searchbox.send_keys(Keys.RETURN)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b3Table')))#waits until the results are displayed on the page 
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b2Table')))#waits until the results are displayed on the page 
         #find the results table
-        results_table = self.driver.find_element(By.ID, 'b3Table')
+        results_table = self.driver.find_element(By.ID, 'b2Table')
         table = Table(results_table)
-        #Iterate the first row of data to find the Why did this match? column of the table
-        all_cells = table.get_column_cells('Why did this match?')
+        #Iterate the first row of data to find the best match column of the table
+        all_cells = table.get_column_cells('Best match')
         print(all_cells[1].text)
         #asserts that the Why did this match? data is correct for the ID searched
-        self.assertEqual(all_cells[1].text, 'MP:: MP:0002089')
+        self.assertEqual(all_cells[1].text, 'Mammalian Phenotype: MP:0002089')
 
     def test_antibody_id(self):
         """
@@ -1084,7 +1422,7 @@ class TestSearchTool(unittest.TestCase):
     def test_proteoform_id(self):
         """
         @status: Tests that a Proteoform ID brings back the proper information
-        @attention: problem with double colons in new quick search page
+        @attention: new QS this test is broken.
         """
         driver = self.driver
         driver.get(config.TEST_URL)
@@ -1105,7 +1443,7 @@ class TestSearchTool(unittest.TestCase):
     def test_do_id(self):
         """
         @status: Tests that a Disease Ontology ID brings back the proper information
-        @attention: double colon issue, data is different from old QS form
+        @attention: data is different from old QS form
         """
         driver = self.driver
         driver.get(config.TEST_URL)
@@ -1113,7 +1451,7 @@ class TestSearchTool(unittest.TestCase):
         # put your Proteoform ID in the quick search box
         searchbox.send_keys("DOID:1700")
         searchbox.send_keys(Keys.RETURN)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b3Table')))#waits until the results are displayed on the page 
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b2Table')))#waits until the results are displayed on the page 
         #find the results table
         results_table = self.driver.find_element(By.ID, 'b2Table')
         table = Table(results_table)
@@ -1121,16 +1459,8 @@ class TestSearchTool(unittest.TestCase):
         all_cells = table.get_column_cells('Best Match')
         print(all_cells[1].text)
         #asserts that the Why did this match? data is correct for the ID searched
-        self.assertEqual(all_cells[1].text, 'ID: DOID:1700')
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b3Table')))#waits until the results are displayed on the page 
-        #find the results table
-        results_table = self.driver.find_element(By.ID, 'b3Table')
-        table = Table(results_table)
-        #Iterate the first row of data to find the Why did this match? column of the table
-        all_cells = table.get_column_cells('Why did this match?')
-        print(all_cells[1].text)
-        #asserts that the Why did this match? data is correct for the ID searched
-        self.assertEqual(all_cells[1].text, 'DOID:: DOID:1700')
+        self.assertEqual(all_cells[1].text, 'Disease Ontology: DOID:1700')
+        
 
     def test_strain_id(self):
         """

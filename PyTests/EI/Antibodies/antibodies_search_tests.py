@@ -27,9 +27,9 @@ from util.table import Table
 
 # Tests
 
-class TestEIAntigenSearch(unittest.TestCase):
+class TestEIAntibodySearch(unittest.TestCase):
     """
-    @status Test Antigen searching, etc
+    @status Test Antibody searching, etc
     """
 
     def setUp(self):
@@ -111,10 +111,16 @@ class TestEIAntigenSearch(unittest.TestCase):
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
+        cell2 = table.get_row_cells(1)
+        cell3 = table.get_row_cells(2)
         symbol1 = iterate.getTextAsList(cell1)
+        symbol2 = iterate.getTextAsList(cell2)
+        symbol3 = iterate.getTextAsList(cell3)
         print(symbol1)
         #Assert the correct antibody is returned
-        self.assertEqual(symbol1, ['121'])
+        self.assertEqual(symbol1, ['11C7'])
+        self.assertEqual(symbol2, ['121'])
+        self.assertEqual(symbol3, ['12/21/1-C-6'])
         
     def testAntibodyClassSearch(self):
         """
@@ -718,13 +724,10 @@ class TestEIAntigenSearch(unittest.TestCase):
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
-        cell2 = table.get_row_cells(1)
         symbol1 = iterate.getTextAsList(cell1)
-        symbol2 = iterate.getTextAsList(cell2)
         print(symbol1)
         #Assert the correct antibodies are returned
-        self.assertEqual(symbol1, ['anti-Vdac1'])
-        self.assertEqual(symbol2, ['serum 231'])  
+        self.assertEqual(symbol1, ['serum 231'])
         
     def testAntibodyRefJnumberSearch(self):
         """
@@ -1258,7 +1261,7 @@ class TestEIAntigenSearch(unittest.TestCase):
         
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestEIAntigenSearch))
+    suite.addTest(unittest.makeSuite(TestEIAntibodySearch))
     return suite
 
 if __name__ == '__main__':

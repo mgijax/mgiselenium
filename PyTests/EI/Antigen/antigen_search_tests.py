@@ -495,8 +495,8 @@ class TestEIAntigenSearch(unittest.TestCase):
         print(symbol1)
         #Assert the correct antigen is returned
         self.assertEqual(symbol1, ['CAII'])
-        self.assertEqual(symbol2, ['L1 antigen'])    
-        self.assertEqual(symbol3, ['L1cam'])
+        self.assertEqual(symbol2, ['glycoprotein'])    
+        self.assertEqual(symbol3, ['L1 antigen'])
         
     def testAntigenAgeRangeSearch(self):
         """
@@ -701,7 +701,7 @@ class TestEIAntigenSearch(unittest.TestCase):
         #find the Search button and click it
         driver.find_element_by_id('searchButton').click()
         #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'ephrin-B1'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'EphA4'))
         #find the Modification Date field
         mod_date = driver.find_element_by_id('modificationDate').get_attribute('value')
         print(mod_date)

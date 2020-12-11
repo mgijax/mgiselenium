@@ -180,11 +180,12 @@ class TestEiVariantSearch(unittest.TestCase):
         print (symbols[0])
         #assert some of the correct symbols are returned
         self.assertEqual(symbols[0], 'Ace2<em2Shyy>', 'symbol0 is wrong')
-        self.assertEqual(symbols[1], 'Arhgap36<em1Seul>', 'symbol0 is wrong')
-        self.assertEqual(symbols[2], 'Arx<tm2Kki>', 'symbol0 is wrong')
-        self.assertEqual(symbols[3], 'Arx<tm3Kki>', 'symbol1 is wrong')
-        self.assertEqual(symbols[4], 'Arx<tm4Kki>', 'symbol2 is wrong')
-        self.assertEqual(symbols[5], 'Arx<tm5Kki>', 'symbol3 is wrong')
+        self.assertEqual(symbols[1], 'Arhgap36<em1Seul>', 'symbol1 is wrong')
+        self.assertEqual(symbols[2], 'Armcx4<C57BL/6N>', 'symbol2 is wrong')
+        self.assertEqual(symbols[3], 'Arx<tm2Kki>', 'symbol3 is wrong')
+        self.assertEqual(symbols[4], 'Arx<tm3Kki>', 'symbol4 is wrong')
+        self.assertEqual(symbols[5], 'Arx<tm4Kki>', 'symbol5 is wrong')
+        self.assertEqual(symbols[6], 'Arx<tm5Kki>', 'symbol6 is wrong')
 
     def testVarStrandSearch(self):
         """

@@ -117,8 +117,8 @@ class TestEIAlleleSearch(unittest.TestCase):
         print(symbol1)
         print(symbol2)
         #Assert the correct allele symbol is returned
-        self.assertEqual(symbol1, ['Espn<+>'])
-        self.assertEqual(symbol2, ['Espn<je>'])
+        self.assertEqual(symbol1, ['Espn<spdz>'])
+        self.assertEqual(symbol2, ['Espn<+>'])
         
         
     def testAlleleMrkJnumSearch(self):
@@ -208,7 +208,7 @@ class TestEIAlleleSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Allele Symbol field and enters a symbol w/wildcard, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("symbol").send_keys('Acp1%')
+        driver.find_element_by_id("symbol").send_keys('Pax6<Gt%')
         #finds the Marker status field and select the option 'loaded'value=string:4268544, tabs out of the field then clicks the Search button
         Select(driver.find_element_by_id("markerAlleleStatus")).select_by_value('string:4268544')
         time.sleep(2)
@@ -219,16 +219,16 @@ class TestEIAlleleSearch(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         #time.sleep(10)
         #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Acp1<Gt(RRK222)Byg>'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Pax6<Gt(IST14982A1)Tigm>'))
         #find the search results table
         results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
-        cell1 = table.get_row_cells(0)
-        symbol1 = iterate.getTextAsList(cell1)
-        print(symbol1)
+        cell5 = table.get_row_cells(4)
+        symbol5 = iterate.getTextAsList(cell5)
+        print(symbol5)
         #Assert the correct allele symbol is returned, this is first and only result
-        self.assertEqual(symbol1, ['Acp1<Gt(RRK222)Byg>'])  
+        self.assertEqual(symbol5, ['Pax6<Gt(IST14982A1)Tigm>'])  
 
     def testAlleleStatusSearch(self):
         """
@@ -296,7 +296,7 @@ class TestEIAlleleSearch(unittest.TestCase):
         driver = self.driver
         #finds the Allele Symbol field and enters a symbol w/wildcard, tabs out of the field then clicks the Search button
         driver.find_element_by_id("symbol").send_keys('and%')
-        #finds the Allele genration field and select the option 'Chemically and Radiation induced'value=string:847124, tabs out of the field then clicks the Search button
+        #finds the Allele generation field and select the option 'Chemically and Radiation induced'value=string:847124, tabs out of the field then clicks the Search button
         Select(driver.find_element_by_id("alleleType")).select_by_value('string:847124')
         time.sleep(2)
         actions = ActionChains(driver) 
@@ -947,8 +947,8 @@ class TestEIAlleleSearch(unittest.TestCase):
         @see pwi-allele-search-35
         """
         driver = self.driver
-        #finds the Other ACC IDs pulldown and select the option 'KOMP regenron project'value=string:125, tabs out of the field then clicks the Search button
-        Select(driver.find_element_by_id("logicaldb")).select_by_value('string:125')
+        #finds the Other ACC IDs pulldown and select the option 'KOMP regeneron project'value=string:125, tabs out of the field then clicks the Search button
+        Select(driver.find_element_by_id("logicaldb-0")).select_by_value('string:125')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -982,7 +982,7 @@ class TestEIAlleleSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Other ACC IDs pulldown and select the option 'KOMP CSD project'value=string:126, tabs out of the field then clicks the Search button
-        Select(driver.find_element_by_id("logicaldb")).select_by_value('string:126')
+        Select(driver.find_element_by_id("logicaldb-0")).select_by_value('string:126')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -1020,7 +1020,7 @@ class TestEIAlleleSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Other ACC IDs pulldown and select the option 'NorCOMM project'value=string:143, tabs out of the field then clicks the Search button
-        Select(driver.find_element_by_id("logicaldb")).select_by_value('string:143')
+        Select(driver.find_element_by_id("logicaldb-0")).select_by_value('string:143')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -1054,7 +1054,7 @@ class TestEIAlleleSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Other ACC IDs pulldown and select the option 'EUCOMM project'value=string:138, tabs out of the field then clicks the Search button
-        Select(driver.find_element_by_id("logicaldb")).select_by_value('string:138')
+        Select(driver.find_element_by_id("logicaldb-0")).select_by_value('string:138')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -1088,7 +1088,7 @@ class TestEIAlleleSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Other ACC IDs pulldown and select the option 'Genentech'value=string:162, tabs out of the field then clicks the Search button
-        Select(driver.find_element_by_id("logicaldb")).select_by_value('string:162')
+        Select(driver.find_element_by_id("logicaldb-0")).select_by_value('string:162')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -1122,7 +1122,7 @@ class TestEIAlleleSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Other ACC IDs pulldown and select the option 'mirKO Project'value=string:166, tabs out of the field then clicks the Search button
-        Select(driver.find_element_by_id("logicaldb")).select_by_value('string:166')
+        Select(driver.find_element_by_id("logicaldb-0")).select_by_value('string:166')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -1152,7 +1152,7 @@ class TestEIAlleleSearch(unittest.TestCase):
     def testAlleleMrkJnumValidSearch(self):
         """
         @Status tests that a basic allele marker symbol J number Validation works. If enter incorrect J number should get a popup message
-        @see pwi-allele-search-41
+        @see pwi-allele-search-41 
         """
         driver = self.driver
         #finds the Marker J number field and enters a J number, tabs out of the field then clicks the Search button
@@ -1167,13 +1167,14 @@ class TestEIAlleleSearch(unittest.TestCase):
         #get the text from the alert
         alert_text = alert.text
         print(alert_text)
+        alert.accept()
         #check alert text
         self.assertEqual('Invalid Reference: 00000', alert_text)
 
     def testAlleleJnumValidSearch(self):
         """
         @Status tests that a basic allele  J number Validation works. If enter incorrect J number should get a popup message
-        @see pwi-allele-search-42
+        @see pwi-allele-search-42 
         """
         driver = self.driver
         #finds the Allele J number field and enters a J number, tabs out of the field then clicks the Search button
@@ -1188,13 +1189,14 @@ class TestEIAlleleSearch(unittest.TestCase):
         #get the text from the alert
         alert_text = alert.text
         print(alert_text)
+        alert.accept()
         #check alert text
         self.assertEqual('Invalid Reference: 00000', alert_text)
 
     def testAlleleMutantcellineValidSearch(self):
         """
         @Status tests that a basic allele Mutant Cell Line Validation works. If enter incorrect should get a popup message
-        @see pwi-allele-search-43
+        @see pwi-allele-search-43 
         """
         driver = self.driver
         #finds the Allele J number field and enters a J number, tabs out of the field then clicks the Search button
@@ -1209,13 +1211,14 @@ class TestEIAlleleSearch(unittest.TestCase):
         #get the text from the alert
         alert_text = alert.text
         print(alert_text)
+        alert.accept()
         #check alert text
         self.assertEqual(alert_text, 'Invalid Mutant Cell Line: test')
 
     def testAlleleParentcellineValidSearch(self):
         """
         @Status tests that a basic allele Parent Cell Line Validation works. If enter incorrect should get a popup message
-        @see pwi-allele-search-44
+        @see pwi-allele-search-44 
         """
         driver = self.driver
         #finds the Allele J number field and enters a J number, tabs out of the field then clicks the Search button
@@ -1230,6 +1233,7 @@ class TestEIAlleleSearch(unittest.TestCase):
         #get the text from the alert
         alert_text = alert.text
         print(alert_text)
+        alert.accept()
         #check alert text
         self.assertEqual('Invalid Parent Cell Line: test', alert_text)
 
@@ -1302,14 +1306,13 @@ class TestEIAlleleSearch(unittest.TestCase):
         actions.perform()
         time.sleep(2)
         #finds the Attribute pulldown and select the option 'Endonuclease'value=string:38853195, tabs out of the field then clicks the Search button
-        Select(driver.find_element_by_id("subtype")).select_by_value('string:38853195')
+        Select(driver.find_element_by_id("subtype-0")).select_by_value('string:38853195')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
-        time.sleep(2)
+        time.sleep(3)
         driver.find_element_by_id('searchButton').click()
-        #time.sleep(5)
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Igs2<tm1.1(CAG-cas9*)Mmw>'))
         #find the search results table
@@ -1322,7 +1325,7 @@ class TestEIAlleleSearch(unittest.TestCase):
         #Assert the correct allele symbol is returned, this is the only result
         self.assertEqual(symbol1, ['Igs2<tm1.1(CAG-cas9*)Mmw>'])
         #verify the correct option for attribute is selected 
-        select = Select(driver.find_element_by_id('subtype'))
+        select = Select(driver.find_element_by_id('subtype-0'))
         selected_option = select.first_selected_option
         print (selected_option.text)
         self.assertEqual(selected_option.text, 'Endonuclease') 
@@ -1334,14 +1337,13 @@ class TestEIAlleleSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Attribute pulldown and select the option 'Transposase'value=string:11025590, tabs out of the field then clicks the Search button
-        Select(driver.find_element_by_id("subtype")).select_by_value('string:11025590')
+        Select(driver.find_element_by_id("subtype-0")).select_by_value('string:11025590')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element_by_id('searchButton').click()
-        #time.sleep(5)
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Tg(Prm-sb10)2Tcb'))
         #find the search results table
@@ -1354,7 +1356,7 @@ class TestEIAlleleSearch(unittest.TestCase):
         #Assert the correct allele symbol is returned, this is the only result
         self.assertEqual(symbol1, ['Tg(Prm-sb10)2Tcb'])
         #verify the correct option for attribute is selected 
-        select = Select(driver.find_element_by_id('subtype'))
+        select = Select(driver.find_element_by_id('subtype-0'))
         selected_option = select.first_selected_option
         print (selected_option.text)
         self.assertEqual(selected_option.text, 'Transposase') 
@@ -1373,7 +1375,7 @@ class TestEIAlleleSearch(unittest.TestCase):
         actions.perform()
         time.sleep(2)
         #finds the Molecular Mutations pulldown and select the option 'Nucleotide repeat expansion'value=string:847100, tabs out of the field then clicks the Search button
-        Select(driver.find_element_by_id("mutation")).select_by_value('string:847100')
+        Select(driver.find_element_by_id("mutation-0")).select_by_value('string:847100')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -1393,7 +1395,7 @@ class TestEIAlleleSearch(unittest.TestCase):
         #Assert the correct allele symbol is returned, this is the only result
         self.assertEqual(symbol1, ['Fmr1<tm2Cgr>'])
         #verify the correct option for molecular mutation is selected 
-        select = Select(driver.find_element_by_id('mutation'))
+        select = Select(driver.find_element_by_id('mutation-0'))
         selected_option = select.first_selected_option
         print (selected_option.text)
         self.assertEqual(selected_option.text, 'Nucleotide repeat expansion') 
@@ -1405,7 +1407,7 @@ class TestEIAlleleSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Molecular Mutations pulldown and select the option 'Viral insertion'value=string:847108, tabs out of the field then clicks the Search button
-        Select(driver.find_element_by_id("mutation")).select_by_value('string:847108')
+        Select(driver.find_element_by_id("mutation-0")).select_by_value('string:847108')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -1425,7 +1427,7 @@ class TestEIAlleleSearch(unittest.TestCase):
         #Assert the correct allele symbol is returned, this is the only result
         self.assertEqual(symbol1, ['Afg3l2<Emv66>'])
         #verify the correct option for molecular mutation is selected 
-        select = Select(driver.find_element_by_id('mutation'))
+        select = Select(driver.find_element_by_id('mutation-0'))
         selected_option = select.first_selected_option
         print (selected_option.text) 
         self.assertEqual(selected_option.text, 'Viral insertion') 

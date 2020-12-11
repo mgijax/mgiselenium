@@ -471,11 +471,11 @@ class TestEIMCLSearch(unittest.TestCase):
     def testMclAccNameWildSearch(self):
         """
         @Status tests that a basic Acc Name search w/wildcard works
-        @see pwi-antigen-search-13
+        @see pwi-antigen-search-13 
         """
         driver = self.driver
         #finds the cell line field and enters a description w/wildcard, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("accName-0").send_keys('E209G0% ')
+        driver.find_element_by_id("accName-0").send_keys('E209G0%')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -546,7 +546,7 @@ class TestEIMCLSearch(unittest.TestCase):
         #find the Search button and click it
         driver.find_element_by_id('searchButton').click()
         #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), '5-HTT'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Not Specified'))
         #find the Created by field
         create_by = driver.find_element_by_id('createdBy').get_attribute('value')
         print(create_by)
@@ -556,7 +556,7 @@ class TestEIMCLSearch(unittest.TestCase):
         create_date = driver.find_element_by_id('creationDate').get_attribute('value')
         print(create_date)
         #Assert the  Creation Date field returned is correct 
-        self.assertEqual(create_date, '2020-06-18')
+        self.assertEqual(create_date, '2009-10-07')
 
     def testAntigenModBySearch(self):
         """
@@ -565,21 +565,21 @@ class TestEIMCLSearch(unittest.TestCase):
         """
         driver = self.driver
         #find the alleles Modified by field and enter the name
-        driver.find_element_by_id("modifiedBy").send_keys("terryh")
+        driver.find_element_by_id("modifiedBy").send_keys("monikat")
         #find the Search button and click it
         driver.find_element_by_id('searchButton').click()
         #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), '921-L'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'N01359P1_C_97W_B2'))
         #find the Modified by field
         mod_by = driver.find_element_by_id('modifiedBy').get_attribute('value')
         print(mod_by)
         #Assert the  Modified By field returned is correct 
-        self.assertEqual(mod_by, 'terryh')
+        self.assertEqual(mod_by, 'monikat')
         #find the Modification Date field
         mod_date = driver.find_element_by_id('modificationDate').get_attribute('value')
         print(mod_date)
         #Assert the Modification Date field returned is correct 
-        self.assertEqual(mod_date, '2015-06-23')
+        self.assertEqual(mod_date, '2015-01-07')
 
     def testAntigenCreateDateSearch(self):
         """
@@ -592,7 +592,7 @@ class TestEIMCLSearch(unittest.TestCase):
         #find the Search button and click it
         driver.find_element_by_id('searchButton').click()
         #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'M-cadherin'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Not Specified'))
         create_date = driver.find_element_by_id('creationDate').get_attribute('value')
         print(create_date)
         #Assert the  Creation Date field returned is correct 
@@ -609,7 +609,7 @@ class TestEIMCLSearch(unittest.TestCase):
         #find the Search button and click it
         driver.find_element_by_id('searchButton').click()
         #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'ephrin-B1'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Not Specified'))
         #find the Modification Date field
         mod_date = driver.find_element_by_id('modificationDate').get_attribute('value')
         print(mod_date)
@@ -623,21 +623,21 @@ class TestEIMCLSearch(unittest.TestCase):
         """
         driver = self.driver
         #find the antigen Modification Date field and enter a date
-        driver.find_element_by_id("modificationDate").send_keys("<1998-09-14")
+        driver.find_element_by_id("modificationDate").send_keys("<2006-01-01")
         #find the Search button and click it
         driver.find_element_by_id('searchButton').click()
         #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Syk'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Ex54'))
         #find the Modified by field
         mod_by = driver.find_element_by_id('modifiedBy').get_attribute('value')
         print(mod_by)
         #Assert the  Modified By field returned is correct 
-        self.assertEqual(mod_by, 'dbo')
+        self.assertEqual(mod_by, 'csmith')
         #find the Modification Date field
         mod_date = driver.find_element_by_id('modificationDate').get_attribute('value')
         print(mod_date)
         #Assert the Modification Date field returned is correct 
-        self.assertEqual(mod_date, '1998-08-10')
+        self.assertEqual(mod_date, '2005-06-02')
 
     def testAntigenModDateLessEqualSearch(self):
         """
@@ -646,21 +646,21 @@ class TestEIMCLSearch(unittest.TestCase):
         """
         driver = self.driver
         #find the antigen Modification Date field and enter a date
-        driver.find_element_by_id("modificationDate").send_keys("<=1998-09-14")
+        driver.find_element_by_id("modificationDate").send_keys("<=2005-06-02")
         #find the Search button and click it
         driver.find_element_by_id('searchButton').click()
         #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Syk'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Ex54'))
         #find the Modified by field
         mod_by = driver.find_element_by_id('modifiedBy').get_attribute('value')
         print(mod_by)
         #Assert the  Modified By field returned is correct 
-        self.assertEqual(mod_by, 'dbo')
+        self.assertEqual(mod_by, 'csmith')
         #find the Modification Date field
         mod_date = driver.find_element_by_id('modificationDate').get_attribute('value')
         print(mod_date)
         #Assert the Modification Date field returned is correct 
-        self.assertEqual(mod_date, '1998-09-14')
+        self.assertEqual(mod_date, '2005-06-02')
 
     def testAntigenModDateBetweenSearch(self):
         """
@@ -669,21 +669,21 @@ class TestEIMCLSearch(unittest.TestCase):
         """
         driver = self.driver
         #find the antigen Modification Date field and enter a date
-        driver.find_element_by_id("modificationDate").send_keys("1998-08-04..1998-08-10")
+        driver.find_element_by_id("modificationDate").send_keys("2005-05-09..2005-06-02")
         #find the Search button and click it
         driver.find_element_by_id('searchButton').click()
         #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Syk'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Ex54'))
         #find the Modified by field
         mod_by = driver.find_element_by_id('modifiedBy').get_attribute('value')
         print(mod_by)
         #Assert the  Modified By field returned is correct 
-        self.assertEqual(mod_by, 'dbo')
+        self.assertEqual(mod_by, 'csmith')
         #find the Modification Date field
         mod_date = driver.find_element_by_id('modificationDate').get_attribute('value')
         print(mod_date)
         #Assert the Modification Date field returned is correct 
-        self.assertEqual(mod_date, '1998-08-10')
+        self.assertEqual(mod_date, '2005-06-02')
 
     def testAntigenCreateDateLessSearch(self):
         """
@@ -692,15 +692,15 @@ class TestEIMCLSearch(unittest.TestCase):
         """
         driver = self.driver
         #find the antigen Creation Date field and enter a date
-        driver.find_element_by_id("creationDate").send_keys("<1998-06-23")
+        driver.find_element_by_id("creationDate").send_keys("<2005-05-10")
         #find the Search button and click it
         driver.find_element_by_id('searchButton').click()
         #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'uvomorulin'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'A006B04'))
         create_date = driver.find_element_by_id('creationDate').get_attribute('value')
         print(create_date)
         #Assert the  Creation Date field returned is correct 
-        self.assertEqual(create_date, '1998-06-22')
+        self.assertEqual(create_date, '2005-05-09')
 
     def testAntigenCreateDateLessEqualSearch(self):
         """
@@ -709,15 +709,15 @@ class TestEIMCLSearch(unittest.TestCase):
         """
         driver = self.driver
         #find the alleles Creation Date field and enter a date
-        driver.find_element_by_id("creationDate").send_keys("<=1998-06-23")
+        driver.find_element_by_id("creationDate").send_keys("<=2005-06-02")
         #find the Search button and click it
         driver.find_element_by_id('searchButton').click()
         #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'uvomorulin'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'A006B04'))
         create_date = driver.find_element_by_id('creationDate').get_attribute('value')
         print(create_date)
         #Assert the  Creation Date field returned is correct 
-        self.assertEqual(create_date, '1998-06-22')
+        self.assertEqual(create_date, '2005-05-09')
 
     def testAntigenCreateDateBetweenSearch(self):
         """
@@ -726,22 +726,22 @@ class TestEIMCLSearch(unittest.TestCase):
         """
         driver = self.driver
         #find the antigen Creation Date field and enter a date
-        driver.find_element_by_id("creationDate").send_keys("1998-06-22..1998-07-09")
+        driver.find_element_by_id("creationDate").send_keys("2005-05-09..2005-06-02")
         #find the Search button and click it
         driver.find_element_by_id('searchButton').click()
         #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'uvomorulin'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'A006B04'))
         create_date = driver.find_element_by_id('creationDate').get_attribute('value')
         print(create_date)
         #Assert the  Creation Date field returned is correct 
-        self.assertEqual(create_date, '1998-07-09')
+        self.assertEqual(create_date, '2005-05-09')
 
 
 
         
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestEIAntigenSearch))
+    suite.addTest(unittest.makeSuite(TestEIMCLSearch))
     return suite
 
 if __name__ == '__main__':

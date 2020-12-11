@@ -103,7 +103,7 @@ class TestEiEmapaTreeView(unittest.TestCase):
         self.assertEqual(items[0].text, "cortical renal tubule")
         self.assertEqual(items[1].text, "Theiler Stages 22-28")
         self.assertEqual(items[2].text, "EMAPA:18976")
-        self.assertEqual(items[3].text, "kidney cortex tubule, renal cortex tubule")
+        self.assertEqual(items[3].text, 'kidney cortex tubule, renal cortex tubule')
         self.assertEqual(items[4].text.split("\n"), ["part-of developing capillary loop stage nephron group","part-of early nephron","part-of late tubule","part-of mature nephron","part-of maturing nephron","part-of renal cortex","part-of stage IV immature nephron"])
         
         stage24 = self.driver.find_element_by_id("stageList").find_element_by_link_text("24")

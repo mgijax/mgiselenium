@@ -431,8 +431,8 @@ class TestEiLitTriageSearch(unittest.TestCase):
                 option.click()
                 break
         form = self.form
+        form.enter_value('journal', 'Eur J Oral Sci')
         form.enter_value('year', '2019')
-        form.enter_value('journal', 'glia')
         form.click_search() 
         #Confirms that the MGI Discard box is checked(selected)
         self.driver.find_element_by_id("editTabIsDiscard").is_selected()

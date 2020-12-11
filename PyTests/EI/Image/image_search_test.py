@@ -458,10 +458,13 @@ class TestEiImageSearch(unittest.TestCase):
         @see pwi-image-search-12
         """
         driver = self.driver
+        #find the J# filed and enter the J number
+        driver.find_element_by_id("JNumID").send_keys('J:47')
         #finds the caption field and enter a wildcard search term then click the Search button
         driver.find_element_by_id("captionID").send_keys('%Magnification, 291 X%')
         driver.find_element_by_id('searchButton').click()
-        time.sleep(35)
+        time.sleep(2)
+        #WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.ID, "resultsCount")))
         #find the search results table
         results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
@@ -479,10 +482,12 @@ class TestEiImageSearch(unittest.TestCase):
         @see pwi-image-search-14
         """
         driver = self.driver
+        #find the J# filed and enter the J number
+        driver.find_element_by_id("JNumID").send_keys('J:190949')
         #finds the Copyright field and enter a wildcard term then click the Search button
         driver.find_element_by_id("copyrightID").send_keys('%vasc cell%')
         driver.find_element_by_id('searchButton').click()
-        time.sleep(35)
+        time.sleep(2)
         #find the search results table
         results_table = self.driver.find_element_by_id("resultsTable")
         table = Table(results_table)
@@ -852,7 +857,7 @@ class TestEiImageSearch(unittest.TestCase):
         self.assertEqual(cell0.text, 'J:2250; Full Size; 4')
         #Assert the copyright field is blank
         copyrgt = driver.find_element_by_id('copyrightID')
-        self.assertEqual(copyrgt.text, '')        
+        self.assertEqual(copyrgt.text, "                                ")         
 
     def testAccTypePaintSearch(self):
         """
@@ -978,10 +983,10 @@ class TestEiImageSearch(unittest.TestCase):
         @see pwi-image-search-30
         """
         driver = self.driver
-        #finds the Image Other Accession Ids pulldown and selects "Emage" option then click the Search button
+        #finds the Image Other Accession Ids pulldown and selects "Eurpexpress" option then click the Search button
         Select(driver.find_element_by_id("accidTypeID")).select_by_value('148')
         driver.find_element_by_id('searchButton').click()
-        time.sleep(10)
+        time.sleep(15)
         #wait = WebDriverWait(driver, 20)
         #element = wait.until(EC.text_to_be_present_in_element((By.ID, "resultsTable")));
         #element.view()

@@ -429,7 +429,7 @@ class TestEiMrkSearchHistory(unittest.TestCase):
     def testMGDAccIDSearch(self):
         """
         @Status tests that a basic Accession ID search using an MGD ID works
-        @see pwi-mrk-search-19(had to use MGI ID as old MGD IDs did not work)
+        @see pwi-mrk-search-19(had to use MGI ID as old MGD IDs did not work)!!Broken
         """
         driver = self.driver
         #finds the accession ID field, enters an ID and hits the search button
@@ -524,10 +524,10 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         self.assertEqual(cells[1].text, 'Clpx')
         self.assertEqual(cells[2].text, 'Csn1s1')
         self.assertEqual(cells[3].text, 'Csn1s2a')
-        self.assertEqual(cells[17].text, 'Csnka2ip')
-        self.assertEqual(cells[18].text, 'Csnk2a1-ps')
-        self.assertEqual(cells[19].text, 'Csnk2a1-ps1')
-        self.assertEqual(cells[20].text, 'Csnk2a3')
+        self.assertEqual(cells[18].text, 'Csnk2a1-ps2')
+        self.assertEqual(cells[19].text, 'Csnk2a1-ps3')
+        self.assertEqual(cells[20].text, 'Csnk2a1-ps4')
+        self.assertEqual(cells[21].text, 'Csn')
 
     #def testAccIDWildSearch(self):
         """
@@ -1149,7 +1149,7 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         driver.find_element_by_id('searchButton').click()
         #wait until the Reference table is displayed on the page    
         #wait.forAngular(self.driver)
-        time.sleep(10)
+        time.sleep(20)
         #find the Modified by column eighth row
         mod_by1 = driver.find_element_by_id('refAssocModifiedBy-8').get_attribute('value')
         print(mod_by1)
@@ -1194,8 +1194,8 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         #waits until the Reference table is displayed on the page    
         time.sleep(5)
         #find the reference results table type column
-        ref_type1 = driver.find_elements_by_id('refAssocType')[6].get_attribute('value')
-        ref_type2 = driver.find_elements_by_id('refAssocType')[7].get_attribute('value')        
+        ref_type1 = driver.find_elements_by_id('refAssocType')[7].get_attribute('value')
+        ref_type2 = driver.find_elements_by_id('refAssocType')[8].get_attribute('value')        
         print(ref_type1)
         #Assert the  synonym types returned are in the correct order
         self.assertEqual(ref_type1, 'string:1018')#string:1028  equals reference type general
