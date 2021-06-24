@@ -28,8 +28,8 @@ class TestStrainDetail(unittest.TestCase):
 
     def setUp(self):
     
-        #self.driver = webdriver.Firefox()
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Chrome()
         self.driver.get(config.TEST_URL + "/strains_SNPs.shtml")
         self.driver.implicitly_wait(10)
 
@@ -308,10 +308,10 @@ class TestStrainDetail(unittest.TestCase):
         driver.switch_to_window(self.driver.window_handles[-1])
         #Identify the page title
         time.sleep(3)
-        title = driver.find_element(By.CLASS_NAME, 'title')
+        title = driver.find_element(By.NAME, 'title')
         print(title.text)
         #verify the Page Title is correct
-        self.assertEqual(title.text, 'Genome View', 'page title is not correct!')   
+        self.assertEqual(title.text, 'Multiple Genome Viewer (MGV)', 'page title is not correct!')   
 
     def test_strain_mgv_link_canon_gene(self):
         """
@@ -337,10 +337,10 @@ class TestStrainDetail(unittest.TestCase):
         driver.switch_to_window(self.driver.window_handles[-1])
         #Identify the page title
         time.sleep(3)
-        title = driver.find_element(By.ID, 'genomeView')
+        title = driver.find_element(By.NAME, 'title')
         print(title.text)
         #verify the Page Title is correct
-        self.assertEqual(title.text, 'Genome View', 'page title is not correct!')   
+        self.assertEqual(title.text, 'Multiple Genome Viewer (MGV)', 'page title is not correct!')   
 
     def test_strain_alt_ids(self):
         """
@@ -933,13 +933,13 @@ class TestStrainDetail(unittest.TestCase):
         allele_cells = iterate.getTextAsList(cells)
         print(allele_cells)
         #verifies that the right alleles appear and in the correct order
-        self.assertEqual(allele_cells, ['Allele', 'CfcdBoulder', 'CfcdNorthport', 'OpfaBoulder','OpfaNorthport' ])
+        self.assertEqual(allele_cells, ['Allele', 'CfcdBoulder', 'OpfaBoulder' ])
         #print all items found in the Gene column of the QTL table
         cells1 = table.get_column_cells("Marker")
         gene_cells = iterate.getTextAsList(cells1)
         print(gene_cells)
         #verifies that the right genes appear and in the correct order
-        self.assertEqual(gene_cells, ['Marker', 'Cfcd', 'Cfcd', 'Opfa', 'Opfa'])  
+        self.assertEqual(gene_cells, ['Marker', 'Cfcd', 'Opfa'])  
 
     def test_strain_det_qtl_assocnum(self):
         """
@@ -1415,10 +1415,10 @@ class TestStrainDetail(unittest.TestCase):
         #switch focus to the new tab for strain detail page
         driver.switch_to_window(self.driver.window_handles[-1])
         #locates the earliest reference link and clicks it
-        driver.find_element(By.LINK_TEXT, 'J:84245').click()
+        driver.find_element(By.LINK_TEXT, 'J:22753').click()
         #time.sleep(2)
         #verify the J number J:6835 exists on this page
-        assert "J:84245" in self.driver.page_source        
+        assert "J:22753" in self.driver.page_source        
         
     def test_strain_ref_allref_link(self):
         """

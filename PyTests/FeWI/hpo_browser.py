@@ -21,7 +21,8 @@ import config
 class TestHPOBrowser(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Chrome() 
+        self.driver = webdriver.Firefox() 
+        #self.driver = webdriver.Chrome() 
 
     def test_parent_data(self):
         """
@@ -52,7 +53,7 @@ class TestHPOBrowser(unittest.TestCase):
         print([x.text for x in termList])
         
         # Heterogeneous should not be before the 10th item in the list
-        self.assertGreater(terms.index('Heterogeneous'), 10)
+        self.assertGreater(terms.index('Heterogeneous'), 9)
  
     def test_term_w_ofthe(self):
         """

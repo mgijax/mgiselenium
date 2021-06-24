@@ -20,8 +20,8 @@ class TestMarkerDetailLinks(unittest.TestCase):
 
 #Genes, Genome Features & Maps
     def setUp(self):
-        #self.driver = webdriver.Firefox() 
-        self.driver = webdriver.Chrome() 
+        self.driver = webdriver.Firefox() 
+        #self.driver = webdriver.Chrome() 
         #self.driver.get(config.WIKI_URL + "sw:WI_Pages_by_Software_Product")
         self.driver.get(config.WIKI_URL + "sw:WI_Pages_by_Software_Product_test")
 

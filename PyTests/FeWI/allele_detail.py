@@ -27,8 +27,8 @@ class TestAlleleDetail(unittest.TestCase):
 
 
     def setUp(self):
-        #self.driver = webdriver.Firefox()
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Chrome()
         self.driver.get(config.TEST_URL + "/allele/")
         #self.driver.get('http://scrumdogdev.informatics.jax.org/allele')
         self.driver.implicitly_wait(10)
@@ -262,7 +262,7 @@ class TestAlleleDetail(unittest.TestCase):
         
         self.assertEqual(mutagenetixlink.text, "incidental mutations")
         self.assertEqual(actualurl, config.TEST_URL + '/downloads/datasets/incidental_muts/Mutagenetix.xlsx')
-        self.driver.get(config.PUBLIC_URL + "/allele/")
+        self.driver.get(config.TEST_URL + "/allele/")
         
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('Irf7')
@@ -272,8 +272,8 @@ class TestAlleleDetail(unittest.TestCase):
         actualurl = self.driver.find_element(By.LINK_TEXT, 'incidental mutations').get_attribute('href')
         
         self.assertEqual(mutagenetixlink.text, "incidental mutations")
-        self.assertEqual(actualurl, config.PUBLIC_URL + '/downloads/datasets/incidental_muts/Mutagenetix.xlsx')
-        self.driver.get(config.PUBLIC_URL + "/allele/")
+        self.assertEqual(actualurl, config.TEST_URL + '/downloads/datasets/incidental_muts/Mutagenetix.xlsx')
+        self.driver.get(config.TEST_URL + "/allele/")
             
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('Col4a4')
@@ -283,8 +283,8 @@ class TestAlleleDetail(unittest.TestCase):
         actualurl = self.driver.find_element(By.LINK_TEXT, 'incidental mutations').get_attribute('href')
         
         self.assertEqual(mutagenetixlink.text, "incidental mutations")
-        self.assertEqual(actualurl, config.PUBLIC_URL + '/downloads/datasets/incidental_muts/Mutagenetix.xlsx')
-        self.driver.get(config.PUBLIC_URL + "/allele/")
+        self.assertEqual(actualurl, config.TEST_URL + '/downloads/datasets/incidental_muts/Mutagenetix.xlsx')
+        self.driver.get(config.TEST_URL + "/allele/")
         
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('Nfkbid')
@@ -294,8 +294,8 @@ class TestAlleleDetail(unittest.TestCase):
         actualurl = self.driver.find_element(By.LINK_TEXT, 'incidental mutations').get_attribute('href')
         
         self.assertEqual(mutagenetixlink.text, "incidental mutations")
-        self.assertEqual(actualurl, config.PUBLIC_URL + '/downloads/datasets/incidental_muts/Mutagenetix.xlsx')
-        self.driver.get(config.PUBLIC_URL + "/allele/")
+        self.assertEqual(actualurl, config.TEST_URL + '/downloads/datasets/incidental_muts/Mutagenetix.xlsx')
+        self.driver.get(config.TEST_URL + "/allele/")
         
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('Unc93b1')
@@ -305,8 +305,8 @@ class TestAlleleDetail(unittest.TestCase):
         actualurl = self.driver.find_element(By.LINK_TEXT, 'incidental mutations').get_attribute('href')
         
         self.assertEqual(mutagenetixlink.text, "incidental mutations")
-        self.assertEqual(actualurl, config.PUBLIC_URL + '/downloads/datasets/incidental_muts/Mutagenetix.xlsx')
-        self.driver.get(config.PUBLIC_URL + "/allele/")
+        self.assertEqual(actualurl, config.TEST_URL + '/downloads/datasets/incidental_muts/Mutagenetix.xlsx')
+        self.driver.get(config.TEST_URL + "/allele/")
     
     def test_allele_molecular_image_caption(self):
         '''
@@ -320,7 +320,7 @@ class TestAlleleDetail(unittest.TestCase):
         
         caption = self.driver.find_element(By.ID, 'mutationDescriptionTable').find_element(By.CSS_SELECTOR, 'span.small')
         self.assertTrue(caption.is_displayed(), 'the caption is not displaying')
-        self.driver.get(config.PUBLIC_URL + "/allele/")
+        self.driver.get(config.TEST_URL + "/allele/")
         
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('Supv3l1')
@@ -329,7 +329,7 @@ class TestAlleleDetail(unittest.TestCase):
         
         caption = self.driver.find_element(By.ID, 'mutationDescriptionTable').find_element(By.CSS_SELECTOR, 'span')
         self.assertTrue(caption.is_displayed(), 'the caption is not displaying')
-        self.driver.get(config.PUBLIC_URL + "/allele/")
+        self.driver.get(config.TEST_URL + "/allele/")
         
         #6.The correct image/caption is displayed to the left of the molecular image in the molecular description ribbon when more than one thumbnail exists for an allele.
         self.driver.find_element(By.NAME, 'nomen').clear()
@@ -380,7 +380,7 @@ class TestAlleleDetail(unittest.TestCase):
         collection = self.driver.find_element(By.ID, 'mutationOriginTable').find_elements(By.CSS_SELECTOR, 'td.padded')
         collitem = collection[5]
         self.assertEqual(collitem.text, "KOMP-Regeneron")
-        self.driver.get(config.PUBLIC_URL + "/allele/")
+        self.driver.get(config.TEST_URL + "/allele/")
         
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('Acan')
@@ -389,7 +389,7 @@ class TestAlleleDetail(unittest.TestCase):
         collection = self.driver.find_element(By.ID, 'mutationOriginTable').find_elements(By.CSS_SELECTOR, 'td.padded')
         collitem = collection[2]
         self.assertEqual(collitem.text, "B2B/CvDC")
-        self.driver.get(config.PUBLIC_URL + "/allele/")
+        self.driver.get(config.TEST_URL + "/allele/")
         
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('Adamts20')
@@ -398,7 +398,7 @@ class TestAlleleDetail(unittest.TestCase):
         collection = self.driver.find_element(By.ID, 'mutationOriginTable').find_elements(By.CSS_SELECTOR, 'td.padded')
         collitem = collection[2]
         self.assertEqual(collitem.text, "APF ENU Mutagenesis")
-        self.driver.get(config.PUBLIC_URL + "/allele/")
+        self.driver.get(config.TEST_URL + "/allele/")
         
         
         self.driver.find_element(By.NAME, 'nomen').clear()
@@ -408,7 +408,7 @@ class TestAlleleDetail(unittest.TestCase):
         collection = self.driver.find_element(By.ID, 'mutationOriginTable').find_elements(By.CSS_SELECTOR, 'td.padded')
         collitem = collection[4]
         self.assertEqual(collitem.text, "Neuroscience Blueprint cre")
-        self.driver.get(config.PUBLIC_URL + "/allele/")
+        self.driver.get(config.TEST_URL + "/allele/")
         
         
         self.driver.find_element(By.NAME, 'nomen').clear()
@@ -418,7 +418,7 @@ class TestAlleleDetail(unittest.TestCase):
         collection = self.driver.find_element(By.ID, 'mutationOriginTable').find_elements(By.CSS_SELECTOR, 'td.padded')
         collitem = collection[2]
         self.assertEqual(collitem.text, "GENSAT")
-        self.driver.get(config.PUBLIC_URL + "/allele/")
+        self.driver.get(config.TEST_URL + "/allele/")
         
         #Collection does not appear when the allele is not assigned to a collection. 
         self.driver.find_element(By.NAME, 'nomen').clear()
@@ -516,8 +516,8 @@ class TestAlleleDetail(unittest.TestCase):
         time.sleep(2)
         actualurl = self.driver.find_element(By.LINK_TEXT, 'breast cancer').get_attribute('href')
         
-        self.assertEqual(actualurl, 'http://test.informatics.jax.org/disease/DOID:1612')
-        self.driver.get(config.PUBLIC_URL + "/allele/")
+        self.assertEqual(actualurl, 'https://mgitest.jax.org/disease/DOID:1612')
+        self.driver.get(config.TEST_URL + "/allele/")
         
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('Trp53')
@@ -558,7 +558,7 @@ class TestAlleleDetail(unittest.TestCase):
         searchTreeItems = iterate.getTextAsList(items)
         
         self.assertEqual(["behavior/neurological", "tremors", "impaired balance", "impaired coordination", "abnormal gait", "short stride length", "cardiovascular system", "cardiovascular system phenotype", "hearing/vestibular/ear", "abnormal ear physiology", "mortality/aging", "perinatal lethality", "nervous system", "abnormal synaptic vesicle recycling", "abnormal excitatory postsynaptic currents"], searchTreeItems)
-        self.driver.get(config.PUBLIC_URL + "/allele/")    
+        self.driver.get(config.TEST_URL + "/allele/")    
         
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('Tg(ACTFLPe)9205Dym')
@@ -611,7 +611,7 @@ class TestAlleleDetail(unittest.TestCase):
         row_count = len(self.driver.find_elements(By.XPATH, "//table[@class='borderedTable']/tbody/tr"))
         #NOTE: 2 rows are  used for the header, so actual data rows would be 3
         self.assertEqual(5, row_count)
-        self.driver.get(config.PUBLIC_URL + "/allele/")
+        self.driver.get(config.TEST_URL + "/allele/")
         '''
         @todo Table needs an id to finish this test
         self.driver.find_element(By.NAME, 'nomen').clear()

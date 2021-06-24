@@ -23,8 +23,8 @@ from config import TEST_URL
 class TestSequenceSummaryPage(unittest.TestCase):
 
     def setUp(self):
-        #self.driver = webdriver.Firefox() 
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox() 
+        #self.driver = webdriver.Chrome()
     def test_table_headers(self):
         """
         @status: Tests that the Sequence Summary table headers are correct
@@ -93,7 +93,7 @@ class TestSequenceSummaryPage(unittest.TestCase):
         time.sleep(2)
         print(searchTextItems)
         #asserts that the rows of length data are in correct order
-        self.assertEqual(searchTextItems, ['ENSMUST00000018711\n  Ensembl\n  MGI Sequence Detail', 'ENSMUST00000144443\n  Ensembl\n  MGI Sequence Detail', 'ENSMUST00000108592\n  Ensembl\n  MGI Sequence Detail', 'ENSMUST00000139007\n  Ensembl\n  MGI Sequence Detail', 'NM_019749\n  RefSeq\n  MGI Sequence Detail', 'BC030350\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', 'BC002126\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', 'BC024621\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', 'AV029091\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', 'BC029329\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', 'AK002879\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', 'AK011731\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', 'AF161587\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', 'KY499680\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', 'AW124839\n  GenBank | EMBL | DDBJ\n  MGI Sequence Detail', 'ENSMUSG00000018567\n  Ensembl Gene Model\n  MGI Sequence Detail', '56486\n  NCBI Gene Model\n  MGI Sequence Detail', 'MGP_129S1SvImJ_G0018575\n  Ensembl\n  MGI Sequence Detail', 'MGP_WSBEiJ_G0017937\n  Ensembl\n  MGI Sequence Detail', 'MGP_NODShiLtJ_G0018423\n  Ensembl\n  MGI Sequence Detail', 'MGP_PWKPhJ_G0017657\n  Ensembl\n  MGI Sequence Detail', 'MGP_NZOHlLtJ_G0019008\n  Ensembl\n  MGI Sequence Detail', 'MGP_C3HHeJ_G0018328\n  Ensembl\n  MGI Sequence Detail', 'MGP_BALBcJ_G0018515\n  Ensembl\n  MGI Sequence Detail', 'MGP_C57BL6NJ_G0018966\n  Ensembl\n  MGI Sequence Detail'])
+        self.assertEqual(searchTextItems, ['ENSMUST00000018711\n  Ensembl\n  MGI Sequence Detail', 'ENSMUST00000144443\n  Ensembl\n  MGI Sequence Detail', 'ENSMUST00000108592\n  Ensembl\n  MGI Sequence Detail', 'ENSMUST00000139007\n  Ensembl\n  MGI Sequence Detail', 'NM_019749\n  RefSeq\n  MGI Sequence Detail', 'BC030350\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail', 'BC002126\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail', 'BC024621\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail', 'AV029091\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail', 'BC029329\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail', 'AK002879\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail', 'AK011731\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail', 'AF161587\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail', 'KY499680\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail', 'AW124839\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail', 'ENSMUSG00000018567\n  Ensembl Gene Model\n  MGI Sequence Detail', '56486\n  NCBI Gene Model\n  MGI Sequence Detail', 'MGP_129S1SvImJ_G0018575\n  Ensembl\n  MGI Sequence Detail', 'MGP_WSBEiJ_G0017937\n  Ensembl\n  MGI Sequence Detail', 'MGP_NODShiLtJ_G0018423\n  Ensembl\n  MGI Sequence Detail', 'MGP_PWKPhJ_G0017657\n  Ensembl\n  MGI Sequence Detail', 'MGP_NZOHlLtJ_G0019008\n  Ensembl\n  MGI Sequence Detail', 'MGP_C3HHeJ_G0018328\n  Ensembl\n  MGI Sequence Detail', 'MGP_BALBcJ_G0018515\n  Ensembl\n  MGI Sequence Detail', 'MGP_C57BL6NJ_G0018966\n  Ensembl\n  MGI Sequence Detail'])
         
         #finds the Length column and then iterates through all items
         lengthlist = driver.find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-length .yui-dt-liner')

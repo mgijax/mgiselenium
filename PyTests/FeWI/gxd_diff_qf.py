@@ -1,6 +1,7 @@
 '''
 Created on Feb 2, 2018
-These tests check the finctionality of the the GXD Differental query form
+These tests check the functionality of the the GXD Differental query form
+these tests need  to be worked on!!! none of them work right now5/20/2021
 @author: jeffc
 '''
 import unittest
@@ -24,26 +25,29 @@ class TestGxdDifferentialQF(unittest.TestCase):
 
 
     def setUp(self):
-        self.driver = webdriver.Chrome()
-        #self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox()
 
     def test_diff_wt_results(self):
         """
         @status: Tests that wild type results(broad definition) are excluded in results.(assays which are not associated with any allele pairs,
         or In Situ reporter(knock-in) assays associated with a single allele pair which is heterozygous wild type for the assayed gene)
-        @note: GXD-Diff-2
+        @note: GXD-Diff-2 !!this test is no longer working, Agtr2 is not blue1 anymore, need to find another example!
         @attention: the time sleeps need to be replaced by expected conditions code
         """
         driver = self.driver
         driver.get(config.TEST_URL + '/gxd/differential')
         #self.driver.find_element(By.ID, 'difStructure3').clear()
         pickitem = self.driver.find_element(By.ID, 'difStructure3').send_keys('bladder TS22-28')
-        actions = ActionChains(driver)
+        #time.sleep(4)
+        actions = ActionChains(self.driver)
         actions.move_to_element(pickitem)
         actions.click(pickitem)
-        time.sleep(2)
+
+        #time.sleep(2)
         #self.driver.find_element(By.ID, 'difStructure4').clear()
         pickitem2 = self.driver.find_element(By.ID, 'difStructure4').send_keys('adventitia of bladder TS22-28')
+        #time.sleep(4)
         actions = ActionChains(driver)
         actions.move_to_element(pickitem2)
         actions.click(pickitem2)
@@ -79,7 +83,7 @@ class TestGxdDifferentialQF(unittest.TestCase):
     def test_diff_systems(self):
         """
         @status: Tests that query for detected in "A", Not detected in "B", where "A" and "B" are in different anatomical systems
-        @note: GXD-Diff-3(partial test)
+        @note: GXD-Diff-3(partial test) !!this test  no longer works because of move to issue!
         @attention: the time sleeps need to be replaced by expected conditions code!!needs to be fixed broken!!
         """
         driver = self.driver

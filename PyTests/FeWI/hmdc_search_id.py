@@ -29,7 +29,8 @@ from util.table import Table
 class TestHmdcSearchID(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Chrome()
         self.driver.get(config.TEST_URL + "/humanDisease.shtml")
         self.driver.implicitly_wait(10)
         
@@ -69,8 +70,8 @@ class TestHmdcSearchID(unittest.TestCase):
         #Verify genes with annotations to this disease are present on the grid
         self.assertIn("HLA-DQB1", humanGeneList)
         self.assertIn("PRNP", humanGeneList)
-        self.assertIn("H2-Ab1", mouseGeneList)
-        self.assertIn("Prnp", mouseGeneList)
+        self.assertIn("Tg(Prnp*)#Rgab", mouseGeneList)
+        self.assertIn("Tg(Prnp*D177N*M128V)A21Rchi", mouseGeneList)
         
         #Identify the Disease Tab and click on it
         disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
@@ -357,14 +358,14 @@ class TestHmdcSearchID(unittest.TestCase):
         #Get the list of mouse genes and verify expected gene is there
         mgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.last")
         mouseGeneList = iterate.getTextAsList(mgenes)
-        self.assertIn("Abcg2", mouseGeneList)
+        self.assertIn("Abcg2, Abcg3", mouseGeneList)
         
         phenocells = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.center.cell.middle") 
         phenocells[6].click()#clicks the integument data cell to open up the genotype popup page (data changes can break this logic)
         self.driver.switch_to_window(self.driver.window_handles[1])#switches focus to the genotype popup page
         
         #asserts the heading text is correct in page title
-        self.assertEqual("Mouse integument abnormalities for ABCG2/Abcg2", self.driver.title)
+        self.assertEqual('Mouse integument abnormalities for ABCG2/Abcg2, Abcg3', self.driver.title)
         
         #asserts that the MP term queried for has been returned
         self.assertIn("phototoxicity", self.driver.page_source, "expected MP term not found")
@@ -381,7 +382,7 @@ class TestHmdcSearchID(unittest.TestCase):
                 option.click()
                 break
         
-        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Fyler:1431 ")#enter Alt ID for MP:0010472 (abnormal ascending aorta and coronary artery attachment)
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Fyler:1431")#enter Alt ID for MP:0010472 (abnormal ascending aorta and coronary artery attachment)
         wait.forAngular(self.driver)
         time.sleep(2)
       
@@ -405,7 +406,7 @@ class TestHmdcSearchID(unittest.TestCase):
         
         mgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.last")
         searchTermItems = iterate.getTextAsList(mgenes)
-        self.assertIn("Gja1", searchTermItems, "expected gene not returned")
+        self.assertIn("Gja1, Gja6", searchTermItems, "expected gene not returned")
         
         #Verify that the correct MP term is displayed in the genotype pop-up
         
@@ -415,7 +416,7 @@ class TestHmdcSearchID(unittest.TestCase):
         phenocells[0].click() #clicks the cell for cardiovascular system (new data could break this)
         self.driver.switch_to_window(self.driver.window_handles[1])#switches focus to the genotype popup page
         time.sleep(2)
-        matching_text = "Mouse cardiovascular system abnormalities for GJA1/Gja1"
+        matching_text = "Mouse cardiovascular system abnormalities for GJA1, GJA6P/Gja1, Gja6"
         #asserts the heading text is correct in page source
         self.assertIn(matching_text, self.driver.page_source, 'expected pop-up box heading not displayed')
         

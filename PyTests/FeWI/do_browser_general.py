@@ -12,6 +12,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 import HtmlTestRunner
 import sys,os.path
+from selenium.webdriver import firefox
 # adjust the path to find config
 sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../..',)
@@ -25,7 +26,8 @@ from util.table import Table
 class TestDoBrowserGeneral(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Chrome()
         self.driver.get(config.TEST_URL)
         #self.driver.get("http://scrumdogdev.informatics.jax.org")
         self.driver.implicitly_wait(10)

@@ -24,7 +24,8 @@ class TestGXDTissueStageMatrix(unittest.TestCase):
 
 
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Chrome()
 
     def test_structure_names_sort(self):
         """

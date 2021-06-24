@@ -23,7 +23,8 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
 
 
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Chrome()
 
     def test_mp_emapa_single_system(self):
         """
@@ -123,6 +124,7 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         self.driver.find_element(By.ID, 'searchToolTextArea').clear()
         self.driver.find_element(By.ID, 'searchToolTextArea').send_keys('Avp')
         self.driver.find_element(By.NAME, 'submit').click()
+        time.sleep(2)
         #find the marker link and click it
         driver.find_element(By.LINK_TEXT, 'Avp').click()
         time.sleep(1)
@@ -162,6 +164,7 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         self.driver.find_element(By.ID, 'searchToolTextArea').clear()
         self.driver.find_element(By.ID, 'searchToolTextArea').send_keys('Bmp15')
         self.driver.find_element(By.NAME, 'submit').click()
+        time.sleep(2)
         #find the marker link and click it
         driver.find_element(By.LINK_TEXT, 'Bmp15').click()
         time.sleep(1)
@@ -201,6 +204,7 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         self.driver.find_element(By.ID, 'searchToolTextArea').clear()
         self.driver.find_element(By.ID, 'searchToolTextArea').send_keys('Foxe1')
         self.driver.find_element(By.NAME, 'submit').click()
+        time.sleep(2)
         #find the marker link and click it
         driver.find_element(By.LINK_TEXT, 'Foxe1').click()
         time.sleep(1)
@@ -239,6 +243,7 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         self.driver.find_element(By.ID, 'searchToolTextArea').clear()
         self.driver.find_element(By.ID, 'searchToolTextArea').send_keys('Bmp15')
         self.driver.find_element(By.NAME, 'submit').click()
+        time.sleep(2)
         #find the marker link and click it
         driver.find_element(By.LINK_TEXT, 'Bmp15').click()
         time.sleep(1)
@@ -308,13 +313,14 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
     def test_norm_mp_other_mp(self):
         """
         @status: Tests the display when you have a normal MP annotation and another annotation that roll up to a higher level term, but no N gets displayed
-        @note: GXD-TxP-17
+        @note: GXD-TxP-17 currently this test is broken, should be easy to fix! 5/20/2021
         """
         driver = self.driver
         driver.get(config.TEST_URL + '/marker')
         self.driver.find_element(By.ID, 'searchToolTextArea').clear()
         self.driver.find_element(By.ID, 'searchToolTextArea').send_keys('Pax7')
         self.driver.find_element(By.NAME, 'submit').click()
+        time.sleep(2)
         #find the marker link and click it
         driver.find_element(By.LINK_TEXT, 'Pax7').click()
         time.sleep(1)
@@ -480,6 +486,7 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         self.driver.find_element(By.ID, 'searchToolTextArea').clear()
         self.driver.find_element(By.ID, 'searchToolTextArea').send_keys('Lepr')
         self.driver.find_element(By.NAME, 'submit').click()
+        time.sleep(2)
         #find the marker link and click it
         driver.find_element(By.LINK_TEXT, 'Lepr').click()
         time.sleep(1)

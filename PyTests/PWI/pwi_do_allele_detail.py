@@ -24,7 +24,8 @@ from config import TEST_PWI_URL
 class TestPwiDoAlleleDetail(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Chrome() 
+        self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Chrome() 
 
     def test_disease_annotations(self):
         """

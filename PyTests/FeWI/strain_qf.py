@@ -27,8 +27,8 @@ class TestStrainQF(unittest.TestCase):
 
     def setUp(self):
     
-        #self.driver = webdriver.Firefox()
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Chrome()
         self.driver.get(config.TEST_URL + "/home/strain")
         self.driver.implicitly_wait(10)
 
@@ -257,12 +257,12 @@ class TestStrainQF(unittest.TestCase):
         print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
-        self.assertIn('129(B6)-Elf5tm1Mapr', strainNamesReturned) # Strain/Stock Name
+        self.assertIn('B6;129S4-Elf5tm1Mapr/Apb', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
         print(iterate.getTextAsList(cells1))
         idReturned = iterate.getTextAsList(cells1)
         #asserts that the correct ID is  returned
-        self.assertIn('MGI:4940861\nAPB:629', idReturned) # ID is correct   
+        self.assertIn('MGI:6332119\nAPB:629', idReturned) # ID is correct   
 
     def test_search_strain_ARC_id(self):
         """

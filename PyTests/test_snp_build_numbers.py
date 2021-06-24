@@ -27,8 +27,8 @@ class TestSnpBuildNumbers(unittest.TestCase):
 
 
     def setUp(self):
-        self.driver = webdriver.Chrome()
-        #self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox()
         #self.driver.implicitly_wait(4)
         self.driver.get(config.PUBLIC_URL)
         
@@ -40,10 +40,14 @@ class TestSnpBuildNumbers(unittest.TestCase):
         """
         print ("BEGIN test_snp_qf")
         self.driver.get(PUBLIC_URL + "/snp/")
-        #finds the build number at the top of the snp QF page
-        formLabel = self.driver.find_element(By.CSS_SELECTOR, '#form1 > div:nth-child(2)')
-        self.assertIn("from dbSNP Build 142", formLabel.text)
+        #finds the build number at the top of the snp QF page Search by Region tab
+        self.driver.find_element(By.ID, 'ui-id-2').click
+        buildlabel = self.driver.find_element(By.CSS_SELECTOR, '#form2 > div:nth-child(2)').get_attribute("outerHTML")
+        #print (buildlabel)
+        self.assertIn("GRCm38", buildlabel)
 
+        #click back to the Search by Gene tab
+        self.driver.find_element(By.ID, 'ui-id-1').click
         genebox = self.driver.find_element(By.ID, 'nomen')
         #enters pax6 in the Gene Symbol/Name box
         genebox.send_keys("pax6")
@@ -53,10 +57,21 @@ class TestSnpBuildNumbers(unittest.TestCase):
             print('page loaded')
         #finds the snp build number in the heading of SNP ID column
         snpidLabel = self.driver.find_element(By.ID, 'snpSummaryTable').find_element(By.ID, 'snp_id')
-        self.assertIn("(dbSNP Build 142)", snpidLabel.text)
+        self.assertIn("(GRCm38)", snpidLabel.text)
         #finds the GRC build number in the heading of Map Position column
         mapLabel = self.driver.find_element(By.ID, 'snpSummaryTable').find_element(By.ID, 'map_position')
         self.assertIn("(GRCm38)", mapLabel.text)
+
+    def test_gxd_qf(self):
+        """
+        @Status this test works
+        Checks the mouse build numbers on the gxd query form
+        """
+        print ("BEGIN test_gxd_qf")
+        self.driver.get(PUBLIC_URL + "/gxd/")
+        #finds the build number in the Genome Location of the gxd QF page
+        formLabel = self.driver.find_element(By.CSS_SELECTOR, '#gxdQueryForm > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(2) > div:nth-child(1) > div:nth-child(2)')
+        self.assertIn("genome build GRCm39", formLabel.text)
         
     def test_mrk_detail_build(self):
         """
@@ -68,11 +83,12 @@ class TestSnpBuildNumbers(unittest.TestCase):
         self.driver.get(PUBLIC_URL + "/marker/MGI:1096368")
         time.sleep(2)
         #opens the Location & Maps section
-        self.driver.find_element(By.ID, 'lmToggle').click()
+        #self.driver.find_element(By.ID, 'lmToggle').click()
         #finds the build number in the Sequence map section
-        seqmapLabel = self.driver.find_element(By.CLASS_NAME, 'detailData2').find_element(By.CLASS_NAME, 'closed').find_element(By.CSS_SELECTOR, 'div.value')
-        #verifies GRCm38 is displayed in this section
-        self.assertIn("GRCm38", seqmapLabel.text)
+        seqmapLabel = self.driver.find_element(By.CLASS_NAME, 'detailData2').find_element(By.CLASS_NAME, 'summarySec1').find_element(By.CSS_SELECTOR, 'div.value')
+        print(seqmapLabel.text)
+        #verifies GRCm39 is displayed in this section
+        self.assertIn("GRCm39", seqmapLabel.text)
 
     def test_mrk_qf_build(self):
         """
@@ -86,8 +102,8 @@ class TestSnpBuildNumbers(unittest.TestCase):
         genocoord = self.driver.find_element(By.LINK_TEXT, 'Genome Coordinates')
         # get the parent element
         gcParent = genocoord.find_element(By.XPATH, '..')
-        #confirms  that GRCm38 is displayed
-        self.assertIn("GRCm38", gcParent.text)
+        #confirms  that GRCm39 is displayed
+        self.assertIn("GRCm39", gcParent.text)
         
     def test_hmdc_build(self):
         """
@@ -113,7 +129,7 @@ class TestSnpBuildNumbers(unittest.TestCase):
         mainbuild = buildnumber.find_elements(By.TAG_NAME, 'label')
         #confirms that GRCh38 is displayed
         searchTextItems = iterate.getTextAsList(mainbuild)
-        self.assertEqual(searchTextItems, ['Human (GRCh38)', 'Mouse (GRCm38)'])
+        self.assertEqual(searchTextItems, ['Human (GRCh38)', 'Mouse (GRCm39)'])
        
         """
         def test_hmdc_summary_build(self):

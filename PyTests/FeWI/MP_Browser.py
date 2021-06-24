@@ -21,7 +21,8 @@ import config
 class TestMPBrowser(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Chrome() 
+        self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Chrome() 
 
     def test_parent_data(self):
         """

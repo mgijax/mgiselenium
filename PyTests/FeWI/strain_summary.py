@@ -31,8 +31,8 @@ class TestStrainSummary(unittest.TestCase):
 
     def setUp(self):
     
-        #self.driver = webdriver.Firefox()
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Chrome()
         self.driver.get(config.TEST_URL + "/strains_SNPs.shtml")
         self.driver.implicitly_wait(10)
 
@@ -124,7 +124,7 @@ class TestStrainSummary(unittest.TestCase):
         tpage = driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
         print(tpage.text)
         #asserts that the correct page is returned or not
-        self.assertEqual('129(B6)-Elf5tm1Mapr', tpage.text, 'The page title is not correct!')   
+        self.assertEqual('B6;129S4-Elf5tm1Mapr/Apb', tpage.text, 'The page title is not correct!')   
 
     def test_summary_strain_reference_link(self):
         """

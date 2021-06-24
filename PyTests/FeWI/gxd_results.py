@@ -31,8 +31,8 @@ class TestGxdResults(unittest.TestCase):
 
     def setUp(self):
     
-        #self.driver = webdriver.Firefox()
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Chrome()
         self.driver.get(config.TEST_URL + "/gxd/")
         self.driver.implicitly_wait(10)
         self.form = ModuleForm(self.driver)
@@ -415,7 +415,7 @@ class TestGxdResults(unittest.TestCase):
         links = self.driver.find_element_by_link_text('E-MTAB-5772')
         inturl = links.get_attribute('href')
         #assert that the link url is correct
-        self.assertEqual(inturl, 'http://test.informatics.jax.org/gxd/htexp_index/summary?arrayExpressID=E-MTAB-5772')           
+        self.assertEqual(inturl, 'https://mgitest.jax.org/gxd/htexp_index/summary?arrayExpressID=E-MTAB-5772')           
    
     def test_assay_results_tab_tpm_column(self):
         """

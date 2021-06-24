@@ -24,8 +24,8 @@ class TestAlleleQueryForm(unittest.TestCase):
 
 
     def setUp(self):
-        #self.driver = webdriver.Firefox()
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Chrome()
         self.driver.get(config.TEST_URL + "/allele/")
         self.driver.implicitly_wait(10)
 

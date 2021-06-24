@@ -27,8 +27,8 @@ from config import TEST_URL
 class TestSequenceDetail(unittest.TestCase):
 
     def setUp(self):
-        #self.driver = webdriver.Firefox()
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Chrome()
         #self.driver.get("http://www.informatics.jax.org")
         #self.driver.get("http://bluebob.informatics.jax.org")
         self.form = ModuleForm(self.driver)
@@ -83,7 +83,7 @@ class TestSequenceDetail(unittest.TestCase):
         print(cells.text)
         #time.sleep(2)
         #asserts the ID ribbon data is correct
-        self.assertEqual('MGI_C57BL6J_5804994 Multiple Genome Viewer (MGV) Version: MGI_C57BL6J_5804994.GRCm38', cells.text)          
+        self.assertEqual('MGI_C57BL6J_5804994 Multiple Genome Viewer (MGV) Version: MGI_C57BL6J_5804994.GRCm39', cells.text)          
         
     def test_mgp_ensembl_link(self):
         """
@@ -132,7 +132,7 @@ class TestSequenceDetail(unittest.TestCase):
         print(cells.text)
         #time.sleep(2)
         #asserts the sequence description ribbon data is correct
-        self.assertEqual("chr18:34262022-34436126, + strand. Annotation of mouse strain CAROLI/EiJ genome assembly provided by the University of California Santa Cruz (UCSC) Genome Browser Group and the Wellcome Sanger Institute's Mouse Genomes Project (MGP). Distributed via Ensembl Release 92. Gene type: protein coding gene; Gene Name: Pcdha9.", cells.text)         
+        self.assertEqual("chr18:34262022-34436126, + strand. Annotation of mouse strain CAROLI/EiJ genome assembly provided by the University of California Santa Cruz (UCSC) Genome Browser Group and the Wellcome Sanger Institute's Mouse Genomes Project (MGP). Distributed via Ensembl Release 103. Gene type: protein coding gene; Gene Name: Pcdha9.", cells.text)         
 
     def test_mgi_seq_desc(self):
         """
@@ -156,7 +156,7 @@ class TestSequenceDetail(unittest.TestCase):
         print(cells.text)
         #time.sleep(2)
         #asserts the sequence description ribbon data is correct
-        self.assertEqual('ChrX:7959260-7978071, - strand. MGI derived this sequence for the C57BL/6J strain version of Gene: Gata1, Gene type: protein coding gene, from outermost boundary coordinates of combined annotations to mouse reference assembly GRCm38 provided by: NCBI_Gene:14460,ENSEMBL:ENSMUSG00000031162. Note that the source annotations for this representation of the C57BL/6J gene model sequence can derive from different assembly patches (J:262996).', cells.text)         
+        self.assertEqual('ChrX:7825499-7844310, - strand. MGI derived this sequence for the C57BL/6J strain version of Gene: Gata1, Gene type: protein coding gene, from outermost boundary coordinates of combined annotations to mouse reference assembly GRCm39 provided by: ENSEMBL:ENSMUSG00000031162,NCBI_Gene:14460. Note that the source annotations for this representation of the C57BL/6J gene model sequence can derive from different assembly patches (J:262996).', cells.text)         
 
     def test_mgp_seq_provider(self):
         """
@@ -389,7 +389,7 @@ class TestSequenceDetail(unittest.TestCase):
         #find the sex cell, print it and assert it to be correct
         cell4 = src_table.get_cell(4, 1)
         print(cell4.text)
-        self.assertIn('Not Loaded', cell4.text)  
+        self.assertIn('Not Applicable', cell4.text)  
         #locates the Inner Source table
         in_src_table = Table(self.driver.find_element(By.ID, 'sourceTableInner2'))
         #find the Age cell, print it and assert it to be correct
@@ -439,7 +439,7 @@ class TestSequenceDetail(unittest.TestCase):
         #find the sex cell, print it and assert it to be correct
         cell4 = src_table.get_cell(4, 1)
         print(cell4.text)
-        self.assertIn('Not Loaded', cell4.text)  
+        self.assertIn('Not Applicable', cell4.text)  
         #locates the Inner Source table
         in_src_table = Table(self.driver.find_element(By.ID, 'sourceTableInner2'))
         #find the Age cell, print it and assert it to be correct
@@ -573,7 +573,7 @@ class TestSequenceDetail(unittest.TestCase):
         #find the GO Terms cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 3)
         print(cell1.text)
-        self.assertIn('27', cell1.text) 
+        self.assertIn('40', cell1.text) 
         #find the Expression Assays cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 4)
         print(cell1.text)
@@ -581,7 +581,7 @@ class TestSequenceDetail(unittest.TestCase):
         #find the Orthologs cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 5)
         print(cell1.text)
-        self.assertIn('0', cell1.text) 
+        self.assertIn('2', cell1.text) 
         #find the Phenotypic Alleles cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 6)
         print(cell1.text)

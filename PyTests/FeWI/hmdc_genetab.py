@@ -27,7 +27,8 @@ from util.table import Table
 class TestHmdcGeneTab(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Chrome()
         self.driver.get(config.TEST_URL + "/humanDisease.shtml")
         self.driver.implicitly_wait(10)
         
@@ -156,7 +157,7 @@ class TestHmdcGeneTab(unittest.TestCase):
         print(assocHumanDiseases)
         #asserts that the expected diseases are returned for these genes
         self.assertIn('myelodysplastic syndrome\nmyelofibrosis\nthrombocytopenia', assocHumanDiseases) #diseases associated to Gata1
-        self.assertIn('Down syndrome\nthrombocytopenia\nX-linked thrombocytopenia with beta-thalassemia', assocHumanDiseases) #diseases associated to GATA1
+        self.assertIn('Down syndrome\nthrombocytopenia\nX-linked dyserythropoietic anemia\nX-linked thrombocytopenia with beta-thalassemia', assocHumanDiseases) #diseases associated to GATA1
         
         
     

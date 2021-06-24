@@ -32,7 +32,8 @@ from util.table import Table
 class TestHmdcGenesSearch(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Chrome()
         self.driver.get(config.TEST_URL + "/humanDisease.shtml")
         self.driver.implicitly_wait(10)
         
@@ -388,7 +389,7 @@ class TestHmdcGenesSearch(unittest.TestCase):
         
         #Verify homology class with multiple human and mouse genes are returned
         self.assertIn("C4A, C4B", humanGridGenes)
-        self.assertIn("C4a, C4b", mouseGridGenes)
+        self.assertIn("C4b", mouseGridGenes)
         
         #Verify genes matched via zebrafish name (ortholog match) is returned
         self.assertIn("HOXC4", humanGridGenes)
@@ -798,7 +799,7 @@ class TestHmdcGenesSearch(unittest.TestCase):
         time.sleep(2)
         #asserts that the References in MGI column displays a Disease Relevant link since the is a NOT disease
         self.assertEqual(ref1.text, '')
-        self.assertEqual(ref2.text, 'All Mouse: 40\nDisease Relevant: 1')
+        self.assertEqual(ref2.text, 'All Mouse: 41\nDisease Relevant: 1')
         
         #identify the Disease tab and verify the tab's text
         disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
@@ -900,7 +901,7 @@ class TestHmdcGenesSearch(unittest.TestCase):
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("Slp")#identifies the input field and enters mouse synonym for C4a
+        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("Gja1")#identifies the input field and enters mouse synonym for C4a
         wait.forAngular(self.driver)
         self.driver.find_element_by_id("searchButton").click()
         wait.forAngular(self.driver)
@@ -914,11 +915,11 @@ class TestHmdcGenesSearch(unittest.TestCase):
         #get human and mouse genes on the grid and verify C4a/C4b/C4A/C4B homology class
         hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
         humanGeneList = iterate.getTextAsList(hgenes)
-        self.assertIn("C4A, C4B", humanGeneList)
+        self.assertIn("GJA1, GJA6P", humanGeneList)
         
         mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
         mouseGeneList = iterate.getTextAsList(mgenes)
-        self.assertIn("C4a, C4b", mouseGeneList)
+        self.assertIn("Gja1, Gja6", mouseGeneList)
         
         #identify the Genes tab and click on it
         gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
@@ -930,10 +931,8 @@ class TestHmdcGenesSearch(unittest.TestCase):
         cells = gene_table.get_column_cells("Gene Symbol")
         geneList = iterate.getTextAsList(cells)
     
-        self.assertIn('C4A', geneList)
-        self.assertIn('C4a', geneList)
-        self.assertIn('C4B', geneList)
-        self.assertIn('C4b', geneList)
+        self.assertIn('Gja1', geneList)
+        self.assertIn('Gja6', geneList)
 
     def test_genotype_popup(self):
         '''

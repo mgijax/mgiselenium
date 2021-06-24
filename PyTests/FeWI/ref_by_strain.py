@@ -25,8 +25,8 @@ class TestRefByStrain(unittest.TestCase):
 
 
     def setUp(self):
-        #self.driver = webdriver.Firefox()
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Chrome()
         self.driver.get(config.TEST_URL + "/strains_SNPs.shtml")
         self.driver.implicitly_wait(10)
         
@@ -96,16 +96,16 @@ class TestRefByStrain(unittest.TestCase):
         print(row6.text)
         row7 = driver.find_element_by_xpath("//*[@id='dynamicdata']/table/tbody/tr[7]/td[6]/div")
         print(row7.text)
-        self.assertEqual(row1.text, '2020')   
-        self.assertEqual(row2a.text, '31704785\nJ:283318\nJournal Link')
-        self.assertEqual(row3a.text, '31941824\nJ:283513\nJournal Link')
-        self.assertEqual(row4a.text, '31670865\nJ:283529\nJournal Link')       
-        self.assertEqual(row2.text, '2020')
-        self.assertEqual(row3.text, '2020')
-        self.assertEqual(row4.text, '2020')
-        self.assertEqual(row5.text, '2020')
-        self.assertEqual(row6.text, '2020') 
-        self.assertEqual(row7.text, '2020')    
+        self.assertEqual(row1.text, '2021')   
+        self.assertEqual(row2a.text, '33372156\nJ:300137\nJournal Link')
+        self.assertEqual(row3a.text, '33441348\nJ:300110\nJournal Link')
+        self.assertEqual(row4a.text, '33144319\nJ:300138\nJournal Link')       
+        self.assertEqual(row2.text, '2021')
+        self.assertEqual(row3.text, '2021')
+        self.assertEqual(row4.text, '2021')
+        self.assertEqual(row5.text, '2021')
+        self.assertEqual(row6.text, '2021') 
+        self.assertEqual(row7.text, '2021')    
         
     def tearDown(self):
         #self.driver.close()

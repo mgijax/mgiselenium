@@ -27,7 +27,8 @@ from util.table import Table
 class TestDoBrowserModelTab(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Chrome()
         self.driver.get(config.TEST_URL)
         self.driver.implicitly_wait(10)
         
@@ -136,7 +137,10 @@ class TestDoBrowserModelTab(unittest.TestCase):
         print(iterate.getTextAsList(cells))
         #displays each row of disease model data
         row1 = cells[2]
-        self.assertEqual(row1.text, 'Transgenes and\nOther Mutations        Sotos syndrome Del(13Simc1-B4galt7)2Dja/+ involves: 129P2/OlaHad * 129S7/SvEvBrd * C57BL/6J J:190741 View')
+        row2 = cells[3]
+        print(row1)
+        self.assertEqual(row1.text, '         Sotos syndrome Nfixtm1.1Rmg/Nfix+ involves: 129S4/SvJae * C57BL/6J J:295051 View')
+        self.assertEqual(row2.text, 'Transgenes and\nOther Mutations        Sotos syndrome Del(13Simc1-B4galt7)2Dja/+ involves: 129P2/OlaHad * 129S7/SvEvBrd * C57BL/6J J:190741 View')
         
         notmodel_table = self.driver.find_element(By.ID, 'modelTabNotTable')
         table = Table(notmodel_table)

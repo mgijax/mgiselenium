@@ -24,7 +24,8 @@ class TestGxdImageSummary(unittest.TestCase):
 
 
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Chrome()
         self.driver.implicitly_wait(10)
 
     def test_default_sort_genes(self):
@@ -56,7 +57,7 @@ class TestGxdImageSummary(unittest.TestCase):
         sort order is gene first, assay type secondary
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL + "/gxd")
+        driver.get(config.TEST_URL + "/gxd")
         genebox = driver.find_element(By.NAME, 'nomenclature')
         # put your marker symbol
         genebox.send_keys("Igfbpl1")
@@ -76,7 +77,7 @@ class TestGxdImageSummary(unittest.TestCase):
         sort order is gene first, assay type secondary
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL + "/gxd")
+        driver.get(config.TEST_URL + "/gxd")
         genebox = driver.find_element(By.NAME, 'nomenclature')
         # put your marker symbol
         genebox.send_keys("Tmem100")
@@ -98,7 +99,7 @@ class TestGxdImageSummary(unittest.TestCase):
         * sort order is gene, then assay type
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL + "/gxd")
+        driver.get(config.TEST_URL + "/gxd")
         genebox = driver.find_element(By.NAME, 'nomenclature')
         # put your marker symbol
         genebox.send_keys("shh")
@@ -133,7 +134,7 @@ class TestGxdImageSummary(unittest.TestCase):
         * blot assays are last by default
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL + "/gxd")
+        driver.get(config.TEST_URL + "/gxd")
         genebox = driver.find_element(By.NAME, 'nomenclature')
         # put your marker symbol
         genebox.send_keys("pax6")
@@ -176,7 +177,7 @@ class TestGxdImageSummary(unittest.TestCase):
         *blots
         """
         driver = self.driver
-        driver.get(config.PUBLIC_URL + "/gxd")
+        driver.get(config.TEST_URL + "/gxd")
         genebox = driver.find_element(By.NAME, 'nomenclature')
         # put your marker symbol
         genebox.send_keys("hoxa13")

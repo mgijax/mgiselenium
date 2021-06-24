@@ -25,14 +25,15 @@ from util.table import Table
 class TestGxdRnaSeqSamples(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Chrome()
         self.driver.get(config.TEST_URL + "/gxd/htexp_index")
         self.driver.implicitly_wait(10)
 
     def test_rnaseq_samples_array_express_link(self):
         '''
         @status this test verifies the array express link on the RNA-Seq samples page is correct.
-        @see GXD-RNASeq-samples-1
+        @see GXD-RNASeq-samples-1 failing because of window handles!!
         '''
         print ("BEGIN test_rnaseq_samples_array_express_link")
         

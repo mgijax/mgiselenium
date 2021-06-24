@@ -25,7 +25,8 @@ from util.table import Table
 class TestGxdRnaSeqSummary(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Chrome()
         self.driver.set_window_size(1080,800)
         self.driver.get(config.TEST_URL + "/gxd/htexp_index")
         self.driver.implicitly_wait(10)
@@ -236,7 +237,7 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         page_url = self.driver.current_url
         print(page_url)
         #Assert the URL is correct
-        self.assertEqual(page_url, "http://test.informatics.jax.org/gxd/experiment/E-ERAD-169")
+        self.assertEqual(page_url, "https://mgitest.jax.org/gxd/experiment/E-ERAD-169")
 
   
     def tearDown(self):

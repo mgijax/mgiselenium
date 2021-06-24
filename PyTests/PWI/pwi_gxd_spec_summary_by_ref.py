@@ -1,6 +1,6 @@
 '''
 Created on Apr 4, 2016
-
+test needs to be reworked, completely fails right now 5/19/21
 @author: jeffc
 '''
 import unittest
@@ -20,8 +20,8 @@ from config import TEST_PWI_URL
 class TestPwiGxdSpecSumByRef(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Chrome() 
-        #self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Chrome() 
+        self.driver = webdriver.Firefox()
 
     def test_table_headers(self):
         """

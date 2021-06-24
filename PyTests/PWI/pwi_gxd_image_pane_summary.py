@@ -20,8 +20,8 @@ from config import TEST_PWI_URL
 class TestPwiGxdImagePanePage(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Chrome() 
-        #self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Chrome() 
+        self.driver = webdriver.Firefox()
 
     def test_table_headers(self):
         """

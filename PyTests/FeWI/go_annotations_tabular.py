@@ -23,8 +23,8 @@ from config import TEST_URL
 class TestGoAnnotationsPage(unittest.TestCase):
 
     def setUp(self):
-        #self.driver = webdriver.Firefox() 
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox() 
+        #self.driver = webdriver.Chrome()
         
     def test_table_headers(self):
         """
@@ -81,7 +81,7 @@ class TestGoAnnotationsPage(unittest.TestCase):
         time.sleep(5)
         element = driver.find_element_by_class_name('goProperties')
         elementText = element.text
-        print(elementText)
+        #print(elementText)
         #asserts that the rows of Context data are in correct order and displayed correctly
         #self.assertEqual(searchTextItems, [u'', u'', u'', u'', u'', u'', u'', u'', u'happens in lung\nhappens in larynx mucous membrane\nresults in the movement of macrophage', u'', u'', u'', u'', u'', u'', u''])
         #self.assertIn(elementText, ['happens in lung\nhappens in larynx mucous membrane\nresults in the movement of macrophage'])

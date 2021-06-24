@@ -22,7 +22,8 @@ import config
 class TestEmapaBrowser(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Chrome() 
+        self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Chrome() 
 
     def test_parent_data(self):
         """
@@ -278,8 +279,8 @@ class TestEmapaBrowser(unittest.TestCase):
         self.assertEqual('abnormal primitive node morphology', term1.text, 'Term1 is not returning' )
         self.assertEqual('absent embryonic cilia', term2.text, 'Term2 is not returning' )
         self.assertEqual('absent primitive node', term3.text, 'Term3 is not returning' )
-        self.assertEqual('abnormal primitive node morphology', term4.text, 'Term4 is not returning' )
-        self.assertEqual('decreased embryonic cilium length', term5.text, 'Term5 is not returning' )
+        self.assertEqual('absent primitive node', term4.text, 'Term4 is not returning' )
+        self.assertEqual('abnormal motile primary cilium morphology', term5.text, 'Term5 is not returning' )
         
         
     def test_no_pheno_mapping_zero_exp_link(self):
@@ -307,7 +308,7 @@ class TestEmapaBrowser(unittest.TestCase):
         bodyText = driver.find_element(By.TAG_NAME, 'body').text
         print(linkE.text)
         # verifies the returned terms are the correct terms for this search
-        self.assertEqual('252,456', linkE.text, 'The expression results link is wrong' )
+        self.assertEqual('252,904', linkE.text, 'The expression results link is wrong' )
         self.assertFalse('phenotype annotations' in bodyText)       
 
     def test_no_pheno_mapping_zero_exp_link2(self):
