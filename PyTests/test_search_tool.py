@@ -9,6 +9,7 @@ import unittest
 import time
 import HtmlTestRunner
 from selenium import webdriver
+from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -32,8 +33,8 @@ class TestSearchTool(unittest.TestCase):
         self.driver = webdriver.Firefox()
         #self.driver = webdriver.Chrome()
         #self.driver.get("http://www.informatics.jax.org")
-        #self.driver.get("http://bluebob.informatics.jax.org")
-        self.driver.get(config.TEST_URL) 
+        self.driver.get("http://bluebob.informatics.jax.org")
+        #self.driver.get(config.TEST_URL) 
         #print (config)
 
     def test_gene_id(self):
@@ -2615,6 +2616,39 @@ class TestSearchTool(unittest.TestCase):
         print("The MyGene ID is:", all_cells[1].text)
         #asserts that the Why did this match? data is correct for the ID searched
         self.assertEqual(all_cells[1].text, 'ID: PSEN1 (MyGene - human)')
+
+    def test_mouse_coord_search(self):
+        """
+        @status: Tests that a search by Mouse Coordinates brings back the proper information, especially homolog
+        @note passed last 7/5/2021
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL)
+        #Select(self.driver.find_element(By.ID, 'queryType')).select_by_value('mouse location')#finds the query type list and select the 'mouse location' option
+        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
+        # put your rs ID in the quick search box
+        searchbox.send_keys("Chr5:28661838-28672099")
+        searchbox.send_keys(Keys.RETURN)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'ui-id-1')))#waits until the results are displayed on the page 
+        #find the genome features tab table
+        driver.find_element(By.ID, 'ui-id-1').click()
+        time.sleep(2)
+        results_table = self.driver.find_element(By.ID, 'b1Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the best match column of the table
+        all_cells = table.get_column_cells('Best Match')
+        #print(all_cells[1].text)
+        #asserts that the best match data is correct for the ID searched
+        self.assertEqual(all_cells[1].text, 'Overlaps specified coordinate range: Location')
+        #find the alleles tab table
+        driver.find_element(By.ID, 'ui-id-2').click()
+        time.sleep(2)
+        results_table = self.driver.find_element(By.ID, 'b5Table')
+        table = Table(results_table)
+        #Iterate the first row of data to find the Best Match column of the table
+        all_cells = table.get_column_cells('Best match')
+        #asserts that the Best Match data is correct for the searched coordinates
+        self.assertEqual(all_cells[1].text, 'Overlaps specified coordinate range: Location')
            
     def tearDown(self):
         self.driver.quit()

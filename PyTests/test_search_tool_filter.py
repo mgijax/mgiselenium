@@ -195,7 +195,7 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys("blood island")
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'ui-id-1')))#waits until the results are displayed on the page
-        #find the phenotype filter button and click it
+        #find the disease filter button and click it
         self.driver.find_element_by_id('diseaseFilter').click()
         time.sleep(2)
         #select the filter option 'thoracic disease'
