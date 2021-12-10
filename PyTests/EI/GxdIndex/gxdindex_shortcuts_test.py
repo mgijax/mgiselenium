@@ -8,6 +8,7 @@ import unittest
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 import HtmlTestRunner
 import sys,os.path
@@ -36,11 +37,11 @@ class TestEiGxdIndexShortcuts(unittest.TestCase):
         self.driver = webdriver.Chrome()
         self.form = ModuleForm(self.driver)
         self.form.get_module(config.TEST_PWI_URL + "/edit/gxdindex") 
-        username = self.driver.find_element_by_name('user')#finds the user login box
+        username = self.driver.find_element(By.NAME, 'user')#finds the user login box
         username.send_keys(config.PWI_LOGIN) #enters the username
-        passwd = self.driver.find_element_by_name('password')#finds the password box
+        passwd = self.driver.find_element(By.NAME, 'password')#finds the password box
         passwd.send_keys(config.PWI_PASSWORD) #enters a valid password
-        submit = self.driver.find_element_by_name("submit") #Find the Login button
+        submit = self.driver.find_element(By.NAME, "submit") #Find the Login button
         submit.click() #click the login button
         
 
@@ -116,7 +117,7 @@ class TestEiGxdIndexShortcuts(unittest.TestCase):
         print(modified_date)
         self.assertEqual(modified_date, '')
         #find the table field to check
-        table_element = driver.find_element_by_id("indexGrid")
+        table_element = driver.find_element(By.ID, "indexGrid")
         table = Table(table_element)
         #verifies there is no X in the RNA-sxn by age 10.5 box
         cell = table.get_cell(2, 21)
@@ -183,7 +184,7 @@ class TestEiGxdIndexShortcuts(unittest.TestCase):
         print(modified_date)
         self.assertEqual(modified_date, '10/01/2007')
         #find the table field to check
-        table_element = driver.find_element_by_id("indexGrid")
+        table_element = driver.find_element(By.ID, "indexGrid")
         table = Table(table_element)
         #verifies there is an X in the Prot-sxn by age 18.5 box
         cell = table.get_cell(1, 37)

@@ -8,6 +8,12 @@ import unittest
 import time
 import HtmlTestRunner
 from selenium import webdriver
+#from selenium.webdriver.firefox.service import Service
+#f=Service("C:\\Users\jeffc\AppData\Local\Programs\Python\Python38-32\Scripts\geckodriver.exe")
+#webdriver.Firefox(service=f)
+from selenium.webdriver.chrome.service import Service
+s=Service("C:\\Users\jeffc\AppData\Local\Programs\Python\Python38-32\Scripts\chromedriver.exe")
+webdriver.Chrome(service=s)
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -25,8 +31,8 @@ class TestGxdDifferentialQF(unittest.TestCase):
 
 
     def setUp(self):
-        #self.driver = webdriver.Chrome()
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome(service=s)
+        #self.driver = webdriver.Firefox(service=f)
 
     def test_diff_wt_results(self):
         """
@@ -38,20 +44,24 @@ class TestGxdDifferentialQF(unittest.TestCase):
         driver = self.driver
         driver.get(config.TEST_URL + '/gxd/differential')
         #self.driver.find_element(By.ID, 'difStructure3').clear()
-        pickitem = self.driver.find_element(By.ID, 'difStructure3').send_keys('bladder TS22-28')
-        #time.sleep(4)
+        pickitem = self.driver.find_element(By.ID, 'difStructure3')
+        pickitem.send_keys('bla')
+        time.sleep(2)
+        pickitem.send_keys(Keys.TAB)
         actions = ActionChains(self.driver)
         actions.move_to_element(pickitem)
-        actions.click(pickitem)
+        actions.perform()
 
-        #time.sleep(2)
+        time.sleep(2)
         #self.driver.find_element(By.ID, 'difStructure4').clear()
-        pickitem2 = self.driver.find_element(By.ID, 'difStructure4').send_keys('adventitia of bladder TS22-28')
-        #time.sleep(4)
+        pickitem2 = self.driver.find_element(By.ID, 'difStructure4')
+        pickitem2.send_keys('adv')
+        time.sleep(2)
+        pickitem2.send_keys(Keys.TAB)
         actions = ActionChains(driver)
         actions.move_to_element(pickitem2)
-        actions.click(pickitem2)
-        time.sleep(5)
+        actions.perform()
+        time.sleep(3)
         self.driver.find_element(By.ID, 'submit4').click()
         time.sleep(40)
         self.driver.find_element(By.ID, 'genegridtab')
@@ -66,7 +76,7 @@ class TestGxdDifferentialQF(unittest.TestCase):
         #self.assertIn('Cldn2', searchTextItems)
         #find the tissue grid box for bladder for marker Agtr2
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
-        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row0.col88 > rect.blue1')
+        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row0.col107 > rect.blue1')
         rightclass = item.get_attribute('class')
         #rightclass finds the class name of the gridbox
         #now we assert the class name of the gridbox matches the class name of blue1
@@ -209,10 +219,12 @@ class TestGxdDifferentialQF(unittest.TestCase):
         driver = self.driver
         driver.get(config.TEST_URL + '/gxd/differential')
         #self.driver.find_element(By.ID, 'difStructure3').clear()
-        pickitem = self.driver.find_element(By.ID, 'difStructure3').send_keys('liver')
-        actions = ActionChains(driver)
-        actions.move_to_element(pickitem)
-        actions.click(pickitem)
+        pickitem = self.driver.find_element(By.ID, 'difStructure3').send_keys('liver TS16-28')
+        self.driver.pickitem.click()
+        #actions = ActionChains(driver)
+        #actions.move_to_element(pickitem)
+        #actions.click(pickitem)
+        #actions.perform()
         time.sleep(2)
         #self.driver.find_element(By.ID, 'difStructure4').clear()
         pickitem2 = self.driver.find_element(By.ID, 'difStructure4').send_keys('spleen')

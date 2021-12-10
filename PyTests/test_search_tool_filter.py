@@ -2,7 +2,7 @@
 Created on Sep 14, 2016
 This test is for searches using the quick search feature of the WI
 @author: jeffc
-
+needs total rewrite  now filters are inside each tab!!!!!!!!!!!!!!!!!!
 '''
 
 import unittest
@@ -52,12 +52,12 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'ui-id-1')))#waits until the results are displayed on the page
         time.sleep(2)
         #find the Molecular Function filter button and click it
-        self.driver.find_element_by_id('functionFilter').click()
+        self.driver.find_element(By.ID, 'functionFilter').click()
         time.sleep(2)
         #select the filter option 'carbohydrate derivative binding'
-        self.driver.find_elements_by_name('functionFilter')[3].click()
+        self.driver.find_elements(By.NAME, 'functionFilter')[3].click()
         #click the filter button
-        self.driver.find_element_by_id('yui-gen0-button').click()
+        self.driver.find_element(By.ID, 'yui-gen0-button').click()
         time.sleep(10)
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
@@ -84,12 +84,12 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'ui-id-1')))#waits until the results are displayed on the page
         time.sleep(2)
         #find the Biological Process filter button and click it
-        self.driver.find_element_by_id('processFilter').click()
+        self.driver.find_element(By.ID, 'processFilter').click()
         time.sleep(4)
         #select the filter option 'lipid metabolic process'
-        self.driver.find_elements_by_name('processFilter')[8].click()
+        self.driver.find_elements(By.NAME, 'processFilter')[8].click()
         #click the filter button
-        self.driver.find_element_by_id('yui-gen0-button').click()
+        self.driver.find_element(By.ID, 'yui-gen0-button').click()
         time.sleep(10)
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
@@ -115,12 +115,12 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'ui-id-1')))#waits until the results are displayed on the page
         time.sleep(2)
         #find the cellular component filter button and click it
-        self.driver.find_element_by_id('componentFilter').click()
+        self.driver.find_element(By.ID, 'componentFilter').click()
         time.sleep(4)
         #select the filter option 'golgi apparatus'
-        self.driver.find_elements_by_name('componentFilter')[0].click()
+        self.driver.find_elements(By.NAME, 'componentFilter')[0].click()
         #click the filter button
-        self.driver.find_element_by_id('yui-gen0-button').click()
+        self.driver.find_element(By.ID, 'yui-gen0-button').click()
         time.sleep(10)
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
@@ -145,14 +145,14 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'ui-id-1')))#waits until the results are displayed on the page
         time.sleep(2)
         #find the phenotype filter button and click it
-        self.driver.find_element_by_id('phenotypeFilter').click()
+        self.driver.find_element(By.ID, 'phenotypeFilter').click()
         time.sleep(2)
         #select the filter option 'respiratory system phenotype'
-        self.driver.find_elements_by_name('phenotypeFilter')[23].click()
+        self.driver.find_elements(By.NAME, 'phenotypeFilter')[23].click()
         #click the filter button
-        self.driver.find_element_by_id('yui-gen0-button').click()
+        self.driver.find_element(By.ID, 'yui-gen0-button').click()
         time.sleep(2)
-        self.driver.find_element_by_id('ui-id-1').click()
+        self.driver.find_element(By.ID, 'ui-id-1').click()
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Symbol column of the table of Genome Feature tab
@@ -161,7 +161,7 @@ class TestSearchTool(unittest.TestCase):
         #asserts that the Symbol data is correct for the filter used
         self.assertEqual(all_cells[1].text, 'Gata1') 
         #Find the allele tab and click it
-        self.driver.find_element_by_id('ui-id-2').click()
+        self.driver.find_element(By.ID, 'ui-id-2').click()
         time.sleep(5)
         results_table = self.driver.find_element(By.ID, 'b5Table')
         table = Table(results_table)
@@ -173,7 +173,7 @@ class TestSearchTool(unittest.TestCase):
         self.assertEqual(all_cells[2].text, 'Tg(Gata1-Cbfb)1Tok')
         self.assertEqual(all_cells[3].text, 'Tg(Gata1-Epor)AMym') 
         #Find the Other Results by ID tab and click it
-        self.driver.find_element_by_id('ui-id-5').click()
+        self.driver.find_element(By.ID, 'ui-id-5').click()
         time.sleep(5)
         results_table = self.driver.find_element(By.ID, 'b3Table')
         table = Table(results_table)
@@ -196,14 +196,14 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'ui-id-1')))#waits until the results are displayed on the page
         #find the disease filter button and click it
-        self.driver.find_element_by_id('diseaseFilter').click()
+        self.driver.find_element(By.ID, 'diseaseFilter').click()
         time.sleep(2)
         #select the filter option 'thoracic disease'
-        self.driver.find_elements_by_name('diseaseFilter')[34].click()
+        self.driver.find_elements(By.NAME, 'diseaseFilter')[34].click()
         #click the filter button
-        self.driver.find_element_by_id('yui-gen0-button').click()
+        self.driver.find_element(By.ID, 'yui-gen0-button').click()
         time.sleep(4)
-        self.driver.find_element_by_id('ui-id-1').click()
+        self.driver.find_element(By.ID, 'ui-id-1').click()
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Symbol column of the table of Genome Feature tab
@@ -212,7 +212,7 @@ class TestSearchTool(unittest.TestCase):
         #asserts that the Symbol data is correct for the filter used
         self.assertEqual(all_cells[1].text, 'Runx3') 
         #Find the allele tab and click it
-        self.driver.find_element_by_id('ui-id-2').click()
+        self.driver.find_element(By.ID, 'ui-id-2').click()
         time.sleep(5)
         results_table = self.driver.find_element(By.ID, 'b5Table')
         table = Table(results_table)
@@ -224,7 +224,7 @@ class TestSearchTool(unittest.TestCase):
         self.assertEqual(all_cells[2].text, 'Trp53tm1Tyj')
         self.assertEqual(all_cells[3].text, 'Cav1tm1Mls') 
         #Find the Other Results by ID tab and click it
-        self.driver.find_element_by_id('ui-id-3').click()
+        self.driver.find_element(By.ID, 'ui-id-3').click()
         time.sleep(5)
         results_table = self.driver.find_element(By.ID, 'b2Table')
         table = Table(results_table)
@@ -247,14 +247,14 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'ui-id-1')))#waits until the results are displayed on the page
         #find the feature type filter button and click it
-        self.driver.find_element_by_id('featureTypeFilter').click()
+        self.driver.find_element(By.ID, 'featureTypeFilter').click()
         time.sleep(2)
         #select the filter option 'pseudogene'
-        self.driver.find_elements_by_name('featureTypeFilter')[22].click()
+        self.driver.find_elements(By.NAME, 'featureTypeFilter')[22].click()
         #click the filter button
-        self.driver.find_element_by_id('yui-gen0-button').click()
+        self.driver.find_element(By.ID, 'yui-gen0-button').click()
         time.sleep(4)
-        self.driver.find_element_by_id('ui-id-1').click()
+        self.driver.find_element(By.ID, 'ui-id-1').click()
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Symbol column of the table of Genome Feature tab
@@ -266,7 +266,7 @@ class TestSearchTool(unittest.TestCase):
         self.assertEqual(all_cells[3].text, 'pseudogene')
         self.assertEqual(all_cells[4].text, 'pseudogene')
         #Find the allele tab and click it
-        self.driver.find_element_by_id('ui-id-2').click()
+        self.driver.find_element(By.ID, 'ui-id-2').click()
         time.sleep(5)
         results_table = self.driver.find_element(By.ID, 'b5Table')
         table = Table(results_table)

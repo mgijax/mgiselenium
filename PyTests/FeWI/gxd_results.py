@@ -49,12 +49,12 @@ class TestGxdResults(unittest.TestCase):
         # Enter your disease in the pheno box, in this case we leave the field empty to return  the entire disease list
         phenobox.send_keys("")
         time.sleep(2)
-        self.driver.find_element_by_id('submit1').click()
+        self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
-        self.driver.find_element_by_id('doFilter').click()
+        self.driver.find_element(By.ID, 'doFilter').click()
         time.sleep(2)
         #capture the diseases listed in the disease filter popup list
-        diseaseElts = self.driver.find_elements_by_name('doFilter')
+        diseaseElts = self.driver.find_elements(By.NAME, 'doFilter')
         diseases = [e.get_attribute('value') for e in diseaseElts]            
         print(diseases)
         #assert the list returned is correct.
@@ -71,17 +71,17 @@ class TestGxdResults(unittest.TestCase):
         # Enter your disease in the pheno box, in this case we leave the field empty to return  the entire disease list
         phenobox.send_keys("")
         time.sleep(2)
-        self.driver.find_element_by_id('submit1').click()
+        self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
-        self.driver.find_element_by_id('doFilter').click()
+        self.driver.find_element(By.ID, 'doFilter').click()
         time.sleep(2)        
         #select the filter option 'benign neoplasm'
-        self.driver.find_elements_by_name('doFilter')[0].click()
+        self.driver.find_elements(By.NAME, 'doFilter')[0].click()
         #click the Filter button found on the filter by disease button
-        self.driver.find_element_by_id('yui-gen0-button').click()
+        self.driver.find_element(By.ID, 'yui-gen0-button').click()
         time.sleep(2)
         #locate the Genes tab and click it
-        self.driver.find_element_by_id('genestab').click()
+        self.driver.find_element(By.ID, 'genestab').click()
         time.sleep(2)
         #locates the genes column and lists the genes found
         genelist = driver.find_element(By.CLASS_NAME, 'yui-dt-data')
@@ -103,11 +103,11 @@ class TestGxdResults(unittest.TestCase):
         # Enter your gene in the nomenclature box
         genebox.send_keys("Rn7sk")
         time.sleep(2)
-        self.driver.find_element_by_id('submit1').click()
+        self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
-        self.driver.find_element_by_id('doFilter').click()
+        self.driver.find_element(By.ID, 'doFilter').click()
         time.sleep(2)
-        eventmsg = self.driver.find_element_by_id('command').text
+        eventmsg = self.driver.find_element(By.ID, 'command').text
         print(eventmsg)
         #asserts that the event msg for no genes with ontology associations is properly displayed
         self.assertEqual(eventmsg, 'No genes found with ontology associations.', 'the no genes found text is not displaying')
@@ -125,12 +125,12 @@ class TestGxdResults(unittest.TestCase):
         time.sleep(2)
         phenobox.send_keys(Keys.ENTER)
         #time.sleep(2)
-        self.driver.find_element_by_id('submit1').click()
+        self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
-        self.driver.find_element_by_id('goMfFilter').click()
+        self.driver.find_element(By.ID, 'goMfFilter').click()
         time.sleep(2)
         #capture the molecular functions listed in the molecular function filter popup list
-        molefuncElts = self.driver.find_elements_by_name('goMfFilter')
+        molefuncElts = self.driver.find_elements(By.NAME, 'goMfFilter')
         molecular = [e.get_attribute('value') for e in molefuncElts]            
         print(molecular)
         #assert the list returned is correct.
@@ -149,17 +149,17 @@ class TestGxdResults(unittest.TestCase):
         time.sleep(2)
         phenobox.send_keys(Keys.ENTER)
         #time.sleep(2)
-        self.driver.find_element_by_id('submit1').click()
+        self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
-        self.driver.find_element_by_id('goMfFilter').click()
+        self.driver.find_element(By.ID, 'goMfFilter').click()
         time.sleep(2)        
         #select the filter option 'ligase'
-        self.driver.find_elements_by_name('goMfFilter')[5].click()
+        self.driver.find_elements(By.NAME, 'goMfFilter')[5].click()
         #click the Filter button found on the filter by Molecular Function button
-        self.driver.find_element_by_id('yui-gen0-button').click()
+        self.driver.find_element(By.ID, 'yui-gen0-button').click()
         time.sleep(2)
         #locate the Genes tab and click it
-        self.driver.find_element_by_id('genestab').click()
+        self.driver.find_element(By.ID, 'genestab').click()
         time.sleep(2)
         #locates the genes column and lists the genes found
         genelist = driver.find_element(By.CLASS_NAME, 'yui-dt-data')
@@ -181,11 +181,11 @@ class TestGxdResults(unittest.TestCase):
         # Enter your gene in the nomenclature box
         genebox.send_keys("Mir7-1")
         time.sleep(2)
-        self.driver.find_element_by_id('submit1').click()
+        self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
-        self.driver.find_element_by_id('goMfFilter').click()
+        self.driver.find_element(By.ID, 'goMfFilter').click()
         time.sleep(2)
-        eventmsg = self.driver.find_element_by_id('command').text
+        eventmsg = self.driver.find_element(By.ID, 'command').text
         print(eventmsg)
         #asserts that the event msg for no genes with ontology associations is properly displayed
         self.assertEqual(eventmsg, 'No genes found with ontology associations.', 'the no genes found text is not displaying')
@@ -203,12 +203,12 @@ class TestGxdResults(unittest.TestCase):
         time.sleep(2)
         phenobox.send_keys(Keys.ENTER)
         #time.sleep(2)
-        self.driver.find_element_by_id('submit1').click()
+        self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
-        self.driver.find_element_by_id('goBpFilter').click()
+        self.driver.find_element(By.ID, 'goBpFilter').click()
         time.sleep(2)
         #capture the Biological Processes listed in the biological process filter popup list
-        biologicElts = self.driver.find_elements_by_name('goBpFilter')
+        biologicElts = self.driver.find_elements(By.NAME, 'goBpFilter')
         biologic = [e.get_attribute('value') for e in biologicElts]            
         print(biologic)
         #assert the list returned is correct.
@@ -227,17 +227,17 @@ class TestGxdResults(unittest.TestCase):
         time.sleep(2)
         phenobox.send_keys(Keys.ENTER)
         #time.sleep(2)
-        self.driver.find_element_by_id('submit1').click()
+        self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
-        self.driver.find_element_by_id('goBpFilter').click()
+        self.driver.find_element(By.ID, 'goBpFilter').click()
         time.sleep(2)        
         #select the filter option 'establishment of localization'
-        self.driver.find_elements_by_name('goBpFilter')[5].click()
+        self.driver.find_elements(By.NAME, 'goBpFilter')[5].click()
         #click the Filter button found on the filter by Biological Process button
-        self.driver.find_element_by_id('yui-gen0-button').click()
+        self.driver.find_element(By.ID, 'yui-gen0-button').click()
         time.sleep(2)
         #locate the Genes tab and click it
-        self.driver.find_element_by_id('genestab').click()
+        self.driver.find_element(By.ID, 'genestab').click()
         time.sleep(2)
         #locates the genes column and lists the genes found
         genelist = driver.find_element(By.CLASS_NAME, 'yui-dt-data')
@@ -259,11 +259,11 @@ class TestGxdResults(unittest.TestCase):
         # Enter your gene in the nomenclature box
         genebox.send_keys("Ass-ps1")
         time.sleep(2)
-        self.driver.find_element_by_id('submit1').click()
+        self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
-        self.driver.find_element_by_id('goBpFilter').click()
+        self.driver.find_element(By.ID, 'goBpFilter').click()
         time.sleep(2)
-        eventmsg = self.driver.find_element_by_id('command').text
+        eventmsg = self.driver.find_element(By.ID, 'command').text
         print(eventmsg)
         #asserts that the event msg for no genes with ontology associations is properly displayed
         self.assertEqual(eventmsg, 'No genes found with ontology associations.', 'the no genes found text is not displaying')
@@ -281,12 +281,12 @@ class TestGxdResults(unittest.TestCase):
         time.sleep(2)
         phenobox.send_keys(Keys.ENTER)
         #time.sleep(2)
-        self.driver.find_element_by_id('submit1').click()
+        self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
-        self.driver.find_element_by_id('goCcFilter').click()
+        self.driver.find_element(By.ID, 'goCcFilter').click()
         time.sleep(2)
         #capture the Cellular Components listed in the cellular component filter popup list
-        cellularElts = self.driver.find_elements_by_name('goCcFilter')
+        cellularElts = self.driver.find_elements(By.NAME, 'goCcFilter')
         cellular = [e.get_attribute('value') for e in cellularElts]            
         print(cellular)
         #assert the list returned is correct.
@@ -305,17 +305,17 @@ class TestGxdResults(unittest.TestCase):
         time.sleep(2)
         anatstructurebox.send_keys(Keys.ENTER)
         #time.sleep(2)
-        self.driver.find_element_by_id('submit1').click()
+        self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
-        self.driver.find_element_by_id('goCcFilter').click()
+        self.driver.find_element(By.ID, 'goCcFilter').click()
         time.sleep(2)        
         #select the filter option 'vacuole'
-        self.driver.find_elements_by_name('goCcFilter')[0].click()
+        self.driver.find_elements(By.NAME, 'goCcFilter')[0].click()
         #click the Filter button found on the filter by Cellular Component button
-        self.driver.find_element_by_id('yui-gen0-button').click()
+        self.driver.find_element(By.ID, 'yui-gen0-button').click()
         time.sleep(2)
         #locate the Genes tab and click it
-        self.driver.find_element_by_id('genestab').click()
+        self.driver.find_element(By.ID, 'genestab').click()
         time.sleep(2)
         #locates the genes column and lists the genes found
         genelist = driver.find_element(By.CLASS_NAME, 'yui-dt-data')
@@ -337,11 +337,11 @@ class TestGxdResults(unittest.TestCase):
         # Enter your gene in the nomenclature box
         genebox.send_keys("Ass-ps2")
         time.sleep(2)
-        self.driver.find_element_by_id('submit1').click()
+        self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
-        self.driver.find_element_by_id('goCcFilter').click()
+        self.driver.find_element(By.ID, 'goCcFilter').click()
         time.sleep(2)
-        eventmsg = self.driver.find_element_by_id('command').text
+        eventmsg = self.driver.find_element(By.ID, 'command').text
         print(eventmsg)
         #asserts that the event msg for no genes with ontology associations is properly displayed
         self.assertEqual(eventmsg, 'No genes found with ontology associations.', 'the no genes found text is not displaying')
@@ -376,7 +376,7 @@ class TestGxdResults(unittest.TestCase):
         searchTextItems = iterate.getTextAsList(items)
         print(searchTextItems)
         #assert that "data" link goes to the correct experiment page.Test result for E-MTAB-5772
-        links = self.driver.find_element_by_link_text('data')
+        links = self.driver.find_element(By.LINK_TEXT, 'data')
         exturl = links.get_attribute('href')
         #assert that the link url is correct
         self.assertEqual(exturl, 'https://www.ebi.ac.uk/gxa/experiments/E-MTAB-5772/Results')   
@@ -412,7 +412,7 @@ class TestGxdResults(unittest.TestCase):
         searchTextItems = iterate.getTextAsList(items)
         print(searchTextItems)
         #assert that ID link goes to the correct experiment page.Test result for E-MTAB-5772
-        links = self.driver.find_element_by_link_text('E-MTAB-5772')
+        links = self.driver.find_element(By.LINK_TEXT, 'E-MTAB-5772')
         inturl = links.get_attribute('href')
         #assert that the link url is correct
         self.assertEqual(inturl, 'https://mgitest.jax.org/gxd/htexp_index/summary?arrayExpressID=E-MTAB-5772')           
@@ -475,7 +475,7 @@ class TestGxdResults(unittest.TestCase):
         driver.find_element(By.ID, 'showHide').click()
         time.sleep(2)
         #locates the table column headings and verify the order of the columns
-        cols = driver.find_elements_by_xpath('.//span[@class = "yui-dt-label"]')
+        cols = driver.find_elements(By.XPATH, './/span[@class = "yui-dt-label"]')
         head = iterate.getTextAsList(cols)
         print(head)
         time.sleep(1)
@@ -498,7 +498,7 @@ class TestGxdResults(unittest.TestCase):
         time.sleep(2)
         #Defaults to Assays Results Tab so no tab click required
         #locates the table column headings and verify the order of the columns
-        cols = driver.find_elements_by_xpath('.//span[@class = "yui-dt-label"]')
+        cols = driver.find_elements(By.XPATH, './/span[@class = "yui-dt-label"]')
         head = iterate.getTextAsList(cols)
         print(head)
         time.sleep(1)
@@ -520,7 +520,7 @@ class TestGxdResults(unittest.TestCase):
         Select(self.driver.find_element(By.ID, 'theilerStage')).select_by_value('28')#finds the theiler stage list and select the TS 28 option
         time.sleep(2)
         #find the Wild Type specimens only button and click it
-        self.driver.find_element_by_id('isWildType').click()
+        self.driver.find_element(By.ID, 'isWildType').click()
         #find the Whole Genome assays check box and click it
         driver.find_element(By.ID, 'wholeGenomeAll').click()
         #find the search button and click it
@@ -550,16 +550,16 @@ class TestGxdResults(unittest.TestCase):
         Select(self.driver.find_element(By.ID, 'theilerStage')).select_by_value('28')#finds the theiler stage list and select the TS 28 option
         time.sleep(2)
         #find the In Situ Assays check box and unchecks it
-        self.driver.find_element_by_id('inSituAll').click()
+        self.driver.find_element(By.ID, 'inSituAll').click()
         #find the Blot Assays check box and unchecks it
-        self.driver.find_element_by_id('blotAll').click()
+        self.driver.find_element(By.ID, 'blotAll').click()
         #find the Whole Genome assays check box and click it
         driver.find_element(By.ID, 'wholeGenomeAll').click()
         #find the search button and click it
         driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
         #Click the Show/Hide Additional Sample Data box to display other columns
-        driver.find_element_by_id('showHide').click()
+        driver.find_element(By.ID, 'showHide').click()
         #Defaults to Assays Results Tab so no tab click required
         #locates the Notes(RNA-Seq) column and finds all the data in the column?
         genelist = driver.find_element(By.ID, 'resultsdata').find_element(By.CLASS_NAME, 'yui-dt-data')
@@ -605,13 +605,13 @@ class TestGxdResults(unittest.TestCase):
         time.sleep(2)
         #Defaults to Assays Results Tab, so find and click the Assays tab
         #locate the Assays tab and click it
-        self.driver.find_element_by_id('assaystab').click()
+        self.driver.find_element(By.ID, 'assaystab').click()
         time.sleep(2)
         #finds the Filter by Assay Type popup and selects "RNA-Seq".
-        driver.find_element_by_id('assayTypeFilter').click()
-        driver.find_element_by_css_selector('#command > label:nth-child(11) > input:nth-child(1)').click()
+        driver.find_element(By.ID, 'assayTypeFilter').click()
+        driver.find_element(By.CSS_SELECTOR, '#command > label:nth-child(11) > input:nth-child(1)').click()
         #time.sleep(2)
-        driver.find_element_by_id('yui-gen0-button').click()
+        driver.find_element(By.ID, 'yui-gen0-button').click()
         time.sleep(2)
         #locates the Reference column and finds all the data in the column
         reflist = driver.find_element(By.ID, 'assaysdata').find_element(By.CLASS_NAME, 'yui-dt-data')

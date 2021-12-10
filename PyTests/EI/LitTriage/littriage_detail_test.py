@@ -5,6 +5,7 @@ These tests are to confirm results you get back using various result requirement
 '''
 import unittest
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 import HtmlTestRunner
 import sys,os.path
 # adjust the path to find config
@@ -46,27 +47,27 @@ class TestEiLitTriageDetail(unittest.TestCase):
         form.click_search()
         
         #finds the Reference Type field and return it's value; 31576686 = MGI Curation Record
-        ref_type = self.driver.find_element_by_id("editTabRefType").get_attribute('value')
+        ref_type = self.driver.find_element(By.ID, "editTabRefType").get_attribute('value')
         print(ref_type)
         self.assertEqual(ref_type, '31576686')
         #finds the Authors field and return it's text value 
-        author = self.driver.find_element_by_id("editTabAuthors").get_attribute('value')
+        author = self.driver.find_element(By.ID, "editTabAuthors").get_attribute('value')
         print(author)
         self.assertEqual(author, 'Gaudet P; Livstone M; Thomas P; The Reference Genome Project 2010')
         #finds the Title field and return it's text value
-        title = self.driver.find_element_by_id("editTabTitle").get_attribute('value')
+        title = self.driver.find_element(By.ID, "editTabTitle").get_attribute('value')
         print(title)
         self.assertEqual(title, 'Annotation inferences using phylogenetic trees')
         
         #finds the Reference IDs table and iterates through the table
-        table_element = self.driver.find_element_by_id("resultsTable")
+        table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
         id_col = table.get_column_cells(1)
         ids = iterate.getTextAsList(id_col)
         
         #finds the GO-REF field and return it's ID value
-        go_ref = self.driver.find_element_by_id("gorefId").get_attribute('value')
+        go_ref = self.driver.find_element(By.ID, "gorefId").get_attribute('value')
         print(go_ref)
         self.assertEqual(go_ref, 'GO_REF:0000033')
         
@@ -81,38 +82,38 @@ class TestEiLitTriageDetail(unittest.TestCase):
         form.click_search()
         
         #finds the Reference Type field and return it's value; 31576687 = Peer Reviewed Article
-        ref_type = self.driver.find_element_by_id("editTabRefType").get_attribute('value')
+        ref_type = self.driver.find_element(By.ID, "editTabRefType").get_attribute('value')
         print(ref_type)
         self.assertEqual(ref_type, '31576687')
         #finds the Authors field and return it's text value
-        author = self.driver.find_element_by_id("editTabAuthors").get_attribute('value')
+        author = self.driver.find_element(By.ID, "editTabAuthors").get_attribute('value')
         print(author)
         self.assertEqual(author, 'Gregg RG; Kamermans M; Klooster J; Lukasiewicz PD; Peachey NS; Vessey KA; McCall MA')
         #finds the Title field and return it's text value
-        title = self.driver.find_element_by_id("editTabTitle").get_attribute('value')
+        title = self.driver.find_element(By.ID, "editTabTitle").get_attribute('value')
         print(title)
         self.assertEqual(title, 'Nyctalopin expression in retinal bipolar cells restores visual function in a mouse model of complete X-linked congenital stationary night blindness.')
         #finds the Reference Type field and return it's text value
-        journal = self.driver.find_element_by_id("editTabJournal").get_attribute('value')
+        journal = self.driver.find_element(By.ID, "editTabJournal").get_attribute('value')
         print(journal)
         self.assertEqual(journal, 'J Neurophysiol')
         #finds the Reference IDs table and iterates through the table
-        table_element = self.driver.find_element_by_id("resultsTable")
+        table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
         id_col = table.get_column_cells(1)
         ids = iterate.getTextAsList(id_col)
         
         #finds the Pubmed field and return it's ID value
-        pub_med = self.driver.find_element_by_id("pubmedId").get_attribute('value')
+        pub_med = self.driver.find_element(By.ID, "pubmedId").get_attribute('value')
         print(pub_med)
         self.assertEqual(pub_med, '17881478')    
         #finds the DOI field and return it's ID value
-        do_id = self.driver.find_element_by_id("doiId").get_attribute('value')
+        do_id = self.driver.find_element(By.ID, "doiId").get_attribute('value')
         print(do_id)
         self.assertEqual(do_id, '10.1152/jn.00608.2007')    
         #finds the GO-REF field and return it's ID value(should be blank/empty)
-        go_ref = self.driver.find_element_by_id("gorefId").get_attribute('value')
+        go_ref = self.driver.find_element(By.ID, "gorefId").get_attribute('value')
         print(go_ref)
         self.assertEqual(go_ref, '')        
         
@@ -127,11 +128,11 @@ class TestEiLitTriageDetail(unittest.TestCase):
         form.click_search()
         
         #finds the isReviewed field and return it's text value(should be Yes)
-        is_rvw = self.driver.find_element_by_id("refDataIsReview").get_attribute('value')
+        is_rvw = self.driver.find_element(By.ID, "refDataIsReview").get_attribute('value')
         print(is_rvw)
         self.assertEqual(is_rvw, 'Yes')
         #finds the Reference Type field and return it's text value
-        journal = self.driver.find_element_by_id("editTabJournal").get_attribute('value')
+        journal = self.driver.find_element(By.ID, "editTabJournal").get_attribute('value')
         print(journal)
         self.assertEqual(journal, 'Cell Metab')
     
@@ -147,11 +148,11 @@ class TestEiLitTriageDetail(unittest.TestCase):
         form.click_search()
         
         #finds the isReviewed field and return it's text value(should be Yes)
-        is_rvw = self.driver.find_element_by_id("refDataIsReview").get_attribute('value')
+        is_rvw = self.driver.find_element(By.ID, "refDataIsReview").get_attribute('value')
         print(is_rvw)
         self.assertEqual(is_rvw, 'No')
         #finds the Notes field and return it's text value
-        note = self.driver.find_element_by_id("editTabRefNote").get_attribute('value')
+        note = self.driver.find_element(By.ID, "editTabRefNote").get_attribute('value')
         print(note)
         self.assertEqual(note, 'disease= diabetes')
         
@@ -166,35 +167,35 @@ class TestEiLitTriageDetail(unittest.TestCase):
         form.click_search()
         
         #finds the Authors field and return it's text value
-        author = self.driver.find_element_by_id("editTabAuthors").get_attribute('value')
+        author = self.driver.find_element(By.ID, "editTabAuthors").get_attribute('value')
         print(author)
         self.assertEqual(author, 'Naylor MJ; Rancourt DE; Bech-Hansen NT')
         #finds the Title field and return it's text value
-        title = self.driver.find_element_by_id("editTabTitle").get_attribute('value')
+        title = self.driver.find_element(By.ID, "editTabTitle").get_attribute('value')
         print(title)
         self.assertEqual(title, 'Isolation and characterization of a calcium channel gene, Cacna1f, the murine orthologue of the gene for incomplete X-linked congenital stationary night blindness.')
         #finds the Reference Type field and return it's text value
-        journal = self.driver.find_element_by_id("editTabJournal").get_attribute('value')
+        journal = self.driver.find_element(By.ID, "editTabJournal").get_attribute('value')
         print(journal)
         self.assertEqual(journal, 'Genomics')
         #finds the Date field and return it's text value
-        ref_date = self.driver.find_element_by_id("editTabDate").get_attribute('value')
+        ref_date = self.driver.find_element(By.ID, "editTabDate").get_attribute('value')
         print(ref_date)
         self.assertEqual(ref_date, '2000 Jun 15')
         #finds the Volume field and return it's text value
-        ref_vol = self.driver.find_element_by_id("editTabVolume").get_attribute('value')
+        ref_vol = self.driver.find_element(By.ID, "editTabVolume").get_attribute('value')
         print(ref_vol)
         self.assertEqual(ref_vol, '66')
         #finds the Issue field and return it's text value
-        ref_issue = self.driver.find_element_by_id("editTabIssue").get_attribute('value')
+        ref_issue = self.driver.find_element(By.ID, "editTabIssue").get_attribute('value')
         print(ref_issue)
         self.assertEqual(ref_issue, '3')
         #finds the Page field and return it's text value
-        ref_page = self.driver.find_element_by_id("editTabPages").get_attribute('value')
+        ref_page = self.driver.find_element(By.ID, "editTabPages").get_attribute('value')
         print(ref_page)
         self.assertEqual(ref_page, '324-7')
         #finds the Year field and return it's text value
-        ref_year = self.driver.find_element_by_id("editTabYear").get_attribute('value')
+        ref_year = self.driver.find_element(By.ID, "editTabYear").get_attribute('value')
         print(ref_year)
         self.assertEqual(ref_year, '2000')
         
@@ -209,7 +210,7 @@ class TestEiLitTriageDetail(unittest.TestCase):
         form.click_search()
         
         #finds the Title field and return it's text value
-        title = self.driver.find_element_by_id("editTabTitle").get_attribute('value')
+        title = self.driver.find_element(By.ID, "editTabTitle").get_attribute('value')
         print(title)
         self.assertEqual(title, 'Allotyping C<m>a and C<m>b DNA and RNA,')
         
@@ -224,22 +225,22 @@ class TestEiLitTriageDetail(unittest.TestCase):
         form.click_search()
         time.sleep(2)
         #find the Allele Associations button and click it
-        self.driver.find_element_by_id('alleleTabButton').click()
+        self.driver.find_element(By.ID, 'alleleTabButton').click()
         #finds the Allele Association table and gets the first row of data
         time.sleep(2)
-        type_used = self.driver.find_elements_by_class_name('alleleAssocType')[0].get_property('value')#value will be 1017 which associates to 'Used-FC'
-        allele_used = self.driver.find_elements_by_class_name("alleleSymbol")[0].get_property('value')
-        allele_id = self.driver.find_elements_by_class_name("alleleAccID")[0].get_property('value')
-        mrk = self.driver.find_elements_by_class_name('alleleMarkerSymbol')[0]
+        type_used = self.driver.find_elements(By.CLASS_NAME, 'alleleAssocType')[0].get_property('value')#value will be 1017 which associates to 'Used-FC'
+        allele_used = self.driver.find_elements(By.CLASS_NAME, "alleleSymbol")[0].get_property('value')
+        allele_id = self.driver.find_elements(By.CLASS_NAME, "alleleAccID")[0].get_property('value')
+        mrk = self.driver.find_elements(By.CLASS_NAME, 'alleleMarkerSymbol')[0]
         print(type_used)
         print(allele_used)
         print(allele_id)
         print(mrk.text)
         #finds the Allele Association table and gets the second row of data
-        type1_used = self.driver.find_elements_by_class_name('alleleAssocType')[1].get_property('value')#value will be 1017 which associates to 'Used-FC'
-        allele1_used = self.driver.find_elements_by_class_name("alleleSymbol")[1].get_property('value')
-        allele1_id = self.driver.find_elements_by_class_name("alleleAccID")[1].get_property('value')
-        mrk1 = self.driver.find_elements_by_class_name('alleleMarkerSymbol')[1]
+        type1_used = self.driver.find_elements(By.CLASS_NAME, 'alleleAssocType')[1].get_property('value')#value will be 1017 which associates to 'Used-FC'
+        allele1_used = self.driver.find_elements(By.CLASS_NAME, "alleleSymbol")[1].get_property('value')
+        allele1_id = self.driver.find_elements(By.CLASS_NAME, "alleleAccID")[1].get_property('value')
+        mrk1 = self.driver.find_elements(By.CLASS_NAME, 'alleleMarkerSymbol')[1]
         print(type1_used)
         print(allele1_used)
         print(allele1_id)

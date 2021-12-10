@@ -48,16 +48,16 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Antibody Name field and enters an antibody name, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("antibodyName").send_keys('anti-uvomorulin ')
+        driver.find_element(By.ID, "antibodyName").send_keys('anti-uvomorulin ')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -73,16 +73,16 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Antibody Name field and enters an antibody name w/wildcard, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("antibodyName").send_keys('anti-Dkk%')
+        driver.find_element(By.ID, "antibodyName").send_keys('anti-Dkk%')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -98,16 +98,16 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the antibody type field and selects the option 'Monoclonal' (value=string:1), tabs out of the field then clicks the Search button
-        Select(driver.find_element_by_id("type")).select_by_value('string:1')
+        Select(driver.find_element(By.ID, "type")).select_by_value('string:1')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(5)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -129,16 +129,16 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the antibody class field and selects the option 'IgG2c' (value=string:11), tabs out of the field then clicks the Search button
-        Select(driver.find_element_by_id("class")).select_by_value('string:11')
+        Select(driver.find_element(By.ID, "class")).select_by_value('string:11')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(5)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -154,16 +154,16 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the antibody organism field and selects the option 'monkey' (value=string:72), tabs out of the field then clicks the Search button
-        Select(driver.find_element_by_id("antibody_organism")).select_by_value('string:72')
+        Select(driver.find_element(By.ID, "antibody_organism")).select_by_value('string:72')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(5)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -182,16 +182,16 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the antigen accession ID field and enters text , tabs out of the field then clicks the Search button
-        driver.find_element_by_id("antigenAcc").send_keys('MGI:2684475')
+        driver.find_element(By.ID, "antigenAcc").send_keys('MGI:2684475')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -207,16 +207,16 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the antigen name field and enters text , tabs out of the field then clicks the Search button
-        driver.find_element_by_id("antigenName").send_keys('uvomorulin')
+        driver.find_element(By.ID, "antigenName").send_keys('uvomorulin')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -232,16 +232,16 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the antigen name field and enters text , tabs out of the field then clicks the Search button
-        driver.find_element_by_id("antigenName").send_keys('CDEBP%')
+        driver.find_element(By.ID, "antigenName").send_keys('CDEBP%')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -257,16 +257,16 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the antibody region covered field and enters text , tabs out of the field then clicks the Search button
-        driver.find_element_by_id("regionCovered").send_keys('carboxyl-terminal domain ')
+        driver.find_element(By.ID, "regionCovered").send_keys('carboxyl-terminal domain ')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -282,16 +282,16 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the region covered field and enters text, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("regionCovered").send_keys('histidyl-tagged%')
+        driver.find_element(By.ID, "regionCovered").send_keys('histidyl-tagged%')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -307,16 +307,16 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the antigen notes field and enters text, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("antigenNote").send_keys('fused to GST')
+        driver.find_element(By.ID, "antigenNote").send_keys('fused to GST')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -335,16 +335,16 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the antigen notes field and enters text, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("antigenNote").send_keys('%describe%')
+        driver.find_element(By.ID, "antigenNote").send_keys('%describe%')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -366,16 +366,16 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the organism(antigen) field and select the option 'Carp', tabs out of the field then clicks the Search button
-        Select(driver.find_element_by_id("antigenOrganism")).select_by_value('string:62')
+        Select(driver.find_element(By.ID, "antigenOrganism")).select_by_value('string:62')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -391,16 +391,16 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the antibody antigen strain field and enters text, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("strain").send_keys('BALB/c')
+        driver.find_element(By.ID, "strain").send_keys('BALB/c')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -425,16 +425,16 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the antibody antigen strain field and enters text, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("strain").send_keys('129%')
+        driver.find_element(By.ID, "strain").send_keys('129%')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -459,16 +459,16 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the tissue field and enters a tissue, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("tissue").send_keys('thymus')
+        driver.find_element(By.ID, "tissue").send_keys('thymus')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -496,16 +496,16 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the tissue field and enters a tissue w/wildcard, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("tissue").send_keys('endo%')
+        driver.find_element(By.ID, "tissue").send_keys('endo%')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -524,16 +524,16 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the tissue description field and enters a description, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("description").send_keys('mast cell')
+        driver.find_element(By.ID, "description").send_keys('mast cell')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -549,16 +549,16 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the tissue Description field and enters a description w/wildcard, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("description").send_keys('%tectal proteins')
+        driver.find_element(By.ID, "description").send_keys('%tectal proteins')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -574,16 +574,16 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the cell line field and enter a cell line, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("cellLine").send_keys('MC/9')
+        driver.find_element(By.ID, "cellLine").send_keys('MC/9')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -602,16 +602,16 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the cell line field and enters a description w/wildcard, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("cellLine").send_keys('PCC4%')
+        driver.find_element(By.ID, "cellLine").send_keys('PCC4%')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -630,16 +630,16 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the age prefix field and select the option 'postnatal day', tabs out of the field then clicks the Search button
-        Select(driver.find_element_by_id("age")).select_by_value('string:postnatal year')
+        Select(driver.find_element(By.ID, "age")).select_by_value('string:postnatal year')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -658,16 +658,16 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the age stage field and enters an age range, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("ageStage").send_keys('12.5')
+        driver.find_element(By.ID, "ageStage").send_keys('12.5')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -683,16 +683,16 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the age stage field and enters an age stage, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("ageStage").send_keys('12%')
+        driver.find_element(By.ID, "ageStage").send_keys('12%')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -711,16 +711,16 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the gender field and enter the option 'female'(string:315164, tabs out of the field then clicks the Search button
-        Select(driver.find_element_by_id("gender")).select_by_value('string:315164')
+        Select(driver.find_element(By.ID, "gender")).select_by_value('string:315164')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -736,16 +736,16 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the antibody reference J# field and enter a J number, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("jnumid_ref-0").send_keys('J:147857')
+        driver.find_element(By.ID, "jnumid_ref-0").send_keys('J:147857')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -761,16 +761,16 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the antibody reference J# field and enter a J number, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("jnumid_ref-0").send_keys('J:14789%')
+        driver.find_element(By.ID, "jnumid_ref-0").send_keys('J:14789%')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(4)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -795,16 +795,16 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the antibody reference citation field and enters text, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("short_citation-0").send_keys('Jubb AM, J Pathol 2012 Jan;226(1):50-60')
+        driver.find_element(By.ID, "short_citation-0").send_keys('Jubb AM, J Pathol 2012 Jan;226(1):50-60')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(4)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -829,16 +829,16 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the antibody alias field and enters text, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("alias-0").send_keys('anti-CD117')
+        driver.find_element(By.ID, "alias-0").send_keys('anti-CD117')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(4)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -857,16 +857,16 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the antibody alias field and enters text, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("alias-0").send_keys('anti-CD%')
+        driver.find_element(By.ID, "alias-0").send_keys('anti-CD%')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(4)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -891,16 +891,16 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the antibody alias J number field and enters a J number, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("jnumid-0").send_keys('J:37016')
+        driver.find_element(By.ID, "jnumid-0").send_keys('J:37016')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(4)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -916,16 +916,16 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the antibody alias J number field and enters a J number, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("short_citation-0").send_keys('Velling T, Dev Dyn 1996 Dec;207(4):355-71')
+        driver.find_element(By.ID, "short_citation-0").send_keys('Velling T, Dev Dyn 1996 Dec;207(4):355-71')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(4)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -941,16 +941,16 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the antibody alias J number field and enters a J number, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("antibodyNote").send_keys('%reduction in fluorescence% ')
+        driver.find_element(By.ID, "antibodyNote").send_keys('%reduction in fluorescence% ')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(4)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -966,16 +966,16 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the antibody marker field and enters text, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("markerSymbol-0").send_keys('sfpq')
+        driver.find_element(By.ID, "markerSymbol-0").send_keys('sfpq')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(4)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -994,16 +994,16 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the antibody alias J number field and enters a J number, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("markerSymbol-0").send_keys('Sfp%')
+        driver.find_element(By.ID, "markerSymbol-0").send_keys('Sfp%')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(4)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -1022,16 +1022,16 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the antibody chromosome field and enters text, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("chromosome-0").send_keys('Y')
+        driver.find_element(By.ID, "chromosome-0").send_keys('Y')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(4)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -1062,18 +1062,18 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #find the Created By field and enter the name
-        driver.find_element_by_id("createdBy").send_keys("jx")
+        driver.find_element(By.ID, "createdBy").send_keys("jx")
         #find the Search button and click it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), '5-HTT'))
         #find the Created by field
-        create_by = driver.find_element_by_id('createdBy').get_attribute('value')
+        create_by = driver.find_element(By.ID, 'createdBy').get_attribute('value')
         print(create_by)
         #Assert the  Created By field returned is correct 
         self.assertEqual(create_by, 'jx')
         #find the Creation Date field
-        create_date = driver.find_element_by_id('creationDate').get_attribute('value')
+        create_date = driver.find_element(By.ID, 'creationDate').get_attribute('value')
         print(create_date)
         #Assert the  Creation Date field returned is correct 
         self.assertEqual(create_date, '2020-06-18')
@@ -1085,18 +1085,18 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #find the Modified by field and enter the name
-        driver.find_element_by_id("modifiedBy").send_keys("jx")
+        driver.find_element(By.ID, "modifiedBy").send_keys("jx")
         #find the Search button and click it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), '281-2'))
         #find the Modified by field
-        mod_by = driver.find_element_by_id('modifiedBy').get_attribute('value')
+        mod_by = driver.find_element(By.ID, 'modifiedBy').get_attribute('value')
         print(mod_by)
         #Assert the  Modified By field returned is correct 
         self.assertEqual(mod_by, 'jx')
         #find the Modification Date field
-        mod_date = driver.find_element_by_id('modificationDate').get_attribute('value')
+        mod_date = driver.find_element(By.ID, 'modificationDate').get_attribute('value')
         print(mod_date)
         #Assert the Modification Date field returned is correct 
         self.assertEqual(mod_date, '2020-06-18')
@@ -1108,12 +1108,12 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #find the Creation Date field and enter a date
-        driver.find_element_by_id("creationDate").send_keys("2013-01-23")
+        driver.find_element(By.ID, "creationDate").send_keys("2013-01-23")
         #find the Search button and click it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Anti-M-cadherin'))
-        create_date = driver.find_element_by_id('creationDate').get_attribute('value')
+        create_date = driver.find_element(By.ID, 'creationDate').get_attribute('value')
         print(create_date)
         #Assert the  Creation Date field returned is correct 
         self.assertEqual(create_date, '2013-01-23')
@@ -1125,13 +1125,13 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #find the Modification Date field and enter a date
-        driver.find_element_by_id("modificationDate").send_keys("2013-01-02")
+        driver.find_element(By.ID, "modificationDate").send_keys("2013-01-02")
         #find the Search button and click it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'EphA4 antibody'))
         #find the Modification Date field
-        mod_date = driver.find_element_by_id('modificationDate').get_attribute('value')
+        mod_date = driver.find_element(By.ID, 'modificationDate').get_attribute('value')
         print(mod_date)
         #Assert the Modification Date field returned is correct 
         self.assertEqual(mod_date, '2013-01-02')
@@ -1143,18 +1143,18 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #find the antigen Modification Date field and enter a date
-        driver.find_element_by_id("modificationDate").send_keys("<1998-09-14")
+        driver.find_element(By.ID, "modificationDate").send_keys("<1998-09-14")
         #find the Search button and click it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-p107'))
         #find the Modified by field
-        mod_by = driver.find_element_by_id('modifiedBy').get_attribute('value')
+        mod_by = driver.find_element(By.ID, 'modifiedBy').get_attribute('value')
         print(mod_by)
         #Assert the  Modified By field returned is correct 
         self.assertEqual(mod_by, 'dbo')
         #find the Modification Date field
-        mod_date = driver.find_element_by_id('modificationDate').get_attribute('value')
+        mod_date = driver.find_element(By.ID, 'modificationDate').get_attribute('value')
         print(mod_date)
         #Assert the Modification Date field returned is correct 
         self.assertEqual(mod_date, '1998-08-04')
@@ -1166,18 +1166,18 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #find the Modification Date field and enter a date
-        driver.find_element_by_id("modificationDate").send_keys("<=1998-09-14")
+        driver.find_element(By.ID, "modificationDate").send_keys("<=1998-09-14")
         #find the Search button and click it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-p107'))
         #find the Modified by field
-        mod_by = driver.find_element_by_id('modifiedBy').get_attribute('value')
+        mod_by = driver.find_element(By.ID, 'modifiedBy').get_attribute('value')
         print(mod_by)
         #Assert the  Modified By field returned is correct 
         self.assertEqual(mod_by, 'dbo')
         #find the Modification Date field
-        mod_date = driver.find_element_by_id('modificationDate').get_attribute('value')
+        mod_date = driver.find_element(By.ID, 'modificationDate').get_attribute('value')
         print(mod_date)
         #Assert the Modification Date field returned is correct 
         self.assertEqual(mod_date, '1998-09-14')
@@ -1189,18 +1189,18 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #find the Modification Date field and enter a date
-        driver.find_element_by_id("modificationDate").send_keys("1998-08-04..1998-08-10")
+        driver.find_element(By.ID, "modificationDate").send_keys("1998-08-04..1998-08-10")
         #find the Search button and click it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-p107'))
         #find the Modified by field
-        mod_by = driver.find_element_by_id('modifiedBy').get_attribute('value')
+        mod_by = driver.find_element(By.ID, 'modifiedBy').get_attribute('value')
         print(mod_by)
         #Assert the  Modified By field returned is correct 
         self.assertEqual(mod_by, 'dbo')
         #find the Modification Date field
-        mod_date = driver.find_element_by_id('modificationDate').get_attribute('value')
+        mod_date = driver.find_element(By.ID, 'modificationDate').get_attribute('value')
         print(mod_date)
         #Assert the Modification Date field returned is correct 
         self.assertEqual(mod_date, '1998-08-04')
@@ -1212,12 +1212,12 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #find the Creation Date field and enter a date
-        driver.find_element_by_id("creationDate").send_keys("<1998-06-23")
+        driver.find_element(By.ID, "creationDate").send_keys("<1998-06-23")
         #find the Search button and click it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-GLUT1'))
-        create_date = driver.find_element_by_id('creationDate').get_attribute('value')
+        create_date = driver.find_element(By.ID, 'creationDate').get_attribute('value')
         print(create_date)
         #Assert the  Creation Date field returned is correct 
         self.assertEqual(create_date, '1998-06-22')
@@ -1229,12 +1229,12 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #find the Creation Date field and enter a date
-        driver.find_element_by_id("creationDate").send_keys("<=1998-06-23")
+        driver.find_element(By.ID, "creationDate").send_keys("<=1998-06-23")
         #find the Search button and click it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-GLUT1'))
-        create_date = driver.find_element_by_id('creationDate').get_attribute('value')
+        create_date = driver.find_element(By.ID, 'creationDate').get_attribute('value')
         print(create_date)
         #Assert the  Creation Date field returned is correct 
         self.assertEqual(create_date, '1998-06-22')
@@ -1246,12 +1246,12 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #find the antibody Creation Date field and enter a date
-        driver.find_element_by_id("creationDate").send_keys("1998-06-22..1998-07-09")
+        driver.find_element(By.ID, "creationDate").send_keys("1998-06-22..1998-07-09")
         #find the Search button and click it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-GLUT1'))
-        create_date = driver.find_element_by_id('creationDate').get_attribute('value')
+        create_date = driver.find_element(By.ID, 'creationDate').get_attribute('value')
         print(create_date)
         #Assert the  Creation Date field returned is correct 
         self.assertEqual(create_date, '1998-06-22')

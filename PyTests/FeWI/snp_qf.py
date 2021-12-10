@@ -8,6 +8,7 @@ import unittest
 import time
 import HtmlTestRunner
 from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
@@ -28,8 +29,12 @@ class TestSnpQF(unittest.TestCase):
 
 
     def setUp(self):
-        self.driver = webdriver.Firefox()
-        #self.driver = webdriver.Chrome()
+        #self.driver = webdriver.Firefox()
+        #options = Options()
+        #options.binary_location = r'C:\Program Files (x86)\Mozilla Firefox\firefox.exe'
+        #self.driver = webdriver.Firefox(executable_path=r'C:\webdriver\bin\geckodriver.exe')
+
+        self.driver = webdriver.Chrome()
         self.driver.get(config.TEST_URL + "/snp")
         self.driver.implicitly_wait(10)
 
@@ -56,7 +61,7 @@ class TestSnpQF(unittest.TestCase):
         driver.find_element(By.ID, 'geneSearch').click()
         time.sleep(2)
         #locates the SNP summary table and verify the rs IDs returned are correct
-        snp_table = Table(self.driver.find_element_by_id("snpSummaryTable"))
+        snp_table = Table(self.driver.find_element(By.ID, "snpSummaryTable"))
         cells = snp_table.get_column_cells("SNP ID\n(dbSNP Build 142)")
         print(iterate.getTextAsList(cells))     
         rsReturned = iterate.getTextAsList(cells)        
@@ -91,7 +96,7 @@ class TestSnpQF(unittest.TestCase):
         driver.find_element(By.ID, 'yui-gen0-button').click()
         time.sleep(2)
         #locates the SNP summary table and verify the rs IDs returned are correct
-        snp_table = Table(self.driver.find_element_by_id("snpSummaryTable"))
+        snp_table = Table(self.driver.find_element(By.ID, "snpSummaryTable"))
         cells = snp_table.get_column_cells("SNP ID\n(dbSNP Build 142)")
         print(iterate.getTextAsList(cells))     
         rsReturned = iterate.getTextAsList(cells)        
@@ -127,7 +132,7 @@ class TestSnpQF(unittest.TestCase):
         driver.find_element(By.ID, 'yui-gen0-button').click()
         time.sleep(2)
         #locates the SNP summary table and verify the rs IDs returned are correct
-        snp_table = Table(self.driver.find_element_by_id("snpSummaryTable"))
+        snp_table = Table(self.driver.find_element(By.ID, "snpSummaryTable"))
         cells = snp_table.get_column_cells("SNP ID\n(dbSNP Build 142)")
         print(iterate.getTextAsList(cells))     
         rsReturned = iterate.getTextAsList(cells)        
@@ -199,7 +204,7 @@ class TestSnpQF(unittest.TestCase):
         driver.execute_script("arguments[0].click();", alleleFil)
         driver.find_element(By.ID, 'yui-gen0-button').click()
         #locates the SNP summary table and verify the rs IDs returned are correct, strains returned are correct
-        snp_table = Table(self.driver.find_element_by_id("snpSummaryTable"))
+        snp_table = Table(self.driver.find_element(By.ID, "snpSummaryTable"))
         cells = snp_table.get_column_cells("SNP ID\n(dbSNP Build 142)")
         print(iterate.getTextAsList(cells))     
         rsReturned = iterate.getTextAsList(cells)        

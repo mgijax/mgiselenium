@@ -140,13 +140,13 @@ class TestSnpBuildNumbers(unittest.TestCase):
         
         #displays the HMDC qf
         self.driver.get(PUBLIC_URL + "/humanDisease.shtml")
-        self.driver.find_element_by_partial_link_text("Autism AND").click()
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, "Autism AND").click()
         wait.forAjax(self.driver)
         #clicks the gene tab of the hmdc results page
-        self.driver.find_element_by_id("genestab").click()
+        self.driver.find_element(By.ID, "genestab").click()
         time.sleep(1)
         # get all the elements in the Genome Coordinates column
-        coorddata = self.driver.find_elements_by_class_name('yui-dt-col-coordinate')
+        coorddata = self.driver.find_elements(By.CLASS_NAME, 'yui-dt-col-coordinate')
         #finds the mouse build number
         searchTreeItems = iterate.getTextAsList(coorddata)
         #confirms that GRCh38 is displayed somewhere within this field of data

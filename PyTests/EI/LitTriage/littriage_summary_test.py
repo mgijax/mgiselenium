@@ -8,6 +8,7 @@ import unittest
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 import HtmlTestRunner
 import sys,os.path
 # adjust the path to find config
@@ -46,16 +47,16 @@ class TestEiLitTriageSummarySearch(unittest.TestCase):
         form.enter_value('accids', 'J:130344')
         form.click_search()
         #finds the results table and iterates through the table
-        table_element = self.driver.find_element_by_id("resultsTable")
+        table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
         #finds the DOI ID cell
         doi_cell = table.get_cell(1,4)
         #asserts the link text found in the DOI ID column is correct
         self.assertEqual(doi_cell.text, '10.1073/pnas.0706671104')
-        driver.find_element_by_link_text('10.1073/pnas.0706671104').click()
+        driver.find_element(By.CSS_SELECTOR, '10.1073/pnas.0706671104').click()
         #switches focus to the newly opened tab
         driver.switch_to_window(driver.window_handles[-1])
-        page_title = driver.find_element_by_id('page-title')
+        page_title = driver.find_element(By.ID, 'page-title')
         print(page_title.text)
         #asserts the page title for this page is correct
         self.assertEqual(page_title.text, 'Silencing of OB-RGRP in mouse hypothalamic arcuate nucleus increases leptin receptor signaling and prevents diet-induced obesity', 'Title is not displaying from source!')
@@ -69,7 +70,7 @@ class TestEiLitTriageSummarySearch(unittest.TestCase):
         form.enter_value('accids', 'J:41759')
         form.click_search()
         #finds the results table and iterates through the table
-        table_element = self.driver.find_element_by_id("resultsTable")
+        table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
         #finds the DOI ID column
         doi_cell = table.get_cell(1,4)
@@ -86,16 +87,16 @@ class TestEiLitTriageSummarySearch(unittest.TestCase):
         form.enter_value('accids', 'J:130344')
         form.click_search()
         #finds the results table and iterates through the table
-        table_element = self.driver.find_element_by_id("resultsTable")
+        table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
         #finds the PMID column
         pmid_cell = table.get_cell(1,3)
         #asserts the link text found in the PMID column is correct
         self.assertEqual(pmid_cell.text, '18042720')
-        driver.find_element_by_link_text('18042720').click()
+        driver.find_element(By.LINK_TEXT, '18042720').click()
         #switches focus to the newly opened tab
-        driver.switch_to_window(driver.window_handles[-1])
-        page_title = driver.find_element_by_id('heading').find_element_by_tag_name('h1')
+        driver.switch_to.window(driver.window_handles[-1])
+        page_title = driver.find_element(By.ID, 'heading').find_element(By.TAG_NAME, 'h1')
         print(page_title.text)
         #asserts the page title for this page is correct
         self.assertEqual(page_title.text, 'Silencing of OB-RGRP in mouse hypothalamic arcuate nucleus increases leptin receptor signaling and prevents diet-induced obesity', 'Title is not displaying from source!')
@@ -109,7 +110,7 @@ class TestEiLitTriageSummarySearch(unittest.TestCase):
         form.enter_value('accids', 'J:23094')
         form.click_search()
         #finds the results table and iterates through the table
-        table_element = self.driver.find_element_by_id("resultsTable")
+        table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
         #finds the PMID column
         pmid_cell = table.get_cell(1,3)
@@ -125,7 +126,7 @@ class TestEiLitTriageSummarySearch(unittest.TestCase):
         form.enter_value('accids', 'J:197100')
         form.click_search()
         #finds the results table and iterates through the table
-        table_element = self.driver.find_element_by_id("resultsTable")
+        table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
         #finds the MGI column
         mgi_cell = table.get_cell(1,1)
@@ -145,7 +146,7 @@ class TestEiLitTriageSummarySearch(unittest.TestCase):
         form.enter_value('accids', 'J:237402')
         form.click_search()
         #finds the results table and iterates through the table
-        table_element = self.driver.find_element_by_id("resultsTable")
+        table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
         #finds the Short Citation column
         cite_cell = table.get_cell(1,5)
@@ -161,7 +162,7 @@ class TestEiLitTriageSummarySearch(unittest.TestCase):
         form.enter_value('accids', 'J:148802')
         form.click_search()
         #finds the results table and iterates through the table
-        table_element = self.driver.find_element_by_id("resultsTable")
+        table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
         #finds the short citation column
         cite_cell = table.get_cell(1,5)
@@ -177,7 +178,7 @@ class TestEiLitTriageSummarySearch(unittest.TestCase):
         form.enter_value('accids', 'J:43743')
         form.click_search()
         #finds the results table and iterates through the table
-        table_element = self.driver.find_element_by_id("resultsTable")
+        table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
         #finds the short citation column
         cite_cell = table.get_cell(1,5)
@@ -193,7 +194,7 @@ class TestEiLitTriageSummarySearch(unittest.TestCase):
         form.enter_value('accids', 'J:175295')
         form.click_search()
         #finds the results table and iterates through the table
-        table_element = self.driver.find_element_by_id("resultsTable")
+        table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
         #finds the short citation column
         cite_cell = table.get_cell(1,5)
@@ -209,7 +210,7 @@ class TestEiLitTriageSummarySearch(unittest.TestCase):
         form.enter_value('accids', 'J:237402')
         form.click_search()
         #finds the results table and iterates through the table
-        table_element = self.driver.find_element_by_id("resultsTable")
+        table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
         #finds the Title column
         title_cell = table.get_cell(1,6)
@@ -219,13 +220,13 @@ class TestEiLitTriageSummarySearch(unittest.TestCase):
     def testTitleNoResultSearch(self):
         """
         @Status Tests that a search returns No Title for the reference.
-        @See MBIB-sum-7 (16)
+        @See MBIB-sum-7 (16) broken 11/18/2021
         """
         form = self.form
         form.enter_value('accids', 'J:43743')
         form.click_search()
         #finds the results table and iterates through the table
-        table_element = self.driver.find_element_by_id("resultsTable")
+        table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
         #finds the Title column
         title_cell = table.get_cell(1,6)

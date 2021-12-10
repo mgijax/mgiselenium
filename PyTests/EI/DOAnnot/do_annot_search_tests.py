@@ -49,19 +49,19 @@ class TestEIDoannotSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the MGI ID field and enters an MGI genotype ID, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("genotypeAccId").send_keys('MGI:3624942')
+        driver.find_element(By.ID, "genotypeAccId").send_keys('MGI:3624942')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the Genotype field and verify it's text
-        geno = driver.find_element_by_id('genotypeDisplay').get_property('value')
+        geno = driver.find_element(By.ID, 'genotypeDisplay').get_property('value')
         print(geno)
         self.assertEqual(geno, '(NZB x BXSB)F1 Yaa')
-        an_table = self.driver.find_element_by_id('annotTable')
+        an_table = self.driver.find_element(By.ID, 'annotTable')
         table = Table(an_table)
         #Iterate and print the table results
         header_cells = table.get_header_cells()
@@ -72,26 +72,26 @@ class TestEIDoannotSearch(unittest.TestCase):
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'termID-1')))
         #find the search results table first row of data
-        term0 = driver.find_element_by_id('termID-0').get_property('value')
+        term0 = driver.find_element(By.ID, 'termID-0').get_property('value')
         print(term0)
-        voc_term = driver.find_element_by_class_name('term')
+        voc_term = driver.find_element(By.CLASS_NAME, 'term')
         print(voc_term.text)
-        qualfy = driver.find_element_by_id('qualifierAbbreviation-0').get_property('value')
+        qualfy = driver.find_element(By.ID, 'qualifierAbbreviation-0').get_property('value')
         #value should be 'string:1614158' that equals (none)
         print(qualfy)
-        j_num = driver.find_element_by_id('jnumID-0').get_property('value')
+        j_num = driver.find_element(By.ID, 'jnumID-0').get_property('value')
         print(j_num)
-        cite = driver.find_element_by_class_name('short_citation')
+        cite = driver.find_element(By.CLASS_NAME, 'short_citation')
         print(cite.text)
-        evid = driver.find_element_by_id('evidenceAbbreviation-0').get_property('value')#value should be "string:847168" which is TAS
+        evid = driver.find_element(By.ID, 'evidenceAbbreviation-0').get_property('value')#value should be "string:847168" which is TAS
         print(evid)
-        mod_by = driver.find_element_by_id('modifiedBy-0').get_property('value')
+        mod_by = driver.find_element(By.ID, 'modifiedBy-0').get_property('value')
         print(mod_by)
-        mod_date = driver.find_element_by_id('modifiedDate-0').get_property('value')
+        mod_date = driver.find_element(By.ID, 'modifiedDate-0').get_property('value')
         print(mod_date)
-        create_by = driver.find_element_by_id('createdBy-0').get_property('value')
+        create_by = driver.find_element(By.ID, 'createdBy-0').get_property('value')
         print(create_by)
-        create_date = driver.find_element_by_id('createdDate-0').get_property('value')
+        create_date = driver.find_element(By.ID, 'createdDate-0').get_property('value')
         print(create_date)
         #we are asserting the first row of data is correct
         self.assertEqual(term0, 'DOID:9074')
@@ -112,35 +112,35 @@ class TestEIDoannotSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Genotype field and enters a genotype(can also use wildcard of %, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("genotypeDisplay").send_keys('B6.Cg-Il10<tm1Cgn> Tg(MUC1)%')
+        driver.find_element(By.ID, "genotypeDisplay").send_keys('B6.Cg-Il10<tm1Cgn> Tg(MUC1)%')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         #WebDriverWait(self.driver, 15).until(EC.visibility_of_element_located((By.ID, 'termID-1')))
         time.sleep(5)
         #find the search results table first row of data
-        term0 = driver.find_element_by_id('termID-0').get_property('value')
+        term0 = driver.find_element(By.ID, 'termID-0').get_property('value')
         print(term0)
-        voc_term = driver.find_element_by_class_name('term')
+        voc_term = driver.find_element(By.CLASS_NAME, 'term')
         print(voc_term.text)
-        qualfy = driver.find_element_by_id('qualifierAbbreviation-0').get_property('value')#value should be 'string:1614158' that equals (none)
+        qualfy = driver.find_element(By.ID, 'qualifierAbbreviation-0').get_property('value')#value should be 'string:1614158' that equals (none)
         print(qualfy)
-        j_num = driver.find_element_by_id('jnumID-0').get_property('value')
+        j_num = driver.find_element(By.ID, 'jnumID-0').get_property('value')
         print(j_num)
-        cite = driver.find_element_by_class_name('short_citation')
+        cite = driver.find_element(By.CLASS_NAME, 'short_citation')
         print(cite.text)
-        evid = driver.find_element_by_id('evidenceAbbreviation-0').get_property('value')#value should be "string:847168" which is TAS
+        evid = driver.find_element(By.ID, 'evidenceAbbreviation-0').get_property('value')#value should be "string:847168" which is TAS
         print(evid)
-        mod_by = driver.find_element_by_id('modifiedBy-0').get_property('value')
+        mod_by = driver.find_element(By.ID, 'modifiedBy-0').get_property('value')
         print(mod_by)
-        mod_date = driver.find_element_by_id('modifiedDate-0').get_property('value')
+        mod_date = driver.find_element(By.ID, 'modifiedDate-0').get_property('value')
         print(mod_date)
-        create_by = driver.find_element_by_id('createdBy-0').get_property('value')
+        create_by = driver.find_element(By.ID, 'createdBy-0').get_property('value')
         print(create_by)
-        create_date = driver.find_element_by_id('createdDate-0').get_property('value')
+        create_date = driver.find_element(By.ID, 'createdDate-0').get_property('value')
         print(create_date)
         #we are asserting the first row of data is correct
         self.assertEqual(term0, 'DOID:9256')
@@ -161,35 +161,35 @@ class TestEIDoannotSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Term ID field and enters an MP ID then clicks the Search button
-        driver.find_element_by_id("termID-0").send_keys('DOID:9256')
+        driver.find_element(By.ID, "termID-0").send_keys('DOID:9256')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'termID-3')))
         #find the search results table first row of data
-        term0 = driver.find_element_by_id('termID-0').get_property('value')
+        term0 = driver.find_element(By.ID, 'termID-0').get_property('value')
         print(term0)
-        voc_term = driver.find_element_by_class_name('term')
+        voc_term = driver.find_element(By.CLASS_NAME, 'term')
         print(voc_term.text)
-        qualfy = driver.find_element_by_id('qualifierAbbreviation-0').get_property('value')#value should be 'string:1614158' that equals (none)
+        qualfy = driver.find_element(By.ID, 'qualifierAbbreviation-0').get_property('value')#value should be 'string:1614158' that equals (none)
         print(qualfy)
-        j_num = driver.find_element_by_id('jnumID-0').get_property('value')
+        j_num = driver.find_element(By.ID, 'jnumID-0').get_property('value')
         print(j_num)
-        cite = driver.find_element_by_class_name('short_citation')
+        cite = driver.find_element(By.CLASS_NAME, 'short_citation')
         print(cite.text)
-        evid = driver.find_element_by_id('evidenceAbbreviation-0').get_property('value')#value should be "string:847168" which is TAS
+        evid = driver.find_element(By.ID, 'evidenceAbbreviation-0').get_property('value')#value should be "string:847168" which is TAS
         print(evid)
-        mod_by = driver.find_element_by_id('modifiedBy-0').get_property('value')
+        mod_by = driver.find_element(By.ID, 'modifiedBy-0').get_property('value')
         print(mod_by)
-        mod_date = driver.find_element_by_id('modifiedDate-0').get_property('value')
+        mod_date = driver.find_element(By.ID, 'modifiedDate-0').get_property('value')
         print(mod_date)
-        create_by = driver.find_element_by_id('createdBy-0').get_property('value')
+        create_by = driver.find_element(By.ID, 'createdBy-0').get_property('value')
         print(create_by)
-        create_date = driver.find_element_by_id('createdDate-0').get_property('value')
+        create_date = driver.find_element(By.ID, 'createdDate-0').get_property('value')
         print(create_date)
         #we are asserting the first row of data is correct
         self.assertEqual(term0, 'DOID:9256')
@@ -211,35 +211,35 @@ class TestEIDoannotSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Qualifier field and select 'NOT' then clicks the Search button
-        driver.find_element_by_id("qualifierAbbreviation-0").send_keys('NOT')
+        driver.find_element(By.ID, "qualifierAbbreviation-0").send_keys('NOT')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'termID-3')))
         #find the search results table third row of data
-        term0 = driver.find_element_by_id('termID-0').get_property('value')
+        term0 = driver.find_element(By.ID, 'termID-0').get_property('value')
         print(term0)
-        voc_term = driver.find_elements_by_class_name('term')[0]
+        voc_term = driver.find_elements(By.CLASS_NAME, 'term')[0]
         print(voc_term.text)
-        qualfy = driver.find_element_by_id('qualifierAbbreviation-0').get_property('value')#value should be 'string:1614157' that equals NOT
+        qualfy = driver.find_element(By.ID, 'qualifierAbbreviation-0').get_property('value')#value should be 'string:1614157' that equals NOT
         print(qualfy)
-        j_num = driver.find_element_by_id('jnumID-2').get_property('value')
+        j_num = driver.find_element(By.ID, 'jnumID-2').get_property('value')
         print(j_num)
-        cite = driver.find_elements_by_class_name('short_citation')[0]
+        cite = driver.find_elements(By.CLASS_NAME, 'short_citation')[0]
         print(cite.text)
-        evid = driver.find_element_by_id('evidenceAbbreviation-0').get_property('value')#value should be "string:847168" which is TAS
+        evid = driver.find_element(By.ID, 'evidenceAbbreviation-0').get_property('value')#value should be "string:847168" which is TAS
         print(evid)
-        mod_by = driver.find_element_by_id('modifiedBy-0').get_property('value')
+        mod_by = driver.find_element(By.ID, 'modifiedBy-0').get_property('value')
         print(mod_by)
-        mod_date = driver.find_element_by_id('modifiedDate-0').get_property('value')
+        mod_date = driver.find_element(By.ID, 'modifiedDate-0').get_property('value')
         print(mod_date)
-        create_by = driver.find_element_by_id('createdBy-0').get_property('value')
+        create_by = driver.find_element(By.ID, 'createdBy-0').get_property('value')
         print(create_by)
-        create_date = driver.find_element_by_id('createdDate-0').get_property('value')
+        create_date = driver.find_element(By.ID, 'createdDate-0').get_property('value')
         print(create_date)
         #we are asserting the third row of data is correct
         self.assertEqual(term0, 'DOID:11949')
@@ -260,36 +260,36 @@ class TestEIDoannotSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the J number field and enters a J number then clicks the Search button
-        driver.find_element_by_id("jnumID-0").send_keys('J:271850')
+        driver.find_element(By.ID, "jnumID-0").send_keys('J:271850')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         #WebDriverWait(self.driver, 15).until(EC.visibility_of_element_located((By.ID, 'termID-0')))
         time.sleep(5)
         #find the search results table seventh row of data
-        term0 = driver.find_element_by_id('termID-0').get_property('value')
+        term0 = driver.find_element(By.ID, 'termID-0').get_property('value')
         print(term0)
-        voc_term = driver.find_elements_by_class_name('term')[0]
+        voc_term = driver.find_elements(By.CLASS_NAME, 'term')[0]
         print(voc_term.text)
-        qualfy = driver.find_element_by_id('qualifierAbbreviation-0').get_property('value')#value should be 'string:1614158' that equals (none)
+        qualfy = driver.find_element(By.ID, 'qualifierAbbreviation-0').get_property('value')#value should be 'string:1614158' that equals (none)
         print(qualfy)
-        j_num = driver.find_element_by_id('jnumID-0').get_property('value')
+        j_num = driver.find_element(By.ID, 'jnumID-0').get_property('value')
         print(j_num)
-        cite = driver.find_elements_by_class_name('short_citation')[0]
+        cite = driver.find_elements(By.CLASS_NAME, 'short_citation')[0]
         print(cite.text)
-        evid = driver.find_element_by_id('evidenceAbbreviation-0').get_property('value')#value should be "string:847168" which is TAS
+        evid = driver.find_element(By.ID, 'evidenceAbbreviation-0').get_property('value')#value should be "string:847168" which is TAS
         print(evid)
-        mod_by = driver.find_element_by_id('modifiedBy-0').get_property('value')
+        mod_by = driver.find_element(By.ID, 'modifiedBy-0').get_property('value')
         print(mod_by)
-        mod_date = driver.find_element_by_id('modifiedDate-0').get_property('value')
+        mod_date = driver.find_element(By.ID, 'modifiedDate-0').get_property('value')
         print(mod_date)
-        create_by = driver.find_element_by_id('createdBy-0').get_property('value')
+        create_by = driver.find_element(By.ID, 'createdBy-0').get_property('value')
         print(create_by)
-        create_date = driver.find_element_by_id('createdDate-0').get_property('value')
+        create_date = driver.find_element(By.ID, 'createdDate-0').get_property('value')
         print(create_date)
         #we are asserting the seventh row of data is correct
         self.assertEqual(term0, 'DOID:0060041')
@@ -310,36 +310,36 @@ class TestEIDoannotSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Evidence Code field and select and evidence code then clicks the Search button
-        driver.find_element_by_id("evidenceAbbreviation-0").send_keys('TAS')
+        driver.find_element(By.ID, "evidenceAbbreviation-0").send_keys('TAS')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         #WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'termID-0')))
         time.sleep(10)
         #find the search results table thirteenth row of data
-        term0 = driver.find_element_by_id('termID-0').get_property('value')
+        term0 = driver.find_element(By.ID, 'termID-0').get_property('value')
         print(term0)
-        voc_term = driver.find_elements_by_class_name('term')[0]
+        voc_term = driver.find_elements(By.CLASS_NAME, 'term')[0]
         print(voc_term.text)
-        qualfy = driver.find_element_by_id('qualifierAbbreviation-0').get_property('value')#value should be 'string:1614158' that equals (none)
+        qualfy = driver.find_element(By.ID, 'qualifierAbbreviation-0').get_property('value')#value should be 'string:1614158' that equals (none)
         print(qualfy)
-        j_num = driver.find_element_by_id('jnumID-0').get_property('value')
+        j_num = driver.find_element(By.ID, 'jnumID-0').get_property('value')
         print(j_num)
-        cite = driver.find_element_by_class_name('short_citation')
+        cite = driver.find_element(By.CLASS_NAME, 'short_citation')
         print(cite.text)
-        evid = driver.find_element_by_id('evidenceAbbreviation-0').get_property('value')#value should be "string:847168" which is TAS
+        evid = driver.find_element(By.ID, 'evidenceAbbreviation-0').get_property('value')#value should be "string:847168" which is TAS
         print(evid)
-        mod_by = driver.find_element_by_id('modifiedBy-0').get_property('value')
+        mod_by = driver.find_element(By.ID, 'modifiedBy-0').get_property('value')
         print(mod_by)
-        mod_date = driver.find_element_by_id('modifiedDate-0').get_property('value')
+        mod_date = driver.find_element(By.ID, 'modifiedDate-0').get_property('value')
         print(mod_date)
-        create_by = driver.find_element_by_id('createdBy-0').get_property('value')
+        create_by = driver.find_element(By.ID, 'createdBy-0').get_property('value')
         print(create_by)
-        create_date = driver.find_element_by_id('createdDate-0').get_property('value')
+        create_date = driver.find_element(By.ID, 'createdDate-0').get_property('value')
         print(create_date)
         #we are asserting the thirteenth row of data is correct
         self.assertEqual(term0, 'DOID:1206')
@@ -360,38 +360,38 @@ class TestEIDoannotSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Note field and enter text, then clicks the Search button
-        driver.find_element_by_id("noteType-0").send_keys('aneuploidy syndromes')
+        driver.find_element(By.ID, "noteType-0").send_keys('aneuploidy syndromes')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         #WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'termID-0')))
         time.sleep(10)
         #find the search results table thirteenth row of data
-        term0 = driver.find_element_by_id('termID-0').get_property('value')
+        term0 = driver.find_element(By.ID, 'termID-0').get_property('value')
         print(term0)
-        voc_term = driver.find_elements_by_class_name('term')[0]
+        voc_term = driver.find_elements(By.CLASS_NAME, 'term')[0]
         print(voc_term.text)
-        qualfy = driver.find_element_by_id('qualifierAbbreviation-0').get_property('value')#value should be 'string:1614158' that equals (none)
+        qualfy = driver.find_element(By.ID, 'qualifierAbbreviation-0').get_property('value')#value should be 'string:1614158' that equals (none)
         print(qualfy)
-        j_num = driver.find_element_by_id('jnumID-0').get_property('value')
+        j_num = driver.find_element(By.ID, 'jnumID-0').get_property('value')
         print(j_num)
-        cite = driver.find_element_by_class_name('short_citation')
+        cite = driver.find_element(By.CLASS_NAME, 'short_citation')
         print(cite.text)
-        evid = driver.find_element_by_id('evidenceAbbreviation-0').get_property('value')#value should be "string:847168" which is TAS
+        evid = driver.find_element(By.ID, 'evidenceAbbreviation-0').get_property('value')#value should be "string:847168" which is TAS
         print(evid)
-        mod_by = driver.find_element_by_id('modifiedBy-0').get_property('value')
+        mod_by = driver.find_element(By.ID, 'modifiedBy-0').get_property('value')
         print(mod_by)
-        mod_date = driver.find_element_by_id('modifiedDate-0').get_property('value')
+        mod_date = driver.find_element(By.ID, 'modifiedDate-0').get_property('value')
         print(mod_date)
-        create_by = driver.find_element_by_id('createdBy-0').get_property('value')
+        create_by = driver.find_element(By.ID, 'createdBy-0').get_property('value')
         print(create_by)
-        create_date = driver.find_element_by_id('createdDate-0').get_property('value')
+        create_date = driver.find_element(By.ID, 'createdDate-0').get_property('value')
         print(create_date)
-        note_text = driver.find_element_by_id('noteType-0').get_property('value')
+        note_text = driver.find_element(By.ID, 'noteType-0').get_property('value')
         print(note_text)
         #we are asserting the thirteenth row of data is correct
         self.assertEqual(term0, 'DOID:0080014')
@@ -413,13 +413,13 @@ class TestEIDoannotSearch(unittest.TestCase):
         """
         driver = self.driver
         #find the Modified By field and enter the user name
-        driver.find_element_by_id("createdBy-0").send_keys("honda")
+        driver.find_element(By.ID, "createdBy-0").send_keys("honda")
         #find the Search button and click it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #wait until the Results list is displayed on the page    
         wait.forAngular(self.driver)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows of results
         cell0 = table.get_row(0)
@@ -442,7 +442,7 @@ class TestEIDoannotSearch(unittest.TestCase):
         self.assertEqual(cell4.text, 'B6.129P2-Sptbn2<tm1Mjac> Sptbn2<tm1Mjac>,Sptbn2<tm1Mjac>')
         self.assertEqual(cell5.text, 'B6.129S4-Igk<tm1(Igk564)Tik> Igh<tm1(Igh564)Tik> Igh<tm1.1(Igh564)Tik>,Igh<tm1.1(Igh564)Tik>,Igk<tm1(Igk564)Tik>,Igk<tm1(Igk564)Tik>')
         #Assert the correct Creation Name is returned in the Created By field
-        createuser = driver.find_element_by_id('createdBy-0').get_attribute('value')
+        createuser = driver.find_element(By.ID, 'createdBy-0').get_attribute('value')
         self.assertEqual(createuser, 'honda')    
 
     def testDoannotModBySearch(self):
@@ -452,13 +452,13 @@ class TestEIDoannotSearch(unittest.TestCase):
         """
         driver = self.driver
         #find the Modified By field and enter the user name
-        driver.find_element_by_id("modifiedBy-0").send_keys("rbabiuk")
+        driver.find_element(By.ID, "modifiedBy-0").send_keys("rbabiuk")
         #find the Search button and click it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #wait until the Results list is displayed on the page    
         wait.forAngular(self.driver)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows of results
         cell0 = table.get_row(0)
@@ -481,7 +481,7 @@ class TestEIDoannotSearch(unittest.TestCase):
         self.assertEqual(cell4.text, 'B6.129-Manba<tm1Khf> Manba<tm1Khf>,Manba<tm1Khf>')
         self.assertEqual(cell5.text, 'B6.129-Tg(APPSw)40Btla Tg(APPSw)40Btla,Tg(APPSw)40Btla')
         #Assert the correct Modified By Name is returned in the Modified By field
-        moduser = driver.find_element_by_id('modifiedBy-0').get_attribute('value')
+        moduser = driver.find_element(By.ID, 'modifiedBy-0').get_attribute('value')
         self.assertEqual(moduser, 'rbabiuk')        
 
     def testDoannotCreateDateSearch(self):
@@ -491,13 +491,13 @@ class TestEIDoannotSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Creation Date field, enters a Date
-        driver.find_element_by_id("createdDate-0").send_keys("2008-11-21")
+        driver.find_element(By.ID, "createdDate-0").send_keys("2008-11-21")
         #finds the Search button and clicks it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #wait until the Results list is displayed on the page    
         wait.forAngular(self.driver)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows of results
         cell0 = table.get_row(0)
@@ -514,7 +514,7 @@ class TestEIDoannotSearch(unittest.TestCase):
         self.assertEqual(cell2.text, 'involves: 129S7/SvEvBrd Arid4a<tm1Alb>,Arid4a<tm1Alb>')
         self.assertEqual(cell3.text, 'involves: 129S7/SvEvBrd Arid4a<tm1Alb>,Arid4a<tm1Alb>,Arid4b<tm1Alb>,Arid4b<+>')
         #Assert the correct Creation Name is returned in the Creation Date field
-        createdate = driver.find_element_by_id('createdDate-0').get_attribute('value')
+        createdate = driver.find_element(By.ID, 'createdDate-0').get_attribute('value')
         self.assertEqual(createdate, '2008-11-21')        
              
     def testDoannotModifyDateSearch(self):
@@ -524,13 +524,13 @@ class TestEIDoannotSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Modification Date field, enters a Date
-        driver.find_element_by_id("modifiedDate-0").send_keys("2017-06-08")
+        driver.find_element(By.ID, "modifiedDate-0").send_keys("2017-06-08")
         #finds the Search button and clicks it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #wait until the Results list is displayed on the page    
         wait.forAngular(self.driver)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows
         cell0 = table.get_row(0)
@@ -544,7 +544,7 @@ class TestEIDoannotSearch(unittest.TestCase):
         self.assertEqual(cell1.text, '(CAST/EiJ x B6.129S2-Trp53<tm1Tyj> Nf1<tm1Tyj>/+ +)F1 Nf1<tm1Tyj>,Nf1<+>,Trp53<tm1Tyj>,Trp53<+>')
         self.assertEqual(cell2.text, '(CBA/J x B6.129S2-Trp53<tm1Tyj> Nf1<tm1Tyj>/+ +)F1 Nf1<tm1Tyj>,Nf1<+>,Trp53<tm1Tyj>,Trp53<+>')
         #Assert the correct Creation Name is returned in the Creation Date field
-        modifydate = driver.find_element_by_id('modifiedDate-0').get_attribute('value')
+        modifydate = driver.find_element(By.ID, 'modifiedDate-0').get_attribute('value')
         self.assertEqual(modifydate, '2017-06-08')        
 
 #    def testDoannotModifyDateGreaterSearch(self):
@@ -554,13 +554,13 @@ class TestEIDoannotSearch(unittest.TestCase):
 #        """
 #        driver = self.driver
         #finds the Modification Date field, enters a Date with greater than symbol
-#        driver.find_element_by_id("modifiedDate-0").send_keys('>2019-05-06')
+#        driver.find_element(By.ID, "modifiedDate-0").send_keys('>2019-05-06')
         #finds the Search button and clicks it
-#        driver.find_element_by_id('searchButton').click()
+#        driver.find_element(By.ID, 'searchButton').click()
         #wait until the Results list is displayed on the page    
 #        wait.forAngular(self.driver)
         #find the search results table
-#        results_table = self.driver.find_element_by_id("resultsTable")
+#        results_table = self.driver.find_element(By.ID, "resultsTable")
 #        table = Table(results_table)
         # get and print the first 2 rows
 #        cell0 = table.get_row(0)
@@ -583,7 +583,7 @@ class TestEIDoannotSearch(unittest.TestCase):
 #        self.assertEqual(cell4.text, 'B6(Cg)-Slc39a8<tm1.2Mrl> Slc39a8<tm1.2Mrl>,Slc39a8<tm1.2Mrl>')
 #        self.assertEqual(cell5.text, 'B6(FVB)-2210010C04Rik<tm1.1Satom> 2210010C04Rik<tm1.1Satom>,2210010C04Rik<+>')
         #Assert the correct Modification Date is returned in the Modification Date field
-#        modifydate = driver.find_element_by_id('modifiedDate-0').get_attribute('value')
+#        modifydate = driver.find_element(By.ID, 'modifiedDate-0').get_attribute('value')
 #        self.assertEqual(modifydate, '2019-09-13')    '''    
 
 #    def testDoannotModifyDateGreaterEqualSearch(self):
@@ -593,13 +593,13 @@ class TestEIDoannotSearch(unittest.TestCase):
 #        """
 #        driver = self.driver
         #finds the Modification Date field, enters a Date with greater than equals symbols
-#        driver.find_element_by_id("modifiedDate-0").send_keys('>=2019-05-09')
+#        driver.find_element(By.ID, "modifiedDate-0").send_keys('>=2019-05-09')
         #finds the Search button and clicks it
-#        driver.find_element_by_id('searchButton').click()
+#        driver.find_element(By.ID, 'searchButton').click()
         #wait until the Results list is displayed on the page    
 #        wait.forAngular(self.driver)
         #find the search results table
-#        results_table = self.driver.find_element_by_id("resultsTable")
+#        results_table = self.driver.find_element(By.ID, "resultsTable")
 #        table = Table(results_table)
         # get and print the first 2 rows
 #        cell0 = table.get_row(0)
@@ -622,7 +622,7 @@ class TestEIDoannotSearch(unittest.TestCase):
 #        self.assertEqual(cell4.text, 'B6(Cg)-Slc39a8<tm1.2Mrl> Slc39a8<tm1.2Mrl>,Slc39a8<tm1.2Mrl>')
 #        self.assertEqual(cell5.text, 'B6(FVB)-2210010C04Rik<tm1.1Satom> 2210010C04Rik<tm1.1Satom>,2210010C04Rik<+>')
         #Assert the correct Modification Date is returned in the Modification Date field
-#        modifydate = driver.find_element_by_id('modifiedDate-0').get_attribute('value')
+#        modifydate = driver.find_element(By.ID, 'modifiedDate-0').get_attribute('value')
 #        self.assertEqual(modifydate, '2019-09-13')    
 
     def testDoannotModifyDateLessSearch(self):
@@ -632,13 +632,13 @@ class TestEIDoannotSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Modification Date field, enters a Date with less than symbol
-        driver.find_element_by_id("modifiedDate-0").send_keys('<2005-09-16')
+        driver.find_element(By.ID, "modifiedDate-0").send_keys('<2005-09-16')
         #finds the Search button and clicks it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #wait until the Results list is displayed on the page    
         wait.forAngular(self.driver)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows
         cell0 = table.get_row(0)
@@ -649,7 +649,7 @@ class TestEIDoannotSearch(unittest.TestCase):
         self.assertEqual(cell0.text, '129-Nphs2<tm1Antc> Nphs2<tm1Antc>,Nphs2<tm1Antc>')
         self.assertEqual(cell1.text, '129P2(C)-Cecr2<Gt(pGT1)1Hemc> Cecr2<Gt(pGT1)1Hemc>,Cecr2<Gt(pGT1)1Hemc>')
         #Assert the correct Modification Date is returned in the Modification Date field
-        modifydate = driver.find_element_by_id('modifiedDate-0').get_attribute('value')
+        modifydate = driver.find_element(By.ID, 'modifiedDate-0').get_attribute('value')
         self.assertEqual(modifydate, '2005-06-27')        
 
     def testDoannotModifyDateLessEqualSearch(self):
@@ -659,13 +659,13 @@ class TestEIDoannotSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Modification Date field, enters a Date with less than symbol
-        driver.find_element_by_id("modifiedDate-0").send_keys('<=2009-09-14')
+        driver.find_element(By.ID, "modifiedDate-0").send_keys('<=2009-09-14')
         #finds the Search button and clicks it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #wait until the Results list is displayed on the page    
         wait.forAngular(self.driver)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows
         cell0 = table.get_row(0)
@@ -676,7 +676,7 @@ class TestEIDoannotSearch(unittest.TestCase):
         self.assertEqual(cell0.text, '(129S6.129P2-Mecp2<tm1Bird> x C57BL/6)F1 Mecp2<tm1Bird>')
         self.assertEqual(cell1.text, '(129S6.129P2-Mecp2<tm1Bird> x FVB/N)F1 Mecp2<tm1Bird>')
         #Assert the correct Modification Date is returned in the Modification Date field
-        modifydate = driver.find_element_by_id('modifiedDate-0').get_attribute('value')
+        modifydate = driver.find_element(By.ID, 'modifiedDate-0').get_attribute('value')
         self.assertEqual(modifydate, '2008-11-21')        
       
     def testDoannotModifyDateRangeSearch(self):
@@ -686,13 +686,13 @@ class TestEIDoannotSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Modification Date field, enters a range of Dates
-        driver.find_element_by_id("modifiedDate-0").send_keys("2019-05-08..2019-05-10")
+        driver.find_element(By.ID, "modifiedDate-0").send_keys("2019-05-08..2019-05-10")
         #finds the Search button and clicks it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #wait until the Results list is displayed on the page    
         wait.forAngular(self.driver)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows
         cell0 = table.get_row(0)
@@ -703,7 +703,7 @@ class TestEIDoannotSearch(unittest.TestCase):
         self.assertEqual(cell0.text, 'B6.129S6-Mlxipl<tm1Kuy>/J Mlxipl<tm1Kuy>,Mlxipl<tm1Kuy>')
         self.assertEqual(cell1.text, 'involves: FVB/N Tg(Col1a1-FGF2*,-Sapphire)203Mmh,Tg(Col1a1-FGF2*,-Sapphire)203Mmh')
         #Assert the correct Modification Date is returned in the Modification Date field
-        modifydate = driver.find_element_by_id('modifiedDate-0').get_attribute('value')
+        modifydate = driver.find_element(By.ID, 'modifiedDate-0').get_attribute('value')
         self.assertEqual(modifydate, '2019-05-10')  
               
 #    def testDoannotCreateDateGreaterSearch(self):
@@ -713,13 +713,13 @@ class TestEIDoannotSearch(unittest.TestCase):
 #        """
 #        driver = self.driver
         #finds the Created Date field, enters a Date with greater than symbol
-#        driver.find_element_by_id("createdDate-0").send_keys('>2019-05-08')
+#        driver.find_element(By.ID, "createdDate-0").send_keys('>2019-05-08')
         #finds the Search button and clicks it
-#        driver.find_element_by_id('searchButton').click()
+#        driver.find_element(By.ID, 'searchButton').click()
         #wait until the Results list is displayed on the page    
 #        wait.forAngular(self.driver)
         #find the search results table
-#        results_table = self.driver.find_element_by_id("resultsTable")
+#        results_table = self.driver.find_element(By.ID, "resultsTable")
 #        table = Table(results_table)
         # get and print the first 2 rows
 #        cell0 = table.get_row(0)
@@ -742,7 +742,7 @@ class TestEIDoannotSearch(unittest.TestCase):
 #        self.assertEqual(cell4.text, 'B6(Cg)-Slc39a8<tm1.2Mrl> Slc39a8<tm1.2Mrl>,Slc39a8<tm1.2Mrl>')
 #        self.assertEqual(cell5.text, 'B6(FVB)-2210010C04Rik<tm1.1Satom> 2210010C04Rik<tm1.1Satom>,2210010C04Rik<+>')
         #Assert the correct Modification Date is returned in the Modification Date field
-#        modifydate = driver.find_element_by_id('createdDate-0').get_attribute('value')
+#        modifydate = driver.find_element(By.ID, 'createdDate-0').get_attribute('value')
 #        self.assertEqual(modifydate, '2019-09-13')        
 
 #    def testDoannotCreateDateGreaterEqualSearch(self):
@@ -752,13 +752,13 @@ class TestEIDoannotSearch(unittest.TestCase):
 #        """
 #        driver = self.driver
         #finds the Creation Date field, enters a Date with greater than and equals symbols
-#        driver.find_element_by_id("createdDate").send_keys('>=2019-05-09')
+#        driver.find_element(By.ID, "createdDate").send_keys('>=2019-05-09')
         #finds the Search button and clicks it
-#        driver.find_element_by_id('searchButton').click()
+#        driver.find_element(By.ID, 'searchButton').click()
         #wait until the Results list is displayed on the page    
 #        wait.forAngular(self.driver)
         #find the search results table
-#        results_table = self.driver.find_element_by_id("resultsTable")
+#        results_table = self.driver.find_element(By.ID, "resultsTable")
 #        table = Table(results_table)
         # get and print the first 2 rows
 #        cell0 = table.get_row(0)
@@ -781,7 +781,7 @@ class TestEIDoannotSearch(unittest.TestCase):
 #        self.assertEqual(cell4.text, 'B6(Cg)-Slc39a8<tm1.2Mrl> Slc39a8<tm1.2Mrl>,Slc39a8<tm1.2Mrl>')
 #        self.assertEqual(cell5.text, 'B6(FVB)-2210010C04Rik<tm1.1Satom> 2210010C04Rik<tm1.1Satom>,2210010C04Rik<+>')
 #        #Assert the correct Modification Date is returned in the Modification Date field
-#        modifydate = driver.find_element_by_id('createdDate').get_attribute('value')#
+#        modifydate = driver.find_element(By.ID, 'createdDate').get_attribute('value')#
 #        self.assertEqual(modifydate, '2019-09-13')    
         
     def testDoannotCreateDateLessSearch(self):
@@ -791,13 +791,13 @@ class TestEIDoannotSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Creation Date field, enters a Date with less than symbol
-        driver.find_element_by_id("createdDate-0").send_keys('<2005-09-13')
+        driver.find_element(By.ID, "createdDate-0").send_keys('<2005-09-13')
         #finds the Search button and clicks it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #wait until the Results list is displayed on the page    
         wait.forAngular(self.driver)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows
         cell0 = table.get_row(0)
@@ -808,7 +808,7 @@ class TestEIDoannotSearch(unittest.TestCase):
         self.assertEqual(cell0.text, '129-Nphs2<tm1Antc> Nphs2<tm1Antc>,Nphs2<tm1Antc>')
         self.assertEqual(cell1.text, '129P2(C)-Cecr2<Gt(pGT1)1Hemc> Cecr2<Gt(pGT1)1Hemc>,Cecr2<Gt(pGT1)1Hemc>')
         #Assert the correct Creation Date is returned in the Modification Date field
-        modifydate = driver.find_element_by_id('createdDate-0').get_attribute('value')
+        modifydate = driver.find_element(By.ID, 'createdDate-0').get_attribute('value')
         self.assertEqual(modifydate, '2005-06-27')        
 
     def testDoannotCreateDateLessEqualSearch(self):
@@ -818,13 +818,13 @@ class TestEIDoannotSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Creation Date field, enters a Date with less than symbol
-        driver.find_element_by_id("createdDate-0").send_keys('<=2005-05-10')
+        driver.find_element(By.ID, "createdDate-0").send_keys('<=2005-05-10')
         #finds the Search button and clicks it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #wait until the Results list is displayed on the page    
         wait.forAngular(self.driver)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows
         cell0 = table.get_row(0)
@@ -835,7 +835,7 @@ class TestEIDoannotSearch(unittest.TestCase):
         self.assertEqual(cell0.text, 'B6.C3-Mfrp<rd6> Mfrp<rd6>,Mfrp<rd6>')
         self.assertEqual(cell1.text, 'B6.Cg-Aire<tm1Mmat> Aire<tm1Mmat>,Aire<tm1Mmat>')
         #Assert the correct Creation Date is returned in the Creation Date field
-        createdate = driver.find_element_by_id('createdDate-0').get_attribute('value')
+        createdate = driver.find_element(By.ID, 'createdDate-0').get_attribute('value')
         self.assertEqual(createdate, '2005-05-10')        
       
     def testDoannotCreateDateRangeSearch(self):
@@ -845,13 +845,13 @@ class TestEIDoannotSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Creation Date field, enters a range of Dates
-        driver.find_element_by_id("createdDate-0").send_keys("2005-05-09..2005-05-11")
+        driver.find_element(By.ID, "createdDate-0").send_keys("2005-05-09..2005-05-11")
         #finds the Search button and clicks it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #wait until the Results list is displayed on the page    
         wait.forAngular(self.driver)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows
         cell0 = table.get_row(0)
@@ -862,7 +862,7 @@ class TestEIDoannotSearch(unittest.TestCase):
         self.assertEqual(cell0.text, 'B6.C3-Mfrp<rd6> Mfrp<rd6>,Mfrp<rd6>')
         self.assertEqual(cell1.text, 'B6.Cg-Aire<tm1Mmat> Aire<tm1Mmat>,Aire<tm1Mmat>')
         #Assert the correct Creation Date is returned in the Creation Date field
-        createdate = driver.find_element_by_id('createdDate-0').get_attribute('value')
+        createdate = driver.find_element(By.ID, 'createdDate-0').get_attribute('value')
         self.assertEqual(createdate, '2005-05-10')        
          
 def suite():

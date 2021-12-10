@@ -47,13 +47,13 @@ class TestEiImageSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Image Class pulldown and selects "Search all" option then click the Search button
-        Select(driver.find_element_by_id("imageClassID")).select_by_value('')
+        Select(driver.find_element(By.ID, "imageClassID")).select_by_value('')
         #finds the MGI ID field and enters am MGI ID then clicks the Search button
-        driver.find_element_by_id("objectAccId").send_keys('MGI:3717589')
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, "objectAccId").send_keys('MGI:3717589')
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
@@ -69,11 +69,11 @@ class TestEiImageSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the MGI ID field and enters am MGI ID then clicks the Search button
-        driver.find_element_by_id("objectAccId").send_keys('MGI:5442068')
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, "objectAccId").send_keys('MGI:5442068')
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
@@ -89,10 +89,10 @@ class TestEiImageSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Image Class pulldown and selects "Search all" option then click the Search button
-        Select(driver.find_element_by_id("imageClassID")).select_by_value('')
+        Select(driver.find_element(By.ID, "imageClassID")).select_by_value('')
         #finds the J# field and enter a J Number for an expression image then click the Search button
-        driver.find_element_by_id("JNumID").send_keys('139510')
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, "JNumID").send_keys('139510')
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
         results_table = self.driver.find_element_by_id("resultsTable")
@@ -133,11 +133,11 @@ class TestEiImageSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the J# field and enter a J Number for an expression image then click the Search button
-        driver.find_element_by_id("JNumID").send_keys('1503')
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, "JNumID").send_keys('1503')
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
@@ -169,13 +169,13 @@ class TestEiImageSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Image Class pulldown and selects "Phenotypes" option then click the Search button
-        Select(driver.find_element_by_id("imageClassID")).select_by_value('6481782')
+        Select(driver.find_element(By.ID, "imageClassID")).select_by_value('6481782')
         #finds the J# field and enter a J Number for a phenotype image then click the Search button
-        driver.find_element_by_id("JNumID").send_keys('6708')
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, "JNumID").send_keys('6708')
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
@@ -224,13 +224,13 @@ class TestEiImageSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Image Class pulldown and selects "Molecular" option then click the Search button
-        Select(driver.find_element_by_id("imageClassID")).select_by_value('6481783')
+        Select(driver.find_element(By.ID, "imageClassID")).select_by_value('6481783')
         #finds the J# field and enter a J Number for a molecular image then click the Search button
-        driver.find_element_by_id("JNumID").send_keys('42811')
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, "JNumID").send_keys('42811')
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
@@ -250,11 +250,11 @@ class TestEiImageSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the J# field and enter a J Number for an expression image then click the Search button
-        driver.find_element_by_id("figureLabelID").send_keys('5A')
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, "figureLabelID").send_keys('5A')
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
@@ -273,11 +273,11 @@ class TestEiImageSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the J# field and enter a J Number for an expression image then click the Search button
-        driver.find_element_by_id("citationID").send_keys('Zakin%')
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, "citationID").send_keys('Zakin%')
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
@@ -310,12 +310,12 @@ class TestEiImageSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Image Class pulldown and selects "Expression" option then click the Search button
-        Select(driver.find_element_by_id("imageClassID")).select_by_value('6481781')
+        Select(driver.find_element(By.ID, "imageClassID")).select_by_value('6481781')
         driver.find_element_by_id('searchButton').click()
         time.sleep(15)
         #WebDriverWait(driver, 20).until(EC.text_to_be_present_in_element((By.ID, "resultsCount")))
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         time.sleep(2)
         #Iterate and print the search results
@@ -349,12 +349,12 @@ class TestEiImageSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Image Class pulldown and selects "Phenotypes" option then click the Search button
-        Select(driver.find_element_by_id("imageClassID")).select_by_value('6481782')
-        driver.find_element_by_id('searchButton').click()
+        Select(driver.find_element(By.ID, "imageClassID")).select_by_value('6481782')
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(5)
         #WebDriverWait(driver, 20).until(EC.text_to_be_present_in_element((By.ID, "resultsCount")))
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
@@ -405,12 +405,12 @@ class TestEiImageSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Image Class pulldown and selects "Molecular" option then click the Search button
-        Select(driver.find_element_by_id("imageClassID")).select_by_value('6481783')
-        driver.find_element_by_id('searchButton').click()
+        Select(driver.find_element(By.ID, "imageClassID")).select_by_value('6481783')
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #WebDriverWait(driver, 20).until(EC.text_to_be_present_in_element((By.ID, "resultsCount")))
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
@@ -459,14 +459,14 @@ class TestEiImageSearch(unittest.TestCase):
         """
         driver = self.driver
         #find the J# filed and enter the J number
-        driver.find_element_by_id("JNumID").send_keys('J:47')
+        driver.find_element(By.ID, "JNumID").send_keys('J:47')
         #finds the caption field and enter a wildcard search term then click the Search button
-        driver.find_element_by_id("captionID").send_keys('%Magnification, 291 X%')
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, "captionID").send_keys('%Magnification, 291 X%')
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.ID, "resultsCount")))
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
@@ -483,13 +483,13 @@ class TestEiImageSearch(unittest.TestCase):
         """
         driver = self.driver
         #find the J# filed and enter the J number
-        driver.find_element_by_id("JNumID").send_keys('J:190949')
+        driver.find_element(By.ID, "JNumID").send_keys('J:190949')
         #finds the Copyright field and enter a wildcard term then click the Search button
-        driver.find_element_by_id("copyrightID").send_keys('%vasc cell%')
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, "copyrightID").send_keys('%vasc cell%')
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
@@ -501,23 +501,23 @@ class TestEiImageSearch(unittest.TestCase):
         self.assertEqual(result1, ['J:190949; Full Size; S1'])
         self.assertEqual(result2, ['J:190949; Full Size; 3'])
 
-    def testImageJnumNoCopyrightSearch(self):
+"""    def testImageJnumNoCopyrightSearch(self):
         """
         @Status tests that a basic Image J number Search that has no copyright will not display a copyright and not fail search works
-        @see pwi-image-search-15
+        @see pwi-image-search-15 No longer a requirement 11/18/2021
         """
         driver = self.driver
         #finds the J# field and enter a J Number for an expression image then click the Search button
-        driver.find_element_by_id("JNumID").send_keys('2250')
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, "JNumID").send_keys('2250')
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the Copyright Field
-        cpy = driver.find_element_by_id('copyrightID')
+        cpy = driver.find_element(By.ID, 'copyrightID')
         print(cpy.text)
         #Assert the copyright field is clear of text
         self.assertEqual(cpy.text, '', 'The copyright field is not empty')
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element_by_id(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
@@ -537,7 +537,7 @@ class TestEiImageSearch(unittest.TestCase):
         
         
         #*************************************************************************************************************
-
+"""
     def testImageCreateBySearch(self):
         """
         @Status tests that an image search using the Created By field returns correct data
@@ -545,13 +545,13 @@ class TestEiImageSearch(unittest.TestCase):
         """
         driver = self.driver
         #find the Modified By field and enter the user name
-        driver.find_element_by_id("objectCreatedBy").send_keys("jx")
+        driver.find_element(By.ID, "objectCreatedBy").send_keys("jx")
         #find the Search button and click it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #wait until the Reference table is displayed on the page    
         wait.forAngular(self.driver)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows of results
         cell0 = table.get_row(0)
@@ -570,7 +570,7 @@ class TestEiImageSearch(unittest.TestCase):
         self.assertEqual(cell4.text, 'J:779; Full Size; 4')
         self.assertEqual(cell5.text, 'J:779; Full Size; 5')
         #Assert the correct Creation Name is returned in the Created By field
-        createuser = driver.find_element_by_id('objectCreatedBy').get_attribute('value')
+        createuser = driver.find_element(By.ID, 'objectCreatedBy').get_attribute('value')
         self.assertEqual(createuser, 'jx')    
 
     def testImageModBySearch(self):
@@ -580,13 +580,13 @@ class TestEiImageSearch(unittest.TestCase):
         """
         driver = self.driver
         #find the Modified By field and enter the user name
-        driver.find_element_by_id("objectModifiedBy").send_keys("ijm")
+        driver.find_element(By.ID, "objectModifiedBy").send_keys("ijm")
         #find the Search button and click it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #wait until the Reference table is displayed on the page    
         wait.forAngular(self.driver)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows of results
         cell0 = table.get_row(0)
@@ -605,7 +605,7 @@ class TestEiImageSearch(unittest.TestCase):
         self.assertEqual(cell4.text, 'J:821; Full Size; 1')
         self.assertEqual(cell5.text, 'J:906; Full Size; 5')
         #Assert the correct Modified By Name is returned in the Modified By field
-        moduser = driver.find_element_by_id('objectModifiedBy').get_attribute('value')
+        moduser = driver.find_element(By.ID, 'objectModifiedBy').get_attribute('value')
         self.assertEqual(moduser, 'ijm')        
 
     def testCreateDateSearch(self):
@@ -615,12 +615,12 @@ class TestEiImageSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Creation Date field, enters a Date
-        driver.find_element_by_id("objectCreationDate").send_keys("2009-09-03")
+        driver.find_element(By.ID, "objectCreationDate").send_keys("2009-09-03")
         #finds the Search button and clicks it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows of results
         cell0 = table.get_row(0)
@@ -639,7 +639,7 @@ class TestEiImageSearch(unittest.TestCase):
         self.assertEqual(cell4.text, 'J:91438; Full Size; 5')
         self.assertEqual(cell5.text, 'J:91438; Full Size; 6')
         #Assert the correct Creation Name is returned in the Creation Date field
-        createdate = driver.find_element_by_id('objectCreationDate').get_attribute('value')
+        createdate = driver.find_element(By.ID, 'objectCreationDate').get_attribute('value')
         self.assertEqual(createdate, '2009-09-03')        
              
     def testModifyDateSearch(self):
@@ -649,12 +649,12 @@ class TestEiImageSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Modification Date field, enters a Date
-        driver.find_element_by_id("objectModificationDate").send_keys("2013-02-08")
+        driver.find_element(By.ID, "objectModificationDate").send_keys("2013-02-08")
         #finds the Search button and clicks it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows
         cell0 = table.get_row(0)
@@ -673,7 +673,7 @@ class TestEiImageSearch(unittest.TestCase):
         self.assertEqual(cell4.text, 'J:2959; Full Size; 8')
         self.assertEqual(cell5.text, 'J:2959; Full Size; 9')
         #Assert the correct Creation Name is returned in the Creation Date field
-        modifydate = driver.find_element_by_id('objectModificationDate').get_attribute('value')
+        modifydate = driver.find_element(By.ID, 'objectModificationDate').get_attribute('value')
         self.assertEqual(modifydate, '2013-02-08')        
         
     def testModifyDateLessSearch(self):
@@ -683,12 +683,12 @@ class TestEiImageSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Modification Date field, enters a Date with less than symbol
-        driver.find_element_by_id("objectModificationDate").send_keys('<2005-09-16')
+        driver.find_element(By.ID, "objectModificationDate").send_keys('<2005-09-16')
         #finds the Search button and clicks it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows
         cell0 = table.get_row(0)
@@ -699,7 +699,7 @@ class TestEiImageSearch(unittest.TestCase):
         self.assertEqual(cell0.text, 'J:47; Full Size; 1')
         self.assertEqual(cell1.text, 'J:886; Full Size; 1')
         #Assert the correct Modification Date is returned in the Modification Date field
-        modifydate = driver.find_element_by_id('objectModificationDate').get_attribute('value')
+        modifydate = driver.find_element(By.ID, 'objectModificationDate').get_attribute('value')
         self.assertEqual(modifydate, '1999-03-04')        
 
     def testModifyDateLessEqualSearch(self):
@@ -709,12 +709,12 @@ class TestEiImageSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Modification Date field, enters a Date with less than symbol
-        driver.find_element_by_id("objectModificationDate").send_keys('<=2009-09-14')
+        driver.find_element(By.ID, "objectModificationDate").send_keys('<=2009-09-14')
         #finds the Search button and clicks it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(4)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows
         cell0 = table.get_row(0)
@@ -725,7 +725,7 @@ class TestEiImageSearch(unittest.TestCase):
         self.assertEqual(cell0.text, 'J:47; Full Size; 1')
         self.assertEqual(cell1.text, 'J:767; Full Size; 2')
         #Assert the correct Modification Date is returned in the Modification Date field
-        modifydate = driver.find_element_by_id('objectModificationDate').get_attribute('value')
+        modifydate = driver.find_element(By.ID, 'objectModificationDate').get_attribute('value')
         self.assertEqual(modifydate, '1999-03-04')        
       
     def testModifyDateRangeSearch(self):
@@ -735,12 +735,12 @@ class TestEiImageSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Modification Date field, enters a range of Dates
-        driver.find_element_by_id("objectModificationDate").send_keys("2019-05-08..2019-05-09")
+        driver.find_element(By.ID, "objectModificationDate").send_keys("2019-05-08..2019-05-09")
         #finds the Search button and clicks it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows
         cell0 = table.get_row(0)
@@ -751,7 +751,7 @@ class TestEiImageSearch(unittest.TestCase):
         self.assertEqual(cell0.text, 'J:77376; Full Size; 3')
         self.assertEqual(cell1.text, 'J:77376; Full Size; 4')
         #Assert the correct Modification Date is returned in the Modification Date field
-        modifydate = driver.find_element_by_id('objectModificationDate').get_attribute('value')
+        modifydate = driver.find_element(By.ID, 'objectModificationDate').get_attribute('value')
         self.assertEqual(modifydate, '2019-05-09')  
               
 
@@ -763,12 +763,12 @@ class TestEiImageSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Creation Date field, enters a Date with less than symbol
-        driver.find_element_by_id("objectCreationDate").send_keys('<2005-09-13')
+        driver.find_element(By.ID, "objectCreationDate").send_keys('<2005-09-13')
         #finds the Search button and clicks it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows
         cell0 = table.get_row(0)
@@ -779,7 +779,7 @@ class TestEiImageSearch(unittest.TestCase):
         self.assertEqual(cell0.text, 'J:47; Full Size; 1')
         self.assertEqual(cell1.text, 'J:47; Full Size; 2')
         #Assert the correct Creation Date is returned in the Modification Date field
-        modifydate = driver.find_element_by_id('objectCreationDate').get_attribute('value')
+        modifydate = driver.find_element(By.ID, 'objectCreationDate').get_attribute('value')
         self.assertEqual(modifydate, '1999-03-04')        
 
     def testCreateDateLessEqualSearch(self):
@@ -789,12 +789,12 @@ class TestEiImageSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Creation Date field, enters a Date with less than symbol
-        driver.find_element_by_id("objectCreationDate").send_keys('<=1998-06-22')
+        driver.find_element(By.ID, "objectCreationDate").send_keys('<=1998-06-22')
         #finds the Search button and clicks it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows
         cell0 = table.get_row(0)
@@ -805,7 +805,7 @@ class TestEiImageSearch(unittest.TestCase):
         self.assertEqual(cell0.text, 'J:1309; Full Size; 1')
         self.assertEqual(cell1.text, 'J:19231; Full Size; 1')
         #Assert the correct Creation Date is returned in the Creation Date field
-        createdate = driver.find_element_by_id('objectCreationDate').get_attribute('value')
+        createdate = driver.find_element(By.ID, 'objectCreationDate').get_attribute('value')
         self.assertEqual(createdate, '1998-06-22')        
       
     def testCreateDateRangeSearch(self):
@@ -815,12 +815,12 @@ class TestEiImageSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Creation Date field, enters a range of Dates
-        driver.find_element_by_id("objectCreationDate").send_keys("1998-06-22..1998-07-16")
+        driver.find_element(By.ID, "objectCreationDate").send_keys("1998-06-22..1998-07-16")
         #finds the Search button and clicks it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows
         cell0 = table.get_row(0)
@@ -831,7 +831,7 @@ class TestEiImageSearch(unittest.TestCase):
         self.assertEqual(cell0.text, 'J:1309; Full Size; 1')
         self.assertEqual(cell1.text, 'J:9556; Full Size; 2')
         #Assert the correct Creation Date is returned in the Creation Date field
-        createdate = driver.find_element_by_id('objectCreationDate').get_attribute('value')
+        createdate = driver.find_element(By.ID, 'objectCreationDate').get_attribute('value')
         self.assertEqual(createdate, '1998-06-22')        
 
     def testImgJnumNoCopySearch(self):
@@ -841,12 +841,12 @@ class TestEiImageSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the J# field and enters a J number
-        driver.find_element_by_id("JNumID").send_keys("J:2250")
+        driver.find_element(By.ID, "JNumID").send_keys("J:2250")
         #finds the Search button and clicks it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows
         cell0 = table.get_row(0)
@@ -856,7 +856,7 @@ class TestEiImageSearch(unittest.TestCase):
         #Assert the correct symbols has been returned in the results table
         self.assertEqual(cell0.text, 'J:2250; Full Size; 4')
         #Assert the copyright field is blank
-        copyrgt = driver.find_element_by_id('copyrightID')
+        copyrgt = driver.find_element(By.ID, 'copyrightID')
         self.assertEqual(copyrgt.text, "                                ")         
 
     def testAccTypePaintSearch(self):
@@ -867,13 +867,13 @@ class TestEiImageSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Image Other Accession Ids pulldown and selects "GenePaint" option, find the Other Accession ID field and enter a genepaint ID, then click the Search button
-        Select(driver.find_element_by_id("accidTypeID")).select_by_value('105')
-        driver.find_element_by_id('otherAccId').send_keys('%DA,-A82,-Asetstart,%')
-        driver.find_element_by_id('searchButton').click()
+        Select(driver.find_element(By.ID, "accidTypeID")).select_by_value('105')
+        driver.find_element(By.ID, 'otherAccId').send_keys('%DA,-A82,-Asetstart,%')
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(90)
         #WebDriverWait(driver, 90).until(EC.text_to_be_present_in_element((By.ID, "resultsCount")))
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
@@ -909,7 +909,7 @@ class TestEiImageSearch(unittest.TestCase):
         self.assertEqual(result9, ['J:122989; Full Size; Embryo_DA4_8_4B'])
         self.assertEqual(result10, ['J:122989; Full Size; Embryo_DA4_8_5B'])
         #find the Other Accession Ids table
-        accid_table = self.driver.find_element_by_id("otherAccIdTable")
+        accid_table = self.driver.find_element(By.ID, "otherAccIdTable")
         table = Table(accid_table)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
@@ -926,12 +926,12 @@ class TestEiImageSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Image Other Accession Ids pulldown and selects "Gudmap" option then click the Search button
-        Select(driver.find_element_by_id("accidTypeID")).select_by_value('163')
-        driver.find_element_by_id('searchButton').click()
+        Select(driver.find_element(By.ID, "accidTypeID")).select_by_value('163')
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(10)
         #WebDriverWait(driver, 20).until(EC.text_to_be_present_in_element((By.ID, "resultsCount")))
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
@@ -967,7 +967,7 @@ class TestEiImageSearch(unittest.TestCase):
         self.assertEqual(result9, ['J:171409; Full Size; GUDMAP:23'])
         self.assertEqual(result10, ['J:171409; Full Size; GUDMAP:26'])
         #find the Other Accession Ids table
-        accid_table = self.driver.find_element_by_id("otherAccIdTable")
+        accid_table = self.driver.find_element(By.ID, "otherAccIdTable")
         table = Table(accid_table)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
@@ -984,14 +984,14 @@ class TestEiImageSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Image Other Accession Ids pulldown and selects "Eurpexpress" option then click the Search button
-        Select(driver.find_element_by_id("accidTypeID")).select_by_value('148')
-        driver.find_element_by_id('searchButton').click()
+        Select(driver.find_element(By.ID, "accidTypeID")).select_by_value('148')
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(15)
         #wait = WebDriverWait(driver, 20)
         #element = wait.until(EC.text_to_be_present_in_element((By.ID, "resultsTable")));
         #element.view()
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)

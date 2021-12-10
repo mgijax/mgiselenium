@@ -9,6 +9,7 @@ import unittest
 import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 import time
 import sys,os.path
 # adjust the path to find config
@@ -32,11 +33,11 @@ class TestEiEmapaSearch(unittest.TestCase):
         self.form = ModuleForm(self.driver)
         self.form.get_module(config.TEST_PWI_URL + "/edit/emapaBrowser")        
         # logging in for all tests
-        username = self.driver.find_element_by_name('user')#finds the user login box
+        username = self.driver.find_element(By.NAME, 'user')#finds the user login box
         username.send_keys(config.PWI_LOGIN) #enters the username
-        passwd = self.driver.find_element_by_name('password')#finds the password box
+        passwd = self.driver.find_element(By.NAME, 'password')#finds the password box
         passwd.send_keys(config.PWI_PASSWORD) #enters a valid password
-        submit = self.driver.find_element_by_name("submit") #Find the Login button
+        submit = self.driver.find_element(By.NAME, "submit") #Find the Login button
         submit.click() #click the login button
         time.sleep(1)
    
@@ -49,13 +50,13 @@ class TestEiEmapaSearch(unittest.TestCase):
         """
         wait.forAngular(self.driver)
         #find the "Term Search" box and enter the term brain 
-        self.driver.find_element_by_id("termSearch").send_keys('brain')
+        self.driver.find_element(By.ID, "termSearch").send_keys('brain')
         time.sleep(2)
         #find the Search button and click it
-        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
         wait.forAngular(self.driver)
-        term_result = self.driver.find_element_by_id("termResultList")
-        items = term_result.find_elements_by_tag_name("li")
+        term_result = self.driver.find_element(By.ID, "termResultList")
+        items = term_result.find_elements(By.TAG_NAME, "li")
         
         # add all li text to a list for "assertIn" test
         searchTextItems = iterate.getTextAsList(items)
@@ -68,13 +69,13 @@ class TestEiEmapaSearch(unittest.TestCase):
         """
         wait.forAngular(self.driver)
         #find the "Term Search" box and enter the term myocardium 
-        self.driver.find_element_by_id("termSearch").send_keys('myocardium')
+        self.driver.find_element(By.ID, "termSearch").send_keys('myocardium')
         time.sleep(2)
         #find the Search button and click it
-        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
         wait.forAngular(self.driver)
-        term_result = self.driver.find_element_by_id("emapTermArea")
-        items = term_result.find_elements_by_tag_name("li")
+        term_result = self.driver.find_element(By.ID, "emapTermArea")
+        items = term_result.find_elements(By.TAG_NAME, "li")
         
         # add all li text to a list for "assertIn" test
         searchTextItems = iterate.getTextAsList(items)
@@ -88,13 +89,13 @@ class TestEiEmapaSearch(unittest.TestCase):
         """
         wait.forAngular(self.driver)
         #find the "Term Search" box and enter the term %tectum 
-        self.driver.find_element_by_id("termSearch").send_keys('%tectum')
+        self.driver.find_element(By.ID, "termSearch").send_keys('%tectum')
         time.sleep(2)
         #find the Search button and click it
-        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
         wait.forAngular(self.driver)
-        term_result = self.driver.find_element_by_id("termResultList")
-        items = term_result.find_elements_by_tag_name("li")
+        term_result = self.driver.find_element(By.ID, "termResultList")
+        items = term_result.find_elements(By.TAG_NAME, "li")
         
         # add all li text to a list for "assertIn" test
         searchTextTerms = self.getOnlyTermNames(items)
@@ -108,13 +109,13 @@ class TestEiEmapaSearch(unittest.TestCase):
         """
         wait.forAngular(self.driver)
         #find the "Stage Search" box and enter the stage "10" 
-        self.driver.find_element_by_id("stageSearch").send_keys('10')
+        self.driver.find_element(By.ID, "stageSearch").send_keys('10')
         time.sleep(2)
         #find the Search button and click it
-        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
         wait.forAngular(self.driver)
-        term_result = self.driver.find_element_by_id("emapTermArea")
-        items = term_result.find_elements_by_tag_name("li")
+        term_result = self.driver.find_element(By.ID, "emapTermArea")
+        items = term_result.find_elements(By.TAG_NAME, "li")
         
         # add all li text to a list for "assertIn" test
         searchTextTerms = self.getOnlyTermNames(items)
@@ -131,13 +132,13 @@ class TestEiEmapaSearch(unittest.TestCase):
         """
         wait.forAngular(self.driver)
         #find the "Stage Search" box and enter the stages "10,11,12" 
-        self.driver.find_element_by_id("stageSearch").send_keys('10,11,12')
+        self.driver.find_element(By.ID, "stageSearch").send_keys('10,11,12')
         time.sleep(2)
         #find the Search button and click it
-        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
         wait.forAngular(self.driver)
-        term_result = self.driver.find_element_by_id("emapTermArea")
-        items = term_result.find_elements_by_tag_name("li")
+        term_result = self.driver.find_element(By.ID, "emapTermArea")
+        items = term_result.find_elements(By.TAG_NAME, "li")
         
         # add all li text to a list for "assertIn" test
         searchTextTerms = self.getOnlyTermNames(items)
@@ -155,21 +156,21 @@ class TestEiEmapaSearch(unittest.TestCase):
         """
         wait.forAngular(self.driver)
         #find the "Term Search" box and enter the term brain 
-        self.driver.find_element_by_id("termSearch").send_keys('brain')
+        self.driver.find_element(By.ID, "termSearch").send_keys('brain')
         #find the "Stage Search" box and enter the stages "20,21,22" 
-        self.driver.find_element_by_id("stageSearch").send_keys('20,21,22')
+        self.driver.find_element(By.ID, "stageSearch").send_keys('20,21,22')
         time.sleep(2)
         #find the Search button and click it
-        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
         wait.forAngular(self.driver)
-        term_result = self.driver.find_element_by_id("termResultList")
-        items = term_result.find_elements_by_tag_name("li")
+        term_result = self.driver.find_element(By.ID, "termResultList")
+        items = term_result.find_elements(By.TAG_NAME, "li")
         
         # add all li text to a list for "assertIn" test
         searchTextItems = iterate.getTextAsList(items)
         
         self.assertIn('brain TS17-28', searchTextItems)
-        searchbox = self.driver.find_element_by_id("termSearch")
+        searchbox = self.driver.find_element(By.ID, "termSearch")
         searchbox.text
         self.assertIn("brain", searchbox.get_attribute("value"))
         searchbox.send_keys(Keys.ALT + "c")
@@ -181,15 +182,15 @@ class TestEiEmapaSearch(unittest.TestCase):
         """
         wait.forAngular(self.driver)
         #find the "Term Search" box and enter the term %renal artery% 
-        self.driver.find_element_by_id("termSearch").send_keys('%renal artery%')
+        self.driver.find_element(By.ID, "termSearch").send_keys('%renal artery%')
         #find the "Stage Search" box and enter the stage "27" 
-        self.driver.find_element_by_id("stageSearch").send_keys('27')
+        self.driver.find_element(By.ID, "stageSearch").send_keys('27')
         time.sleep(2)
         #find the Search button and click it
-        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
         wait.forAngular(self.driver)
-        term_result = self.driver.find_element_by_id("termResultList")
-        items = term_result.find_elements_by_tag_name("li")
+        term_result = self.driver.find_element(By.ID, "termResultList")
+        items = term_result.find_elements(By.TAG_NAME, "li")
         
         # add all li text to a list for "assertIn" test
         searchTextItems = iterate.getTextAsList(items)
@@ -202,13 +203,13 @@ class TestEiEmapaSearch(unittest.TestCase):
         """
         wait.forAngular(self.driver)
         #find the "Term Search" box and enter the term rathke's pouch 
-        self.driver.find_element_by_id("termSearch").send_keys("rathke's pouch")
+        self.driver.find_element(By.ID, "termSearch").send_keys("rathke's pouch")
         time.sleep(2)
         #find the Search button and click it
-        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
         wait.forAngular(self.driver)
-        term_result = self.driver.find_element_by_id("emapTermArea")
-        items = term_result.find_elements_by_tag_name("li")
+        term_result = self.driver.find_element(By.ID, "emapTermArea")
+        items = term_result.find_elements(By.TAG_NAME, "li")
         
         # add all li text to a list for "assertIn" test
         searchTextItems = iterate.getTextAsList(items)
@@ -222,13 +223,13 @@ class TestEiEmapaSearch(unittest.TestCase):
         """
         wait.forAngular(self.driver)
         #find the "Term Search" box and enter the term "liver; brain; heart" 
-        self.driver.find_element_by_id("termSearch").send_keys("liver; brain; heart")
+        self.driver.find_element(By.ID, "termSearch").send_keys("liver; brain; heart")
         time.sleep(2)
         #find the Search button and click it
-        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
         wait.forAngular(self.driver)
-        term_result = self.driver.find_element_by_id("termResultList")
-        items = term_result.find_elements_by_tag_name("li")
+        term_result = self.driver.find_element(By.ID, "termResultList")
+        items = term_result.find_elements(By.TAG_NAME, "li")
         
         # add all li text to a list for "assertIn" test
         searchTextTerms = self.getOnlyTermNames(items)
@@ -243,13 +244,13 @@ class TestEiEmapaSearch(unittest.TestCase):
         """
         wait.forAngular(self.driver)
         #find the "Stage Search" box and enter the stages "1-3" 
-        self.driver.find_element_by_id("stageSearch").send_keys("1-3")
+        self.driver.find_element(By.ID, "stageSearch").send_keys("1-3")
         time.sleep(2)
         #find the Search button and click it
-        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
         wait.forAngular(self.driver)
-        term_result = self.driver.find_element_by_id("emapTermArea")
-        items = term_result.find_elements_by_tag_name("li")
+        term_result = self.driver.find_element(By.ID, "emapTermArea")
+        items = term_result.find_elements(By.TAG_NAME, "li")
         
         # add all li text to a list for "assertIn" test
         searchTextTerms = self.getOnlyTermNames(items)

@@ -36,11 +36,11 @@ class TestEiLitTriageEdit(unittest.TestCase):
         self.driver = webdriver.Chrome()
         self.form = ModuleForm(self.driver)
         self.form.get_module(config.TEST_PWI_URL + "/edit/triageFull")
-        username = self.driver.find_element_by_name('user')#finds the user login box
+        username = self.driver.find_element(By.NAME, 'user')#finds the user login box
         username.send_keys(config.PWI_LOGIN) #enters the username
-        passwd = self.driver.find_element_by_name('password')#finds the password box
+        passwd = self.driver.find_element(By.NAME, 'password')#finds the password box
         passwd.send_keys(config.PWI_PASSWORD) #enters a valid password
-        submit = self.driver.find_element_by_name("submit") #Find the Login button
+        submit = self.driver.find_element(By.NAME, "submit") #Find the Login button
         submit.click() #click the login button
     
     def tearDown(self):
@@ -51,36 +51,36 @@ class TestEiLitTriageEdit(unittest.TestCase):
         """
         @Status tests that changing a "not routed" reference to "chosen" assigns it a J number
         @attention: This test works but once you have changed it to chosen the J number will always be present
-        @see MBIB-edit-1,2 (1)
+        @see MBIB-edit-1,2 (1) consider getting rid of this test, currently broken 11/18/2021
         """
         #enter text into the authors filed,click the alleles Not Routed box then search
-        self.driver.find_element_by_id('authors').send_keys('Nakamura%')
-        self.driver.find_element_by_id('status_AP_Not_Routed').click()
-        self.driver.find_element_by_id('searchButton').click()
+        self.driver.find_element(By.ID, 'authors').send_keys('Nakamura%')
+        self.driver.find_element(By.ID, 'status_AP_Not_Routed').click()
+        self.driver.find_element(By.ID, 'searchButton').click()
         #time.sleep(5)
         #wait until the Pubmed ID of the first row is visible
         WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "#resultsTable > tbody > tr > td:nth-child(4) > div > a")))
         #finds the results table and then the first pubmed ID field(text)
-        table_element = self.driver.find_element_by_id("resultsTable")
-        link_element = table_element.find_element_by_css_selector('tbody > tr > td:nth-child(4) > div > a')
+        table_element = self.driver.find_element(By.ID, "resultsTable")
+        link_element = table_element.find_element(By.CSS_SELECTOR, 'tbody > tr > td:nth-child(4) > div > a')
         txt = link_element.get_attribute('innerHTML')
         #finds the AP column and confirm it is Not Routed
-        not_route = table_element.find_element_by_css_selector('tbody > tr > td:nth-child(8)')
+        not_route = table_element.find_element(By.CSS_SELECTOR, 'tbody > tr > td:nth-child(8)')
         #print not_route.text
         #assert the first row AP column is 'Not Routed'
         self.assertTrue(not_route.text, "Not Routed")
         #select the chosen status for AP
-        table_element1 = self.driver.find_element_by_id('editTabWorkFlowStatus')
-        chosen = table_element1.find_element_by_css_selector('tbody>tr:nth-child(1)>td:nth-child(4)>input').click()
+        table_element1 = self.driver.find_element(By.ID, 'editTabWorkFlowStatus')
+        chosen = table_element1.find_element(By.CSS_SELECTOR, 'tbody>tr:nth-child(1)>td:nth-child(4)>input').click()
         #click the Modify button
-        self.driver.find_element_by_id('modifyEditTabButton').click()
+        self.driver.find_element(By.ID, 'modifyEditTabButton').click()
         #Verifies Chosen status is selected for AP now in the table
-        chosen1 = self.driver.find_element_by_name('90')
+        chosen1 = self.driver.find_element(By.NAME, '90')
         self.assertTrue( chosen1.is_selected())
         print(chosen1.text)
         #select the not routed status for AP tp put the data back to normal
-        table_element1 = self.driver.find_element_by_id('editTabWorkFlowStatus')
-        norouted = table_element1.find_element_by_css_selector('tbody>tr:nth-child(1)>td:nth-child(2)>input').click()
+        table_element1 = self.driver.find_element(By.ID, 'editTabWorkFlowStatus')
+        norouted = table_element1.find_element(By.CSS_SELECTOR, 'tbody>tr:nth-child(1)>td:nth-child(2)>input').click()
 
         
     def testReftypeEdit(self):
@@ -93,26 +93,26 @@ class TestEiLitTriageEdit(unittest.TestCase):
         form.enter_value('accids', 'J:15839')
         form.click_search()
         #finds the Reference Type field and return it's text value
-        ref_type = self.driver.find_element_by_id("editTabRefType").get_attribute('value')
+        ref_type = self.driver.find_element(By.ID, "editTabRefType").get_attribute('value')
         print(ref_type)
         self.assertEqual(ref_type, '31576686')#31576686 = MGI Curation Record
         #finds the Reference type field and modify its value
-        select = Select(self.driver.find_element_by_id("editTabRefType"))
+        select = Select(self.driver.find_element(By.ID, "editTabRefType"))
         select.select_by_visible_text('Unreviewed Article')
         #presses the Tab key
         actions = ActionChains(self.driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         #click the Modify button
-        self.driver.find_element_by_id('modifyEditTabButton').click()
+        self.driver.find_element(By.ID, 'modifyEditTabButton').click()
         #finds the Reference Type field and return it's text value
-        ref_type = self.driver.find_element_by_id("editTabRefType").get_attribute('value')
+        ref_type = self.driver.find_element(By.ID, "editTabRefType").get_attribute('value')
         self.assertEqual(ref_type, '31576689')#31576689 = Unreviewed Article      
         #finds the Reference type field and modify its value
-        select = Select(self.driver.find_element_by_id("editTabRefType"))
+        select = Select(self.driver.find_element(By.ID, "editTabRefType"))
         select.select_by_visible_text('MGI Curation Record')
         #click the Modify button to set the Reference Type back to MGI Curation Record.
-        self.driver.find_element_by_id('modifyEditTabButton').click()
+        self.driver.find_element(By.ID, 'modifyEditTabButton').click()
         
     def testDiscardEdit(self):
         """
@@ -123,16 +123,16 @@ class TestEiLitTriageEdit(unittest.TestCase):
         time.sleep(5)
         form.enter_value('accids', 'J:32887')
         form.click_search()
-        discard = self.driver.find_element_by_id("editTabIsDiscard")
+        discard = self.driver.find_element(By.ID, "editTabIsDiscard")
         self.assertFalse(discard.is_selected())
         #finds the MGI Discard box and checks it
-        self.driver.find_element_by_id("editTabIsDiscard").click()
+        self.driver.find_element(By.ID, "editTabIsDiscard").click()
         #find the MGI Discard box and check it's selected
-        self.driver.find_element_by_id("editTabIsDiscard").is_selected()
+        self.driver.find_element(By.ID, "editTabIsDiscard").is_selected()
         #click the Modify button
-        self.driver.find_element_by_id('modifyEditTabButton').click()
+        self.driver.find_element(By.ID, 'modifyEditTabButton').click()
         #find the MGI Discard box and check it's selected
-        self.driver.find_element_by_id("editTabIsDiscard").is_selected()
+        self.driver.find_element(By.ID, "editTabIsDiscard").is_selected()
                 
     def testAddTagEdit(self):
         """
@@ -145,12 +145,12 @@ class TestEiLitTriageEdit(unittest.TestCase):
         form.click_search()
         
         #finds the tag field
-        self.driver.find_element_by_id("tags").send_keys("MGI:CorrectionAdded")
+        self.driver.find_element(By.ID, "tags").send_keys("MGI:CorrectionAdded")
         #find and click the Associate button
-        self.driver.find_element_by_id("saveTagButton").click()
+        self.driver.find_element(By.ID, "saveTagButton").click()
         wait.forAngular(self.driver)
         #finds the Tag list and verifies the required tag is listed.
-        table_element = self.driver.find_element_by_id("editTabTags")
+        table_element = self.driver.find_element(By.ID, "editTabTags")
         table = Table(table_element)
         #finds the selected tags column and verified it contains the added tag
         sel_tags = table.get_column_cells(1)
@@ -169,14 +169,14 @@ class TestEiLitTriageEdit(unittest.TestCase):
         form.enter_value('accids', 'J:269580')
         form.click_search()
         
-        #finds the supplemental field and selcts the option Supplement attached
-        Select(self.driver.find_element_by_id("editTabSuppData")).select_by_value('Supplement attached')
+        #finds the supplemental field and selects the option Supplement attached
+        Select(self.driver.find_element(By.ID, "editTabSuppData")).select_by_value('Supplement attached')
         wait.forAngular(self.driver)
         #find and click the Modify button
-        self.driver.find_element_by_id("modifyEditTabButton").click()
+        self.driver.find_element(By.ID, "modifyEditTabButton").click()
         wait.forAngular(self.driver)
         #finds the Supplemental and verifies the correct option is selected.
-        supp = self.driver.find_element_by_id("editTabSuppData").get_attribute('value')
+        supp = self.driver.find_element(By.ID, "editTabSuppData").get_attribute('value')
         print(supp)
         #asserts that the following J numbers are returned
         self.assertEqual(supp, 'Supplement attached', 'The wrong supplemental is displayed!')

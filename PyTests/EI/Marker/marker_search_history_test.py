@@ -53,16 +53,16 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         """
         driver = self.driver
         #finds the history symbol field and enters a symbol
-        driver.find_element_by_id("historySymbol-0").send_keys('Dsh')
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, "historySymbol-0").send_keys('Dsh')
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historySymbol-2')))
         # get the data for the Symbol column for all 9 rows
-        hist_sym = driver.find_element_by_id('historySymbol-0').get_attribute('value')  
-        hist_sym1 = driver.find_element_by_id('historySymbol-1').get_attribute('value') 
-        hist_sym2 = driver.find_element_by_id('historySymbol-2').get_attribute('value') 
-        hist_sym3 = driver.find_element_by_id('historySymbol-3').get_attribute('value') 
-        hist_sym4 = driver.find_element_by_id('historySymbol-4').get_attribute('value') 
+        hist_sym = driver.find_element(By.ID, 'historySymbol-0').get_attribute('value')  
+        hist_sym1 = driver.find_element(By.ID, 'historySymbol-1').get_attribute('value') 
+        hist_sym2 = driver.find_element(By.ID, 'historySymbol-2').get_attribute('value') 
+        hist_sym3 = driver.find_element(By.ID, 'historySymbol-3').get_attribute('value') 
+        hist_sym4 = driver.find_element(By.ID, 'historySymbol-4').get_attribute('value') 
          
         print(hist_sym)
         print(hist_sym4)     
@@ -80,12 +80,12 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         """
         driver = self.driver
         #finds the history symbol field and enters a symbol
-        driver.find_element_by_id("historySymbol-0").send_keys('Pax%')
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, "historySymbol-0").send_keys('Pax%')
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'synonymModification_date-2')))
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         # get and print the first 2 rows of results
         cell0 = table.get_row(0)
@@ -115,17 +115,17 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         """
         driver = self.driver
         #finds the history name field and enters a name
-        driver.find_element_by_id("historyName-0").send_keys('sonic hedgehog')
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, "historyName-0").send_keys('sonic hedgehog')
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historySymbol-2')))
         #time.sleep(2)
         # get the data for the Symbol column for all 9 rows
-        hist_sym = driver.find_element_by_id('historySymbol-0').get_attribute('value')  
-        hist_sym1 = driver.find_element_by_id('historySymbol-1').get_attribute('value') 
-        hist_sym2 = driver.find_element_by_id('historySymbol-2').get_attribute('value') 
-        hist_sym3 = driver.find_element_by_id('historySymbol-3').get_attribute('value') 
-        hist_sym4 = driver.find_element_by_id('historySymbol-4').get_attribute('value') 
+        hist_sym = driver.find_element(By.ID, 'historySymbol-0').get_attribute('value')  
+        hist_sym1 = driver.find_element(By.ID, 'historySymbol-1').get_attribute('value') 
+        hist_sym2 = driver.find_element(By.ID, 'historySymbol-2').get_attribute('value') 
+        hist_sym3 = driver.find_element(By.ID, 'historySymbol-3').get_attribute('value') 
+        hist_sym4 = driver.find_element(By.ID, 'historySymbol-4').get_attribute('value') 
           
         print(hist_sym)
         print(hist_sym4)     
@@ -144,19 +144,19 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         """
         driver = self.driver
         #finds the history symbol field and enters a symbol
-        driver.find_element_by_id("historyName-0").send_keys('splotch-like%')
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, "historyName-0").send_keys('splotch-like%')
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'synonymModification_date-1')))
         #time.sleep(2)
         # get the data for the Symbol column for all 9 rows
-        hist_sym = driver.find_element_by_id('historySymbol-0').get_attribute('value')  
-        hist_sym1 = driver.find_element_by_id('historySymbol-1').get_attribute('value') 
-        hist_sym2 = driver.find_element_by_id('historySymbol-2').get_attribute('value') 
-        hist_sym3 = driver.find_element_by_id('historySymbol-3').get_attribute('value') 
-        hist_sym4 = driver.find_element_by_id('historySymbol-4').get_attribute('value') 
-        hist_sym5 = driver.find_element_by_id('historySymbol-5').get_attribute('value') 
-        hist_sym6 = driver.find_element_by_id('historySymbol-6').get_attribute('value') 
+        hist_sym = driver.find_element(By.ID, 'historySymbol-0').get_attribute('value')  
+        hist_sym1 = driver.find_element(By.ID, 'historySymbol-1').get_attribute('value') 
+        hist_sym2 = driver.find_element(By.ID, 'historySymbol-2').get_attribute('value') 
+        hist_sym3 = driver.find_element(By.ID, 'historySymbol-3').get_attribute('value') 
+        hist_sym4 = driver.find_element(By.ID, 'historySymbol-4').get_attribute('value') 
+        hist_sym5 = driver.find_element(By.ID, 'historySymbol-5').get_attribute('value') 
+        hist_sym6 = driver.find_element(By.ID, 'historySymbol-6').get_attribute('value') 
         print(hist_sym)
         print(hist_sym6)     
         #Assert the second synonym date returned(row2) is correct
@@ -175,13 +175,13 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         """
         driver = self.driver
         #finds the history name field and enters a name
-        driver.find_element_by_id("historyEventDate-0").send_keys('2018-09-20')
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, "historyEventDate-0").send_keys('2018-09-20')
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historyName-0')))
         time.sleep(2)
         #capture the results table rows
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         symbl1 = table.get_row(0)
         symbl2 = table.get_row(1)
@@ -200,13 +200,13 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         """
         driver = self.driver
         #finds the J# field and enters a J number
-        driver.find_element_by_id("historyJnum-0").send_keys('J:2944')
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, "historyJnum-0").send_keys('J:2944')
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historyName-0')))
         time.sleep(2)
         #capture the results table rows
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         symbl1 = table.get_row(0)
         symbl2 = table.get_row(1)
@@ -223,13 +223,13 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         """
         driver = self.driver
         #finds the J# field and enters a J number
-        driver.find_element_by_id("historyJnum-0").send_keys('2944')
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, "historyJnum-0").send_keys('2944')
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historyName-0')))
         time.sleep(2)
         #capture the results table rows
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         symbl1 = table.get_row(0)
         symbl2 = table.get_row(1)
@@ -246,16 +246,16 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         
         driver = self.driver
         #finds the Citation field and enters a citation string
-        driver.find_element_by_id("historyShortCitation-0").send_keys('Balling R, Cell 1988 Nov 4;55(3):531-5')
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, "historyShortCitation-0").send_keys('Balling R, Cell 1988 Nov 4;55(3):531-5')
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historyName-0')))
         # get the data for the Citation column, print the row 6 result
-        cite_row = driver.find_element_by_id('historyShortCitation-5').get_attribute('value')        
+        cite_row = driver.find_element(By.ID, 'historyShortCitation-5').get_attribute('value')        
         #Assert the sixth citation returned(row6) is correct
         self.assertEqual(cite_row, 'Balling R, Cell 1988 Nov 4;55(3):531-5')      
         #capture the results table row
-        symbl1 = driver.find_element_by_xpath('/html/body/main/div[1]/div/form/div/div/div[2]/div[5]/div/div[2]/table/tbody/tr[1]/td').get_attribute('innerText')
+        symbl1 = driver.find_element(By.XPATH, '/html/body/main/div[1]/div/form/div/div/div[2]/div[5]/div/div[2]/table/tbody/tr[1]/td').get_attribute('innerText')
         print symbl1
         #Assert the first result is correct
         self.assertEqual(symbl1, 'Pax1') """     
@@ -268,16 +268,16 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         
         driver = self.driver
         #finds the Citation field and enters a citation string
-        driver.find_element_by_id("historyShortCitation-0").send_keys('Selby P%')
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, "historyShortCitation-0").send_keys('Selby P%')
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historyName-0')))
         # get the data for the Citation column, print the row 6 result
-        cite_row = driver.find_element_by_id('historyShortCitation-5').get_attribute('value')        
+        cite_row = driver.find_element(By.ID, 'historyShortCitation-5').get_attribute('value')        
         #Assert the sixth citation returned(row6) is correct
         self.assertEqual(cite_row, 'Selby P, Mouse News Lett 1985;72():123')      
         #capture the results table row
-        symbl1 = driver.find_element_by_xpath('/html/body/main/div[1]/div/form/div/div/div[2]/div[5]/div/div[2]/table/tbody/tr[1]/td').get_attribute('innerText')
+        symbl1 = driver.find_element(By.XPATH, '/html/body/main/div[1]/div/form/div/div/div[2]/div[5]/div/div[2]/table/tbody/tr[1]/td').get_attribute('innerText')
         print symbl1
         #Assert the first result is correct
         self.assertEqual(symbl1, 'Ccd') """
@@ -289,17 +289,17 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         """
         driver = self.driver
         #finds the Event field and selects the option "Not Specified"
-        Select(driver.find_element_by_id("historyEvent-0")).select_by_value('string:-1')#string -1 equals 'Not Specified'
-        driver.find_element_by_id('searchButton').click()        
+        Select(driver.find_element(By.ID, "historyEvent-0")).select_by_value('string:-1')#string -1 equals 'Not Specified'
+        driver.find_element(By.ID, 'searchButton').click()        
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historyName-0')))
         time.sleep(2)
         # get the data for the Event column, print the row 1 result
-        evt_row = driver.find_element_by_id('historyEvent-0').get_attribute('value')        
+        evt_row = driver.find_element(By.ID, 'historyEvent-0').get_attribute('value')        
         #Assert the sixth citation returned(row6) is correct
         self.assertEqual(evt_row, 'string:-1')#string -1 equals 'Not Specified'      
         #capture the results table row
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         symbl1 = table.get_row(0)        
         print(symbl1.text)                 
@@ -313,13 +313,13 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         """
         driver = self.driver
         #finds the Event field and selects the option "Split"
-        Select(driver.find_element_by_id("historyEvent-0")).select_by_value('string:5')#string:5 is 'split'
+        Select(driver.find_element(By.ID, "historyEvent-0")).select_by_value('string:5')#string:5 is 'split'
         driver.find_element_by_id('searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historyName-0')))
         time.sleep(2)
         # get the data for the Event column, print the row 6 result
-        evt_row = driver.find_element_by_id('historyEvent-5').get_attribute('value')        
+        evt_row = driver.find_element(By.ID, 'historyEvent-5').get_attribute('value')        
         #Assert the sixth citation returned(row6) is correct
         self.assertEqual(evt_row, 'string:5')#string:5 equals 'Split'      
 
@@ -330,16 +330,16 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         """
         driver = self.driver
         #finds the Event Reason field and selects the option "per personal comm w/Chromosome Committee"
-        Select(driver.find_element_by_id("historyEventReason-0")).select_by_value('string:4')#string:4 is personal comm w/Expert'
+        Select(driver.find_element(By.ID, "historyEventReason-0")).select_by_value('string:4')#string:4 is personal comm w/Expert'
         driver.find_element_by_id('searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historyName-1')))
         time.sleep(2)
-        reason_row = driver.find_element_by_id('historyEventReason-2').get_attribute('value')        
+        reason_row = driver.find_element(By.ID, 'historyEventReason-2').get_attribute('value')        
         #Assert the third row returned is correct
         self.assertEqual(reason_row, 'string:4')#string:4 equals 'personal comm w/Expert'  
         #capture the results table row
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         symbl1 = table.get_row(0)
         print(symbl1.text)
@@ -353,16 +353,16 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         """
         driver = self.driver
         #finds the Modified By field and enters a search name
-        driver.find_element_by_id("historyModifiedBy-0").send_keys('hjd')
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, "historyModifiedBy-0").send_keys('hjd')
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historyName-1')))
         time.sleep(2)
-        mod_row = driver.find_element_by_id('historyModifiedBy-4').get_attribute('value')        
+        mod_row = driver.find_element(By.ID, 'historyModifiedBy-4').get_attribute('value')        
         #Assert the fifth row returned is correct
         self.assertEqual(mod_row, 'hjd')#string:4 equals 'personal comm w/Expert'  
         #capture the results table row
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         symbl1 = table.get_row(0)
         symbl2 = table.get_row(1)
@@ -388,16 +388,16 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         """
         driver = self.driver
         #finds the Modified By field and enters a search name with wildcard
-        driver.find_element_by_id("historyModifiedBy-0").send_keys('hj%')
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, "historyModifiedBy-0").send_keys('hj%')
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historyName-1')))
         time.sleep(2)
-        mod_row = driver.find_element_by_id('historyModifiedBy-4').get_attribute('value')        
+        mod_row = driver.find_element(By.ID, 'historyModifiedBy-4').get_attribute('value')        
         #Assert the fifth row returned is correct
         self.assertEqual(mod_row, 'hjd')#string:4 equals 'personal comm w/Expert'  
         #capture the results table row
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         symbl1 = table.get_row(0)
         symbl2 = table.get_row(1)

@@ -48,15 +48,15 @@ class TestEiGenotypeSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Strain field and enters a strain w/wildcard, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("strain").send_keys('129.B6-Adamts13%')
+        driver.find_element(By.ID, "strain").send_keys('129.B6-Adamts13%')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
-        an_table = self.driver.find_element_by_id('allelePairTable')
+        an_table = self.driver.find_element(By.ID, 'allelePairTable')
         table = Table(an_table)
         #Iterate and print the table results
         header_cells = table.get_header_cells()
@@ -67,17 +67,17 @@ class TestEiGenotypeSearch(unittest.TestCase):
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'alleleDetailNote')))
         #find the search results table first row of data
-        mrk1 = driver.find_element_by_id('markerSymbol-0').get_property('value')
+        mrk1 = driver.find_element(By.ID, 'markerSymbol-0').get_property('value')
         print(mrk1)
-        al1 = driver.find_element_by_id('allele1-0').get_property('value')
+        al1 = driver.find_element(By.ID, 'allele1-0').get_property('value')
         print(al1)
-        al2 = driver.find_element_by_id('allele2-0').get_property('value')
+        al2 = driver.find_element(By.ID, 'allele2-0').get_property('value')
         print(al2)
-        state1 = driver.find_element_by_id('pairState-0').get_property('value')#value should be 'string:847138' that equals Homozygous
+        state1 = driver.find_element(By.ID, 'pairState-0').get_property('value')#value should be 'string:847138' that equals Homozygous
         print(state1)
-        cmpd1 = driver.find_element_by_id('compound-0').get_property('value')#value should be 'string:847167' that equals Not Applicable
+        cmpd1 = driver.find_element(By.ID, 'compound-0').get_property('value')#value should be 'string:847167' that equals Not Applicable
         print(cmpd1)        
-        disply = driver.find_element_by_id('alleleDetailNote').get_property('value')
+        disply = driver.find_element(By.ID, 'alleleDetailNote').get_property('value')
         print(disply)
         #we are asserting the first row of data plus Allele Detail Display is correct
         self.assertEqual(mrk1, 'Adamts13')
@@ -95,16 +95,16 @@ class TestEiGenotypeSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Conditionally Targetted field and selects the Yes option, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("isConditional").send_keys('Yes')
+        driver.find_element(By.ID, "isConditional").send_keys('Yes')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'alleleDetailNote')))
         #find the Conditionally Targeted field and confirm it is Yes
-        contar = driver.find_element_by_id('isConditional').get_property('value')
+        contar = driver.find_element(By.ID, 'isConditional').get_property('value')
         print(contar)
         #we are asserting the Conditionally Targeted field is Yes for the first result
         self.assertEqual(contar, 'string:1')#string:1 equals Yes
@@ -116,17 +116,17 @@ class TestEiGenotypeSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Genotype Exists as field and then selects the right option, then clicks the Search button
-        driver.find_element_by_id("existsAs").send_keys('Cell Line')
+        driver.find_element(By.ID, "existsAs").send_keys('Cell Line')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'resultsTable')))
         #find the search Genotype Exista as field and get it's value
-        exists0 = driver.find_element_by_id('existsAs').get_property('value')
+        exists0 = driver.find_element(By.ID, 'existsAs').get_property('value')
         print(exists0)    
         #we are asserting the Genotype Exists as field is correct, should be string:3982947 which is Cell Line
         self.assertEqual(exists0, 'string:3982947')
@@ -138,17 +138,17 @@ class TestEiGenotypeSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Genotype Exists as field and then selects the right option, then clicks the Search button
-        driver.find_element_by_id("existsAs").send_keys('Chimeric')
+        driver.find_element(By.ID, "existsAs").send_keys('Chimeric')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'resultsTable')))
         #find the search Genotype Exista as field and get it's value
-        exists0 = driver.find_element_by_id('existsAs').get_property('value')
+        exists0 = driver.find_element(By.ID, 'existsAs').get_property('value')
         print(exists0)    
         #we are asserting the Genotype Exists as field is correct, should be string:3982948 which is Chimeric
         self.assertEqual(exists0, 'string:3982948')
@@ -160,17 +160,17 @@ class TestEiGenotypeSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Genotype Exists as field and then selects the right option, then clicks the Search button
-        driver.find_element_by_id("existsAs").send_keys('Mouse Line')
+        driver.find_element(By.ID, "existsAs").send_keys('Mouse Line')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'resultsTable')))
         #find the search Genotype Exista as field and get it's value
-        exists0 = driver.find_element_by_id('existsAs').get_property('value')
+        exists0 = driver.find_element(By.ID, 'existsAs').get_property('value')
         print(exists0)    
         #we are asserting the Genotype Exists as field is correct, should be string:3982946 which is Mouse Line
         self.assertEqual(exists0, 'string:3982946')
@@ -182,17 +182,17 @@ class TestEiGenotypeSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Genotype Exists as field and then selects the right option, then clicks the Search button
-        driver.find_element_by_id("existsAs").send_keys('Not Specified')
+        driver.find_element(By.ID, "existsAs").send_keys('Not Specified')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'resultsTable')))
         #find the search Genotype Exista as field and get it's value
-        exists0 = driver.find_element_by_id('existsAs').get_property('value')
+        exists0 = driver.find_element(By.ID, 'existsAs').get_property('value')
         print(exists0)    
         #we are asserting the Genotype Exists as field is correct, should be string:3982949 which is Not Specified
         self.assertEqual(exists0, 'string:3982949')
@@ -205,16 +205,16 @@ class TestEiGenotypeSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Conditionally Targeted field and selects the No option, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("isConditional").send_keys('No')
+        driver.find_element(By.ID, "isConditional").send_keys('No')
         #finds the Chromosome field and select 'Y' 
-        driver.find_element_by_id("chromsome-0").send_keys('X')        
+        driver.find_element(By.ID, "chromsome-0").send_keys('X')        
         #You do not tab out of the Chromosome field or it will break the search because it tries to validate an empty marker field.
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'resultsTable')))
         #find the chromosone field of the first row
-        chrom0 = driver.find_element_by_id('chromsome-0').get_property('value')
+        chrom0 = driver.find_element(By.ID, 'chromsome-0').get_property('value')
         time.sleep(2)
         print(chrom0)
         #we are asserting the chromosome data is correct
@@ -227,17 +227,17 @@ class TestEiGenotypeSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Marker as field and then enters text, then clicks the Search button
-        driver.find_element_by_id("markerSymbol-0").send_keys('Gata1')
+        driver.find_element(By.ID, "markerSymbol-0").send_keys('Gata1')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'resultsTable')))
         #find the marker field and get it's value
-        mrksym0 = driver.find_element_by_id('markerSymbol-0').get_property('value')
+        mrksym0 = driver.find_element(By.ID, 'markerSymbol-0').get_property('value')
         print(mrksym0)    
         #we are asserting the marker field is correct
         self.assertEqual(mrksym0, 'Gata1')
@@ -249,17 +249,17 @@ class TestEiGenotypeSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Allele 1 field and then enters text, then clicks the Search button
-        driver.find_element_by_id("allele1-0").send_keys('Slc11a1<r>')
+        driver.find_element(By.ID, "allele1-0").send_keys('Slc11a1<r>')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'resultsTable')))
         #find the Allele 1 field for row 1 and get it's value
-        allsym1 = driver.find_element_by_id('allele1-0').get_property('value')
+        allsym1 = driver.find_element(By.ID, 'allele1-0').get_property('value')
         print(allsym1)    
         #we are asserting the allele1 field is correct
         self.assertEqual(allsym1, 'Slc11a1<r>')
@@ -271,14 +271,14 @@ class TestEiGenotypeSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the State field and then selects the right option, then clicks the Search button
-        driver.find_element_by_id("pairState-0").send_keys('Homoplasmic')
+        driver.find_element(By.ID, "pairState-0").send_keys('Homoplasmic')
         #You do not tab out of the State field or it will break the search because it tries to validate an empty marker field.
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'resultsTable')))
         #find the State field and get it's value
-        state0 = driver.find_element_by_id('pairState-0').get_property('value')
+        state0 = driver.find_element(By.ID, 'pairState-0').get_property('value')
         print(state0)    
         #we are asserting the State field is correct, should be string:7107400 which is Homoplasmic
         self.assertEqual(state0, 'string:7107400')            
@@ -290,14 +290,14 @@ class TestEiGenotypeSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Compound field and then selects the right option, then clicks the Search button
-        driver.find_element_by_id("compound-0").send_keys('Top')
+        driver.find_element(By.ID, "compound-0").send_keys('Top')
         #You do not tab out of the Compound field or it will break the search because it tries to validate an empty marker field.
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'resultsTable')))
         #find the Compound field and get it's value
-        cmpd0 = driver.find_element_by_id('compound-0').get_property('value')
+        cmpd0 = driver.find_element(By.ID, 'compound-0').get_property('value')
         print(cmpd0)    
         #we are asserting the Compound field is correct, should be string:847165 which is Top
         self.assertEqual(cmpd0, 'string:847165')     
@@ -309,17 +309,17 @@ class TestEiGenotypeSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the J# field and then enters text, then clicks the Search button
-        driver.find_element_by_id("jnum-0").send_keys('J:124405')
+        driver.find_element(By.ID, "jnum-0").send_keys('J:124405')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'jnum-0')))
         #find the J# field and get it's value
-        jnumber = driver.find_element_by_id('jnum-0').get_property('value')
+        jnumber = driver.find_element(By.ID, 'jnum-0').get_property('value')
         time.sleep(2)
         print(jnumber)    
         #we are asserting the J# field is correct

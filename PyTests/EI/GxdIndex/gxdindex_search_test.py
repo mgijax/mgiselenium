@@ -9,6 +9,7 @@ import unittest
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 import HtmlTestRunner
 import sys,os.path
 # adjust the path to find config
@@ -152,7 +153,7 @@ class TestEiGxdIndexSearch(unittest.TestCase):
         marker_symbol = form.get_value('marker_symbol')
         self.assertEqual(marker_symbol, 'Unc5a')
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
@@ -180,7 +181,7 @@ class TestEiGxdIndexSearch(unittest.TestCase):
         citation = form.get_value('citation')
         self.assertEqual(citation, 'Yi T, Blood 1991 Nov 1;78(9):2222-8')
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
@@ -214,7 +215,7 @@ class TestEiGxdIndexSearch(unittest.TestCase):
         citation = form.get_value('citation')
         self.assertEqual(citation, 'Chianale J, Biochim Biophys Acta 1995 Dec 27;1264(3):369-76')
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
@@ -296,7 +297,7 @@ class TestEiGxdIndexSearch(unittest.TestCase):
         wait.forAngular(driver)
         
         # verify that display with two markers is shown
-        mrkrows = driver.find_elements_by_css_selector(".markerSelections td")
+        mrkrows = driver.find_elements(By.CSS_SELECTOR, ".markerSelections td")
         markers = [r.text for r in mrkrows]
         print(markers)
         self.assertEqual(len(markers), 2)
@@ -327,7 +328,7 @@ class TestEiGxdIndexSearch(unittest.TestCase):
         form.press_tab()
         form.click_search()#click the search button
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
@@ -353,7 +354,7 @@ class TestEiGxdIndexSearch(unittest.TestCase):
         form.press_tab()
         form.click_search()#click the search button
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
@@ -384,7 +385,7 @@ class TestEiGxdIndexSearch(unittest.TestCase):
         form.press_tab()
         form.click_search()#click the search button
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
@@ -408,7 +409,7 @@ class TestEiGxdIndexSearch(unittest.TestCase):
         form.press_tab()
         form.click_search()#click the search button
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
@@ -431,7 +432,7 @@ class TestEiGxdIndexSearch(unittest.TestCase):
         form.press_tab()
         form.click_search()#click the search button
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
@@ -460,7 +461,7 @@ class TestEiGxdIndexSearch(unittest.TestCase):
         form.press_tab()
         form.click_search()#click the search button
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
@@ -489,7 +490,7 @@ class TestEiGxdIndexSearch(unittest.TestCase):
         form.press_tab()
         form.click_search()#click the search button
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
@@ -500,10 +501,7 @@ class TestEiGxdIndexSearch(unittest.TestCase):
         #print column 1
         symbols_cells = table.get_column_cells('Marker')
         symbols = iterate.getTextAsList(symbols_cells)
-        self.assertEqual(symbols, ['Marker', 'Clec1b', 'Fgf8', 'Lmx1b', 'Lyve1', 'Pdpn', 'Wnt7a'])
-            
-            
-    
+        self.assertEqual(symbols, ['Marker', 'Clec1b', 'Fgf8', 'Lmx1b', 'Lyve1', 'Pdpn', 'Wnt7a'])   
             
     def testBetweenDateSearch(self):
         """
@@ -522,7 +520,7 @@ class TestEiGxdIndexSearch(unittest.TestCase):
         wait.forAngular(self.driver)
         form.click_search()#click the search button
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
@@ -544,7 +542,7 @@ class TestEiGxdIndexSearch(unittest.TestCase):
         driver = self.driver
         form = self.form
         #find the Index grid
-        table_element = driver.find_element_by_id("indexGrid")
+        table_element = driver.find_element(By.ID, "indexGrid")
         table = Table(table_element)
         #puts an X in the first assay/age cell
         cell = table.get_cell(1,1)
@@ -556,7 +554,7 @@ class TestEiGxdIndexSearch(unittest.TestCase):
         form.click_search()#click the search button
         wait.forAngular(driver)
         #find the search results table
-        results_table = driver.find_element_by_id("resultsTable")
+        results_table = driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
@@ -586,7 +584,7 @@ class TestEiGxdIndexSearch(unittest.TestCase):
         
         #   form.click_search()
         
-        #   results_table = driver.find_element_by_id("indexGrid")
+        #   results_table = driver.find_element(By.ID, "indexGrid")
         #   table = Table(results_table)
         
         #   header_cells = table.get_header_cells()

@@ -3,6 +3,7 @@ Created on Sep 20, 2016
 
 @author: jeffc
 @attention: These tests must only be run against a development environment!!
+@bug: since selenium 4 getting errors for popups(lines 153 and 184), need to find out why!!!!
 '''
 import unittest
 import time
@@ -33,11 +34,11 @@ class TestEiGxdIndexAddDelete(unittest.TestCase):
         self.driver = webdriver.Chrome()
         self.form = ModuleForm(self.driver)
         self.form.get_module(config.TEST_PWI_URL + "/edit/gxdindex") 
-        username = self.driver.find_element_by_name('user')#finds the user login box
+        username = self.driver.find_element(By.NAME, 'user')#finds the user login box
         username.send_keys(config.PWI_LOGIN) #enters the username
-        passwd = self.driver.find_element_by_name('password')#finds the password box
+        passwd = self.driver.find_element(By.NAME, 'password')#finds the password box
         passwd.send_keys(config.PWI_PASSWORD) #enters a valid password
-        submit = self.driver.find_element_by_name("submit") #Find the Login button
+        submit = self.driver.find_element(By.NAME, "submit") #Find the Login button
         submit.click() #click the login button
         
 
@@ -64,7 +65,7 @@ class TestEiGxdIndexAddDelete(unittest.TestCase):
         print(marker_symbol)
         self.assertEqual(marker_symbol, 'Bmp2')
         #find the table field to check
-        table_element = driver.find_element_by_id("indexGrid")
+        table_element = driver.find_element(By.ID, "indexGrid")
         table = Table(table_element)
         #puts an X in the first assay/age cell
         cell = table.get_cell(1,1)
@@ -92,7 +93,7 @@ class TestEiGxdIndexAddDelete(unittest.TestCase):
         print(marker_symbol)
         self.assertEqual(marker_symbol, 'Bmp2')
         #find the table field to check
-        table_element = driver.find_element_by_id("indexGrid")
+        table_element = driver.find_element(By.ID, "indexGrid")
         table = Table(table_element)
         #puts an X in the first assay/age cell
         cell = table.get_cell(1,1)
@@ -100,7 +101,7 @@ class TestEiGxdIndexAddDelete(unittest.TestCase):
         wait.forAngular(driver)
         self.assertEqual(cell.text, 'X', "the cell is not checked")
         form.click_search() # get the record
-        form.click_delete()#click the delete button
+        form.click_delete() #click the delete button
         print("Index record deleted")
         
         
@@ -144,7 +145,7 @@ class TestEiGxdIndexAddDelete(unittest.TestCase):
         form.press_tab()
         print(marker_symbol)
         #press the enter key
-        driver.find_element_by_id("addButton").click()
+        driver.find_element(By.ID, "addButton").click()
         wait.forAngular(driver)
         #Get the error message that is displayed
         priority_error = form.get_error_message()
@@ -183,15 +184,15 @@ class TestEiGxdIndexAddDelete(unittest.TestCase):
         self.assertEqual(stage_error, 'No stages have been selected for this record')    
         
         
-        table = driver.find_element_by_id("resultsTable")
-        table.find_elements_by_tag_name("tr")[1].click()
+        table = driver.find_element(By.ID, "resultsTable")
+        table.find_elements(By.TAG_NAME, "tr")[1].click()
         wait.forAngular(driver)
         form.click_delete()
     
     def tearDown(self):
         driver = self.driver
         form = self.form
-        driver.close()
+        self.driver.close()
        
 def suite():
     suite = unittest.TestSuite()

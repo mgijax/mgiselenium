@@ -53,8 +53,8 @@ class TestEiLitTriageSearch(unittest.TestCase):
         form.enter_value('accids', 'J:237402')
         form.click_search()
         #finds the results table and iterates through the table
-        result = self.driver.find_element_by_id("resultsTable")
-        data = result.find_elements_by_tag_name("td")
+        result = self.driver.find_element(By.ID, "resultsTable")
+        data = result.find_elements(By.TAG_NAME, "td")
         print(iterate.getTextAsList(data))
         #finds the Journal field
         mgiid = data[1].text
@@ -84,7 +84,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
         form.enter_value('accids', "99999999")
         form.click_search()
         #finds the results table and iterates through the table
-        table_element = self.driver.find_element_by_id("resultsTable")
+        table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
         jnum_cells = table.get_column_cells(3)
@@ -100,7 +100,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
         form.enter_value('accids', 'J:173534, J:155845, J:151466, J:136110, J:75187, J:43743, J:23392, J:23389, J:109968, J:182573, J:134667')
         form.click_search()
         #finds the results table and iterates through the table
-        table_element = self.driver.find_element_by_id("resultsTable")
+        table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
         jnum_cells = table.get_column_cells(2)
@@ -117,7 +117,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
         form.enter_value('accids', 'J:173534 J:155845 J:151466 J:136110 J:75187 J:43743 J:23392 J:23389 J:109968 J:182573 J:134667')
         form.click_search()
         #finds the results table and iterates through the table
-        table_element = self.driver.find_element_by_id("resultsTable")
+        table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
         jnum_cells = table.get_column_cells(2)
@@ -134,7 +134,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
         form.enter_value('accids', 'MGI:5812656 J:151466 10.1534/genetics.114.161455 GO_REF:0000033')
         form.click_search()
         #finds the results table and iterates through the table
-        table_element = self.driver.find_element_by_id("resultsTable")
+        table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
         jnum_cells = table.get_column_cells(2)
@@ -152,7 +152,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
         form.enter_value('accids', '10321434')
         form.click_search()
         #finds the results table and iterates through the table
-        table_element = self.driver.find_element_by_id("resultsTable")
+        table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
         jnum_cell = table.get_cell(1,2)
@@ -168,7 +168,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
         form.enter_value('accids', 'MGI:62396')
         form.click_search()
         #finds the results table and iterates through the table
-        table_element = self.driver.find_element_by_id("resultsTable")
+        table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
         jnum_cell = table.get_cell(1,2)
@@ -184,7 +184,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
         form.enter_value('accids', '10.1534/genetics.114.161455')
         form.click_search()
         #finds the results table and iterates through the table
-        table_element = self.driver.find_element_by_id("resultsTable")
+        table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
         jnum_cell = table.get_cell(1,2)
@@ -200,7 +200,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
         form.enter_value('accids', 'GO_REF:0000033')
         form.click_search()
         #finds the results table and iterates through the table
-        table_element = self.driver.find_element_by_id("resultsTable")
+        table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
         jnum_cell = table.get_cell(1,2)
@@ -216,7 +216,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
         form.enter_value('title', 'Rescue of the albino phenotype by introduction of a functional tyrosinase gene into mice.')
         form.click_search()
         #finds the results table and iterates through the table
-        table_element = self.driver.find_element_by_id("resultsTable")
+        table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
         jnum_cell = table.get_cell(1,2)
@@ -233,7 +233,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
         form.enter_value('title', 'P-selectin%')
         form.click_search()
         #finds the results table and iterates through the table
-        table_element = self.driver.find_element_by_id("resultsTable")
+        table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
         jnum_cell = table.get_cell(1,2)
@@ -251,7 +251,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
         form.enter_value('notes', '%allele%')
         form.click_search()
         #finds the results table and iterates through the table
-        table_element = self.driver.find_element_by_id("resultsTable")
+        table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
         jnum_cell = table.get_cell(1,2)
@@ -271,7 +271,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
         form.enter_value('pages', '128%')
         form.click_search()
         #finds the results table and iterates through the table
-        table_element = self.driver.find_element_by_id("resultsTable")
+        table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
         jnum_cell = table.get_cell(1,2)
@@ -289,7 +289,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
         form.enter_value('date', '2007 Dec 5')
         form.click_search()
         #finds the results table and iterates through the table
-        table_element = self.driver.find_element_by_id("resultsTable")
+        table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
         jnum_cell = table.get_cell(1,2)
@@ -308,7 +308,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
         form.enter_value('title', '%cancer%')
         form.click_search()
         #finds the results table and iterates through the table
-        table_element = self.driver.find_element_by_id("resultsTable")
+        table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
         jnum_cell = table.get_cell(1,2)
@@ -319,13 +319,13 @@ class TestEiLitTriageSearch(unittest.TestCase):
         @Status Tests that a search for a single AP status returns the correct results
         @See MBIB-search-23,25 (63)
         """
-        self.driver.find_element_by_id('status_AP_Rejected').click()
+        self.driver.find_element(By.ID, 'status_AP_Rejected').click()
         form = self.form
         form.enter_value('title', 'diabetes%')
         form.enter_value('journal', '%diab%')
         form.click_search()
         #finds the results table and iterates through the table
-        table_element = self.driver.find_element_by_id("resultsTable")
+        table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
         jnum_cells = table.get_column_cells(2)
@@ -342,13 +342,13 @@ class TestEiLitTriageSearch(unittest.TestCase):
         @Status Tests that a search for multple Tumor statuses returns the correct results
         @See MBIB-search-24,25 (70)
         """
-        self.driver.find_element_by_id('status_Tumor_Indexed').click()
-        self.driver.find_element_by_id('status_Tumor_Full_coded').click()
+        self.driver.find_element(By.ID, 'status_Tumor_Indexed').click()
+        self.driver.find_element(By.ID, 'status_Tumor_Full_coded').click()
         form = self.form
         form.enter_value('year', '1957')
         form.click_search()
         #finds the results table and iterates through the table
-        table_element = self.driver.find_element_by_id("resultsTable")
+        table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
         jnum_cells = table.get_column_cells(2)
@@ -365,16 +365,16 @@ class TestEiLitTriageSearch(unittest.TestCase):
         @Status Tests that a search for results with a status in each group returns the correct results
         @See MBIB-search-24,25 (73)
         """
-        self.driver.find_element_by_id('status_AP_Rejected').click()
-        self.driver.find_element_by_id('status_GO_Rejected').click()
-        self.driver.find_element_by_id('status_GXD_Rejected').click()
-        self.driver.find_element_by_id('status_QTL_Rejected').click()
-        self.driver.find_element_by_id('status_Tumor_Rejected').click()
+        self.driver.find_element(By.ID, 'status_AP_Rejected').click()
+        self.driver.find_element(By.ID, 'status_GO_Rejected').click()
+        self.driver.find_element(By.ID, 'status_GXD_Rejected').click()
+        self.driver.find_element(By.ID, 'status_QTL_Rejected').click()
+        self.driver.find_element(By.ID, 'status_Tumor_Rejected').click()
         form = self.form
         form.enter_value('title', '%night blindness%')
         form.click_search()
         #finds the results table and iterates through the table
-        table_element = self.driver.find_element_by_id("resultsTable")
+        table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
         jnum_cells = table.get_column_cells(2)
@@ -390,23 +390,23 @@ class TestEiLitTriageSearch(unittest.TestCase):
         @Status Tests that a search for results with multiple status with other fields combined returns the correct results
         @See MBIB-search-24,25 (76)
         """
-        self.driver.find_element_by_id('status_AP_Chosen').click()
-        self.driver.find_element_by_id('status_GO_Chosen').click()
-        self.driver.find_element_by_id('status_GXD_Chosen').click()
-        self.driver.find_element_by_id('status_QTL_Chosen').click()
-        self.driver.find_element_by_id('status_Tumor_Chosen').click()
-        self.driver.find_element_by_id('status_AP_Indexed').click()
-        self.driver.find_element_by_id('status_GO_Indexed').click()
-        self.driver.find_element_by_id('status_GXD_Indexed').click()
-        self.driver.find_element_by_id('status_QTL_Indexed').click()
-        self.driver.find_element_by_id('status_Tumor_Indexed').click()
-        self.driver.find_element_by_id('status_Tumor_Full_coded').click()
+        self.driver.find_element(By.ID, 'status_AP_Chosen').click()
+        self.driver.find_element(By.ID, 'status_GO_Chosen').click()
+        self.driver.find_element(By.ID, 'status_GXD_Chosen').click()
+        self.driver.find_element(By.ID, 'status_QTL_Chosen').click()
+        self.driver.find_element(By.ID, 'status_Tumor_Chosen').click()
+        self.driver.find_element(By.ID, 'status_AP_Indexed').click()
+        self.driver.find_element(By.ID, 'status_GO_Indexed').click()
+        self.driver.find_element(By.ID, 'status_GXD_Indexed').click()
+        self.driver.find_element(By.ID, 'status_QTL_Indexed').click()
+        self.driver.find_element(By.ID, 'status_Tumor_Indexed').click()
+        self.driver.find_element(By.ID, 'status_Tumor_Full_coded').click()
         form = self.form
         form.enter_value('title', '%quantitative trait loci%')
         form.enter_value('year', '2016')
         form.click_search()
         #finds the results table and iterates through the table
-        table_element = self.driver.find_element_by_id("resultsTable")
+        table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
         jnum_cells = table.get_column_cells(2)
@@ -425,8 +425,8 @@ class TestEiLitTriageSearch(unittest.TestCase):
         @See MBIB-search-26 (78)
         """
         #This finds the pull down menu for Discard? and then selects the second option
-        dl = self.driver.find_element_by_id('isDiscard')
-        for option in dl.find_elements_by_tag_name("option"):
+        dl = self.driver.find_element(By.ID, 'isDiscard')
+        for option in dl.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Only Discard':
                 option.click()
                 break
@@ -435,7 +435,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
         form.enter_value('year', '2019')
         form.click_search() 
         #Confirms that the MGI Discard box is checked(selected)
-        self.driver.find_element_by_id("editTabIsDiscard").is_selected()
+        self.driver.find_element(By.ID, "editTabIsDiscard").is_selected()
 
     def testSingleTagSearch(self):
         """
@@ -448,7 +448,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
         form.enter_value('title', '%anemia%')
         form.click_search()
         #finds the Tag list and verifies the required tag is listed.
-        table_element = self.driver.find_element_by_id("editTabTags")
+        table_element = self.driver.find_element(By.ID, "editTabTags")
         table = Table(table_element)
         #finds the selected tags column and verified it contains the added tag
         sel_tags = table.get_column_cells(1)
@@ -466,14 +466,14 @@ class TestEiLitTriageSearch(unittest.TestCase):
         time.sleep(5)
         form.enter_value('title', '%cancer%')
         form.enter_value('year', '2007')
-        self.driver.find_element_by_id("status_AP_Indexed").click()
-        self.driver.find_element_by_id("status_AP_Full_coded").click()
-        self.driver.find_element_by_id("status_GO_Indexed").click()
-        self.driver.find_element_by_id("status_GO_Full_coded").click()
+        self.driver.find_element(By.ID, "status_AP_Indexed").click()
+        self.driver.find_element(By.ID, "status_AP_Full_coded").click()
+        self.driver.find_element(By.ID, "status_GO_Indexed").click()
+        self.driver.find_element(By.ID, "status_GO_Full_coded").click()
         #Do not need to click the OR option because that is the default selection.
         form.click_search()
         #finds the results table and iterates through the table
-        table_element = self.driver.find_element_by_id("editTabWorkFlowStatus")
+        table_element = self.driver.find_element(By.ID, "editTabWorkFlowStatus")
         table = Table(table_element)
         #finds the Indexed column for AP and returns it's status of selected
         ap_indexed = table.get_cell(1,3)
@@ -488,7 +488,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
         go_full_coded = table.get_cell(2,6)
         self.assertTrue(go_full_coded.is_selected, "Full Coded for GO is not selected")
         #finds the 1st and 6th fields of the summary table for AP and GO indexed and Full-coded columns and returns text value
-        table_element = self.driver.find_element_by_id("resultsTable")
+        table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
         ap_cell1 = table.get_cell(4,7)
         ap_cell2 = table.get_cell(5,7)
@@ -530,7 +530,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
         self.assertTrue(go_indexed.is_selected, "Indexed for GO is not selected")
         #finds the 1st and 2nd fields of the summary table for AP and GO routed and Full-coded columns and returns text value
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         ap_cell1 = table.get_cell(1,7)
         go_cell2 = table.get_cell(1,8)
@@ -547,11 +547,11 @@ class TestEiLitTriageSearch(unittest.TestCase):
         @Status Tests that a search of Editors field using a wildcard returns the correct results
         @See MBIB-search-60 
         """
-        self.driver.find_element_by_id('book_author').send_keys('Macholan%')
+        self.driver.find_element(By.ID, 'book_author').send_keys('Macholan%')
         form = self.form
         form.click_search()
         #finds the Tag list and verifies the required tag is listed.
-        table_element = self.driver.find_element_by_id("resultsTable")
+        table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
         jnum_cells = table.get_column_cells(2)
@@ -564,11 +564,11 @@ class TestEiLitTriageSearch(unittest.TestCase):
         @Status Tests that a search of Book Title field using a wildcard returns the correct results
         @See MBIB-search-61 
         """
-        self.driver.find_element_by_id('book_title').send_keys('Evoultion%')
+        self.driver.find_element(By.ID, 'book_title').send_keys('Evoultion%')
         form = self.form
         form.click_search()
         #finds the Tag list and verifies the required tag is listed.
-        table_element = self.driver.find_element_by_id("resultsTable")
+        table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
         jnum_cells = table.get_column_cells(2)
@@ -581,11 +581,11 @@ class TestEiLitTriageSearch(unittest.TestCase):
         @Status Tests that a search of Place field using a wildcard returns the correct results
         @See MBIB-search-62 
         """
-        self.driver.find_element_by_id('place').send_keys('Cambridge%')
+        self.driver.find_element(By.ID, 'place').send_keys('Cambridge%')
         form = self.form
         form.click_search()
         #finds the Tag list and verifies the required tag is listed.
-        table_element = self.driver.find_element_by_id("resultsTable")
+        table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
         jnum_cells = table.get_column_cells(2)
@@ -598,11 +598,11 @@ class TestEiLitTriageSearch(unittest.TestCase):
         @Status Tests that a search of Publisher field using a wildcard returns the correct results
         @See MBIB-search-63 
         """
-        self.driver.find_element_by_id('publisher').send_keys('Cambridge%')
+        self.driver.find_element(By.ID, 'publisher').send_keys('Cambridge%')
         form = self.form
         form.click_search()
         #finds the Tag list and verifies the required tag is listed.
-        table_element = self.driver.find_element_by_id("resultsTable")
+        table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
         jnum_cells = table.get_column_cells(2)
@@ -615,11 +615,11 @@ class TestEiLitTriageSearch(unittest.TestCase):
         @Status Tests that a search of Edition field using a wildcard returns the correct results
         @See MBIB-search-64 
         """
-        self.driver.find_element_by_id('series_ed').send_keys('Memoirs%')
+        self.driver.find_element(By.ID, 'series_ed').send_keys('Memoirs%')
         form = self.form
         form.click_search()
         #finds the Tag list and verifies the required tag is listed.
-        table_element = self.driver.find_element_by_id("resultsTable")
+        table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
         jnum_cells = table.get_column_cells(2)

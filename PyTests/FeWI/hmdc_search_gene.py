@@ -14,6 +14,9 @@ import time
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 import HtmlTestRunner
 import sys,os.path
 # adjust the path to find config
@@ -44,18 +47,18 @@ class TestHmdcGenesSearch(unittest.TestCase):
         @see: HMDC-GQ-1 (negative test: search by gene symbol); HMDC-GQ-44 (negative test: search by gene name)
         '''
         print ("BEGIN test_gene_symbol_not_found")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("football")#identifies the input field and a bogus symbol
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("football")#identifies the input field and a bogus symbol
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         #identify the Grid tab and click on it
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         print(grid_tab.text)
         time.sleep(2)
         self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (0 x 0)", "Grid tab is not visible!")
@@ -64,23 +67,23 @@ class TestHmdcGenesSearch(unittest.TestCase):
         self.assertIn('No data available for your query.', self.driver.page_source)
         
         #Open up the query form again (click on "Click to modify search" button)
-        self.driver.find_element_by_xpath("//*[contains(text(), 'Click to modify search')]").click()
+        self.driver.find_element(By.XPATH, "//*[contains(text(), 'Click to modify search')]").click()
         
         #Try this search using the Gene Name query field -- no results should be returned as it does not accept a list
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene name option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene name option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Name':
                 option.click()
                 break
       
-        self.driver.find_element_by_name("formly_3_input_input_0").clear()
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys('football game') #multi token query string that should return nothing
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys('football game') #multi token query string that should return nothing
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Genes tab and click on it
-        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        gene_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
         print(gene_tab.text)
         gene_tab.click()
@@ -94,19 +97,19 @@ class TestHmdcGenesSearch(unittest.TestCase):
         @see: HMDC-GQ-13 (Gene Symbol query field: wildcards not supported)
         '''
         print ("BEGIN test_no_wildcards")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("Pax6*")#identifies the input field and a symbol with an appended asterisk
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Pax6*")#identifies the input field and a symbol with an appended asterisk
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Genes tab and click on it
-        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        gene_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
         print(gene_tab.text)
         gene_tab.click()
@@ -128,33 +131,33 @@ class TestHmdcGenesSearch(unittest.TestCase):
         @see: HMDC-grid-3 (multiple human genes); HMDC-grid-11 (don't return markers for a query that don't have genoclusters that pass roll-up)
         '''
         print ("BEGIN test_multi_gene_homology_class")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("Smn1")#identifies the input field and enters a gene symbol
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Smn1")#identifies the input field and enters a gene symbol
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Genes tab and click on it
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
        
         time.sleep(2)
         print(grid_tab.text)
         grid_tab.click()
         
         #Get human genes returned to grid
-        hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
+        hgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.first")
         searchTermItems = iterate.getTextAsList(hgenes)
      
         #Verify multiple human genes displayed for a row
         self.assertIn("SMN1, SMN2", searchTermItems)
 
         #Get mouse genes returned to grid
-        mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
+        mgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.last")
         searchTermItems = iterate.getTextAsList(mgenes)
         
         #Verify gene not returned due to complex genocluster(no longer valid)
@@ -163,37 +166,37 @@ class TestHmdcGenesSearch(unittest.TestCase):
         #Do this again using the Human Symbol -- same results expected
         
         #Open up the query form again (click on "Click to modify search" button)
-        self.driver.find_element_by_xpath("//*[contains(text(), 'Click to modify search')]").click()
+        self.driver.find_element(By.XPATH, "//*[contains(text(), 'Click to modify search')]").click()
         
         #Try this search using the Gene Name query field -- no results should be returned as it does not accept a list
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
       
-        self.driver.find_element_by_name("formly_3_input_input_0").clear()
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys('SMN2') #human symbol for a homology class with multiple human symbols
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys('SMN2') #human symbol for a homology class with multiple human symbols
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
      
         #identify the Genes tab and click on it
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
        
         time.sleep(2)
         print(grid_tab.text)
         grid_tab.click()
         
         #Get human genes returned to grid
-        hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
+        hgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.first")
         searchTermItems = iterate.getTextAsList(hgenes)
      
         #Verify multiple human genes displayed for a row
         self.assertIn("SMN1, SMN2", searchTermItems)
 
         #Get mouse genes returned to grid
-        mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
+        mgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.last")
         searchTermItems = iterate.getTextAsList(mgenes)
         
         #Verify gene not returned due to complex genocluster(no longer valid)
@@ -205,32 +208,32 @@ class TestHmdcGenesSearch(unittest.TestCase):
         @see: HMDC-GQ-1 (query by gene symbol); HMDC-disease-9 (don't return diseases if none are associated to the Gene queried)
         '''
         print ("BEGIN test_gene_symbol_nodiseases")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("Bbx")#identifies the input field and a gene symbol
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Bbx")#identifies the input field and a gene symbol
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
         print(grid_tab.text)
         
         grid_tab.click()
         
-        hgenes = self.driver.find_element_by_css_selector("td.ngc.left.middle.cell.first")
+        hgenes = self.driver.find_element(By.CSS_SELECTOR, "td.ngc.left.middle.cell.first")
          
         self.assertEqual(hgenes.text, 'BBX')
-        mgenes = self.driver.find_element_by_css_selector("td.ngc.left.middle.cell.last")
+        mgenes = self.driver.find_element(By.CSS_SELECTOR, "td.ngc.left.middle.cell.last")
         
         self.assertEqual(mgenes.text, "Bbx")#cells = mgenes.get_all()
         
         #Click on the Disease Tab and verify the no data message displayed.
-        disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
+        disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         time.sleep(2)
         print(disease_tab.text)
         
@@ -250,23 +253,23 @@ class TestHmdcGenesSearch(unittest.TestCase):
         @see: HMDC-grid-26 (display the Homology Hybrid on the Grid);  HMDC-genetab-20 (return the union of a set of conflicting homology sets)
         '''
         print ("BEGIN test_gene_homology_union")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("selenbp2")#enter a symbol that is in 2 different homology classes
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("selenbp2")#enter a symbol that is in 2 different homology classes
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
-        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        gene_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
         print(gene_tab.text)
         
         gene_tab.click()
-        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        gene_table = Table(self.driver.find_element(By.ID, "geneTable"))
         
         cells = gene_table.get_column_cells("Gene Symbol")
         
@@ -286,30 +289,30 @@ class TestHmdcGenesSearch(unittest.TestCase):
               HMDC-grid-29 (return Transgenes per Expressed Component nomenclature)
         '''
         print ("BEGIN test_gene_name")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene name option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene name option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Name':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("transformation related protein 53") #mouse gene name for Trp53
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("transformation related protein 53") #mouse gene name for Trp53
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Genes tab and click on it
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
         print(grid_tab.text)
         grid_tab.click()
         
         #verify TP53 returned on Grid
-        hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
+        hgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.first")
         humanGridGenes = iterate.getTextAsList(hgenes)
         self.assertIn('TP53', humanGridGenes)
         
         #verify Trp53 returned on Grid
-        mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
+        mgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.last")
         mouseGridGenes = iterate.getTextAsList(mgenes)
         self.assertIn('Trp53', mouseGridGenes)
         
@@ -321,33 +324,33 @@ class TestHmdcGenesSearch(unittest.TestCase):
         
         #Do another search -- this time by the Human gene name for TP53.
         #Open up the query form again (click on "Click to modify search" button)
-        self.driver.find_element_by_xpath("//*[contains(text(), 'Click to modify search')]").click()
+        self.driver.find_element(By.XPATH, "//*[contains(text(), 'Click to modify search')]").click()
         
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene name option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene name option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Name':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").clear()
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("tumor protein p53") #mouse gene name for Trp53
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("tumor protein p53") #mouse gene name for Trp53
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Genes tab and click on it
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
         print(grid_tab.text)
         grid_tab.click()
         
         #verify TP53 returned on Grid
-        hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
+        hgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.first")
         humanGridGenes = iterate.getTextAsList(hgenes)
         self.assertIn('TP53', humanGridGenes)
         
         #verify Trp53 returned on Grid
-        mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
+        mgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.last")
         mouseGridGenes = iterate.getTextAsList(mgenes)
         self.assertIn('Trp53', mouseGridGenes)
         
@@ -363,26 +366,26 @@ class TestHmdcGenesSearch(unittest.TestCase):
               HMDC-grid-5 (row with multiple human and mouse genes); 
         '''
         print ("BEGIN test_gene_name_symbol")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene name option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene name option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Name':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("C4a")#identifies the input field and enters a gene symbol
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("C4a")#identifies the input field and enters a gene symbol
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Grid tab and click on it
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
         print(grid_tab.text)
         grid_tab.click()
         
         #Grab the human and mouse genes displayed on the grid
-        hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
-        mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
+        hgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.first")
+        mgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.last")
         
         humanGridGenes = iterate.getTextAsList(hgenes)
         mouseGridGenes = iterate.getTextAsList(mgenes)
@@ -404,25 +407,25 @@ class TestHmdcGenesSearch(unittest.TestCase):
         @see: HMDC-GQ-43 (single token Gene Name); HMDC-GQ-12 (gene names not matched for query by ID/symbol)
         '''
         print ("BEGIN test_gene_name_leptin")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene name option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene name option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Name':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("leptin") #enter a single token gene name
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("leptin") #enter a single token gene name
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         #identify the Genes tab and click on it
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
         print(grid_tab.text)
         grid_tab.click()
         
         #Grab mouse and human genes returned to the Grid
-        hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
-        mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
+        hgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.first")
+        mgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.last")
         
         humanGridGenes = iterate.getTextAsList(hgenes)
         mouseGridGenes = iterate.getTextAsList(mgenes)
@@ -432,21 +435,21 @@ class TestHmdcGenesSearch(unittest.TestCase):
         self.assertIn("Lep", mouseGridGenes)
         
         #Open up the query form again (click on "Click to modify search" button
-        self.driver.find_element_by_xpath("//*[contains(text(), 'Click to modify search')]").click()
+        self.driver.find_element(By.XPATH, "//*[contains(text(), 'Click to modify search')]").click()
         
         #Repeat query using the Gene ID/Symbol field
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("leptin") #enter a single token gene name
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("leptin") #enter a single token gene name
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
         print(grid_tab.text)
         grid_tab.click()
@@ -461,19 +464,19 @@ class TestHmdcGenesSearch(unittest.TestCase):
         @see: HMDC-genetab-2 (search returns rows on Gene tab); HMDC-grid-30 (display a 'no data' message when no rows are returned on Grid)
         '''
         print ("BEGIN test_gene_symbol_only_genes")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("paupar")#identifies the input field and enters a gene symbol
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("paupar")#identifies the input field and enters a gene symbol
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Grid tab and click on it
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
         print(grid_tab.text)
         self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (0 x 0)", "Grid tab is not visible!")
@@ -481,11 +484,11 @@ class TestHmdcGenesSearch(unittest.TestCase):
         self.assertIn('No data available for your query', self.driver.page_source)
         
         #identify the Genes tab and click on it
-        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        gene_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         print(gene_tab.text)
         
         gene_tab.click()
-        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        gene_table = Table(self.driver.find_element(By.ID, "geneTable"))
         
         cells = gene_table.get_column_cells("Gene Symbol")
         geneList = iterate.getTextAsList(cells)
@@ -500,34 +503,34 @@ class TestHmdcGenesSearch(unittest.TestCase):
         @see: HMDC-GQ-43 (single token gene name search); HMDC-disease-18 (no diseases returned)
         '''
         print ("BEGIN test_gene_name_no_disease")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene name option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene name option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Name':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("paxillin")#identifies the input field and enters a gene name
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("paxillin")#identifies the input field and enters a gene name
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Grid tab and click on it
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
         print(grid_tab.text)
         grid_tab.click()
         
         #verify expected human and mouse gene returned
-        hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
+        hgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.first")
         humanGeneList = iterate.getTextAsList(hgenes)
         self.assertIn('PXN', humanGeneList)
         
-        mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
+        mgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.last")
         mouseGeneList = iterate.getTextAsList(mgenes)
         self.assertIn("Pxn", mouseGeneList)
         
         #identify the Disease tab and click on it
-        disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
+        disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         print(disease_tab.text)
         
         disease_tab.click()
@@ -545,49 +548,49 @@ class TestHmdcGenesSearch(unittest.TestCase):
               HMDC-GQ-48 (multiple token synonyms matched via Gene Name search)
         '''
         print ("BEGIN test_gene_mult_token_syn")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the Gene Name option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the Gene Name option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Name':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("dickie's small eye")#identifies the input field and enters multiple token synonym
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("dickie's small eye")#identifies the input field and enters multiple token synonym
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Grid tab and click on it
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
         print(grid_tab.text)
         grid_tab.click()
         
         #get the mouse and human genes returned and verify PAX6 and Pax6 are included
-        hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
+        hgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.first")
         humanGeneList = iterate.getTextAsList(hgenes)
         self.assertIn('PAX6', humanGeneList)
         
-        mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
+        mgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.last")
         mouseGeneList = iterate.getTextAsList(mgenes)
         self.assertIn('Pax6', mouseGeneList)
         
         #Open up the query form again (click on "Click to modify search" button
-        self.driver.find_element_by_xpath("//*[contains(text(), 'Click to modify search')]").click()
+        self.driver.find_element(By.XPATH, "//*[contains(text(), 'Click to modify search')]").click()
         
         #Repeat query using the Gene ID/Symbol field -- expecting Pax6/PAX6 not to be returned
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("dickie's small eye")
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("dickie's small eye")
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Grid Tab and click on it
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
         print(grid_tab.text)
         grid_tab.click()
@@ -597,11 +600,11 @@ class TestHmdcGenesSearch(unittest.TestCase):
         #interpreted as a list of symbols--a valid option for the Gene Symbol/ID field.  
         #The "S" is considered one of the tokens in the list and is returning 2 genes 
         #due to nomenclature matches.  A query by just "S" returns the same 2 genes.
-        hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
+        hgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.first")
         humanGeneList = iterate.getTextAsList(hgenes)
         self.assertNotIn('PAX6', humanGeneList)
         
-        mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
+        mgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.last")
         mouseGeneList = iterate.getTextAsList(mgenes)
         self.assertNotIn('Pax6', mouseGeneList)
         
@@ -613,24 +616,24 @@ class TestHmdcGenesSearch(unittest.TestCase):
         @see: HMDC-GQ-4 (query by mouse synonym); HMDC-genetab-2 (return matched genes to gene tab plus their ortholog)
         '''
         print ("BEGIN test_gene_mouse_synonym")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("Solt")#identifies the input field and enters a mouse synonym
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Solt")#identifies the input field and enters a mouse synonym
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Genes tab and click on it
-        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        gene_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
         print(gene_tab.text)
         gene_tab.click()
         
-        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        gene_table = Table(self.driver.find_element(By.ID, "geneTable"))
         cells = gene_table.get_column_cells("Gene Symbol")
         geneList = iterate.getTextAsList(cells)
         
@@ -644,30 +647,30 @@ class TestHmdcGenesSearch(unittest.TestCase):
         @see: HMDC-GQ-5 (query by human synonym); HMDC-genetab-2 (return matched genes to gene tab plus their ortholog)
         '''
         print ("BEGIN test_gene_human_synonym")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("HMPH")#identifies the input field and enters a human synonym
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("HMPH")#identifies the input field and enters a human synonym
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Grid Tab and click on it
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
         print(grid_tab.text)
         grid_tab.click()
         
         #identify the Genes tab and click on it
-        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        gene_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         print(gene_tab.text)
         gene_tab.click()
         
         #get the list of genes
-        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        gene_table = Table(self.driver.find_element(By.ID, "geneTable"))
         cells = gene_table.get_column_cells("Gene Symbol")
         geneList = iterate.getTextAsList(cells)
         
@@ -682,62 +685,62 @@ class TestHmdcGenesSearch(unittest.TestCase):
         @see: HMDC-GQ-49 (gene name search with superscript); HMDC-GQ-15 (gene symbol search with superscript: matching a gene synonym)
         '''
         print ("BEGIN test_gene_search_superscript")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene name option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene name option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Name':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("p19<ARF>")#identifies the input field and enter the synonym with a superscript
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("p19<ARF>")#identifies the input field and enter the synonym with a superscript
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Grid tab and click on it
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
         print(grid_tab.text)
         grid_tab.click()
         
         #Grab the human genes returned on the Grid Tab and verify associated human gene is returned
-        hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
+        hgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.first")
         humanGeneList = iterate.getTextAsList(hgenes)
         self.assertIn("CDKN2A", humanGeneList)        
         
         #Grab the mouse genes returned on the Grid Tab and verify associate mouse gene is returned
-        mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
+        mgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.last")
         mouseGeneList = iterate.getTextAsList(mgenes)
         self.assertIn("Cdkn2a", mouseGeneList)
         
         #Do this search again using the Gene Symbol/ID query field
         #Open up the query form again (click on "Click to modify search" button
-        self.driver.find_element_by_xpath("//*[contains(text(), 'Click to modify search')]").click()
+        self.driver.find_element(By.XPATH, "//*[contains(text(), 'Click to modify search')]").click()
         
         #Repeat query using the Gene ID/Symbol field
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("p19<ARF>")#identifies the input field and enter the synonym with a superscript
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("p19<ARF>")#identifies the input field and enter the synonym with a superscript
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Grid tab and click on it
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
         print(grid_tab.text)
         grid_tab.click()
         
         #Grab the human genes returned on the Grid Tab and verify associated human gene is returned
-        hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
+        hgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.first")
         humanGeneList = iterate.getTextAsList(hgenes)
         self.assertIn("CDKN2A", humanGeneList)        
         
         #Grab the mouse genes returned on the Grid Tab and verify associate mouse gene is returned
-        mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
+        mgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.last")
         mouseGeneList = iterate.getTextAsList(mgenes)
         self.assertIn("Cdkn2a", mouseGeneList)
         
@@ -751,36 +754,36 @@ class TestHmdcGenesSearch(unittest.TestCase):
               displayed on Disease Tab); HMDC-genetab-19 (NOT references included in Disease relevant reference count/link)
         '''
         print ("BEGIN test_gene_NOT_disease")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("Adam33")#identifies the input field and enters the symbol
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Adam33")#identifies the input field and enters the symbol
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Grid tab, print the text, and click on the Tab
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
         print(grid_tab.text)
         grid_tab.click()
         
         #cells captures every field from Human Gene heading to the last phenotype/disease name displayed (the angled text)
-        cells = self.driver.find_elements_by_css_selector("div.ngc.cell-content.ngc-custom-html.ng-binding.ng-scope")
+        cells = self.driver.find_elements(By.CSS_SELECTOR, "div.ngc.cell-content.ngc-custom-html.ng-binding.ng-scope")
         
         #Verify that the parent term for "Asthma" is not present on the grid
         phenoDiseaseList = iterate.getTextAsList(cells)
         self.assertNotIn('respiratory system disease', phenoDiseaseList )
         
         #identify the Genes tab and verify the tab's text
-        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        gene_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         print(gene_tab.text)
         gene_tab.click()
         
-        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        gene_table = Table(self.driver.find_element(By.ID, "geneTable"))
         cells = gene_table.get_column_cells("Gene Symbol")
         
         #save each row of gene data and verify the expected genes are returned
@@ -802,7 +805,7 @@ class TestHmdcGenesSearch(unittest.TestCase):
         self.assertEqual(ref2.text, 'All Mouse: 41\nDisease Relevant: 1')
         
         #identify the Disease tab and verify the tab's text
-        disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
+        disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         print(disease_tab.text)
         
         disease_tab.click()
@@ -819,19 +822,19 @@ class TestHmdcGenesSearch(unittest.TestCase):
         @see: HMDC-grid-1
         '''
         print ("BEGIN test_gene_gtrosa")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("Gt(ROSA)26Sor")#identifies the input field and enters symbol of Gt(ROSA)26Sor
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Gt(ROSA)26Sor")#identifies the input field and enters symbol of Gt(ROSA)26Sor
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Grid Tab and click on it
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
         print(grid_tab.text)
         grid_tab.click()
@@ -840,48 +843,48 @@ class TestHmdcGenesSearch(unittest.TestCase):
         self.assertIn('No data available for your query', self.driver.page_source)
         
         #Go to the Genes Tab and verify it is returned there as expected
-        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        gene_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         print(gene_tab.text)
         gene_tab.click()
         
         #Get list of genes and verify Gt(ROSA)26Sor is displayed on the Genes Tab
-        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        gene_table = Table(self.driver.find_element(By.ID, "geneTable"))
         cells = gene_table.get_column_cells("Gene Symbol")
         geneList = iterate.getTextAsList(cells)
         self.assertIn('Gt(ROSA)26Sor', geneList)
         
         #Do this check again -- this time using the Gene Name query option.
         #Open up the query form again (click on "Click to modify search" button
-        self.driver.find_element_by_xpath("//*[contains(text(), 'Click to modify search')]").click()
+        self.driver.find_element(By.XPATH, "//*[contains(text(), 'Click to modify search')]").click()
         
         #Repeat query using the Gene Name field
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene name option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene name option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Name':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("Gt(ROSA)26Sor")
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Gt(ROSA)26Sor")
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         #identify the Grid tab and click on it
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
         print(grid_tab.text)
         grid_tab.click()
         
-        mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
+        mgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.last")
         mouseGeneList = iterate.getTextAsList(mgenes)
         self.assertNotIn("Gt(ROSA)26Sor", mouseGeneList)
         
         #Go to the Genes Tab and verify it is returned there as expected
-        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        gene_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         print(gene_tab.text)
         gene_tab.click()
         
         #Get list of genes and verify Gt(ROSA)26Sor is displayed on the Genes Tab
-        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        gene_table = Table(self.driver.find_element(By.ID, "geneTable"))
         cells = gene_table.get_column_cells("Gene Symbol")
         geneList = iterate.getTextAsList(cells)
         self.assertIn('Gt(ROSA)26Sor', geneList)
@@ -895,39 +898,39 @@ class TestHmdcGenesSearch(unittest.TestCase):
               HMDC-genetab-2 (orthologs and homologs returned)
         '''
         print ("BEGIN test_gene_mltgene_homology")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("Gja1")#identifies the input field and enters mouse synonym for C4a
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Gja1")#identifies the input field and enters mouse synonym for C4a
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Grid tab and click on it
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
         print(grid_tab.text)
         grid_tab.click()
         
         #get human and mouse genes on the grid and verify C4a/C4b/C4A/C4B homology class
-        hgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.first")
+        hgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.first")
         humanGeneList = iterate.getTextAsList(hgenes)
         self.assertIn("GJA1, GJA6P", humanGeneList)
         
-        mgenes = self.driver.find_elements_by_css_selector("td.ngc.left.middle.cell.last")
+        mgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.last")
         mouseGeneList = iterate.getTextAsList(mgenes)
         self.assertIn("Gja1, Gja6", mouseGeneList)
         
         #identify the Genes tab and click on it
-        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        gene_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         print(gene_tab.text)
         gene_tab.click()
         
         #get the list of genes and verify the multiple gene homology class
-        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        gene_table = Table(self.driver.find_element(By.ID, "geneTable"))
         cells = gene_table.get_column_cells("Gene Symbol")
         geneList = iterate.getTextAsList(cells)
     
@@ -944,29 +947,28 @@ class TestHmdcGenesSearch(unittest.TestCase):
               HMDC-popup-11 (1 row per genocluster); HMDC-popup-13 (Normal annotation)
         '''
         print ("BEGIN test_genotype_popup")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("Foxm1")#identifies the input field and enters a mouse symbol
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Foxm1")#identifies the input field and enters a mouse symbol
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Grid tab and click on it
-        grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
         print(grid_tab.text)
         grid_tab.click()
         
         #firstcell captures all the table data blocks of phenotypes on the first row of data
-        phenocells = self.driver.find_elements_by_css_selector("td.ngc.center.cell.middle")
-         
+        phenocells = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.center.cell.middle")
         phenocells[0].click()#clicks the second phenotype data cell to open up the genotype popup page
-        self.driver.switch_to_window(self.driver.window_handles[1])#switches focus to the genotype popup page
-        
+        self.driver.switch_to.window(self.driver.window_handles[1])#switches focus to the genotype popup page
+        time.sleep(2)
         #asserts the heading text is correct in page title
         self.assertEqual("Mouse cardiovascular system abnormalities for FOXM1/Foxm1", self.driver.title)
         
@@ -974,11 +976,11 @@ class TestHmdcGenesSearch(unittest.TestCase):
         self.assertIn("Aspects of the system are reported to show a normal phenotype", self.driver.page_source)
         
         #Identify the table
-        mouse_geno_table = self.driver.find_element_by_css_selector("p > table.popupTable ")
-        data = mouse_geno_table.find_element_by_tag_name("td")
+        mouse_geno_table = self.driver.find_element(By.CSS_SELECTOR, "p > table.popupTable ")
+        data = mouse_geno_table.find_element(By.TAG_NAME, "td")
         print(data.text)
         #find all the TR tags in the table and iterate through them
-        cells = mouse_geno_table.find_elements_by_tag_name("tr")
+        cells = mouse_geno_table.find_elements(By.TAG_NAME, "tr")
         genoClusterList = iterate.getTextAsList(cells)
         
         #asserts that the correct genotypes in the correct order are returned
@@ -992,24 +994,24 @@ class TestHmdcGenesSearch(unittest.TestCase):
         @see: HMDC-GQ-46 (Gene Name with special characters)
         '''
         print ("BEGIN test_gene_name_spec_char")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene name option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene name option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Name':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("phenylalkylamine Ca2+ antagonist (emopamil) binding protein")#enter a gene name
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("phenylalkylamine Ca2+ antagonist (emopamil) binding protein")#enter a gene name
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Genes tab and click on it
-        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        gene_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
         print(gene_tab.text)
         gene_tab.click()
         
-        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        gene_table = Table(self.driver.find_element(By.ID, "geneTable"))
         cells = gene_table.get_column_cells("Gene Symbol")
         geneList = iterate.getTextAsList(cells)
         
@@ -1019,27 +1021,27 @@ class TestHmdcGenesSearch(unittest.TestCase):
         
         #Do another search for a gene name with other special characters
         #Open up the query form again (click on "Click to modify search" button
-        self.driver.find_element_by_xpath("//*[contains(text(), 'Click to modify search')]").click()
+        self.driver.find_element(By.XPATH, "//*[contains(text(), 'Click to modify search')]").click()
         
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene name option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene name option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Name':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").clear()
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("RTF1, Paf1/RNA polymerase II complex component")#enter a gene name
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("RTF1, Paf1/RNA polymerase II complex component")#enter a gene name
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Genes tab and click on it
-        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        gene_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
         print(gene_tab.text)
         gene_tab.click()
         
-        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        gene_table = Table(self.driver.find_element(By.ID, "geneTable"))
         cells = gene_table.get_column_cells("Gene Symbol")
         geneList = iterate.getTextAsList(cells)
         
@@ -1054,25 +1056,25 @@ class TestHmdcGenesSearch(unittest.TestCase):
         @see: HMDC-GQ-6
         '''
         print ("BEGIN test_gene_synonym_special_char")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("ET-BR")#identifies the input field and enters a synonym
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("ET-BR")#identifies the input field and enters a synonym
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Genes tab and click on it
-        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        gene_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
         print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and verify expected genes are in the list
-        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        gene_table = Table(self.driver.find_element(By.ID, "geneTable"))
         cells = gene_table.get_column_cells("Gene Symbol")
         geneList = iterate.getTextAsList(cells)
         
@@ -1088,25 +1090,25 @@ class TestHmdcGenesSearch(unittest.TestCase):
         @see: HMDC-grid-31 (return row with no mouse gene)
         '''
         print ("BEGIN test_gene_symbol_non_mousegenetab")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("AA06")#identifies the input field and enters a human symbol
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("AA06")#identifies the input field and enters a human symbol
         wait.forAngular(self.driver)
         self.driver.find_element_by_id("searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Genes tab and click on it
-        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        gene_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
         print(gene_tab.text)
         gene_tab.click()
         
         #get the list of genes and verify the one we searched for is there
-        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        gene_table = Table(self.driver.find_element(By.ID, "geneTable"))
         cells = gene_table.get_column_cells("Gene Symbol")
         geneList = iterate.getTextAsList(cells)
         
@@ -1119,25 +1121,25 @@ class TestHmdcGenesSearch(unittest.TestCase):
         @see: HMDC-GQ-52 (query by rat symbol - return mouse and human genes in the same homology class)
         '''
         print ("BEGIN test_gene_symbol_non_mousegridgene")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("RGD:1560248") #enter a rat symbol
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("RGD:1560248") #enter a rat symbol
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Genes tab and click on it
-        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        gene_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
         print(gene_tab.text)
         gene_tab.click()
         time.sleep(2)
         #get the list of genes and verify the one we searched for is there
-        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        gene_table = Table(self.driver.find_element(By.ID, "geneTable"))
         time.sleep(2)
         cells = gene_table.get_column_cells("Gene Symbol")
         geneList = iterate.getTextAsList(cells)
@@ -1153,34 +1155,30 @@ class TestHmdcGenesSearch(unittest.TestCase):
         @see: HMDC-GQ-3
         '''
         print ("BEGIN test_gene_symbol_dual_match")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("TP53")#enter a human symbol
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("TP53")#enter a human symbol
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Genes tab and click on it
-        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        gene_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
         print(gene_tab.text)
         gene_tab.click()
         
         #get the list of genes and verify the one we searched for is there
-        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        gene_table = Table(self.driver.find_element(By.ID, "geneTable"))
         cells = gene_table.get_column_cells("Gene Symbol")
         geneList = iterate.getTextAsList(cells)
         
         self.assertIn('Trp53', geneList)
-        self.assertIn('TP53', geneList)
-        
-        
-    
-        
+        self.assertIn('TP53', geneList)      
         
     def test_gene_symbol_multiples(self):
         '''
@@ -1190,25 +1188,25 @@ class TestHmdcGenesSearch(unittest.TestCase):
              HMDC-GQ-51 (don't accept a list of symbols for the Gene Name query)
         '''
         print ("BEGIN test_gene_symbol_multiples")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
             
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys('KITLG, Foxm1, Lepr') #Enter a mix of mouse and human symbols
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys('KITLG, Foxm1, Lepr') #Enter a mix of mouse and human symbols
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Genes tab and click on it
-        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        gene_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
         print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and verify that expected ones are present
-        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        gene_table = Table(self.driver.find_element(By.ID, "geneTable"))
         cells = gene_table.get_column_cells("Gene Symbol")
         geneList = iterate.getTextAsList(cells)
         
@@ -1221,29 +1219,29 @@ class TestHmdcGenesSearch(unittest.TestCase):
         
         
         #Open up the query form again (click on "Click to modify search" button
-        self.driver.find_element_by_xpath("//*[contains(text(), 'Click to modify search')]").click()
+        self.driver.find_element(By.XPATH, "//*[contains(text(), 'Click to modify search')]").click()
         
         #Do this search again -- this time space delimit the IDs
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
       
-        self.driver.find_element_by_name("formly_3_input_input_0").clear()
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys('KITLG Foxm1 Lepr') #IDs for Foxm1, LEP, Ins2
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys('KITLG Foxm1 Lepr') #IDs for Foxm1, LEP, Ins2
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Genes tab and click on it
-        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        gene_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
         print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and verify that expected ones are present
-        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        gene_table = Table(self.driver.find_element(By.ID, "geneTable"))
         cells = gene_table.get_column_cells("Gene Symbol")
         geneList = iterate.getTextAsList(cells)
         
@@ -1255,23 +1253,23 @@ class TestHmdcGenesSearch(unittest.TestCase):
         self.assertIn('Lepr', geneList)
         
         #Open up the query form again (click on "Click to modify search" button)
-        self.driver.find_element_by_xpath("//*[contains(text(), 'Click to modify search')]").click()
+        self.driver.find_element(By.XPATH, "//*[contains(text(), 'Click to modify search')]").click()
         
         #Try this search using the Gene Name query field -- no results should be returned as it does not accept a list
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene name option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene name option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Name':
                 option.click()
                 break
       
-        self.driver.find_element_by_name("formly_3_input_input_0").clear()
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys('KITLG, Foxm1, Lepr') #comma delimited list of symbols
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys('KITLG, Foxm1, Lepr') #comma delimited list of symbols
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Genes tab and click on it
-        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        gene_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
         print(gene_tab.text)
         gene_tab.click()

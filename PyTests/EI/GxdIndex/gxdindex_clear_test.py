@@ -8,6 +8,7 @@ import unittest
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 import HtmlTestRunner
 
 import sys,os.path
@@ -33,11 +34,11 @@ class TestEiGxdIndexClear(unittest.TestCase):
         self.driver = webdriver.Chrome()
         self.form = ModuleForm(self.driver)
         self.form.get_module(config.TEST_PWI_URL + "/edit/gxdindex") 
-        username = self.driver.find_element_by_name('user')#finds the user login box
+        username = self.driver.find_element(By.NAME, 'user')#finds the user login box
         username.send_keys(config.PWI_LOGIN) #enters the username
-        passwd = self.driver.find_element_by_name('password')#finds the password box
+        passwd = self.driver.find_element(By.NAME, 'password')#finds the password box
         passwd.send_keys(config.PWI_PASSWORD) #enters a valid password
-        submit = self.driver.find_element_by_name("submit") #Find the Login button
+        submit = self.driver.find_element(By.NAME, "submit") #Find the Login button
         submit.click() #click the login button
         
 
@@ -108,7 +109,7 @@ class TestEiGxdIndexClear(unittest.TestCase):
         self.assertEqual(modified_date, '04/23/2002')
         
         #find the table field to check
-        table_element = driver.find_element_by_id("indexGrid")
+        table_element = driver.find_element(By.ID, "indexGrid")
         table = Table(table_element)
         #get a cell that has been selected for this index record(RNA-sxn/10.5)
         cell = table.get_cell(2,21)
@@ -167,7 +168,7 @@ class TestEiGxdIndexClear(unittest.TestCase):
         self.assertEqual(modified_date, '')
         
         #find the table field to check
-        table_element = driver.find_element_by_id("indexGrid")
+        table_element = driver.find_element(By.ID, "indexGrid")
         table = Table(table_element)
         #look for an X in the first assay/age cell
         cell = table.get_cell(2,21)

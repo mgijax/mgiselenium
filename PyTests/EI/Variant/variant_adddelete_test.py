@@ -41,11 +41,11 @@ class TestEiVariantAddDelete(unittest.TestCase):
         self.form = ModuleForm(self.driver)
         #self.form.get_module("bhmgipwi02lt:5099/pwi/edit/variant/")
         self.form.get_module(config.TEST_PWI_URL + "/edit/variant/")
-        username = self.driver.find_element_by_name('user')#finds the user login box
+        username = self.driver.find_element(By.NAME, 'user')#finds the user login box
         username.send_keys(config.PWI_LOGIN) #enters the username
-        passwd = self.driver.find_element_by_name('password')#finds the password box
+        passwd = self.driver.find_element(By.NAME, 'password')#finds the password box
         passwd.send_keys(config.PWI_PASSWORD) #enters a valid password
-        submit = self.driver.find_element_by_name("submit") #Find the Login button
+        submit = self.driver.find_element(By.NAME, "submit") #Find the Login button
         submit.click()
     
     def tearDown(self):
@@ -61,27 +61,27 @@ class TestEiVariantAddDelete(unittest.TestCase):
             ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
             )
         #finds the allele ID field and enters the MGI ID for Samd4<m1Btlr>
-        driver.find_element_by_id("alleleID").send_keys('MGI:5563413')
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, "alleleID").send_keys('MGI:5563413')
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the page is displayed on the page    
         wait.forAngular(self.driver)
     
         #Find the sourced Transcript ID field and enters the ID
-        driver.find_element_by_id("srcRnaID").clear()
-        driver.find_element_by_id("srcRnaID").send_keys('XM_006519628')
+        driver.find_element(By.ID, "srcRnaID").clear()
+        driver.find_element(By.ID, "srcRnaID").send_keys('XM_006519628')
         time.sleep(2)
         #Find the start field for the sourced transcript and enter data
-        driver.find_element_by_id("srcRnaStart").clear()
-        driver.find_element_by_id("srcRnaStart").send_keys('23456')
+        driver.find_element(By.ID, "srcRnaStart").clear()
+        driver.find_element(By.ID, "srcRnaStart").send_keys('23456')
         #Find the stop field for the sourced transcript and enter data
-        driver.find_element_by_id("srcRnaEnd").clear()
-        driver.find_element_by_id("srcRnaEnd").send_keys('23456')
+        driver.find_element(By.ID, "srcRnaEnd").clear()
+        driver.find_element(By.ID, "srcRnaEnd").send_keys('23456')
         time.sleep(2)
         #Find the Modify button and click it
-        driver.find_element_by_id('updateVariantButton').click() 
+        driver.find_element(By.ID, 'updateVariantButton').click() 
         wait.forAngular(self.driver)
         #find the sourced Transcript ID field
-        source_tran = self.driver.find_element_by_id("srcRnaID").get_attribute("value")
+        source_tran = self.driver.find_element(By.ID, "srcRnaID").get_attribute("value")
     
         print(source_tran)
         #assert the correct ID is saved in the Sourced Transcript ID field
@@ -97,15 +97,15 @@ class TestEiVariantAddDelete(unittest.TestCase):
             ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
             )
         #finds the allele ID field and enters the MGI ID for Samd4<m1Btlr>
-        driver.find_element_by_id("alleleID").send_keys('MGI:5563413')
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, "alleleID").send_keys('MGI:5563413')
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the page is displayed on the page    
         wait.forAngular(self.driver)    
         #Find the Types Popup link and click it
-        driver.find_element_by_link_text("Types Popup").click()
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        driver.find_element(By.LINK_TEXT, "Types Popup").click()
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         #find the SO Types table
-        types_table = self.driver.find_element_by_id("soTable")
+        types_table = self.driver.find_element(By.ID, "soTable")
         table = Table(types_table)
         #Iterate and print the Types column
         cell1 = table.get_column_cells('Term')
@@ -125,15 +125,15 @@ class TestEiVariantAddDelete(unittest.TestCase):
             ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
             )
         #finds the allele ID field and enters the MGI ID for Samd4<m1Btlr>
-        driver.find_element_by_id("alleleID").send_keys('MGI:5563413')
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, "alleleID").send_keys('MGI:5563413')
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the page is displayed on the page    
         wait.forAngular(self.driver)    
         #Find the Effects Popup link and click it
-        driver.find_element_by_link_text("Effects Popup").click()
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        driver.find_element(By.LINK_TEXT, "Effects Popup").click()
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         #find the SO Effects table
-        effects_table = self.driver.find_element_by_id("soTable")
+        effects_table = self.driver.find_element(By.ID, "soTable")
         table = Table(effects_table)
         #Iterate and print the Effect column
         cell1 = table.get_column_cells('Term')
@@ -153,25 +153,25 @@ class TestEiVariantAddDelete(unittest.TestCase):
             ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
             )
         #finds the allele ID field and enters the MGI ID for Samd4<m1Btlr>
-        driver.find_element_by_id("alleleID").send_keys('MGI:5563413')
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, "alleleID").send_keys('MGI:5563413')
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the page is displayed on the page    
         wait.forAngular(self.driver)    
         #Find the Types Popup link and click it
-        driver.find_element_by_link_text("Types Popup").click()
-        self.driver.switch_to_window(self.driver.window_handles[-1])#switches focus to the popup window
+        driver.find_element(By.LINK_TEXT, "Types Popup").click()
+        self.driver.switch_to.window(self.driver.window_handles[-1])#switches focus to the popup window
         wait.forAngular(self.driver) 
         #Find and click 4 variant Type terms(check boxes)
-        self.driver.find_element_by_xpath('//table[@id="soTable"]//tbody/tr[3]/td[1]/input').click()#This is for SO:0000159
-        self.driver.find_element_by_xpath('//table[@id="soTable"]//tbody/tr[4]/td[1]/input').click()#this is for SO:0000667
-        self.driver.find_element_by_xpath('//table[@id="soTable"]//tbody/tr[5]/td[1]/input').click()#this is for SO:0002007
-        self.driver.find_element_by_xpath('//table[@id="soTable"]//tbody/tr[6]/td[1]/input').click()#This is for SO:1000036
+        self.driver.find_element(By.XPATH, '//table[@id="soTable"]//tbody/tr[3]/td[1]/input').click()#This is for SO:0000159
+        self.driver.find_element(By.XPATH, '//table[@id="soTable"]//tbody/tr[4]/td[1]/input').click()#this is for SO:0000667
+        self.driver.find_element(By.XPATH, '//table[@id="soTable"]//tbody/tr[5]/td[1]/input').click()#this is for SO:0002007
+        self.driver.find_element(By.XPATH, '//table[@id="soTable"]//tbody/tr[6]/td[1]/input').click()#This is for SO:1000036
         wait.forAngular(self.driver)
         #Click the "Save Changes and Close button
-        driver.find_element_by_id("soSave").click()
-        self.driver.switch_to_window(self.driver.window_handles[-1])#switch focus back to the main window
+        driver.find_element_by_id(By.ID, "soSave").click()
+        self.driver.switch_to.window(self.driver.window_handles[-1])#switch focus back to the main window
         #Find the Types display box and get all the SO IDs  in it
-        soList = self.driver.find_element_by_id('soTypes').get_attribute('value')
+        soList = self.driver.find_element(By.ID, 'soTypes').get_attribute('value')
         print(soList)
         #Assert the correct SO Types are displayed in the Types box
         self.assertEqual(soList, 'SO:1000008 (point_mutation)\nSO:0000159 (deletion)\nSO:0000667 (insertion)\nSO:0002007 (MNV)\nSO:1000036 (inversion)')
@@ -187,24 +187,24 @@ class TestEiVariantAddDelete(unittest.TestCase):
             ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
             )
         #finds the allele ID field and enters the MGI ID for Samd4<m1Btlr>
-        driver.find_element_by_id("alleleID").send_keys('MGI:5563413')
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, "alleleID").send_keys('MGI:5563413')
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the page is displayed on the page    
         wait.forAngular(self.driver)    
         #Find the Types Popup link and click it
-        driver.find_element_by_link_text("Types Popup").click()
-        self.driver.switch_to_window(self.driver.window_handles[-1])#switches focus to the popup window
+        driver.find_element(By.LINK_TEXT, "Types Popup").click()
+        self.driver.switch_to.window(self.driver.window_handles[-1])#switches focus to the popup window
         wait.forAngular(self.driver) 
         #Find and click 4 variant Type terms(check boxes)
-        self.driver.find_element_by_xpath('//table[@id="soTable"]//tbody/tr[7]/td[1]/input').click()#This is for SO:0000199
-        self.driver.find_element_by_xpath('//table[@id="soTable"]//tbody/tr[8]/td[1]/input').click()#this is for SO:0001022
-        self.driver.find_element_by_xpath('//table[@id="soTable"]//tbody/tr[9]/td[1]/input').click()#this is for SO:0001413
+        self.driver.find_element(By.XPATH, '//table[@id="soTable"]//tbody/tr[7]/td[1]/input').click()#This is for SO:0000199
+        self.driver.find_element(By.XPATH, '//table[@id="soTable"]//tbody/tr[8]/td[1]/input').click()#this is for SO:0001022
+        self.driver.find_element(By.XPATH, '//table[@id="soTable"]//tbody/tr[9]/td[1]/input').click()#this is for SO:0001413
         wait.forAngular(self.driver)
         #Click the "Discard Changes and Close" button
-        driver.find_element_by_id("soHide").click()
-        self.driver.switch_to_window(self.driver.window_handles[-1])#switch focus back to the main window
+        driver.find_element(By.ID, "soHide").click()
+        self.driver.switch_to.window(self.driver.window_handles[-1])#switch focus back to the main window
         #Find the Types display box and get all the SO IDs  in it
-        soList = self.driver.find_element_by_id('soTypes').get_attribute('value')
+        soList = self.driver.find_element(By.ID, 'soTypes').get_attribute('value')
         print(soList)
         #Assert the correct SO Types are displayed in the Types box
         self.assertEqual(soList, 'SO:1000008 (point_mutation)')
@@ -219,25 +219,25 @@ class TestEiVariantAddDelete(unittest.TestCase):
             ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
             )
         #finds the allele ID field and enters the MGI ID for Samd4<m1Btlr>
-        driver.find_element_by_id("alleleID").send_keys('MGI:5563413')
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, "alleleID").send_keys('MGI:5563413')
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the page is displayed on the page    
         wait.forAngular(self.driver)    
         #Find the Types Popup link and click it
-        driver.find_element_by_link_text("Effects Popup").click()
-        self.driver.switch_to_window(self.driver.window_handles[-1])#switches focus to the popup window
+        driver.find_element(By.LINK_TEXT, "Effects Popup").click()
+        self.driver.switch_to.window(self.driver.window_handles[-1])#switches focus to the popup window
         wait.forAngular(self.driver) 
         #Find and click 4 variant Type terms(check boxes)
-        self.driver.find_element_by_xpath('//table[@id="soTable"]//tbody/tr[3]/td[1]/input').click()#This is for SO:0001587
-        self.driver.find_element_by_xpath('//table[@id="soTable"]//tbody/tr[4]/td[1]/input').click()#this is for SO:0002012
-        self.driver.find_element_by_xpath('//table[@id="soTable"]//tbody/tr[5]/td[1]/input').click()#this is for SO:0001574
-        self.driver.find_element_by_xpath('//table[@id="soTable"]//tbody/tr[6]/td[1]/input').click()#This is for SO:0001575
+        self.driver.find_element(By.XPATH, '//table[@id="soTable"]//tbody/tr[3]/td[1]/input').click()#This is for SO:0001587
+        self.driver.find_element(By.XPATH, '//table[@id="soTable"]//tbody/tr[4]/td[1]/input').click()#this is for SO:0002012
+        self.driver.find_element(By.XPATH, '//table[@id="soTable"]//tbody/tr[5]/td[1]/input').click()#this is for SO:0001574
+        self.driver.find_element(By.XPATH, '//table[@id="soTable"]//tbody/tr[6]/td[1]/input').click()#This is for SO:0001575
         wait.forAngular(self.driver)
         #Click the "Save Changes and Close button
-        driver.find_element_by_id("soSave").click()
-        self.driver.switch_to_window(self.driver.window_handles[-1])#switch focus back to the main window
+        driver.find_element(By.ID, "soSave").click()
+        self.driver.switch_to.window(self.driver.window_handles[-1])#switch focus back to the main window
         #Find the Effects display box and get all the SO IDs  in it
-        soList = self.driver.find_element_by_id('soEffects').get_attribute('value')
+        soList = self.driver.find_element(By.ID, 'soEffects').get_attribute('value')
         print(soList)
         #Assert the correct SO Types are displayed in the Effects box
         self.assertEqual(soList, 'SO:0001583 (missense_variant)\nSO:0001587 (stop_gained)\nSO:0001578 (stop_lost)\nSO:0002012 (start_lost)\nSO:0001574 (splice_acceptor_variant)')
@@ -252,24 +252,24 @@ class TestEiVariantAddDelete(unittest.TestCase):
             ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
             )
         #finds the allele ID field and enters the MGI ID for Samd4<m1Btlr>
-        driver.find_element_by_id("alleleID").send_keys('MGI:5563413')
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, "alleleID").send_keys('MGI:5563413')
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the page is displayed on the page    
         wait.forAngular(self.driver)    
         #Find the Types Popup link and click it
-        driver.find_element_by_link_text("Effects Popup").click()
-        self.driver.switch_to_window(self.driver.window_handles[-1])#switches focus to the popup window
+        driver.find_element(By.LINK_TEXT, "Effects Popup").click()
+        self.driver.switch_to.window(self.driver.window_handles[-1])#switches focus to the popup window
         wait.forAngular(self.driver) 
         #Find and click 4 variant Type terms(check boxes)
-        self.driver.find_element_by_xpath('//table[@id="soTable"]//tbody/tr[8]/td[1]/input').click()#This is for SO:0001589
-        self.driver.find_element_by_xpath('//table[@id="soTable"]//tbody/tr[9]/td[1]/input').click()#this is for SO:0001910
-        self.driver.find_element_by_xpath('//table[@id="soTable"]//tbody/tr[10]/td[1]/input').click()#this is for SO:0001909
+        self.driver.find_element(By.XPATH, '//table[@id="soTable"]//tbody/tr[8]/td[1]/input').click()#This is for SO:0001589
+        self.driver.find_element(By.XPATH, '//table[@id="soTable"]//tbody/tr[9]/td[1]/input').click()#this is for SO:0001910
+        self.driver.find_element(By.XPATH, '//table[@id="soTable"]//tbody/tr[10]/td[1]/input').click()#this is for SO:0001909
         wait.forAngular(self.driver)
         #Click the "Discard Changes and Close" button
-        driver.find_element_by_id("soHide").click()
-        self.driver.switch_to_window(self.driver.window_handles[-1])#switch focus back to the main window
+        driver.find_element(By.ID, "soHide").click()
+        self.driver.switch_to.window(self.driver.window_handles[-1])#switch focus back to the main window
         #Find the Effects display box and get all the SO IDs  in it
-        soList = self.driver.find_element_by_id('soEffects').get_attribute('value')
+        soList = self.driver.find_element(By.ID, 'soEffects').get_attribute('value')
         print(soList)
         #Assert the correct SO Types are displayed in the Effects box
         self.assertEqual(soList, 'SO:0001583 (missense_variant)')
@@ -285,12 +285,12 @@ class TestEiVariantAddDelete(unittest.TestCase):
             ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
             )
         #finds the allele ID field and enters the MGI ID for Samd4<m1Btlr>
-        driver.find_element_by_id("alleleID").send_keys('MGI:3851923')
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, "alleleID").send_keys('MGI:3851923')
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the page is displayed on the page    
         wait.forAngular(self.driver)   
         #Find the All Variants table
-        variants_table = self.driver.find_element_by_id("variantTable")
+        variants_table = self.driver.find_element(By.ID, "variantTable")
         table = Table(variants_table)
         #Iterate and print the search results headers
         cells = table.get_rows()
@@ -337,21 +337,21 @@ class TestEiVariantAddDelete(unittest.TestCase):
             ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
             )
         #finds the allele ID field and enters the MGI ID
-        driver.find_element_by_id("alleleID").send_keys('MGI:5563413')
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, "alleleID").send_keys('MGI:5563413')
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the page is displayed on the page    
         wait.forAngular(self.driver)   
         #Find the All Variants table
-        variants_table = self.driver.find_element_by_id("variantTable")
+        variants_table = self.driver.find_element(By.ID, "variantTable")
         table = Table(variants_table)
         #Iterate and print the search results headers
         cells = table.get_rows()
         symbols = iterate.getTextAsList(cells)
         print(symbols)
         #find the Transcript ID and click it
-        self.driver.find_element_by_link_text("XM_006519628").click()
+        self.driver.find_element(By.LINK_TEXT, "XM_006519628").click()
         #switch focus to the newly opened page
-        self.driver.switch_to_window(driver.window_handles[-1])
+        self.driver.switch_to.window(driver.window_handles[-1])
         #Assert the Transcript ID is displayed somewhere on this page.
         assert "XM_006519628" in self.driver.page_source
         #Assert you do not find "No items found" text on the page  
@@ -368,21 +368,21 @@ class TestEiVariantAddDelete(unittest.TestCase):
             ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
             )
         #finds the allele ID field and enters the MGI ID
-        driver.find_element_by_id("alleleID").send_keys('MGI:1856473')
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, "alleleID").send_keys('MGI:1856473')
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the page is displayed on the page    
         wait.forAngular(self.driver)   
         #Find the All Variants table
-        variants_table = self.driver.find_element_by_id("variantTable")
+        variants_table = self.driver.find_element(By.ID, "variantTable")
         table = Table(variants_table)
         #Iterate and print the search results headers
         cells = table.get_rows()
         symbols = iterate.getTextAsList(cells)
         print(symbols)
         #find the Transcript ID for the first row of data and click it
-        self.driver.find_element_by_link_text("ENSMUST00000035342").click()
+        self.driver.find_element(By.LINK_TEXT, "ENSMUST00000035342").click()
         #switch focus to the newly opened page
-        self.driver.switch_to_window(driver.window_handles[-1])
+        self.driver.switch_to.window(driver.window_handles[-1])
         #Assert the Ensembl ID is displayed somewhere on this page.
         assert "ENSMUST00000035342" in self.driver.page_source   
         #Assert you do not find "No items found" text on the page  
@@ -399,21 +399,21 @@ class TestEiVariantAddDelete(unittest.TestCase):
             ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
             )
         #finds the allele ID field and enters the MGI ID
-        driver.find_element_by_id("alleleID").send_keys('MGI:6305831')
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, "alleleID").send_keys('MGI:6305831')
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the page is displayed on the page    
         wait.forAngular(self.driver)   
         #Find the All Variants table
-        variants_table = self.driver.find_element_by_id("variantTable")
+        variants_table = self.driver.find_element(By.ID, "variantTable")
         table = Table(variants_table)
         #Iterate and print the search results headers
         cells = table.get_rows()
         symbols = iterate.getTextAsList(cells)
         print(symbols)
         #find the Transcript ID and click it
-        self.driver.find_element_by_link_text("NM_145223").click()
+        self.driver.find_element(By.LINK_TEXT, "NM_145223").click()
         #switch focus to the newly opened page
-        self.driver.switch_to_window(driver.window_handles[-1])
+        self.driver.switch_to.window(driver.window_handles[-1])
         #Assert the GenBank ID is displayed somewhere on this page.
         assert "NM_145223" in self.driver.page_source   
         #Assert you do not find "No items found" text on the page  
@@ -430,21 +430,21 @@ class TestEiVariantAddDelete(unittest.TestCase):
             ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
             )
         #finds the allele ID field and enters the MGI ID
-        driver.find_element_by_id("alleleID").send_keys('MGI:6336157')
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, "alleleID").send_keys('MGI:6336157')
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the page is displayed on the page    
         wait.forAngular(self.driver)   
         #Find the All Variants table
-        variants_table = self.driver.find_element_by_id("variantTable")
+        variants_table = self.driver.find_element(By.ID, "variantTable")
         table = Table(variants_table)
         #Iterate and print the search results headers
         cells = table.get_rows()
         symbols = iterate.getTextAsList(cells)
         print(symbols)
         #find the Polypeptide ID and click it
-        self.driver.find_element_by_link_text("Q8CJG0").click()
+        self.driver.find_element(By.LINK_TEXT, "Q8CJG0").click()
         #switch focus to the newly opened page
-        self.driver.switch_to_window(driver.window_handles[-1])
+        self.driver.switch_to.window(driver.window_handles[-1])
         #Assert the Swiss-Prot ID is displayed somewhere on this page.
         assert "Q8CJG0" in self.driver.page_source   
         #Assert you do not find "No items found" text on the page  
@@ -461,21 +461,21 @@ class TestEiVariantAddDelete(unittest.TestCase):
             ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
             )
         #finds the allele ID field and enters the MGI ID
-        driver.find_element_by_id("alleleID").send_keys('MGI:6306273')
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, "alleleID").send_keys('MGI:6306273')
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the page is displayed on the page    
         wait.forAngular(self.driver)   
         #Find the All Variants table
-        variants_table = self.driver.find_element_by_id("variantTable")
+        variants_table = self.driver.find_element(By.ID, "variantTable")
         table = Table(variants_table)
         #Iterate and print the search results headers
         cells = table.get_rows()
         symbols = iterate.getTextAsList(cells)
         print(symbols)
         #find the Polypeptide ID and click it
-        self.driver.find_element_by_link_text("Q6AXE3").click()
+        self.driver.find_element(By.LINK_TEXT, "Q6AXE3").click()
         #switch focus to the newly opened page
-        self.driver.switch_to_window(driver.window_handles[-1])
+        self.driver.switch_to.window(driver.window_handles[-1])
         #Assert the Trembl ID is displayed somewhere on this page.
         assert "Q6AXE3" in self.driver.page_source   
         #Assert you do not find "No items found" text on the page  

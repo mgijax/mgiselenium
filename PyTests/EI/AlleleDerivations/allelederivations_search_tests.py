@@ -48,16 +48,16 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Allele Derivation Type field and select the option Endonuclease-mediated(string:11927650), tabs out of the field then clicks the Search button
-        Select(driver.find_element_by_id("derivationType")).select_by_value('string:11927650')
+        Select(driver.find_element(By.ID, "derivationType")).select_by_value('string:11927650')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -73,16 +73,16 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Allele Derivation J number field and enters a J number, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("jnumID").send_keys('J:14927')
+        driver.find_element(By.ID, "jnumID").send_keys('J:14927')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -98,16 +98,16 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the J number field and enters a partial J number with wilcard, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("jnumID").send_keys('J:14%')
+        driver.find_element(By.ID, "jnumID").send_keys('J:14%')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -129,16 +129,16 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the citation field and enters an citation name w/wildcard, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("citation").send_keys('Mitchell%')
+        driver.find_element(By.ID, "citation").send_keys('Mitchell%')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -154,16 +154,16 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the creator field and select the option Achim Gossler(string:4788779), tabs out of the field then clicks the Search button
-        Select(driver.find_element_by_id("creator")).select_by_value('string:4788779')
+        Select(driver.find_element(By.ID, "creator")).select_by_value('string:4788779')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -180,16 +180,16 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the parent cell line field and enters text w/wildcard, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("parentCellLine").send_keys('mEMS%')
+        driver.find_element(By.ID, "parentCellLine").send_keys('mEMS%')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -217,16 +217,16 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the parent cell line field and enters text , tabs out of the field then clicks the Search button
-        driver.find_element_by_id("parentCellLine").send_keys('D3')
+        driver.find_element(By.ID, "parentCellLine").send_keys('D3')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -254,16 +254,16 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the parent cell line strain field and enters text w/wildcard, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("parentCellLineStrain").send_keys('129S7%')
+        driver.find_element(By.ID, "parentCellLineStrain").send_keys('129S7%')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -291,16 +291,16 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the parent cell line strain field and enters text , tabs out of the field then clicks the Search button
-        driver.find_element_by_id("parentCellLineStrain").send_keys('129S2/SvPas')
+        driver.find_element(By.ID, "parentCellLineStrain").send_keys('129S2/SvPas')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -328,16 +328,16 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Cell line Type field and select the option 'Spermatogonial Stem Cell'(string:3982970), tabs out of the field then clicks the Search button
-        Select(driver.find_element_by_id("cellLineType")).select_by_value('string:3982969')
+        Select(driver.find_element(By.ID, "cellLineType")).select_by_value('string:3982969')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -353,16 +353,16 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the vector name field and enters some text with wildcard, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("vector").send_keys('U3N%')
+        driver.find_element(By.ID, "vector").send_keys('U3N%')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -390,16 +390,16 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the vector name field and enters some text, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("vector").send_keys('ROSANBeta-geo')
+        driver.find_element(By.ID, "vector").send_keys('ROSANBeta-geo')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -419,16 +419,16 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the vector type field and enter the option 'poly-A trap'(string:3982975, tabs out of the field then clicks the Search button
-        Select(driver.find_element_by_id("vectorType")).select_by_value('string:3982975')
+        Select(driver.find_element(By.ID, "vectorType")).select_by_value('string:3982975')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -447,16 +447,16 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the note field and enter test with wildcard, tabs out of the field then clicks the Search button
-        driver.find_element_by_id("generalNote").send_keys('%Lexicon%')
+        driver.find_element(By.ID, "generalNote").send_keys('%Lexicon%')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
@@ -472,18 +472,18 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         """
         driver = self.driver
         #find the derivation Created By field and enter the name
-        driver.find_element_by_id("createdBy").send_keys("smb")
+        driver.find_element(By.ID, "createdBy").send_keys("smb")
         #find the Search button and click it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Not Specified Gene trapped Library Not Specified Not Specified ROSABetageo'))
         #find the Created by field
-        create_by = driver.find_element_by_id('createdBy').get_attribute('value')
+        create_by = driver.find_element(By.ID, 'createdBy').get_attribute('value')
         print(create_by)
         #Assert the  Created By field returned is correct 
         self.assertEqual(create_by, 'smb')
         #find the Creation Date field
-        create_date = driver.find_element_by_id('creationDate').get_attribute('value')
+        create_date = driver.find_element(By.ID, 'creationDate').get_attribute('value')
         print(create_date)
         #Assert the  Creation Date field returned is correct 
         self.assertEqual(create_date, '2009-08-12')
@@ -495,18 +495,18 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         """
         driver = self.driver
         #find the derivation Modified by field and enter the name
-        driver.find_element_by_id("modifiedBy").send_keys("smb")
+        driver.find_element(By.ID, "modifiedBy").send_keys("smb")
         #find the Search button and click it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Not Specified Gene trapped Library Not Specified Not Specified ROSABetageo'))
         #find the Modified by field
-        mod_by = driver.find_element_by_id('modifiedBy').get_attribute('value')
+        mod_by = driver.find_element(By.ID, 'modifiedBy').get_attribute('value')
         print(mod_by)
         #Assert the  Modified By field returned is correct 
         self.assertEqual(mod_by, 'smb')
         #find the Modification Date field
-        mod_date = driver.find_element_by_id('modificationDate').get_attribute('value')
+        mod_date = driver.find_element(By.ID, 'modificationDate').get_attribute('value')
         print(mod_date)
         #Assert the Modification Date field returned is correct 
         self.assertEqual(mod_date, '2009-09-02')
@@ -518,12 +518,12 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         """
         driver = self.driver
         #find the antigen Creation Date field and enter a date
-        driver.find_element_by_id("creationDate").send_keys("2018-09-04")
+        driver.find_element(By.ID, "creationDate").send_keys("2018-09-04")
         #find the Search button and click it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Not Applicable Endonuclease-mediated Library TC1/TC-1 129S6/SvEvTac Not Specified'))
-        create_date = driver.find_element_by_id('creationDate').get_attribute('value')
+        create_date = driver.find_element(By.ID, 'creationDate').get_attribute('value')
         print(create_date)
         #Assert the  Creation Date field returned is correct 
         self.assertEqual(create_date, '2018-09-04')
@@ -535,13 +535,13 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         """
         driver = self.driver
         #find the derivation Modification Date field and enter a date
-        driver.find_element_by_id("modificationDate").send_keys("2009-09-02")
+        driver.find_element(By.ID, "modificationDate").send_keys("2009-09-02")
         #find the Search button and click it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Not Specified Gene trapped Library Not Specified Not Specified ROSABetageo'))
         #find the Modification Date field
-        mod_date = driver.find_element_by_id('modificationDate').get_attribute('value')
+        mod_date = driver.find_element(By.ID, 'modificationDate').get_attribute('value')
         print(mod_date)
         #Assert the Modification Date field returned is correct 
         self.assertEqual(mod_date, '2009-09-02')
@@ -553,18 +553,18 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         """
         driver = self.driver
         #find the derivation Modification Date field and enter a date
-        driver.find_element_by_id("modificationDate").send_keys("<2009-08-12")
+        driver.find_element(By.ID, "modificationDate").send_keys("<2009-08-12")
         #find the Search button and click it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'BayGenomics Gene Trap Library pGT0,1,2'))
         #find the Modified by field
-        mod_by = driver.find_element_by_id('modifiedBy').get_attribute('value')
+        mod_by = driver.find_element(By.ID, 'modifiedBy').get_attribute('value')
         print(mod_by)
         #Assert the  Modified By field returned is correct 
         self.assertEqual(mod_by, 'derivationload')
         #find the Modification Date field
-        mod_date = driver.find_element_by_id('modificationDate').get_attribute('value')
+        mod_date = driver.find_element(By.ID, 'modificationDate').get_attribute('value')
         print(mod_date)
         #Assert the Modification Date field returned is correct 
         self.assertEqual(mod_date, '2009-08-11')
@@ -576,18 +576,18 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         """
         driver = self.driver
         #find the derivation Modification Date field and enter a date
-        driver.find_element_by_id("modificationDate").send_keys("<=2009-08-14")
+        driver.find_element(By.ID, "modificationDate").send_keys("<=2009-08-14")
         #find the Search button and click it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Achim Gossler Gene trapped Library D3 129S2/SvPas p6LSN'))
         #find the Modified by field
-        mod_by = driver.find_element_by_id('modifiedBy').get_attribute('value')
+        mod_by = driver.find_element(By.ID, 'modifiedBy').get_attribute('value')
         print(mod_by)
         #Assert the  Modified By field returned is correct 
         self.assertEqual(mod_by, 'mnk')
         #find the Modification Date field
-        mod_date = driver.find_element_by_id('modificationDate').get_attribute('value')
+        mod_date = driver.find_element(By.ID, 'modificationDate').get_attribute('value')
         print(mod_date)
         #Assert the Modification Date field returned is correct 
         self.assertEqual(mod_date, '2009-08-14')
@@ -599,18 +599,18 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         """
         driver = self.driver
         #find the derivation Modification Date field and enter a date
-        driver.find_element_by_id("modificationDate").send_keys("2009-08-14..2009-08-17")
+        driver.find_element(By.ID, "modificationDate").send_keys("2009-08-14..2009-08-17")
         #find the Search button and click it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Achim Gossler Gene trapped Library D3 129S2/SvPas p6LSN'))
         #find the Modified by field
-        mod_by = driver.find_element_by_id('modifiedBy').get_attribute('value')
+        mod_by = driver.find_element(By.ID, 'modifiedBy').get_attribute('value')
         print(mod_by)
         #Assert the  Modified By field returned is correct 
         self.assertEqual(mod_by, 'mnk')
         #find the Modification Date field
-        mod_date = driver.find_element_by_id('modificationDate').get_attribute('value')
+        mod_date = driver.find_element(By.ID, 'modificationDate').get_attribute('value')
         print(mod_date)
         #Assert the Modification Date field returned is correct 
         self.assertEqual(mod_date, '2009-08-14')
@@ -622,12 +622,12 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         """
         driver = self.driver
         #find the derivation Creation Date field and enter a date
-        driver.find_element_by_id("creationDate").send_keys("<2009-08-18")
+        driver.find_element(By.ID, "creationDate").send_keys("<2009-08-18")
         #find the Search button and click it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Achim Gossler Gene trapped Library D3 129S2/SvPas p6LSN'))
-        create_date = driver.find_element_by_id('creationDate').get_attribute('value')
+        create_date = driver.find_element(By.ID, 'creationDate').get_attribute('value')
         print(create_date)
         #Assert the  Creation Date field returned is correct 
         self.assertEqual(create_date, '2009-08-14')
@@ -639,12 +639,12 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         """
         driver = self.driver
         #find the derivation Creation Date field and enter a date
-        driver.find_element_by_id("creationDate").send_keys("<=2009-08-17")
+        driver.find_element(By.ID, "creationDate").send_keys("<=2009-08-17")
         #find the Search button and click it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Achim Gossler Gene trapped Library D3 129S2/SvPas p6LSN'))
-        create_date = driver.find_element_by_id('creationDate').get_attribute('value')
+        create_date = driver.find_element(By.ID, 'creationDate').get_attribute('value')
         print(create_date)
         #Assert the  Creation Date field returned is correct 
         self.assertEqual(create_date, '2009-08-14')
@@ -656,12 +656,12 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         """
         driver = self.driver
         #find the derivation Creation Date field and enter a date
-        driver.find_element_by_id("creationDate").send_keys("2009-08-17..2009-08-18")
+        driver.find_element(By.ID, "creationDate").send_keys("2009-08-17..2009-08-18")
         #find the Search button and click it
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Harald von Melchner Gene trapped Library D3 129S2/SvPas ppgklxneoLacZ'))
-        create_date = driver.find_element_by_id('creationDate').get_attribute('value')
+        create_date = driver.find_element(By.ID, 'creationDate').get_attribute('value')
         print(create_date)
         #Assert the  Creation Date field returned is correct 
         self.assertEqual(create_date, '2009-08-17')

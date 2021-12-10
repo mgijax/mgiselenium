@@ -9,7 +9,7 @@ import time
 import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-
+from selenium.webdriver.common.by import By
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -29,11 +29,11 @@ class TestEiEmapaDetail(unittest.TestCase):
         self.form = ModuleForm(self.driver)
         self.form.get_module(config.TEST_PWI_URL + "/edit/emapaBrowser")        
         # logging in for all tests
-        username = self.driver.find_element_by_name('user')#finds the user login box
+        username = self.driver.find_element(By.NAME, 'user')#finds the user login box
         username.send_keys(config.PWI_LOGIN) #enters the username
-        passwd = self.driver.find_element_by_name('password')#finds the password box
+        passwd = self.driver.find_element(By.NAME, 'password')#finds the password box
         passwd.send_keys(config.PWI_PASSWORD) #enters a valid password
-        submit = self.driver.find_element_by_name("submit") #Find the Login button
+        submit = self.driver.find_element(By.NAME, "submit") #Find the Login button
         submit.click() #click the login button
         time.sleep(1)    
 
@@ -44,20 +44,20 @@ class TestEiEmapaDetail(unittest.TestCase):
         """
         wait.forAngular(self.driver)
         #find the "Term Search" box and enter the term %cort% 
-        self.driver.find_element_by_id("termSearch").send_keys('%cort%')
+        self.driver.find_element(By.ID, "termSearch").send_keys('%cort%')
         time.sleep(2)
         #find the Search button and click it
-        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
         wait.forAngular(self.driver)
         # verify first term in search results
-        term_result = self.driver.find_element_by_id("termResultList")
-        items = term_result.find_elements_by_tag_name("li")
+        term_result = self.driver.find_element(By.ID, "termResultList")
+        items = term_result.find_elements(By.TAG_NAME, "li")
         searchTextItems = iterate.getTextAsList(items)
         self.assertEqual(searchTextItems[0], "adrenal cortex TS22-28")
         
         # verify this term is loaded into term detail section
-        term_det = self.driver.find_element_by_id("termDetailContent")
-        items = term_det.find_elements_by_tag_name("dd")
+        term_det = self.driver.find_element(By.ID, "termDetailContent")
+        items = term_det.find_elements(By.TAG_NAME, "dd")
         searchTermItems = iterate.getTextAsList(items)
         self.assertEqual(searchTermItems[0], "adrenal cortex")
         self.assertEqual(searchTermItems[1], "Theiler Stages 22-28")
@@ -71,29 +71,29 @@ class TestEiEmapaDetail(unittest.TestCase):
         """
         wait.forAngular(self.driver)
         #find the "Term Search" box and enter the term mouse 
-        self.driver.find_element_by_id("termSearch").send_keys('mouse')
+        self.driver.find_element(By.ID, "termSearch").send_keys('mouse')
         time.sleep(2)
         #find the Search button and click it
-        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
         wait.forAngular(self.driver)
-        detailArea = self.driver.find_element_by_id("termDetailContent")
+        detailArea = self.driver.find_element(By.ID, "termDetailContent")
         
-        stageItems = detailArea.find_elements_by_class_name("stageSelector")
+        stageItems = detailArea.find_elements(By.CLASS_NAME, "stageSelector")
         # add all li text to a list for "assertIn" test
         stages = iterate.getTextAsList(stageItems)
         
         self.assertEqual(stages, ["All","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28"])
 
         # click stage 10
-        stage10 = detailArea.find_element_by_link_text("10").click()
+        stage10 = detailArea.find_element(By.LINK_TEXT, "10").click()
         wait.forAngular(self.driver)  
         
         #verify EMAPS term is loaded for mouse
-        detailItems = self.driver.find_elements_by_css_selector("#termDetailContent dd")
+        detailItems = self.driver.find_elements(By.CSS_SELECTOR, "#termDetailContent dd")
         self.assertEqual(detailItems[2].text, "EMAPS:2576510")
         
         # verify stage is active
-        activeStage = self.driver.find_element_by_css_selector(".stageSelector.active")
+        activeStage = self.driver.find_element(By.CSS_SELECTOR, ".stageSelector.active")
         self.assertEqual(activeStage.text, "10")
 
 
@@ -105,27 +105,27 @@ class TestEiEmapaDetail(unittest.TestCase):
         """        
         wait.forAngular(self.driver)
         #find the "Term Search" box and enter the term brain 
-        self.driver.find_element_by_id("termSearch").send_keys('brain')
+        self.driver.find_element(By.ID, "termSearch").send_keys('brain')
         time.sleep(2)
         #find the Search button and click it
-        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
         wait.forAngular(self.driver)
         # select specific stage
-        activetree = self.driver.find_element_by_css_selector(".mgitreeview .active")
+        activetree = self.driver.find_element(By.CSS_SELECTOR, ".mgitreeview .active")
         self.assertEqual(activetree.text,"brain")
         
         # verify count of results for the EMAPA term
-        term1CountTag = self.driver.find_element_by_css_selector(".resultsLink a")
+        term1CountTag = self.driver.find_element(By.CSS_SELECTOR, ".resultsLink a")
         term1Count = int(term1CountTag.text)
         # assert positive count
         self.assertGreater(term1Count,0)
         
         # navigate to a term from the tree
-        self.driver.find_element_by_css_selector(".mgitreeview").find_element_by_link_text("brain blood vessel").click()
+        self.driver.find_element(By.CSS_SELECTOR, ".mgitreeview").find_element(By.LINK_TEXT, "brain blood vessel").click()
         wait.forAngular(self.driver)  
         
         # verify count of results for the stage specific term2 term
-        term2CountTag = self.driver.find_element_by_css_selector(".resultsLink a")
+        term2CountTag = self.driver.find_element(By.CSS_SELECTOR, ".resultsLink a")
         term2Count = int(term2CountTag.text)
         # assert positive count
         self.assertGreater(term2Count,0)
@@ -139,30 +139,30 @@ class TestEiEmapaDetail(unittest.TestCase):
         """
         wait.forAngular(self.driver)
         #find the "Term Search" box and enter the term brain blood vessel
-        self.driver.find_element_by_id("termSearch").send_keys('brain blood vessel')
+        self.driver.find_element(By.ID, "termSearch").send_keys('brain blood vessel')
         time.sleep(2)
         #find the Search button and click it
-        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
         time.sleep(2)
         # select specific stage
-        activetree = self.driver.find_element_by_css_selector(".mgitreeview .active")
+        activetree = self.driver.find_element(By.CSS_SELECTOR, ".mgitreeview .active")
         self.assertEqual(activetree.text,"brain blood vessel")
         wait.forAngular(self.driver)             
         
         # verify annotation count exists
-        annotCountTag = self.driver.find_element_by_css_selector(".resultsLink a")
+        annotCountTag = self.driver.find_element(By.CSS_SELECTOR, ".resultsLink a")
         annotCount = int(annotCountTag.text)
         self.assertTrue(annotCount > 0, "annotation count not greater than zero")
         
         # click link to go to results page
         annotCountTag.click()        
-        wait.forNewWindow(self.driver)        
-        searchFor = self.driver.find_element_by_css_selector(".youSearchedFor")
+        wait.forNewWindow(self.driver, 10)        
+        searchFor = self.driver.find_element(By.CSS_SELECTOR, ".youSearchedFor")
         
         self.assertEqual(self.driver.title, "Result Summary")
         self.assertTrue("brain blood vessel" in searchFor.text, "You searched for does not contain structure name")
         
-        body = self.driver.find_element_by_tag_name("body")
+        body = self.driver.find_element(By.TAG_NAME, "body")
         self.assertTrue( ("of %d" % annotCount) in body.text, "same annotation count not found on results summary")
         
         
@@ -173,22 +173,22 @@ class TestEiEmapaDetail(unittest.TestCase):
         """
         wait.forAngular(self.driver)
         #find the "Term Search" box and enter the term renal artery
-        self.driver.find_element_by_id("termSearch").send_keys('renal artery')
+        self.driver.find_element(By.ID, "termSearch").send_keys('renal artery')
         #find the "Stage Search" box and enter the stage '22'
-        self.driver.find_element_by_id("stageSearch").send_keys('22')
+        self.driver.find_element(By.ID, "stageSearch").send_keys('22')
         time.sleep(2)
         #find the Search button and click it
-        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
         time.sleep(2)
         # verify first term in search results
-        term_result = self.driver.find_element_by_id("termResultList")
-        items = term_result.find_elements_by_tag_name("li")
+        term_result = self.driver.find_element(By.ID, "termResultList")
+        items = term_result.find_elements(By.TAG_NAME, "li")
         searchTextItems = iterate.getTextAsList(items)
         self.assertEqual(searchTextItems[0], "renal artery TS21-28")
         
         # verify this term is loaded into term detail section
-        term_det = self.driver.find_element_by_id("termDetailContent")
-        items = term_det.find_elements_by_tag_name("dd")
+        term_det = self.driver.find_element(By.ID, "termDetailContent")
+        items = term_det.find_elements(By.TAG_NAME, "dd")
         self.assertEqual(items[0].text, "renal artery")
         self.assertEqual(items[1].text, "Theiler Stage 22 (13.5-15.0 dpc)")
         self.assertEqual(items[2].text, "EMAPS:2837322")
@@ -201,30 +201,30 @@ class TestEiEmapaDetail(unittest.TestCase):
         """
         wait.forAngular(self.driver)
         #find the "Term Search" box and enter the term second polar body
-        self.driver.find_element_by_id("termSearch").send_keys('second polar body')
+        self.driver.find_element(By.ID, "termSearch").send_keys('second polar body')
         time.sleep(2)
         #find the Search button and click it
-        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
         time.sleep(2)
-        detailArea = self.driver.find_element_by_id("termDetailContent")
+        detailArea = self.driver.find_element(By.ID, "termDetailContent")
         
-        stageItems = detailArea.find_elements_by_class_name("stageSelector")
+        stageItems = detailArea.find_elements(By.CLASS_NAME, "stageSelector")
         # add all link text to a list for "assertIn" test
         stages = iterate.getTextAsList(stageItems)
         
         self.assertEqual(stages, ["All", "1", "2", "3", "4"])
 
         # click stage 1
-        stage1 = detailArea.find_element_by_link_text("1").click()
+        stage1 = detailArea.find_element(By.LINK_TEXT, "1").click()
         #wait.forAjax(self.driver)
         time.sleep(2)
         #verify EMAPS term is loaded for second polar body
-        detailItems = self.driver.find_elements_by_css_selector("#termDetailContent dd")
+        detailItems = self.driver.find_elements(By.CSS_SELECTOR, "#termDetailContent dd")
         self.assertEqual(detailItems[2].text,"EMAPS:1603401")
         
         
         # verify stage is active
-        activeStage = self.driver.find_element_by_css_selector(".stageSelector.active")
+        activeStage = self.driver.find_element(By.CSS_SELECTOR, ".stageSelector.active")
         self.assertEqual(activeStage.text,"1")
 
 
@@ -235,29 +235,29 @@ class TestEiEmapaDetail(unittest.TestCase):
         """        
         wait.forAngular(self.driver)
         #find the "Term Search" box and enter the term bowman's capsule%
-        self.driver.find_element_by_id("termSearch").send_keys("bowman's capsule%")
+        self.driver.find_element(By.ID, "termSearch").send_keys("bowman's capsule%")
         #find the "Stage Search" box and enter the stage '26'
-        self.driver.find_element_by_id("stageSearch").send_keys('26')
+        self.driver.find_element(By.ID, "stageSearch").send_keys('26')
         time.sleep(2)
         #find the Search button and click it
-        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
         time.sleep(2)
         # verify tree is highlighting correct term
-        activetree = self.driver.find_element_by_css_selector(".mgitreeview .active")
+        activetree = self.driver.find_element(By.CSS_SELECTOR, ".mgitreeview .active")
         self.assertEqual(activetree.text,"Bowman's capsule of mature renal corpuscle")
         
         # verify there is a count of results for the EMAPS term
-        term1CountTag = self.driver.find_element_by_css_selector(".resultsLink a")
+        term1CountTag = self.driver.find_element(By.CSS_SELECTOR, ".resultsLink a")
         term1Count = int(term1CountTag.text)
         # assert positive count
         self.assertGreater(term1Count,0)
         
         # navigate to a child term from the tree
-        self.driver.find_element_by_css_selector(".mgitreeview").find_element_by_link_text("urinary space of mature renal corpuscle").click()
+        self.driver.find_element(By.CSS_SELECTOR, ".mgitreeview").find_element(By.LINK_TEXT, "urinary space of mature renal corpuscle").click()
         wait.forAngular(self.driver)
         
         # verify count of results for the stage specific term2 term
-        term2CountTag = self.driver.find_element_by_css_selector(".resultsLink a")
+        term2CountTag = self.driver.find_element(By.CSS_SELECTOR, ".resultsLink a")
         term2Count = int(term2CountTag.text)
         # assert zero count (as-of data on 8/18/2016)
         self.assertEqual(term2Count,0)
@@ -271,35 +271,35 @@ class TestEiEmapaDetail(unittest.TestCase):
         """
         wait.forAngular(self.driver)
         #find the "Term Search" box and enter the term thymus/parathyroid primordium
-        self.driver.find_element_by_id("termSearch").send_keys("thymus/parathyroid primordium")
+        self.driver.find_element(By.ID, "termSearch").send_keys("thymus/parathyroid primordium")
         #find the "Stage Search" box and enter the stage '19'
-        self.driver.find_element_by_id("stageSearch").send_keys('19')
+        self.driver.find_element(By.ID, "stageSearch").send_keys('19')
         time.sleep(2)
         #find the Search button and click it
-        self.driver.find_element_by_css_selector('#termSearchForm > input:nth-child(1)').click()
+        self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
         time.sleep(2)
         # select specific stage
-        activetree = self.driver.find_element_by_css_selector(".mgitreeview .active")
+        activetree = self.driver.find_element(By.CSS_SELECTOR, ".mgitreeview .active")
         self.assertEqual(activetree.text,"thymus/parathyroid primordium")
         wait.forAjax(self.driver)        
         
         
         # verify annotation count exists
-        annotCountTag = self.driver.find_element_by_css_selector(".resultsLink a")
+        annotCountTag = self.driver.find_element(By.CSS_SELECTOR, ".resultsLink a")
         annotCount = int(annotCountTag.text)
         self.assertTrue(annotCount > 0, "annotation count not greater than zero")
         
         # click link to go to results page
         annotCountTag.click()
         
-        wait.forNewWindow(self.driver)
+        wait.forNewWindow(self.driver, 10)
         
-        searchFor = self.driver.find_element_by_css_selector(".youSearchedFor")
+        searchFor = self.driver.find_element(By.CSS_SELECTOR, ".youSearchedFor")
         
         self.assertEqual(self.driver.title, "Result Summary")
         self.assertTrue("thymus/parathyroid primordium" in searchFor.text, "You searched for does not contain structure name")
         
-        body = self.driver.find_element_by_tag_name("body")
+        body = self.driver.find_element(By.TAG_NAME, "body")
         self.assertTrue( ("of %d" % annotCount) in body.text, "same annotation count not found on results summary")                 
 
         

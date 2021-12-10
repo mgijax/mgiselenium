@@ -13,6 +13,7 @@ from selenium import webdriver
 import HtmlTestRunner
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
+from selenium.webdriver.common.by import By
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -36,11 +37,11 @@ class TestEiGxdIndexNotesPicklist(unittest.TestCase):
         self.driver = webdriver.Chrome()
         self.form = ModuleForm(self.driver)
         self.form.get_module(config.TEST_PWI_URL + "/edit/gxdindex") 
-        username = self.driver.find_element_by_name('user')#finds the user login box
+        username = self.driver.find_element(By.NAME, 'user')#finds the user login box
         username.send_keys(config.PWI_LOGIN) #enters the username
-        passwd = self.driver.find_element_by_name('password')#finds the password box
+        passwd = self.driver.find_element(By.NAME, 'password')#finds the password box
         passwd.send_keys(config.PWI_PASSWORD) #enters a valid password
-        submit = self.driver.find_element_by_name("submit") #Find the Login button
+        submit = self.driver.find_element(By.NAME, "submit") #Find the Login button
         submit.click() #click the login button
         
     def tearDown(self):
@@ -65,98 +66,98 @@ class TestEiGxdIndexNotesPicklist(unittest.TestCase):
         self.assertEqual(marker_symbol, 'Bmp4')
         form.click_search()
         form.get_value("comments")
-        driver.find_element_by_id("clearNotesButton").click()
-        Select(driver.find_element_by_id("noteSelect")).select_by_visible_text("Activated")
+        driver.find_element(By.ID, "clearNotesButton").click()
+        Select(driver.find_element(By.ID, "noteSelect")).select_by_visible_text("Activated")
         notefield = form.get_value('comments')
         self.assertEqual(notefield, "The antibody used recognizes the activated form of the protein.")
         
         form.get_value("comments")
-        driver.find_element_by_id("clearNotesButton").click()
-        Select(driver.find_element_by_id("noteSelect")).select_by_visible_text("Cleaved")
+        driver.find_element(By.ID, "clearNotesButton").click()
+        Select(driver.find_element(By.ID, "noteSelect")).select_by_visible_text("Cleaved")
         notefield = form.get_value('comments')
         self.assertEqual(notefield, "The antibody used recognizes the cleaved form of the protein.")
         
         form.get_value("comments")
-        driver.find_element_by_id("clearNotesButton").click()
-        Select(driver.find_element_by_id("noteSelect")).select_by_visible_text("Phosphorylated")
+        driver.find_element(By.ID, "clearNotesButton").click()
+        Select(driver.find_element(By.ID, "noteSelect")).select_by_visible_text("Phosphorylated")
         notefield = form.get_value('comments')
         self.assertEqual(notefield, "The antibody used recognizes the phosphorylated form of the protein.")
         
         form.get_value("comments")
-        driver.find_element_by_id("clearNotesButton").click()
-        Select(driver.find_element_by_id("noteSelect")).select_by_visible_text("Ab/probe spec.")
+        driver.find_element(By.ID, "clearNotesButton").click()
+        Select(driver.find_element(By.ID, "noteSelect")).select_by_visible_text("Ab/probe spec.")
         notefield = form.get_value('comments')
         self.assertEqual(notefield, "The specificity of the antibody/probe used was not detailed; both/all family members have been annotated.")
         
         form.get_value("comments")
-        driver.find_element_by_id("clearNotesButton").click()
-        Select(driver.find_element_by_id("noteSelect")).select_by_visible_text("Ab/probe spec. MGI ID")
+        driver.find_element(By.ID, "clearNotesButton").click()
+        Select(driver.find_element(By.ID, "noteSelect")).select_by_visible_text("Ab/probe spec. MGI ID")
         notefield = form.get_value('comments')
         self.assertEqual(notefield, "The antibody/probe specificity was not detailed and may recognize a related gene; (MGI:) has also been annotated.")
         
         form.get_value("comments")
-        driver.find_element_by_id("clearNotesButton").click()
-        Select(driver.find_element_by_id("noteSelect")).select_by_visible_text("microRNA")
+        driver.find_element(By.ID, "clearNotesButton").click()
+        Select(driver.find_element(By.ID, "noteSelect")).select_by_visible_text("microRNA")
         notefield = form.get_value('comments')
         self.assertEqual(notefield, "The mature microRNA is encoded at multiple sites in the genome.")
         
         form.get_value("comments")
-        driver.find_element_by_id("clearNotesButton").click()
-        Select(driver.find_element_by_id("noteSelect")).select_by_visible_text("Supplementary")
+        driver.find_element(By.ID, "clearNotesButton").click()
+        Select(driver.find_element(By.ID, "noteSelect")).select_by_visible_text("Supplementary")
         notefield = form.get_value('comments')
         self.assertEqual(notefield, "Results are in the supplementary material.")
         
         form.get_value("comments")
-        driver.find_element_by_id("clearNotesButton").click()
-        Select(driver.find_element_by_id("noteSelect")).select_by_visible_text("Section or WM")
+        driver.find_element(By.ID, "clearNotesButton").click()
+        Select(driver.find_element(By.ID, "noteSelect")).select_by_visible_text("Section or WM")
         notefield = form.get_value('comments')
         self.assertEqual(notefield, "Reference does not indicate whether specimen is a section or whole mount.")
         
         form.get_value("comments")
-        driver.find_element_by_id("clearNotesButton").click()
-        Select(driver.find_element_by_id("noteSelect")).select_by_visible_text("Range")
+        driver.find_element(By.ID, "clearNotesButton").click()
+        Select(driver.find_element(By.ID, "noteSelect")).select_by_visible_text("Range")
         notefield = form.get_value('comments')
         self.assertEqual(notefield, "Authors state that expression was examined on dpc *-*; not all stages are detailed.")
         
         form.get_value("comments")
-        driver.find_element_by_id("clearNotesButton").click()
-        Select(driver.find_element_by_id("noteSelect")).select_by_visible_text("Primer spec")
+        driver.find_element(By.ID, "clearNotesButton").click()
+        Select(driver.find_element(By.ID, "noteSelect")).select_by_visible_text("Primer spec")
         notefield = form.get_value('comments')
         self.assertEqual(notefield, "Primer specificity was not detailed and may amplify a related gene; several/all family members have been annotated.")
         
         form.get_value("comments")
-        driver.find_element_by_id("clearNotesButton").click()
-        Select(driver.find_element_by_id("noteSelect")).select_by_visible_text("Primer spec MGI ID")
+        driver.find_element(By.ID, "clearNotesButton").click()
+        Select(driver.find_element(By.ID, "noteSelect")).select_by_visible_text("Primer spec MGI ID")
         notefield = form.get_value('comments')
         self.assertEqual(notefield, "Primer specificity was not detailed and may amplify a related gene; (MGI:) has also been annotated.")
         
         form.get_value("comments")
-        driver.find_element_by_id("clearNotesButton").click()
-        Select(driver.find_element_by_id("noteSelect")).select_by_visible_text("Immunoprecipitated")
+        driver.find_element(By.ID, "clearNotesButton").click()
+        Select(driver.find_element(By.ID, "noteSelect")).select_by_visible_text("Immunoprecipitated")
         notefield = form.get_value('comments')
         self.assertEqual(notefield, "The protein was immunoprecipitated prior to Western blotting.")
         
         form.get_value("comments")
-        driver.find_element_by_id("clearNotesButton").click()
-        Select(driver.find_element_by_id("noteSelect")).select_by_visible_text("Dot Blot")
+        driver.find_element(By.ID, "clearNotesButton").click()
+        Select(driver.find_element(By.ID, "noteSelect")).select_by_visible_text("Dot Blot")
         notefield = form.get_value('comments')
         self.assertEqual(notefield, "Northern data was obtained from a dot blot.")
         
         form.get_value("comments")
-        driver.find_element_by_id("clearNotesButton").click()
-        Select(driver.find_element_by_id("noteSelect")).select_by_visible_text("Enzymatic act")
+        driver.find_element(By.ID, "clearNotesButton").click()
+        Select(driver.find_element(By.ID, "noteSelect")).select_by_visible_text("Enzymatic act")
         notefield = form.get_value('comments')
         self.assertEqual(notefield, "Enzymatic activity was used to detect gene expression.")
         
         form.get_value("comments")
-        driver.find_element_by_id("clearNotesButton").click()
-        Select(driver.find_element_by_id("noteSelect")).select_by_visible_text("Discrepancies")
+        driver.find_element(By.ID, "clearNotesButton").click()
+        Select(driver.find_element(By.ID, "noteSelect")).select_by_visible_text("Discrepancies")
         notefield = form.get_value('comments')
         self.assertEqual(notefield, "There are discrepancies between the text and the figure legend as to the age of the tissue/embryo.")
         
         form.get_value("comments")
-        driver.find_element_by_id("clearNotesButton").click()
-        Select(driver.find_element_by_id("noteSelect")).select_by_visible_text("Fractionated")
+        driver.find_element(By.ID, "clearNotesButton").click()
+        Select(driver.find_element(By.ID, "noteSelect")).select_by_visible_text("Fractionated")
         notefield = form.get_value('comments')
         self.assertEqual(notefield, "The material used in the Western blot was fractionated.")
         
@@ -178,8 +179,8 @@ class TestEiGxdIndexNotesPicklist(unittest.TestCase):
         print(marker_symbol)
         self.assertEqual(marker_symbol, 'Bmp2')
         form.click_search()
-        self.driver.find_element_by_id('comments').clear()#clears the notes field
-        self.driver.find_element_by_id("ageNotSpecifiedButton").click()
+        self.driver.find_element(By.ID, 'comments').clear()#clears the notes field
+        self.driver.find_element(By.ID, "ageNotSpecifiedButton").click()
         agenote = form.get_value('comments')#Get what text is in the notes field
         self.assertEqual(agenote, "Age of embryo at noon of plug day not specified in reference.", "The note is incorrect")
         
@@ -200,8 +201,8 @@ class TestEiGxdIndexNotesPicklist(unittest.TestCase):
         print(marker_symbol)
         self.assertEqual(marker_symbol, 'Bmp2')
         form.click_search()
-        self.driver.find_element_by_id('comments').clear()#clears the notes field
-        self.driver.find_element_by_id("ageNormalizedButton").click()
+        self.driver.find_element(By.ID, 'comments').clear()#clears the notes field
+        self.driver.find_element(By.ID, "ageNormalizedButton").click()
         agenote = form.get_value('comments')#Get what text is in the notes field
         self.assertEqual(agenote, "Age normalized so that noon of plug day = E0.5.", "The note is incorrect")
         
@@ -222,8 +223,8 @@ class TestEiGxdIndexNotesPicklist(unittest.TestCase):
         print(marker_symbol)
         self.assertEqual(marker_symbol, 'Bmp2')
         form.click_search()
-        self.driver.find_element_by_id('comments').clear()#clears the notes field
-        self.driver.find_element_by_id("ageAssignedButton").click()
+        self.driver.find_element(By.ID, 'comments').clear()#clears the notes field
+        self.driver.find_element(By.ID, "ageAssignedButton").click()
         agenote = form.get_value('comments')#Get what text is in the notes field
         self.assertEqual(agenote, "Age assigned by curator based on morphological criteria supplied by authors.", "The note is incorrect")
         

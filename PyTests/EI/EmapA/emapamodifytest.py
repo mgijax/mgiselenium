@@ -8,8 +8,10 @@ Created on Jan 28, 2016
 import unittest
 import HtmlTestRunner
 from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.keys import Keys
-
+from selenium.webdriver.common.by import By
+import time
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -28,13 +30,13 @@ class TestEiEmapaModify(unittest.TestCase):
         self.form = ModuleForm(self.driver)
         self.form.get_module(config.TEST_PWI_URL + "/edit/emapaBrowser")        
         # logging in for all tests
-        username = self.driver.find_element_by_name('user')#finds the user login box
+        username = self.driver.find_element(By.NAME, 'user')#finds the user login box
         username.send_keys(config.PWI_LOGIN) #enters the username
-        passwd = self.driver.find_element_by_name('password')#finds the password box
+        passwd = self.driver.find_element(By.NAME, 'password')#finds the password box
         passwd.send_keys(config.PWI_PASSWORD) #enters a valid password
-        submit = self.driver.find_element_by_name("submit") #Find the Login button
+        submit = self.driver.find_element(By.NAME, "submit") #Find the Login button
         submit.click() #click the login button
-        time.sleep(1)
+    
    
     def tearDown(self):
         self.driver.close()      

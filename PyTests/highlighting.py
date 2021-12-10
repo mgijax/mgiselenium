@@ -6,6 +6,7 @@ Created on Jun 12, 2018
 # filename: highlight_elements.py
 import unittest
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 import time
 
 
@@ -44,7 +45,7 @@ class HighlightElements(unittest.TestCase):
     def test_example_1(self):
         driver = self.driver
         driver.get('http://the-internet.herokuapp.com/large')
-        self.highlight(driver.find_element_by_id('sibling-2.3'))
+        self.highlight(driver.find_element(By.ID, 'sibling-2.3'))
 
 if __name__ == "__main__":
     unittest.main()
