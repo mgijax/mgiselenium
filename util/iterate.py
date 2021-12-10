@@ -2,6 +2,7 @@
 Functions for iterating over selenium WebDriverElements
 """
 import json
+from selenium.webdriver.common.by import By
 
 def getTextAsList(elements):
     """
@@ -18,4 +19,4 @@ def getTextAsList(elements):
 
 def getJsonData(driver):
 
-    return json.loads(driver.find_element_by_tag_name("pre").text);
+    return json.loads(driver.find_element_by_tag_name(By.TAG_NAME, "pre").text);

@@ -3,6 +3,7 @@ Helper for working with html forms
 """
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
+from selenium.webdriver.common.by import By
 from util import wait
 import time
 
@@ -26,7 +27,7 @@ class ModuleForm(object):
         """
         Sets value of input box
         """
-        input = self.driver.find_element_by_id(id)
+        input = self.driver.find_element(By.ID, id)
         
         input.send_keys(value)
         
@@ -125,7 +126,7 @@ class ModuleForm(object):
     
     def click_delete(self):  
         self.driver.find_element_by_id('deleteButton').click()
-        alert = self.driver.switch_to_alert()
+        alert = self.driver.switch_to.alert
         alert.accept()
         wait.forAngular(self.driver)
         
