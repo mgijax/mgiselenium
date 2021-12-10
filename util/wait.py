@@ -95,7 +95,7 @@ def forNewWindow(driver, timeout=10):
         return
     
     # switch window
-    driver.switch_to_window(driver.window_handles[-1])
+    driver.switch_to.window(driver.window_handles[-1])
     
     # use remaining timeout to wait for content to load in new window
     WebDriverWait(driver, timeout).until(

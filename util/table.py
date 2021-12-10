@@ -5,7 +5,7 @@ Usage:
     from util.table import Table
     
     # find a table WebElement
-    table_element = driver.find_element_by_id("#tableId")
+    table_element = driver.find_element(By.ID, "#tableId")
     
     #create instance of Table class
     table = Table(table_element)
@@ -36,7 +36,7 @@ Usage:
     row_cells = table.get_row_cells("Row 1")
     
 """
-
+from selenium.webdriver.common.by import By
 class Table(object):
     """
     Represents a table element
@@ -62,7 +62,7 @@ class Table(object):
         
         
     def get_rows(self):
-        return self.table_web_element.find_elements_by_css_selector("tr")
+        return self.table_web_element.find_elements(By.CSS_SELECTOR, "tr")
     
     def get_row(self, row_identifier):
         row_index = self._get_row_index(row_identifier)
@@ -137,7 +137,7 @@ class Table(object):
     
     
     def _get_row_cells(self, row_web_element):
-        return row_web_element.find_elements_by_css_selector("td, th")
+        return row_web_element.find_elements(By.CSS_SELECTOR, "td, th")
         
         
         
