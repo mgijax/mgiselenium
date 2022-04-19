@@ -8,6 +8,7 @@ import time
 import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 import sys,os.path
 from util import wait, iterate
 # adjust the path to find config
@@ -22,26 +23,27 @@ class TestPwiGxdSpecSumByRef(unittest.TestCase):
     def setUp(self):
         #self.driver = webdriver.Chrome() 
         self.driver = webdriver.Firefox()
+        self.driver.get(config.TEST_URL + "/pwi/#referenceForm")
+        self.driver.implicitly_wait(10)
 
     def test_table_headers(self):
         """
         @status: Tests that the summaries table headers are correct
         """
         driver = self.driver
-        driver.get(TEST_PWI_URL)
         #opens the PWI reference form
-        driver.find_element_by_link_text("Reference Form").click()
-        accidbox = driver.find_element_by_id('accids')
+        #driver.get(TEST_PWI_URL + "/#referenceForm")        
+        accidbox = driver.find_element(By.ID, 'accids')
         # put your J number in the box
         accidbox.send_keys("J:84605")
         accidbox.submit()
 
         #finds the specimens link and clicks it
-        driver.find_element_by_link_text("Specimens").click()
+        driver.find_element(By.LINK_TEXT, "Specimens").click()
 
         #Locates the summary table and finds the table headings
-        headerlist = driver.find_element_by_id("specimenSummaryTable")
-        items = headerlist.find_elements_by_tag_name("th")
+        headerlist = driver.find_element(By.ID, "specimenSummaryTable")
+        items = headerlist.find_elements(By.TAG_NAME, "th")
         searchTextItems = iterate.getTextAsList(items)
         wait.forAjax(driver)
         #verifies all the table headings are correct and in order
@@ -57,18 +59,18 @@ class TestPwiGxdSpecSumByRef(unittest.TestCase):
         driver = self.driver
         driver.get(TEST_PWI_URL)
         #opens the PWI reference form
-        driver.find_element_by_link_text("Reference Form").click()
-        accidbox = driver.find_element_by_id('accids')
+        driver.find_element(By.LINK_TEXT, "Reference Form").click()
+        accidbox = driver.find_element(By.ID, 'accids')
         # put your J number in the box
         accidbox.send_keys("J:40904")
         accidbox.submit()
 
         #finds the specimens link and clicks it
-        driver.find_element_by_link_text("Specimens").click()
+        driver.find_element(By.LINK_TEXT, "Specimens").click()
 
         #finds the specimen label column and then the first 12 items
-        summarytable = driver.find_element_by_id("specimenSummaryTable")
-        specimens = summarytable.find_elements_by_css_selector('td:nth-child(4)')
+        summarytable = driver.find_element(By.ID, "specimenSummaryTable")
+        specimens = summarytable.find_elements(By.CSS_SELECTOR, 'td:nth-child(4)')
         specimen1 = specimens[0]
         specimen2 = specimens[1]
         specimen3 = specimens[2]
@@ -103,18 +105,18 @@ class TestPwiGxdSpecSumByRef(unittest.TestCase):
         driver = self.driver
         driver.get(TEST_PWI_URL)
         #opens the PWI reference form
-        driver.find_element_by_link_text("Reference Form").click()
-        accidbox = driver.find_element_by_id('accids')
+        driver.find_element(By.LINK_TEXT, "Reference Form").click()
+        accidbox = driver.find_element(By.ID, 'accids')
         # put your J number in the box
         accidbox.send_keys("J:84605")
         accidbox.submit()
 
         #finds the specimens link and clicks it
-        driver.find_element_by_link_text("Specimens").click()
+        driver.find_element(By.LINK_TEXT, "Specimens").click()
         wait.forAjax(driver)
         #finds the age note column and then the first 12 items
-        summarytable = driver.find_element_by_id("specimenSummaryTable")
-        agenotes = summarytable.find_elements_by_css_selector('td:nth-child(6)')
+        summarytable = driver.find_element(By.ID, "specimenSummaryTable")
+        agenotes = summarytable.find_elements(By.CSS_SELECTOR, 'td:nth-child(6)')
         agenote1 = agenotes[0]
         agenote2 = agenotes[1]
         agenote3 = agenotes[2]
@@ -140,18 +142,18 @@ class TestPwiGxdSpecSumByRef(unittest.TestCase):
         driver = self.driver
         driver.get(TEST_PWI_URL)
         #opens the PWI reference form
-        driver.find_element_by_link_text("Reference Form").click()
-        accidbox = driver.find_element_by_id('accids')
+        driver.find_element(By.LINK_TEXT, "Reference Form").click()
+        accidbox = driver.find_element(By.ID, 'accids')
         # put your J number in the box
         accidbox.send_keys("J:36691")
         accidbox.submit()
 
         #finds the specimens link and clicks it
-        driver.find_element_by_link_text("Specimens").click()
+        driver.find_element(By.LINK_TEXT, "Specimens").click()
         wait.forAjax(driver)
         #finds the specimen notes column and then the first 7 items
-        summarytable = driver.find_element_by_id("specimenSummaryTable")
-        specnotes = summarytable.find_elements_by_css_selector('td:nth-child(13)')
+        summarytable = driver.find_element(By.ID, "specimenSummaryTable")
+        specnotes = summarytable.find_elements(By.CSS_SELECTOR, 'td:nth-child(13)')
         specnote1 = specnotes[0]
         specnote2 = specnotes[1]
         specnote3 = specnotes[2]
@@ -177,25 +179,25 @@ class TestPwiGxdSpecSumByRef(unittest.TestCase):
         driver = self.driver
         driver.get(TEST_PWI_URL)
         #opens the PWI reference form
-        driver.find_element_by_link_text("Reference Form").click()
-        accidbox = driver.find_element_by_id('accids')
+        driver.find_element(By.LINK_TEXT, "Reference Form").click()
+        accidbox = driver.find_element(By.ID, 'accids')
         # put your J number in the box
         accidbox.send_keys("J:84605")
         accidbox.submit()
 
         #finds the specimens link and clicks it
-        driver.find_element_by_link_text("Specimens").click()
+        driver.find_element(By.LINK_TEXT, "Specimens").click()
         
         #finds the assay id column and then clicks the link for the first row
-        summarytable = driver.find_element_by_id("specimenSummaryTable")
-        assayids = summarytable.find_elements_by_css_selector('td:nth-child(1) a')
+        summarytable = driver.find_element(By.ID, "specimenSummaryTable")
+        assayids = summarytable.find_elements(By.CSS_SELECTOR, 'td:nth-child(1) a')
         assayid1 = assayids[0]
         assayid1.click()
 
         
         #finds the MGI id on the page and asserts it is correct
-        details = self.driver.find_element_by_class_name('detailPageListData')
-        mgiid = details.find_elements_by_css_selector('dd')
+        details = self.driver.find_element(By.CLASS_NAME, 'detailPageListData')
+        mgiid = details.find_elements(By.CSS_SELECTOR, 'dd')
         assayid = mgiid[3].text
         self.assertEqual(assayid, 'MGI:3037440')
         
@@ -207,18 +209,18 @@ class TestPwiGxdSpecSumByRef(unittest.TestCase):
         driver = self.driver
         driver.get(TEST_PWI_URL)
         #opens the PWI reference form
-        driver.find_element_by_link_text("Reference Form").click()
-        accidbox = driver.find_element_by_id('accids')
+        driver.find_element(By.LINK_TEXT, "Reference Form").click()
+        accidbox = driver.find_element(By.ID, 'accids')
         # put your J number in the box
         accidbox.send_keys("J:105186")
         accidbox.submit()
 
         #finds the specimens link and clicks it
-        driver.find_element_by_link_text("Specimens").click()
+        driver.find_element(By.LINK_TEXT, "Specimens").click()
         wait.forAjax(driver)
         #finds the specimen notes column and then the first 7 items
-        summarytable = driver.find_element_by_id("specimenSummaryTable")
-        assaytypes = summarytable.find_elements_by_css_selector('td:nth-child(3)')
+        summarytable = driver.find_element(By.ID, "specimenSummaryTable")
+        assaytypes = summarytable.find_elements(By.CSS_SELECTOR, 'td:nth-child(3)')
         assaytype1 = assaytypes[13]
         assaytype2 = assaytypes[14]
         assaytype3 = assaytypes[15]
