@@ -196,83 +196,83 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         @see: HMDC-GQ-19 (VEGA gene model ID, transcript ID, protein ID)
         
         print ("BEGIN test_gene_all_vega_ids")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements_by_tag_name("option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("OTTMUSG00000005850")# enter VEGA gene model ID
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("OTTMUSG00000005850")# enter VEGA gene model ID
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Genes Tab and click on it
-        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        gene_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
         print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and verify both mouse and human genes are present
-        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        gene_table = Table(self.driver.find_element(By.ID, "geneTable"))
         cells = gene_table.get_column_cells("Gene Symbol")
         geneList = iterate.getTextAsList(cells)
         self.assertIn('Ttc19', geneList)
         self.assertIn('TTC19', geneList)
         
         #Open up the query form again (click on "Click to modify search" button
-        self.driver.find_element_by_xpath("//*[contains(text(), 'Click to modify search')]").click()
+        self.driver.find_element(By.XPATH, "//*[contains(text(), 'Click to modify search')]").click()
         
         #Redo the search using the VEGA transcript ID
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").clear()
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("OTTMUST00000013013")# enter VEGA transcript ID
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("OTTMUST00000013013")# enter VEGA transcript ID
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Genes Tab and click on it
-        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        gene_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
         print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and verify both mouse and human genes are present
-        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        gene_table = Table(self.driver.find_element(By.ID, "geneTable"))
         cells = gene_table.get_column_cells("Gene Symbol")
         geneList = iterate.getTextAsList(cells)
         self.assertIn('Ttc19', geneList)
         self.assertIn('TTC19', geneList)
         
         #Open up the query form again (click on "Click to modify search" button
-        self.driver.find_element_by_xpath("//*[contains(text(), 'Click to modify search')]").click()
+        self.driver.find_element(By.XPATH, "//*[contains(text(), 'Click to modify search')]").click()
         
         #Redo the search using the VEGA protein ID
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").clear()
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("OTTMUSP00000006049")# enter VEGA protein ID
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("OTTMUSP00000006049")# enter VEGA protein ID
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Genes Tab and click on it
-        gene_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
+        gene_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
         print(gene_tab.text)
         gene_tab.click()
         
         #Grab the list of genes and verify both mouse and human genes are present
-        gene_table = Table(self.driver.find_element_by_id("geneTable"))
+        gene_table = Table(self.driver.find_element(By.ID, "geneTable"))
         cells = gene_table.get_column_cells("Gene Symbol")
         geneList = iterate.getTextAsList(cells)
         self.assertIn('Ttc19', geneList)

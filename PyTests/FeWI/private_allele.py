@@ -7,7 +7,7 @@ import unittest
 import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-
+from selenium.webdriver.common.by import By
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -32,13 +32,13 @@ class TestPrivateAllele(unittest.TestCase):
     def test_private(self):
         driver = self.driver
         self.assertIn("Informatics", driver.title)
-        querytext = driver.find_element_by_name('query')
+        querytext = driver.find_element(By.NAME, 'query')
         querytext.clear()
         querytext.send_keys("Brca1")  # put your marker symbol
         querytext.send_keys(Keys.RETURN)  # click the submit button
-        brcalink = driver.find_element_by_link_text("Brca1")# Find the Brca1 link and click it
+        brcalink = driver.find_element(By.LINK_TEXT, "Brca1")# Find the Brca1 link and click it
         brcalink.click()# Find the all alleles and mutations link and click it
-        allallelelink = driver.find_element_by_id("phenoMutationLink")
+        allallelelink = driver.find_element(By.ID, "phenoMutationLink")
         time.sleep(2)
         allallelelink.click()  # assert that there is no link for Brca1<test1>
         time.sleep(.5)
@@ -51,12 +51,12 @@ class TestPrivateAllele(unittest.TestCase):
         """
         driver = self.driver
         self.assertIn("Informatics", driver.title)
-        querytext = driver.find_element_by_name('query')
+        querytext = driver.find_element(By.NAME, 'query')
         querytext.clear()
         querytext.send_keys("Agit")# put your marker symbol
         querytext.send_keys(Keys.RETURN)  # click the submit button
         wait.forAjax(driver)
-        missng = driver.find_element_by_class_name('redText').is_displayed()#verifies that the warning Could not find the independent term(s): is displaying
+        missng = driver.find_element(By.CLASS_NAME, 'redText').is_displayed()#verifies that the warning Could not find the independent term(s): is displaying
         self.assertTrue(missng, 'oops, is not displaying warning message!')
     
     def tearDown(self):

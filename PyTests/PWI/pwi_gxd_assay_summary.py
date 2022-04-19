@@ -9,8 +9,11 @@ import time
 import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 import sys,os.path
-from util import wait, iterate
+from util import iterate, wait
+from util.form import ModuleForm
+from util.table import Table
 # adjust the path to find config
 sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../config',)
@@ -31,19 +34,20 @@ class TestPwiGxdAssaySummaryPage(unittest.TestCase):
         """
         driver = self.driver
         driver.get(TEST_PWI_URL)
+        self.form = ModuleForm(self.driver) 
         #opens the PWI reference form
-        driver.find_element_by_link_text("Reference Form").click()
-        accidbox = driver.find_element_by_id('accids')
+        self.form.get_module(config.TEST_PWI_URL + "/#referenceForm")
+        accidbox = driver.find_element(By.ID, 'accids')
         # put your J number in the box
         accidbox.send_keys("J:208450")
         accidbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the specimens link and clicks it
-        driver.find_element_by_link_text("Assays").click()
+        driver.find_element(By.LINK_TEXT, "Assays").click()
         wait.forAjax(driver)
         #Locates the summary table and finds the table headings
-        headerlist = driver.find_element_by_id("assaySummaryTable")
-        items = headerlist.find_elements_by_tag_name("th")
+        headerlist = driver.find_element(By.ID, "assaySummaryTable")
+        items = headerlist.find_elements(By.TAG_NAME, "th")
         searchTextItems = iterate.getTextAsList(items)
         wait.forAjax(driver)
         #verifies all the table headings are correct and in order
@@ -57,18 +61,18 @@ class TestPwiGxdAssaySummaryPage(unittest.TestCase):
         driver = self.driver
         driver.get(TEST_PWI_URL)
         #opens the PWI reference form
-        driver.find_element_by_link_text("Reference Form").click()
-        accidbox = driver.find_element_by_id('accids')
+        driver.find_element(By.LINK_TEXT, "Reference Form").click()
+        accidbox = driver.find_element(By.ID, 'accids')
         # put your J number in the box
         accidbox.send_keys("J:208450")
         accidbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the GXD/CRE Assays link and clicks it
-        driver.find_element_by_link_text("Assays").click()
+        driver.find_element(By.LINK_TEXT, "Assays").click()
         wait.forAjax(driver)
         #finds the specimen label column and then the first 12 items
-        resultstable = driver.find_element_by_id("assaySummaryTable")
-        rows = resultstable.find_elements_by_css_selector('tr')
+        resultstable = driver.find_element(By.ID, "assaySummaryTable")
+        rows = resultstable.find_elements(By.CSS_SELECTOR, 'tr')
         #displays each row of data for the first 18 rows
         row1 = rows[1]
         row2 = rows[2]
@@ -108,7 +112,7 @@ class TestPwiGxdAssaySummaryPage(unittest.TestCase):
         self.assertEqual(row17.text, "MGI:5688697 Mtus1 RT-PCR J:208450 Bundschu K, Dev Dyn 2014 May;243(5):699-711 The primer set used in this assay is designed to amplify all three murine isoforms.")
         self.assertEqual(row18.text, "MGI:5688698 Mtus1 RT-PCR J:208450 Bundschu K, Dev Dyn 2014 May;243(5):699-711 The primer set used in this assay is designed to amplify all three murine isoforms.")
         
-        details = resultstable.find_elements_by_css_selector('td:nth-child(1)')
+        details = resultstable.find_elements(By.CSS_SELECTOR, 'td:nth-child(1)')
         detail1 = details[0]
         detail2 = details[1]
         detail3 = details[2]

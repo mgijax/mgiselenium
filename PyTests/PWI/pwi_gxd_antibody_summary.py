@@ -9,6 +9,7 @@ import time
 import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 import sys,os.path
 from util import wait, iterate
 # adjust the path to find config
@@ -32,17 +33,17 @@ class TestPwiGxdAntibodySummaryPage(unittest.TestCase):
         driver = self.driver
         driver.get(TEST_PWI_URL)
         #opens the Marker detail page
-        accidbox = driver.find_element_by_id('accessionForm').find_element_by_name('ids')
+        accidbox = driver.find_element(By.ID, 'accessionForm').find_element_by_name('ids')
         # put your MGI ID number in the box
         accidbox.send_keys("MGI:97281")
         accidbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the antibodies link and clicks it
-        driver.find_element_by_link_text("Antibodies").click()
+        driver.find_element(By.LINK_TEXT, "Antibodies").click()
         wait.forAjax(driver)
         #Locates the antibodies summary table and finds the table headings
-        headerlist = driver.find_element_by_id("antibodySummary")
-        items = headerlist.find_elements_by_tag_name("th")
+        headerlist = driver.find_element(By.ID, "antibodySummary")
+        items = headerlist.find_elements(By.TAG_NAME, "th")
         searchTextItems = iterate.getTextAsList(items)
         wait.forAjax(driver)
         #verifies all the table headings are correct and in order
@@ -56,17 +57,17 @@ class TestPwiGxdAntibodySummaryPage(unittest.TestCase):
         driver = self.driver
         driver.get(TEST_PWI_URL)
         #opens the Marker detail page
-        accidbox = driver.find_element_by_id('accessionForm').find_element_by_name('ids')
+        accidbox = driver.find_element(By.ID, 'accessionForm').find_element_by_name('ids')
         # put your MGI ID number in the box
         accidbox.send_keys("MGI:97281")
         accidbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the antibodies link and clicks it
-        driver.find_element_by_link_text("Antibodies").click()
+        driver.find_element(By.LINK_TEXT, "Antibodies").click()
         wait.forAjax(driver)
         #finds the antibody name column and then the first 12 items
-        resultstable = driver.find_element_by_id("antibodySummary")
-        rows = resultstable.find_elements_by_css_selector('tr')
+        resultstable = driver.find_element(By.ID, "antibodySummary")
+        rows = resultstable.find_elements(By.CSS_SELECTOR, 'tr')
         #displays each row of data for the first 21 rows
         row1 = rows[2]
         row2 = rows[3]
@@ -96,6 +97,7 @@ class TestPwiGxdAntibodySummaryPage(unittest.TestCase):
         row26 = rows[27]
         row27 = rows[28]
         row28 = rows[29]
+        row29 = rows[30]
         print (row2.text)
         print (row8.text)
         print (row11.text)
@@ -126,12 +128,13 @@ class TestPwiGxdAntibodySummaryPage(unittest.TestCase):
         self.assertEqual(row23.text, "MGI:3578932 NCAM antibody [] rabbit Polyclonal Not Specified MGI:1277577 neural cell adhesion molecule Not Specified Ncam1 J:90285, Gittenberger-De Groot AC, Dev Dyn 2004 Jun;230(2):378-84")
         self.assertEqual(row24.text, "MGI:5491181 NCAM antibody [] Not Specified Monoclonal Not Specified MGI:1277577 neural cell adhesion molecule Not Specified Ncam1 J:25271, Whitesides JG 3rd, Dev Biol 1995 May;169(1):229-41")
         self.assertEqual(row25.text, "MGI:5556104 NCAM antibody (AB5032) [] rabbit Polyclonal Not Specified Affinity purified. Obtained from Chemicon. MGI:5556102 NCAM chicken highly purified Ncam1 J:130159, Van den Akker NM, Dev Dyn 2008 Feb;237(2):494-503")
-        self.assertEqual(row26.text, "MGI:3576668 PSA-NCAM (12E3) [] mouse, laboratory Monoclonal IgM Antibody described in Seki and Arai; Anat Embryol (Berl). 1991;184(4):395-401. MGI:3576666 PSA-NCAM Not Specified polysialic acid portion of NCAM Ncam1 J:95331, Daniel D, Gene Expr Patterns 2005 Feb;5(3):317-22")
-        self.assertEqual(row27.text, "MGI:3574201 PSA-NCAM (clone 2-2B) anti-Men B mouse, laboratory Monoclonal IgM Antibody obtained from Chemicon/Millipore. Reacts with alpha 2-8 linked neuraminic acid (NeuAc-alpha 2-8) n with n>10. MGI:3574200 Viable Meningococcus group B (strain 355) bacteria Ncam1 J:32118, Boisseau S, Development 1991 May;112(1):69-82")
-        self.assertEqual(row28.text, "MGI:5467593 anti-N-CAM [] Not Specified Not Specified Not Specified This antibody recognizes all polypeptide forms. MGI:1277577 neural cell adhesion molecule Not Specified Ncam1 J:21489, Wray S, Dev Biol 1994 Nov;166(1):349-54")
+        self.assertEqual(row26.text, "MGI:6478223 NCAM-H antibody [] mouse, laboratory Monoclonal Not Specified Described in Seki T (1992) Anat Embryol 184(4):395-401. MGI:6478217 NCAM-H Not Specified polysialic acid chains Ncam1 J:48402, Ohyama K, Brain Res Dev Brain Res 1998 May 15;107(2):219-26")
+        self.assertEqual(row27.text, "MGI:3576668 PSA-NCAM (12E3) [] mouse, laboratory Monoclonal IgM Antibody described in Seki and Arai; Anat Embryol (Berl). 1991;184(4):395-401. MGI:3576666 PSA-NCAM Not Specified polysialic acid portion of NCAM Ncam1 J:95331, Daniel D, Gene Expr Patterns 2005 Feb;5(3):317-22")
+        self.assertEqual(row28.text, "MGI:3574201 PSA-NCAM (clone 2-2B) anti-Men B mouse, laboratory Monoclonal IgM Antibody obtained from Chemicon/Millipore. Reacts with alpha 2-8 linked neuraminic acid (NeuAc-alpha 2-8) n with n>10. MGI:3574200 Viable Meningococcus group B (strain 355) bacteria Ncam1 J:32118, Boisseau S, Development 1991 May;112(1):69-82")
+        self.assertEqual(row29.text, "MGI:5467593 anti-N-CAM [] Not Specified Not Specified Not Specified This antibody recognizes all polypeptide forms. MGI:1277577 neural cell adhesion molecule Not Specified Ncam1 J:21489, Wray S, Dev Biol 1994 Nov;166(1):349-54")
         
         
-        details = resultstable.find_elements_by_css_selector('td:nth-child(1)')
+        details = resultstable.find_elements(By.CSS_SELECTOR, 'td:nth-child(1)')
 
         detail4 = details[4]
         detail5 = details[5]

@@ -130,10 +130,10 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         # print row 1
-        cell1 = table.get_row_cells(0)
-        symbol1 = iterate.getTextAsList(cell1)
-        print(symbol1)
-        self.assertEqual(symbol1, ['Del(3Gpr89-Prkab2)4Tac'])
+        cell1 = table.get_row_cells(1)
+        symbol2 = iterate.getTextAsList(cell1)
+        print(symbol2)
+        self.assertEqual(symbol2, ['Del(3Gpr89-Prkab2)4Tac'])
         #since we search for a particular marker type verify the correct type is displayed
         mrktype = driver.find_element(By.ID, 'markerType').get_attribute('value')
         self.assertEqual(mrktype, 'string:12')#12 equals "Transgene"
@@ -1246,13 +1246,13 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         name_list = iterate.getTextAsList(names)
         print(name_list)
         #Assert the names are in the correct sort order
-        self.assertEqual(name_list, ['Acc Name', 'ABA', 'Affy 1.0 ST', 'Affy 430 2.0', 'Affy U74', 'ArrayExpress', 'Ensembl Gene Model', 'Ensembl Protein', 'Ensembl Transcript', 'Ensembl Transcript', 'Ensembl Transcript', 'Entrez Gene', 'FuncBase', 'NCBI Gene Model', 'RefSeq', 'SWISS-PROT', 'UniGene'])            
+        self.assertEqual(name_list, ['Acc Name', 'ABA', 'Affy 1.0 ST', 'Affy 430 2.0', 'Affy U74', 'ArrayExpress', 'Ensembl Gene Model', 'Ensembl Protein', 'Ensembl Transcript', 'Ensembl Transcript', 'Ensembl Transcript', 'Entrez Gene', 'NCBI Gene Model', 'RefSeq', 'SWISS-PROT'])            
         #find the second column of results
         accs = table.get_column_cells('AccID')
         acc_list = iterate.getTextAsList(accs)
         print(acc_list)  
         #Assert the Acc IDs are in the correct sort order
-        self.assertEqual(acc_list, ['AccID', '69681', '10382779', '1460472_at', '110085_at', 'MGI:1916931', 'ENSMUSG00000092300', 'ENSMUSP00000134251', 'ENSMUST00000173567', 'ENSMUST00000174177', 'ENSMUST00000174248', '69681', '1916931', '69681', 'NR_004853', 'Q80YP0', '33677'])
+        self.assertEqual(acc_list, ['AccID', '69681', '10382779', '1460472_at', '110085_at', 'MGI:1916931', 'ENSMUSG00000092300', 'ENSMUSP00000134251', 'ENSMUST00000173567', 'ENSMUST00000174177', 'ENSMUST00000174248', '69681', '69681', 'NR_004853', 'Q80YP0'])
         
 def suite():
     suite = unittest.TestSuite()

@@ -8,7 +8,7 @@ import unittest
 import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-
+from selenium.webdriver.common.by import By
 import sys,os.path
 from genericpath import exists
 # adjust the path to find config
@@ -59,24 +59,24 @@ class TestAlleleSummary(unittest.TestCase):
         '''
         @status This test verifies the correct column headings are being displayed in the correct order on the page.
         '''
-        self.driver.find_element_by_name("nomen").clear()
-        self.driver.find_element_by_name("nomen").send_keys("Pkd1")
-        self.driver.find_element_by_class_name("buttonLabel").click()
-        self.driver.find_element_by_partial_link_text("tm2Jzh").click()
+        self.driver.find_element(By.NAME, "nomen").clear()
+        self.driver.find_element(By.NAME, "nomen").send_keys("Pkd1")
+        self.driver.find_element(By.CLASS_NAME, "buttonLabel").click()
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, "tm2Jzh").click()
         assert "Pkd1<sup>tm2Jzh</sup>" in self.driver.page_source
         assert 'id="nomenclatureHeader"' in self.driver.page_source
         assert 'id="originHeader"' in self.driver.page_source  
-        self.highlight(self.driver.find_element_by_class_name('titleBarMainTitle'))  
+        self.highlight(self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle'))  
         
     def test_disease_doids_byallele(self):
         '''
         @status this test verifies In the Disease models section, that after each disease in the disease table is it's corresponding DO ID.
         '''
-        self.driver.find_element_by_name("nomen").clear()
-        self.driver.find_element_by_name("nomen").send_keys("Gata1")
-        self.driver.find_element_by_class_name("buttonLabel").click()
-        self.driver.find_element_by_partial_link_text('tm2Sho').click()
-        disease_table = self.driver.find_element_by_id('diseasetable_id')
+        self.driver.find_element(By.NAME, "nomen").clear()
+        self.driver.find_element(By.NAME, "nomen").send_keys("Gata1")
+        self.driver.find_element(By.CLASS_NAME, "buttonLabel").click()
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm2Sho').click()
+        disease_table = self.driver.find_element(By.ID, 'diseasetable_id')
         table = Table(disease_table)
         #Iterate and print the search results headers
         header_cells = table.get_header_cells()
@@ -92,12 +92,12 @@ class TestAlleleSummary(unittest.TestCase):
         '''
         @status this test verifies on the Phenotypes, Alleles & Disease Models Search summary page, that after each disease in the Human Disease Models column is it's corresponding DO ID.
         '''
-        self.driver.find_element_by_name("nomen").clear()
-        self.driver.find_element_by_name("nomen").send_keys("shh")
-        self.driver.find_element_by_class_name("buttonLabel").click()
-        data_table = self.driver.find_element_by_css_selector("#dynamicdata").find_element_by_css_selector("table > tbody.yui-dt-data")
+        self.driver.find_element(By.NAME, "nomen").clear()
+        self.driver.find_element(By.NAME, "nomen").send_keys("shh")
+        self.driver.find_element(By.CLASS_NAME, "buttonLabel").click()
+        data_table = self.driver.find_element(By.CSS_SELECTOR, "#dynamicdata").find_element(By.CSS_SELECTOR, "table > tbody.yui-dt-data")
         #this is finding all the cells in every row so you need to count cells to find the item you want
-        cells = data_table.find_elements_by_tag_name("td")
+        cells = data_table.find_elements(By.TAG_NAME, "td")
         searchTextItems = iterate.getTextAsList(cells)
         print(searchTextItems)
         #this is the 41st cell which corresponds to the Human Disease model result for the seventh allele 

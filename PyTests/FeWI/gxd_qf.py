@@ -89,8 +89,8 @@ class TestGxdQF(unittest.TestCase):
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")
         #find the Specimens mutated in gene option of the Mutant/ Wild type section and click it and enter your gene
-        driver.find_element_by_id('mutatedSpecimen').click()
-        driver.find_element_by_id('mutatedIn').send_keys('Dppa3')
+        driver.find_element(By.ID, 'mutatedSpecimen').click()
+        driver.find_element(By.ID, 'mutatedIn').send_keys('Dppa3')
         #find the InSitu assays and Blot assays check boxes and uncheck them
         driver.find_element(By.CLASS_NAME, 'allInSitu').click()
         driver.find_element(By.ID, 'blotAll').click()
@@ -119,9 +119,9 @@ class TestGxdQF(unittest.TestCase):
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")
         #find the Detected in option of the Anatomical structure or stage section and click it
-        driver.find_element_by_id('detected1').click()
+        driver.find_element(By.ID, 'detected1').click()
         #find the Wild type specimens only option in the Mutant/wild type section and click it
-        driver.find_element_by_id('isWildType').click()
+        driver.find_element(By.ID, 'isWildType').click()
         #find the InSitu assays and Blot assays check boxes and uncheck them
         driver.find_element(By.CLASS_NAME, 'allInSitu').click()
         driver.find_element(By.ID, 'blotAll').click()

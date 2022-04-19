@@ -158,7 +158,7 @@ class TestEiMpannotSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Term ID field and enters an MP ID then Tabs out of the field
-        driver.find_element_by_id("termID-0").send_keys('MP:0010768')
+        driver.find_element(By.ID, "termID-0").send_keys('MP:0010768')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -691,7 +691,7 @@ class TestEiMpannotSearch(unittest.TestCase):
         print(cell0.text)
         print(cell1.text)
         #Assert the correct genotypes have been returned in the results table
-        self.assertEqual(cell0.text, '129P2/OlaHsd-Prnp<tm1Edin>/Edin Prnp<tm1Edin>,Prnp<tm1Edin>')
+        self.assertEqual(cell0.text, '129P2/OlaHsd-Prnp<tm1Edin>/EdinH Prnp<tm1Edin>,Prnp<tm1Edin>')
         self.assertEqual(cell1.text, '129P2/OlaHsd-Prnp<tm1Rcm> Prnp<tm1Rcm>,Prnp<tm1Rcm>')
         #Assert the correct Creation Date is returned in the Creation Date field
         createdate = driver.find_element(By.ID, 'createdDate-0').get_attribute('value')

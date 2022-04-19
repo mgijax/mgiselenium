@@ -63,7 +63,6 @@ class TestPrivateData(unittest.TestCase):
         querytext.send_keys(Keys.RETURN)  # clicks the return/enter button
         wait.forAjax(driver)
         missng = driver.find_element(By.CLASS_NAME,'redText').is_displayed()
-        #missng = driver.find_element_by_class_name('redText').is_displayed()
         #verifies that the warning Could not find the independent term(s): is displaying
         self.assertTrue(missng, 'oops, is not displaying warning message!')
     

@@ -9,6 +9,7 @@ import time
 import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 import sys,os.path
 from util import wait, iterate
 # adjust the path to find config
@@ -32,19 +33,19 @@ class TestPwiGxdLitIndexByMrk(unittest.TestCase):
         #opens the PWI marker form
         driver.get(TEST_PWI_URL + '/#markerForm')
         
-        nomenbox = driver.find_element_by_id('nomen')
+        nomenbox = driver.find_element(By.ID, 'nomen')
         # put your marker symbol in the box
         nomenbox.send_keys("gata1")
         nomenbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the marker link and clicks it
-        driver.find_element_by_link_text("Gata1").click()
+        driver.find_element(By.LINK_TEXT, "Gata1").click()
         wait.forAjax(driver)
-        driver.find_element_by_link_text("Lit Index").click()
+        driver.find_element(By.LINK_TEXT, "Lit Index").click()
         wait.forAjax(driver)
         #Locates the summary table and finds the table headings
-        headerlist = driver.find_element_by_id('indexRefsTable')
-        items = headerlist.find_elements_by_tag_name("th")
+        headerlist = driver.find_element(By.ID, 'indexRefsTable')
+        items = headerlist.find_elements(By.TAG_NAME, "th")
         searchTextItems = iterate.getTextAsList(items)
         wait.forAjax(driver)
         #verifies all the table headings are correct and in order
@@ -59,19 +60,19 @@ class TestPwiGxdLitIndexByMrk(unittest.TestCase):
         #opens the PWI marker form
         driver.get(TEST_PWI_URL + '/#markerForm')
         
-        nomenbox = driver.find_element_by_id('nomen')
+        nomenbox = driver.find_element(By.ID, 'nomen')
         # put your marker symbol in the box
         nomenbox.send_keys("gata1")
         nomenbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the marker link and clicks it
-        driver.find_element_by_link_text("Gata1").click()
+        driver.find_element(By.LINK_TEXT, "Gata1").click()
         wait.forAjax(driver)
-        driver.find_element_by_link_text("Lit Index").click()
+        driver.find_element(By.LINK_TEXT, "Lit Index").click()
         wait.forAjax(driver)
         #finds the coded column and then the first 10 items
-        refindextable = driver.find_element_by_id("indexRefsTable")
-        coded = refindextable.find_elements_by_css_selector('td:nth-child(1)')
+        refindextable = driver.find_element(By.ID, "indexRefsTable")
+        coded = refindextable.find_elements(By.CSS_SELECTOR, 'td:nth-child(1)')
         code1 = coded[0]
         code2 = coded[1]
         code3 = coded[2]
@@ -94,8 +95,8 @@ class TestPwiGxdLitIndexByMrk(unittest.TestCase):
         self.assertEqual(code9.text, "")
         self.assertEqual(code10.text, "")
         #finds the priority column and then the first 10 items
-        refindextable = driver.find_element_by_id("indexRefsTable")
-        priority = refindextable.find_elements_by_css_selector('td:nth-child(3)')
+        refindextable = driver.find_element(By.ID, "indexRefsTable")
+        priority = refindextable.find_elements(By.CSS_SELECTOR, 'td:nth-child(3)')
         pri1 = priority[0]
         pri2 = priority[1]
         pri3 = priority[2]
@@ -119,8 +120,8 @@ class TestPwiGxdLitIndexByMrk(unittest.TestCase):
         self.assertEqual(pri10.text, "High")
         
         #finds the conditional column and then the first 10 items
-        refindextable = driver.find_element_by_id("indexRefsTable")
-        cond = refindextable.find_elements_by_css_selector('td:nth-child(4)')
+        refindextable = driver.find_element(By.ID, "indexRefsTable")
+        cond = refindextable.find_elements(By.CSS_SELECTOR, 'td:nth-child(4)')
         con1 = cond[0]
         con2 = cond[1]
         con3 = cond[2]

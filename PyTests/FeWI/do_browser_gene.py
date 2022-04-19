@@ -371,7 +371,7 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         row2 = cells[3]
         self.assertEqual(row1.text, '       dermatomyositis ANGPTL2 Angptl2* 1 model Alliance of Genome Resources')
         self.assertEqual(row2.text, 'myositis HLA-A, HLA-B, HLA-C, HLA-E, HLA-F, HLA-G, HLA-H H2-K1*, Gm7030, Gm8909, Gm11127, H2-D1, H2-M1, H2-M2, H2-M3, H2-M5, H2-M9, H2-M10.1, H2-M10.2, H2-M10.3, H2-M10.4, H2-M10.5, H2-M10.6, H2-Q1, H2-Q2, H2-Q4, H2-Q6, H2-Q7, H2-Q8, H2-Q10, H2-T3, H2-T22, H2-T23 1 model Alliance of Genome Resources')
-        transgene_table = self.driver.find_element_by_id("transgeneTable")
+        transgene_table = self.driver.find_element(By.ID, "transgeneTable")
         table = Table(transgene_table)
         cells = table.get_rows()
         print(iterate.getTextAsList(cells))
@@ -470,7 +470,7 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         self.assertEqual(row31.text, 'osteogenesis imperfecta type 21 KDELR2* Kdelr2   Alliance of Genome Resources')
         self.assertEqual(row32.text, 'osteogenesis imperfecta type 4 COL1A2* Col1a2   Alliance of Genome Resources')
         self.assertEqual(row33.text, 'osteogenesis imperfecta type 5 IFITM5* Ifitm5 1 "NOT" model Alliance of Genome Resources')
-        transgene_table = self.driver.find_element_by_id("transgeneTable")
+        transgene_table = self.driver.find_element(By.ID, "transgeneTable")
         table = Table(transgene_table)
         cells = table.get_rows()
         print(iterate.getTextAsList(cells))

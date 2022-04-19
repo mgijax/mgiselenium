@@ -282,7 +282,7 @@ class TestEiVariantCopy(unittest.TestCase):
             WebDriverWait(driver, 2)
             driver.find_element(By.ID, "srcRnaVarAllele").send_keys('T')#add sourced Transcript Variant Allele data
             WebDriverWait(driver, 2)
-            #driver.find_element_by_id('updateVariantButton').click()#find the Modify button and click it
+            #driver.find_element(By.ID, 'updateVariantButton').click()#find the Modify button and click it
             driver.find_element(By.ID, 'createVariantButton').click()#find the Modify button and click it
             WebDriverWait(driver, 2)
             

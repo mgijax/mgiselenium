@@ -10,6 +10,8 @@ import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 import HtmlTestRunner
 import json
@@ -46,7 +48,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
     def testJnumSearch(self):
         """
         @Status tests that a basic J number search works
-        @see MBIB-search-1 (1)
+        @see LitTri-search-1 (1)
         """
         driver = self.driver
         form = self.form
@@ -78,7 +80,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
     def testInvalidJnumSearch(self):
         """
         @Status tests that an invalid J number search gives no result back
-        @See MBIB-search-2 (2)
+        @See LitTri-search-2 (2)
         """
         form = self.form
         form.enter_value('accids', "99999999")
@@ -94,7 +96,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
     def testMultiJnumCommaSearch(self):
         """
         @Status Tests that a list of multiple comma separated J numbers returns the correct J number results
-        @See MBIB-search-3 (3)
+        @See LitTri-search-3 (3)
         """
         form = self.form
         form.enter_value('accids', 'J:173534, J:155845, J:151466, J:136110, J:75187, J:43743, J:23392, J:23389, J:109968, J:182573, J:134667')
@@ -106,12 +108,12 @@ class TestEiLitTriageSearch(unittest.TestCase):
         jnum_cells = table.get_column_cells(2)
         jnums = iterate.getTextAsList(jnum_cells)
         print(jnums)
-        self.assertEqual(jnums, ['','J:182573', 'J:173534', 'J:155845', 'J:151466', 'J:136110', 'J:134667', 'J:109968', 'J:75187', 'J:43743', 'J:23392', 'J:23389'])
+        self.assertEqual(jnums, ['', 'J:240232', 'J:182573', 'J:173534', 'J:155845', 'J:151466', 'J:136110', 'J:134667', 'J:109968', 'J:75187', 'J:43743', 'J:23392', 'J:23389'])
         
     def testMultiJnumSpaceSearch(self):
         """
         @Status Tests that a list of multiple space separated J numbers returns the correct J number results
-        @See MBIB-search-3 (5)
+        @See LitTri-search-3 (5)
         """
         form = self.form
         form.enter_value('accids', 'J:173534 J:155845 J:151466 J:136110 J:75187 J:43743 J:23392 J:23389 J:109968 J:182573 J:134667')
@@ -128,7 +130,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
     def testMultiAssortedSpaceSearch(self):
         """
         @Status Tests that a list of multiple space separated assorted IDs returns the correct results
-        @See MBIB-search-3
+        @See LitTri-search-3
         """
         form = self.form
         form.enter_value('accids', 'MGI:5812656 J:151466 10.1534/genetics.114.161455 GO_REF:0000033')
@@ -146,7 +148,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
     def testPubMedSearch(self):
         """
         @Status Tests that a search of a Pub Med ID returns the correct J number results
-        @See MBIB-search-4 (7)
+        @See LitTri-search-4 (7)
         """
         form = self.form
         form.enter_value('accids', '10321434')
@@ -162,7 +164,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
     def testMGIIDSearch(self):
         """
         @Status Tests that a search of an MGI ID returns the correct J number results
-        @See MBIB-search-5 (9)
+        @See LitTri-search-5 (9)
         """
         form = self.form
         form.enter_value('accids', 'MGI:62396')
@@ -178,7 +180,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
     def testDOIIDSearch(self):
         """
         @Status Tests that a search of a DOI ID returns the correct J number results
-        @See MBIB-search-6 (11)
+        @See LitTri-search-6 (11)
         """
         form = self.form
         form.enter_value('accids', '10.1534/genetics.114.161455')
@@ -194,7 +196,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
     def testGOIDSearch(self):
         """
         @Status Tests that a search of a GO ID returns the correct J number results
-        @See MBIB-search-7 (14)
+        @See LitTri-search-7 (14)
         """
         form = self.form
         form.enter_value('accids', 'GO_REF:0000033')
@@ -210,7 +212,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
     def testTitleExactSearch(self):
         """
         @Status Tests that a search of an exact match title returns the correct J number results.
-        @See MBIB-search-9 (17)
+        @See LitTri-search-9 (17)
         """
         form = self.form
         form.enter_value('title', 'Rescue of the albino phenotype by introduction of a functional tyrosinase gene into mice.')
@@ -226,7 +228,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
     def testTypeAbstractSearch(self):
         """
         @Status Tests that a search of Reference Type and a partial text abstract with wildcard returns the correct J number results
-        @See MBIB-search-22 (58)
+        @See LitTri-search-22 (58)
         """
         form = self.form
         form.enter_value('referenceType', 'book')
@@ -243,7 +245,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
     def testTitleAuthorNoteSearch(self):
         """
         @Status Tests that a search of an partial title, partial Author and a partial note with wildcard returns the correct J number results
-        @See MBIB-search-21 (59)
+        @See LitTri-search-21 (59)
         """
         form = self.form
         form.enter_value('authors', '%gal%')
@@ -261,7 +263,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
     def testJournalYearVolumeIssuePagesSearch(self):
         """
         @Status Tests that a search of Journal, Year, Volume, Issue, and Pages returns the correct J number results
-        @See MBIB-search-21 (60)
+        @See LitTri-search-21 (60)
         """
         form = self.form
         form.enter_value('journal', 'Nature')
@@ -281,7 +283,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
     def testAuthorJournalDateSearch(self):
         """
         @Status Tests that a search of Author, Journal, and Date returns the correct J number results
-        @See MBIB-search-21 (61)
+        @See LitTri-search-21 (61)
         """
         form = self.form
         form.enter_value('authors', '%hall%')
@@ -299,12 +301,12 @@ class TestEiLitTriageSearch(unittest.TestCase):
     def testYearAuthorReviewTitleSearch(self):
         """
         @Status Tests that a search of Year, Author, is Reviewed, and Title returns the correct J number results
-        @See MBIB-search-21 (62)
+        @See LitTri-search-21 (62)
         """
         form = self.form
         form.enter_value('year', '2000')
-        form.enter_value('authors', '%Junker%')
-        form.enter_value('is_review', 'Y')
+        form.enter_value('authors', '%Cohen%')
+        form.enter_value('is_review', 'yes')
         form.enter_value('title', '%cancer%')
         form.click_search()
         #finds the results table and iterates through the table
@@ -312,12 +314,12 @@ class TestEiLitTriageSearch(unittest.TestCase):
         table = Table(table_element)
         #finds the J number column and returns all of this columns results
         jnum_cell = table.get_cell(1,2)
-        self.assertEqual(jnum_cell.text, 'J:63615')
+        self.assertEqual(jnum_cell.text, 'J:67520')
      
     def testAPStatusSearch(self):
         """
         @Status Tests that a search for a single AP status returns the correct results
-        @See MBIB-search-23,25 (63)
+        @See LitTri-search-23,25 (63)
         """
         self.driver.find_element(By.ID, 'status_AP_Rejected').click()
         form = self.form
@@ -334,13 +336,12 @@ class TestEiLitTriageSearch(unittest.TestCase):
         JnumbersReturned = iterate.getTextAsList(jnum_cells)
         #asserts that the following J numbers are returned
         self.assertIn('J:120220', JnumbersReturned)
-        self.assertIn('J:107890', JnumbersReturned)
         self.assertIn('J:45421', JnumbersReturned)
         
     def testMultiTumorStatusSearch(self):
         """
         @Status Tests that a search for multple Tumor statuses returns the correct results
-        @See MBIB-search-24,25 (70)
+        @See LitTri-search-24,25 (70)
         """
         self.driver.find_element(By.ID, 'status_Tumor_Indexed').click()
         self.driver.find_element(By.ID, 'status_Tumor_Full_coded').click()
@@ -363,7 +364,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
     def testStatusAllareasSearch(self):
         """
         @Status Tests that a search for results with a status in each group returns the correct results
-        @See MBIB-search-24,25 (73)
+        @See LitTri-search-24,25 (73)
         """
         self.driver.find_element(By.ID, 'status_AP_Rejected').click()
         self.driver.find_element(By.ID, 'status_GO_Rejected').click()
@@ -388,7 +389,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
     def testStatusComboSearch(self):
         """
         @Status Tests that a search for results with multiple status with other fields combined returns the correct results
-        @See MBIB-search-24,25 (76)
+        @See LitTri-search-24,25 (76)
         """
         self.driver.find_element(By.ID, 'status_AP_Chosen').click()
         self.driver.find_element(By.ID, 'status_GO_Chosen').click()
@@ -422,25 +423,28 @@ class TestEiLitTriageSearch(unittest.TestCase):
     def testDiscardSearch(self):
         """
         @Status Tests that a search for results with Only Discard returns the correct results
-        @See MBIB-search-26 (78)
+        @See LitTri-search-26 (78)
         """
         #This finds the pull down menu for Discard? and then selects the second option
-        dl = self.driver.find_element(By.ID, 'isDiscard')
+        dl = self.driver.find_element(By.ID, 'currentRelevance')
         for option in dl.find_elements(By.TAG_NAME, "option"):
-            if option.text == 'Only Discard':
+            if option.text == 'Discard':
                 option.click()
                 break
         form = self.form
-        form.enter_value('journal', 'Eur J Oral Sci')
-        form.enter_value('year', '2019')
+        form.enter_value('date', '2020 Sep 3')
+        form.enter_value('journal', 'Blood')
+        form.enter_value('year', '2020')
         form.click_search() 
+        WebDriverWait(self.driver, 30).until(EC.presence_of_element_located((By.ID, "resultsTable")))
         #Confirms that the MGI Discard box is checked(selected)
-        self.driver.find_element(By.ID, "editTabIsDiscard").is_selected()
+        radio_button = self.driver.find_element(By.CSS_SELECTOR, "input.ng-pristine:nth-child(4)")
+        self.assertTrue(radio_button.is_selected(), 'discard is not selected')
 
     def testSingleTagSearch(self):
         """
         @Status Tests that a search of a single workflow tag returns the correct results
-        @See MBIB-search-27 (81)
+        @See LitTri-search-27 (81)
         """
         form = self.form
         form.enter_value('year', '2003')
@@ -460,7 +464,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
     def testMultiStatusORSearch(self):
         """
         @Status tests that searching for multiple statuses on multiple workflows(OR) returns correct results
-        @see MBIB-search-28 (87)
+        @see LitTri-search-28 (87)
         """
         form = self.form
         time.sleep(5)
@@ -471,7 +475,8 @@ class TestEiLitTriageSearch(unittest.TestCase):
         self.driver.find_element(By.ID, "status_GO_Indexed").click()
         self.driver.find_element(By.ID, "status_GO_Full_coded").click()
         #Do not need to click the OR option because that is the default selection.
-        form.click_search()
+        self.driver.find_element(By.ID, 'searchButton').click()
+        wait.forAngular(self.driver)
         #finds the results table and iterates through the table
         table_element = self.driver.find_element(By.ID, "editTabWorkFlowStatus")
         table = Table(table_element)
@@ -490,10 +495,10 @@ class TestEiLitTriageSearch(unittest.TestCase):
         #finds the 1st and 6th fields of the summary table for AP and GO indexed and Full-coded columns and returns text value
         table_element = self.driver.find_element(By.ID, "resultsTable")
         table = Table(table_element)
-        ap_cell1 = table.get_cell(4,7)
-        ap_cell2 = table.get_cell(5,7)
-        go_cell1 = table.get_cell(3,8)
-        go_cell2 = table.get_cell(2,8)
+        ap_cell1 = table.get_cell(5,7)
+        ap_cell2 = table.get_cell(6,7)
+        go_cell1 = table.get_cell(2,8)
+        go_cell2 = table.get_cell(3,8)
         time.sleep(1)
         self.assertEqual(ap_cell1.text, "Indexed", 'AP is not routed')
         self.assertEqual(ap_cell2.text, "Full-coded", 'AP is not full-coded')
@@ -507,7 +512,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
     def testMultiStatusANDSearch(self):
         """
         @Status tests that searching for multiple statuses on multiple workflows(OR) returns correct results
-        @see MBIB-search-28 (88) 
+        @see LitTri-search-28 (88) 
         """
         form = self.form
         time.sleep(5)
@@ -545,7 +550,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
     def testEditorsWildSearch(self):
         """
         @Status Tests that a search of Editors field using a wildcard returns the correct results
-        @See MBIB-search-60 
+        @See LitTri-search-60 
         """
         self.driver.find_element(By.ID, 'book_author').send_keys('Macholan%')
         form = self.form
@@ -562,7 +567,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
     def testBookTitleWildSearch(self):
         """
         @Status Tests that a search of Book Title field using a wildcard returns the correct results
-        @See MBIB-search-61 
+        @See LitTri-search-61 
         """
         self.driver.find_element(By.ID, 'book_title').send_keys('Evoultion%')
         form = self.form
@@ -579,7 +584,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
     def testPlaceWildSearch(self):
         """
         @Status Tests that a search of Place field using a wildcard returns the correct results
-        @See MBIB-search-62 
+        @See LitTri-search-62 
         """
         self.driver.find_element(By.ID, 'place').send_keys('Cambridge%')
         form = self.form
@@ -596,7 +601,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
     def testPublisherWildSearch(self):
         """
         @Status Tests that a search of Publisher field using a wildcard returns the correct results
-        @See MBIB-search-63 
+        @See LitTri-search-63 
         """
         self.driver.find_element(By.ID, 'publisher').send_keys('Cambridge%')
         form = self.form
@@ -613,7 +618,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
     def testEditionWildSearch(self):
         """
         @Status Tests that a search of Edition field using a wildcard returns the correct results
-        @See MBIB-search-64 
+        @See LitTri-search-64 
         """
         self.driver.find_element(By.ID, 'series_ed').send_keys('Memoirs%')
         form = self.form

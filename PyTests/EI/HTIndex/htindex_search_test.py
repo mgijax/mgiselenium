@@ -167,7 +167,7 @@ class TestEiHTindexSearch(unittest.TestCase):
     def testGeowildSearch(self):
         """
         @Status tests that a GEO ID wildcard search works
-        @see pwi-htindex-search-2 *NOTE: currently broken
+        @see pwi-htindex-search-2 *NOTE: currently broken need to figure out how to capture/assert multiple results.
         """
         driver = self.driver
         #finds the ArrayExp field and enter the ID
@@ -181,7 +181,7 @@ class TestEiHTindexSearch(unittest.TestCase):
             text = item.text
             print(text)
         #Assert the correct ID  is returned
-        self.assertEqual(text, [''])
+        self.assertEqual(item(1).text, ['GSE10005'])
 
     def testHTindexTitleSearch(self):
         """

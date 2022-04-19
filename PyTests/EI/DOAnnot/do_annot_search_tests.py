@@ -296,7 +296,7 @@ class TestEIDoannotSearch(unittest.TestCase):
         self.assertEqual(voc_term.text, 'autism spectrum disorder')
         self.assertEqual(qualfy, 'string:1614158')
         self.assertEqual(j_num, 'J:271850')
-        self.assertEqual(cite.text, 'Shibutani M, Int J Mol Sci 2017 Aug 30;18(9):')
+        self.assertEqual(cite.text, 'Shibutani M, Int J Mol Sci 2017 Aug 30;18(9):1872')
         self.assertEqual(evid, 'string:847168')
         self.assertEqual(mod_by, 'monikat')
         self.assertEqual(mod_date, '2019-04-04')

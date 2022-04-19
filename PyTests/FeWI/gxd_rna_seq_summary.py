@@ -40,16 +40,16 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         #finds the strain field and enters text
         self.driver.find_element(By.ID, 'strainNameAC').send_keys('C57BL/6J')
         #find the Search button and click it
-        self.driver.find_element_by_id('submit1').click()
+        self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
         #identify the View experiment at cell of the first row of results returned
-        result_set = self.driver.find_element_by_id("injectedResults").find_elements_by_class_name('extUrl')
+        result_set = self.driver.find_element(By.ID, "injectedResults").find_elements_by_class_name('extUrl')
         print(result_set[2].text)
         time.sleep(2)
         result_set[2].click()
         time.sleep(2)
         #switch focus to the next tab
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         #get the URL of the page
         page_url = self.driver.current_url
         print(page_url)
@@ -65,16 +65,16 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         #finds the strain field and enters text
         self.driver.find_element(By.ID, 'strainNameAC').send_keys('C57BL/6J')
         #find the Search button and click it
-        self.driver.find_element_by_id('submit1').click()
+        self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
         #identify the View experiment at cell of the first row of results returned
-        result_set = self.driver.find_element_by_id("injectedResults").find_elements_by_class_name('extUrl')
+        result_set = self.driver.find_element(By.ID, "injectedResults").find_elements_by_class_name('extUrl')
         print(result_set[0].text)
         time.sleep(2)
         result_set[0].click()
         time.sleep(2)
         #switch focus to the next tab
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         #get the URL of the page
         page_url = self.driver.current_url
         print(page_url)
@@ -90,16 +90,16 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         #finds the strain field and enters text
         self.driver.find_element(By.ID, 'strainNameAC').send_keys('C57BL/6J')
         #find the Search button and click it
-        self.driver.find_element_by_id('submit1').click()
+        self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
         #identify the View experiment at cell of the third row of results returned
-        result_set = self.driver.find_element_by_id("injectedResults").find_elements_by_class_name('extUrl')
+        result_set = self.driver.find_element(By.ID, "injectedResults").find_elements_by_class_name('extUrl')
         print(result_set[4].text)
         time.sleep(2)
         result_set[4].click()
         time.sleep(2)
         #switch focus to the next tab
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         #get the URL of the page
         page_url = self.driver.current_url
         print(page_url)
@@ -115,19 +115,19 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         Select(self.driver.find_element(By.ID, 'age')).deselect_by_value('ANY')#deselect the default option
         Select(self.driver.find_element(By.ID, 'age')).select_by_value('4')#finds the age list and select the E4.0 option
         #find the Search button and click it
-        self.driver.find_element_by_id('submit1').click()
+        self.driver.find_element(By.ID, 'submit1').click()
         #time.sleep(2)
         #Find the Variable filter button and click it
-        self.driver.find_element_by_id("variableFilter").click()
+        self.driver.find_element(By.ID, "variableFilter").click()
         time.sleep(2)
         #Find the Variable filter list of options. then select the option "genotype"
-        self.driver.find_elements_by_name('variableFilter')[2].click()
+        self.driver.find_elements(By.NAME, 'variableFilter')[2].click()
         time.sleep(2)
         #find the Filter button and click it
-        self.driver.find_element_by_id('yui-gen0-button').click()
+        self.driver.find_element(By.ID, 'yui-gen0-button').click()
         time.sleep(2)
         #identify the Experimental variable row of the results returned
-        result_set = self.driver.find_element_by_id("injectedResults").find_elements_by_class_name('variables')
+        result_set = self.driver.find_element(By.ID, "injectedResults").find_elements_by_class_name('variables')
         print(result_set[0].text)
         time.sleep(2)
         #Assert the lone result has an Experimental variable of 'genotype'
@@ -142,27 +142,27 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         Select(self.driver.find_element(By.ID, 'age')).deselect_by_value('ANY')#deselect the default option
         Select(self.driver.find_element(By.ID, 'age')).select_by_value('4.5')#finds the age list and select the E4.5 option
         #find the Search button and click it
-        self.driver.find_element_by_id('submit1').click()
+        self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
         #Find the Variable filer button and click it
-        self.driver.find_element_by_id("variableFilter").click()
+        self.driver.find_element(By.ID, "variableFilter").click()
         time.sleep(2)
         #Find the Variable filter list of options. then select the options "genotype and single cell variation"
-        self.driver.find_elements_by_name('variableFilter')[2].click()
-        self.driver.find_elements_by_name('variableFilter')[3].click()
+        self.driver.find_elements(By.NAME, 'variableFilter')[2].click()
+        self.driver.find_elements(By.NAME, 'variableFilter')[3].click()
         time.sleep(2)
         #find the Filter button and click it
-        self.driver.find_element_by_id('yui-gen0-button').click()
+        self.driver.find_element(By.ID, 'yui-gen0-button').click()
         time.sleep(2)
         #identify the Experimental variable cell of row1 of the results returned
-        result_set0 = self.driver.find_element_by_id("variableData0").find_element_by_class_name('variables')
+        result_set0 = self.driver.find_element(By.ID, "variableData0").find_element_by_class_name('variables')
         print(result_set0.text)
         #print result_set[1].text
         time.sleep(2)
         #Assert the lone result has an Experimental variable of 'genotype'
         self.assertEqual(result_set0.text, "developmental stage\ngenotype")        
         #identify the Experimental variable cell of row2 of the results returned
-        result_set1 = self.driver.find_element_by_id("variableData2").find_element_by_class_name('variables')
+        result_set1 = self.driver.find_element(By.ID, "variableData2").find_element_by_class_name('variables')
         print(result_set1.text)
         #print result_set[1].text
         time.sleep(2)
@@ -178,19 +178,19 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         Select(self.driver.find_element(By.ID, 'age')).deselect_by_value('ANY')#deselect the default option
         Select(self.driver.find_element(By.ID, 'age')).select_by_value('4')#finds the age list and select the E4.0 option
         #find the Search button and click it
-        self.driver.find_element_by_id('submit1').click()
+        self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
         #Find the Variable filter button and click it
-        self.driver.find_element_by_id("studyTypeFilter").click()
+        self.driver.find_element(By.ID, "studyTypeFilter").click()
         time.sleep(2)
         #Find the Study type filter list of options. then select the option "WT vs. Mutant"
-        self.driver.find_elements_by_name('studyTypeFilter')[1].click()
+        self.driver.find_elements(By.NAME, 'studyTypeFilter')[1].click()
         time.sleep(2)
         #find the Filter button and click it
-        self.driver.find_element_by_id('yui-gen0-button').click()
+        self.driver.find_element(By.ID, 'yui-gen0-button').click()
         time.sleep(2)
         #identify the Experimental variable column of the results returned
-        result_set = self.driver.find_element_by_id("studyTypeData0")
+        result_set = self.driver.find_element(By.ID, "studyTypeData0")
         print(result_set.text)
         time.sleep(2)
         #Assert the lone result has a study type of 'WT vs. Mutant'
@@ -205,10 +205,10 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         #finds the strain field and enters text
         self.driver.find_element(By.ID, 'strainNameAC').send_keys('C57BL/6J')
         #find the Search button and click it
-        self.driver.find_element_by_id('submit1').click()
+        self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
         #identify the View experiment at cell of the third row of results returned
-        result_set = self.driver.find_element_by_id("injectedResults").find_element_by_id('viewData0')
+        result_set = self.driver.find_element(By.ID, "injectedResults").find_element_by_id('viewData0')
         print(result_set.text)
         time.sleep(2)
         #Assert the sort order is correct
@@ -224,15 +224,15 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         #finds the strain field and enters text
         self.driver.find_element(By.ID, 'strainNameAC').send_keys('C57BL/6J')
         #find the Search button and click it
-        self.driver.find_element_by_id('submit1').click()
+        self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
         #Find the first E-ERAD--169 found in the first row of the View Experiment at column and click it.
-        vea_links = self.driver.find_elements_by_link_text('E-ERAD-169')
+        vea_links = self.driver.find_elements(By.LINK_TEXT, 'E-ERAD-169')
         print(vea_links[0])
         vea_links[0].click()
         time.sleep(2)
         #switch focus to the next tab
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         #get the URL of the page
         page_url = self.driver.current_url
         print(page_url)

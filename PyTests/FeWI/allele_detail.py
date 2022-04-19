@@ -112,6 +112,7 @@ class TestAlleleDetail(unittest.TestCase):
         mutationRightArrow = self.driver.find_element(By.ID, 'rightArrowMutationDescription')
         self.assertTrue(mutationDownArrow.is_displayed())
         self.assertFalse( mutationRightArrow.is_displayed())
+        time.sleep(2)
         mutationDownArrow.click()
         mutationDownArrow = self.driver.find_element(By.ID, 'downArrowMutationDescription')
         mutationRightArrow = self.driver.find_element(By.ID, 'rightArrowMutationDescription')
@@ -164,9 +165,8 @@ class TestAlleleDetail(unittest.TestCase):
         
         self.assertTrue(mutationDownArrow.is_displayed())
         self.assertFalse( mutationRightArrow.is_displayed())
-        
+        time.sleep(2)
         mutationDownArrow.click()
-        
         mutationDownArrow = self.driver.find_element(By.ID, 'downArrowMutationDescription')
         mutationRightArrow = self.driver.find_element(By.ID, 'rightArrowMutationDescription')
         
@@ -438,7 +438,7 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Dsh').click()
         self.driver.find_element(By.LINK_TEXT, '(101 x C3H)F1').click()
         #switch focus to the new tab for strain detail page
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         time.sleep(2)
         ptitle = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
         #Assert the page title is for the correct strain name
@@ -457,15 +457,15 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.XPATH, '/html/body/div[2]/table/tbody/tr[5]/td[2]/div[1]/table/tbody/tr[2]/td[2]/div/div/table/tbody[2]/tr[1]/td[3]/div/span/a').click()
         time.sleep(2)
         #switch focus to the new tab for Strain detail page
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         time.sleep(2)
         page_title = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
         print(page_title.text)
         #Asserts that the strain page is for the correct strain
-        self.assertEqual(page_title.text, 'C57BL/6J-ShhDz', 'Page title is not correct!')
+        self.assertEqual(page_title.text, 'C57BL/6J-Rr29Dz', 'Page title is not correct!')
         ptitle = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
         #Assert the page title is for the correct strain name
-        self.assertEqual(ptitle.text, "C57BL/6J-ShhDz")
+        self.assertEqual(ptitle.text, "C57BL/6J-Rr29Dz")
 
     def test_view_table_strain_link(self):
         '''
@@ -475,35 +475,35 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('Shh')
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Dz').click()
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Dz').click()        
         #locate the View link found at the bottom of the Phenotypes ribbon and click it
         self.driver.find_element(By.LINK_TEXT, 'View').click()
         #time.sleep(2)
-        #switch focus to the new tab for Phenotypes associated with this allele page
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        #switch focus to the new tab for Phenotypes associated with this allele page        
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         time.sleep(2)
         #find the first link for C57BL/6J-Shh<Dz> in the Genetic Background column of the Summary ribbon and click it.
         self.driver.find_element(By.XPATH, '/html/body/div[2]/table/tbody/tr[2]/td[2]/div/table/tbody/tr[2]/td[3]/a').click()
         time.sleep(2)
         #switch focus to the new tab for Strain detail page
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         time.sleep(2)
         ptitle = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
         #Assert the page title is for the correct strain name
-        self.assertEqual(ptitle.text, "C57BL/6J-ShhDz", 'Page title is not correct!')
+        self.assertEqual(ptitle.text, "C57BL/6J-Rr29Dz", 'Page title is not correct!')
         time.sleep(2)
         #switch focus back to the tab for Phenotypes associated with this allele page
-        self.driver.switch_to_window(self.driver.window_handles[+1])
+        self.driver.switch_to.window(self.driver.window_handles[+1])
         time.sleep(2)
         #find the first link for C57BL/6J-Shh<Dz> in the Genetic Background section of the Genotype ribbon and click it.
         self.driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div[1]/div/div[2]/table/tbody/tr/td[1]/table/tbody/tr[2]/td[2]/a').click()
         time.sleep(2)
         #switch focus to the new tab for Strain detail page
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         time.sleep(2)
         ptitle = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
         #Assert the page title is for the correct strain name
-        self.assertEqual(ptitle.text, "C57BL/6J-ShhDz", 'Page title is not correct!')   
+        self.assertEqual(ptitle.text, "C57BL/6J-Rr29Dz", 'Page title is not correct!')   
                
     def test_pheno_disease_table(self):
         '''
@@ -556,8 +556,8 @@ class TestAlleleDetail(unittest.TestCase):
         
         # add all li text to a list for "assertIn" test
         searchTreeItems = iterate.getTextAsList(items)
-        
-        self.assertEqual(["behavior/neurological", "tremors", "impaired balance", "impaired coordination", "abnormal gait", "short stride length", "cardiovascular system", "cardiovascular system phenotype", "hearing/vestibular/ear", "abnormal ear physiology", "mortality/aging", "perinatal lethality", "nervous system", "abnormal synaptic vesicle recycling", "abnormal excitatory postsynaptic currents"], searchTreeItems)
+        print(searchTreeItems)
+        self.assertEqual(['behavior/neurological', '', '', '', '', '', 'cardiovascular system',  '', 'hearing/vestibular/ear', '', 'mortality/aging', '', 'nervous system', '', ''], searchTreeItems)
         self.driver.get(config.TEST_URL + "/allele/")    
         
         self.driver.find_element(By.NAME, 'nomen').clear()
@@ -752,6 +752,125 @@ class TestAlleleDetail(unittest.TestCase):
         #verifies that the anatomical structures link does not exist
         bodyText = self.driver.find_element(By.TAG_NAME, 'body').text
         self.assertFalse('anatomical structures' in bodyText)  
+
+    def test_allele_detail_Relates_to_human(self):
+        '''
+        @status this test verifies in the mutation section that now if expressed in a Human gene, it is represented.
+        @note: CRM-58
+        '''
+        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.find_element(By.NAME, 'nomen').send_keys("Apoe<tm2.1(APOE_i3)Hol>")
+        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Hol').click()
+        #find the first right arrow in the Mutation Description section and click it
+        expressesRightArrow = self.driver.find_element(By.ID, 'rightArrowExpressesComponent')
+        expressesRightArrow.click()
+        expresses_table = self.driver.find_element(By.CLASS_NAME, 'detail')
+        table = Table(expresses_table)
+        #iterate and print the table headers
+        header_cells = table.get_header_cells()
+        print (iterate.getTextAsList(header_cells))
+        # find the text in the Organism column and print it
+        org_cell = table.get_cell(1, 0)
+        print (org_cell.text)
+        #verify the organism is Human
+        self.assertEquals(org_cell.text, 'human')
+
+    def test_allele_detail_Relates_to_Rat(self):
+        '''
+        @status this test verifies in the mutation section that now if expressed in a Rat gene, it is represented.
+        @note: CRM-58
+        '''
+        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.find_element(By.NAME, 'nomen').send_keys("Gt(ROSA)26Sor<tm1(Wnk1)Clhu>")
+        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Clhu').click()
+        time.sleep(2)
+        #find the first right arrow in the Mutation Description section and click it
+        expressesRightArrow = self.driver.find_element(By.ID, 'rightArrowExpressesComponent')
+        expressesRightArrow.click()
+        expresses_table = self.driver.find_element(By.CLASS_NAME, 'detail')
+        table = Table(expresses_table)
+        #iterate and print the table headers
+        header_cells = table.get_header_cells()
+        print (iterate.getTextAsList(header_cells))
+        # find the text in the Organism column and print it
+        org_cell = table.get_cell(1, 0)
+        print (org_cell.text)
+        #verify the organism is Human
+        self.assertEquals(org_cell.text, 'rat')        
+
+    def test_allele_detail_Relates_to_Zebrafish(self):
+        '''
+        @status this test verifies in the mutation section that now if expressed in a Zebrafish gene, it is represented.
+        @note: CRM-58
+        '''
+        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.find_element(By.NAME, 'nomen').send_keys("Tg(MMTV-Catnb)3Pac")
+        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, '3Pac').click()
+        time.sleep(2)
+        #find the first right arrow in the Mutation Description section and click it
+        expressesRightArrow = self.driver.find_element(By.ID, 'rightArrowExpressesComponent')
+        expressesRightArrow.click()
+        expresses_table = self.driver.find_element(By.CLASS_NAME, 'detail')
+        table = Table(expresses_table)
+        #iterate and print the table headers
+        header_cells = table.get_header_cells()
+        print (iterate.getTextAsList(header_cells))
+        # find the text in the Organism column and print it
+        org_cell = table.get_cell(1, 0)
+        print (org_cell.text)
+        #verify the organism is Human
+        self.assertEquals(org_cell.text, 'zebrafish')
+
+    def test_allele_detail_Relates_to_Fruitfly(self):
+        '''
+        @status this test verifies in the mutation section that now if expressed in a Fruitfly gene, it is represented.
+        @note: CRM-58
+        '''
+        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.find_element(By.NAME, 'nomen').send_keys("Tg(CAG-H3.3A/EGFP)1Dean")
+        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, '1Dean').click()
+        time.sleep(2)
+        #find the first right arrow in the Mutation Description section and click it
+        expressesRightArrow = self.driver.find_element(By.ID, 'rightArrowExpressesComponent')
+        expressesRightArrow.click()
+        expresses_table = self.driver.find_element(By.CLASS_NAME, 'detail')
+        table = Table(expresses_table)
+        #iterate and print the table headers
+        header_cells = table.get_header_cells()
+        print (iterate.getTextAsList(header_cells))
+        # find the text in the Organism column and print it
+        org_cell = table.get_cell(1, 0)
+        print (org_cell.text)
+        #verify the organism is Human
+        self.assertEquals(org_cell.text, 'Fruit Fly')
+
+    def test_allele_detail_Relates_to_Yeast(self):
+        '''
+        @status this test verifies in the mutation section that now if expressed in a Yeast gene, it is represented.
+        @note: CRM-58
+        '''
+        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.find_element(By.NAME, 'nomen').send_keys("Tg(CMV-GAL4)1Wrk")
+        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, '1Wrk').click()
+        time.sleep(2)
+        #find the first right arrow in the Mutation Description section and click it
+        expressesRightArrow = self.driver.find_element(By.ID, 'rightArrowExpressesComponent')
+        expressesRightArrow.click()
+        expresses_table = self.driver.find_element(By.CLASS_NAME, 'detail')
+        table = Table(expresses_table)
+        #iterate and print the table headers
+        header_cells = table.get_header_cells()
+        print (iterate.getTextAsList(header_cells))
+        # find the text in the Organism column and print it
+        org_cell = table.get_cell(1, 0)
+        print (org_cell.text)
+        #verify the organism is Human
+        self.assertEquals(org_cell.text, 'Yeast')
         
     def tearDown(self):
         self.driver.quit()

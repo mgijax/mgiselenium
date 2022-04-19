@@ -251,7 +251,7 @@ class TestSequenceDetail(unittest.TestCase):
         time.sleep(2)
         #asserts that the correct blast page is returned by NCBI
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         time.sleep(2)
         #Identify the page title
         #page_header = self.driver.find_element(By.CLASS_NAME, 'pageTitle')      
@@ -302,7 +302,7 @@ class TestSequenceDetail(unittest.TestCase):
         driver.find_element(By.XPATH, "//input[@value='Go']").click()
         #asserts that the correct blast page is returned by NCBI
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         time.sleep(2)
         #Identify the page title
         #page_header = self.driver.find_element(By.CLASS_NAME, 'pageTitle')      

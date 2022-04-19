@@ -214,8 +214,8 @@ class TestEiVariantSearch(unittest.TestCase):
         print (row3.text)
         #assert that the first 3 search results are correct
         self.assertEqual(row1.text, '1700013F07Rik<em1Fuxi>' )
-        self.assertEqual(row2.text, '2610301B20Rik<em1Jyang>')
-        self.assertEqual(row3.text, '2610301B20Rik<em2Jyang>')
+        self.assertEqual(row2.text, '4930524B15Rik<em1Qsh>')
+        self.assertEqual(row3.text, '4930579G24Rik<em1Qsh>')
         self.assertEqual(row4.text, 'a<22R>')
 
     def testVarWithHGVSSearch(self):
@@ -331,9 +331,9 @@ class TestEiVariantSearch(unittest.TestCase):
         print (row4.text)
         print (row5.text)
         #assert that the first 3 search results are correct
-        self.assertEqual(row3.text, 'GRCm39 24901452 24901452 T G - -')
-        self.assertEqual(row4.text, 'GRCm39 24901470 24901470 T G - -')
-        self.assertEqual(row5.text, 'GRCm39 24901488 24901489 AC GT - -')
+        self.assertEqual(row3.text, 'GRCm39 24600877 24600877 T G - -')
+        self.assertEqual(row4.text, 'GRCm39 24600895 24600895 T G - -')
+        self.assertEqual(row5.text, 'GRCm39 24600913 24600914 AC GT - -')
 
     def testAlleleWithSingleVarSearch(self):
         """
@@ -361,7 +361,7 @@ class TestEiVariantSearch(unittest.TestCase):
         #assert that the search results are correct, this includes the table headings are correct as well
         self.assertEqual(row1.text, 'Genomic Transcript Polypeptide')
         self.assertEqual(row2.text, 'build start end ref var ID start end ref var ID start end ref var')
-        self.assertEqual(row3.text, 'GRCm39 141218575 141218575 T C - -')
+        self.assertEqual(row3.text, 'GRCm39 140945886 140945886 T C - -')
 
     def testVarGenomicRefSearch(self):
         """
@@ -383,11 +383,13 @@ class TestEiVariantSearch(unittest.TestCase):
         row1 = table.get_row(0)
         row2 = table.get_row(1)
         row3 = table.get_row(2)
+        row4 = table.get_row(3)
         print (row1.text)
         print (row2.text)
         print (row3.text)
         #assert that the search results are correct, this variant has a rather long Genomic ref
-        self.assertEqual(row3.text, 'GRCm39 122478667 122478680 CTACACGCATCCCA C - -')
+        self.assertEqual(row3.text, 'GRCm39 122716079 122716092 CTACACGCATCCCA C - -')
+        self.assertEqual(row4.text, 'GRCm39 122716079 122716079 C CC - -')
 
     def testVarGenomicVarSearch(self):
         """
@@ -413,7 +415,7 @@ class TestEiVariantSearch(unittest.TestCase):
         print (row2.text)
         print (row3.text)
         #assert that the search results are correct, this variant has a rather long Genomic ref
-        self.assertEqual(row3.text, 'GRCm39 57322231 57322238 CGGCGCAG GAGGACGA - -')
+        self.assertEqual(row3.text, 'GRCm39 57775266 57775273 CGGCGCAG GAGGACGA - -')
 
     def testVarGenomeList(self):
         """
@@ -428,7 +430,7 @@ class TestEiVariantSearch(unittest.TestCase):
         dropdown = Select(driver.find_element(By.ID, "srcDnaVersion"))
         print ([o.text for o in dropdown.options])
         #assert that the search results are correct, this includes the table headings are correct as well
-        self.assertEqual([o.text for o in dropdown.options], [u'', u'GRCm39 (mm10)\n       ', u'GRCm38.p12 \n       ', u'GRCm38.p11 \n       ', u'GRCm38.p10 \n       ', u'GRCm38.p9 \n       ', u'GRCm38.p8 \n       ', u'GRCm38.p7 \n       ', u'GRCm38.p6 \n       ', u'GRCm38.p5 \n       ', u'GRCm38.p4 \n       ', u'GRCm38.p3 \n       ', u'GRCm38.p2 \n       ', u'NCBI m37 (mm9)\n       ', u'NCBI m36 (mm8)\n       ', u'NCBI m35 (mm7)\n       ', u'NCBI m34 (mm6)\n       ', u'NCBI m33 (mm5)\n       ', u'NCBI m32 (mm4)\n       ', u'NCBI m30 (mm3)\n       ', u'MGSCv3 (mm2)\n       ', u'MGSCv2 (mm1)\n       ', u'Not Specified \n       '])
+        self.assertEqual([o.text for o in dropdown.options], [u'', u'GRCm39', u'GRCm38 (mm10)', u'GRCm38.p12', u'GRCm38.p11', u'GRCm38.p10', u'GRCm38.p9', u'GRCm38.p8', u'GRCm38.p7', u'GRCm38.p6', u'GRCm38.p5', u'GRCm38.p4', u'GRCm38.p3', u'GRCm38.p2', u'NCBI m36 (mm8)', u'NCBI m37 (mm9)', u'NCBI m35 (mm7)', u'NCBI m34 (mm6)', u'NCBI m33 (mm5)', u'NCBI m32 (mm4)', u'NCBI m30 (mm3)', u'MGSCv3 (mm2)', u'MGSCv2 (mm1)', u'Not Specified'])
         
     def testAllelelinkVarSearch(self):
         """

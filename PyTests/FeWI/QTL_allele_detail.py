@@ -8,7 +8,7 @@ import unittest
 import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-
+from selenium.webdriver.common.by import By
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -28,21 +28,21 @@ class TestAlleleDetailQTL(unittest.TestCase):
         self.driver.implicitly_wait(10)
 
     def test_variant_note(self):
-        self.driver.find_element_by_id("phenotype").clear()
-        self.driver.find_element_by_id("phenotype").send_keys("Adre")
-        self.driver.find_element_by_class_name("buttonLabel").click()
-        self.driver.find_element_by_css_selector("#yui-rec0 > td.yui-dt0-col-nomen.yui-dt-col-nomen.yui-dt-sortable.yui-dt-first > div > a > sup").click()
+        self.driver.find_element(By.ID, "phenotype").clear()
+        self.driver.find_element(By.ID, "phenotype").send_keys("Adre")
+        self.driver.find_element(By.CLASS_NAME, "buttonLabel").click()
+        self.driver.find_element(By.CSS_SELECTOR, "#yui-rec0 > td.yui-dt0-col-nomen.yui-dt-col-nomen.yui-dt-sortable.yui-dt-first > div > a > sup").click()
         assert "B6.C-H21<sup>c</sup>/ByJ" in self.driver.page_source
 
     def test_reference_note(self):
         '''
         @status this test verifies a QTL allele that has  QTL Reference Note
         '''
-        self.driver.find_element_by_id("phenotype").clear()
-        self.driver.find_element_by_id("phenotype").send_keys("Ccc1")
-        self.driver.find_element_by_class_name("buttonLabel").click()
-        self.driver.find_element_by_link_text('Ccc1CC011/Unc').click()
-        refnote = self.driver.find_element_by_class_name('qtlRefNoteSec').find_element_by_css_selector('h5')
+        self.driver.find_element(By.ID, "phenotype").clear()
+        self.driver.find_element(By.ID, "phenotype").send_keys("Ccc1")
+        self.driver.find_element(By.CLASS_NAME, "buttonLabel").click()
+        self.driver.find_element(By.LINK_TEXT, 'Ccc1CC011/Unc').click()
+        refnote = self.driver.find_element(By.CLASS_NAME, 'qtlRefNoteSec').find_element_by_css_selector('h5')
         #This confirms there is a section called QTL Reference Notes, would not display if not note
         self.assertEqual(refnote.text, "QTL Reference Notes")
 

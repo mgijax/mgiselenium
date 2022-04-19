@@ -47,7 +47,7 @@ class TestStrainQF(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
-        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
         print(iterate.getTextAsList(cells))
         
@@ -69,7 +69,7 @@ class TestStrainQF(unittest.TestCase):
         strainsearchbox.send_keys(Keys.RETURN)
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
-        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
         print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
@@ -94,7 +94,7 @@ class TestStrainQF(unittest.TestCase):
         strainsearchbox.send_keys(Keys.RETURN)
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
-        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
         print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
@@ -119,7 +119,7 @@ class TestStrainQF(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
-        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
         print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
@@ -144,7 +144,7 @@ class TestStrainQF(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
-        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
         print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
@@ -171,7 +171,7 @@ class TestStrainQF(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
-        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
         print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
@@ -198,7 +198,7 @@ class TestStrainQF(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
-        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
         print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
@@ -225,7 +225,7 @@ class TestStrainQF(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
-        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
         print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
@@ -252,7 +252,7 @@ class TestStrainQF(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
-        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
         print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
@@ -279,7 +279,7 @@ class TestStrainQF(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
-        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
         print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
@@ -305,7 +305,7 @@ class TestStrainQF(unittest.TestCase):
         strainsearchbox.send_keys(Keys.RETURN)
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
-        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
         print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
@@ -333,7 +333,7 @@ class TestStrainQF(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
-        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
         print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
@@ -361,7 +361,7 @@ class TestStrainQF(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
-        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
         print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
@@ -386,7 +386,7 @@ class TestStrainQF(unittest.TestCase):
         strainsearchbox.send_keys(Keys.RETURN)
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
-        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
         print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
@@ -414,7 +414,7 @@ class TestStrainQF(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
-        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
         print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
@@ -441,7 +441,7 @@ class TestStrainQF(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
-        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
         print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
@@ -470,7 +470,7 @@ class TestStrainQF(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
-        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
         print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
@@ -495,7 +495,7 @@ class TestStrainQF(unittest.TestCase):
         strainsearchbox.send_keys(Keys.RETURN)
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
-        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
         print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
@@ -523,7 +523,7 @@ class TestStrainQF(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
-        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
         print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
@@ -548,7 +548,7 @@ class TestStrainQF(unittest.TestCase):
         strainsearchbox.send_keys(Keys.RETURN)
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
-        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
         print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
@@ -575,7 +575,7 @@ class TestStrainQF(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
-        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
         print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
@@ -602,7 +602,7 @@ class TestStrainQF(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
-        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
         print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
@@ -629,7 +629,7 @@ class TestStrainQF(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
-        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
         print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
@@ -656,7 +656,7 @@ class TestStrainQF(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
-        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
         print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
@@ -682,7 +682,7 @@ class TestStrainQF(unittest.TestCase):
         strainsearchbox.send_keys(Keys.RETURN)
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
-        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
         print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
@@ -710,7 +710,7 @@ class TestStrainQF(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
         #locates the strain table and verify the strain name is correct
-        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
         print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
@@ -737,7 +737,7 @@ class TestStrainQF(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
         #locates the strain table and find the data in the Attributes column
-        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Attributes")
         print(iterate.getTextAsList(cells))
         attributesReturned = iterate.getTextAsList(cells)
@@ -760,7 +760,7 @@ class TestStrainQF(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
         #locates the strain table and find the data in the Attributes column
-        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Attributes")
         print(iterate.getTextAsList(cells))
         attributesReturned = iterate.getTextAsList(cells)
@@ -787,7 +787,7 @@ class TestStrainQF(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
         #locates the strain table and find the data in the Attributes column
-        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Attributes")
         print(iterate.getTextAsList(cells))
         attributesReturned = iterate.getTextAsList(cells)
@@ -823,7 +823,7 @@ class TestStrainQF(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
         #locates the strain table and find the data in the Attributes column
-        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Attributes")
         print(iterate.getTextAsList(cells))
         attributesReturned = iterate.getTextAsList(cells)
@@ -851,7 +851,7 @@ class TestStrainQF(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
         #locates the strain table and find the data in the Attributes column
-        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        strain_table = Table(self.driver.find_element_(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Attributes")
         print(iterate.getTextAsList(cells))
         attributesReturned = iterate.getTextAsList(cells)
@@ -881,7 +881,7 @@ class TestStrainQF(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
         #locates the strain table and find the data in the Attributes column
-        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Attributes")
         print(iterate.getTextAsList(cells))
         attributesReturned = iterate.getTextAsList(cells)
@@ -910,7 +910,7 @@ class TestStrainQF(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
         #locates the strain table and find the data in the Attributes column
-        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Attributes")
         print(iterate.getTextAsList(cells))
         attributesReturned = iterate.getTextAsList(cells)

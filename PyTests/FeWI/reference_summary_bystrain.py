@@ -44,9 +44,9 @@ class TestReferenceSummaryStrain(unittest.TestCase):
         idsearchbox.submit()
         #time.sleep(2)
         #find the link beside the word Strains in the Curated Data column and click it
-        self.driver.find_element_by_link_text('2').click()
+        self.driver.find_element(By.LINK_TEXT, '2').click()
         #locates the strain summary table, find all the rows of data and print it to the console
-        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         straindata = strain_table.get_rows()
         print(iterate.getTextAsList(straindata))
         idsReturned = iterate.getTextAsList(straindata)

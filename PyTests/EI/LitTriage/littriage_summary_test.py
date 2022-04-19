@@ -8,7 +8,9 @@ import unittest
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 import HtmlTestRunner
 import sys,os.path
 # adjust the path to find config
@@ -40,7 +42,7 @@ class TestEiLitTriageSummarySearch(unittest.TestCase):
     def testJournalFieldLinkSearch(self):
         """
         @Status tests that a DOI ID displays in the Journal column and the ID links correctly
-        @see MBIB-sum-3 (4)
+        @see LitTri-sum-3 (4)
         """
         driver = self.driver
         form = self.form
@@ -53,10 +55,11 @@ class TestEiLitTriageSummarySearch(unittest.TestCase):
         doi_cell = table.get_cell(1,4)
         #asserts the link text found in the DOI ID column is correct
         self.assertEqual(doi_cell.text, '10.1073/pnas.0706671104')
-        driver.find_element(By.CSS_SELECTOR, '10.1073/pnas.0706671104').click()
+        driver.find_element(By.LINK_TEXT, '10.1073/pnas.0706671104').click()
         #switches focus to the newly opened tab
-        driver.switch_to_window(driver.window_handles[-1])
-        page_title = driver.find_element(By.ID, 'page-title')
+        self.driver.switch_to.window(driver.window_handles[-1])
+        #page_title = driver.find_element(By.ID, 'page-title')
+        page_title = driver.find_element(By.XPATH, '/html/body/div[1]/div/div/main/div[1]/div/div/article/section[1]/header/div/h1')
         print(page_title.text)
         #asserts the page title for this page is correct
         self.assertEqual(page_title.text, 'Silencing of OB-RGRP in mouse hypothalamic arcuate nucleus increases leptin receptor signaling and prevents diet-induced obesity', 'Title is not displaying from source!')
@@ -64,7 +67,7 @@ class TestEiLitTriageSummarySearch(unittest.TestCase):
     def testJournalFieldBlankSearch(self):
         """
         @Status tests that when a DOI ID does not exist the journal field is blank
-        @see MBIB-sum-3 (5)
+        @see LitTri-sum-3 (5)
         """
         form = self.form
         form.enter_value('accids', 'J:41759')
@@ -80,7 +83,7 @@ class TestEiLitTriageSummarySearch(unittest.TestCase):
     def testPubmedFieldLinkSearch(self):
         """
         @Status tests that a Pub Med ID displays in the PMID column and the ID links correctly
-        @see MBIB-sum-4 (7)
+        @see LitTri-sum-4 (7)
         """
         driver = self.driver
         form = self.form
@@ -104,7 +107,7 @@ class TestEiLitTriageSummarySearch(unittest.TestCase):
     def testPubmedFieldBlankSearch(self):
         """
         @Status tests that when a Pub Med ID does not exist the PMID field is blank
-        @see MBIB-sum-4 (8)
+        @see LitTri-sum-4 (8)
         """
         form = self.form
         form.enter_value('accids', 'J:23094')
@@ -120,7 +123,7 @@ class TestEiLitTriageSummarySearch(unittest.TestCase):
     def testJNumResultSearch(self):
         """
         @Status tests that a J number displays in the J:# column
-        @see MBIB-sum-5,28 (9)
+        @see LitTri-sum-5,28 (9)
         """
         form = self.form
         form.enter_value('accids', 'J:197100')
@@ -140,7 +143,7 @@ class TestEiLitTriageSummarySearch(unittest.TestCase):
     def testShortCiteSearch(self):
         """
         @Status tests that the Short citation is correct when returning a result that has all the citation components  required
-        @see MBIB-sum-6 (10)
+        @see LitTri-sum-6 (10)
         """
         form = self.form
         form.enter_value('accids', 'J:237402')
@@ -156,7 +159,7 @@ class TestEiLitTriageSummarySearch(unittest.TestCase):
     def testShortCiteNoPagesSearch(self):
         """
         @Status tests that the Short citation is correct when returning a result that has a citation where reference has no pages
-        @see MBIB-sum-6 (12)
+        @see LitTri-sum-6 (12)
         """
         form = self.form
         form.enter_value('accids', 'J:148802')
@@ -172,7 +175,7 @@ class TestEiLitTriageSummarySearch(unittest.TestCase):
     def testShortCiteBookSearch(self):
         """
         @Status tests that the Short citation is correct when returning a result that has a citation of a book
-        @see MBIB-sum-6 (13)
+        @see LitTri-sum-6 (13)
         """
         form = self.form
         form.enter_value('accids', 'J:43743')
@@ -188,7 +191,7 @@ class TestEiLitTriageSummarySearch(unittest.TestCase):
     def testShortCiteNonLitSearch(self):
         """
         @Status tests that the Short citation is correct when returning a result that has a non-literature reference citation
-        @see MBIB-sum-6 (14)
+        @see LitTri-sum-6 (14)
         """
         form = self.form
         form.enter_value('accids', 'J:175295')
@@ -199,12 +202,12 @@ class TestEiLitTriageSummarySearch(unittest.TestCase):
         #finds the short citation column
         cite_cell = table.get_cell(1,5)
         #asserts the link text found in the short citation column is correct
-        self.assertEqual(cite_cell.text, 'Mouse Genome Informatics and the Wellcome Trust Sanger Insti, Database Release 2011;():')
+        self.assertEqual(cite_cell.text, 'Mouse Genome Informatics and the Wellcome Trust Sanger Institute Mouse Genetics Project (MGP), Database Release 2011;():')
     
     def testTitleResultSearch(self):
         """
         @Status Tests that a search returns the correct Title for the reference.
-        @See MBIB-sum-7 (15)
+        @See LitTri-sum-7 (15)
         """
         form = self.form
         form.enter_value('accids', 'J:237402')
@@ -220,7 +223,7 @@ class TestEiLitTriageSummarySearch(unittest.TestCase):
     def testTitleNoResultSearch(self):
         """
         @Status Tests that a search returns No Title for the reference.
-        @See MBIB-sum-7 (16) broken 11/18/2021
+        @See LitTri-sum-7 (16) broken 11/18/2021
         """
         form = self.form
         form.enter_value('accids', 'J:43743')
@@ -231,7 +234,7 @@ class TestEiLitTriageSummarySearch(unittest.TestCase):
         #finds the Title column
         title_cell = table.get_cell(1,6)
         #asserts the link text found in the title column is correct
-        self.assertEqual(title_cell.text, '')
+        self.assertEqual(title_cell.text, 'Genetic Variants and Strains of the Laboratory Mouse')
            
 def suite():
     suite = unittest.TestSuite()

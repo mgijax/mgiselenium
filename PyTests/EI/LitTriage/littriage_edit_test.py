@@ -51,7 +51,7 @@ class TestEiLitTriageEdit(unittest.TestCase):
         """
         @Status tests that changing a "not routed" reference to "chosen" assigns it a J number
         @attention: This test works but once you have changed it to chosen the J number will always be present
-        @see MBIB-edit-1,2 (1) consider getting rid of this test, currently broken 11/18/2021
+        @see LitTri-edit-1,2 (1) consider getting rid of this test, currently broken 11/18/2021
         """
         #enter text into the authors filed,click the alleles Not Routed box then search
         self.driver.find_element(By.ID, 'authors').send_keys('Nakamura%')
@@ -86,7 +86,7 @@ class TestEiLitTriageEdit(unittest.TestCase):
     def testReftypeEdit(self):
         """
         @Status tests the modifying of a Reference Type by using the pulldown list
-        @see MBIB-edit-4 (9), MBIB-edit-32 (47)
+        @see LitTri-edit-4 (9), LitTri-edit-32 (47)
         """
         #driver = self.driver
         form = self.form
@@ -117,7 +117,7 @@ class TestEiLitTriageEdit(unittest.TestCase):
     def testDiscardEdit(self):
         """
         @Status tests the setting of the MGI Discard flag
-        @see MBIB-edit-21 (27)
+        @see LitTri-edit-21 (27)
         """
         form = self.form
         time.sleep(5)
@@ -137,7 +137,7 @@ class TestEiLitTriageEdit(unittest.TestCase):
     def testAddTagEdit(self):
         """
         @Status tests that you can add a tag using the autocomplete option
-        @see MBIB-edit-22, 23
+        @see LitTri-edit-22, 23
         """
         #driver = self.driver
         form = self.form
@@ -162,7 +162,7 @@ class TestEiLitTriageEdit(unittest.TestCase):
     def testSupplementalEdit(self):
         """
         @Status tests that you can change the Supplemental field option
-        @see MBIB-edit-22, 23
+        @see LitTri-edit-22, 23
         """
         #driver = self.driver
         form = self.form

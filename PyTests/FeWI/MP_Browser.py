@@ -132,7 +132,7 @@ class TestMPBrowser(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'C57BL/6J-Enpp1asj/GrsrJ').click()
         time.sleep(2)
         #switch focus to the new tab for Strain detail page
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         time.sleep(2)
         page_title = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
         print(page_title.text)

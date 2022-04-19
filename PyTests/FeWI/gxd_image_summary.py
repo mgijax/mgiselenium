@@ -84,7 +84,7 @@ class TestGxdImageSummary(unittest.TestCase):
         genebox.send_keys(Keys.RETURN)
         time.sleep(1)
         #finds the Images tab and clicks it
-        driver.find_element_by_id("imagestab").click()
+        driver.find_element(By.ID, "imagestab").click()
         #finds the first row of data and verifies the Specimen Type data
         typelist = driver.find_element(By.ID, 'imagesdata').find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-hybridization')
         items = typelist[0].find_elements(By.TAG_NAME, 'li')

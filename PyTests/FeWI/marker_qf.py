@@ -34,17 +34,17 @@ class TestMarkerQF(unittest.TestCase):
         @status This test verifies the ribbons are being displayed in the correct order on the page.
         '''
         self.driver.find_element(By.NAME, 'markerQF')
-        genemarker = self.driver.find_element_by_css_selector('.queryStructureTable > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(1)')
+        genemarker = self.driver.find_element(By.CSS_SELECTOR, '.queryStructureTable > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(1)')
         self.assertEqual(genemarker.text, 'Gene/Marker', "heading is incorrect")
-        featuretype = self.driver.find_element_by_css_selector('.queryStructureTable > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(1)')
+        featuretype = self.driver.find_element(By.CSS_SELECTOR, '.queryStructureTable > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(1)')
         self.assertEqual(featuretype.text, 'Feature type', "heading is incorrect")
-        genomelocation = self.driver.find_element_by_css_selector('.queryStructureTable > tbody:nth-child(1) > tr:nth-child(4) > td:nth-child(1)')
+        genomelocation = self.driver.find_element(By.CSS_SELECTOR, '.queryStructureTable > tbody:nth-child(1) > tr:nth-child(4) > td:nth-child(1)')
         self.assertEqual(genomelocation.text, 'Genome location', "heading is incorrect")
-        geneontclass = self.driver.find_element_by_css_selector('.queryStructureTable > tbody:nth-child(1) > tr:nth-child(5) > td:nth-child(1)')
+        geneontclass = self.driver.find_element(By.CSS_SELECTOR, '.queryStructureTable > tbody:nth-child(1) > tr:nth-child(5) > td:nth-child(1)')
         self.assertEqual(geneontclass.text, 'Gene Ontology\nclassifications', "heading is incorrect")
-        proteindomain = self.driver.find_element_by_css_selector('.queryStructureTable > tbody:nth-child(1) > tr:nth-child(6) > td:nth-child(1)')
+        proteindomain = self.driver.find_element(By.CSS_SELECTOR, '.queryStructureTable > tbody:nth-child(1) > tr:nth-child(6) > td:nth-child(1)')
         self.assertEqual(proteindomain.text, 'Protein domains', "heading is incorrect")
-        mousepheno = self.driver.find_element_by_css_selector('.queryStructureTable > tbody:nth-child(1) > tr:nth-child(7) > td:nth-child(1)')
+        mousepheno = self.driver.find_element(By.CSS_SELECTOR, '.queryStructureTable > tbody:nth-child(1) > tr:nth-child(7) > td:nth-child(1)')
         self.assertEqual(mousepheno.text, 'Mouse phenotypes &\nmouse models of\nhuman disease', "heading is incorrect")
         
         

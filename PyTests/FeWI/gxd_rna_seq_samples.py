@@ -39,21 +39,21 @@ class TestGxdRnaSeqSamples(unittest.TestCase):
         
         self.driver.find_element(By.ID, 'strainNameAC').send_keys('C57BL/6J')#finds the age list and select the E4.0 option
         #find the Search button and click it
-        self.driver.find_element_by_id('submit1').click()
+        self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
         #find the View button of the second result and click it
-        self.driver.find_element_by_id('row1button').click()
+        self.driver.find_element(By.ID, 'row1button').click()
         #print result_set[2].text
         time.sleep(2)
         #switch focus the the popup samples window
         #switch focus to the next tab
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         #find the Ext url IDs
-        id_links = self.driver.find_elements_by_id('ids')
+        id_links = self.driver.find_elements(By.ID, 'ids')
         id_links[0].click()
         time.sleep(5)
         #switch focus to the next tab
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         #get the URL of the page
         page_url = self.driver.current_url
         print(page_url)
@@ -69,20 +69,20 @@ class TestGxdRnaSeqSamples(unittest.TestCase):
         
         self.driver.find_element(By.ID, 'strainNameAC').send_keys('C57BL/6J')#finds the age list and select the E4.0 option
         #find the Search button and click it
-        self.driver.find_element_by_id('submit1').click()
+        self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
         #find the View button of the first result and click it
-        self.driver.find_element_by_id('row0button').click()
+        self.driver.find_element(By.ID, 'row0button').click()
         #print result_set[2].text
         time.sleep(2)
         #switch focus the the popup samples window
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         #find the Ext url IDs for ID E-ERAD-169, we want to click the first one
-        id_links = self.driver.find_elements_by_link_text('E-ERAD-169')
+        id_links = self.driver.find_elements(By.LINK_TEXT, 'E-ERAD-169')
         id_links[1].click()
         time.sleep(2)
         #switch focus to the next tab(expression atlas page)
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         #get the URL of the page
         page_url = self.driver.current_url
         print(page_url)
@@ -98,18 +98,18 @@ class TestGxdRnaSeqSamples(unittest.TestCase):
         
         self.driver.find_element(By.ID, 'strainNameAC').send_keys('C57BL/6J')#finds the age list and select the E4.0 option
         #find the Search button and click it
-        self.driver.find_element_by_id('submit1').click()
+        self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
         #find the View button of the third result and click it
-        self.driver.find_element_by_id('row2button').click()
+        self.driver.find_element(By.ID, 'row2button').click()
         time.sleep(2)
         #switch focus the the popup samples window
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         #find the Ext url ID for ID GSE21860, we want to click it
-        self.driver.find_element_by_link_text('GSE868').click()
+        self.driver.find_element(By.LINK_TEXT, 'GSE868').click()
         time.sleep(2)
         #switch focus to the next tab(geo page)
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         #get the URL of the page
         page_url = self.driver.current_url
         print(page_url)
@@ -125,15 +125,15 @@ class TestGxdRnaSeqSamples(unittest.TestCase):
         #find the ArrayExpress or GEO ID filed and enter the text
         self.driver.find_element(By.ID, 'arrayExpressID').send_keys('E-GEOD-37646')#finds the age list and select the E4.0 option
         #find the Search button and click it
-        self.driver.find_element_by_id('submit1').click()
+        self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
         #find the View button of the first result and click it
-        self.driver.find_element_by_id('row0button').click()
+        self.driver.find_element(By.ID, 'row0button').click()
         time.sleep(2)
         #switch focus the the popup samples window
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         #Find the sample table and locate the Note column
-        sample_tbl = self.driver.find_element_by_id('sampleTable')
+        sample_tbl = self.driver.find_element(By.ID, 'sampleTable')
         table = Table(sample_tbl)
         #Iterate and print the Note column data
         muts = table.get_column_cells('Note')

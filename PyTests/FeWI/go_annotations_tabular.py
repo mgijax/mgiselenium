@@ -79,7 +79,7 @@ class TestGoAnnotationsPage(unittest.TestCase):
         #wait.forAjax(driver)
         #print searchTextItems
         time.sleep(5)
-        element = driver.find_element_by_class_name('goProperties')
+        element = driver.find_element(By.CLASS_NAME, 'goProperties')
         elementText = element.text
         #print(elementText)
         #asserts that the rows of Context data are in correct order and displayed correctly
@@ -112,9 +112,9 @@ class TestGoAnnotationsPage(unittest.TestCase):
         tabularheaderlist = driver.find_element(By.ID, 'dynamicdata')
         items = tabularheaderlist.find_elements(By.TAG_NAME, 'div')
         searchTextItems = iterate.getTextAsList(items)
-        asp1 = driver.find_element_by_css_selector('#yui-rec0')
-        asp10 = driver.find_element_by_css_selector('#yui-rec9')
-        asp17 = driver.find_element_by_css_selector('#yui-rec16')
+        asp1 = driver.find_element(By.CSS_SELECTOR, '#yui-rec0')
+        asp10 = driver.find_element(By.CSS_SELECTOR, '#yui-rec9')
+        asp17 = driver.find_element(By.CSS_SELECTOR, '#yui-rec16')
         print(asp1.text)
         print(asp10.text)
         print(asp17.text)

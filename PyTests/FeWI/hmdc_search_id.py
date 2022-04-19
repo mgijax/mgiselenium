@@ -362,7 +362,7 @@ class TestHmdcSearchID(unittest.TestCase):
         
         phenocells = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.center.cell.middle") 
         phenocells[6].click()#clicks the integument data cell to open up the genotype popup page (data changes can break this logic)
-        self.driver.switch_to_window(self.driver.window_handles[1])#switches focus to the genotype popup page
+        self.driver.switch_to.window(self.driver.window_handles[1])#switches focus to the genotype popup page
         
         #asserts the heading text is correct in page title
         self.assertEqual('Mouse integument abnormalities for ABCG2/Abcg2, Abcg3', self.driver.title)
@@ -414,7 +414,7 @@ class TestHmdcSearchID(unittest.TestCase):
         phenocells = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.center.cell.middle")
         
         phenocells[0].click() #clicks the cell for cardiovascular system (new data could break this)
-        self.driver.switch_to_window(self.driver.window_handles[1])#switches focus to the genotype popup page
+        self.driver.switch_to.window(self.driver.window_handles[1])#switches focus to the genotype popup page
         time.sleep(2)
         matching_text = "Mouse cardiovascular system abnormalities for GJA1, GJA6P/Gja1, Gja6"
         #asserts the heading text is correct in page source
@@ -473,7 +473,7 @@ class TestHmdcSearchID(unittest.TestCase):
         phenocells = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.center.cell.middle")
         
         phenocells[0].click() #clicks the cell for craniofacial system (new data could break this)
-        self.driver.switch_to_window(self.driver.window_handles[1])#switches focus to the genotype popup page
+        self.driver.switch_to.window(self.driver.window_handles[1])#switches focus to the genotype popup page
         time.sleep(2)
         matching_text = "Human craniofacial abnormalities for ODAPH/Odaph"
         #asserts the heading text is correct in page source
@@ -564,7 +564,7 @@ class TestHmdcSearchID(unittest.TestCase):
         phenocells = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.center.cell.middle")
         
         phenocells[4].click() #clicks the cell for homeostasis/metabolism system (new data could break this)
-        self.driver.switch_to_window(self.driver.window_handles[1])#switches focus to the genotype popup page
+        self.driver.switch_to.window(self.driver.window_handles[1])#switches focus to the genotype popup page
         time.sleep(2)
         matching_text = "Mouse homeostasis/metabolism abnormalities for ABCG2/Abcg2"
         #asserts the heading text is correct in page source
@@ -587,7 +587,7 @@ class TestHmdcSearchID(unittest.TestCase):
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("HP:0008529, HP:0100739, HP:0012232")#identifies the input field and enters gata1
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Grid tab and click it
@@ -654,7 +654,7 @@ class TestHmdcSearchID(unittest.TestCase):
         phenocells = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.center.cell.middle")
         
         phenocells[0].click() #clicks the cell for endocrine/exocrine (new data could break this)
-        self.driver.switch_to_window(self.driver.window_handles[1])#switches focus to the genotype popup page
+        self.driver.switch_to.window(self.driver.window_handles[1])#switches focus to the genotype popup page
         time.sleep(2)
         matching_text = "Human and Mouse endocrine/exocrine glands abnormalities for PAX4/Pax4"
         #asserts the heading text is correct in page source

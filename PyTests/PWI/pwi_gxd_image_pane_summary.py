@@ -8,6 +8,7 @@ import time
 import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 import sys,os.path
 from util import wait, iterate
 # adjust the path to find config
@@ -31,18 +32,18 @@ class TestPwiGxdImagePanePage(unittest.TestCase):
         driver = self.driver
         driver.get(TEST_PWI_URL)
         #opens the PWI reference form
-        driver.find_element_by_link_text("Reference Form").click()
-        accidbox = driver.find_element_by_id('accids')
+        driver.find_element(By.LINK_TEXT, "Reference Form").click()
+        accidbox = driver.find_element(By.ID, 'accids')
         # put your J number in the box
         accidbox.send_keys("J:83696")
         accidbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the specimens link and clicks it
-        driver.find_element_by_link_text("Exp Images").click()
+        driver.find_element(By.LINK_TEXT, "Exp Images").click()
         wait.forAjax(driver)
         #Locates the summary table and finds the table headings
-        headerlist = driver.find_element_by_id("paneSummaryTable")
-        items = headerlist.find_elements_by_tag_name("th")
+        headerlist = driver.find_element(By.ID, "paneSummaryTable")
+        items = headerlist.find_elements(By.TAG_NAME, "th")
         searchTextItems = iterate.getTextAsList(items)
         wait.forAjax(driver)
         #verifies all the table headings are correct and in order
@@ -57,18 +58,18 @@ class TestPwiGxdImagePanePage(unittest.TestCase):
         driver = self.driver
         driver.get(TEST_PWI_URL)
         #opens the PWI reference form
-        driver.find_element_by_link_text("Reference Form").click()
-        accidbox = driver.find_element_by_id('accids')
+        driver.find_element(By.LINK_TEXT, "Reference Form").click()
+        accidbox = driver.find_element(By.ID, 'accids')
         # put your J number in the box
         accidbox.send_keys("J:213157")
         accidbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the specimens link and clicks it
-        driver.find_element_by_link_text("Exp Images").click()
+        driver.find_element(By.LINK_TEXT, "Exp Images").click()
         wait.forAjax(driver)
         #Locates the images table and finds the table headings
-        imagestable = driver.find_element_by_id("paneSummaryTable")
-        rows = imagestable.find_elements_by_css_selector('tr')
+        imagestable = driver.find_element(By.ID, "paneSummaryTable")
+        rows = imagestable.find_elements(By.CSS_SELECTOR, 'tr')
         #displays each row of data for the first 18 rows
         row1 = rows[1]
         row2 = rows[2]
@@ -170,18 +171,18 @@ class TestPwiGxdImagePanePage(unittest.TestCase):
         driver = self.driver
         driver.get(TEST_PWI_URL)
         #opens the PWI reference form
-        driver.find_element_by_link_text("Reference Form").click()
-        accidbox = driver.find_element_by_id('accids')
+        driver.find_element(By.LINK_TEXT, "Reference Form").click()
+        accidbox = driver.find_element(By.ID, 'accids')
         # put your J number in the box
         accidbox.send_keys("J:83696")
         accidbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the specimens link and clicks it
-        driver.find_element_by_link_text("Exp Images").click()
+        driver.find_element(By.LINK_TEXT, "Exp Images").click()
         wait.forAjax(driver)
         #Locates the images table and finds the table headings
-        imagestable = driver.find_element_by_id("paneSummaryTable")
-        rows = imagestable.find_elements_by_css_selector('tr')
+        imagestable = driver.find_element(By.ID, "paneSummaryTable")
+        rows = imagestable.find_elements(By.CSS_SELECTOR, 'tr')
         #displays each row of data for the first 18 rows
         row1 = rows[1]
         row2 = rows[2]
@@ -231,18 +232,18 @@ class TestPwiGxdImagePanePage(unittest.TestCase):
         driver = self.driver
         driver.get(TEST_PWI_URL)
         #opens the PWI reference form
-        driver.find_element_by_link_text("Reference Form").click()
-        accidbox = driver.find_element_by_id('accids')
+        driver.find_element(By.LINK_TEXT, "Reference Form").click()
+        accidbox = driver.find_element(By.ID, 'accids')
         # put your J number in the box
         accidbox.send_keys("J:85300")
         accidbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the specimens link and clicks it
-        driver.find_element_by_link_text("Exp Images").click()
+        driver.find_element(By.LINK_TEXT, "Exp Images").click()
         wait.forAjax(driver)
         #Locates the images table and finds the table headings
-        imagestable = driver.find_element_by_id("paneSummaryTable")
-        rows = imagestable.find_elements_by_css_selector('tr')
+        imagestable = driver.find_element(By.ID, "paneSummaryTable")
+        rows = imagestable.find_elements(By.CSS_SELECTOR, 'tr')
         #displays each row of data for the first 18 rows
         row1 = rows[1]
         row2 = rows[2]
@@ -306,18 +307,18 @@ class TestPwiGxdImagePanePage(unittest.TestCase):
         driver = self.driver
         driver.get(TEST_PWI_URL)
         #opens the PWI reference form
-        driver.find_element_by_link_text("Reference Form").click()
-        accidbox = driver.find_element_by_id('accids')
+        driver.find_element(By.LINK_TEXT, "Reference Form").click()
+        accidbox = driver.find_element(By.ID, 'accids')
         # put your J number in the box
         accidbox.send_keys("J:85638")
         accidbox.send_keys(Keys.RETURN) 
         time.sleep(3)
         #finds the specimens link and clicks it
-        driver.find_element_by_link_text("Exp Images").click()
+        driver.find_element(By.LINK_TEXT, "Exp Images").click()
         wait.forAjax(driver)
         #Locates the images table and finds the table headings
-        imagestable = driver.find_element_by_id("paneSummaryTable")
-        rows = imagestable.find_elements_by_css_selector('tr')
+        imagestable = driver.find_element(By.ID, "paneSummaryTable")
+        rows = imagestable.find_elements(By.CSS_SELECTOR, 'tr')
         #displays each row of data for the first 13 rows
         row1 = rows[1]
         row2 = rows[2]
@@ -361,18 +362,18 @@ class TestPwiGxdImagePanePage(unittest.TestCase):
         driver = self.driver
         driver.get(TEST_PWI_URL)
         #opens the PWI reference form
-        driver.find_element_by_link_text("Reference Form").click()
-        accidbox = driver.find_element_by_id('accids')
+        driver.find_element(By.LINK_TEXT, "Reference Form").click()
+        accidbox = driver.find_element(By.ID, 'accids')
         # put your J number in the box
         accidbox.send_keys("J:102285")
         accidbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the specimens link and clicks it
-        driver.find_element_by_link_text("Exp Images").click()
+        driver.find_element(By.LINK_TEXT, "Exp Images").click()
         wait.forAjax(driver)
         #Locates the images table and finds the table headings
-        imagestable = driver.find_element_by_id("paneSummaryTable")
-        rows = imagestable.find_elements_by_css_selector('tr')
+        imagestable = driver.find_element(By.ID, "paneSummaryTable")
+        rows = imagestable.find_elements(By.CSS_SELECTOR, 'tr')
         #displays each row of data for the first 16 rows
         row1 = rows[1]
         row2 = rows[2]
@@ -417,18 +418,18 @@ class TestPwiGxdImagePanePage(unittest.TestCase):
         driver = self.driver
         driver.get(TEST_PWI_URL)
         #opens the PWI reference form
-        driver.find_element_by_link_text("Reference Form").click()
-        accidbox = driver.find_element_by_id('accids')
+        driver.find_element(By.LINK_TEXT, "Reference Form").click()
+        accidbox = driver.find_element(By.ID, 'accids')
         # put your J number in the box
         accidbox.send_keys("J:9026")
         accidbox.send_keys(Keys.RETURN)
         time.sleep(3)
         #finds the specimens link and clicks it
-        driver.find_element_by_link_text("Exp Images").click()
+        driver.find_element(By.LINK_TEXT, "Exp Images").click()
         wait.forAjax(driver)
         #Locates the images table and finds the table headings
-        imagestable = driver.find_element_by_id("paneSummaryTable")
-        rows = imagestable.find_elements_by_css_selector('tr')
+        imagestable = driver.find_element(By.ID, "paneSummaryTable")
+        rows = imagestable.find_elements(By.CSS_SELECTOR, 'tr')
         #displays each row of data for the first 9 rows
         row1 = rows[1]
         row2 = rows[2]

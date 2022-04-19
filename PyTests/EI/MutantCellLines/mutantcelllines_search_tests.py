@@ -135,7 +135,7 @@ class TestEIMCLSearch(unittest.TestCase):
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")

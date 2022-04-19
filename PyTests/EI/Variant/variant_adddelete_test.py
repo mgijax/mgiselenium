@@ -168,7 +168,7 @@ class TestEiVariantAddDelete(unittest.TestCase):
         self.driver.find_element(By.XPATH, '//table[@id="soTable"]//tbody/tr[6]/td[1]/input').click()#This is for SO:1000036
         wait.forAngular(self.driver)
         #Click the "Save Changes and Close button
-        driver.find_element_by_id(By.ID, "soSave").click()
+        driver.find_element(By.ID, "soSave").click()
         self.driver.switch_to.window(self.driver.window_handles[-1])#switch focus back to the main window
         #Find the Types display box and get all the SO IDs  in it
         soList = self.driver.find_element(By.ID, 'soTypes').get_attribute('value')

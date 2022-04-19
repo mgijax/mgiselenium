@@ -9,6 +9,7 @@ import requests
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 import HtmlTestRunner
 import sys,os.path
 # adjust the path to find config
@@ -35,19 +36,19 @@ class TestDoPostTest(unittest.TestCase):
         they have been commented out. The order of genes on the genes tab has Human symbols first, should be Mouse symbol first.
         @warning: This is not a complete test, just shows how to use a POST right now.
         '''
-        #my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        #for option in my_select.find_elements_by_tag_name("option"):
+        #my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        #for option in my_select.find_elements(By.TAG_NAME, "option"):
             #if option.text == 'Gene Symbol(s) or ID(s)':
                 #option.click()
                 #break
             
-        ##self.driver.find_element_by_name("formly_3_input_input_0").send_keys('Foxm1, Lep, Ins2')#identifies the input field and enters gata1
+        ##self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys('Foxm1, Lep, Ins2')#identifies the input field and enters gata1
         #wait.forAngular(self.driver)
-        #self.driver.find_element_by_id("searchButton").click()
+        #self.driver.find_element(By.ID, "searchButton").click()
         #wait.forAngular(self.driver)
         #r = requests.post
         #identify the Genes tab and verify the tab's text
-        #grid_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
+        #grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         #self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (9 x 32)", "Grid tab is not visible!")
         #grid_tab.click()
         #driver.get("http://www.google.com")

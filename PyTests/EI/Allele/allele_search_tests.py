@@ -388,7 +388,7 @@ class TestEIAlleleSearch(unittest.TestCase):
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID,'searchButton').click()
         #time.sleep(5)
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Hal<Ed1>'))
@@ -756,7 +756,7 @@ class TestEIAlleleSearch(unittest.TestCase):
         driver.find_element(By.ID, 'searchButton').click()
         #time.sleep(5)
         #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Bicral<Gt(U3Betageo)1Ruiz>'))
+        WebDriverWait(self.driver, 20).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Bicral<Gt(U3Betageo)1Ruiz>'))
         #find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)

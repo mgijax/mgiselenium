@@ -1098,7 +1098,7 @@ class TestHmdcGenesSearch(unittest.TestCase):
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("AA06")#identifies the input field and enters a human symbol
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Genes tab and click on it

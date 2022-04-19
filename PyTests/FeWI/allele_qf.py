@@ -8,6 +8,7 @@ import time
 import HtmlTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import sys,os.path
 from genericpath import exists
@@ -33,14 +34,14 @@ class TestAlleleQueryForm(unittest.TestCase):
         '''
         @status This test verifies the ribbons are being displayed in the correct order on the page.
         '''
-        self.driver.find_element_by_name("alleleQueryForm")
-        phenotypesdisease = self.driver.find_element_by_css_selector("tr.stripe1 > td.cat1")
+        self.driver.find_element(By.NAME, "alleleQueryForm")
+        phenotypesdisease = self.driver.find_element(By.CSS_SELECTOR, "tr.stripe1 > td.cat1")
         print(phenotypesdisease.text)
         self.assertEqual(phenotypesdisease.text, 'Mouse phenotypes &\nmouse models of\nhuman disease', "heading is incorrect")
-        nomengenomelocation = self.driver.find_element_by_css_selector("tr.stripe2 > td.cat2")
+        nomengenomelocation = self.driver.find_element(By.CSS_SELECTOR, "tr.stripe2 > td.cat2")
         print(nomengenomelocation.text)
         self.assertEqual(nomengenomelocation.text, 'Nomenclature\n& genome location', "heading is incorrect")
-        categories = self.driver.find_element_by_css_selector("tr:nth-child(4).stripe1 > td.cat1")
+        categories = self.driver.find_element(By.CSS_SELECTOR, "tr:nth-child(4).stripe1 > td.cat1")
         print(categories.text)
         self.assertEqual(categories.text, 'Categories', "heading is incorrect")
      
@@ -49,11 +50,11 @@ class TestAlleleQueryForm(unittest.TestCase):
         @status this test verifies  you can search by a DOID in the phenotypes box of the allele query form.
         @bug under construction, need the summary table to have an ID or Name OR do it like non table(MP annotation PWI)
         '''
-        self.driver.find_element_by_name("phenotype").clear()
-        self.driver.find_element_by_name("phenotype").send_keys("DOID:5737")
-        self.driver.find_element_by_class_name("buttonLabel").click()
+        self.driver.find_element(By.NAME, "phenotype").clear()
+        self.driver.find_element(By.NAME, "phenotype").send_keys("DOID:5737")
+        self.driver.find_element(By.CLASS_NAME, "buttonLabel").click()
         self.assertTrue(self.driver.page_source, 'Phenotypes/Diseases: including text DOID:5737')       
-        #disease_table = self.driver.find_element_by_id('')
+        #disease_table = self.driver.find_element(By.ID, '')
         #table = Table(disease_table)
         #Iterate and print the search results headers
         #header_cells = table.get_header_cells()

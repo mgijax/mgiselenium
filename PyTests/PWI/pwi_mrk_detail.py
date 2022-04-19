@@ -46,7 +46,7 @@ class TestPwiMrkDetail(unittest.TestCase):
         # Find the search button and click it.
         driver.find_element(By.ID, 'searchButton').click()
         time.sleep(3)
-        driver.find_element_by_id('mrkDetailButton').click()
+        driver.find_element(By.ID, 'mrkDetailButton').click()
         time.sleep(3)
         driver.switch_to.window(self.driver.window_handles[1])
         symbol = driver.find_element(By.CSS_SELECTOR, 'dl.detailPageListData > dd:nth-child(2)')
@@ -85,7 +85,7 @@ class TestPwiMrkDetail(unittest.TestCase):
         self.assertEqual(mtype.text, 'Gene', 'The Marker Type is not correct!')
         self.assertEqual(ftype.text, 'protein coding gene', 'The Marker Feature Type is not correct!')
         self.assertEqual(biotype.text, 'Source Biotype Gene ID\nNCBI Gene Model protein-coding 16590\nEnsembl Gene Model protein_coding ENSMUSG00000005672', 'The biotype is not correct!')
-        self.assertEqual(location.text, 'Chr5:75574987-75656722 bp, + strand From NCBI annotation of GRCm38', 'The Location is not correct!')
+        self.assertEqual(location.text, 'Chr5:75735647-75817382 bp, + strand From NCBI annotation of GRCm39', 'The Location is not correct!')
         self.assertEqual(mrkclip.text, 'Mutations at this locus affect migration of embryonic stem cell populations, resulting in mild to severe impairments in hematopoiesis, and pigmentation. Some alleles are homozygous lethal, sterile, or result in the formation of gastrointestinal tumors.', 'The Marker Clip band is not correct!')
 
         
@@ -107,7 +107,7 @@ class TestPwiMrkDetail(unittest.TestCase):
         time.sleep(3)
         #WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'mrkDetailButton')))#waits until the results are displayed on the page by looking for the Marker Detail link to be displayed
         #Find the Marker Detail link and click it
-        driver.find_element_by_id('mrkDetailButton').click()
+        driver.find_element(By.ID, 'mrkDetailButton').click()
         time.sleep(3)
         driver.switch_to.window(self.driver.window_handles[1])
         symbol = driver.find_element(By.CSS_SELECTOR, 'dl.detailPageListData > dd:nth-child(2)')
@@ -164,7 +164,7 @@ class TestPwiMrkDetail(unittest.TestCase):
         time.sleep(3)
         #WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'mrkDetailButton')))#waits until the results are displayed on the page by looking for the Marker Detail link to be displayed
         #Find the Marker Detail link and click it
-        driver.find_element_by_id('mrkDetailButton').click()
+        driver.find_element(By.ID, 'mrkDetailButton').click()
         time.sleep(3)
         driver.switch_to.window(self.driver.window_handles[1])
         symbol = driver.find_element(By.CSS_SELECTOR, 'dl.detailPageListData > dd:nth-child(2)')
@@ -199,7 +199,7 @@ class TestPwiMrkDetail(unittest.TestCase):
         self.assertEqual(mtype.text, 'QTL', 'The Marker Type is not correct!')
         self.assertEqual(ftype.text, 'QTL', 'The Marker Feature Type is not correct!')
         self.assertEqual(biotype.text, '', 'The Marker Biotype is not correct!')
-        self.assertEqual(location.text, 'Chr4:63685589-63685589 bp, None strand From MGI annotation of GRCm38', 'The Marker Location is not correct!')
+        self.assertEqual(location.text, 'Chr4:63603826-63603826 bp, None strand From MGI annotation of GRCm39', 'The Marker Location is not correct!')
         self.assertEqual(mrkclip.text, '', 'The Marker Detail Clip is not correct!')
 
     def test_mrk_det_type_transgene(self):
@@ -220,7 +220,7 @@ class TestPwiMrkDetail(unittest.TestCase):
         time.sleep(3)
         #WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'mrkDetailButton')))#waits until the results are displayed on the page by looking for the Marker Detail link to be displayed
         #Find the Marker Detail link and click it
-        driver.find_element_by_id('mrkDetailButton').click()
+        driver.find_element(By.ID, 'mrkDetailButton').click()
         time.sleep(3)
         driver.switch_to.window(self.driver.window_handles[1])
         symbol = driver.find_element(By.CSS_SELECTOR, 'dl.detailPageListData > dd:nth-child(2)')
@@ -276,7 +276,7 @@ class TestPwiMrkDetail(unittest.TestCase):
         time.sleep(3)
         #WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'mrkDetailButton')))#waits until the results are displayed on the page by looking for the Marker Detail link to be displayed
         #Find the Marker Detail link and click it
-        driver.find_element_by_id('mrkDetailButton').click()
+        driver.find_element(By.ID, 'mrkDetailButton').click()
         time.sleep(3)
         driver.switch_to.window(self.driver.window_handles[1])
         symbol = driver.find_element(By.CSS_SELECTOR, 'dl.detailPageListData > dd:nth-child(2)')
@@ -332,7 +332,7 @@ class TestPwiMrkDetail(unittest.TestCase):
         time.sleep(3)
         #WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'mrkDetailButton')))#waits until the results are displayed on the page by looking for the Marker Detail link to be displayed
         #Find the Marker Detail link and click it
-        driver.find_element_by_id('mrkDetailButton').click()
+        driver.find_element(By.ID, 'mrkDetailButton').click()
         time.sleep(3)
         driver.switch_to.window(self.driver.window_handles[1])
         symbol = driver.find_element(By.CSS_SELECTOR, 'dl.detailPageListData > dd:nth-child(2)')
@@ -388,7 +388,7 @@ class TestPwiMrkDetail(unittest.TestCase):
         time.sleep(3)
         #WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'mrkDetailButton')))#waits until the results are displayed on the page by looking for the Marker Detail link to be displayed
         #Find the Marker Detail link and click it
-        driver.find_element_by_id('mrkDetailButton').click()
+        driver.find_element(By.ID, 'mrkDetailButton').click()
         time.sleep(3)
         driver.switch_to.window(self.driver.window_handles[1])
         symbol = driver.find_element(By.CSS_SELECTOR, 'dl.detailPageListData > dd:nth-child(2)')
@@ -425,7 +425,7 @@ class TestPwiMrkDetail(unittest.TestCase):
         self.assertEqual(biotype.text, '', 'The Marker Biotype is not correct!')
         self.assertEqual(location.text, 'Chr17', 'The Marker Location is not correct!')
         self.assertEqual(mrkclip.text, '', 'The Marker Detail Clip is not correct!')
-
+ 
     def test_mrk_det_type_pseudo(self):
         """
         @status: Tests that a search by Marker Type Pseudogene basic results are returned, IE symbol, ID, Secondary IDs, Marker Status, Current Name, Synonym(s), 
@@ -444,7 +444,7 @@ class TestPwiMrkDetail(unittest.TestCase):
         time.sleep(3)
         #WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'mrkDetailButton')))#waits until the results are displayed on the page by looking for the Marker Detail link to be displayed
         #Find the Marker Detail link and click it
-        driver.find_element_by_id('mrkDetailButton').click()
+        driver.find_element(By.ID, 'mrkDetailButton').click()
         time.sleep(3)
         driver.switch_to.window(self.driver.window_handles[1])
         symbol = driver.find_element(By.CSS_SELECTOR, 'dl.detailPageListData > dd:nth-child(2)')
@@ -479,7 +479,7 @@ class TestPwiMrkDetail(unittest.TestCase):
         self.assertEqual(mtype.text, 'Pseudogene', 'The Marker Type is not correct!')
         self.assertEqual(ftype.text, 'pseudogene', 'The Marker Feature Type is not correct!')
         self.assertEqual(biotype.text, 'Source Biotype Gene ID\nNCBI Gene Model protein-coding 245350\nEnsembl Gene Model processed_pseudogene ENSMUSG00000083307', 'The Marker Biotype is not correct!')
-        self.assertEqual(location.text, 'ChrX:12936872-12938128 bp, + strand From Ensembl annotation of GRCm38', 'The Marker Location is not correct!')
+        self.assertEqual(location.text, 'ChrX:12803111-12804367 bp, + strand From Ensembl annotation of GRCm39', 'The Marker Location is not correct!')
         self.assertEqual(mrkclip.text, '', 'The Marker Detail Clip is not correct!')
 
     def test_mrk_det_type_other(self):
@@ -500,7 +500,7 @@ class TestPwiMrkDetail(unittest.TestCase):
         time.sleep(3)
         #WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'mrkDetailButton')))#waits until the results are displayed on the page by looking for the Marker Detail link to be displayed
         #Find the Marker Detail link and click it
-        driver.find_element_by_id('mrkDetailButton').click()
+        driver.find_element(By.ID, 'mrkDetailButton').click()
         time.sleep(3)
         driver.switch_to.window(self.driver.window_handles[1])
         symbol = driver.find_element(By.CSS_SELECTOR, 'dl.detailPageListData > dd:nth-child(2)')
@@ -554,7 +554,7 @@ class TestPwiMrkDetail(unittest.TestCase):
         time.sleep(3)
         #WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'mrkDetailButton')))#waits until the results are displayed on the page by looking for the Marker Detail link to be displayed
         #Find the Marker Detail link and click it
-        driver.find_element_by_id('mrkDetailButton').click()
+        driver.find_element(By.ID, 'mrkDetailButton').click()
         time.sleep(3)
         driver.switch_to.window(self.driver.window_handles[1])
         symbol = driver.find_element(By.CSS_SELECTOR, 'dl.detailPageListData > dd:nth-child(2)')

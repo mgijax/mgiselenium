@@ -55,7 +55,7 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         print(cell.text)
         cell.find_element(By.LINK_TEXT, '1 model').click()
         
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         header = self.driver.find_element(By.ID, 'diseaseBrowserModelsPopup')
         model_heading = header.find_element(By.ID, 'diseaseDisplay')
         print(model_heading.text)
@@ -92,7 +92,7 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         print(cell.text)
         cell.find_element(By.LINK_TEXT, '1 model').click()
         
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         header = self.driver.find_element(By.ID, 'diseaseBrowserModelsPopup')
         model_heading = header.find_element(By.ID, 'diseaseDisplay')
         print(model_heading.text)
@@ -127,7 +127,7 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         print(cell.text)
         cell.find_element(By.LINK_TEXT, '1 "NOT" model').click()
         
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         model_table = self.driver.find_element(By.ID, 'diseaseBrowserNotModelPopupTable')
         table1 = Table(model_table)
         #print table1
@@ -158,7 +158,7 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         print(cell.text)
         cell.find_element(By.LINK_TEXT, '1 model').click()
         
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         model_table = self.driver.find_element(By.ID, 'diseaseBrowserModelPopupTable')
         table1 = Table(model_table)
         #print table1
@@ -188,7 +188,7 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         print(cell.text)
         cell.find_element(By.LINK_TEXT, '5 models').click()
         
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         model_table = self.driver.find_element(By.ID, 'diseaseBrowserModelPopupTable')
         table1 = Table(model_table)
         #print table1
@@ -240,12 +240,12 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         print(cell.text)
         cell.find_element(By.LINK_TEXT, '23 models').click()
         #switch focus to the popup page
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         #Find the link in the Genetic Background column C57BL/6J-Tg(SNCA)ARyot and click it
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'C57BL/6J-Tg').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         #Asserts that the strain page is for the correct strain
         assert "C57BL/6J-Tg(SNCA)ARyot" in self.driver.page_source  
 

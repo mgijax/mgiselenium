@@ -4,7 +4,7 @@ Base class for all EMAPA tests
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-
+from selenium.webdriver.common.by import By
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -38,7 +38,7 @@ class EmapaBaseClass(object):
         close all open windows for the current driver
         """
         for window_handle in self.driver.window_handles:
-            self.driver.switch_to_window(window_handle)
+            self.driver.switch_to.window(window_handle)
             self.driver.close()
             
             
@@ -50,11 +50,11 @@ class EmapaBaseClass(object):
            with the supplied parameters
         """
         
-        termSearch = self.driver.find_element_by_id("termSearch")
+        termSearch = self.driver.find_element(By.ID, "termSearch")
         termSearch.clear()
         termSearch.send_keys(term)
         
-        stageSearch = self.driver.find_element_by_id("stageSearch")
+        stageSearch = self.driver.find_element(By.ID, "stageSearch")
         stageSearch.clear()
         stageSearch.send_keys(stage)
         

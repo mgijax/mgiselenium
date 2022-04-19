@@ -94,7 +94,7 @@ class TestEiEmapaClipboard(unittest.TestCase):
         clear.click()
         wait.forAngular(self.driver)
         
-        clipbox = self.driver.find_element_by_id("clipboardInput")
+        clipbox = self.driver.find_element(By.ID, "clipboardInput")
         clipbox.send_keys("18,19,20,20,21,22,23,24,25")
         clipbox.send_keys(Keys.RETURN) 
         wait.forAngular(self.driver)

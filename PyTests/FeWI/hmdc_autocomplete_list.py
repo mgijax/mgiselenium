@@ -8,6 +8,7 @@ import time
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 import HtmlTestRunner
 # from lib import *
 import sys,os.path
@@ -38,17 +39,17 @@ class TestHmdcAutocomplete(unittest.TestCase):
         @see HMDC-DQ-?? passed 4-15-2020
         '''
         print ("BEGIN test_index_tab_headers")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype Name':
                 option.click()
                 break
         
-        self.driver.find_element_by_id("formly_3_autocomplete_input_0").send_keys("systemic lupus")#identifies the input field and enters systemic lupus
+        self.driver.find_element(By.ID, "formly_3_autocomplete_input_0").send_keys("systemic lupus")#identifies the input field and enters systemic lupus
         wait.forAngular(self.driver)
         #identify the autocomplete dropdown list
-        auto_list = self.driver.find_element_by_class_name("dropdown-menu")
-        items = auto_list.find_elements_by_tag_name("li")
+        auto_list = self.driver.find_element(By.CLASS_NAME, "dropdown-menu")
+        items = auto_list.find_elements(By.TAG_NAME, "li")
         for item in items:
             text = item.text
             print(text)

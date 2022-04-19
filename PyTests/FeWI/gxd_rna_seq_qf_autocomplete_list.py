@@ -42,8 +42,8 @@ class TestGxdRnaSeqAutocomplete(unittest.TestCase):
         self.driver.find_element(By.ID, 'structureAC').send_keys('heart')#identifies the anatomical structure field and enters text
         #wait.forAngular(self.driver)
         #identify the autocomplete dropdown list
-        auto_list = self.driver.find_element_by_id("ui-id-1")
-        items = auto_list.find_elements_by_tag_name("li")
+        auto_list = self.driver.find_element(By.ID, "ui-id-1")
+        items = auto_list.find_elements(By.TAG_NAME, "li")
         for item in items:
             text = item.text
             print(text)

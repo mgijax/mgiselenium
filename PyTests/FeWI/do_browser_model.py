@@ -525,7 +525,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'C57BL/6J-Tg').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         #Asserts that the strain page is for the correct strain
         assert "C57BL/6J-Tg(SNCA)ARyot" in self.driver.page_source  
         

@@ -72,7 +72,7 @@ class TestGXDTissueStageMatrix(unittest.TestCase):
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")
         #driver.get(config.PUBLIC_URL + "/gxd")
-        genebox = driver.find_element_by_name('nomenclature')
+        genebox = driver.find_element(By.NAME, 'nomenclature')
         # put your marker symbol
         genebox.send_keys("Psmb2")
         genebox.send_keys(Keys.RETURN)
@@ -110,19 +110,19 @@ class TestGXDTissueStageMatrix(unittest.TestCase):
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")
         #driver.get(config.PUBLIC_URL + "/gxd")
-        genebox = driver.find_element_by_name('nomenclature')
+        genebox = driver.find_element(By.NAME, 'nomenclature')
         # put your marker symbol
         genebox.send_keys("Tmem100")
         genebox.send_keys(Keys.RETURN)
         #find the Image tab
-        imagetab = driver.find_element_by_id("imagestab")
+        imagetab = driver.find_element(By.ID, "imagestab")
         time.sleep(1)
         #click the image tab
         imagetab.click()
         #wait.forAjax(driver)
         time.sleep(1)
-        typelist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-hybridization')
-        items = typelist[0].find_elements_by_tag_name("li")
+        typelist = driver.find_element(By.ID, "imagesdata").find_elements_by_css_selector('td.yui-dt-col-hybridization')
+        items = typelist[0].find_elements(By.TAG_NAME, "li")
         searchTextItems = iterate.getTextAsList(items)
         time.sleep(1)
         self.assertEqual(searchTextItems, ["section", "section from whole mount"])
@@ -136,31 +136,31 @@ class TestGXDTissueStageMatrix(unittest.TestCase):
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")
         #driver.get(config.PUBLIC_URL + "/gxd")
-        genebox = driver.find_element_by_name('nomenclature')
+        genebox = driver.find_element(By.NAME, 'nomenclature')
         # put your marker symbol
         genebox.send_keys("shh")
         genebox.send_keys(Keys.RETURN)
         #find the Image tab
-        imagetab = driver.find_element_by_id("imagestab")
+        imagetab = driver.find_element(By.ID, "imagestab")
         time.sleep(1)
         #click the image tab
         imagetab.click()
         wait.forAjax(driver)
         time.sleep(1)
         
-        imagesdata = driver.find_element_by_id("imagesdata")
-        genelist = imagesdata.find_elements_by_css_selector('td.yui-dt-col-gene')
-        items = genelist[0].find_elements_by_tag_name("li")
+        imagesdata = driver.find_element(By.ID, "imagesdata")
+        genelist = imagesdata.find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-gene')
+        items = genelist[0].find_elements(By.TAG_NAME, "li")
         searchTextItems = iterate.getTextAsList(items)
         self.assertEqual(searchTextItems, ["Arx", "Olig2", "Shh"])
-        geneheader = imagesdata.find_element_by_css_selector('th.yui-dt-col-gene')
+        geneheader = imagesdata.find_element(By.CSS_SELECTOR, 'th.yui-dt-col-gene')
         #click the gene header column to sort
         geneheader.click()
         #wait.forAjax(driver)
         time.sleep(2)
-        genelist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-gene')
+        genelist = driver.find_element(By.ID, "imagesdata").find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-gene')
         time.sleep(2)
-        items = genelist[0].find_elements_by_tag_name("li")
+        items = genelist[0].find_elements(By.TAG_NAME, "li")
         searchTextItems = iterate.getTextAsList(items)
         self.assertEqual(searchTextItems, ["Arx", "Olig2", "Shh"])
         
@@ -176,28 +176,28 @@ class TestGXDTissueStageMatrix(unittest.TestCase):
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")
         #driver.get(config.PUBLIC_URL + "/gxd")
-        genebox = driver.find_element_by_name('nomenclature')
+        genebox = driver.find_element(By.NAME, 'nomenclature')
         # put your marker symbol
         genebox.send_keys("pax6")
         genebox.send_keys(Keys.RETURN)
         #find the Image tab
-        imagetab = driver.find_element_by_id("imagestab")
+        imagetab = driver.find_element(By.ID, "imagestab")
         time.sleep(1)
         #click the image tab
         imagetab.click()
         wait.forAjax(driver)
         time.sleep(1)
-        assaylist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-assayType')
-        items = assaylist[0].find_elements_by_tag_name("li")
+        assaylist = driver.find_element(By.ID, "imagesdata").find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-assayType')
+        items = assaylist[0].find_elements(By.TAG_NAME, "li")
         searchTextItems = iterate.getTextAsList(items)
         self.assertEqual(searchTextItems, ["Immunohistochemistry", "Immunohistochemistry"])
-        assayheader = driver.find_element_by_id("imagesdata").find_element_by_css_selector('th.yui-dt-col-assayType')
+        assayheader = driver.find_element(By.ID, "imagesdata").find_element(By.CSS_SELECTOR, 'th.yui-dt-col-assayType')
         #click the gene header column to sort
         assayheader.click()
         wait.forAjax(driver)
         time.sleep(2)
-        assaylist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-assayType')
-        items = assaylist[2].find_elements_by_tag_name("li")
+        assaylist = driver.find_element(By.ID, "imagesdata").find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-assayType')
+        items = assaylist[2].find_elements(By.TAG_NAME, "li")
         searchTextItems = iterate.getTextAsList(items)
         self.assertEqual(searchTextItems, ["RT-PCR"])
     
@@ -223,28 +223,28 @@ class TestGXDTissueStageMatrix(unittest.TestCase):
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")
         #driver.get(config.PUBLIC_URL + "/gxd")
-        genebox = driver.find_element_by_name('nomenclature')
+        genebox = driver.find_element(By.NAME, 'nomenclature')
         # put your marker symbol
         genebox.send_keys("hoxa13")
         genebox.send_keys(Keys.RETURN)
         #find the Image tab
-        imagetab = driver.find_element_by_id("imagestab")
+        imagetab = driver.find_element(By.ID, "imagestab")
         time.sleep(3)
         #click the image tab
         imagetab.click()
         wait.forAjax(driver)
         time.sleep(3)
-        typelist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-hybridization')
-        items = typelist[0].find_elements_by_tag_name("li")
+        typelist = driver.find_element(By.ID, "imagesdata").find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-hybridization')
+        items = typelist[0].find_elements(By.TAG_NAME, "li")
         searchTextItems = iterate.getTextAsList(items)
         self.assertEqual(searchTextItems, ["section", "section"])
-        specimenheader = driver.find_element_by_id("imagesdata").find_element_by_css_selector('th.yui-dt-col-hybridization')
+        specimenheader = driver.find_element(By.ID, "imagesdata").find_element(By.CSS_SELECTOR, 'th.yui-dt-col-hybridization')
         #click the gene header column to sort
         specimenheader.click()
         wait.forAjax(driver)
         time.sleep(2)
-        assaylist = driver.find_element_by_id("imagesdata").find_elements_by_css_selector('td.yui-dt-col-hybridization')
-        items = assaylist[0].find_elements_by_tag_name("li")
+        assaylist = driver.find_element(By.ID, "imagesdata").find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-hybridization')
+        items = assaylist[0].find_elements(By.TAG_NAME, "li")
         searchTextItems = iterate.getTextAsList(items)
         self.assertEqual(searchTextItems, ["whole mount"])
             

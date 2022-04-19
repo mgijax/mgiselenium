@@ -89,36 +89,36 @@ class TestDoBrowserGeneral(unittest.TestCase):
         self.assertIn(alt_id.text, "OMIM:607688, OMIM:610297, OMIM:613643, OMIM:614251, EFO:0002508, ICD10CM:G20, ICD9CM:332, ICD9CM:332.0, KEGG:05012, MESH:D010300, NCI:C26845, OMIM:PS168600, ORDO:2828, UMLS_CUI:C0030567")
         self.driver.find_element(By.LINK_TEXT, 'OMIM:PS168600').click()
         
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         print((self.driver.current_url))
         #OMIM link will not work until donation popup is removed
         #self.assertEqual(self.driver.current_url, 'http://www.omim.org/phenotypicSeries/PS168600', 'The OMIM link is broken!')
-        self.driver.switch_to_window(self.driver.window_handles[0])
+        self.driver.switch_to.window(self.driver.window_handles[0])
         
         self.driver.find_element(By.LINK_TEXT, 'EFO:0002508').click()
         
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         print((self.driver.current_url))
         self.assertEqual(self.driver.current_url, 'https://www.ebi.ac.uk/ols/ontologies/efo/terms?short_form=EFO_0002508', 'The EFO link is broken!')
-        self.driver.switch_to_window(self.driver.window_handles[0])
+        self.driver.switch_to.window(self.driver.window_handles[0])
         
         self.driver.find_element(By.LINK_TEXT, 'KEGG:05012').click()
         
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         print((self.driver.current_url))
         self.assertEqual(self.driver.current_url, 'https://www.genome.jp/dbget-bin/www_bget?map05012', 'The KEGG link is broken!')
-        self.driver.switch_to_window(self.driver.window_handles[0])
+        self.driver.switch_to.window(self.driver.window_handles[0])
         
         self.driver.find_element(By.LINK_TEXT, 'MESH:D010300').click()
         
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         print((self.driver.current_url))
         self.assertEqual(self.driver.current_url, 'https://www.ncbi.nlm.nih.gov/mesh/D010300', 'The MESH link is broken!')
-        self.driver.switch_to_window(self.driver.window_handles[0])
+        self.driver.switch_to.window(self.driver.window_handles[0])
         
         self.driver.find_element(By.LINK_TEXT, 'ORDO:2828').click()
         
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         print((self.driver.current_url))
         self.assertEqual(self.driver.current_url, 'https://www.orpha.net/consor/cgi-bin/OC_Exp.php?lng=EN&Expert=2828', 'The ORDO link is broken!')
         
@@ -127,14 +127,14 @@ class TestDoBrowserGeneral(unittest.TestCase):
         @status this test verifies the synonym data is correctly displayed when multiple synonyms exist
         '''
         print ("BEGIN test_dobrowser_mult_syn")
-        searchbox = self.driver.find_element_by_id('searchToolTextArea')
+        searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene ID in the quick search box
         searchbox.send_keys("DOID:1700")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(3)
-        self.driver.find_element_by_link_text('X-linked ichthyosis').click()
+        self.driver.find_element(By.LINK_TEXT, 'X-linked ichthyosis').click()
         wait.forAjax(self.driver)
-        syn = self.driver.find_element_by_id('diseaseSynonym')#identifies the synonym line in the header section of the DO Browser page
+        syn = self.driver.find_element(By.ID, 'diseaseSynonym')#identifies the synonym line in the header section of the DO Browser page
         print(syn.text)
         time.sleep(1)
         self.assertEqual(syn.text, "X-linked ichthyosis with steryl-sulphatase deficiency; X-linked placental steryl-sulphatase deficiency; X-linked recessive ichthyosis")

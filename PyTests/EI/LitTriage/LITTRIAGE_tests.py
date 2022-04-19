@@ -4,17 +4,17 @@ Created on Jan 27, 2017
 @author: jeffc
 '''
 import unittest
-from littriage_search_test import TestLitSearch
-from littriage_summary_test import TestLitSummarySearch
-from littriage_detail_test import TestLitDetail
+from littriage_search_test import TestEiLitTriageSearch
+from littriage_summary_test import TestEiLitTriageSummarySearch
+from littriage_detail_test import TestEiLitTriageDetail
 import os
 import HtmlTestRunner
 
 #from LitTriage import littriage_search_test, littriage_summary_test
 def main():
-    littriage_search_test = unittest.TestLoader().loadTestsFromTestCase(TestLitSearch)
-    littriage_summary_test = unittest.TestLoader().loadTestsFromTestCase(TestLitSummarySearch)
-    littriage_detail_test = unittest.TestLoader().loadTestsFromTestCase(TestLitDetail)
+    littriage_search_test = unittest.TestLoader().loadTestsFromTestCase(TestEiLitTriageSearch)
+    littriage_summary_test = unittest.TestLoader().loadTestsFromTestCase(TestEiLitTriageSummarySearch)
+    littriage_detail_test = unittest.TestLoader().loadTestsFromTestCase(TestEiLitTriageDetail)
 
 #Put them in an Array
     littriage_tests = unittest.TestSuite([littriage_search_test, littriage_summary_test, littriage_detail_test])

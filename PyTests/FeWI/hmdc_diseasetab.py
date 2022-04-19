@@ -10,6 +10,7 @@ import time
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 import HtmlTestRunner
 import sys,os.path
 # adjust the path to find config
@@ -36,24 +37,24 @@ class TestHmdcDiseaseTab(unittest.TestCase):
         @see HMDC-disease-17 (column headings on Diseases Tab)
         '''
         print ("BEGIN test_diseases_tab_headers")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("Gata1")#identifies the input field and enters gata1
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Gata1")#identifies the input field and enters gata1
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         
         #identify the Disease Tab and click on it
-        disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
+        disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         time.sleep(2)
         print(disease_tab.text)
         time.sleep(2)
         disease_tab.click()
-        disease_table_headers = self.driver.find_element_by_id("diseaseTable").find_element_by_css_selector("tr")
-        items = disease_table_headers.find_elements_by_tag_name("th")
+        disease_table_headers = self.driver.find_element(By.ID, "diseaseTable").find_element(By.CSS_SELECTOR, "tr")
+        items = disease_table_headers.find_elements(By.TAG_NAME, "th")
         searchTermItems = iterate.getTextAsList(items)
         self.assertEqual(searchTermItems[0], "Disease")
         self.assertEqual(searchTermItems[1], "DO ID")
@@ -70,24 +71,24 @@ class TestHmdcDiseaseTab(unittest.TestCase):
         @see HMDC-GQ-1 (gene symbol query); HMDC-disease-9 (return diseases for a gene search)
         '''
         print ("BEGIN test_diseases_tab_diseases")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element_by_xpath(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("Gata1")#identifies the input field and enters gata1
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Gata1")#identifies the input field and enters gata1
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         #identify the Disease tab and verify the tab's text
-        disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
+        disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         time.sleep(2)
         print(disease_tab.text)
         time.sleep(2)
         
         disease_tab.click()
-        disease_table = Table(self.driver.find_element_by_id("diseaseTable"))
+        disease_table = Table(self.driver.find_element(By.ID, "diseaseTable"))
         cells = disease_table.get_column_cells("Disease")
         print(iterate.getTextAsList(cells))
         
@@ -105,26 +106,26 @@ class TestHmdcDiseaseTab(unittest.TestCase):
         @see HMDC-PQ-1 (single token MP term); HMDC-disease-11 (return diseases due to association to genocluster returned)
         '''
         print ("BEGIN test_diseases_tab_diseases2")
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype Name':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_autocomplete_input_0").send_keys("phototoxicity")#selects phototoxicity from the autocomplete list
+        self.driver.find_element(By.NAME, "formly_3_autocomplete_input_0").send_keys("phototoxicity")#selects phototoxicity from the autocomplete list
         wait.forAngular(self.driver)
         time.sleep(2)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Genes tab and verify the tab's text
-        disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
+        disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         time.sleep(2)
         print(disease_tab.text)
         time.sleep(2)
         
         disease_tab.click()
-        disease_table = Table(self.driver.find_element_by_id("diseaseTable"))
+        disease_table = Table(self.driver.find_element(By.ID, "diseaseTable"))
         cells = disease_table.get_column_cells("Disease")
         print(iterate.getTextAsList(cells))
         
@@ -143,25 +144,25 @@ class TestHmdcDiseaseTab(unittest.TestCase):
         '''
         print ("BEGIN test_diseases_tab_doids")
         
-        my_select = self.driver.find_element_by_xpath("//select[starts-with(@id, 'field_0_')]") #identifies the select field
-        for option in my_select.find_elements_by_tag_name("option"):
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]") #identifies the select field
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
         
-        self.driver.find_element_by_name("formly_3_input_input_0").send_keys("DOID:0050471") #identifies the input field and enters ID for "Carney complex"
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("DOID:0050471") #identifies the input field and enters ID for "Carney complex"
         wait.forAngular(self.driver)
-        self.driver.find_element_by_id("searchButton").click()
+        self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Disease Tab and click on it
-        disease_tab = self.driver.find_element_by_css_selector("ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
+        disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         time.sleep(2)
         print(disease_tab.text)
         time.sleep(2)
         
         disease_tab.click()
-        disease_table = Table(self.driver.find_element_by_id("diseaseTable"))
+        disease_table = Table(self.driver.find_element(By.ID, "diseaseTable"))
         cells = disease_table.get_column_cells("DO ID")
         print(iterate.getTextAsList(cells))
         diseaseIdsReturned = iterate.getTextAsList(cells)

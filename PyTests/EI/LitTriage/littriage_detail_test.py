@@ -38,7 +38,7 @@ class TestEiLitTriageDetail(unittest.TestCase):
     def testGoRefResult(self):
         """
         @Status tests that detail results for a result w/ GO Ref ID is correct
-        @see MBIB-detail-1 (2)
+        @see LitTri-detail-1 (2)
         @attention: Under Construction!!!
         """
         #driver = self.driver
@@ -74,7 +74,7 @@ class TestEiLitTriageDetail(unittest.TestCase):
     def testRefwReftypeResult(self):
         """
         @Status tests that detail results for a result w/ Reference Type, pubmed ID, DOID is correct
-        @see MBIB-detail-2,3,4,5,7 (5)
+        @see LitTri-detail-2,3,4,5,7 (5)
         """
         #driver = self.driver
         form = self.form
@@ -120,17 +120,17 @@ class TestEiLitTriageDetail(unittest.TestCase):
     def testisReviewResult(self):
         """
         @Status tests that detail results for a result w/ isReview set to yes is correct
-        @see MBIB-detail-3 (6)
+        @see LitTri-detail-3 (6)
         """
         #driver = self.driver
         form = self.form
         form.enter_value('accids', 'J:228427')
         form.click_search()
         
-        #finds the isReviewed field and return it's text value(should be Yes)
+        #finds the isReviewed field and return it's value of 1(1 is equal to Yes)
         is_rvw = self.driver.find_element(By.ID, "refDataIsReview").get_attribute('value')
         print(is_rvw)
-        self.assertEqual(is_rvw, 'Yes')
+        self.assertEqual(is_rvw, '1')
         #finds the Reference Type field and return it's text value
         journal = self.driver.find_element(By.ID, "editTabJournal").get_attribute('value')
         print(journal)
@@ -140,17 +140,17 @@ class TestEiLitTriageDetail(unittest.TestCase):
     def testhasNoteResult(self):
         """
         @Status tests that detail results for a result w/ a note entry is correct
-        @see MBIB-detail-6 (8)
+        @see LitTri-detail-6 (8)
         """
         #driver = self.driver
         form = self.form
         form.enter_value('accids', 'J:233396')
         form.click_search()
         
-        #finds the isReviewed field and return it's text value(should be Yes)
+        #finds the isReviewed field and return it's value of 0(0 is equal to No)
         is_rvw = self.driver.find_element(By.ID, "refDataIsReview").get_attribute('value')
         print(is_rvw)
-        self.assertEqual(is_rvw, 'No')
+        self.assertEqual(is_rvw, '0')
         #finds the Notes field and return it's text value
         note = self.driver.find_element(By.ID, "editTabRefNote").get_attribute('value')
         print(note)
@@ -159,7 +159,7 @@ class TestEiLitTriageDetail(unittest.TestCase):
     def testMultiFieldResult(self):
         """
         @Status tests that detail results for a result w/ Author,Journal,Date,Vol,Issue,Pages,Year is correct
-        @see MBIB-detail-7,8,9,10,11,12 (9)
+        @see LitTri-detail-7,8,9,10,11,12 (9)
         """
         driver = self.driver
         form = self.form
@@ -202,7 +202,7 @@ class TestEiLitTriageDetail(unittest.TestCase):
     def testTitleSSResult(self):
         """
         @Status tests that detail results for a result w/ superscript in the title displays correctly
-        @see MBIB-detail-4 (16)
+        @see LitTri-detail-4 (16)
         """
         driver = self.driver
         form = self.form
@@ -212,12 +212,12 @@ class TestEiLitTriageDetail(unittest.TestCase):
         #finds the Title field and return it's text value
         title = self.driver.find_element(By.ID, "editTabTitle").get_attribute('value')
         print(title)
-        self.assertEqual(title, 'Allotyping C<m>a and C<m>b DNA and RNA,')
+        self.assertEqual(title, 'Allotyping C<sup>m</sup>a and C<sup>m</sup>b DNA and RNA,')
         
     def testAlleleAssocTable(self):
         """
         @Status tests that the Allele Associations table displays correctly for a reference with associations
-        @see MBIB-allele-assoc-1
+        @see LitTri-allele-assoc-1
         """
         #driver = self.driver
         form = self.form

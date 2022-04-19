@@ -95,7 +95,7 @@ class TestEiImageSearch(unittest.TestCase):
         driver.find_element(By.ID, 'searchButton').click()
         time.sleep(2)
         #find the search results table
-        results_table = self.driver.find_element_by_id("resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
@@ -311,7 +311,7 @@ class TestEiImageSearch(unittest.TestCase):
         driver = self.driver
         #finds the Image Class pulldown and selects "Expression" option then click the Search button
         Select(driver.find_element(By.ID, "imageClassID")).select_by_value('6481781')
-        driver.find_element_by_id('searchButton').click()
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(15)
         #WebDriverWait(driver, 20).until(EC.text_to_be_present_in_element((By.ID, "resultsCount")))
         #find the search results table
@@ -517,7 +517,7 @@ class TestEiImageSearch(unittest.TestCase):
         #Assert the copyright field is clear of text
         self.assertEqual(cpy.text, '', 'The copyright field is not empty')
         #find the search results table
-        results_table = self.driver.find_element_by_id(By.ID, "resultsTable")
+        results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)
@@ -1027,7 +1027,7 @@ class TestEiImageSearch(unittest.TestCase):
         self.assertEqual(result9, ['J:153498; Full Size; euxassay_000001_09'])
         self.assertEqual(result10, ['J:153498; Full Size; euxassay_000001_10'])
         #find the Other Accession Ids table
-        accid_table = self.driver.find_element_by_id("otherAccIdTable")
+        accid_table = self.driver.find_element(By.ID, "otherAccIdTable")
         table = Table(accid_table)
         #Iterate and print the search results
         cell1 = table.get_row_cells(0)

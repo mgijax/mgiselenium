@@ -52,7 +52,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'C57BL/6NHsd').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         summary_ribbon = driver.find_element(By.ID, 'summaryRibbonLabel')#find the Summary Ribbon's title
         print(summary_ribbon.text)#print the summary ribbon's title to the console screen
         self.assertEqual(summary_ribbon.text, 'Summary', 'the summary ribbon is missing!')
@@ -85,7 +85,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'C57BL/6J').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         summary_ribbon = driver.find_element(By.ID, 'summaryRibbonLabel')#find the Summary Ribbon's title
         print(summary_ribbon.text)#print the summary ribbon's title to the console screen
         self.assertEqual(summary_ribbon.text, 'Summary', 'the summary ribbon is missing!')
@@ -123,7 +123,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'C57BL/6J').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         title = driver.find_element(By.ID, 'titleBarWrapper')#find the page's title
         print(title.text)#print the page title to the console screen
         #locate the strain name  in the nomenclature ribbon
@@ -149,7 +149,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'C57BL/6J').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         title = driver.find_element(By.ID, 'titleBarWrapper')#find the page's title
         print(title.text)#print the page title to the console screen
         #locate the strain MGI ID in the nomenclature ribbon
@@ -175,7 +175,7 @@ class TestStrainDetail(unittest.TestCase):
         #driver.find_element(By.PARTIAL_LINK_TEXT, '101-A').click()
         #time.sleep(2)
         #switch focus to the new tab for strain detail page
-        #driver.switch_to_window(self.driver.window_handles[-1])
+        #driver.switch_to.window(self.driver.window_handles[-1])
         #locates the earliest reference link and clicks it
         #pend = driver.find_element(By.ID, 'strainIsStandard')
         #self.assertEqual(pend.text, '(interim)')         
@@ -199,7 +199,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, '101/HY').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         #verify (pending review) is not displayed on the page
         assert '<span id="strainIsStandard">(interim)</span>' not in driver.page_source      
 
@@ -221,7 +221,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'C57BL/6J').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         title = driver.find_element(By.ID, 'titleBarWrapper')#find the page's title
         print(title.text)#print the page title to the console screen
         #locate the strain Synonyms in the nomenclature ribbon
@@ -247,7 +247,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'B6 x B10.D1-H2q/SgJ-Nox3het-2J/J').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         title = driver.find_element(By.ID, 'titleBarWrapper')#find the page's title
         print(title.text)#print the page title to the console screen
         #locate the strain attributes in the nomenclature ribbon
@@ -272,12 +272,12 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'A/J').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         #Click the MPD link
         driver.find_element(By.LINK_TEXT, 'Mouse Phenome Database (MPD)').click()
         time.sleep(2)
         #switch focus to the new tab for the mpd page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         #Identify the page title
         title = driver.find_element(By.CLASS_NAME, 'pagetitle')
         print(title.text)
@@ -300,12 +300,12 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'A/J').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         #Click the MGV link
         driver.find_element(By.LINK_TEXT, 'Multiple Genome Viewer (MGV)').click()
         time.sleep(2)
         #switch focus to the new tab for the mpd page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         #Identify the page title
         time.sleep(3)
         title = driver.find_element(By.NAME, 'title')
@@ -329,12 +329,12 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'C57BL/6J').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         #Click the MGV link
         driver.find_element(By.LINK_TEXT, 'Multiple Genome Viewer (MGV)').click()
         time.sleep(2)
         #switch focus to the new tab for the mpd page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         #Identify the page title
         time.sleep(3)
         title = driver.find_element(By.NAME, 'title')
@@ -360,7 +360,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'CBA/StMs').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         alt_ids = driver.find_element(By.ID, 'otherIDs')#find the alternate IDs
         print(alt_ids.text)#print the alt IDs to the console screen
         self.assertEqual(alt_ids.text, 'RBRC00636, NIG:143')#assert the alt IDs are correct    
@@ -383,7 +383,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'WSB/EiJ').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         collect = driver.find_element(By.ID, 'strainCollection')#find the collection field
         print(collect.text)#print the collection to the console screen
         self.assertEqual(collect.text, 'DO/CC Founder')#assert the collection field is correct    
@@ -405,7 +405,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, '129').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         time.sleep(2)
         fam_mem = driver.find_element(By.ID, 'relatedStrains')#find the Strain Family Member link
         print(fam_mem.text)#print the strain family member to the console screen
@@ -429,7 +429,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.PARTIAL_LINK_TEXT, 'C57BL/6NCrl-Clcnkb').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         syn_section = driver.find_element(By.ID, 'strainSynonyms')#find the synonymn section of the sum,mary ribbon
         print(syn_section.text)#print the synonym section to the console screen
         self.assertIn(syn_section.text, 'C57BL/6N-Clcnkbem2(IMPC)Mbp/Ucd, C57BL/6NCrl-Clcnkbem1(IMPC)Mbp/Mmucd, C57BL/6NCrl-Clcnkbem2(IMPC)Mbp/MbpMmucd, CR1475')#assert the text of the description field is correct    
@@ -452,7 +452,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.PARTIAL_LINK_TEXT, 'SJL/JCrHsd').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         time.sleep(10)
         desc_field = driver.find_element(By.ID, 'description')#find the description field
         print(desc_field.text)#print the description field to the console screen
@@ -476,7 +476,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.PARTIAL_LINK_TEXT, 'SAMR1/TaHsd').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         desc_field = driver.find_element(By.ID, 'description')#find the description field
         print(desc_field.text)#print the description field to the console screen
         self.assertEqual(desc_field.text, 'Envigo')#assert the text of the description field is correct    
@@ -504,7 +504,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.PARTIAL_LINK_TEXT, 'AKR/J').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         comp_count = driver.find_element(By.ID, 'comparisonStrainCount')#find the Comparison Strains count field
         print(comp_count.text)#print the description field to the console screen
         self.assertEqual(comp_count.text, '86')#asserts the Comparison Strains count is correct
@@ -553,7 +553,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.PARTIAL_LINK_TEXT, 'SAMR1/TaHsd').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         #asserts that the strains table is not displayed in the Strains Comparison ribbon
         assert "snpRibbon" not in self.driver.page_source  
 
@@ -575,7 +575,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.PARTIAL_LINK_TEXT, 'AKR/J').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])        
+        driver.switch_to.window(self.driver.window_handles[-1])        
         #clicks the More toggle(turnstile) to display the snps table
         self.driver.find_element(By.ID, 'snpToggle').click()
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'snpContainer')))#waits until the snp table is displayed on the page
@@ -587,7 +587,7 @@ class TestStrainDetail(unittest.TestCase):
         #locate the cell for strain 129S1/SvImJ Chromosome 1 and click it
         driver.find_element(By.CSS_SELECTOR, '#snpTable > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(2)').click()
         #switch focus to the new tab for Mouse SNP Summary page
-        driver.switch_to_window(self.driver.window_handles[-1]) 
+        driver.switch_to.window(self.driver.window_handles[-1]) 
         #locate the page title
         self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
         WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, 'snpSummaryTable')))#waits until the snp summary table is displayed on the page 
@@ -612,7 +612,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.PARTIAL_LINK_TEXT, 'BTBR').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])        
+        driver.switch_to.window(self.driver.window_handles[-1])        
         
         #locate the involving strain text in the SNP ribbon 
         involvedtext = driver.find_element(By.CLASS_NAME, 'rightLabelSnp')
@@ -638,7 +638,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'C57BL/6J').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])        
+        driver.switch_to.window(self.driver.window_handles[-1])        
         mutation_table = self.driver.find_element(By.ID, 'mutationSummaryTable')
         table = Table(mutation_table)
         #Iterate and print the search results headers
@@ -675,7 +675,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.PARTIAL_LINK_TEXT, '129S6/SvEvTac-Foxc1').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])        
+        driver.switch_to.window(self.driver.window_handles[-1])        
         mutation_table = self.driver.find_element(By.ID, 'mutationSummaryTable')
         table = Table(mutation_table)
         #Iterate and print the search results headers
@@ -712,7 +712,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'AEJ/GnRk-Rb(11.14)1Dn/J').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])        
+        driver.switch_to.window(self.driver.window_handles[-1])        
         mutation_table = self.driver.find_element(By.ID, 'mutationSummaryTable')
         table = Table(mutation_table)
         #Iterate and print the search results headers
@@ -749,7 +749,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, '129.Cg-Ddctm1.1Rhrs Tg(Ggt1-cre)M3Egn').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])        
+        driver.switch_to.window(self.driver.window_handles[-1])        
         mutation_table = self.driver.find_element(By.ID, 'mutationSummaryTable')
         table = Table(mutation_table)
         #Iterate and print the search results headers
@@ -786,7 +786,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'C57BL/6J').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1]) 
+        driver.switch_to.window(self.driver.window_handles[-1]) 
         #locate the count and text above the mutations table       
         mut_count = self.driver.find_element(By.CLASS_NAME, 'indented')
         print(mut_count.text)
@@ -810,7 +810,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.PARTIAL_LINK_TEXT, 'STOCK').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1]) 
+        driver.switch_to.window(self.driver.window_handles[-1]) 
         #locate the Show All button in the Associated Mutations, Markers, and QTL ribbon      
         show_all = self.driver.find_element(By.ID, 'mutationButton')
         print(show_all.text)
@@ -838,7 +838,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'FRCH.Cg-Tenm4l7Rn3-2R').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1]) 
+        driver.switch_to.window(self.driver.window_handles[-1]) 
         #assert the Show All button in the Associated Mutations, Markers, and QTL ribbon is not displayed      
         assert '<span id="mutationButton" class="searchToolButton indented">Show All</span>' not in driver.page_source
 
@@ -860,7 +860,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'C57BL/6J').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])                      
+        driver.switch_to.window(self.driver.window_handles[-1])                      
         ahr_mrk = self.driver.find_element(By.XPATH, '//*[@id="mutationSummaryTable"]/tbody/tr[3]/td[2]/a')
         title_text = ahr_mrk.get_attribute('title')
         print(title_text)   
@@ -885,7 +885,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'SL/KhStmRbrc').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])        
+        driver.switch_to.window(self.driver.window_handles[-1])        
         mutation_table = self.driver.find_element(By.ID, 'qtlSummaryTable')
         table = Table(mutation_table)
         #Iterate and print the search results headers
@@ -922,7 +922,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'Boulder heterogeneous stock').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])        
+        driver.switch_to.window(self.driver.window_handles[-1])        
         mutation_table = self.driver.find_element(By.ID, 'qtlSummaryTable')
         table = Table(mutation_table)
         #Iterate and print the search results headers
@@ -959,7 +959,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'C57BL/6J').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1]) 
+        driver.switch_to.window(self.driver.window_handles[-1]) 
         #locate the count and text above the qtl table       
         qtl_count = self.driver.find_elements(By.CLASS_NAME, 'indented')
         print(qtl_count[2].text)
@@ -983,7 +983,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'CC011/Unc').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1]) 
+        driver.switch_to.window(self.driver.window_handles[-1]) 
         #locate the Show All button in the QTL Mapped with this Strain ribbon      
         show_all = self.driver.find_element(By.ID, 'qtlButton')
         print(show_all.text)
@@ -1011,7 +1011,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'NZO/Hl').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1]) 
+        driver.switch_to.window(self.driver.window_handles[-1]) 
         #assert the Show All button in the QTL Mapped with this Strain ribbon is not displayed      
         assert '<span id="qtlButton" class="searchToolButton indented">Show All</span>' not in driver.page_source
 
@@ -1033,7 +1033,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'C57BL/6J').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])                      
+        driver.switch_to.window(self.driver.window_handles[-1])                      
         aaaq1_mrk = self.driver.find_element(By.XPATH, '//*[@id="qtlSummaryTable"]/tbody/tr[2]/td[2]/a')
         title_text = aaaq1_mrk.get_attribute('title')
         print(title_text)   
@@ -1056,12 +1056,12 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'C57BL/6J').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         #Click the IMSR link
         driver.find_element(By.LINK_TEXT, 'JAX:000664').click()
         time.sleep(2)
         #switch focus to the new tab for the IMSR page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         #Identify the strain name
         name = driver.find_element(By.LINK_TEXT, 'C57BL/6J')
         print(name.text)
@@ -1086,7 +1086,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.PARTIAL_LINK_TEXT, 'B6.Cg-Phex').click()
         time.sleep(3)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         #set browser window to max size
         driver.maximize_window()
         time.sleep(1)
@@ -1094,7 +1094,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.PARTIAL_LINK_TEXT, 'X-linked').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         #verify the Disease name and DOID are correct for this page
         disname = driver.find_element(By.ID, 'diseaseNameID')
         print(disname.text)
@@ -1118,12 +1118,12 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'A/J').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         #locates the model 1 link and clicks it
         driver.find_element(By.LINK_TEXT, 'model 1').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         #verify the Disease name and DOID are correct for this page
         strain_link = self.driver.find_element(By.LINK_TEXT, 'A/J')
         print(strain_link.text)
@@ -1147,7 +1147,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'C57BL/6J-Gdf5Bp-5J/GrsrJ').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         #locates the Human Disease table
         time.sleep(2)
         disease_table = self.driver.find_element(By.ID, 'diseaseSummaryTable')
@@ -1194,7 +1194,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.PARTIAL_LINK_TEXT, 'B6.Cg-Phex').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         #locates the Human Disease table
         time.sleep(2)
         disease_table = self.driver.find_element(By.ID, 'diseaseSummaryTable')
@@ -1224,17 +1224,17 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.PARTIAL_LINK_TEXT, 'C57BL/6J-Pax3Sp-d').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         #locates the Human Disease table
         time.sleep(2)
         #locates the first column of row 2 and captures the text, also prints to screen
-        row2col1 = self.driver.find_element_by_css_selector('#diseaseSummaryTable > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(1) > a:nth-child(1)')
+        row2col1 = self.driver.find_element(By.CSS_SELECTOR, '#diseaseSummaryTable > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(1) > a:nth-child(1)')
         print (row2col1.text)
         #locates the second column of row 2 and captures the ALT text(since can't capture the image), also prints to screen
-        row2col2 = self.driver.find_element_by_css_selector('#diseaseSummaryTable > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(2) > img:nth-child(1)').get_attribute('alt')
+        row2col2 = self.driver.find_element(By.CSS_SELECTOR, '#diseaseSummaryTable > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(2) > img:nth-child(1)').get_attribute('alt')
         print(row2col2)
         #locates the third column of row 2 and captures the ALT text(since can't capture the image), also prints to screen
-        row2col3 = self.driver.find_element_by_css_selector('#diseaseSummaryTable > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(3) > img:nth-child(1)').get_attribute('alt')
+        row2col3 = self.driver.find_element(By.CSS_SELECTOR, '#diseaseSummaryTable > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(3) > img:nth-child(1)').get_attribute('alt')
         print(row2col3)
         #verify the second row of Disease table data
         self.assertEqual(row2col1.text, 'Waardenburg syndrome type 3')
@@ -1259,7 +1259,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'C57BL/6J-Gdf5Bp-5J/GrsrJ').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         #locates the text above the tables on the page(there are 3)
         result_text = driver.find_elements(By.CLASS_NAME, 'indented')
         indented_text = iterate.getTextAsList(result_text)
@@ -1285,13 +1285,13 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'C57BL/6J-Gdf5Bp-5J/GrsrJ').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         time.sleep(2)
         #locates the phenogrid and click on the cell for growth/size/body
         driver.find_element(By.ID, 'mpSlimgrid9Div').click()
         time.sleep(2)
         #switch focus to the new tab for Phenotype annotations related to growth/size/body
-        driver.switch_to_window(self.driver.window_handles[+2])
+        driver.switch_to.window(self.driver.window_handles[+2])
         time.sleep(2)
         geno = driver.find_element(By.ID, 'fm66877a')
         print(geno.text)
@@ -1315,13 +1315,13 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'C57BL/6J').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         time.sleep(2)
         #locates the phenogrid and click on the cell for homeostasis/metabolism
         driver.find_element(By.ID, 'mpSlimgrid12Div').click()
         time.sleep(2)
         #switch focus to the new tab for Phenotype annotations related to growth/size/body
-        driver.switch_to_window(self.driver.window_handles[+2])
+        driver.switch_to.window(self.driver.window_handles[+2])
         time.sleep(2)
         geno1 = driver.find_element(By.ID, 'fm12338a')
         geno2 = driver.find_element(By.ID, 'fm12586a')
@@ -1362,36 +1362,36 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'A/J').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         time.sleep(2)
         #locates the phenogrid box for behavior/neurological and capture it's title
         value1 = driver.find_element(By.ID, 'mpSlimgrid12Div').get_attribute("title")
-        #value1 = driver.find_element_by_xpath('/html/body/div[2]/div[4]/div/div[2]/section/div/div[3]/table/tbody/tr[3]/td[2]').get_attribute("title")
+        #value1 = driver.find_element(By.XPATH, '/html/body/div[2]/div[4]/div/div[2]/section/div/div[3]/table/tbody/tr[3]/td[2]').get_attribute("title")
         print(value1)
         #self.assertTrue(value1, "2 annotation(s)")
         #locates the phenogrid box for growth/size/body and capture it's title
         value2 = driver.find_element(By.ID, 'mpSlimgrid9Div').get_attribute("title")
-        #value2 = driver.find_element_by_xpath('/html/body/div[2]/div[4]/div/div[2]/section/div/div[3]/table/tbody/tr[3]/td[9]').get_attribute("title")
+        #value2 = driver.find_element(By.XPATH, '/html/body/div[2]/div[4]/div/div[2]/section/div/div[3]/table/tbody/tr[3]/td[9]').get_attribute("title")
         print(value2)
         #self.assertTrue(value2, "1 annotation(s)")
         #locates the phenogrid box for hearing/vestibular/ear and capture it's title
         value3 = driver.find_element(By.ID, 'mpSlimgrid10Div').get_attribute("title")
-        #value3 = driver.find_element_by_xpath('/html/body/div[2]/div[4]/div/div[2]/section/div/div[3]/table/tbody/tr[3]/td[10]').get_attribute("title")
+        #value3 = driver.find_element(By.XPATH, '/html/body/div[2]/div[4]/div/div[2]/section/div/div[3]/table/tbody/tr[3]/td[10]').get_attribute("title")
         print(value3)
         #self.assertTrue(value3, "4 annotation(s)")
         #locates the phenogrid box for muscle and capture it's title
         value4 = driver.find_element(By.ID, 'mpSlimgrid18Div').get_attribute("title")
-        #value4 = driver.find_element_by_xpath('/html/body/div[2]/div[4]/div/div[2]/section/div/div[3]/table/tbody/tr[3]/td[17]').get_attribute("title")
+        #value4 = driver.find_element(By.XPATH, '/html/body/div[2]/div[4]/div/div[2]/section/div/div[3]/table/tbody/tr[3]/td[17]').get_attribute("title")
         print(value4)
         #self.assertTrue(value4, "1 annotation(s)")
         #locates the phenogrid box for neoplasm and capture it's title
         value5 = driver.find_element(By.ID, 'mpSlimgrid19Div').get_attribute("title")
-        #value5 = driver.find_element_by_xpath('/html/body/div[2]/div[4]/div/div[2]/section/div/div[3]/table/tbody/tr[3]/td[18]').get_attribute("title")
+        #value5 = driver.find_element(By.XPATH, '/html/body/div[2]/div[4]/div/div[2]/section/div/div[3]/table/tbody/tr[3]/td[18]').get_attribute("title")
         print(value5)
         #self.assertTrue(value5, "1 annotation(s)")
         #locates the phenogrid box for reproductive system and capture it's title
         value6 = driver.find_element(By.ID, 'mpSlimgrid24Div').get_attribute("title")
-        #value6 = driver.find_element_by_xpath('/html/body/div[2]/div[4]/div/div[2]/section/div/div[3]/table/tbody/tr[3]/td[24]').get_attribute("title")
+        #value6 = driver.find_element(By.XPATH, '/html/body/div[2]/div[4]/div/div[2]/section/div/div[3]/table/tbody/tr[3]/td[24]').get_attribute("title")
         print(value6)
         #self.assertTrue(value6, "9 annotation(s)")
             
@@ -1413,7 +1413,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'C57BL/6J').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         #locates the earliest reference link and clicks it
         driver.find_element(By.LINK_TEXT, 'J:22753').click()
         #time.sleep(2)
@@ -1438,12 +1438,12 @@ class TestStrainDetail(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'C57BL/6J').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         #locates the earliest reference link and clicks it
         driver.find_element(By.ID, 'allRefs').click()
         time.sleep(2)
         #verify the MGI number is correct for this page
-        mginum = driver.find_element_by_css_selector("#templateBodyInsert > table.summaryHeader > tbody > tr > td.summaryHeaderData1 > span")
+        mginum = driver.find_element(By.CSS_SELECTOR, "#templateBodyInsert > table.summaryHeader > tbody > tr > td.summaryHeaderData1 > span")
         print(mginum.text)
         self.assertEqual(mginum.text, 'MGI:3028467')       
 

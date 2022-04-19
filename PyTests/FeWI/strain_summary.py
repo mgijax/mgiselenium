@@ -94,7 +94,7 @@ class TestStrainSummary(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
         #locates the strain table and verify the IDs/Links are correct
-        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         headings = strain_table.get_header_cells()
         print(iterate.getTextAsList(headings))
         hdsReturned = iterate.getTextAsList(headings)
@@ -120,7 +120,7 @@ class TestStrainSummary(unittest.TestCase):
         driver.find_element(By.PARTIAL_LINK_TEXT, '129').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         tpage = driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
         print(tpage.text)
         #asserts that the correct page is returned or not
@@ -144,7 +144,7 @@ class TestStrainSummary(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'referenceLink').click()
         time.sleep(2)
         #switch focus to the new tab for strain detail page
-        driver.switch_to_window(self.driver.window_handles[-1])
+        driver.switch_to.window(self.driver.window_handles[-1])
         sname = driver.find_element(By.CLASS_NAME, 'symbolLink')
         print(sname.text)
         #asserts that the correct page is returned or not
@@ -166,7 +166,7 @@ class TestStrainSummary(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
         #locates the strain table and verify the IDs are correct
-        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         ids = strain_table.get_column_cells('IDs')
         print(iterate.getTextAsList(ids))
         idsReturned = iterate.getTextAsList(ids)
@@ -202,7 +202,7 @@ class TestStrainSummary(unittest.TestCase):
         self.driver.find_element(By.ID, 'yui-gen0-button').click()
         #time.sleep(2)
         #locates the strain table and verify the Attributes are correct for each of the 5 results
-        strain_table = Table(self.driver.find_element_by_id("strainSummaryTable"))
+        strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         ids = strain_table.get_column_cells('Attributes')
         print(iterate.getTextAsList(ids))
         idsReturned = iterate.getTextAsList(ids)

@@ -176,7 +176,7 @@ class TestMarkerDetail(unittest.TestCase):
         #Find the TSS link and click it
         self.driver.find_element(By.ID, 'showTss').click()
         #locates the TSS table and verify the tss ID is correct
-        tss_table = Table(self.driver.find_element_by_id("tssTable"))
+        tss_table = Table(self.driver.find_element(By.ID, "tssTable"))
         cell = tss_table.get_cell(1, 0)   
         print(cell.text)
         self.assertEqual(cell.text, 'Tssr6917', 'The TSSR ID is not correct!')
@@ -243,7 +243,7 @@ class TestMarkerDetail(unittest.TestCase):
         #verify the strain annotations number is correct
         self.assertEqual(strain_annot.text, '16')      
         #verify the SNP URL
-        snp_s = self.driver.find_element_by_id('snpLink')
+        snp_s = self.driver.find_element(By.ID, 'snpLink')
         self.assertEquals(snp_s.text, '8')
  
         
@@ -297,7 +297,7 @@ class TestMarkerDetail(unittest.TestCase):
         self.driver.find_elements(By.CLASS_NAME, 'sgButton')[0].click()
         #time.sleep(2)
         #switch focus to the new tab for the FASTA results
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         #time.sleep(2)
         #verify the correct sequence is being returned
         assert 'MGI_C57BL6J_95661 X:7959260-7978071' in self.driver.page_source 
@@ -331,7 +331,7 @@ class TestMarkerDetail(unittest.TestCase):
         #find the link for C57BL/6J gene model id
         self.driver.find_element(By.LINK_TEXT, 'MGI_C57BL6J_95661').click()
         #switch focus to the new tab for sequence detail page
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         time.sleep(3)
         structure_table = self.driver.find_element(By.CLASS_NAME, 'detailStructureTable')
         table = Table(structure_table)
@@ -341,11 +341,11 @@ class TestMarkerDetail(unittest.TestCase):
         #verify the ID/Version row of data
         self.assertEqual(all_cells.text, 'ID/Version\nMGI_C57BL6J_95661 Multiple Genome Viewer (MGV) Version: MGI_C57BL6J_95661.GRCm39')
         #switch focus back to the Gene Detail page
-        self.driver.switch_to_window(self.driver.window_handles[0])
+        self.driver.switch_to.window(self.driver.window_handles[0])
         #find the link for 129S1/SvImJ gene model id
         self.driver.find_element(By.LINK_TEXT, 'MGP_129S1SvImJ_G0035536').click()
         #switch focus to the new tab for sequence detail page
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         #time.sleep(2)
         structure_table = self.driver.find_element(By.CLASS_NAME, 'detailStructureTable')
         table = Table(structure_table)
@@ -464,7 +464,7 @@ class TestMarkerDetail(unittest.TestCase):
         self.driver.find_elements(By.CLASS_NAME, 'sgButton')[0].click()
         #time.sleep(2)
         #switch focus to the new tab for the FASTA results
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         #time.sleep(2)
         #verify the correct sequence is being returned
         assert 'MGP_AJ_G0036915 19:53381666-53386571' in self.driver.page_source 
@@ -496,7 +496,7 @@ class TestMarkerDetail(unittest.TestCase):
         self.driver.find_elements(By.CLASS_NAME, 'sgButton')[0].click()
         #time.sleep(2)
         #switch focus to the new tab for the FASTA results
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         #time.sleep(2)
         #verify the correct sequences are being returned
         assert 'MGP_AJ_G0026191 2:103346997-103376112' in self.driver.page_source 
@@ -528,7 +528,7 @@ class TestMarkerDetail(unittest.TestCase):
         self.driver.find_elements(By.CLASS_NAME, 'sgButton')[0].click()
         #time.sleep(2)
         #switch focus to the new tab for the FASTA results
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         #time.sleep(2)
         #verify the correct sequence is being returned
         assert 'MGI_C57BL6J_95661 X:7825499-7844310' in self.driver.page_source 
@@ -558,7 +558,7 @@ class TestMarkerDetail(unittest.TestCase):
         self.driver.find_elements(By.CLASS_NAME, 'sgButton')[0].click()
         #time.sleep(2)
         #switch focus to the new tab for the FASTA results
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         time.sleep(2)
         #verify the correct sequences are being returned
         assert 'MGI_C57BL6J_2151058 7:6958684-6980419' in self.driver.page_source 
@@ -711,7 +711,7 @@ class TestMarkerDetail(unittest.TestCase):
         self.driver.find_elements(By.CLASS_NAME, 'sgButton')[0].click()
         #time.sleep(2)
         #switch focus to the new tab for the Sanger results
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         #time.sleep(2)
         #locates the SNPs table and verify the table headers have all the correct strains
         strain_table = Table(self.driver.find_element(By.XPATH, '//*[@id="t_snps_0"]/div[1]/table'))
@@ -849,12 +849,12 @@ class TestMarkerDetail(unittest.TestCase):
         #time.sleep(5)
         self.driver.find_element(By.ID, 'showDOID_0110375').click()
         #switch focus to the popup page
-        #self.driver.switch_to_window(self.driver.window_handles[-1])
+        #self.driver.switch_to.window(self.driver.window_handles[-1])
         #Find the link in the Genetic Background column C57BL/6J-Tg(SNCA)ARyot and click it
         self.driver.find_element(By.LINK_TEXT, 'C3H/HeJ').click()
         #time.sleep(2)
         #switch focus to the new tab for strain detail page
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         #Asserts that the strain page is for the correct strain
         assert "C3H/HeJ" in self.driver.page_source  
 
@@ -876,7 +876,7 @@ class TestMarkerDetail(unittest.TestCase):
         self.driver.find_element(By.LINK_TEXT, 'C57BL/6J-Pde6brd1-2J/J').click()
         #time.sleep(2)
         #switch focus to the new tab for strain detail page
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         time.sleep(2)
         page_title = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
         print(page_title.text)
@@ -901,7 +901,7 @@ class TestMarkerDetail(unittest.TestCase):
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'C57BL/6J-Pde6brd1-2J').click()
         #time.sleep(2)
         #switch focus to the new tab for strain detail page
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         #time.sleep(2)
         page_title = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
         print(page_title.text)
@@ -922,35 +922,35 @@ class TestMarkerDetail(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
         #locates the phenogrid and click on the cell for reproductive System
         self.driver.find_element(By.ID, 'mpSlimgrid23Div').click()
-        #pheno_table = Table(self.driver.find_element_by_id("mpSlimgridTable"))
+        #pheno_table = Table(self.driver.find_element(By.ID, "mpSlimgridTable"))
         #pheno_table.get_cell(2, 21).click()
         #switch focus to the new tab for Phenotype annotations related to reproductive System
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         #time.sleep(2) 
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'popupTable')))#waits until the phenogrid table is displayed on the page       
         #find and click the Mouse Genotype for X/Sry<AKR/J>
         self.driver.find_element(By.XPATH, '//*[@id="fm33447a"]').click()
         #switch focus to the new tab for Phenotypes associated with X/Sry<AKR/J>
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         #time.sleep(2) 
         #Locate the Genetic Background column and click the link found there(Summary ribbon)
         self.driver.find_element(By.XPATH, '//*[@id="templateBodyInsert"]/div[2]/div[1]/div/div[2]/table/tbody/tr/td[1]/table/tbody/tr[2]/td[2]/a').click()
         #time.sleep(2) 
         #switch focus to the new tab for strain detail page
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         #time.sleep(2)
         page_title = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
         print(page_title.text)
         #Asserts that the strain page is for the correct strain detail
         self.assertEqual(page_title.text, 'AKR/J', 'Page title is not correct!')
         #switch focus back to the tab for Phenotypes associated with X/Sry<AKR/J>
-        self.driver.switch_to_window(self.driver.window_handles[+2])
+        self.driver.switch_to.window(self.driver.window_handles[+2])
         #time.sleep(8) 
         #Locate the Genetic Background strain in the genotype ribbon and click the link.
         self.driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div[1]/div/div[2]/table/tbody/tr/td[1]/table/tbody/tr[2]/td[2]/a').click()
         #time.sleep(2) 
         #switch focus to the new tab for strain detail page
-        self.driver.switch_to_window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         #time.sleep(2)
         page_title = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
         print(page_title.text)
