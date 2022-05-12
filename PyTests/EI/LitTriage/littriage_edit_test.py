@@ -123,16 +123,16 @@ class TestEiLitTriageEdit(unittest.TestCase):
         time.sleep(5)
         form.enter_value('accids', 'J:32887')
         form.click_search()
-        discard = self.driver.find_element(By.ID, "editTabIsDiscard")
+        discard = self.driver.find_element(By.XPATH, "/html/body/main/div/div/form/div/div[2]/div/div/div[2]/div/input[2]")
         self.assertFalse(discard.is_selected())
         #finds the MGI Discard box and checks it
-        self.driver.find_element(By.ID, "editTabIsDiscard").click()
+        self.driver.find_element(By.XPATH, "/html/body/main/div/div/form/div/div[2]/div/div/div[2]/div/input[2]").click()
         #find the MGI Discard box and check it's selected
-        self.driver.find_element(By.ID, "editTabIsDiscard").is_selected()
+        self.driver.find_element(By.XPATH, "/html/body/main/div/div/form/div/div[2]/div/div/div[2]/div/input[2]").is_selected()
         #click the Modify button
         self.driver.find_element(By.ID, 'modifyEditTabButton').click()
         #find the MGI Discard box and check it's selected
-        self.driver.find_element(By.ID, "editTabIsDiscard").is_selected()
+        self.driver.find_element(By.XPATH, "/html/body/main/div/div/form/div/div[2]/div/div/div[2]/div/input[2]").is_selected()
                 
     def testAddTagEdit(self):
         """
@@ -170,7 +170,7 @@ class TestEiLitTriageEdit(unittest.TestCase):
         form.click_search()
         
         #finds the supplemental field and selects the option Supplement attached
-        Select(self.driver.find_element(By.ID, "editTabSuppData")).select_by_value('Supplement attached')
+        Select(self.driver.find_element(By.ID, "editTabSuppData")).select_by_value('34026997')
         wait.forAngular(self.driver)
         #find and click the Modify button
         self.driver.find_element(By.ID, "modifyEditTabButton").click()
@@ -179,7 +179,7 @@ class TestEiLitTriageEdit(unittest.TestCase):
         supp = self.driver.find_element(By.ID, "editTabSuppData").get_attribute('value')
         print(supp)
         #asserts that the following J numbers are returned
-        self.assertEqual(supp, 'Supplement attached', 'The wrong supplemental is displayed!')
+        self.assertEqual(supp, '34026997', 'The wrong supplemental is displayed!')
         
 def suite():
     suite = unittest.TestSuite()

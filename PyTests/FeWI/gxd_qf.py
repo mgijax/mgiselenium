@@ -7,6 +7,7 @@ import unittest
 import time
 import HtmlTestRunner
 from selenium import webdriver
+from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
@@ -150,8 +151,127 @@ class TestGxdQF(unittest.TestCase):
         #assert that the Assay Type column holds the text "RNA-Seq"
         assert "RNA-Seq" in searchTextItems1  
                    
-        
-        
+    def test_symbol_search(self):
+        """
+        @status: Tests that the search by symbol(gene) of the GXD query form works as expected
+        @note GXD-gene-search-1
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/gxd")
+        #find the gene field of the Genes section and enter a gene symbol
+        driver.find_element(By.ID, 'nomenclature').send_keys('shh')
+        #find the search button and click it
+        driver.find_element(By.ID, 'submit1').click()
+        time.sleep(2)
+        #finds the Genes tab and clicks it
+        driver.find_element(By.ID, 'genestab').click()
+        time.sleep(2)
+        #locates the gene column and lists the gene found
+        genelist = driver.find_element(By.ID, 'genesdata').find_element(By.CLASS_NAME, 'yui-dt-data')
+        items = genelist.find_elements(By.CLASS_NAME, 'yui-dt-col-symbol')
+        searchTextItems = iterate.getTextAsList(items)
+        print(searchTextItems)
+        #assert that the Gene column holds the text "Shh"
+        assert "Shh" in searchTextItems  
+             
+    def test_chr_search(self):
+        """
+        @status: Tests that the search by chromosome of the GXD query form works as expected
+        @note GXD-gene-search-2
+        @attention: last tested 5/10/2022
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/gxd")
+        #find the location field of the Genome location section and enter a chromosome
+        driver.find_element(By.ID, 'locations').send_keys('ChrY')
+        #find the search button and click it
+        driver.find_element(By.ID, 'submit1').click()
+        time.sleep(2)
+        #finds the Genes tab and clicks it
+        driver.find_element(By.ID, 'genestab').click()
+        time.sleep(2)
+        #locates the gene column and lists the gene found
+        genelist = driver.find_element(By.ID, 'genesdata').find_element(By.CLASS_NAME, 'yui-dt-data')
+        items = genelist.find_elements(By.CLASS_NAME, 'yui-dt-col-symbol')
+        searchTextItems = iterate.getTextAsList(items)
+        print(searchTextItems)
+        #assert that the Gene column holds the text "Ddx3y"
+        assert "Ddx3y" in searchTextItems          
+
+    def test_chr_location_bp_search(self):
+        """
+        @status: Tests that the search by chromosome location of the GXD query form works as expected
+        @note GXD-gene-search-3
+        @attention: last tested 5/10/2022
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/gxd")
+        #find the location field of the Genome location section and enter a chromosome location
+        driver.find_element(By.ID, 'locations').send_keys('Chr12:9000000-10000000')
+        #find the search button and click it
+        driver.find_element(By.ID, 'submit1').click()
+        time.sleep(2)
+        #finds the Genes tab and clicks it
+        driver.find_element(By.ID, 'genestab').click()
+        time.sleep(2)
+        #locates the gene column and lists the gene found
+        genelist = driver.find_element(By.ID, 'genesdata').find_element(By.CLASS_NAME, 'yui-dt-data')
+        items = genelist.find_elements(By.CLASS_NAME, 'yui-dt-col-symbol')
+        searchTextItems = iterate.getTextAsList(items)
+        print(searchTextItems)
+        #assert that the Gene column holds the text "Matn3"
+        assert "Matn3" in searchTextItems   
+
+    def test_chr_location_bp_multi_search(self):
+        """
+        @status: Tests that the search by multiple chromosome locations of the GXD query form works as expected
+        @note GXD-gene-search-3
+        @attention: last tested 5/10/2022
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/gxd")
+        #find the location field of the Genome location section and enter multiple chromosome locations
+        driver.find_element(By.ID, 'locations').send_keys('2:105668896-108698410, Chr12:28553755..28867491')
+        #find the search button and click it
+        driver.find_element(By.ID, 'submit1').click()
+        time.sleep(2)
+        #finds the Genes tab and clicks it
+        driver.find_element(By.ID, 'genestab').click()
+        time.sleep(2)
+        #locates the gene column and lists the gene found
+        genelist = driver.find_element(By.ID, 'genesdata').find_element(By.CLASS_NAME, 'yui-dt-data')
+        items = genelist.find_elements(By.CLASS_NAME, 'yui-dt-col-symbol')
+        searchTextItems = iterate.getTextAsList(items)
+        print(searchTextItems)
+        #assert that the Gene column holds the text "Adi1"
+        assert "Adi1" in searchTextItems 
+
+    def test_chr_location_Mbp_search(self):
+        """
+        @status: Tests that the search by chromosome location(using Mbp) of the GXD query form works as expected
+        @note GXD-gene-search-4
+        @attention: last tested 5/10/2022
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/gxd")
+        #find the location field of the Genome location section and enter a chromosome location
+        driver.find_element(By.ID, 'locations').send_keys('12:28.55-28.89')
+        #find the option for bp/Mbp and select Mbp
+        Select (driver.find_element(By.ID, 'locationUnit')).select_by_value('Mbp')
+        time.sleep(2)
+        #find the search button and click it
+        driver.find_element(By.ID, 'submit1').click()
+        time.sleep(2)
+        #finds the Genes tab and clicks it
+        driver.find_element(By.ID, 'genestab').click()
+        time.sleep(2)
+        #locates the gene column and lists the gene found
+        genelist = driver.find_element(By.ID, 'genesdata').find_element(By.CLASS_NAME, 'yui-dt-data')
+        items = genelist.find_elements(By.CLASS_NAME, 'yui-dt-col-symbol')
+        searchTextItems = iterate.getTextAsList(items)
+        print(searchTextItems)
+        #assert that the Gene column holds the text "Shh"
+        assert "Adi1" in searchTextItems                
         
     def tearDown(self):
         #self.driver.close()

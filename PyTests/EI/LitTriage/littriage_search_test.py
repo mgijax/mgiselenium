@@ -439,6 +439,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
         WebDriverWait(self.driver, 30).until(EC.presence_of_element_located((By.ID, "resultsTable")))
         #Confirms that the MGI Discard box is checked(selected)
         radio_button = self.driver.find_element(By.CSS_SELECTOR, "input.ng-pristine:nth-child(4)")
+        time.sleep(5)
         self.assertTrue(radio_button.is_selected(), 'discard is not selected')
 
     def testSingleTagSearch(self):

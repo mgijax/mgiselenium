@@ -43,7 +43,7 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
         #identify the View experiment at cell of the first row of results returned
-        result_set = self.driver.find_element(By.ID, "injectedResults").find_elements_by_class_name('extUrl')
+        result_set = self.driver.find_element(By.ID, "injectedResults").find_elements(By.CLASS_NAME, 'extUrl')
         print(result_set[2].text)
         time.sleep(2)
         result_set[2].click()
@@ -68,7 +68,7 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
         #identify the View experiment at cell of the first row of results returned
-        result_set = self.driver.find_element(By.ID, "injectedResults").find_elements_by_class_name('extUrl')
+        result_set = self.driver.find_element(By.ID, "injectedResults").find_elements(By.CLASS_NAME, 'extUrl')
         print(result_set[0].text)
         time.sleep(2)
         result_set[0].click()
@@ -93,7 +93,7 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
         #identify the View experiment at cell of the third row of results returned
-        result_set = self.driver.find_element(By.ID, "injectedResults").find_elements_by_class_name('extUrl')
+        result_set = self.driver.find_element(By.ID, "injectedResults").find_elements(By.CLASS_NAME, 'extUrl')
         print(result_set[4].text)
         time.sleep(2)
         result_set[4].click()
@@ -127,7 +127,7 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         self.driver.find_element(By.ID, 'yui-gen0-button').click()
         time.sleep(2)
         #identify the Experimental variable row of the results returned
-        result_set = self.driver.find_element(By.ID, "injectedResults").find_elements_by_class_name('variables')
+        result_set = self.driver.find_element(By.ID, "injectedResults").find_elements(By.CLASS_NAME, 'variables')
         print(result_set[0].text)
         time.sleep(2)
         #Assert the lone result has an Experimental variable of 'genotype'
@@ -136,7 +136,7 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
     def test_rnaseq_summary_multi_var_filter(self):
         '''
         @status this test verifies the filtering by multiple variables on the RNA-Seq summary  results page.
-        @see GXD-RNASeq-summary-9 !!!broken, will not click variable filter!!!
+        @see GXD-RNASeq-summary-9 
         '''
         print ("BEGIN test_rnaseq_summary_multi_var_filter")
         Select(self.driver.find_element(By.ID, 'age')).deselect_by_value('ANY')#deselect the default option
@@ -154,19 +154,19 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         #find the Filter button and click it
         self.driver.find_element(By.ID, 'yui-gen0-button').click()
         time.sleep(2)
-        #identify the Experimental variable cell of row1 of the results returned
-        result_set0 = self.driver.find_element(By.ID, "variableData0").find_element_by_class_name('variables')
+        #identify the Experimental variables cell of row2 of the results returned
+        result_set0 = self.driver.find_element(By.ID, "variableData1").find_element(By.CLASS_NAME, 'variables')
         print(result_set0.text)
         #print result_set[1].text
         time.sleep(2)
-        #Assert the lone result has an Experimental variable of 'genotype'
+        #Assert the result has an Experimental variables of 'developmental stage and genotype'
         self.assertEqual(result_set0.text, "developmental stage\ngenotype")        
-        #identify the Experimental variable cell of row2 of the results returned
-        result_set1 = self.driver.find_element(By.ID, "variableData2").find_element_by_class_name('variables')
+        #identify the Experimental variable cell of row3 of the results returned
+        result_set1 = self.driver.find_element(By.ID, "variableData3").find_element(By.CLASS_NAME, 'variables')
         print(result_set1.text)
         #print result_set[1].text
         time.sleep(2)
-        #Assert the lone result has an Experimental variable of 'genotype'
+        #Assert the result has an Experimental variable of 'anatomical structure, developmental stage, genotype, single cell variation'
         self.assertEqual(result_set1.text, "anatomical structure\ndevelopmental stage\ngenotype\nsingle cell variation")        
         
     def test_rnaseq_summary_study_filter(self):
@@ -208,7 +208,7 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
         #identify the View experiment at cell of the third row of results returned
-        result_set = self.driver.find_element(By.ID, "injectedResults").find_element_by_id('viewData0')
+        result_set = self.driver.find_element(By.ID, "injectedResults").find_element(By.ID, 'viewData0')
         print(result_set.text)
         time.sleep(2)
         #Assert the sort order is correct

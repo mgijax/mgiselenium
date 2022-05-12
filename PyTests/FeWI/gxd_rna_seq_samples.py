@@ -33,7 +33,7 @@ class TestGxdRnaSeqSamples(unittest.TestCase):
     def test_rnaseq_samples_array_express_link(self):
         '''
         @status this test verifies the array express link on the RNA-Seq samples page is correct.
-        @see GXD-RNASeq-samples-1 failing because of window handles!!
+        @see GXD-RNASeq-samples-1
         '''
         print ("BEGIN test_rnaseq_samples_array_express_link")
         
@@ -48,12 +48,11 @@ class TestGxdRnaSeqSamples(unittest.TestCase):
         #switch focus the the popup samples window
         #switch focus to the next tab
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        #find the Ext url IDs
-        id_links = self.driver.find_elements(By.ID, 'ids')
-        id_links[0].click()
+        #find the ArrayExpress ID E-ERAD-433 link and click it
+        self.driver.find_element(By.LINK_TEXT, 'E-ERAD-433').click()
         time.sleep(5)
         #switch focus to the next tab
-        self.driver.switch_to.window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-2])
         #get the URL of the page
         page_url = self.driver.current_url
         print(page_url)
@@ -77,12 +76,12 @@ class TestGxdRnaSeqSamples(unittest.TestCase):
         time.sleep(2)
         #switch focus the the popup samples window
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        #find the Ext url IDs for ID E-ERAD-169, we want to click the first one
-        id_links = self.driver.find_elements(By.LINK_TEXT, 'E-ERAD-169')
-        id_links[1].click()
+        #find the Expression Atlas ID E-ERAD-169 link and click it
+        id_link = self.driver.find_element(By.CSS_SELECTOR, 'td.dataShade1:nth-child(2) > a:nth-child(1)')
+        id_link.click()
         time.sleep(2)
         #switch focus to the next tab(expression atlas page)
-        self.driver.switch_to.window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-2])
         #get the URL of the page
         page_url = self.driver.current_url
         print(page_url)
@@ -105,11 +104,11 @@ class TestGxdRnaSeqSamples(unittest.TestCase):
         time.sleep(2)
         #switch focus the the popup samples window
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        #find the Ext url ID for ID GSE21860, we want to click it
+        #find the GEO link GSE868 and click it
         self.driver.find_element(By.LINK_TEXT, 'GSE868').click()
         time.sleep(2)
         #switch focus to the next tab(geo page)
-        self.driver.switch_to.window(self.driver.window_handles[-1])
+        self.driver.switch_to.window(self.driver.window_handles[-2])
         #get the URL of the page
         page_url = self.driver.current_url
         print(page_url)

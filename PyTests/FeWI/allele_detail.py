@@ -11,7 +11,9 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import Select
 import sys,os.path
+from selenium.webdriver.remote import webelement
 #from genericpath import exists
 # adjust the path to find config
 sys.path.append(
@@ -557,7 +559,7 @@ class TestAlleleDetail(unittest.TestCase):
         # add all li text to a list for "assertIn" test
         searchTreeItems = iterate.getTextAsList(items)
         print(searchTreeItems)
-        self.assertEqual(['behavior/neurological', '', '', '', '', '', 'cardiovascular system',  '', 'hearing/vestibular/ear', '', 'mortality/aging', '', 'nervous system', '', ''], searchTreeItems)
+        self.assertEqual(['behavior/neurological', 'tremors', 'impaired balance', 'impaired coordination', 'abnormal gait', 'short stride length', 'cardiovascular system',  'cardiovascular system phenotype', 'hearing/vestibular/ear', 'abnormal ear physiology', 'mortality/aging', 'perinatal lethality', 'nervous system', 'abnormal synaptic vesicle recycling', 'abnormal excitatory postsynaptic currents'], searchTreeItems)
         self.driver.get(config.TEST_URL + "/allele/")    
         
         self.driver.find_element(By.NAME, 'nomen').clear()
@@ -580,7 +582,7 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').send_keys('lepr')
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Leprdb').click()
-        main_window = self.driver.window_handles[0]
+        self.driver.window_handles[0]
         self.driver.find_element(By.LINK_TEXT, 'hm1').click()
         
         wait.forNewWindow(self.driver)
@@ -746,7 +748,7 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Wtsi').click()
         #verifies that the assays results link does exist/is displayed
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'assay results').click()
-        allele_name = self.driver.find_element(By.CLASS_NAME, 'summaryHeaderData1').find_element_by_tag_name("span")
+        allele_name = self.driver.find_element(By.CLASS_NAME, 'summaryHeaderData1').find_element(By.TAG_NAME, "span")
         # Just want to assert the correct Allele is returned
         self.assertEqual(allele_name.text, 'gene trap XP0484, Wellcome Trust Sanger Institute')
         #verifies that the anatomical structures link does not exist
@@ -871,6 +873,151 @@ class TestAlleleDetail(unittest.TestCase):
         print (org_cell.text)
         #verify the organism is Human
         self.assertEquals(org_cell.text, 'Yeast')
+
+    def test_allele_detail_Recomb_structure(self):
+        '''
+        @status this test verifies in the Recombinase activity section that default main structures are correct.
+        @note: CRM-58, alldetail-recombact-4
+        '''
+        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.find_element(By.NAME, 'nomen').send_keys("gfi1")
+        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Gan').click()
+        time.sleep(2)
+        #find the toggle arrow in the Recombinase activity section and click it to open up the grid.
+        gridArrow = self.driver.find_element(By.ID, 'recomRibbonTeaser')
+        gridArrow.click()
+        time.sleep(2)
+        #find and print the E table headers
+        header_cell1 = self.driver.find_element(By.CSS_SELECTOR, '.pgg-table > thead:nth-child(1) > tr:nth-child(1) > th:nth-child(2) > div:nth-child(1)')
+        print (header_cell1.text)
+        header_cell2 = self.driver.find_element(By.CSS_SELECTOR, '.pgg-table > thead:nth-child(1) > tr:nth-child(1) > th:nth-child(3) > div:nth-child(1)')
+        print (header_cell2.text)
+        header_cell3 = self.driver.find_element(By.CSS_SELECTOR, '.pgg-table > thead:nth-child(1) > tr:nth-child(1) > th:nth-child(4) > div:nth-child(1)')
+        print (header_cell3.text)
+        header_cell4 = self.driver.find_element(By.CSS_SELECTOR, '.pgg-table > thead:nth-child(1) > tr:nth-child(1) > th:nth-child(5) > div:nth-child(1)')
+        print (header_cell4.text)
+        header_cell5 = self.driver.find_element(By.CSS_SELECTOR, '.pgg-table > thead:nth-child(1) > tr:nth-child(1) > th:nth-child(6) > div:nth-child(1)')
+        print (header_cell5.text)
+        header_cell6 = self.driver.find_element(By.CSS_SELECTOR, '.pgg-table > thead:nth-child(1) > tr:nth-child(1) > th:nth-child(7) > div:nth-child(1)')
+        print (header_cell6.text)
+        #verify the main E table headers are correct
+        self.assertEquals(header_cell1.text, 'E 0-8.9')
+        self.assertEquals(header_cell2.text, 'E 9.0-13.9')
+        self.assertEquals(header_cell3.text, 'E 14-19.5')
+        self.assertEquals(header_cell4.text, 'P 0-21')
+        self.assertEquals(header_cell5.text, 'P 22-42')
+        self.assertEquals(header_cell6.text, 'P >43')
+        # find the text in the Systems column(main headers only)
+        activity1 = self.driver.find_element(By.CSS_SELECTOR, 'tr.pgg-row:nth-child(1) > td:nth-child(1) > span:nth-child(1)')
+        print (activity1.text)
+        activity2 = self.driver.find_element(By.CSS_SELECTOR, 'tr.pgg-row:nth-child(9) > td:nth-child(1) > span:nth-child(1)')
+        activity3 = self.driver.find_element(By.CSS_SELECTOR, 'tr.pgg-row:nth-child(11) > td:nth-child(1) > span:nth-child(1)')
+        activity4 = self.driver.find_element(By.CSS_SELECTOR, 'tr.pgg-row:nth-child(26) > td:nth-child(1) > span:nth-child(1)')
+        activity5 = self.driver.find_element(By.CSS_SELECTOR, 'tr.pgg-row:nth-child(28) > td:nth-child(1) > span:nth-child(1)')
+        activity6 = self.driver.find_element(By.CSS_SELECTOR, 'tr.pgg-row:nth-child(30) > td:nth-child(1) > span:nth-child(1)')
+        activity7 = self.driver.find_element(By.CSS_SELECTOR, 'tr.pgg-row:nth-child(32) > td:nth-child(1) > span:nth-child(1)')
+        activity8 = self.driver.find_element(By.CSS_SELECTOR, 'tr.pgg-row:nth-child(36) > td:nth-child(1) > span:nth-child(1)')
+        activity9 = self.driver.find_element(By.CSS_SELECTOR, 'tr.pgg-row:nth-child(39) > td:nth-child(1) > span:nth-child(1)')
+        activity10 = self.driver.find_element(By.CSS_SELECTOR, 'tr.pgg-row:nth-child(41) > td:nth-child(1) > span:nth-child(1)')
+        activity11 = self.driver.find_element(By.CSS_SELECTOR, 'tr.pgg-row:nth-child(53) > td:nth-child(1) > span:nth-child(1)')
+        #verify the main header activity structures
+        self.assertEquals(activity1.text, 'alimentary system')
+        self.assertEquals(activity2.text, 'cardiovascular system')
+        self.assertEquals(activity3.text, 'head')
+        self.assertEquals(activity4.text, 'hemolymphoid system')
+        self.assertEquals(activity5.text, 'integumental system')
+        self.assertEquals(activity6.text, 'liver & biliary system')
+        self.assertEquals(activity7.text, 'nervous system')
+        self.assertEquals(activity8.text, 'renal & urinary system')
+        self.assertEquals(activity9.text, 'respiratory system')
+        self.assertEquals(activity10.text, 'sensory organs')
+        self.assertEquals(activity11.text, 'skeletal system')
+        
+    def test_allele_detail_Recomb_structure_popup(self):
+        '''
+        @status this test verifies in the Recombinase activity section that when you click on a blue box it displays a popup.
+        @note: CRM-116, alldetail-recombact-5
+        '''
+        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.find_element(By.NAME, 'nomen').send_keys("gfi1")
+        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Gan').click()
+        time.sleep(2)
+        #find the toggle arrow in the Recombinase activity section and click it to open up the grid.
+        gridArrow = self.driver.find_element(By.ID, 'recomRibbonTeaser')
+        gridArrow.click()
+        time.sleep(2)
+        #locate the light blue field for nervous system E14-19.5
+        c_color = self.driver.find_element(By.CSS_SELECTOR, 'tr.pgg-row:nth-child(32) > td:nth-child(4)').get_attribute('class')
+        #assert the field has the correct class name of pgg-cell b1
+        self.assertEquals(c_color, 'pgg-cell b1')
+        #locate the blank field with yellow corner for nervous system P0-21
+        c_color = self.driver.find_element(By.CSS_SELECTOR, 'td.gold-corner').get_attribute('class')
+        #assert the field has the correct class name of pgg-cell gold-corner
+        self.assertEquals(c_color, 'pgg-cell gold-corner')
+        # find the blue box for alimentary system E14-19.5 and click it
+        self.driver.find_element(By.CSS_SELECTOR, 'tr.pgg-row:nth-child(1) > td:nth-child(4)').click()
+        time.sleep(2)
+        #find the heading text and print it
+        header = self.driver.find_element(By.XPATH, "/html/body/div[2]/table/tbody/tr[5]/td[2]/div/table/tbody/tr[1]/td[2]/div[2]/div/div/div[2]/div[2]/div/span")
+        print(header.text)
+        #find the number of Yes results and print it
+        data_yes = self.driver.find_element(By.XPATH, '/html/body/div[2]/table/tbody/tr[5]/td[2]/div/table/tbody/tr[1]/td[2]/div[2]/div/div/div[2]/div[2]/table/tbody/tr[1]/td[2]')
+        print(data_yes.text)        
+        #verify the heading text is correct
+        self.assertEquals(header.text, 'alimentary system (E 14-19.5)')
+        #verify the number of Yes results are correct
+        self.assertEquals(data_yes.text, '8')
+
+    def test_allele_detail_Recomb_structure_popup2(self):
+        '''
+        @status this test verifies in the Recombinase activity section that when you click on a blue box with yellow corner it displays a popup.
+        @note: CRM-116, alldetail-recombact-6
+        '''
+        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.find_element(By.NAME, 'nomen').send_keys("Tg(ACTA1-cre)79Jme")
+        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, '79Jme').click()
+        time.sleep(2)
+        #find the toggle arrow in the Recombinase activity section and click it to open up the grid.
+        gridArrow = self.driver.find_element(By.ID, 'recomRibbonTeaser')
+        gridArrow.click()
+        time.sleep(2)
+        #locate the blank field for adipose system E9.0-13.9
+        c_color = self.driver.find_element(By.CSS_SELECTOR, 'tr.pgg-row:nth-child(1) > td:nth-child(3)').get_attribute('class')
+        #assert the field has the correct class name of pgg-cell empty
+        self.assertEquals(c_color, 'pgg-cell empty')
+        #locate the circle field for adipose system E14-19.5
+        c_color = self.driver.find_element(By.CSS_SELECTOR, 'tr.pgg-row:nth-child(1) > td:nth-child(4)').get_attribute('class')
+        #assert the field has the correct class name of pgg-cell empty-circle
+        self.assertEquals(c_color, 'pgg-cell empty-circle')
+        #locate the light red field for adipose system P0-21
+        c_color = self.driver.find_element(By.CSS_SELECTOR, 'tr.pgg-row:nth-child(1) > td:nth-child(5)').get_attribute('class')
+        #assert the field has the correct class name of pgg-cell r1
+        self.assertEquals(c_color, 'pgg-cell r1')
+        #locate the blue with yellow corner field for alimentary system P0-21
+        c_color = self.driver.find_element(By.CSS_SELECTOR, 'tr.pgg-row:nth-child(4) > td:nth-child(5)').get_attribute('class')
+        #assert the field has the correct class name of pgg-cell b2g
+        self.assertEquals(c_color, 'pgg-cell b2g')
+        # find the blue box with yellow corner for alimentary system P0-21 and click it
+        self.driver.find_element(By.CSS_SELECTOR, 'tr.pgg-row:nth-child(4) > td:nth-child(5)').click()
+        time.sleep(2)
+        #find the heading text and print it
+        header = self.driver.find_element(By.XPATH, "/html/body/div[2]/table/tbody/tr[5]/td[2]/div/table/tbody/tr[1]/td[2]/div[2]/div/div/div[2]/div[2]/div/span")
+        print(header.text)
+        #find the number of Yes results and print it
+        data_yes = self.driver.find_element(By.XPATH, '/html/body/div[2]/table/tbody/tr[5]/td[2]/div/table/tbody/tr[1]/td[2]/div[2]/div/div/div[2]/div[2]/table/tbody/tr[1]/td[2]')
+        print(data_yes.text)
+        #find the number of No/Ambiguous results and print it
+        data_noamb = self.driver.find_element(By.XPATH, '/html/body/div[2]/table/tbody/tr[5]/td[2]/div/table/tbody/tr[1]/td[2]/div[2]/div/div/div[2]/div[2]/table/tbody/tr[2]/td[2]')
+        print(data_noamb.text)        
+        #verify the heading text is correct
+        self.assertEquals(header.text, 'alimentary system (P 0-21)')
+        #verify the number of Yes results are correct
+        self.assertEquals(data_yes.text, '6')
+        #verify the number of No/Ambiguous results are correct
+        self.assertEquals(data_noamb.text, '3')
         
     def tearDown(self):
         self.driver.quit()

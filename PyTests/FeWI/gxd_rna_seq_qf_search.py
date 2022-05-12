@@ -40,7 +40,7 @@ class TestGxdRnaSeqSearching(unittest.TestCase):
         #find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
         #identify the titles of the results returned
-        result_set = self.driver.find_element(By.ID, "injectedResults").find_elements_by_class_name('title')
+        result_set = self.driver.find_element(By.ID, "injectedResults").find_elements(By.CLASS_NAME, 'title')
         print(result_set[0].text)
         self.assertEqual(result_set[0].text, "Evolutionary dynamics of gene and isoform regulation in mammalian tissues")
         self.assertEqual(result_set[1].text, "Strand-specific RNA-seq of nine mouse tissues")
@@ -77,7 +77,7 @@ class TestGxdRnaSeqSearching(unittest.TestCase):
         self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
         #identify the titles of the results returned
-        result_set = self.driver.find_element(By.ID, "injectedResults").find_elements_by_class_name('title')
+        result_set = self.driver.find_element(By.ID, "injectedResults").find_elements(By.CLASS_NAME, 'title')
         print(result_set[0].text)
         self.assertEqual(result_set[0].text, "Transcription profiling of mouse preimplantation development")
         self.assertEqual(result_set[1].text, "Transcription profiling of global gene expression changes during mouse preimplantation development: unfertilized eggs, fertilized egg, 2-cell embryos, 4-cell embryos, 8-cell embryos, morulae, blastocysts")

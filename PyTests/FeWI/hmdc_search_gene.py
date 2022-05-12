@@ -391,7 +391,7 @@ class TestHmdcGenesSearch(unittest.TestCase):
         mouseGridGenes = iterate.getTextAsList(mgenes)
         
         #Verify homology class with multiple human and mouse genes are returned
-        self.assertIn("C4A, C4B", humanGridGenes)
+        self.assertIn("C4A, C4B, C4B_2", humanGridGenes)
         self.assertIn("C4b", mouseGridGenes)
         
         #Verify genes matched via zebrafish name (ortholog match) is returned
@@ -1119,6 +1119,7 @@ class TestHmdcGenesSearch(unittest.TestCase):
         @status this test verifies the correct genes are returned for this query, both human and mouse. This test is for searching by  
         by a gene symbol of a species other than mouse or human.  The mouse and human genes in the same homology class are returned in the HMDC.
         @see: HMDC-GQ-52 (query by rat symbol - return mouse and human genes in the same homology class)
+        @attention: change the marker symbol from Fmnl2 to Alpl (RGD:2100) maybe???
         '''
         print ("BEGIN test_gene_symbol_non_mousegridgene")
         my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
