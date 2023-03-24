@@ -33,8 +33,8 @@ class TestEiMpannotSearch(unittest.TestCase):
     """
 
     def setUp(self):
-        #self.driver = webdriver.Firefox() 
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox() 
+        #self.driver = webdriver.Chrome()
         self.form = ModuleForm(self.driver)
         self.form.get_module(config.TEST_PWI_URL + "/edit/mpannot")
     
@@ -213,13 +213,20 @@ class TestEiMpannotSearch(unittest.TestCase):
         @see pwi-mp-search-6
         """
         driver = self.driver
+        time.sleep(2)
+        #find and click the Clear button
+        driver.find_element(By.ID, "clearButton").click()
+        time.sleep(2)
         #finds the Qualifier field and select 'norm', find the Evidence field and select 'ND' then click Search.
-        driver.find_element(By.ID, "qualifierAbbreviation-0").send_keys('norm')
-        driver.find_element(By.ID, "evidenceAbbreviation-0").send_keys('ND')
+        qual_box = Select(driver.find_element(By.ID, "qualifierAbbreviation-0"))
+        qual_box.select_by_value('string:2181424')#value is Norm                          
+        time.sleep(2)
+        evid_box = Select(driver.find_element(By.ID, "evidenceAbbreviation-0"))
+        evid_box.select_by_value('string:108')#value is ND
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'termID-3')))
+        WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located((By.ID, 'termID-3')))
         #find the search results table third row of data
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -328,7 +335,7 @@ class TestEiMpannotSearch(unittest.TestCase):
         actions.perform()
         driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'termID-3')))
+        WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located((By.ID, 'termID-3')))
         #find the search results table thirteenth row of data
         term0 = driver.find_element(By.ID, 'termID-12').get_property('value')
         print(term0)

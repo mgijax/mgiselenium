@@ -39,7 +39,7 @@ class ModuleForm(object):
         """
         Select a text value in a <select> box
         """
-        select = self.driver.find_element_by_id(id)
+        select = self.driver.find_element(By.ID, id)
         Select(select).select_by_visible_text(value)
         
         return select
@@ -76,14 +76,14 @@ class ModuleForm(object):
     def _get_current_element(self):
         if self.previous_element and self.previous_element.is_displayed():
             return self.previous_element
-        return self.driver.find_element_by_tag_name("body")
+        return self.driver.find_element(By.TAG_NAME, "body")
     
     
     def get_value(self, id):
         """
         Retrieve the value of an input element
         """
-        input = self.driver.find_element_by_id(id)
+        input = self.driver.find_element(By.ID, id)
         
         return input.get_attribute("value")
     
@@ -93,8 +93,8 @@ class ModuleForm(object):
         Retrieve the text of the <select> element option
             that is currectly checked
         """
-        option = self.driver.find_element_by_id(id) \
-            .find_element_by_css_selector('#%s option:checked' % id)
+        option = self.driver.find_element(By.ID, id) \
+            .find_element(By.CSS_SELECTOR, '#%s option:checked' % id)
         
         return option.text.strip()
     
@@ -102,36 +102,40 @@ class ModuleForm(object):
         """
         get the displayed error message
         """
-        error_element = self.driver.find_element_by_id("errorMessage")
+        error_element = self.driver.find_element(By.ID, "errorMessage")
         return error_element.text
         
         
         
     # Standard EI buttons
     def click_search(self):  
-        self.driver.find_element_by_id('searchButton').click()
+        self.driver.find_element(By.ID, 'searchButton').click()
+        wait.forAngular(self.driver)
+
+    def click_searchSummary(self):  
+        self.driver.find_element(By.ID, 'searchSummaryButton').click()
         wait.forAngular(self.driver)
         
     def click_clear(self):  
-        self.driver.find_element_by_id('clearButton').click()
+        self.driver.find_element(By.ID, 'clearButton').click()
         wait.forAngular(self.driver)
         
     def click_add(self):  
-        self.driver.find_element_by_id('addButton').click()
+        self.driver.find_element(By.ID, 'addButton').click()
         wait.forAngular(self.driver)
         
     def click_modify(self):  
-        self.driver.find_element_by_id('modifyButton').click()
+        self.driver.find_element(By.ID, 'modifyButton').click()
         wait.forAngular(self.driver)    
     
     def click_delete(self):  
-        self.driver.find_element_by_id('deleteButton').click()
+        self.driver.find_element(By.ID, 'deleteButton').click()
         alert = self.driver.switch_to.alert
         alert.accept()
         wait.forAngular(self.driver)
         
     def click_delete_dont_wait(self):
-        self.driver.find_element_by_id('deleteButton').click()
+        self.driver.find_element(By.ID, 'deleteButton').click()
         
         
         

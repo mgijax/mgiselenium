@@ -33,7 +33,7 @@ class TestPwiGxdAntibodySummaryPage(unittest.TestCase):
         driver = self.driver
         driver.get(TEST_PWI_URL)
         #opens the Marker detail page
-        accidbox = driver.find_element(By.ID, 'accessionForm').find_element_by_name('ids')
+        accidbox = driver.find_element(By.ID, 'accessionForm').find_element(By.NAME, 'ids')
         # put your MGI ID number in the box
         accidbox.send_keys("MGI:97281")
         accidbox.send_keys(Keys.RETURN)
@@ -57,7 +57,7 @@ class TestPwiGxdAntibodySummaryPage(unittest.TestCase):
         driver = self.driver
         driver.get(TEST_PWI_URL)
         #opens the Marker detail page
-        accidbox = driver.find_element(By.ID, 'accessionForm').find_element_by_name('ids')
+        accidbox = driver.find_element(By.ID, 'accessionForm').find_element(By.NAME, 'ids')
         # put your MGI ID number in the box
         accidbox.send_keys("MGI:97281")
         accidbox.send_keys(Keys.RETURN)
@@ -119,7 +119,7 @@ class TestPwiGxdAntibodySummaryPage(unittest.TestCase):
         self.assertEqual(row14.text, "MGI:2676461 E-NCAM antibody [] mouse, laboratory Not Specified IgG1 Recognizes the polysialylyated embryonic form of the protein. MGI:2676460 E-NCAM Not Specified This represents the sialylated form of NCAM. Ncam1 J:83933, Cheng A, Dev Biol 2003 Jun 15;258(2):319-33")
         self.assertEqual(row15.text, "MGI:5490822 H28 [] Not Specified Not Specified Not Specified MGI:5490821 NCAM Not Specified Ncam1 J:30289, Matsunami H, Dev Biol 1995 Dec;172(2):466-78")
         self.assertEqual(row16.text, "MGI:6452844 H28 antibody [] rat Monoclonal Not Specified Antibody preparation is described in Hirn et al., 1981 Brain Res. 214, 433-439. This antibody reacts with an extracellular domain and recognizes the three isofroms of this protein. MGI:6452842 glycoprotein mouse, laboratory High molecular weight glycoproteins were extracted from crude membranes of whole brain. Ncam1 J:290840, Klein G, Development 1988 Apr;102(4):749-61")
-        self.assertEqual(row17.text, "MGI:1934887 H28.123 H28123 rat Monoclonal IgG2a Antibody was purchased from Boehringer Mannheim, AMAC Inc., Westbrook, ME or Chemicon. MGI:4359385 Neural Cell Adhesion Molecule mouse, laboratory glycoprotein fraction Ncam1 J:2360, Moase CE, Development 1991 Nov;113(3):1049-58")
+        self.assertEqual(row17.text, "MGI:1934887 H28.123 H28123 rat Monoclonal IgG2a Antibody was purchased from GeneTex, Boehringer Mannheim, AMAC Inc., Westbrook, ME or Chemicon. MGI:4359385 Neural Cell Adhesion Molecule mouse, laboratory glycoprotein fraction Ncam1 J:2360, Moase CE, Development 1991 Nov;113(3):1049-58")
         self.assertEqual(row18.text, "MGI:5897397 N-CAM antibody [] rabbit Polyclonal Not Applicable MGI:5897394 N-CAM rat Ncam1 J:22338, Kimber SJ, Eur J Cell Biol 1994 Feb;63(1):102-13")
         self.assertEqual(row19.text, "MGI:5882120 N-CAM antibody H28 [] mouse, laboratory Monoclonal Not Specified This antibody was obtained from Boehringer Mannheim. MGI:5468460 N-CAM Not Specified Ncam1 J:21481, Rose O, Dev Dyn 1994 Nov;201(3):245-59")
         self.assertEqual(row20.text, "MGI:1934839 N-CAM polyclonal antibody [] rabbit Polyclonal Not Applicable Antibody was provided by Dr. Urs Rutishauser. Antibody detects the various N-CAM isoforms. MGI:1934201 NCAM mouse, laboratory The antigen domain is located near or at the cytoplasmic side of the plasma membrane. Ncam1 J:2360, Moase CE, Development 1991 Nov;113(3):1049-58")

@@ -34,7 +34,8 @@ class TestEiGxdIndexShortcuts(unittest.TestCase):
     def setUp(self):
         self.report = Report()
         self.report.WriteReportHeader()
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Chrome()
         self.form = ModuleForm(self.driver)
         self.form.get_module(config.TEST_PWI_URL + "/edit/gxdindex") 
         username = self.driver.find_element(By.NAME, 'user')#finds the user login box
@@ -54,11 +55,11 @@ class TestEiGxdIndexShortcuts(unittest.TestCase):
         form = self.form
         time.sleep(2)
         action = ActionChains(self.driver)
-        form.enter_value('jnumid','74162')
+        form.enter_value('jnumID','74162')
         # click the Tab key
         form.press_tab()
         #finds the citation field
-        citation = form.get_value('citation')
+        citation = form.get_value('short_citation')
         print(citation)
         try:
             self.assertEqual(citation, 'Abdelwahid E, Cell Tissue Res 2001 Jul;305(1):67-78')
@@ -66,8 +67,8 @@ class TestEiGxdIndexShortcuts(unittest.TestCase):
         except Exception:
             self.report.AppendToReport("gxdIdx1-0", "testctrrlaltc", "citation text displays", "correct citation text displays", citation, "Fail", "")
         #finds the marker field
-        form.enter_value('marker_symbol', 'Bmp2')
-        marker_symbol = form.get_value('marker_symbol')
+        form.enter_value('markerSymbol', 'Bmp2')
+        marker_symbol = form.get_value('markerSymbol')
         form.press_tab()
         print(marker_symbol)
         try:
@@ -80,40 +81,40 @@ class TestEiGxdIndexShortcuts(unittest.TestCase):
         action.key_down(Keys.CONTROL).key_down(Keys.ALT).send_keys('c').key_up(Keys.CONTROL).key_up(Keys.ALT).perform()
         time.sleep(5)
         #finds the citation field
-        citation = form.get_value('citation')
+        citation = form.get_value('short_citation')
         print(citation)
         self.assertEqual(citation, '')
         #finds the marker field
-        marker_symbol = form.get_value('marker_symbol')
+        marker_symbol = form.get_value('markerSymbol')
         print(marker_symbol)
         self.assertEqual(marker_symbol, '')
         #finds the coded? field
-        is_coded = form.get_value('is_coded')
+        is_coded = form.get_value('isFullCoded')
         
         print(is_coded)
         self.assertEqual(is_coded, '')
         #finds the priority field
-        priority = form.get_selected_text('_priority_key') 
+        priority = form.get_selected_text('priority') 
         print(priority)
         self.assertEqual(priority, 'Search All')
         #finds the conditional mutants field
-        conditional = form.get_selected_text('_conditionalmutants_key')
+        conditional = form.get_selected_text('conditional')
         print(conditional)
         self.assertEqual(conditional, 'Search All')
         #finds the created by field
-        created_user = form.get_value('createdby_login')
+        created_user = form.get_value('createdBy')
         print(created_user)
         self.assertEqual(created_user, '')
         #finds the modified by field
-        modified_user = form.get_value('modifiedby_login')#.find_element_by_css_selector('td')
+        modified_user = form.get_value('modifiedBy')#.find_element_by_css_selector('td')
         print(modified_user)
         self.assertEqual(modified_user, '')
         #finds the created by date field
-        created_date = form.get_value('creation_date')
+        created_date = form.get_value('creationDate')
         print(created_date)
         self.assertEqual(created_date, '')
         #finds the created by date field
-        modified_date = form.get_value('modification_date')
+        modified_date = form.get_value('modificationDate')
         print(modified_date)
         self.assertEqual(modified_date, '')
         #find the table field to check
@@ -134,11 +135,11 @@ class TestEiGxdIndexShortcuts(unittest.TestCase):
         form = self.form
         time.sleep(2)
         actions = ActionChains(self.driver)
-        form.enter_value('jnumid', '124809')
+        form.enter_value('jnumID', '124809')
         # click the Tab key
         form.press_tab()
         #finds the citation field
-        citation = form.get_value('citation')
+        citation = form.get_value('short_citation')
         print(citation)
         try:
             self.assertEqual(citation, 'Cheong N, J Biol Chem 2007 Aug 17;282(33):23811-7')
@@ -148,41 +149,41 @@ class TestEiGxdIndexShortcuts(unittest.TestCase):
         actions.key_down(Keys.CONTROL).key_down(Keys.ALT).send_keys('s').key_up(Keys.CONTROL).key_up(Keys.ALT).perform()
         time.sleep(5)
         #finds the citation field
-        citation = form.get_value('citation')
+        citation = form.get_value('short_citation')
         print(citation)
         self.assertEqual(citation, 'Cheong N, J Biol Chem 2007 Aug 17;282(33):23811-7')
         #finds the marker field
-        marker_symbol = form.get_value('marker_symbol')
+        marker_symbol = form.get_value('markerSymbol')
         print(marker_symbol)
         self.assertEqual(marker_symbol, 'Abca3')
         #finds the coded? field
-        is_coded = form.get_value('is_coded')        
+        is_coded = form.get_value('isFullCoded')        
         print(is_coded)
-        self.assertEqual(is_coded, 'false')
+        self.assertEqual(is_coded, 'string:0')#No option
         #finds the priority field
-        priority = form.get_selected_text('_priority_key') 
+        priority = form.get_selected_text('priority') 
         print(priority)
         self.assertEqual(priority, 'Medium')
         #finds the conditional mutants field
-        conditional = form.get_selected_text('_conditionalmutants_key')
+        conditional = form.get_selected_text('conditional')
         print(conditional)
         self.assertEqual(conditional, 'Not Specified')
         #finds the created by field
-        created_user = form.get_value('createdby_login')
+        created_user = form.get_value('createdBy')
         print(created_user)
         self.assertEqual(created_user, 'terryh')
         #finds the modified by field
-        modified_user = form.get_value('modifiedby_login')#.find_element_by_css_selector('td')
+        modified_user = form.get_value('modifiedBy')#.find_element_by_css_selector('td')
         print(modified_user)
         self.assertEqual(modified_user, 'terryh')
         #finds the created by date field
-        created_date = form.get_value('creation_date')
+        created_date = form.get_value('creationDate')
         print(created_date)
-        self.assertEqual(created_date, '10/01/2007')
+        self.assertEqual(created_date, '2007-10-01')
         #finds the created by date field
-        modified_date = form.get_value('modification_date')
+        modified_date = form.get_value('modificationDate')
         print(modified_date)
-        self.assertEqual(modified_date, '10/01/2007')
+        self.assertEqual(modified_date, '2007-10-01')
         #find the table field to check
         table_element = driver.find_element(By.ID, "indexGrid")
         table = Table(table_element)

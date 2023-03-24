@@ -392,7 +392,7 @@ class TestHmdcGenesSearch(unittest.TestCase):
         
         #Verify homology class with multiple human and mouse genes are returned
         self.assertIn("C4A, C4B, C4B_2", humanGridGenes)
-        self.assertIn("C4b", mouseGridGenes)
+        self.assertIn("C4a, C4b", mouseGridGenes)
         
         #Verify genes matched via zebrafish name (ortholog match) is returned
         self.assertIn("HOXC4", humanGridGenes)
@@ -752,6 +752,7 @@ class TestHmdcGenesSearch(unittest.TestCase):
                 Grid and Disease tabs.
         @see: HMDC-grid-12 (NOT disease annotations not displayed on Grid); HMDC-disease-19 (NOT disease annotations not 
               displayed on Disease Tab); HMDC-genetab-19 (NOT references included in Disease relevant reference count/link)
+        @bug: this test no longer works as asthma is now  valid, not NOT
         '''
         print ("BEGIN test_gene_NOT_disease")
         my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option

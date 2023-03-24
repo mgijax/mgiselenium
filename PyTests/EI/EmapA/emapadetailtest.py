@@ -24,8 +24,8 @@ from util.table import Table
 class TestEiEmapaDetail(unittest.TestCase):
 
     def setUp(self):
-        #self.driver = webdriver.Firefox() 
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox() 
+        #self.driver = webdriver.Chrome()
         self.form = ModuleForm(self.driver)
         self.form.get_module(config.TEST_PWI_URL + "/edit/emapaBrowser")        
         # logging in for all tests
@@ -150,13 +150,15 @@ class TestEiEmapaDetail(unittest.TestCase):
         wait.forAngular(self.driver)             
         
         # verify annotation count exists
-        annotCountTag = self.driver.find_element(By.CSS_SELECTOR, ".resultsLink a")
+        annotCountTag = self.driver.find_element(By.CSS_SELECTOR, ".resultsLink > a:nth-child(1)")
         annotCount = int(annotCountTag.text)
         self.assertTrue(annotCount > 0, "annotation count not greater than zero")
         
         # click link to go to results page
-        annotCountTag.click()        
-        wait.forNewWindow(self.driver, 10)        
+        annotCountTag.click() 
+        #switch to the new window
+        self.driver.switch_to.window(self.driver.window_handles[1])   
+        time.sleep(5)          
         searchFor = self.driver.find_element(By.CSS_SELECTOR, ".youSearchedFor")
         
         self.assertEqual(self.driver.title, "Result Summary")
@@ -291,10 +293,11 @@ class TestEiEmapaDetail(unittest.TestCase):
         
         # click link to go to results page
         annotCountTag.click()
+        #switch to the new window
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        time.sleep(5)
         
-        wait.forNewWindow(self.driver, 10)
-        
-        searchFor = self.driver.find_element(By.CSS_SELECTOR, ".youSearchedFor")
+        searchFor = self.driver.find_element(By.CSS_SELECTOR, ".youSearchedFor > dl:nth-child(2) > dd:nth-child(4)")
         
         self.assertEqual(self.driver.title, "Result Summary")
         self.assertTrue("thymus/parathyroid primordium" in searchFor.text, "You searched for does not contain structure name")

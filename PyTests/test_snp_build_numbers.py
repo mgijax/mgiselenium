@@ -44,7 +44,7 @@ class TestSnpBuildNumbers(unittest.TestCase):
         self.driver.find_element(By.ID, 'ui-id-2').click
         buildlabel = self.driver.find_element(By.CSS_SELECTOR, '#form2 > div:nth-child(2)').get_attribute("outerHTML")
         #print (buildlabel)
-        self.assertIn("GRCm38", buildlabel)
+        self.assertIn("GRCm39", buildlabel)
 
         #click back to the Search by Gene tab
         self.driver.find_element(By.ID, 'ui-id-1').click
@@ -57,10 +57,10 @@ class TestSnpBuildNumbers(unittest.TestCase):
             print('page loaded')
         #finds the snp build number in the heading of SNP ID column
         snpidLabel = self.driver.find_element(By.ID, 'snpSummaryTable').find_element(By.ID, 'snp_id')
-        self.assertIn("(GRCm38)", snpidLabel.text)
+        self.assertIn("(GRCm39)", snpidLabel.text)
         #finds the GRC build number in the heading of Map Position column
         mapLabel = self.driver.find_element(By.ID, 'snpSummaryTable').find_element(By.ID, 'map_position')
-        self.assertIn("(GRCm38)", mapLabel.text)
+        self.assertIn("(GRCm39)", mapLabel.text)
 
     def test_gxd_qf(self):
         """

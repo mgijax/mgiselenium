@@ -33,8 +33,8 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
     """
 
     def setUp(self):
-        #self.driver = webdriver.Firefox() 
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox() 
+        #self.driver = webdriver.Chrome()
         self.form = ModuleForm(self.driver)
         self.form.get_module(config.TEST_PWI_URL + "/edit/allelederivation")
     
@@ -412,7 +412,7 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         self.assertEqual(result2, ['Yoichiro Iwakura Gene trapped Library R1 (129X1/SvJ x 129S1/Sv)F1-Kitl<+> ROSANBeta-geo']) 
 
         
-    def testAlleleDerivationVevtorTypeSearch(self):
+    def testAlleleDerivationVectorTypeSearch(self):
         """
         @Status tests that a basic vector type search works
         @see pwi-allele-der-search-9
@@ -437,8 +437,9 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         result2 = iterate.getTextAsList(cell2)
         print(result1)
         #Assert the correct derivations are returned
-        self.assertEqual(result1, ['Peter Gruss Gene trapped Library MPI-II 129/Sv IRESbetagalNeo(-pA)'])  
-        self.assertEqual(result2, ['Peter Gruss Gene trapped Library R1 (129X1/SvJ x 129S1/Sv)F1-Kitl<+> IRESbetagalNeo(-pA)'])
+        self.assertEqual(result1, ['Not Specified Endonuclease-mediated Library CC1.2 129S7/SvEvBrd Not Specified'])
+        self.assertEqual(result2, ['Peter Gruss Gene trapped Library MPI-II 129/Sv IRESbetagalNeo(-pA)'])  
+
         
     def testAlleleDerivationNoteWildSearch(self):
         """
@@ -518,15 +519,15 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         """
         driver = self.driver
         #find the antigen Creation Date field and enter a date
-        driver.find_element(By.ID, "creationDate").send_keys("2018-09-04")
+        driver.find_element(By.ID, "creationDate").send_keys("2009-08-14")
         #find the Search button and click it
         driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Not Applicable Endonuclease-mediated Library TC1/TC-1 129S6/SvEvTac Not Specified'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Achim Gossler Gene trapped Library D3 129S2/SvPas p6LSN'))
         create_date = driver.find_element(By.ID, 'creationDate').get_attribute('value')
         print(create_date)
         #Assert the  Creation Date field returned is correct 
-        self.assertEqual(create_date, '2018-09-04')
+        self.assertEqual(create_date, '2009-08-14')
 
     def testAlleleDerivationModDateSearch(self):
         """

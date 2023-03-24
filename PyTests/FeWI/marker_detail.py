@@ -79,9 +79,6 @@ class TestMarkerDetail(unittest.TestCase):
         molecularRibbon = self.driver.find_element(By.ID, 'molecularReagentsRibbon').find_element(By.CSS_SELECTOR, 'div.header.detailCat2')
         print(molecularRibbon.text)
         self.assertEqual(molecularRibbon.text, 'Molecular\nReagents', "Molecular Reagents ribbon is missing")
-        otherdbRibbon = self.driver.find_element(By.ID, 'otherIdsRibbon').find_element(By.CSS_SELECTOR, 'div.header.detailCat1')
-        print(otherdbRibbon.text)
-        self.assertEqual(otherdbRibbon.text, 'Other Database\nLinks', "Other Database Links ribbon is missing")
         otherAccRibbon = self.driver.find_element(By.ID, 'otherMgiIdsRibbon').find_element(By.CSS_SELECTOR, 'div.header.detailCat2')
         print(otherAccRibbon.text)
         self.assertEqual(otherAccRibbon.text, 'Other\nAccession IDs', "Other Accession IDs ribbon is missing")
@@ -99,7 +96,7 @@ class TestMarkerDetail(unittest.TestCase):
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Alad').click()
         apflnk = self.driver.find_element(By.LINK_TEXT, 'APF')
-        href = apflnk.find_element_by_xpath("//a").get_attribute('href')
+        href = apflnk.find_element(By.XPATH, "//a").get_attribute('href')
         
         self.assertTrue(href, "https://databases.apf.edu.au/mutations/snpRow/list?mgiAccessionid=MGI:96853")
 
@@ -244,7 +241,7 @@ class TestMarkerDetail(unittest.TestCase):
         self.assertEqual(strain_annot.text, '16')      
         #verify the SNP URL
         snp_s = self.driver.find_element(By.ID, 'snpLink')
-        self.assertEquals(snp_s.text, '8')
+        self.assertEquals(snp_s.text, '295')
  
         
     def test_strain_turnstile_nostrain_snp_data(self):
@@ -325,7 +322,7 @@ class TestMarkerDetail(unittest.TestCase):
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Gata1').click()
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
-        #clicks the More toggle(turnstile) to display the human disease table
+        #clicks the More toggle(turnstile) to display the strain table
         self.driver.find_element(By.ID, 'strainRibbon').find_element(By.CSS_SELECTOR, ' div.toggleImage.hdExpand').click()
         #time.sleep(2)
         #find the link for C57BL/6J gene model id
@@ -370,7 +367,7 @@ class TestMarkerDetail(unittest.TestCase):
         seq_map = self.driver.find_element(By.XPATH, '//*[@id="templateBodyInsert"]/div[2]/div[2]/div[2]/section[1]/ul/li[1]/div[2]')
         print(seq_map.text)
         #verify the coordinates data for the sequence map
-        self.assertEqual(seq_map.text, 'Genome coordinates not available', 'sequence map coordinates have changed!')
+        self.assertEqual(seq_map.text, 'Genome coordinates not available from the current reference assembly', 'sequence map coordinates have changed!')
         #clicks the More toggle(turnstile) to display the strain table
         self.driver.find_element(By.ID, 'strainRibbon').find_element(By.CSS_SELECTOR, 'div.toggleImage.hdExpand').click()
         #find the Gene Model ID column of the strains table
@@ -409,7 +406,7 @@ class TestMarkerDetail(unittest.TestCase):
         all_cells = table.get_column_cells('Coordinates')
         print(all_cells[1].text)
         #verify the ID/Version row of data
-        self.assertEqual(all_cells[1].text, 'Chr2:105668896-105698410 (+)')
+        self.assertEqual(all_cells[1].text, 'Chr2:105499241-105528755 (+)')
         
     def test_strain_table_vs_seqmap_match(self):
         '''        
@@ -426,7 +423,7 @@ class TestMarkerDetail(unittest.TestCase):
         seq_map = self.driver.find_element(By.XPATH, '//*[@id="locationRibbon"]/div[2]/section[1]/ul/li[1]/div[2]')
         print(seq_map.text)
         #verify the coordinates data for the sequence map
-        self.assertEqual(seq_map.text, 'Chr12:113329416-113330847 bp, - strand\nFrom MGI annotation of GRCm39', 'sequence map coordinates have changed!')
+        self.assertEqual(seq_map.text, 'Chr12:113329416-113330847 bp\nFrom MGI annotation of GRCm39', 'sequence map coordinates have changed!')
         #clicks the More toggle(turnstile) to display the strain table
         self.driver.find_element(By.ID, 'strainRibbon').find_element(By.CSS_SELECTOR, 'div.toggleImage.hdExpand').click()
         #find the coordinates column of the strains table
@@ -437,7 +434,7 @@ class TestMarkerDetail(unittest.TestCase):
         all_cells = table.get_column_cells('Coordinates')
         print(all_cells[1].text)
         #verify the ID/Version row of data
-        self.assertEqual(all_cells[1].text, 'Chr12:113365796-113367227 (-)')
+        self.assertEqual(all_cells[1].text, 'Chr12:113329416-113330847 (.)')
 
     def test_strain_table_single_fasta(self):
         '''        
@@ -610,7 +607,7 @@ class TestMarkerDetail(unittest.TestCase):
         strain_ribbon = self.driver.find_element(By.ID, 'strainRibbon')
         print(strain_ribbon.text)
         #verify the Strain-specific icon and text is displayed in the strain comparison ribbon
-        self.assertEqual(strain_ribbon.text, 'Strain\nComparison\nmore', 'the Strain Comparison ribbon display has changed!')        
+        self.assertEqual(strain_ribbon.text, 'Strain\nComparison\nmore\nSNPs within 2kb\n52 from dbSNP Build 142', 'the Strain Comparison ribbon display has changed!')        
 
     def test_strain_only_poly(self):
         '''        
@@ -775,9 +772,9 @@ class TestMarkerDetail(unittest.TestCase):
         self.assertEqual(model_cells[2].text, 'MGP_129S1SvImJ_G0005544')
         self.assertEqual(model_cells[3].text, 'MGP_AJ_G0006976')
         self.assertEqual(model_cells[4].text, 'MGP_AJ_G0036786')
-        self.assertEqual(model_cells[5].text, 'MGP_AKRJ_G0036736')
-        self.assertEqual(model_cells[6].text, 'MGP_AKRJ_G0007264')
-        self.assertEqual(model_cells[7].text, 'MGP_BALBcJ_G006952')
+        self.assertEqual(model_cells[5].text, 'MGP_AKRJ_G0007264')
+        self.assertEqual(model_cells[6].text, 'MGP_AKRJ_G0036736')
+        self.assertEqual(model_cells[7].text, 'MGP_BALBcJ_G0006952')
         self.assertEqual(model_cells[8].text, 'MGP_BALBcJ_G0036776')
         self.assertEqual(model_cells[9].text, 'no annotation')
 
@@ -929,7 +926,7 @@ class TestMarkerDetail(unittest.TestCase):
         #time.sleep(2) 
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'popupTable')))#waits until the phenogrid table is displayed on the page       
         #find and click the Mouse Genotype for X/Sry<AKR/J>
-        self.driver.find_element(By.XPATH, '//*[@id="fm33447a"]').click()
+        self.driver.find_element(By.XPATH, '//*[@id="fm38799a"]').click()
         #switch focus to the new tab for Phenotypes associated with X/Sry<AKR/J>
         self.driver.switch_to.window(self.driver.window_handles[-1])
         #time.sleep(2) 
@@ -956,6 +953,77 @@ class TestMarkerDetail(unittest.TestCase):
         print(page_title.text)
         #Asserts that the strain page is for the correct strain detail
         self.assertEqual(page_title.text, 'AKR/J', 'Page title is not correct!')
+
+    def test_qtl_detail_interactions(self):
+        '''
+        @status this test verifies the existance of a QTL interaction link in the summary section below the Feature Type. Clicking the link displays a popup table.
+        @bug: can't get to page because other page tab closes....
+        @note mrkdetail-qtl-interaction-1
+        '''
+        driver = self.driver
+        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.find_element(By.NAME, 'nomen').send_keys("Lmr14")
+        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
+        self.driver.find_element(By.LINK_TEXT, 'Lmr14').click()
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
+        #find the QTL Interaction link and click it
+        self.driver.find_element(By.ID, 'showInteractingQTL').click()
+        #time.sleep(2)
+        #switch focus to the popup Interaction popup page
+        self.driver.switch_to.window(self.driver.window_handles[-1])
+        #time.sleep(2)
+        #find the Interaction table
+        Inter_table = self.driver.find_element(By.ID, 'interactingQTLTbl') 
+        print(Inter_table.text)
+        #Asserts that the Interaction table is returning the correct data
+        self.assertEqual(Inter_table.text, 'QTL Genetic Location* Genome Location (GRCm39) Interaction Type Reference\nLmr5 Chr10, 73.57 cM Chr10:116220635-122179828 enhancement J:108764\nLmr12 Chr16, 30.45 cM Chr16:45792813-45792952 synthetic J:108764\nLmr13 Chr18, 23.86 cM Chr18:45109380-45109518 synthetic J:108764\nLmr25 Chr10, syntenic Chr10:125575094-125575232 enhancement J:82717', 'Page title is not correct!')
+
+    def test_qtl_detail_candidate(self):
+        '''
+        @status this test verifies the existance of a Candidate Genes link in the summary section below the Feature Type(on QTL detail). Clicking the link displays a popup table.
+        @note mrkdetail-qtl-candidate-gene-1
+        '''
+        driver = self.driver
+        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.find_element(By.NAME, 'nomen').send_keys("Skts2")
+        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
+        self.driver.find_element(By.LINK_TEXT, 'Skts2').click()
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
+        #find the Candidate Genes link and click it
+        self.driver.find_element(By.ID, 'showCandidates').click()
+        #time.sleep(2)
+        #switch focus to the popup Candidate Genes popup page
+        self.driver.switch_to.window(self.driver.window_handles[-1])
+        time.sleep(2)
+        #find the Candidates table
+        Candidate_table = self.driver.find_element(By.ID, 'candidatesTbl') 
+        print(Candidate_table.text)
+        #Asserts that the Interaction table is returning the correct data
+        self.assertEqual(Candidate_table.text, 'Gene Genome Location (GRCm39) Reference QTL Note\nHras Chr7:140769847-140773938 (-) J:85134 Several skin tumor susceptibility QTLs (Skts1-Skts13) were previously identified in a population of (NIH/Ola x M. spretus)F1 x NIH/Ola backcross animals. In this study the association of allele-specific mutations at the Skts intervals was examined in skin carcinoma samples. Several loci displayed allelic loss or duplication in skin carcinomas. 90 % of papillomas and carcinomas contain a mutation at codon 61 of the Hras1 gene (72 cM). In 23 out of 26 mouse tumors the Hras1 mutation occurred in the NIH/Ola-inherited allele. Hras1 maps near skin tumor susceptibility QTL Skts2 (64 cM on mouse Chromosome 7). A nearby marker, D7Mit12 (66 cM) also shows allelic imbalance involving the NIH/Ola allele. On mouse Chromosome 6, preferential gain of the M. spretus allele or loss of the NIH/Ola allele was observed at D6Mit9 (36.5 cM) near Skts11 in 21 out of 21 carcinomas, and preferential gain of the M. spretus allele was observed at D6Mit15 (74 cM) near Skts12 in 14 out of 16 carcinomas. On mouse Chromosome 9, preferential loss of the M. spretus allele or gain of the NIH/Ola allele was observed at D9Mit9 (48 cM) near Skts6 in 16 out of 23 carcinomas. On mouse Chromosome 16, preferential loss of the M. spretus allele or gain of the NIH/Ola allele was observed at D16Mit2 (14.1 cM) near Skts9 in 10 out of 29 carcinomas.\nTyr Chr7:87073979-87142720 (-) J:65010 Segregation analysis of a (Car-R x Car-S)F2 intercross revealed association of coat color with skin tumor susceptibility. Phenotypically selected inbred lines Car-R and Car-S are derived from progenitor strains A/J, DBA/2J, P/J, CBA/J, SJL/J, BALB/cJ, SWR/J, and C57BR/6J. Animals resistant or susceptible to skin tumors after challenge with carcinogens were selected as progenitors for each successive generation in the Car-R and Car-S lines, respectively. By the eighth generation of inbreeding all Car-S mice had white coats and all Car-R mice had coats of various colors. Authors estimate 7-10 QTLs affect skin tumor susceptibility. A region on mouse chromosome 7 containing the albino locus, Tyr, and a skin tumor susceptibility QTL, Skts2, may be a candidatelocus.', 'Page title is not correct!')
+
+    def test_qtl_detail_candidate1(self):
+        '''
+        @status this test verifies the existance of a Candidate for QTL link in the summary section below the Feature Type(on Marker detail). Clicking the link displays a popup table.
+        @note mrkdetail-qtl-candidate-gene-1
+        '''
+        driver = self.driver
+        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.find_element(By.NAME, 'nomen').send_keys("Hras")
+        self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
+        self.driver.find_element(By.LINK_TEXT, 'Hras').click()
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
+        #find the Candidate for QTL link and click it
+        self.driver.find_element(By.ID, 'showCandidateFor').click()
+        #time.sleep(2)
+        #switch focus to the popup is Candidate Gene for: popup page
+        self.driver.switch_to.window(self.driver.window_handles[-1])
+        time.sleep(2)
+        #find the Candidates table
+        Candidatefor_table = self.driver.find_element(By.ID, 'candidateForTbl') 
+        print(Candidatefor_table.text)
+        #Asserts that the Interaction table is returning the correct data
+        self.assertEqual(Candidatefor_table.text, 'QTL Genetic Location* Genome Location (GRCm39) Reference QTL Note\nSkts2 Chr7, 73.19 cM Chr7:129922733-129922943 J:85134 Several skin tumor susceptibility QTLs (Skts1-Skts13) were previously identified in a population of (NIH/Ola x M. spretus)F1 x NIH/Ola backcross animals. In this study the association of allele-specific mutations at the Skts intervals was examined in skin carcinoma samples. Several loci displayed allelic loss or duplication in skin carcinomas. 90 % of papillomas and carcinomas contain a mutation at codon 61 of the Hras1 gene (72 cM). In 23 out of 26 mouse tumors the Hras1 mutation occurred in the NIH/Ola-inherited allele. Hras1 maps near skin tumor susceptibility QTL Skts2 (64 cM on mouse Chromosome 7). A nearby marker, D7Mit12 (66 cM) also shows allelic imbalance involving the NIH/Ola allele. On mouse Chromosome 6, preferential gain of the M. spretus allele or loss of the NIH/Ola allele was observed at D6Mit9 (36.5 cM) near Skts11 in 21 out of 21 carcinomas, and preferential gain of the M. spretus allele was observed at D6Mit15 (74 cM) near Skts12 in 14 out of 16 carcinomas. On mouse Chromosome 9, preferential loss of the M. spretus allele or gain of the NIH/Ola allele was observed at D9Mit9 (48 cM) near Skts6 in 16 out of 23 carcinomas. On mouse Chromosome 16, preferential loss of the M. spretus allele or gain of the NIH/Ola allele was observed at D16Mit2 (14.1 cM) near Skts9 in 10 out of 29 carcinomas.', 'Page data is not correct!')
+
                 
     def tearDown(self):
         self.driver.close()

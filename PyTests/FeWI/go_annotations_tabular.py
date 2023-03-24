@@ -73,7 +73,7 @@ class TestGoAnnotationsPage(unittest.TestCase):
         wait.forAjax(driver)
         #finds the Type column and then iterates through all items
         #contextlist = driver.find_elements(By.CSS_SELECTOR, 'td.yui-dt-annotationExtensions div.goProperties.span.value')
-        webElement = driver.find_elements_by_class_name('goProperties')
+        webElement = driver.find_elements(By.CLASS_NAME, 'goProperties')
         print(webElement)
         #searchTextItems = iterate.getTextAsList(webElement)
         #wait.forAjax(driver)
@@ -113,19 +113,19 @@ class TestGoAnnotationsPage(unittest.TestCase):
         items = tabularheaderlist.find_elements(By.TAG_NAME, 'div')
         searchTextItems = iterate.getTextAsList(items)
         asp1 = driver.find_element(By.CSS_SELECTOR, '#yui-rec0')
-        asp10 = driver.find_element(By.CSS_SELECTOR, '#yui-rec9')
-        asp17 = driver.find_element(By.CSS_SELECTOR, '#yui-rec16')
+        asp11 = driver.find_element(By.CSS_SELECTOR, '#yui-rec10')
+        asp19 = driver.find_element(By.CSS_SELECTOR, '#yui-rec18')
         print(asp1.text)
-        print(asp10.text)
-        print(asp17.text)
+        print(asp11.text)
+        print(asp19.text)
         wait.forAjax(driver)
         #print(searchTextItems)
         #print(searchTextItems[10])
         #verifies all the table headings are correct and in order
         #self.assertEqual(searchTextItems, ['Aspect','Category','Classification Term', 'Context', 'Proteoform', 'Evidence', 'Inferred From', 'Reference(s)'])    
         self.assertEqual(asp1.text, 'Molecular Function\nsignaling receptor activity\nendothelin receptor activity\nIDA\nJ:81728 [PMID:12441350]', 'the aspect is wrong')
-        self.assertEqual(asp10.text, 'Cellular Component\nintegral component of membrane\nIEA\nIPR000276 | IPR000499 | IPR001112 | IPR017452\nJ:72247', 'the aspect is wrong')
-        self.assertEqual(asp17.text, 'Biological Process\nresponse to stimulus, signaling\ncalcium-mediated signaling\nISO\nP24530\nJ:164563', 'the aspect is wrong')
+        self.assertEqual(asp11.text, 'Cellular Component\nmembrane raft\nISO\nRGD:2536\nJ:155856', 'the aspect is wrong')
+        self.assertEqual(asp19.text, 'Biological Process\nresponse to stimulus, signaling\ncalcium-mediated signaling\nISO\nP24530\nJ:164563', 'the aspect is wrong')
     
     
         

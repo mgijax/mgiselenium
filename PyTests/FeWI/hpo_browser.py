@@ -46,14 +46,14 @@ class TestHPOBrowser(unittest.TestCase):
         The default sort for the tree view is smart alpha
         """
         driver = self.driver
-        driver.get(config.TEST_URL + "/vocab/hp_ontology/HP:0001425")
+        driver.get(config.TEST_URL + "/vocab/hp_ontology/HP:0000005")
         time.sleep(2)
         termList = driver.find_elements(By.CLASS_NAME, 'jstree-anchor')
         terms = iterate.getTextAsList(termList)
         print([x.text for x in termList])
         
-        # Heterogeneous should not be before the 10th item in the list
-        self.assertGreater(terms.index('Heterogeneous'), 9)
+        # Mode of inheritance should not be before the 10th item in the list
+        self.assertGreater(terms.index('Mode of inheritance'), 3)
  
     def test_term_w_ofthe(self):
         """

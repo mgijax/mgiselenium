@@ -44,12 +44,11 @@ class TestGxdImageSummary(unittest.TestCase):
         time.sleep(2)
         #locates the genes column and lists the genes found
         genelist = driver.find_element(By.ID, 'imagesdata').find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-gene')
-        items = genelist[20].find_elements(By.TAG_NAME, 'li')
+        items = genelist[15].find_elements(By.TAG_NAME, 'li')
         print(items[0].text)
         print(items[1].text)
-        print(items[2].text)
         searchTextItems = iterate.getTextAsList(items)
-        self.assertEqual(searchTextItems, ["Eomes", "Pax6", "Sox2"])
+        self.assertEqual(searchTextItems, ["Auts2", "Pax6"])
         
     def test_default_sort_assaytype(self):
         """
@@ -122,7 +121,7 @@ class TestGxdImageSummary(unittest.TestCase):
         time.sleep(2)
         items = genelist[0].find_elements(By.TAG_NAME, 'li')
         searchTextItems = iterate.getTextAsList(items)
-        self.assertEqual(searchTextItems, ["Arx", "Olig2", "Shh"])
+        self.assertEqual(searchTextItems, ["Ano1", "Cftr", "Shh"])
         
     def test_assaytype_column_sort(self):
         """

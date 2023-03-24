@@ -23,7 +23,7 @@ class TestPwiGxdSpecSumByRef(unittest.TestCase):
     def setUp(self):
         #self.driver = webdriver.Chrome() 
         self.driver = webdriver.Firefox()
-        self.driver.get(config.TEST_URL + "/pwi/#referenceForm")
+        self.driver.get(config.TEST_PWI_URL)
         self.driver.implicitly_wait(10)
 
     def test_table_headers(self):
@@ -31,9 +31,9 @@ class TestPwiGxdSpecSumByRef(unittest.TestCase):
         @status: Tests that the summaries table headers are correct
         """
         driver = self.driver
-        #opens the PWI reference form
-        #driver.get(TEST_PWI_URL + "/#referenceForm")        
-        accidbox = driver.find_element(By.ID, 'accids')
+        #opens the PWI form
+        #driver.get(TEST_PWI_URL")        
+        accidbox = driver.find_element(By.NAME, 'ids')
         # put your J number in the box
         accidbox.send_keys("J:84605")
         accidbox.submit()
@@ -58,9 +58,7 @@ class TestPwiGxdSpecSumByRef(unittest.TestCase):
         """
         driver = self.driver
         driver.get(TEST_PWI_URL)
-        #opens the PWI reference form
-        driver.find_element(By.LINK_TEXT, "Reference Form").click()
-        accidbox = driver.find_element(By.ID, 'accids')
+        accidbox = driver.find_element(By.NAME, 'ids')
         # put your J number in the box
         accidbox.send_keys("J:40904")
         accidbox.submit()
@@ -104,9 +102,7 @@ class TestPwiGxdSpecSumByRef(unittest.TestCase):
         """
         driver = self.driver
         driver.get(TEST_PWI_URL)
-        #opens the PWI reference form
-        driver.find_element(By.LINK_TEXT, "Reference Form").click()
-        accidbox = driver.find_element(By.ID, 'accids')
+        accidbox = driver.find_element(By.NAME, 'ids')
         # put your J number in the box
         accidbox.send_keys("J:84605")
         accidbox.submit()
@@ -141,9 +137,7 @@ class TestPwiGxdSpecSumByRef(unittest.TestCase):
         """
         driver = self.driver
         driver.get(TEST_PWI_URL)
-        #opens the PWI reference form
-        driver.find_element(By.LINK_TEXT, "Reference Form").click()
-        accidbox = driver.find_element(By.ID, 'accids')
+        accidbox = driver.find_element(By.NAME, 'ids')
         # put your J number in the box
         accidbox.send_keys("J:36691")
         accidbox.submit()
@@ -178,9 +172,7 @@ class TestPwiGxdSpecSumByRef(unittest.TestCase):
         """
         driver = self.driver
         driver.get(TEST_PWI_URL)
-        #opens the PWI reference form
-        driver.find_element(By.LINK_TEXT, "Reference Form").click()
-        accidbox = driver.find_element(By.ID, 'accids')
+        accidbox = driver.find_element(By.NAME, 'ids')
         # put your J number in the box
         accidbox.send_keys("J:84605")
         accidbox.submit()
@@ -208,9 +200,7 @@ class TestPwiGxdSpecSumByRef(unittest.TestCase):
         """
         driver = self.driver
         driver.get(TEST_PWI_URL)
-        #opens the PWI reference form
-        driver.find_element(By.LINK_TEXT, "Reference Form").click()
-        accidbox = driver.find_element(By.ID, 'accids')
+        accidbox = driver.find_element(By.NAME, 'ids')
         # put your J number in the box
         accidbox.send_keys("J:105186")
         accidbox.submit()

@@ -37,7 +37,10 @@ class TestPrivateAllele(unittest.TestCase):
         querytext.send_keys("Brca1")  # put your marker symbol
         querytext.send_keys(Keys.RETURN)  # click the submit button
         brcalink = driver.find_element(By.LINK_TEXT, "Brca1")# Find the Brca1 link and click it
-        brcalink.click()# Find the all alleles and mutations link and click it
+        brcalink.click()
+        #switch to the new tab that opens
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        # Find the all alleles and mutations link and click it
         allallelelink = driver.find_element(By.ID, "phenoMutationLink")
         time.sleep(2)
         allallelelink.click()  # assert that there is no link for Brca1<test1>
@@ -48,12 +51,13 @@ class TestPrivateAllele(unittest.TestCase):
     def test_hide_private_marker(self):
         """
         @status: Tests that the dummy private allele Brca1<test1> does not display on public
+        @bug: this test no longer works !!!!!
         """
         driver = self.driver
         self.assertIn("Informatics", driver.title)
         querytext = driver.find_element(By.NAME, 'query')
         querytext.clear()
-        querytext.send_keys("Agit")# put your marker symbol
+        querytext.send_keys("Brca1<test1>")# put your marker symbol
         querytext.send_keys(Keys.RETURN)  # click the submit button
         wait.forAjax(driver)
         missng = driver.find_element(By.CLASS_NAME, 'redText').is_displayed()#verifies that the warning Could not find the independent term(s): is displaying

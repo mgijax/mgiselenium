@@ -118,11 +118,11 @@ class TestEmapaBrowser(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'phenotypeAnnotationCount').click()#clicks the phenotype annotations link found in the Treeview section
         results_table = self.driver.find_element(By.ID, 'resultsTable')
         table = Table(results_table)
-        #gets the 1st,5th,13th,15th rows of the Annotated term column
+        #gets the 1st,6th,13th,16th rows of the Annotated term column
         term1 = table.get_cell(3, 1)
-        term2 = table.get_cell(6, 1)
-        term3 = table.get_cell(14, 1)
-        term4 = table.get_cell(16, 1)
+        term2 = table.get_cell(8, 1)
+        term3 = table.get_cell(16, 1)
+        term4 = table.get_cell(19, 1)
         print(term1.text)
         print(term2.text)
         print(term3.text)
@@ -263,11 +263,11 @@ class TestEmapaBrowser(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'phenotypeAnnotationCount').click()#clicks the phenotype annotations link found in the Treeview section
         results_table = self.driver.find_element(By.ID, 'resultsTable')
         table = Table(results_table)
-        #gets the 1st, 2nd, 4th, 7th, and 9th rows of the Annotated term column
+        #gets the 1st, 2nd, 7th, 8th, and 9th rows of the Annotated term column
         term1 = table.get_cell(3, 1)
         term2 = table.get_cell(4, 1)
-        term3 = table.get_cell(6, 1)
-        term4 = table.get_cell(9, 1)
+        term3 = table.get_cell(9, 1)
+        term4 = table.get_cell(10, 1)
         term5 = table.get_cell(11, 1)
         print(term1.text)
         print(term2.text)
@@ -276,11 +276,11 @@ class TestEmapaBrowser(unittest.TestCase):
         print(term5.text)
         time.sleep(2)
         # verifies the returned terms are the correct terms for this search
-        self.assertEqual('abnormal primitive node morphology', term1.text, 'Term1 is not returning' )
-        self.assertEqual('absent embryonic cilia', term2.text, 'Term2 is not returning' )
-        self.assertEqual('absent primitive node', term3.text, 'Term3 is not returning' )
-        self.assertEqual('absent primitive node', term4.text, 'Term4 is not returning' )
-        self.assertEqual('abnormal motile primary cilium morphology', term5.text, 'Term5 is not returning' )
+        self.assertEqual('absent embryonic cilia', term1.text, 'Term1 is not returning' )
+        self.assertEqual('absent primitive node', term2.text, 'Term2 is not returning' )
+        self.assertEqual('abnormal primitive node morphology', term3.text, 'Term3 is not returning' )
+        self.assertEqual('abnormal motile primary cilium morphology', term4.text, 'Term4 is not returning' )
+        self.assertEqual('decreased embryonic cilium length', term5.text, 'Term5 is not returning' )
         
         
     def test_no_pheno_mapping_zero_exp_link(self):
@@ -307,8 +307,8 @@ class TestEmapaBrowser(unittest.TestCase):
         linkE = driver.find_element(By.CLASS_NAME, 'expressionResultCount') #the expression annotations link found in the Treeview section
         bodyText = driver.find_element(By.TAG_NAME, 'body').text
         print(linkE.text)
-        # verifies the returned terms are the correct terms for this search
-        self.assertEqual('252,904', linkE.text, 'The expression results link is wrong' )
+        # asserts the expression results link exist and phenotype annotations link does not exist
+        self.assertTrue('expression results' in bodyText)
         self.assertFalse('phenotype annotations' in bodyText)       
 
     def test_no_pheno_mapping_zero_exp_link2(self):

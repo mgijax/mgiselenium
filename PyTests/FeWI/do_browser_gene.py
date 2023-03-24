@@ -39,9 +39,13 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         # put your Gene ID in the quick search box
         searchbox.send_keys("DOID:1324")
         searchbox.send_keys(Keys.RETURN)
+        time.sleep(2)
+        #find the Vocabulary Terms tab and click it
+        self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'lung cancer').click()
+        self.driver.switch_to.window(self.driver.window_handles[1]) 
         #Does a webdriver wait until the disease name is present so we know the page is loaded
-        if WebDriverWait(self.driver, 5).until(ec.presence_of_element_located((By.ID, 'diseaseNameID'))):
+        if WebDriverWait(self.driver, 5).until(ec.presence_of_element_located((By.CLASS_NAME, 'titleBarMainTitle'))):
             print('page loaded')
         header = self.driver.find_element(By.ID, 'diseaseNameID')#identifies the header section of the DO Browser page
         print(header.text)
@@ -67,7 +71,12 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         # put your Gene ID in the quick search box
         searchbox.send_keys("DOID:11198")
         searchbox.send_keys(Keys.RETURN)
+        time.sleep(2)
+        #find the Vocabulary Terms tab and click it
+        self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'DiGeorge syndrome').click()
+        self.driver.switch_to.window(self.driver.window_handles[1]) 
+        time.sleep(4)
         gene_tab = self.driver.find_element(By.LINK_TEXT, 'Genes (21)')#identifies the Genes tab.
         print(gene_tab.text)
         self.assertEqual(gene_tab.text, "Genes (21)", "The Genes Tab number is not correct")
@@ -85,10 +94,14 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         # put your Gene ID in the quick search box
         searchbox.send_keys("DOID:11198")
         searchbox.send_keys(Keys.RETURN)
-        
+        time.sleep(2)
+        #find the Vocabulary Terms tab and click it
+        self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'DiGeorge syndrome').click()
+        self.driver.switch_to.window(self.driver.window_handles[1]) 
+        time.sleep(4)
         self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Genes tab and clicks it.
-        
+        time.sleep(4)
         gene_table = self.driver.find_element(By.ID, "geneTabTable")
         table = Table(gene_table)
         cells = table.get_rows()
@@ -159,10 +172,14 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:5572")
         searchbox.send_keys(Keys.RETURN)
-        
+        time.sleep(2)
+        #find the Vocabulary Terms tab and click it
+        self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'Beckwith-Wiedemann syndrome').click()
+        self.driver.switch_to.window(self.driver.window_handles[1]) 
+        time.sleep(4)
         self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Genes tab and clicks it.
-        
+        time.sleep(4)
         gene_table = self.driver.find_element(By.ID, "geneTabTable")
         table = Table(gene_table)
         cells = table.get_rows()
@@ -199,10 +216,14 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:10587")
         searchbox.send_keys(Keys.RETURN)
-        
+        time.sleep(2)
+        #find the Vocabulary Terms tab and click it
+        self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'Krabbe disease').click()
+        self.driver.switch_to.window(self.driver.window_handles[1]) 
+        time.sleep(4)
         self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Genes tab and clicks it.
-        
+        time.sleep(2)
         gene_table = self.driver.find_element(By.ID, "geneTabTable")
         table = Table(gene_table)
         cells = table.get_rows()
@@ -210,7 +231,7 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         #displays each row of gene data
         row1 = cells[2]
         row2 = cells[3]
-        self.assertEqual(row1.text, '       Krabbe disease GALC* Galc* 2 models Alliance of Genome Resources')
+        self.assertEqual(row1.text, '       Krabbe disease GALC* Galc* 3 models Alliance of Genome Resources')
         self.assertEqual(row2.text, '       Krabbe disease PSAP Psap* 1 model Alliance of Genome Resources')
         
     def test_dobrowser_genestab_m(self):
@@ -223,10 +244,14 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:12934")
         searchbox.send_keys(Keys.RETURN)
-        
+        time.sleep(2)
+        #find the Vocabulary Terms tab and click it
+        self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'Kearns-Sayre syndrome').click()
+        self.driver.switch_to.window(self.driver.window_handles[1]) 
+        time.sleep(4)
         self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Genes tab and clicks it.
-        
+        time.sleep(4)
         gene_table = self.driver.find_element(By.ID, "geneTabTable")
         table = Table(gene_table)
         cells = table.get_rows()
@@ -245,13 +270,18 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         # put your DO ID in the quick search box Use DOID:0050909 if this DOID changes.
         searchbox.send_keys("DOID:0050637")
         searchbox.send_keys(Keys.RETURN)
-        
+        time.sleep(2)
+        #find the Vocabulary Terms tab and click it
+        self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, "Finnish type amyloidosis").click()
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        time.sleep(4) 
         self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Genes tab and clicks it.
-        
+        time.sleep(2)
         gene_table = self.driver.find_element(By.ID, 'geneTabTable')
         table = Table(gene_table)
         cells = table.get_rows()
+        time.sleep(2)
         print(iterate.getTextAsList(cells))
         #displays each row of gene data
         row1 = cells[2]
@@ -275,11 +305,14 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:0050807")
         searchbox.send_keys(Keys.RETURN)
-        
+        time.sleep(2)
+        #find the Vocabulary Terms tab and click it
+        self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, "Kahrizi syndrome").click()
-
+        self.driver.switch_to.window(self.driver.window_handles[1]) 
+        time.sleep(4)
         self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Genes tab and clicks it.
-        
+        time.sleep(2)
         gene_table = self.driver.find_element(By.ID, 'geneTabTable')
         table = Table(gene_table)
         cells = table.get_rows()
@@ -298,8 +331,12 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:14694")
         searchbox.send_keys(Keys.RETURN)
-        
+        time.sleep(2)
+        #find the Vocabulary Terms tab and click it
+        self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'Johanson-Blizzard syndrome').click()
+        self.driver.switch_to.window(self.driver.window_handles[1]) 
+        time.sleep(4)
         self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Genes tab and clicks it.
         
         gene_table = self.driver.find_element(By.ID, 'geneTabTable')
@@ -320,8 +357,12 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:2352")
         searchbox.send_keys(Keys.RETURN)
-        
+        time.sleep(2)
+        #find the Vocabulary Terms tab and click it
+        self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'hemochromatosis').click()
+        self.driver.switch_to.window(self.driver.window_handles[1]) 
+        time.sleep(4)
         self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Genes tab and clicks it.
         
         gene_table = self.driver.find_element(By.ID, "geneTabTable")
@@ -358,8 +399,12 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:633")
         searchbox.send_keys(Keys.RETURN)
-        
+        time.sleep(2)
+        #find the Vocabulary Terms tab and click it
+        self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'myositis').click()
+        self.driver.switch_to.window(self.driver.window_handles[1]) 
+        time.sleep(4)
         self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Genes tab and clicks it.
         
         gene_table = self.driver.find_element(By.ID, 'geneTabTable')
@@ -395,8 +440,12 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:12347")
         searchbox.send_keys(Keys.RETURN)
-        
+        time.sleep(2)
+        #find the Vocabulary Terms tab and click it
+        self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'osteogenesis imperfecta').click()
+        self.driver.switch_to.window(self.driver.window_handles[1]) 
+        time.sleep(4)
         self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Models tab and clicks it.
         
         model_table = self.driver.find_element(By.ID, 'geneTabTable')

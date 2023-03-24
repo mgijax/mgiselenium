@@ -33,8 +33,8 @@ class TestEIAntigenSearch(unittest.TestCase):
     """
 
     def setUp(self):
-        #self.driver = webdriver.Firefox() 
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox() 
+        #self.driver = webdriver.Chrome()
         self.form = ModuleForm(self.driver)
         self.form.get_module(config.TEST_PWI_URL + "/edit/antigen")
     
@@ -172,11 +172,11 @@ class TestEIAntigenSearch(unittest.TestCase):
         symbol5 = iterate.getTextAsList(cell5)
         print(symbol1)
         #Assert the correct antigens are returned(first 5)
-        self.assertEqual(symbol1, ['ALDH1L1'])
-        self.assertEqual(symbol2, ['AMH'])
-        self.assertEqual(symbol3, ['AML1-b'])
-        self.assertEqual(symbol4, ['antithrombin'])
-        self.assertEqual(symbol5, ['APC'])
+        self.assertEqual(symbol1, ['ACP2'])
+        self.assertEqual(symbol2, ['Adiponectin'])
+        self.assertEqual(symbol3, ['ALDH1L1'])
+        self.assertEqual(symbol4, ['AMH'])
+        self.assertEqual(symbol5, ['AML1-b'])
         
     def testAntigenNotes1Search(self):
         """
@@ -350,7 +350,7 @@ class TestEIAntigenSearch(unittest.TestCase):
         #Assert the correct antigens are returned(first 3)
         self.assertEqual(symbol1, ['Acrogranin'])
         self.assertEqual(symbol2, ['Clone 4'])    
-        self.assertEqual(symbol3, ['JLP'])
+        self.assertEqual(symbol3, ['GENA'])
         
     def testAntigenTissueDescSearch(self):
         """
@@ -464,8 +464,8 @@ class TestEIAntigenSearch(unittest.TestCase):
         print(symbol1)
         #Assert the correct antigens are returned(first 3)
         self.assertEqual(symbol1, ['alpha6 integrin'])
-        self.assertEqual(symbol2, ['CD31/PECAM-1'])    
-        self.assertEqual(symbol3, ['cerberus 1'])
+        self.assertEqual(symbol2, ['Cathepsin L'])    
+        self.assertEqual(symbol3, ['CD117/c-kit'])
         
     def testAntigenAgePrefixSearch(self):
         """
@@ -671,7 +671,7 @@ class TestEIAntigenSearch(unittest.TestCase):
         mod_date = driver.find_element(By.ID, 'modificationDate').get_attribute('value')
         print(mod_date)
         #Assert the Modification Date field returned is correct 
-        self.assertEqual(mod_date, '2015-06-23')
+        self.assertEqual(mod_date, '2022-08-11')
 
     def testAntigenCreateDateSearch(self):
         """

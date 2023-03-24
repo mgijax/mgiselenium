@@ -409,7 +409,7 @@ class TestStrainDetail(unittest.TestCase):
         time.sleep(2)
         fam_mem = driver.find_element(By.ID, 'relatedStrains')#find the Strain Family Member link
         print(fam_mem.text)#print the strain family member to the console screen
-        self.assertEqual(fam_mem.text, '92')#assert the strain family member link is correct    
+        self.assertEqual(fam_mem.text, '93')#assert the strain family member link is correct    
 
     def test_strain_desc_small(self):
         """
@@ -649,13 +649,13 @@ class TestStrainDetail(unittest.TestCase):
         mut_cells = iterate.getTextAsList(cells)
         print(mut_cells)
         #verifies that the right mutations appear and in the correct order
-        self.assertEqual(mut_cells, ['Mutation Carried', 'Aanatrs216509331-A', 'Ahrb-1', 'Apobec3Rfv3-r', 'Cd5b', 'Cdh23ahl', 'Cox7a2ls', 'Fbrwt1C57BL/6J', 'Fbrwt2C57BL/6J', 'Gabra2C57BL/6J', 'Gluchos1C57BL/6J', 'Gluchos2C57BL/6J', 'Gluchos3C57BL/6J', 'Micrln', 'Mx1s1', 'n-TRtct5m1J', 'Nlrp12C57BL/6J', 'NntC57BL/6J', 'P2rx7rs48804829-T'])
+        self.assertEqual(mut_cells, ['Mutation Carried', 'Aanatrs216509331-A', 'Ahrb-1', 'Apobec3Rfv3-r', 'B2mb', 'Cd5b', 'Cdh23ahl', 'Cox7a2ls', 'Fbrwt1C57BL/6J', 'Fbrwt2C57BL/6J', 'Gabra2C57BL/6J', 'Gluchos1C57BL/6J', 'Gluchos2C57BL/6J', 'Gluchos3C57BL/6J', 'Hbbs', 'Micrln', 'Mx1s1', 'n-TRtct5m1J', 'Nlrp12C57BL/6J', 'NntC57BL/6J', 'P2rx7rs48804829-T'])
         #print all items found in the Gene column
         cells1 = table.get_column_cells("Marker")
         gene_cells = iterate.getTextAsList(cells1)
         print(gene_cells)
         #verifies that the right genes appear and in the correct order
-        self.assertEqual(gene_cells, ['Marker', 'Aanat', 'Ahr', 'Apobec3', 'Cd5', 'Cdh23', 'Cox7a2l', 'Fbrwt1', 'Fbrwt2', 'Gabra2', 'Gluchos1', 'Gluchos2', 'Gluchos3', 'Micrl', 'Mx1', 'n-TRtct5', 'Nlrp12', 'Nnt', 'P2rx7'])
+        self.assertEqual(gene_cells, ['Marker', 'Aanat', 'Ahr', 'Apobec3', 'B2m', 'Cd5', 'Cdh23', 'Cox7a2l', 'Fbrwt1', 'Fbrwt2', 'Gabra2', 'Gluchos1', 'Gluchos2', 'Gluchos3', 'Hbb', 'Micrl', 'Mx1', 'n-TRtct5', 'Nlrp12', 'Nnt', 'P2rx7'])
         
     def test_strain_det_mut_single_assoc(self):
         """
@@ -790,7 +790,7 @@ class TestStrainDetail(unittest.TestCase):
         #locate the count and text above the mutations table       
         mut_count = self.driver.find_element(By.CLASS_NAME, 'indented')
         print(mut_count.text)
-        self.assertEqual(mut_count.text, '18 associated mutations', 'associated mutations count/text is wrong')
+        self.assertEqual(mut_count.text, '20 associated mutations', 'associated mutations count/text is wrong')
         
     def test_strain_det_mut_showall(self):
         """
@@ -1415,10 +1415,10 @@ class TestStrainDetail(unittest.TestCase):
         #switch focus to the new tab for strain detail page
         driver.switch_to.window(self.driver.window_handles[-1])
         #locates the earliest reference link and clicks it
-        driver.find_element(By.LINK_TEXT, 'J:22753').click()
+        driver.find_element(By.LINK_TEXT, 'J:309').click()
         #time.sleep(2)
-        #verify the J number J:6835 exists on this page
-        assert "J:22753" in self.driver.page_source        
+        #verify the J number J:309 exists on this page
+        assert "J:309" in self.driver.page_source        
         
     def test_strain_ref_allref_link(self):
         """

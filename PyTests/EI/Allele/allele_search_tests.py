@@ -33,8 +33,8 @@ class TestEIAlleleSearch(unittest.TestCase):
     """
 
     def setUp(self):
-        #self.driver = webdriver.Firefox() 
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox() 
+        #self.driver = webdriver.Chrome()
         self.form = ModuleForm(self.driver)
         self.form.get_module(config.TEST_PWI_URL + "/edit/allele")
     
@@ -117,8 +117,8 @@ class TestEIAlleleSearch(unittest.TestCase):
         print(symbol1)
         print(symbol2)
         #Assert the correct allele symbol is returned
-        self.assertEqual(symbol1, ['Espn<spdz>'])
-        self.assertEqual(symbol2, ['Espn<+>'])
+        self.assertEqual(symbol1, ['Espn<+>'])
+        self.assertEqual(symbol2, ['Espn<em1Smoc>'])
         
         
     def testAlleleMrkJnumSearch(self):

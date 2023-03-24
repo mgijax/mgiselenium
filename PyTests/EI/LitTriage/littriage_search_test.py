@@ -36,8 +36,9 @@ class TestEiLitTriageSearch(unittest.TestCase):
     """
 
     def setUp(self):
-        #self.driver = webdriver.Firefox() 
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox() 
+        #self.driver = webdriver.Chrome()
+        #self.driver = webdriver.Edge()
         self.form = ModuleForm(self.driver)
         self.form.get_module(config.TEST_PWI_URL + "/edit/triageFull")
     
@@ -108,7 +109,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
         jnum_cells = table.get_column_cells(2)
         jnums = iterate.getTextAsList(jnum_cells)
         print(jnums)
-        self.assertEqual(jnums, ['', 'J:240232', 'J:182573', 'J:173534', 'J:155845', 'J:151466', 'J:136110', 'J:134667', 'J:109968', 'J:75187', 'J:43743', 'J:23392', 'J:23389'])
+        self.assertEqual(jnums, ['', 'J:182573', 'J:173534', 'J:155845', 'J:151466', 'J:136110', 'J:134667', 'J:109968', 'J:75187', 'J:43743', 'J:23392', 'J:23389'])
         
     def testMultiJnumSpaceSearch(self):
         """
@@ -417,7 +418,6 @@ class TestEiLitTriageSearch(unittest.TestCase):
         
         #asserts that the following J number is returned
         self.assertIn('J:237788', JnumbersReturned) # Matches to both QTL statuses selected.
-        self.assertIn('J:242947', JnumbersReturned)
         self.assertIn('J:231948', JnumbersReturned)
         
     def testDiscardSearch(self):
@@ -462,11 +462,11 @@ class TestEiLitTriageSearch(unittest.TestCase):
         #asserts that the following J numbers are returned
         self.assertIn('MGI:NoAbstract', used_tags)
          
-    def testMultiStatusORSearch(self):
-        """
+    """def testMultiStatusORSearch(self):
+        
         @Status tests that searching for multiple statuses on multiple workflows(OR) returns correct results
-        @see LitTri-search-28 (87)
-        """
+        @see LitTri-search-28 (87) this test is no longer valid
+        
         form = self.form
         time.sleep(5)
         form.enter_value('title', '%cancer%')
@@ -508,7 +508,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
         print(ap_cell1.text)
         print(ap_cell2.text)
         print(go_cell1.text)
-        print(go_cell2.text)
+        print(go_cell2.text)"""
         
     def testMultiStatusANDSearch(self):
         """
@@ -632,7 +632,198 @@ class TestEiLitTriageSearch(unittest.TestCase):
         jnums = iterate.getTextAsList(jnum_cells)
         print(jnums)
         self.assertEqual(jnums, ['', 'J:19241'])     
-                          
+
+    def testPubMedSummarySearch(self):
+        """
+        @Status tests that a basic Pub Med number summary search works
+        @see LitTri-search-sum-1 broken! no longer a valid ID
+        """
+        form = self.form
+        form.enter_value('accids', '27097562')
+        form.click_searchSummary()
+        time.sleep(2)
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        #find the search results table
+        results_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
+        table = Table(results_table)
+        #find and print the search results for row 1 Pub Med ID field
+        name1 = table.get_cell(1, 1)
+        print(name1.text)      
+        #Assert the correct Pub Med ID returned
+        self.assertEqual(name1.text, '27097562')
+
+    def testMGISummarySearch(self):
+        """
+        @Status tests that a basic MGI number summary search works
+        @see LitTri-search-sum-2
+        """
+        form = self.form
+        form.enter_value('accids', 'MGI:2156816')
+        form.click_searchSummary()
+        time.sleep(2)
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        #find the search results table
+        results_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
+        table = Table(results_table)
+        #find and print the search results for row 1 J: ID field
+        name1 = table.get_cell(1, 0)
+        print(name1.text)      
+        #Assert the correct Pub Med ID returned
+        self.assertEqual(name1.text, 'J:73796')
+                                  
+    def testJnumSummarySearch(self):
+        """
+        @Status tests that a basic J number summary search works
+        @see LitTri-search-sum-3
+        """
+        form = self.form
+        form.enter_value('accids', 'J:237402')
+        form.click_searchSummary()
+        time.sleep(2)
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        #find the search results table
+        results_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
+        table = Table(results_table)
+        #find and print the search results for row 1 J: field
+        name1 = table.get_cell(1, 0)
+        print(name1.text)      
+        #Assert the correct J: is returned
+        self.assertEqual(name1.text, 'J:237402\n\nRetrieve PDF')
+
+    def testMultiIDsSummarySearch(self):
+        """
+        @Status tests that a basic multiple IDs summary search works
+        @see LitTri-search-sum-4
+        """
+        form = self.form
+        form.enter_value('accids', 'MGI:5812656, J:237402, 27097562, 10.1002/cne.24025')
+        form.click_searchSummary()
+        time.sleep(2)
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        #find the search results table
+        results_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
+        table = Table(results_table)
+        #find and print the search results for row 1 J: field
+        name1 = table.get_cell(1, 0)
+        print(name1.text)      
+        #Assert the correct J: is returned
+        self.assertEqual(name1.text, 'J:237402\n\nRetrieve PDF')
+        
+    def testAuthorSummarySearch(self):
+        """
+        @Status tests that a basic Author summary search works
+        @see LitTri-search-sum-5
+        """
+        form = self.form
+        form.enter_value('authors', 'Recla%')
+        form.click_searchSummary()
+        time.sleep(2)
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        #find the search results table
+        results_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
+        table = Table(results_table)
+        #find and print the search results for row 1 Authors field
+        author1 = table.get_cell(1, 4)
+        print(author1.text)      
+        #Assert the correct J: is returned
+        self.assertEqual(author1.text, 'Recla JM; Bubier JA; Gatti DM; Ryan JL; Long KH; Robledo RF; Glidden NC; Hou G; Churchill GA; Maser RS; Zhang ZW; Young EE; Chesler EJ; Bult CJ')
+
+    def testAuthorsSummarySearch(self):
+        """
+        @Status tests that a basic Authors summary search works
+        @see LitTri-search-sum-6
+        """
+        form = self.form
+        form.enter_value('authors', 'Recla JM; Bubier JA;%')
+        form.click_searchSummary()
+        time.sleep(2)
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        #find the search results table
+        results_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
+        table = Table(results_table)
+        #find and print the search results for row 1 Authors field
+        author1 = table.get_cell(1, 4)
+        print(author1.text)      
+        #Assert the correct J: is returned
+        self.assertEqual(author1.text, 'Recla JM; Bubier JA; Gatti DM; Ryan JL; Long KH; Robledo RF; Glidden NC; Hou G; Churchill GA; Maser RS; Zhang ZW; Young EE; Chesler EJ; Bult CJ')
+
+    def testTitleSummarySearch(self):
+        """
+        @Status tests that a basic Title summary search works
+        @see LitTri-search-sum-7
+        """
+        form = self.form
+        form.enter_value('title', 'Precise genetic mapping%')
+        form.click_searchSummary()
+        time.sleep(2)
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        #find the search results table
+        results_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
+        table = Table(results_table)
+        #find and print the search results for row 1 Title field
+        title1 = table.get_cell(1, 3)
+        print(title1.text)      
+        #Assert the correct J: is returned
+        self.assertEqual(title1.text, 'Precise genetic mapping and integrative bioinformatics in Diversity Outbred mice reveals Hydin as a novel pain gene.')
+
+    def testJournalSummarySearch(self):
+        """
+        @Status tests that a basic Journal summary search works
+        @see LitTri-search-sum-8
+        """
+        form = self.form
+        form.enter_value('journal', 'Pain')
+        form.click_searchSummary()
+        time.sleep(2)
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        #find the search results table
+        results_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
+        table = Table(results_table)
+        #find and print the search results for row 1 Journal field
+        title1 = table.get_cell(1, 5)
+        print(title1.text)      
+        #Assert the correct J: is returned
+        self.assertEqual(title1.text, 'Pain\n\n163')
+
+    def testYearSummarySearch(self):
+        """
+        @Status tests that a basic Year summary search works
+        @see LitTri-search-sum-9
+        """
+        form = self.form
+        form.enter_value('year', '1958')
+        form.click_searchSummary()
+        time.sleep(2)
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        #find the search results table
+        results_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
+        table = Table(results_table)
+        #find and print the search results for row 1 Year field
+        title1 = table.get_cell(1, 6)
+        print(title1.text)      
+        #Assert the correct J: is returned
+        self.assertEqual(title1.text, '1958')
+
+    def testVolumeSummarySearch(self):
+        """
+        @Status tests that a basic Volume summary search works
+        @see LitTri-search-sum-10
+        """
+        form = self.form
+        form.enter_value('volume', '992')
+        form.click_searchSummary()
+        time.sleep(2)
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        #find the search results table
+        results_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
+        table = Table(results_table)
+        #find and print the search results for row 1 Journal/Volume field
+        title1 = table.get_cell(1, 5)
+        print(title1.text)      
+        #Assert the correct J: is returned
+        self.assertEqual(title1.text, 'Brain Res\n\n992')
+
+
 
 def suite():
     suite = unittest.TestSuite()

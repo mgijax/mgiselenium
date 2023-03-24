@@ -34,8 +34,8 @@ class TestEIDoannotSearch(unittest.TestCase):
     """
 
     def setUp(self):
-        #self.driver = webdriver.Firefox() 
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox() 
+        #self.driver = webdriver.Chrome()
         self.form = ModuleForm(self.driver)
         self.form.get_module(config.TEST_PWI_URL + "/edit/doannot")
     
@@ -310,7 +310,7 @@ class TestEIDoannotSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Evidence Code field and select and evidence code then clicks the Search button
-        driver.find_element(By.ID, "evidenceAbbreviation-0").send_keys('TAS')
+        Select(driver.find_element(By.ID, "evidenceAbbreviation-0")).select_by_value('string:847168')#TAS option 
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)

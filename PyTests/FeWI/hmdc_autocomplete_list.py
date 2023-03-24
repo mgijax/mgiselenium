@@ -57,11 +57,12 @@ class TestHmdcAutocomplete(unittest.TestCase):
         self.assertEqual(items[1].text, "systemic lupus erythematosus", "Term 1 is not visible!")
         self.assertEqual(items[2].text, "Lupus Erythematosus, systemic", "Term 2 is not visible!")
         self.assertEqual(items[3].text, "SLE - Lupus Erythematosus, systemic", "Term 3 is not visible!")
-        self.assertEqual(items[4].text, "decreased susceptibility to systemic lupus erythematosus", "Term 4 is not visible!")
-        self.assertEqual(items[5].text, "reduced susceptibility to systemic lupus erythematosus", "Term 5 is not visible!")
-        self.assertEqual(items[6].text, "increased susceptibility to systemic lupus erythematosus", "Term 6 is not visible!")
-        self.assertEqual(items[7].text, "increased resistance to systemic lupus erythematosus", "Term 7 is not visible!")
-        self.assertEqual(items[8].text, "decreased resistance to systemic lupus erythematosus", "Term 8 is not visible!")                                                                                                                                 
+        self.assertEqual(items[4].text, "increased susceptibility to systemic lupus erythematosus", "Term 4 is not visible!")
+        self.assertEqual(items[5].text, "decreased susceptibility to systemic lupus erythematosus", "Term 5 is not visible!")
+        self.assertEqual(items[6].text, "decreased resistance to systemic lupus erythematosus", "Term 6 is not visible!")                        
+        self.assertEqual(items[7].text, "reduced susceptibility to systemic lupus erythematosus", "Term 7 is not visible!")
+        self.assertEqual(items[8].text, "increased resistance to systemic lupus erythematosus", "Term 8 is not visible!")
+                                                                                                                 
         
         
         

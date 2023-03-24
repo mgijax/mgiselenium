@@ -37,9 +37,12 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         self.driver.find_element(By.ID, 'searchToolTextArea').clear()
         self.driver.find_element(By.ID, 'searchToolTextArea').send_keys('Foxe1')
         self.driver.find_element(By.NAME, 'submit').click()
+        time.sleep(1)
         #find the marker link and click it
         driver.find_element(By.LINK_TEXT, 'Foxe1').click()
         time.sleep(1)
+        self.driver.switch_to.window(self.driver.window_handles[-1]) 
+        time.sleep(2)
         #click the Gene Expression + Phenotype link
         driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
         time.sleep(2)
@@ -51,7 +54,10 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         print(searchTextItems)
         self.assertIn('mouse', searchTextItems)
         self.assertIn('body region', searchTextItems)
+        self.assertIn('conceptus', searchTextItems)
         self.assertIn('embryo', searchTextItems)
+        self.assertIn('germ layer', searchTextItems)
+        self.assertIn('organ', searchTextItems)
         self.assertIn('organ system', searchTextItems)
         self.assertIn('tissue', searchTextItems)
         #find the Phenotypes Terms column
@@ -78,13 +84,17 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         self.driver.find_element(By.ID, 'searchToolTextArea').clear()
         self.driver.find_element(By.ID, 'searchToolTextArea').send_keys('Pax4')
         self.driver.find_element(By.NAME, 'submit').click()
+        time.sleep(2)
         #find the marker link and click it
         driver.find_element(By.LINK_TEXT, 'Pax4').click()
         time.sleep(1)
+        self.driver.switch_to.window(self.driver.window_handles[-1]) 
+        time.sleep(2)
         #click the Gene Expression + Phenotype link
         driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
         time.sleep(2)
         self.driver.switch_to.window(self.driver.window_handles[-1])
+        time.sleep(2)
         #find the Anatomical Terms column
         termslist = driver.find_element(By.ID, "rowGroupInner")
         items = termslist.find_elements(By.TAG_NAME, 'text')
@@ -101,14 +111,14 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         self.assertIn('Pax4<tm1b(EUCOMM)Hmgu>/Pax4<+>', searchTextItems)
         #find the phenotype grid box for hemolymphoid system for Pax4<tm1b(EUCOMM)Hmgu>/Pax4<+>
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
-        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row12.col3 > rect.phenoBlue2')
+        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row13.col3 > rect.phenoBlue2')
         rightclass = item.get_attribute('class')
         #rightclass finds the class name of the gridbox
         #now we assert the class name of the gridbox matches the class name of blue2
         self.assertEqual(rightclass, 'phenoBlue2')
         #find the phenotype grid box for hematopoietic system for Pax4<tm1b(EUCOMM)Hmgu>/Pax4<+>
         boxlist1 = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
-        item = boxlist1.find_element(By.CSS_SELECTOR, 'g.cell.row11.col3 > rect.phenoBlue2')
+        item = boxlist1.find_element(By.CSS_SELECTOR, 'g.cell.row12.col3 > rect.phenoBlue2')
         rightclass1 = item.get_attribute('class')
         #rightclass1 finds the class name of the gridbox
         #now we assert the class name of the gridbox matches the class name of phenoBlue1
@@ -127,10 +137,12 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         time.sleep(2)
         #find the marker link and click it
         driver.find_element(By.LINK_TEXT, 'Avp').click()
-        time.sleep(1)
+        time.sleep(4)
+        self.driver.switch_to.window(self.driver.window_handles[-1]) 
+        time.sleep(2)
         #click the Gene Expression + Phenotype link
-        driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
-        time.sleep(1)
+        self.driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
+        time.sleep(4)
         self.driver.switch_to.window(self.driver.window_handles[-1])
         time.sleep(2)
         #find the Anatomical Terms column
@@ -168,6 +180,8 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         #find the marker link and click it
         driver.find_element(By.LINK_TEXT, 'Bmp15').click()
         time.sleep(1)
+        self.driver.switch_to.window(self.driver.window_handles[-1]) 
+        time.sleep(2)
         #click the Gene Expression + Phenotype link
         driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
         time.sleep(2)
@@ -208,6 +222,8 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         #find the marker link and click it
         driver.find_element(By.LINK_TEXT, 'Foxe1').click()
         time.sleep(1)
+        self.driver.switch_to.window(self.driver.window_handles[-1]) 
+        time.sleep(2)
         #click the Gene Expression + Phenotype link
         driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
         time.sleep(2)
@@ -227,7 +243,7 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         self.assertIn('Foxe1<tm1Rdl>/Foxe1<tm1Rdl>', searchTextItems)
         #find the phenotype grid box for integumental system system for Foxe1<tm1Rdl>/Foxe1<tm1Rdl>
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
-        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row14.col1 > rect.phenoBlue3')
+        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row15.col1 > rect.phenoBlue3')
         rightclass = item.get_attribute('class')
         #rightclass finds the class name of the gridbox
         #now we assert the class name of the gridbox matches the class name of phenoBlue3
@@ -247,6 +263,8 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         #find the marker link and click it
         driver.find_element(By.LINK_TEXT, 'Bmp15').click()
         time.sleep(1)
+        self.driver.switch_to.window(self.driver.window_handles[-1]) 
+        time.sleep(2)
         #click the Gene Expression + Phenotype link
         driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
         time.sleep(2)
@@ -283,15 +301,15 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         item3 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row7.col2 > rect.phenoBlue1')
         rightclass3 = item3.get_attribute('class')
         celltext3 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row7.col2 > text')#locates the text in the box to verify it has an N
-        item4 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row11.col2 > rect.phenoBlue1')
+        item4 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row12.col2 > rect.phenoBlue1')
         rightclass4 = item4.get_attribute('class')
-        celltext4 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row11.col2 > text')#locates the text in the box to verify it has an N
-        item5 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row19.col2 > rect.phenoBlue1')
+        celltext4 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row12.col2 > text')#locates the text in the box to verify it has an N
+        item5 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row20.col2 > rect.phenoBlue1')
         rightclass5 = item5.get_attribute('class')
-        celltext5 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row19.col2 > text')#locates the text in the box to verify it has an N
-        item6 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row23.col2 > rect.phenoBlue1')
+        celltext5 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row20.col2 > text')#locates the text in the box to verify it has an N
+        item6 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row24.col2 > rect.phenoBlue1')
         rightclass6 = item6.get_attribute('class')
-        celltext6 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row23.col2 > text')#locates the text in the box to verify it has an N
+        celltext6 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row24.col2 > text')#locates the text in the box to verify it has an N
         #rightclass finds the class name of the gridbox for the 7 anatomical terms pheno box for the allele
         #now we assert the class name of the gridbox matches the class name of phenoBlue1
         self.assertEqual(rightclass, 'phenoBlue1')
@@ -313,7 +331,7 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
     def test_norm_mp_other_mp(self):
         """
         @status: Tests the display when you have a normal MP annotation and another annotation that roll up to a higher level term, but no N gets displayed
-        @note: GXD-TxP-17 currently this test is broken, should be easy to fix! 5/20/2021
+        @note: GXD-TxP-17 currently this test is broken, ask connie  why this allele is now gone.
         """
         driver = self.driver
         driver.get(config.TEST_URL + '/marker')
@@ -323,7 +341,9 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         time.sleep(2)
         #find the marker link and click it
         driver.find_element(By.LINK_TEXT, 'Pax7').click()
-        time.sleep(1)
+        time.sleep(2)
+        self.driver.switch_to.window(self.driver.window_handles[-1]) 
+        time.sleep(2)
         #click the Gene Expression + Phenotype link
         driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
         time.sleep(2)
@@ -340,10 +360,10 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         items = termslist.find_elements(By.TAG_NAME, "text")
         searchTextItems = iterate.getTextAsList(items)
         print(searchTextItems)
-        self.assertIn('Pax7<tm1.1(HBEGF)Mal>/Pax7<+>', searchTextItems)
-        #find the phenotype grid box for musculoskeletal system for Pax7<tm1.1(HBEGF)Mal/Pax7<+>
+        self.assertIn('Pax7<tm1Pgr>/Pax7<tm1Pgr>', searchTextItems)
+        #find the phenotype grid box for musculoskeletal system for Pax7<tm1.1(HBEGF,-EYFP)Mal/Pax7<+>
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
-        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row20.col5> rect.phenoBlue2')
+        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row20.col3> rect.phenoBlue2')
         rightclass = item.get_attribute('class')
         #rightclass finds the class name of the gridbox
         #now we assert the class name of the gridbox matches the class name of phenoBlue2
@@ -359,13 +379,17 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         self.driver.find_element(By.ID, 'searchToolTextArea').clear()
         self.driver.find_element(By.ID, 'searchToolTextArea').send_keys('Kras')
         self.driver.find_element(By.NAME, 'submit').click()
+        time.sleep(2)
         #find the marker link and click it
         driver.find_element(By.LINK_TEXT, 'Kras').click()
         time.sleep(1)
+        self.driver.switch_to.window(self.driver.window_handles[-1]) 
+        time.sleep(2)
         #click the Gene Expression + Phenotype link
         driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
         time.sleep(2)
         self.driver.switch_to.window(self.driver.window_handles[-1])
+        time.sleep(2)
         #find the Anatomical Terms column
         termslist = driver.find_element(By.ID, "rowGroupInner")
         items = termslist.find_elements(By.TAG_NAME, 'text')
@@ -391,7 +415,7 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         
     def test_bkgrnd_sense_and_normal(self):
         """
-        @status: Tests the display when a normal MP annotation with background sensetivity, is the only annotation for a row/cell(7 cells)
+        @status: Tests the display when a normal MP annotation with background sensitivity, is the only annotation for a row/cell(7 cells)
         @note: GXD-TxP-21
         """
         driver = self.driver
@@ -399,13 +423,17 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         self.driver.find_element(By.ID, 'searchToolTextArea').clear()
         self.driver.find_element(By.ID, 'searchToolTextArea').send_keys('Sry')
         self.driver.find_element(By.NAME, 'submit').click()
+        time.sleep(2)
         #find the marker link and click it
         driver.find_element(By.LINK_TEXT, 'Sry').click()
         time.sleep(1)
+        self.driver.switch_to.window(self.driver.window_handles[-1]) 
+        time.sleep(2)
         #click the Gene Expression + Phenotype link
         driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
         time.sleep(2)
         self.driver.switch_to.window(self.driver.window_handles[-1])
+        time.sleep(2)
         #find the Anatomical Terms column
         termslist = driver.find_element(By.ID, "rowGroupInner")
         items = termslist.find_elements(By.TAG_NAME, 'text')
@@ -436,41 +464,41 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         #verifies both an N and a ! is displayed in the mouse/phenotype box
         self.assertEqual(['N', '!'], searchTextItems0)
         self.assertEqual('phenoBlue1', rightclass)
-        item1 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row2.col1 > rect.phenoBlue1')
+        item1 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row0.col1 > rect.phenoBlue1')
         rightclass1 = item1.get_attribute('class')
-        celltext1 = boxlist.find_elements(By.CSS_SELECTOR, 'g.cell.row2.col1 > text')#locates the text in the box to verify it has an N!
+        celltext1 = boxlist.find_elements(By.CSS_SELECTOR, 'g.cell.row0.col1 > text')#locates the text in the box to verify it has an N!
         searchTextItems1 = iterate.getTextAsList(celltext1)
         print(searchTextItems1)
         #verifies both an N and a ! is displayed in the conceptus/phenotype box
         self.assertEqual(['N', '!'], searchTextItems1)
         self.assertEqual('phenoBlue1', rightclass1)
-        item2 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row3.col1 > rect.phenoBlue1')
+        item2 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row2.col1 > rect.phenoBlue1')
         rightclass2 = item2.get_attribute('class')
-        celltext2 = boxlist.find_elements(By.CSS_SELECTOR, 'g.cell.row3.col1 > text')#locates the text in the box to verify it has an N!
+        celltext2 = boxlist.find_elements(By.CSS_SELECTOR, 'g.cell.row2.col1 > text')#locates the text in the box to verify it has an N!
         searchTextItems2 = iterate.getTextAsList(celltext2)
         print(searchTextItems2)
         #verifies both an N and a ! is displayed in the embryo/phenotype box
         self.assertEqual(['N', '!'], searchTextItems2)
         self.assertEqual('phenoBlue1', rightclass2)
-        item3 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row6.col1 > rect.phenoBlue1')
+        item3 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row3.col1 > rect.phenoBlue1')
         rightclass3 = item3.get_attribute('class')
-        celltext3 = boxlist.find_elements(By.CSS_SELECTOR, 'g.cell.row6.col1 > text')#locates the text in the box to verify it has an N!
+        celltext3 = boxlist.find_elements(By.CSS_SELECTOR, 'g.cell.row3.col1 > text')#locates the text in the box to verify it has an N!
         searchTextItems3 = iterate.getTextAsList(celltext3)
         print(searchTextItems3)
         #verifies both an N and a ! is displayed in the organ system/genitourimary system box
         self.assertEqual(['N', '!'], searchTextItems3)
         self.assertEqual('phenoBlue1', rightclass3)
-        item4 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row10.col1 > rect.phenoBlue1')
+        item4 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row11.col1 > rect.phenoBlue1')
         rightclass4 = item4.get_attribute('class')
-        celltext4 = boxlist.find_elements(By.CSS_SELECTOR, 'g.cell.row10.col1 > text')#locates the text in the box to verify it has an N!
+        celltext4 = boxlist.find_elements(By.CSS_SELECTOR, 'g.cell.row11.col1 > text')#locates the text in the box to verify it has an N!
         searchTextItems4 = iterate.getTextAsList(celltext4)
         print(searchTextItems4)
         #verifies both an N and a ! is displayed in the reproductive system/phenotype box
         self.assertEqual(['N', '!'], searchTextItems4)
         self.assertEqual('phenoBlue1', rightclass4)
-        item5 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row19.col1 > rect.phenoBlue1')
+        item5 = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row20.col1 > rect.phenoBlue1')
         rightclass5 = item5.get_attribute('class')
-        celltext5 = boxlist.find_elements(By.CSS_SELECTOR, 'g.cell.row19.col1 > text')#locates the text in the box to verify it has an N!
+        celltext5 = boxlist.find_elements(By.CSS_SELECTOR, 'g.cell.row20.col1 > text')#locates the text in the box to verify it has an N!
         searchTextItems5 = iterate.getTextAsList(celltext5)
         print(searchTextItems5)
         self.assertEqual(['N', '!'], searchTextItems5)
@@ -489,9 +517,11 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         time.sleep(2)
         #find the marker link and click it
         driver.find_element(By.LINK_TEXT, 'Lepr').click()
-        time.sleep(1)
+        time.sleep(2)
+        self.driver.switch_to.window(self.driver.window_handles[-1]) 
+        time.sleep(2)
         #click the Gene Expression + Phenotype link
-        driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
+        driver.find_element(By.LINK_TEXT, "Gene Expression + Phenotype").click()
         time.sleep(2)
         self.driver.switch_to.window(self.driver.window_handles[-1])
         #find the Anatomical Terms column
@@ -508,11 +538,11 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         self.assertIn('Lepr<db>/Lepr<db>', searchTextItems)
         #find the phenotype grid box for mouse for Lepr<db>/Lepr<db>
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
-        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row0.col16 > rect.phenoBlue4')
+        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row0.col17 > rect.phenoBlue2')
         rightclass = item.get_attribute('class')
         #rightclass finds the class name of the gridbox
-        #now we assert the class name of the gridbox matches the class name of phenoBlue4
-        self.assertEqual(rightclass, 'phenoBlue4')
+        #now we assert the class name of the gridbox matches the class name of phenoBlue2
+        self.assertEqual(rightclass, 'phenoBlue2')
                 
     def tearDown(self):
         self.driver.quit()

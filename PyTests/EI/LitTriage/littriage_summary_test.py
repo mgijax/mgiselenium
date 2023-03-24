@@ -30,8 +30,8 @@ class TestEiLitTriageSummarySearch(unittest.TestCase):
     """
 
     def setUp(self):
-        #self.driver = webdriver.Firefox() 
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox() 
+        #self.driver = webdriver.Chrome()
         self.form = ModuleForm(self.driver)
         self.form.get_module(config.TEST_PWI_URL + "/edit/triageFull")
     
@@ -58,8 +58,8 @@ class TestEiLitTriageSummarySearch(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, '10.1073/pnas.0706671104').click()
         #switches focus to the newly opened tab
         self.driver.switch_to.window(driver.window_handles[-1])
-        #page_title = driver.find_element(By.ID, 'page-title')
-        page_title = driver.find_element(By.XPATH, '/html/body/div[1]/div/div/main/div[1]/div/div/article/section[1]/header/div/h1')
+        time.sleep(5)
+        page_title = driver.find_element(By.CSS_SELECTOR, '.article-container > article:nth-child(2) > header:nth-child(1) > div:nth-child(1) > h1:nth-child(2)')
         print(page_title.text)
         #asserts the page title for this page is correct
         self.assertEqual(page_title.text, 'Silencing of OB-RGRP in mouse hypothalamic arcuate nucleus increases leptin receptor signaling and prevents diet-induced obesity', 'Title is not displaying from source!')
@@ -99,7 +99,8 @@ class TestEiLitTriageSummarySearch(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, '18042720').click()
         #switches focus to the newly opened tab
         driver.switch_to.window(driver.window_handles[-1])
-        page_title = driver.find_element(By.ID, 'heading').find_element(By.TAG_NAME, 'h1')
+        time.sleep(5)
+        page_title = driver.find_element(By.CSS_SELECTOR, 'h1.heading-title:nth-child(2)')
         print(page_title.text)
         #asserts the page title for this page is correct
         self.assertEqual(page_title.text, 'Silencing of OB-RGRP in mouse hypothalamic arcuate nucleus increases leptin receptor signaling and prevents diet-induced obesity', 'Title is not displaying from source!')

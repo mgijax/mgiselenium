@@ -27,8 +27,8 @@ class TestEiEmapaTreeView(unittest.TestCase):
     """
 
     def setUp(self):
-        #self.driver = webdriver.Firefox() 
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox() 
+        #self.driver = webdriver.Chrome()
         self.form = ModuleForm(self.driver)
         self.form.get_module(config.TEST_PWI_URL + "/edit/emapaBrowser")        
         # logging in for all tests
@@ -58,8 +58,8 @@ class TestEiEmapaTreeView(unittest.TestCase):
         
         # add all li text to a list for "assertIn" test
         searchTreeItems = iterate.getTextAsList(items)
-        
-        self.assertEqual(["mouse", "body fluid or substance", "body region", "cavity or lining", "conceptus", "early embryo", "embryo", "extracellular matrix", "extraembryonic component", "germ layer", "organ", "organ system", "tissue", "umbilical or vitelline vessel"], searchTreeItems)
+        time.sleep(5)
+        self.assertEqual(searchTreeItems, ["mouse", "body fluid or substance", "body region", "cavity or lining", "conceptus", "early embryo", "embryo", "extracellular matrix", "extraembryonic component", "germ layer", "organ", "organ system", "tissue", "umbilical or vitelline vessel"])
 
     def testSpecificStageTree(self):
         """
@@ -105,7 +105,7 @@ class TestEiEmapaTreeView(unittest.TestCase):
         self.assertEqual(items[1].text, "Theiler Stages 22-28")
         self.assertEqual(items[2].text, "EMAPA:18976")
         self.assertEqual(items[3].text, 'kidney cortex tubule, renal cortex tubule')
-        self.assertEqual(items[4].text.split("\n"), ["part-of developing capillary loop stage nephron group","part-of early nephron","part-of late tubule","part-of mature nephron","part-of maturing nephron","part-of renal cortex","part-of stage IV immature nephron"])
+        self.assertEqual(items[4].text.split("\n"), ["is-a renal tubule", "part-of developing capillary loop stage nephron group","part-of early nephron","part-of late tubule","part-of mature nephron","part-of maturing nephron","part-of renal cortex","part-of stage IV immature nephron"])
         
         stage24 = self.driver.find_element(By.ID, "stageList").find_element(By.LINK_TEXT, "24")
         stage24.click()
@@ -117,7 +117,7 @@ class TestEiEmapaTreeView(unittest.TestCase):
         self.assertEqual(items[1].text, "Theiler Stage 24 (16.0-16.99 dpc)")
         self.assertEqual(items[2].text, "EMAPS:1897624")
         self.assertEqual(items[3].text, "kidney cortex tubule, renal cortex tubule")
-        self.assertEqual(items[4].text.split("\n"), ["part-of developing capillary loop stage nephron group","part-of early nephron","part-of late tubule","part-of maturing nephron","part-of renal cortex"])
+        self.assertEqual(items[4].text.split("\n"), ["is-a renal tubule", "part-of developing capillary loop stage nephron group","part-of early nephron","part-of late tubule","part-of maturing nephron","part-of renal cortex"])
         
         stage22 = self.driver.find_element(By.ID, "stageList").find_element(By.LINK_TEXT, "22")
         stage22.click()
@@ -129,7 +129,7 @@ class TestEiEmapaTreeView(unittest.TestCase):
         self.assertEqual(items[1].text, "Theiler Stage 22 (13.5-15.0 dpc)")
         self.assertEqual(items[2].text, "EMAPS:1897622")
         self.assertEqual(items[3].text, "kidney cortex tubule, renal cortex tubule")
-        self.assertEqual(items[4].text.split("\n"), ["part-of developing capillary loop stage nephron group","part-of early nephron","part-of late tubule","part-of maturing nephron","part-of renal cortex","part-of stage IV immature nephron"])
+        self.assertEqual(items[4].text.split("\n"), ["is-a renal tubule", "part-of developing capillary loop stage nephron group","part-of early nephron","part-of late tubule","part-of maturing nephron","part-of renal cortex","part-of stage IV immature nephron"])
         
         
     def testParentStage(self):

@@ -7,6 +7,8 @@ import unittest
 import time
 import HtmlTestRunner
 from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 import sys,os.path
@@ -31,12 +33,12 @@ class TestPwiGxdImagePanePage(unittest.TestCase):
         """
         driver = self.driver
         driver.get(TEST_PWI_URL)
-        #opens the PWI reference form
-        driver.find_element(By.LINK_TEXT, "Reference Form").click()
-        accidbox = driver.find_element(By.ID, 'accids')
+        #find the Acc ID(s) / Gene Symbol box and enter text
+        accbox = driver.find_element(By.NAME, 'ids')
         # put your J number in the box
-        accidbox.send_keys("J:83696")
-        accidbox.send_keys(Keys.RETURN)
+        accbox.send_keys("J:83696")
+        accbox.send_keys(Keys.RETURN)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Assays')))#waits until the Assays link is displayed on the page
         time.sleep(3)
         #finds the specimens link and clicks it
         driver.find_element(By.LINK_TEXT, "Exp Images").click()
@@ -57,12 +59,12 @@ class TestPwiGxdImagePanePage(unittest.TestCase):
         """
         driver = self.driver
         driver.get(TEST_PWI_URL)
-        #opens the PWI reference form
-        driver.find_element(By.LINK_TEXT, "Reference Form").click()
-        accidbox = driver.find_element(By.ID, 'accids')
+        #find the Acc ID(s) / Gene Symbol box and enter text
+        accbox = driver.find_element(By.NAME, 'ids')
         # put your J number in the box
-        accidbox.send_keys("J:213157")
-        accidbox.send_keys(Keys.RETURN)
+        accbox.send_keys("J:213157")
+        accbox.send_keys(Keys.RETURN)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Assays')))#waits until the Assays link is displayed on the page
         time.sleep(3)
         #finds the specimens link and clicks it
         driver.find_element(By.LINK_TEXT, "Exp Images").click()
@@ -170,12 +172,12 @@ class TestPwiGxdImagePanePage(unittest.TestCase):
         """
         driver = self.driver
         driver.get(TEST_PWI_URL)
-        #opens the PWI reference form
-        driver.find_element(By.LINK_TEXT, "Reference Form").click()
-        accidbox = driver.find_element(By.ID, 'accids')
+        #find the Acc ID(s) / Gene Symbol box and enter text
+        accbox = driver.find_element(By.NAME, 'ids')
         # put your J number in the box
-        accidbox.send_keys("J:83696")
-        accidbox.send_keys(Keys.RETURN)
+        accbox.send_keys("J:83696")
+        accbox.send_keys(Keys.RETURN)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Assays')))#waits until the Assays link is displayed on the page
         time.sleep(3)
         #finds the specimens link and clicks it
         driver.find_element(By.LINK_TEXT, "Exp Images").click()
@@ -231,12 +233,12 @@ class TestPwiGxdImagePanePage(unittest.TestCase):
         """
         driver = self.driver
         driver.get(TEST_PWI_URL)
-        #opens the PWI reference form
-        driver.find_element(By.LINK_TEXT, "Reference Form").click()
-        accidbox = driver.find_element(By.ID, 'accids')
+        #find the Acc ID(s) / Gene Symbol box and enter text
+        accbox = driver.find_element(By.NAME, 'ids')
         # put your J number in the box
-        accidbox.send_keys("J:85300")
-        accidbox.send_keys(Keys.RETURN)
+        accbox.send_keys("J:85300")
+        accbox.send_keys(Keys.RETURN)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Assays')))#waits until the Assays link is displayed on the page
         time.sleep(3)
         #finds the specimens link and clicks it
         driver.find_element(By.LINK_TEXT, "Exp Images").click()
@@ -306,12 +308,12 @@ class TestPwiGxdImagePanePage(unittest.TestCase):
         """
         driver = self.driver
         driver.get(TEST_PWI_URL)
-        #opens the PWI reference form
-        driver.find_element(By.LINK_TEXT, "Reference Form").click()
-        accidbox = driver.find_element(By.ID, 'accids')
+        #find the Acc ID(s) / Gene Symbol box and enter text
+        accbox = driver.find_element(By.NAME, 'ids')
         # put your J number in the box
-        accidbox.send_keys("J:85638")
-        accidbox.send_keys(Keys.RETURN) 
+        accbox.send_keys("J:85638")
+        accbox.send_keys(Keys.RETURN)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Assays')))#waits until the Assays link is displayed on the page 
         time.sleep(3)
         #finds the specimens link and clicks it
         driver.find_element(By.LINK_TEXT, "Exp Images").click()
@@ -361,12 +363,12 @@ class TestPwiGxdImagePanePage(unittest.TestCase):
         """
         driver = self.driver
         driver.get(TEST_PWI_URL)
-        #opens the PWI reference form
-        driver.find_element(By.LINK_TEXT, "Reference Form").click()
-        accidbox = driver.find_element(By.ID, 'accids')
+        #find the Acc ID(s) / Gene Symbol box and enter text
+        accbox = driver.find_element(By.NAME, 'ids')
         # put your J number in the box
-        accidbox.send_keys("J:102285")
-        accidbox.send_keys(Keys.RETURN)
+        accbox.send_keys("J:102285")
+        accbox.send_keys(Keys.RETURN)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Assays')))#waits until the Assays link is displayed on the page
         time.sleep(3)
         #finds the specimens link and clicks it
         driver.find_element(By.LINK_TEXT, "Exp Images").click()
@@ -417,12 +419,12 @@ class TestPwiGxdImagePanePage(unittest.TestCase):
         """
         driver = self.driver
         driver.get(TEST_PWI_URL)
-        #opens the PWI reference form
-        driver.find_element(By.LINK_TEXT, "Reference Form").click()
-        accidbox = driver.find_element(By.ID, 'accids')
+        #find the Acc ID(s) / Gene Symbol box and enter text
+        accbox = driver.find_element(By.NAME, 'ids')
         # put your J number in the box
-        accidbox.send_keys("J:9026")
-        accidbox.send_keys(Keys.RETURN)
+        accbox.send_keys("J:9026")
+        accbox.send_keys(Keys.RETURN)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Assays')))#waits until the Assays link is displayed on the page
         time.sleep(3)
         #finds the specimens link and clicks it
         driver.find_element(By.LINK_TEXT, "Exp Images").click()

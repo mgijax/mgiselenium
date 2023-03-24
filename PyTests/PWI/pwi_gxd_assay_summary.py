@@ -8,6 +8,8 @@ import unittest
 import time
 import HtmlTestRunner
 from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 import sys,os.path
@@ -35,12 +37,12 @@ class TestPwiGxdAssaySummaryPage(unittest.TestCase):
         driver = self.driver
         driver.get(TEST_PWI_URL)
         self.form = ModuleForm(self.driver) 
-        #opens the PWI reference form
-        self.form.get_module(config.TEST_PWI_URL + "/#referenceForm")
-        accidbox = driver.find_element(By.ID, 'accids')
+        #find the Acc ID(s) / Gene Symbol box and enter text
+        accbox = driver.find_element(By.NAME, 'ids')
         # put your J number in the box
-        accidbox.send_keys("J:208450")
-        accidbox.send_keys(Keys.RETURN)
+        accbox.send_keys("J:208450")
+        accbox.send_keys(Keys.RETURN)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Assays')))#waits until the Assays link is displayed on the page
         time.sleep(3)
         #finds the specimens link and clicks it
         driver.find_element(By.LINK_TEXT, "Assays").click()
@@ -60,12 +62,12 @@ class TestPwiGxdAssaySummaryPage(unittest.TestCase):
         """
         driver = self.driver
         driver.get(TEST_PWI_URL)
-        #opens the PWI reference form
-        driver.find_element(By.LINK_TEXT, "Reference Form").click()
-        accidbox = driver.find_element(By.ID, 'accids')
+        #find the Acc ID(s) / Gene Symbol box and enter text
+        accbox = driver.find_element(By.NAME, 'ids')
         # put your J number in the box
-        accidbox.send_keys("J:208450")
-        accidbox.send_keys(Keys.RETURN)
+        accbox.send_keys("J:208450")
+        accbox.send_keys(Keys.RETURN)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Assays')))#waits until the Assays link is displayed on the page
         time.sleep(3)
         #finds the GXD/CRE Assays link and clicks it
         driver.find_element(By.LINK_TEXT, "Assays").click()

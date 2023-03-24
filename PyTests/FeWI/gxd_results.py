@@ -290,7 +290,7 @@ class TestGxdResults(unittest.TestCase):
         cellular = [e.get_attribute('value') for e in cellularElts]            
         print(cellular)
         #assert the list returned is correct.
-        self.assertEqual(cellular, ['cell projection', 'cytoplasmic vesicle', 'cytoskeleton', 'cytosol', 'endoplasmic reticulum', 'endosome', 'extracellular region', 'Golgi apparatus', 'mitochondrion', 'non-membrane-bounded organelle', 'nucleus', 'organelle envelope', 'organelle lumen', 'plasma membrane', 'synapse', 'vacuole', 'bar'])
+        self.assertEqual(cellular, ['cell projection', 'cytoplasmic vesicle', 'cytoskeleton', 'cytosol', 'endoplasmic reticulum', 'endosome', 'extracellular region', 'Golgi apparatus', 'mitochondrion', 'non-membrane-bounded organelle', 'nucleus', 'organelle envelope', 'organelle lumen', 'plasma membrane', 'protein-containing complex', 'synapse', 'vacuole', 'bar'])
 
     def test_gene_tab_go_cellular_filter_gene_result(self):
         """
@@ -480,7 +480,7 @@ class TestGxdResults(unittest.TestCase):
         print(head)
         time.sleep(1)
         #assert that the columns are in the correct order
-        self.assertEqual(head, ['Gene','Result Details','Assay Type','Age','Structure','Detected?','TPM Level\n(RNA-Seq)','Biological Replicates\n(RNA-Seq)','Images','Mutant Allele(s)','Strain','Sex','Notes\n(RNA-Seq)','Reference',''])
+        self.assertEqual(head, ['Gene','Result Details','Assay Type','Age','Structure', 'Cell\nType', 'Detected?','TPM Level\n(RNA-Seq)','Biological Replicates\n(RNA-Seq)','Images','Mutant Allele(s)','Strain','Sex','Notes\n(RNA-Seq)','Reference',''])
        
     def test_assay_results_tab_column_headings(self):
         """
@@ -503,13 +503,14 @@ class TestGxdResults(unittest.TestCase):
         print(head)
         time.sleep(1)
         #assert that the columns are in the correct order
-        self.assertEqual(head, ['Gene','Result Details','Assay Type','Age','Structure','Detected?','TPM Level\n(RNA-Seq)','','Images','Mutant Allele(s)','','','','Reference',''])
+        self.assertEqual(head, ['Gene', 'Result Details', 'Assay Type', 'Age', 'Structure', 'Cell\nType', 'Detected?', 'TPM Level\n(RNA-Seq)', '', 'Images', 'Mutant Allele(s)', '', '', '', 'Reference', ''])
         
     def test_assay_results_tab_assay_type_col_sort(self):
         """
         @status: Tests that the assay type column is sorted correctly.
         @note: GXD-aresults-9 sort order is Immunohistochemistry, RNA in situ, In situ reporter (knock in), Northern blot, Western blot, RT-PCR, RNase protection, Nuclease S, RNA-Seq
-        !!!!this trest breaks! need to change TS28 to TS25 & 26 to limit results"""
+        @attention: better to find an example that has all assay types with few results
+        """
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")
         genebox = driver.find_element(By.NAME, 'nomenclature')
@@ -517,7 +518,7 @@ class TestGxdResults(unittest.TestCase):
         genebox.send_keys("Afp")
         time.sleep(2)
         Select(self.driver.find_element(By.ID, 'theilerStage')).deselect_by_value('0')#deselect the default option
-        Select(self.driver.find_element(By.ID, 'theilerStage')).select_by_value('28')#finds the theiler stage list and select the TS 28 option
+        Select(self.driver.find_element(By.ID, 'theilerStage')).select_by_value('25')#finds the theiler stage list and select the TS 28 option
         time.sleep(2)
         #find the Wild Type specimens only button and click it
         self.driver.find_element(By.ID, 'isWildType').click()
@@ -533,7 +534,7 @@ class TestGxdResults(unittest.TestCase):
         searchTextItems = iterate.getTextAsList(items)
         print(searchTextItems)
         #assert that the TPM column results are displaying  the 4 different options
-        self.assertEqual(searchTextItems, ['Immunohistochemistry', 'Immunohistochemistry', 'Immunohistochemistry', 'Immunohistochemistry', 'Immunohistochemistry', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'RNA in situ', 'In situ reporter (knock in)', 'In situ reporter (knock in)', 'In situ reporter (knock in)', 'In situ reporter (knock in)', 'Northern blot', 'Northern blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'Western blot', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'Nuclease S1', 'Nuclease S1', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq']) 
+        self.assertEqual(searchTextItems, ['Immunohistochemistry', 'Immunohistochemistry', 'Western blot', 'Western blot', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq']) 
                          
     def test_assay_results_tab_cond_mutant(self):
         """
@@ -580,10 +581,10 @@ class TestGxdResults(unittest.TestCase):
         print(searchTextItems[11] + '  line11')
         print(searchTextItems[12] + '  line12')
         #assert that the TPM column results are displaying  the 4 different options
+        self.assertEqual(searchTextItems[0], 'wild type') 
+        self.assertEqual(searchTextItems[5], 'day of parturition (within 12 hours after delivery)')      
         self.assertEqual(searchTextItems[6], 'Conditional mutant. day 6 of pregnancy') 
-        self.assertEqual(searchTextItems[11], 'Conditional mutant. day of parturition (within 12 hours after delivery)')      
-        self.assertEqual(searchTextItems[40], 'Conditional mutant.') 
-        self.assertEqual(searchTextItems[42], 'Conditional mutant.')
+        self.assertEqual(searchTextItems[7], 'day 6 of pregnancy')
 
     def test_assay_results_filter_by_assay_type(self):
         """

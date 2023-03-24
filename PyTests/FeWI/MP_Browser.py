@@ -103,7 +103,7 @@ class TestMPBrowser(unittest.TestCase):
         print([x.text for x in searchList])
         
         # This term should be returned in the anatomy search results
-        self.assertIn('lambdoidal suture TS25-28', terms, 'this term is not listed!')
+        self.assertIn('lambdoid suture TS24-28', terms, 'this term is not listed!')
         
     def test_tissue_link_results_sort(self):
         """

@@ -59,7 +59,7 @@ class TestGenotypeDetail(unittest.TestCase):
     def test_genotype_gb_link(self):
         '''
         @status this test verifies the Genetic Background link is correct.
-        @note genodetail-1 failine because not recognizing third tab on line 74
+        @note genodetail-1 
         '''
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys("Pax6")
@@ -80,23 +80,33 @@ class TestGenotypeDetail(unittest.TestCase):
     def test_genotype_gb_nolink(self):
         '''
         @status this test verifies the Genetic Background strain is not a link when it has 'involves'.
-        @note genodetail-2 BUG!!! Needs  work!!
+        @note genodetail-2 BUG!!! Needs work, maybe need to verify link does not exist!!
         '''
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys("Pax6")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, '2Neu').click()
-        self.driver.find_element(By.LINK_TEXT, 'hm1').click()
-        self.driver.implicitly_wait(10)
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Pax62Neu').click()
+        self.driver.find_element(By.CSS_SELECTOR, '#yui-rec0 > td:nth-child(1) > div:nth-child(1) > a:nth-child(1)').click()
+        self.driver.implicitly_wait(5)
         self.driver.switch_to.window(self.driver.window_handles[1])
-        #click the Genetic Background link   
+        time.sleep(2)
+        #click the Genetic Background link 
         strain_link = self.driver.find_element(By.LINK_TEXT, 'involves: 102 * C3H')
+        if strain_link.tag_name=='a': #validating the element 
+            print('element is link')
+        else:
+            print('element is text')  
+        
+        
         #assert  'NoSuchElementException' in  self.driver.page_source
-        if strain_link.is_displayed():
-            strain_link.click()
-            print ('Found the strain link and clicked it!')
-        else: 
-            print ("Strain link not found this test passes!")    
+        #if self.driver.strain_link.is_displayed():
+            #strain_link.click()
+            #print ('Found the strain link and clicked it!')
+        #else: 
+            #print ("Strain link not found this test passes!") 
+            
+        
+     
     
     def tearDown(self):
         self.driver.close()

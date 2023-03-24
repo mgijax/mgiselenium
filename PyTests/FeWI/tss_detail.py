@@ -54,11 +54,11 @@ class TestTssDetail(unittest.TestCase):
         cells5 = table.get_row(5)
         print(cells1.text)    
         #Verify the TSS table locations are correct and in the correct order.
-        self.assertEqual(cells1.text, 'Tssr19250 Chr2:105668888-105668914 (+) 1 bp')
-        self.assertEqual(cells2.text, 'Tssr19251 Chr2:105668943-105668950 (+) 47 bp')
-        self.assertEqual(cells3.text, 'Tssr19252 Chr2:105674406-105674422 (+) 5,514 bp')
-        self.assertEqual(cells4.text, 'Tssr19253 Chr2:105674426-105674437 (+) 5,532 bp')
-        self.assertEqual(cells5.text, 'Tssr19254 Chr2:105674543-105674558 (+) 5,651 bp')
+        self.assertEqual(cells1.text, 'Tssr19250 Chr2:105499233-105499259 (+) 1 bp')
+        self.assertEqual(cells2.text, 'Tssr19251 Chr2:105499288-105499295 (+) 47 bp')
+        self.assertEqual(cells3.text, 'Tssr19252 Chr2:105504751-105504767 (+) 5,514 bp')
+        self.assertEqual(cells4.text, 'Tssr19253 Chr2:105504771-105504782 (+) 5,532 bp')
+        self.assertEqual(cells5.text, 'Tssr19254 Chr2:105504888-105504903 (+) 5,651 bp')
                
         
     def tearDown(self):

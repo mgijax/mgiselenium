@@ -67,7 +67,7 @@ class TestEiImagePaneSearch(unittest.TestCase):
     def testImagePaneSearchWild(self):
         """
         @Status tests that a basic Image Pane Label search using a wildcard works
-        @see pwi-image-pane-search-2
+        @see pwi-image-pane-search-2 broken??? 2/16/2023
         """
         driver = self.driver
         #finds the Image Pane Label field and enters text then clicks the Search button

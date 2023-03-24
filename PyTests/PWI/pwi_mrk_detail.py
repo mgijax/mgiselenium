@@ -28,7 +28,8 @@ from config import TEST_PWI_URL
 class TestPwiMrkDetail(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Chrome() 
+        #self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox() 
 
     def test_mrk_det_type_gene(self):
         """
@@ -40,7 +41,7 @@ class TestPwiMrkDetail(unittest.TestCase):
         driver = self.driver
         #opens the PWI marker form
         driver.get(TEST_PWI_URL + '/edit/marker/')  
-        time.sleep(2)
+        time.sleep(5)
         #find the Symbol field and enter the text      
         driver.find_element(By.ID, 'markerSymbol').send_keys('Kit')
         # Find the search button and click it.
@@ -81,7 +82,7 @@ class TestPwiMrkDetail(unittest.TestCase):
         self.assertEqual(secid.text, 'MGI:3530304, MGI:3530312, MGI:3530319', 'The Secondary IDs are not correct!')
         self.assertEqual(status.text, 'official', 'The Marker Status is not correct!')
         self.assertEqual(name.text, 'KIT proto-oncogene receptor tyrosine kinase', 'The Current Name is not correct!')
-        self.assertEqual(syn.text, 'belly-spot, CD117, c-KIT, Dominant white spotting, Gsfsco1, Gsfsco5, Gsfsow3, SCO1, SCO5, SOW3, Steel Factor Receptor, Tr-kit', 'The Synonym is not correct!')
+        self.assertEqual(syn.text, 'belly-spot, c-KIT, CD117, Dominant white spotting, Gsfsco1, Gsfsco5, Gsfsow3, SCO1, SCO5, SOW3, Steel Factor Receptor, Tr-kit', 'The Synonym is not correct!')
         self.assertEqual(mtype.text, 'Gene', 'The Marker Type is not correct!')
         self.assertEqual(ftype.text, 'protein coding gene', 'The Marker Feature Type is not correct!')
         self.assertEqual(biotype.text, 'Source Biotype Gene ID\nNCBI Gene Model protein-coding 16590\nEnsembl Gene Model protein_coding ENSMUSG00000005672', 'The biotype is not correct!')
@@ -136,7 +137,7 @@ class TestPwiMrkDetail(unittest.TestCase):
         #Verifies that the returned data is all correct for the 11 fields
         self.assertEqual(symbol.text, 'Alm Public Alm Page', 'The Symbol is not correct!')
         self.assertEqual(mrkid.text, 'MGI:87996', 'The MGI ID is not correct!')
-        self.assertEqual(secid.text, '[]', 'The secondary IDs are not correct!')
+        self.assertEqual(secid.text, '', 'The secondary IDs are not correct!')
         self.assertEqual(status.text, 'official', 'The Marker Status is not correct!')
         self.assertEqual(name.text, 'anterior lenticonus with microphthalmia', 'The Current Name is not correct!')
         self.assertEqual(syn.text, '', 'The Marker Synonyms are not correct!')
@@ -145,6 +146,7 @@ class TestPwiMrkDetail(unittest.TestCase):
         self.assertEqual(biotype.text, '', 'The Marker Biotype is not correct!')
         self.assertEqual(location.text, 'ChrUN', 'The Marker Location is not correct!')
         self.assertEqual(mrkclip.text, 'Homozygous mutation of this gene results in embryonic lethality. Heterozygous mutants exhibit reduced body size, white belly spot, cataracts, cornea/iris dysmorphology, and microphthalmia.', 'The Marker Detail Clip is not correct!')
+
               
     def test_mrk_det_type_qtl(self):
         """
@@ -192,15 +194,16 @@ class TestPwiMrkDetail(unittest.TestCase):
         #Verifies that the returned data is all correct for the 11 fields
         self.assertEqual(symbol.text, 'Aanq1 Public Aanq1 Page', 'The Symbol is not correct!')
         self.assertEqual(mrkid.text, 'MGI:5002524', 'The MGI ID is not correct!')
-        self.assertEqual(secid.text, '[]', 'The secondary IDs are not correct!')
+        self.assertEqual(secid.text, '', 'The secondary IDs are not correct!')
         self.assertEqual(status.text, 'official', 'The Marker Status is not correct!')
         self.assertEqual(name.text, 'aristolochic acid nephrotoxicity QTL 1', 'The Current Name is not correct!')
         self.assertEqual(syn.text, '', 'The Marker Synonyms are not correct!')
         self.assertEqual(mtype.text, 'QTL', 'The Marker Type is not correct!')
         self.assertEqual(ftype.text, 'QTL', 'The Marker Feature Type is not correct!')
         self.assertEqual(biotype.text, '', 'The Marker Biotype is not correct!')
-        self.assertEqual(location.text, 'Chr4:63603826-63603826 bp, None strand From MGI annotation of GRCm39', 'The Marker Location is not correct!')
+        self.assertEqual(location.text, 'Chr4:63603826-63603826 bp, Null strand From MGI annotation of GRCm39', 'The Marker Location is not correct!')
         self.assertEqual(mrkclip.text, '', 'The Marker Detail Clip is not correct!')
+
 
     def test_mrk_det_type_transgene(self):
         """
@@ -248,7 +251,7 @@ class TestPwiMrkDetail(unittest.TestCase):
         #Verifies that the returned data is all correct for the 11 fields
         self.assertEqual(symbol.text, 'Et(cre/ERT2)8131Rdav Public Et(cre/ERT2)8131Rdav Page', 'The Symbol is not correct!')
         self.assertEqual(mrkid.text, 'MGI:3852242', 'The MGI ID is not correct!')
-        self.assertEqual(secid.text, '[]', 'The secondary IDs are not correct!')
+        self.assertEqual(secid.text, '', 'The secondary IDs are not correct!')
         self.assertEqual(status.text, 'official', 'The Marker Status is not correct!')
         self.assertEqual(name.text, 'enhancer trap 8131, Ron Davis', 'The Current Name is not correct!')
         self.assertEqual(syn.text, '', 'The Marker Synonyms are not correct!')
@@ -257,6 +260,7 @@ class TestPwiMrkDetail(unittest.TestCase):
         self.assertEqual(biotype.text, '', 'The Marker Biotype is not correct!')
         self.assertEqual(location.text, 'ChrUN', 'The Marker Location is not correct!')
         self.assertEqual(mrkclip.text, '', 'The Marker Detail Clip is not correct!')
+
 
     def test_mrk_det_type_Complex(self):
         """
@@ -304,7 +308,7 @@ class TestPwiMrkDetail(unittest.TestCase):
         #Verifies that the returned data is all correct for the 11 fields
         self.assertEqual(symbol.text, 'Csn Public Csn Page', 'The Symbol is not correct!')
         self.assertEqual(mrkid.text, 'MGI:88539', 'The MGI ID is not correct!')
-        self.assertEqual(secid.text, '[]', 'The secondary IDs are not correct!')
+        self.assertEqual(secid.text, '', 'The secondary IDs are not correct!')
         self.assertEqual(status.text, 'official', 'The Marker Status is not correct!')
         self.assertEqual(name.text, 'casein gene family, alpha, beta, gamma, delta/epsilon, kappa', 'The Current Name is not correct!')
         self.assertEqual(syn.text, '', 'The Marker Synonyms are not correct!')
@@ -313,6 +317,7 @@ class TestPwiMrkDetail(unittest.TestCase):
         self.assertEqual(biotype.text, '', 'The Marker Biotype is not correct!')
         self.assertEqual(location.text, 'Chr5', 'The Marker Location is not correct!')
         self.assertEqual(mrkclip.text, '', 'The Marker Detail Clip is not correct!')
+
 
     def test_mrk_det_type_Cytogenetic(self):
         """
@@ -360,7 +365,7 @@ class TestPwiMrkDetail(unittest.TestCase):
         #Verifies that the returned data is all correct for the 11 fields
         self.assertEqual(symbol.text, 'Del(Y)1Tac Public Del(Y)1Tac Page', 'The Symbol is not correct!')
         self.assertEqual(mrkid.text, 'MGI:6156853', 'The MGI ID is not correct!')
-        self.assertEqual(secid.text, '[]', 'The secondary IDs are not correct!')
+        self.assertEqual(secid.text, '', 'The secondary IDs are not correct!')
         self.assertEqual(status.text, 'official', 'The Marker Status is not correct!')
         self.assertEqual(name.text, 'deletion, Chr Y, Taconic 1', 'The Current Name is not correct!')
         self.assertEqual(syn.text, '', 'The Marker Synonyms are not correct!')
@@ -369,6 +374,7 @@ class TestPwiMrkDetail(unittest.TestCase):
         self.assertEqual(biotype.text, '', 'The Marker Biotype is not correct!')
         self.assertEqual(location.text, 'ChrY', 'The Marker Location is not correct!')
         self.assertEqual(mrkclip.text, '', 'The Marker Detail Clip is not correct!')
+
 
     def test_mrk_det_type_bacyac(self):
         """
@@ -416,7 +422,7 @@ class TestPwiMrkDetail(unittest.TestCase):
         #Verifies that the returned data is all correct for the 11 fields
         self.assertEqual(symbol.text, '10S Public 10S Page', 'The Symbol is not correct!')
         self.assertEqual(mrkid.text, 'MGI:1336996', 'The MGI ID is not correct!')
-        self.assertEqual(secid.text, '[]', 'The secondary IDs are not correct!')
+        self.assertEqual(secid.text, '', 'The secondary IDs are not correct!')
         self.assertEqual(status.text, 'official', 'The Marker Status is not correct!')
         self.assertEqual(name.text, 'DNA segment, 10S', 'The Current Name is not correct!')
         self.assertEqual(syn.text, '', 'The Marker Synonyms are not correct!')
@@ -425,6 +431,7 @@ class TestPwiMrkDetail(unittest.TestCase):
         self.assertEqual(biotype.text, '', 'The Marker Biotype is not correct!')
         self.assertEqual(location.text, 'Chr17', 'The Marker Location is not correct!')
         self.assertEqual(mrkclip.text, '', 'The Marker Detail Clip is not correct!')
+
  
     def test_mrk_det_type_pseudo(self):
         """
@@ -478,9 +485,10 @@ class TestPwiMrkDetail(unittest.TestCase):
         self.assertEqual(syn.text, 'OTTMUSG00000017000', 'The Marker Synonyms are not correct!')
         self.assertEqual(mtype.text, 'Pseudogene', 'The Marker Type is not correct!')
         self.assertEqual(ftype.text, 'pseudogene', 'The Marker Feature Type is not correct!')
-        self.assertEqual(biotype.text, 'Source Biotype Gene ID\nNCBI Gene Model protein-coding 245350\nEnsembl Gene Model processed_pseudogene ENSMUSG00000083307', 'The Marker Biotype is not correct!')
+        self.assertEqual(biotype.text, 'Source Biotype Gene ID\nEnsembl Gene Model processed_pseudogene ENSMUSG00000083307\nNCBI Gene Model protein-coding 245350', 'The Marker Biotype is not correct!')
         self.assertEqual(location.text, 'ChrX:12803111-12804367 bp, + strand From Ensembl annotation of GRCm39', 'The Marker Location is not correct!')
         self.assertEqual(mrkclip.text, '', 'The Marker Detail Clip is not correct!')
+
 
     def test_mrk_det_type_other(self):
         """
@@ -528,7 +536,7 @@ class TestPwiMrkDetail(unittest.TestCase):
         #Verifies that the returned data is all correct for the 11 fields
         self.assertEqual(symbol.text, 'Acf1 Public Acf1 Page', 'The Symbol is not correct!')
         self.assertEqual(mrkid.text, 'MGI:87875', 'The MGI ID is not correct!')
-        self.assertEqual(secid.text, '[]', 'The secondary IDs are not correct!')
+        self.assertEqual(secid.text, '', 'The secondary IDs are not correct!')
         self.assertEqual(status.text, 'official', 'The Marker Status is not correct!')
         self.assertEqual(name.text, 'albumin conformation factor 1', 'The Current Name is not correct!')
         self.assertEqual(syn.text, 'Acf-1', 'The Marker Synonyms are not correct!')
@@ -537,18 +545,19 @@ class TestPwiMrkDetail(unittest.TestCase):
         self.assertEqual(biotype.text, '', 'The Marker Biotype is not correct!')
         self.assertEqual(location.text, 'Chr1', 'The Marker Location is not correct!')
         self.assertEqual(mrkclip.text, '', 'The Marker Detail Clip is not correct!')
+
         
     def test_mrk_det_withdrawn_mrk(self):
         """
         @status: Tests that a withdrawn marker returns correctly
-        @note pwi-mrk-det-search-10 !!broken because link does not work to marker detail! 12/07/2020
+        @note pwi-mrk-det-search-10 
         """
         driver = self.driver
         #opens the PWI marker form
         driver.get(TEST_PWI_URL + '/edit/marker/')  
         time.sleep(2)
         #find the Symbol field and enter the text      
-        driver.find_element(By.ID, 'markerSymbol').send_keys('Ccm1')        
+        driver.find_element(By.ID, 'markerSymbol').send_keys('Gm7981')        
         # Find the search button and click it.
         driver.find_element(By.ID, 'searchButton').click()
         time.sleep(3)
@@ -580,18 +589,18 @@ class TestPwiMrkDetail(unittest.TestCase):
         mrkclip = driver.find_element(By.CSS_SELECTOR, 'dl.detailPageListData > dd:nth-child(23)')
         print("the marker detail clip is: " + mrkclip.text)    
         #Verifies that the returned data is all correct for the 11 fields
-        self.assertEqual(symbol.text, 'Ccm1 - Public Ccm1 Page', 'The Symbol is not correct!')
-        self.assertEqual(mrkid.text, '', 'The MGI ID is not correct!')
+        self.assertEqual(symbol.text, 'Gm7981 Public Gm7981 Page', 'The Symbol is not correct!')
+        self.assertEqual(mrkid.text, 'MGI:3648890', 'The MGI ID is not correct!')
         self.assertEqual(secid.text, '', 'The secondary IDs are not correct!')
         self.assertEqual(status.text, 'withdrawn', 'The Marker Status is not correct!')
-        self.assertEqual(name.text, 'withdrawn, = Krit1', 'The Current Name is not correct!')
+        self.assertEqual(name.text, 'withdrawn', 'The Current Name is not correct!')
         self.assertEqual(syn.text, '', 'The Marker Synonyms are not correct!')
-        self.assertEqual(mtype.text, 'Gene', 'The Marker Type is not correct!')
+        self.assertEqual(mtype.text, 'Pseudogene', 'The Marker Type is not correct!')
         self.assertEqual(ftype.text, '', 'The Marker Feature Type is not correct!')
         self.assertEqual(biotype.text, '', 'The Marker Biotype is not correct!')
-        self.assertEqual(location.text, 'Chr5', 'The Marker Location is not correct!')
+        self.assertEqual(location.text, 'Chr3', 'The Marker Location is not correct!')
         self.assertEqual(mrkclip.text, '', 'The Marker Detail Clip is not correct!')
-        
+
 
     def tearDown(self):
         self.driver.close()

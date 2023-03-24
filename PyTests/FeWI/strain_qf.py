@@ -687,7 +687,7 @@ class TestStrainQF(unittest.TestCase):
         print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
-        self.assertIn('129S6/SvEvTac-Rag2tm1Fwa/Tac', strainNamesReturned) # Strain/Stock Name
+        self.assertIn('129S/SvEv-Rag2tm1Fwa/Tac', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
         print(iterate.getTextAsList(cells1))
         idReturned = iterate.getTextAsList(cells1)
@@ -851,7 +851,7 @@ class TestStrainQF(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
         #locates the strain table and find the data in the Attributes column
-        strain_table = Table(self.driver.find_element_(By.ID, "strainSummaryTable"))
+        strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Attributes")
         print(iterate.getTextAsList(cells))
         attributesReturned = iterate.getTextAsList(cells)

@@ -38,8 +38,8 @@ class TestEiMrkSearchHistory(unittest.TestCase):
     """
 
     def setUp(self):
-        #self.driver = webdriver.Firefox() 
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox() 
+        #self.driver = webdriver.Chrome()
         self.form = ModuleForm(self.driver)
         self.form.get_module(config.TEST_PWI_URL + "/edit/marker")
     
@@ -289,22 +289,24 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         """
         driver = self.driver
         #finds the Event field and selects the option "Not Specified"
-        Select(driver.find_element(By.ID, "historyEvent-0")).select_by_value('string:-1')#string -1 equals 'Not Specified'
-        driver.find_element(By.ID, 'searchButton').click()        
+        Select(driver.find_element(By.ID, "historyEvent-0")).select_by_value('string:106563602')#equals "not specified"
+        driver.find_element(By.ID, 'searchButton').click() 
+        #finds the Event Reason field and selects the option "not specified"
+        Select(driver.find_element(By.ID, "historyEventReason-0")).select_by_value('string:106563610')#string:106563610 is option "not specified"       
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historyName-0')))
         time.sleep(2)
         # get the data for the Event column, print the row 1 result
         evt_row = driver.find_element(By.ID, 'historyEvent-0').get_attribute('value')        
         #Assert the sixth citation returned(row6) is correct
-        self.assertEqual(evt_row, 'string:-1')#string -1 equals 'Not Specified'      
+        self.assertEqual(evt_row, 'string:106563602')#string:106563602 equals 'Not Specified'      
         #capture the results table row
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         symbl1 = table.get_row(0)        
         print(symbl1.text)                 
         #Assert the first result is correct
-        self.assertEqual(symbl1.text, 'Smim4') 
+        self.assertEqual(symbl1.text, 'Uqcc5') 
 
     def testHistoryEventSplitSearch(self):
         """
@@ -313,7 +315,7 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         """
         driver = self.driver
         #finds the Event field and selects the option "Split"
-        Select(driver.find_element(By.ID, "historyEvent-0")).select_by_value('string:5')#string:5 is 'split'
+        Select(driver.find_element(By.ID, "historyEvent-0")).select_by_value('string:106563608')#string:5 is 'split'
         driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historyName-0')))
@@ -321,7 +323,7 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         # get the data for the Event column, print the row 6 result
         evt_row = driver.find_element(By.ID, 'historyEvent-5').get_attribute('value')        
         #Assert the sixth citation returned(row6) is correct
-        self.assertEqual(evt_row, 'string:5')#string:5 equals 'Split'      
+        self.assertEqual(evt_row, 'string:106563608')#string:106563608 equals 'Split'      
 
     def testHistoryEventReasonSearch(self):
         """
@@ -329,15 +331,15 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         @see pwi-mrk-det-hist-search-12
         """
         driver = self.driver
-        #finds the Event Reason field and selects the option "per personal comm w/Chromosome Committee"
-        Select(driver.find_element(By.ID, "historyEventReason-0")).select_by_value('string:4')#string:4 is personal comm w/Expert'
+        #finds the Event Reason field and selects the option "personal comm w/expert"
+        Select(driver.find_element(By.ID, "historyEventReason-0")).select_by_value('string:106563618')#string:106563618 is option "personal comm w/expert"
         driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historyName-1')))
         time.sleep(2)
         reason_row = driver.find_element(By.ID, 'historyEventReason-2').get_attribute('value')        
         #Assert the third row returned is correct
-        self.assertEqual(reason_row, 'string:4')#string:4 equals 'personal comm w/Expert'  
+        self.assertEqual(reason_row, 'string:106563618')#string:106563615 equals 'personal comm w/Expert'  
         #capture the results table row
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)

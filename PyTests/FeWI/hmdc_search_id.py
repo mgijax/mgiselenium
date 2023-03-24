@@ -68,8 +68,9 @@ class TestHmdcSearchID(unittest.TestCase):
         mouseGeneList = iterate.getTextAsList(mgenes)
         
         #Verify genes with annotations to this disease are present on the grid
-        self.assertIn("HLA-DQB1", humanGeneList)
+        self.assertIn("HLA-DQB1, HLA-DQB2", humanGeneList)
         self.assertIn("PRNP", humanGeneList)
+        self.assertIn("STX1A", humanGeneList)
         self.assertIn("Tg(Prnp*)#Rgab", mouseGeneList)
         self.assertIn("Tg(Prnp*D177N*M128V)A21Rchi", mouseGeneList)
         
@@ -363,7 +364,7 @@ class TestHmdcSearchID(unittest.TestCase):
         phenocells = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.center.cell.middle") 
         phenocells[6].click()#clicks the integument data cell to open up the genotype popup page (data changes can break this logic)
         self.driver.switch_to.window(self.driver.window_handles[1])#switches focus to the genotype popup page
-        
+        time.sleep(2)
         #asserts the heading text is correct in page title
         self.assertEqual('Mouse integument abnormalities for ABCG2/Abcg2, Abcg3', self.driver.title)
         
@@ -480,7 +481,7 @@ class TestHmdcSearchID(unittest.TestCase):
         self.assertIn(matching_text, self.driver.page_source, 'expected pop-up box heading not displayed')
         
         #asserts that the HP term queried for by ID has been returned
-        self.assertIn("Hypomineralization of enamel", self.driver.page_source, "expected HP term not found")
+        self.assertIn("Enamel hypomineralization", self.driver.page_source, "expected HP term not found")
         
                 
     def test_do_term_xref_id(self):
@@ -563,7 +564,7 @@ class TestHmdcSearchID(unittest.TestCase):
         #phenocells captures all the table data cells on the first row of data
         phenocells = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.center.cell.middle")
         
-        phenocells[4].click() #clicks the cell for homeostasis/metabolism system (new data could break this)
+        phenocells[5].click() #clicks the cell for homeostasis/metabolism system (new data could break this)
         self.driver.switch_to.window(self.driver.window_handles[1])#switches focus to the genotype popup page
         time.sleep(2)
         matching_text = "Mouse homeostasis/metabolism abnormalities for ABCG2/Abcg2"

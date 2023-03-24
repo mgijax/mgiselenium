@@ -32,8 +32,8 @@ class TestEiImageSearch(unittest.TestCase):
     """
 
     def setUp(self):
-        #self.driver = webdriver.Firefox() 
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox() 
+        #self.driver = webdriver.Chrome()
         self.form = ModuleForm(self.driver)
         self.form.get_module(config.TEST_PWI_URL + "/edit/imageGxd")
     
@@ -501,43 +501,7 @@ class TestEiImageSearch(unittest.TestCase):
         self.assertEqual(result1, ['J:190949; Full Size; S1'])
         self.assertEqual(result2, ['J:190949; Full Size; 3'])
 
-"""    def testImageJnumNoCopyrightSearch(self):
-        """
-        @Status tests that a basic Image J number Search that has no copyright will not display a copyright and not fail search works
-        @see pwi-image-search-15 No longer a requirement 11/18/2021
-        """
-        driver = self.driver
-        #finds the J# field and enter a J Number for an expression image then click the Search button
-        driver.find_element(By.ID, "JNumID").send_keys('2250')
-        driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
-        #find the Copyright Field
-        cpy = driver.find_element(By.ID, 'copyrightID')
-        print(cpy.text)
-        #Assert the copyright field is clear of text
-        self.assertEqual(cpy.text, '', 'The copyright field is not empty')
-        #find the search results table
-        results_table = self.driver.find_element(By.ID, "resultsTable")
-        table = Table(results_table)
-        #Iterate and print the search results
-        cell1 = table.get_row_cells(0)
-        cell2 = table.get_row_cells(1)
-        cell3 = table.get_row_cells(2)
-        cell4 = table.get_row_cells(3)
-        result1 = iterate.getTextAsList(cell1)
-        result2 = iterate.getTextAsList(cell2)
-        result3 = iterate.getTextAsList(cell3)
-        result4 = iterate.getTextAsList(cell4)
-        print(result1)
-        #Assert the correct J number details are returned
-        self.assertEqual(result1, ['J:2250; Full Size; 4'])
-        self.assertEqual(result2, ['J:2250; Full Size; 5'])
-        self.assertEqual(result3, ['J:2250; Full Size; 6'])
-        self.assertEqual(result4, ['J:2250; Full Size; 7'])
-        
-        
-        #*************************************************************************************************************
-"""
+
     def testImageCreateBySearch(self):
         """
         @Status tests that an image search using the Created By field returns correct data
@@ -983,8 +947,8 @@ class TestEiImageSearch(unittest.TestCase):
         @see pwi-image-search-30
         """
         driver = self.driver
-        #finds the Image Other Accession Ids pulldown and selects "Eurpexpress" option then click the Search button
-        Select(driver.find_element(By.ID, "accidTypeID")).select_by_value('148')
+        #finds the Image Other Accession Ids pulldown and selects "GUDMAP" option then click the Search button
+        Select(driver.find_element(By.ID, "accidTypeID")).select_by_value('163')
         driver.find_element(By.ID, 'searchButton').click()
         time.sleep(15)
         #wait = WebDriverWait(driver, 20)
@@ -1016,16 +980,16 @@ class TestEiImageSearch(unittest.TestCase):
         result10 = iterate.getTextAsList(cell10)        
         print(result1)
         #Assert the correct J number details are returned(for the first 10 results)
-        self.assertEqual(result1, ['J:153498; Full Size; euxassay_000001_01'])
-        self.assertEqual(result2, ['J:153498; Full Size; euxassay_000001_02'])
-        self.assertEqual(result3, ['J:153498; Full Size; euxassay_000001_03'])
-        self.assertEqual(result4, ['J:153498; Full Size; euxassay_000001_04'])
-        self.assertEqual(result5, ['J:153498; Full Size; euxassay_000001_05'])
-        self.assertEqual(result6, ['J:153498; Full Size; euxassay_000001_06'])
-        self.assertEqual(result7, ['J:153498; Full Size; euxassay_000001_07'])
-        self.assertEqual(result8, ['J:153498; Full Size; euxassay_000001_08'])
-        self.assertEqual(result9, ['J:153498; Full Size; euxassay_000001_09'])
-        self.assertEqual(result10, ['J:153498; Full Size; euxassay_000001_10'])
+        self.assertEqual(result1, ['J:171409; Full Size; GUDMAP:3'])
+        self.assertEqual(result2, ['J:171409; Full Size; GUDMAP:4'])
+        self.assertEqual(result3, ['J:171409; Full Size; GUDMAP:5'])
+        self.assertEqual(result4, ['J:171409; Full Size; GUDMAP:9'])
+        self.assertEqual(result5, ['J:171409; Full Size; GUDMAP:10'])
+        self.assertEqual(result6, ['J:171409; Full Size; GUDMAP:15'])
+        self.assertEqual(result7, ['J:171409; Full Size; GUDMAP:16'])
+        self.assertEqual(result8, ['J:171409; Full Size; GUDMAP:22'])
+        self.assertEqual(result9, ['J:171409; Full Size; GUDMAP:23'])
+        self.assertEqual(result10, ['J:171409; Full Size; GUDMAP:26'])
         #find the Other Accession Ids table
         accid_table = self.driver.find_element(By.ID, "otherAccIdTable")
         table = Table(accid_table)
@@ -1034,7 +998,7 @@ class TestEiImageSearch(unittest.TestCase):
         result1 = iterate.getTextAsList(cell1)
         print(result1)
         #Assert the correct Acc ID result details are returned
-        self.assertEqual(result1, ['Eurexpress', 'euxassay_000001_01'])             
+        self.assertEqual(result1, ['GUDMAP', 'GUDMAP:3'])             
 
 
 def suite():

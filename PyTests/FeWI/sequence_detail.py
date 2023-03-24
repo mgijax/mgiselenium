@@ -46,9 +46,13 @@ class TestSequenceDetail(unittest.TestCase):
         # put your Gene ID in the quick search box
         searchbox.send_keys('MGP_AKRJ_G0023142')
         searchbox.send_keys(Keys.RETURN)
+        time.sleep(2)
+        driver.find_element(By.ID, 'oLink').click()
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
+        #switch focus to the new tab for sequence detail page
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'seqIdTable')))#waits until the sequence ID table is  displayed on the page
         #find the sequence ID in the ID/Version ribbon
         #locates the first row of the Sequence table
@@ -70,11 +74,14 @@ class TestSequenceDetail(unittest.TestCase):
         # put your Gene ID in the quick search box
         searchbox.send_keys('MGI_C57BL6J_5804994')
         searchbox.send_keys(Keys.RETURN)
-        driver.find_element(By.ID, 'searchToolButton').click()
+        time.sleep(2)
+        driver.find_element(By.ID, 'oLink').click()
         time.sleep(2)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
+        #switch focus to the new tab for sequence detail page
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'seqIdTable')))#waits until the sequence ID table is  displayed on the page
         #find the sequence ID in the ID/Version ribbon
         #locates the first row of the sequence table
@@ -96,9 +103,13 @@ class TestSequenceDetail(unittest.TestCase):
         # put your Gene ID in the quick search box
         searchbox.send_keys('MGP_AKRJ_G0023142')
         searchbox.send_keys(Keys.RETURN)
+        time.sleep(2)
+        driver.find_element(By.ID, 'oLink').click()
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
+        #switch focus to the new tab for sequence detail page
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Ensembl')))#waits until the results are  displayed on the page
         #locates the Ensembl link and clicks it
         self.driver.find_element(By.LINK_TEXT, 'Ensembl').click()
@@ -121,9 +132,13 @@ class TestSequenceDetail(unittest.TestCase):
         # put your Gene ID in the quick search box
         searchbox.send_keys('MGP_CAROLIEiJ_G0022151')
         searchbox.send_keys(Keys.RETURN)
+        time.sleep(2)
+        driver.find_element(By.ID, 'oLink').click()
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
+        #switch focus to the new tab for sequence detail page
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'detailStructureTable')))#waits until the sequence ID table is  displayed on the page
         #find the sequence description in the sequence description ribbon
         #locates the second row of the Sequence table
@@ -145,9 +160,13 @@ class TestSequenceDetail(unittest.TestCase):
         # put your Gene ID in the quick search box
         searchbox.send_keys('MGI_C57BL6J_95661')
         searchbox.send_keys(Keys.RETURN)
+        time.sleep(2)
+        driver.find_element(By.ID, 'oLink').click()
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
+        #switch focus to the new tab for sequence detail page
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'detailStructureTable')))#waits until the sequence ID table is  displayed on the page
         #find the sequence description in the sequence description ribbon
         #locates the second row of the Sequence table
@@ -156,7 +175,7 @@ class TestSequenceDetail(unittest.TestCase):
         print(cells.text)
         #time.sleep(2)
         #asserts the sequence description ribbon data is correct
-        self.assertEqual('ChrX:7825499-7844310, - strand. MGI derived this sequence for the C57BL/6J strain version of Gene: Gata1, Gene type: protein coding gene, from outermost boundary coordinates of combined annotations to mouse reference assembly GRCm39 provided by: ENSEMBL:ENSMUSG00000031162,NCBI_Gene:14460. Note that the source annotations for this representation of the C57BL/6J gene model sequence can derive from different assembly patches (J:262996).', cells.text)         
+        self.assertEqual('ChrX:7825499-7844310, - strand. MGI derived this sequence for the C57BL/6J strain version of Gene: Gata1, Gene type: protein coding gene, from outermost boundary coordinates of combined annotations to mouse reference assembly GRCm39 provided by: NCBI_Gene:14460,ENSEMBL:ENSMUSG00000031162. Note that the source annotations for this representation of the C57BL/6J gene model sequence can derive from different assembly patches (J:262996).', cells.text)         
 
     def test_mgp_seq_provider(self):
         """
@@ -169,9 +188,13 @@ class TestSequenceDetail(unittest.TestCase):
         # put your Gene ID in the quick search box
         searchbox.send_keys('MGP_CAROLIEiJ_G0022151')
         searchbox.send_keys(Keys.RETURN)
+        time.sleep(2)
+        driver.find_element(By.ID, 'oLink').click()
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
+        #switch focus to the new tab for sequence detail page
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'detailStructureTable')))#waits until the sequence ID table is  displayed on the page
         #find the sequence provider in the Provider ribbon
         #locates the third row, second cell of the Sequence table
@@ -192,9 +215,13 @@ class TestSequenceDetail(unittest.TestCase):
         # put your Gene ID in the quick search box
         searchbox.send_keys('MGI_C57BL6J_95661')
         searchbox.send_keys(Keys.RETURN)
+        time.sleep(2)
+        driver.find_element(By.ID, 'oLink').click()
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
+        #switch focus to the new tab for sequence detail page
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'detailStructureTable')))#waits until the sequence ID table is  displayed on the page
         #find the sequence provider in the Provider ribbon
         #locates the third row, second cell of the Sequence table
@@ -217,9 +244,13 @@ class TestSequenceDetail(unittest.TestCase):
         # put your Gene ID in the quick search box
         searchbox.send_keys('MGP_AKRJ_G0020754')
         searchbox.send_keys(Keys.RETURN)
+        time.sleep(2)
+        driver.find_element(By.ID, 'oLink').click()
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
+        #switch focus to the new tab for sequence detail page
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//input[@value='Go']")))#waits until the GO button is displayed on the page
         #find the GO button beside FASTA download and click it
         driver.find_element(By.XPATH, "//input[@value='Go']").click()
@@ -238,9 +269,13 @@ class TestSequenceDetail(unittest.TestCase):
         # put your Gene ID in the quick search box
         searchbox.send_keys('MGP_AKRJ_G0020754')
         searchbox.send_keys(Keys.RETURN)
+        time.sleep(2)
+        driver.find_element(By.ID, 'oLink').click()
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
+        #switch focus to the new tab for sequence detail page
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, 'seqPullDownForm')))#waits until the sequence pulldown form is displayed on the page
         #find the sequence list and select the "forward to NCBI Blast" option
         self.driver.find_element(By.NAME, 'seqPullDownForm')
@@ -270,9 +305,13 @@ class TestSequenceDetail(unittest.TestCase):
         # put your Gene ID in the quick search box
         searchbox.send_keys('MGI_C57BL6J_98660')
         searchbox.send_keys(Keys.RETURN)
+        time.sleep(2)
+        driver.find_element(By.ID, 'oLink').click()
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
+        #switch focus to the new tab for sequence detail page
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//input[@value='Go']")))#waits until the GO button is displayed on the page
         #find the GO button beside FASTA download and click it
         driver.find_element(By.XPATH, "//input[@value='Go']").click()
@@ -291,9 +330,13 @@ class TestSequenceDetail(unittest.TestCase):
         # put your Gene ID in the quick search box
         searchbox.send_keys('MGI_C57BL6J_98660')
         searchbox.send_keys(Keys.RETURN)
+        time.sleep(2)
+        driver.find_element(By.ID, 'oLink').click()
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
+        #switch focus to the new tab for sequence detail page
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         #find the sequence list and select the "forward to NCBI Blast" option
         self.driver.find_element(By.NAME, 'seqPullDownForm')
         Select(driver.find_element(By.NAME, 'seqPullDown')).select_by_visible_text('forward to NCBI BLAST')
@@ -321,17 +364,20 @@ class TestSequenceDetail(unittest.TestCase):
         # put your Gene ID in the quick search box
         searchbox.send_keys('MGP_CAROLIEiJ_G0022151')
         searchbox.send_keys(Keys.RETURN)
+        time.sleep(2)
+        driver.find_element(By.ID, 'oLink').click()
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
+        #switch focus to the new tab for sequence detail page
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'detailStructureTable')))#waits until the sequence ID table is  displayed on the page
         #find the sequence in the Sequence ribbon
         #locates the fourth row, second cell of the Sequence table
-        seq_table = Table(self.driver.find_element(By.CLASS_NAME, 'detailStructureTable'))
-        cells = seq_table.get_cell(4, 1)
-        print(cells.text)
+        seq_info = self.driver.find_element(By.CSS_SELECTOR, '.detailStructureTable > tbody:nth-child(1) > tr:nth-child(4) > td:nth-child(2) > div:nth-child(1)')
+        print(seq_info.text)
         #asserts the Sequence ribbon data is correct
-        self.assertIn('DNA 174105 bp', cells.text)         
+        self.assertTrue(seq_info.text, 'DNA 174105 bp')         
 
     def test_mgi_seq_bp(self):
         """
@@ -344,9 +390,13 @@ class TestSequenceDetail(unittest.TestCase):
         # put your Gene ID in the quick search box
         searchbox.send_keys('MGI_C57BL6J_98660')
         searchbox.send_keys(Keys.RETURN)
+        time.sleep(2)
+        driver.find_element(By.ID, 'oLink').click()
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
+        #switch focus to the new tab for sequence detail page
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'detailStructureTable')))#waits until the sequence ID table is  displayed on the page
         #find the sequence in the Sequence ribbon
         #locates the fourth row, second cell of the Sequence table
@@ -367,9 +417,13 @@ class TestSequenceDetail(unittest.TestCase):
         # put your Gene ID in the quick search box
         searchbox.send_keys('MGP_CASTEiJ_G0006926')
         searchbox.send_keys(Keys.RETURN)
+        time.sleep(2)
+        driver.find_element(By.ID, 'oLink').click()
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
+        #switch focus to the new tab for sequence detail page
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'sourceTable')))#waits until the source table is displayed on the page
         #find the source data in the Source ribbon
         #locates the Source table
@@ -417,9 +471,13 @@ class TestSequenceDetail(unittest.TestCase):
         # put your Gene ID in the quick search box
         searchbox.send_keys('MGI_C57BL6J_98660')
         searchbox.send_keys(Keys.RETURN)
+        time.sleep(2)
+        driver.find_element(By.ID, 'oLink').click()
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
+        #switch focus to the new tab for sequence detail page
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'sourceTable')))#waits until the source table is displayed on the page
         #find the source data in the Source ribbon
         #locates the Source table
@@ -466,9 +524,13 @@ class TestSequenceDetail(unittest.TestCase):
         # put your Gene ID in the quick search box
         searchbox.send_keys('MGP_CASTEiJ_G0006926')
         searchbox.send_keys(Keys.RETURN)
+        time.sleep(2)
+        driver.find_element(By.ID, 'oLink').click()
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
+        #switch focus to the new tab for sequence detail page
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'detailStructureTable')))#waits until the sequence ID table is  displayed on the page
         #find the chromosome data in the Chromosome ribbon
         chromo = self.driver.find_element(By.CSS_SELECTOR, '.detailStructureTable > tbody:nth-child(1) > tr:nth-child(6) > td:nth-child(2)')
@@ -486,9 +548,13 @@ class TestSequenceDetail(unittest.TestCase):
         # put your Gene ID in the quick search box
         searchbox.send_keys('MGI_C57BL6J_98660')
         searchbox.send_keys(Keys.RETURN)
+        time.sleep(2)
+        driver.find_element(By.ID, 'oLink').click()
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
+        #switch focus to the new tab for sequence detail page
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'detailStructureTable')))#waits until the sequence ID table is  displayed on the page
         #find the chromosome data in the Chromosome ribbon
         chromo = self.driver.find_element(By.CSS_SELECTOR, '.detailStructureTable > tbody:nth-child(1) > tr:nth-child(6) > td:nth-child(2)')
@@ -506,9 +572,13 @@ class TestSequenceDetail(unittest.TestCase):
         # put your Gene ID in the quick search box
         searchbox.send_keys('MGP_CASTEiJ_G0006926')
         searchbox.send_keys(Keys.RETURN)
+        time.sleep(2)
+        driver.find_element(By.ID, 'oLink').click()
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
+        #switch focus to the new tab for sequence detail page
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'markerTable')))#waits until the source table is displayed on the page
         #locates the Source table
         mrk_table = Table(self.driver.find_element(By.ID, 'markerTable'))
@@ -531,7 +601,7 @@ class TestSequenceDetail(unittest.TestCase):
         #find the Expression Assays cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 4)
         print(cell1.text)
-        self.assertIn('0', cell1.text) 
+        self.assertIn('96', cell1.text) 
         #find the Orthologs cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 5)
         print(cell1.text)
@@ -552,9 +622,13 @@ class TestSequenceDetail(unittest.TestCase):
         # put your Gene ID in the quick search box
         searchbox.send_keys('MGI_C57BL6J_98660')
         searchbox.send_keys(Keys.RETURN)
+        time.sleep(2)
+        driver.find_element(By.ID, 'oLink').click()
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
+        #switch focus to the new tab for sequence detail page
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'markerTable')))#waits until the source table is displayed on the page
         #locates the Source table
         mrk_table = Table(self.driver.find_element(By.ID, 'markerTable'))
@@ -577,15 +651,15 @@ class TestSequenceDetail(unittest.TestCase):
         #find the Expression Assays cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 4)
         print(cell1.text)
-        self.assertIn('164', cell1.text) 
+        self.assertIn('193', cell1.text) 
         #find the Orthologs cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 5)
         print(cell1.text)
-        self.assertIn('2', cell1.text) 
+        self.assertIn('3', cell1.text) 
         #find the Phenotypic Alleles cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 6)
         print(cell1.text)
-        self.assertIn('39', cell1.text) 
+        self.assertIn('41', cell1.text) 
         
     def tearDown(self):
         self.driver.quit()

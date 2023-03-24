@@ -8,7 +8,9 @@ import time
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import HtmlTestRunner
 # from lib import *
 import sys,os.path
@@ -36,20 +38,22 @@ class TestGxdRnaSeqSamples(unittest.TestCase):
         @see GXD-RNASeq-samples-1
         '''
         print ("BEGIN test_rnaseq_samples_array_express_link")
-        
-        self.driver.find_element(By.ID, 'strainNameAC').send_keys('C57BL/6J')#finds the age list and select the E4.0 option
+        #find the Strain field and enter the text
+        self.driver.find_element(By.ID, 'strainNameAC').send_keys('C57BL/6J')
+        #find the ArrayExpress or GEO ID field and enter the text
+        self.driver.find_element(By.ID, 'arrayExpressID').send_keys('E-MEXP-5')
         #find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
-        #find the View button of the second result and click it
-        self.driver.find_element(By.ID, 'row1button').click()
+        #find the View button of the first result and click it
+        self.driver.find_element(By.ID, 'row0button').click()
         #print result_set[2].text
         time.sleep(2)
         #switch focus the the popup samples window
         #switch focus to the next tab
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        #find the ArrayExpress ID E-ERAD-433 link and click it
-        self.driver.find_element(By.LINK_TEXT, 'E-ERAD-433').click()
+        #find the ArrayExpress ID E-MEXP-5 link and click it
+        self.driver.find_element(By.LINK_TEXT, 'E-MEXP-5').click()
         time.sleep(5)
         #switch focus to the next tab
         self.driver.switch_to.window(self.driver.window_handles[-2])
@@ -57,16 +61,23 @@ class TestGxdRnaSeqSamples(unittest.TestCase):
         page_url = self.driver.current_url
         print(page_url)
         #Assert the URL is correct
-        self.assertEqual(page_url, "https://www.ebi.ac.uk/arrayexpress/experiments/E-ERAD-433/")
+        self.assertEqual(page_url, "https://www.ebi.ac.uk/biostudies/arrayexpress/studies/E-MEXP-5")
      
-    def test_rnaseq_samples_exp_atlas_link(self):
+    def test_rnaseq_samples_expression_atlas_link(self):
         '''
         @status this test verifies the expression atlas link on the RNA-Seq samples page is correct.
-        @see GXD-RNASeq-samples-2
+        @see GXD-RNASeq-samples-2 
         '''
         print ("BEGIN test_rnaseq_samples_exp_atlas_link")
+
+
+        self.driver.find_element(By.ID, 'stagesTab').click()
+        Select(self.driver.find_element(By.ID, 'theilerStage')).deselect_by_value('0')#deselect the default option
+        Select(self.driver.find_element(By.ID, 'theilerStage')).select_by_value('27')#finds the theiler stage list and select the TS 27 option
+        time.sleep(2)
+        self.driver.find_element(By.ID, 'strainNameAC').send_keys('C57BL/6J')#finds the strain field and enter C57BL/6J
         
-        self.driver.find_element(By.ID, 'strainNameAC').send_keys('C57BL/6J')#finds the age list and select the E4.0 option
+        
         #find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
@@ -76,17 +87,18 @@ class TestGxdRnaSeqSamples(unittest.TestCase):
         time.sleep(2)
         #switch focus the the popup samples window
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        #find the Expression Atlas ID E-ERAD-169 link and click it
-        id_link = self.driver.find_element(By.CSS_SELECTOR, 'td.dataShade1:nth-child(2) > a:nth-child(1)')
-        id_link.click()
+        #find the Expression Atlas ID E-GEOD-1294 link and click it
         time.sleep(2)
+        Atlas_Link = self.driver.find_element(By.LINK_TEXT, 'E-GEOD-1294').click() 
+        time.sleep(2)
+        print(Atlas_Link)
         #switch focus to the next tab(expression atlas page)
         self.driver.switch_to.window(self.driver.window_handles[-2])
         #get the URL of the page
         page_url = self.driver.current_url
         print(page_url)
         #Assert the URL is correct
-        self.assertEqual(page_url, "https://www.ebi.ac.uk/gxa/experiments/E-ERAD-169/Results")
+        self.assertEqual(page_url, "https://www.ebi.ac.uk/gxa/experiments/E-GEOD-1294/Results")
 
     def test_rnaseq_samples_geo_link(self):
         '''
@@ -99,8 +111,8 @@ class TestGxdRnaSeqSamples(unittest.TestCase):
         #find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
-        #find the View button of the third result and click it
-        self.driver.find_element(By.ID, 'row2button').click()
+        #find the View button of the second result and click it
+        self.driver.find_element(By.ID, 'row1button').click()
         time.sleep(2)
         #switch focus the the popup samples window
         self.driver.switch_to.window(self.driver.window_handles[-1])

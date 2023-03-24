@@ -86,7 +86,7 @@ class TestHmdcIndex(unittest.TestCase):
         #click on disease cell with human and mouse annotations; verify pop-up title
         phenoDiseaseCells[12].click() #clicks the first phenotype data cell to open up the genotype popup page
         self.driver.switch_to.window(self.driver.window_handles[1])#switches focus to the genotype popup page
-        time.sleep(1)
+        time.sleep(2)
         matching_text = "Human Genes and Mouse Models for autosomal genetic disease and GUCY2C/Gucy2c"
         #asserts the heading text is correct in page source
         print(self.driver.title)
@@ -236,9 +236,9 @@ class TestHmdcIndex(unittest.TestCase):
         parentWindowID = self.driver.current_window_handle
         
         # Grid pop-up for a Phenotype System with both Human and Mouse annotations
-        phenocells[0].click() #clicks the first phenotype data cell to open up the genotype popup page
+        phenocells[1].click() #clicks the first phenotype data cell to open up the genotype popup page
         self.driver.switch_to.window(self.driver.window_handles[1])#switches focus to the genotype popup page
-        time.sleep(1)
+        time.sleep(2)
         matching_text = "Human and Mouse cardiovascular system abnormalities for GATA1/Gata1"
         #asserts the heading text is correct in page source
         self.assertIn(matching_text, self.driver.title, 'matching mouse/human text not displayed')
@@ -250,7 +250,7 @@ class TestHmdcIndex(unittest.TestCase):
         print(grid_tab.text)
         
         grid_tab.click()
-        phenocells[2].click() #clicks the first phenotype data cell to open up the craniofacial phenotype popup page
+        phenocells[3].click() #clicks the first phenotype data cell to open up the craniofacial phenotype popup page
         self.driver.switch_to.window(self.driver.window_handles[1])#switches focus to the Phenotype popup page
         time.sleep(2)
         matching_text = "Human craniofacial abnormalities for GATA1/Gata1"
@@ -266,7 +266,7 @@ class TestHmdcIndex(unittest.TestCase):
         print(grid_tab.text)
         
         grid_tab.click()
-        phenocells[13].click() #clicks the phenotype data cell to open up the Phenotype popup page
+        phenocells[14].click() #clicks the phenotype data cell to open up the Phenotype popup page
         self.driver.switch_to.window(self.driver.window_handles[1])#switches focus to the genotype popup page
         time.sleep(2)
         matching_text = "Mouse liver/biliary system abnormalities for GATA1/Gata1"

@@ -71,7 +71,7 @@ class TestHmdcDiseaseTab(unittest.TestCase):
         @see HMDC-GQ-1 (gene symbol query); HMDC-disease-9 (return diseases for a gene search)
         '''
         print ("BEGIN test_diseases_tab_diseases")
-        my_select = self.driver.find_element_by_xpath(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()

@@ -42,7 +42,7 @@ class TestAlleleDetailQTL(unittest.TestCase):
         self.driver.find_element(By.ID, "phenotype").send_keys("Ccc1")
         self.driver.find_element(By.CLASS_NAME, "buttonLabel").click()
         self.driver.find_element(By.LINK_TEXT, 'Ccc1CC011/Unc').click()
-        refnote = self.driver.find_element(By.CLASS_NAME, 'qtlRefNoteSec').find_element_by_css_selector('h5')
+        refnote = self.driver.find_element(By.CLASS_NAME, 'qtlRefNoteSec').find_element(By.CSS_SELECTOR, 'h5')
         #This confirms there is a section called QTL Reference Notes, would not display if not note
         self.assertEqual(refnote.text, "QTL Reference Notes")
 

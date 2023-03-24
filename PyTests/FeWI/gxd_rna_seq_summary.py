@@ -44,9 +44,9 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         time.sleep(2)
         #identify the View experiment at cell of the first row of results returned
         result_set = self.driver.find_element(By.ID, "injectedResults").find_elements(By.CLASS_NAME, 'extUrl')
-        print(result_set[2].text)
+        print(result_set[3].text)
         time.sleep(2)
-        result_set[2].click()
+        result_set[3].click()
         time.sleep(2)
         #switch focus to the next tab
         self.driver.switch_to.window(self.driver.window_handles[-1])
@@ -54,12 +54,12 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         page_url = self.driver.current_url
         print(page_url)
         #Assert the URL is correct
-        self.assertEqual(page_url, "https://www.ebi.ac.uk/arrayexpress/experiments/E-ERAD-433/")
+        self.assertEqual(page_url, "https://www.ebi.ac.uk/biostudies/arrayexpress/studies/E-GEOD-868")
      
     def test_rnaseq_summary_exp_atlas_link(self):
         '''
         @status this test verifies the expression atlas link on the RNA-Seq summary results page is correct.
-        @see GXD-RNASeq-summary-6
+        @see GXD-RNASeq-summary-6 !!!this test is broken because it's finding the first exturl when it needs the second.
         '''
         print ("BEGIN test_rnaseq_summary_exp_atlas_link")
         #finds the strain field and enters text
@@ -69,9 +69,10 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         time.sleep(2)
         #identify the View experiment at cell of the first row of results returned
         result_set = self.driver.find_element(By.ID, "injectedResults").find_elements(By.CLASS_NAME, 'extUrl')
-        print(result_set[0].text)
+        print(result_set[5].text)
+        #print(view3.text)
         time.sleep(2)
-        result_set[0].click()
+        result_set[5].click()
         time.sleep(2)
         #switch focus to the next tab
         self.driver.switch_to.window(self.driver.window_handles[-1])
@@ -79,8 +80,8 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         page_url = self.driver.current_url
         print(page_url)
         #Assert the URL is correct
-        self.assertEqual(page_url, "https://www.ebi.ac.uk/gxa/experiments/E-ERAD-169/Results")
-
+        self.assertEqual(page_url, "https://www.ebi.ac.uk/gxa/experiments/E-GEOD-1294/Results")
+        
     def test_rnaseq_summary_geo_link(self):
         '''
         @status this test verifies the geo link on the RNA-Seq summary results page is correct.
@@ -104,12 +105,12 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         page_url = self.driver.current_url
         print(page_url)
         #Assert the URL is correct
-        self.assertEqual(page_url, "https://www.ebi.ac.uk/arrayexpress/experiments/E-GEOD-868/")
+        self.assertEqual(page_url, "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE868")
                     
     def test_rnaseq_summary_single_var_filter(self):
         '''
         @status this test verifies the filtering by a single variable on the RNA-Seq summary results page.
-        @see GXD-RNASeq-summary-8 !!!broken, will not click variable filter!!!
+        @see GXD-RNASeq-summary-8
         '''
         print ("BEGIN test_rnaseq_summary_single_var_filter")
         Select(self.driver.find_element(By.ID, 'age')).deselect_by_value('ANY')#deselect the default option
@@ -155,24 +156,22 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         self.driver.find_element(By.ID, 'yui-gen0-button').click()
         time.sleep(2)
         #identify the Experimental variables cell of row2 of the results returned
-        result_set0 = self.driver.find_element(By.ID, "variableData1").find_element(By.CLASS_NAME, 'variables')
-        print(result_set0.text)
-        #print result_set[1].text
+        result_set1 = self.driver.find_element(By.ID, "variableData1").find_element(By.CLASS_NAME, 'variables')
+        print(result_set1.text)   
         time.sleep(2)
         #Assert the result has an Experimental variables of 'developmental stage and genotype'
-        self.assertEqual(result_set0.text, "developmental stage\ngenotype")        
-        #identify the Experimental variable cell of row3 of the results returned
-        result_set1 = self.driver.find_element(By.ID, "variableData3").find_element(By.CLASS_NAME, 'variables')
-        print(result_set1.text)
-        #print result_set[1].text
+        self.assertEqual(result_set1.text, "developmental stage\ngenotype")        
+        #identify the Experimental variable cell of row9 of the results returned
+        result_set8 = self.driver.find_element(By.ID, "variableData8").find_element(By.CLASS_NAME, 'variables')
+        print(result_set8.text)
         time.sleep(2)
         #Assert the result has an Experimental variable of 'anatomical structure, developmental stage, genotype, single cell variation'
-        self.assertEqual(result_set1.text, "anatomical structure\ndevelopmental stage\ngenotype\nsingle cell variation")        
+        self.assertEqual(result_set8.text, "anatomical structure\ndevelopmental stage\ngenotype\nsingle cell variation")        
         
     def test_rnaseq_summary_study_filter(self):
         '''
         @status this test verifies the filtering by a single study type on the RNA-Seq summary results page.
-        @see GXD-RNASeq-summary-10 !!!broken, will not click study filter!!!
+        @see GXD-RNASeq-summary-10 
         '''
         print ("BEGIN test_rnaseq_summary_study_filter")
         Select(self.driver.find_element(By.ID, 'age')).deselect_by_value('ANY')#deselect the default option
@@ -212,17 +211,18 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         print(result_set.text)
         time.sleep(2)
         #Assert the sort order is correct
-        self.assertEqual(result_set.text, "GXD: E-ERAD-169\nExpression Atlas: E-ERAD-169\nArrayExpress: E-ERAD-169")
+        self.assertEqual(result_set.text, "GEO: GSE30")
 
     def test_rnaseq_summary_gxd_link(self):
         '''
         @status this test verifies the gxd link on the RNA-Seq summary results page is correct.
         @see GXD-RNASeq-summary-14 
-        @note: this test will fail unless ran against Test due to assert asked for.
         '''
         print ("BEGIN test_rnaseq_summary_gxd_link")
         #finds the strain field and enters text
         self.driver.find_element(By.ID, 'strainNameAC').send_keys('C57BL/6J')
+        #find the ArrayExpress or GEO ID field and enters text
+        self.driver.find_element(By.ID, 'arrayExpressID').send_keys('E-ERAD-169')
         #find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
@@ -237,7 +237,7 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         page_url = self.driver.current_url
         print(page_url)
         #Assert the URL is correct
-        self.assertEqual(page_url, "https://mgitest.jax.org/gxd/experiment/E-ERAD-169")
+        self.assertEqual(page_url, "http://scrum.informatics.jax.org/gxd/experiment/E-ERAD-169")
 
   
     def tearDown(self):

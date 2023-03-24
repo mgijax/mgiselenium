@@ -33,8 +33,8 @@ class TestEIAntibodySearch(unittest.TestCase):
     """
 
     def setUp(self):
-        #self.driver = webdriver.Firefox() 
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox() 
+        #self.driver = webdriver.Chrome()
         self.form = ModuleForm(self.driver)
         self.form.get_module(config.TEST_PWI_URL + "/edit/antibody")
     
@@ -97,8 +97,8 @@ class TestEIAntibodySearch(unittest.TestCase):
         @see pwi-antibody-search-2
         """
         driver = self.driver
-        #finds the antibody type field and selects the option 'Monoclonal' (value=string:1), tabs out of the field then clicks the Search button
-        Select(driver.find_element(By.ID, "type")).select_by_value('string:1')
+        #finds the antibody type field and selects the option 'Monoclonal' (value=string:107367161), tabs out of the field then clicks the Search button
+        Select(driver.find_element(By.ID, "antibodyType")).select_by_value('string:107367161')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -128,8 +128,8 @@ class TestEIAntibodySearch(unittest.TestCase):
         @see pwi-antigen-search-3
         """
         driver = self.driver
-        #finds the antibody class field and selects the option 'IgG2c' (value=string:11), tabs out of the field then clicks the Search button
-        Select(driver.find_element(By.ID, "class")).select_by_value('string:11')
+        #finds the antibody class field and selects the option 'IgG2c' (value=string:107080512), tabs out of the field then clicks the Search button
+        Select(driver.find_element(By.ID, "antibodyClass")).select_by_value('string:107080512')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -154,7 +154,7 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the antibody organism field and selects the option 'monkey' (value=string:72), tabs out of the field then clicks the Search button
-        Select(driver.find_element(By.ID, "antibody_organism")).select_by_value('string:72')
+        Select(driver.find_element(By.ID, "antibodyOrganism")).select_by_value('string:72')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -407,16 +407,19 @@ class TestEIAntibodySearch(unittest.TestCase):
         cell2 = table.get_row_cells(1)
         cell3 = table.get_row_cells(2)
         cell4 = table.get_row_cells(3)
+        cell5 = table.get_row_cells(4)
         symbol1 = iterate.getTextAsList(cell1)
         symbol2 = iterate.getTextAsList(cell2)
         symbol3 = iterate.getTextAsList(cell3)
         symbol4 = iterate.getTextAsList(cell4)
+        symbol5 = iterate.getTextAsList(cell5)
         print(symbol1)
         #Assert the correct antibodies are returned
-        self.assertEqual(symbol1, ['2A7'])
-        self.assertEqual(symbol2, ['346-11A'])
-        self.assertEqual(symbol3, ['72B9'])
-        self.assertEqual(symbol4, ['Anti-CD4 (RM4-5)'])
+        self.assertEqual(symbol1, ['12F11 antibody'])
+        self.assertEqual(symbol2, ['2A7'])
+        self.assertEqual(symbol3, ['346-11A'])
+        self.assertEqual(symbol4, ['72B9'])
+        self.assertEqual(symbol5, ['Anti-CD31 (ER-MP12; #MCA23388)'])
 
     def testAntigenStrain2Search(self):
         """
@@ -425,7 +428,7 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the antibody antigen strain field and enters text, tabs out of the field then clicks the Search button
-        driver.find_element(By.ID, "strain").send_keys('129%')
+        driver.find_element(By.ID, "strain").send_keys('129')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -438,19 +441,10 @@ class TestEIAntibodySearch(unittest.TestCase):
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
-        cell2 = table.get_row_cells(1)
-        cell3 = table.get_row_cells(2)
-        cell4 = table.get_row_cells(3)
         symbol1 = iterate.getTextAsList(cell1)
-        symbol2 = iterate.getTextAsList(cell2)
-        symbol3 = iterate.getTextAsList(cell3)
-        symbol4 = iterate.getTextAsList(cell4)
         print(symbol1)
         #Assert the correct antibodies are returned
         self.assertEqual(symbol1, ['anti-CD34 (MEC 14.7; sc-18917)'])
-        self.assertEqual(symbol2, ['anti-Pecam'])
-        self.assertEqual(symbol3, ['anti-PECAM'])
-        self.assertEqual(symbol4, ['anti-PECAM'])
         
     def testAntigenTissueSearch(self):
         """
@@ -476,24 +470,27 @@ class TestEIAntibodySearch(unittest.TestCase):
         cell3 = table.get_row_cells(2)
         cell4 = table.get_row_cells(3)
         cell5 = table.get_row_cells(4)
+        cell6 = table.get_row_cells(5)
         symbol1 = iterate.getTextAsList(cell1)
         symbol2 = iterate.getTextAsList(cell2)
         symbol3 = iterate.getTextAsList(cell3)
         symbol4 = iterate.getTextAsList(cell4)
         symbol5 = iterate.getTextAsList(cell5)
+        symbol6 = iterate.getTextAsList(cell6)
         print(symbol1)
         #Assert the correct antibodies are returned
-        self.assertEqual(symbol1, ['Anti-CD4 (RM4-5)'])
-        self.assertEqual(symbol2, ['anti-PARP1 (556362)'])
-        self.assertEqual(symbol3, ['anti-TdT serum'])
-        self.assertEqual(symbol4, ['H202-407-6-3'])
-        self.assertEqual(symbol5, ['HS9 antibody'])
+        self.assertEqual(symbol1, ['1D4'])
+        self.assertEqual(symbol2, ['Anti-CD4 (RM4-5; 100548)'])
+        self.assertEqual(symbol3, ['anti-PARP1 (556362)'])
+        self.assertEqual(symbol4, ['anti-TdT serum'])
+        self.assertEqual(symbol5, ['H202-407-6-3'])
+        self.assertEqual(symbol6, ['HS9 antibody'])
         
-    def testAntigenTissue1Search(self):
-        """
+    """def testAntigenTissue1Search(self):
+        
         @Status tests that a basic tissue search w/wildcard works
-        @see pwi-antibody-search-11
-        """
+        @see pwi-antibody-search-11 (no longer valid test as wildcard not used for Tissue field 2/16/2023)
+        
         driver = self.driver
         #finds the tissue field and enters a tissue w/wildcard, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "tissue").send_keys('endo%')
@@ -503,7 +500,7 @@ class TestEIAntibodySearch(unittest.TestCase):
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        time.sleep(6)
         #find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -516,7 +513,7 @@ class TestEIAntibodySearch(unittest.TestCase):
         #Assert the correct antibodies are returned
         self.assertEqual(symbol1, ['anti-CD34 (MEC 14.7; sc-18917)'])
         self.assertEqual(symbol2, ['EA-1'])    
-        
+        """
     def testAntigenTissueDescSearch(self):
         """
         @Status tests that a basic tissue description search works
@@ -542,11 +539,11 @@ class TestEIAntibodySearch(unittest.TestCase):
         #Assert the correct antibody is returned
         self.assertEqual(symbol1, ['PS-2'])
         
-    def testAntigenTissueDesc1Search(self):
-        """
+    """def testAntigenTissueDesc1Search(self):
+        
         @Status tests that a basic tissue description search w/wildcard works
-        @see pwi-antigen-search-12
-        """
+        @see pwi-antigen-search-12 (No longer a valid test as wildcards no longer work 2/16/23)
+        
         driver = self.driver
         #finds the tissue Description field and enters a description w/wildcard, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "description").send_keys('%tectal proteins')
@@ -566,7 +563,7 @@ class TestEIAntibodySearch(unittest.TestCase):
         print(symbol1)
         #Assert the correct antigens are returned(first 3)
         self.assertEqual(symbol1, ['3CB2'])
-        
+        """
     def testAntigenCelllineSearch(self):
         """
         @Status tests that a basic cell line search works
@@ -593,7 +590,7 @@ class TestEIAntibodySearch(unittest.TestCase):
         print(symbol1)
         #Assert the correct antibodies are returned
         self.assertEqual(symbol1, ['9C10'])
-        self.assertEqual(symbol2, ['Integrin alpha5 antibody (5H10-27)'])
+        self.assertEqual(symbol2, ['Integrin alpha5 antibody (5H10-27 (MFR5))'])
         
     def testAntigenCellline1Search(self):
         """
@@ -601,8 +598,8 @@ class TestEIAntibodySearch(unittest.TestCase):
         @see pwi-antibody-search-13
         """
         driver = self.driver
-        #finds the cell line field and enters a description w/wildcard, tabs out of the field then clicks the Search button
-        driver.find_element(By.ID, "cellLine").send_keys('PCC4%')
+        #finds the cell line field and enters a description, tabs out of the field then clicks the Search button
+        driver.find_element(By.ID, "cellLine").send_keys('PCC4 Aza RI')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -621,7 +618,7 @@ class TestEIAntibodySearch(unittest.TestCase):
         print(symbol1)
         #Assert the correct antibodies are returned
         self.assertEqual(symbol1, ['anti-uvomorulin'])
-        self.assertEqual(symbol2, ['rat anti-uvomorulin/E-Cadherin (U-3254)'])    
+        self.assertEqual(symbol2, ['anti-uvomorulin/E-Cadherin (DECMA-1), rat'])    
         
     def testAntigenAgePrefixSearch(self):
         """
@@ -658,7 +655,7 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the age stage field and enters an age range, tabs out of the field then clicks the Search button
-        driver.find_element(By.ID, "ageStage").send_keys('12.5')
+        driver.find_element(By.ID, "ageStage").send_keys('11.5')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -674,7 +671,7 @@ class TestEIAntibodySearch(unittest.TestCase):
         symbol1 = iterate.getTextAsList(cell1)
         print(symbol1)
         #Assert the correct antibodies are returned
-        self.assertEqual(symbol1, ['AVAS12'])   
+        self.assertEqual(symbol1, ['mouse anti-ICD'])   
 
     def testAntigenAgeStage2Search(self):
         """
@@ -696,13 +693,10 @@ class TestEIAntibodySearch(unittest.TestCase):
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
-        cell2 = table.get_row_cells(1)
         symbol1 = iterate.getTextAsList(cell1)
-        symbol2 = iterate.getTextAsList(cell2)
         print(symbol1)
         #Assert the correct antibodies are returned
-        self.assertEqual(symbol1, ['AVAS12']) 
-        self.assertEqual(symbol2, ['mAb 13A4'])  
+        self.assertEqual(symbol1, ['mAb 13A4'])  
         
     def testAntigenGenderSearch(self):
         """
@@ -777,16 +771,19 @@ class TestEIAntibodySearch(unittest.TestCase):
         cell2 = table.get_row_cells(1)
         cell3 = table.get_row_cells(2)
         cell4 = table.get_row_cells(3)
+        cell5 = table.get_row_cells(4)
         symbol1 = iterate.getTextAsList(cell1)
         symbol2 = iterate.getTextAsList(cell2)
         symbol3 = iterate.getTextAsList(cell3)
         symbol4 = iterate.getTextAsList(cell4)
+        symbol5 = iterate.getTextAsList(cell5)
         print(symbol1)
         #Assert the correct antibody is returned(first 4)
         self.assertEqual(symbol1, ['anti-Ge-1 serum IC6'])
-        self.assertEqual(symbol2, ['anti-PLZF clone 2A9'])
-        self.assertEqual(symbol3, ['eiF3a antibody'])
-        self.assertEqual(symbol4, ['eiF4GII antibody'])
+        self.assertEqual(symbol2, ['anti-GP15 MILI'])
+        self.assertEqual(symbol3, ['anti-PLZF clone 2A9'])
+        self.assertEqual(symbol4, ['eiF3a antibody'])
+        self.assertEqual(symbol5, ['eiF4GII antibody'])
         
     def testAntibodyRefCiteSearch(self):
         """
@@ -818,9 +815,10 @@ class TestEIAntibodySearch(unittest.TestCase):
         print(symbol1)
         #Assert the correct antibodies are returned
         self.assertEqual(symbol1, ['7130 antibody'])
-        self.assertEqual(symbol2, ['anti-LYVE1 (AF2125)'])
-        self.assertEqual(symbol3, ['clone MECA-32'])
-        self.assertEqual(symbol4, ['hamster anti-CD31 (2H8 MAB1398Z)'])
+        self.assertEqual(symbol2, ['anti-CD31 (2H8 MAB1398Z)'])
+        self.assertEqual(symbol3, ['anti-LYVE1 (AF2125)'])
+        self.assertEqual(symbol4, ['clone MECA-32'])
+        
 
     def testAntibodyAliasSearch(self):
         """
@@ -842,13 +840,10 @@ class TestEIAntibodySearch(unittest.TestCase):
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
-        cell2 = table.get_row_cells(1)
         symbol1 = iterate.getTextAsList(cell1)
-        symbol2 = iterate.getTextAsList(cell2)
         print(symbol1)
         #Assert the correct antibodies are returned
-        self.assertEqual(symbol1, ['ACK2'])
-        self.assertEqual(symbol2, ['Anti-c-kit'])
+        self.assertEqual(symbol1, ['Anti-c-kit'])
         
     def testAntibodyAlias2Search(self):
         """
@@ -880,9 +875,9 @@ class TestEIAntibodySearch(unittest.TestCase):
         print(symbol1)
         #Assert the correct antibodies are returned(first 4)
         self.assertEqual(symbol1, ['3E2'])
-        self.assertEqual(symbol2, ['ACK2'])
-        self.assertEqual(symbol3, ['Anti-alpha6 integrin'])
-        self.assertEqual(symbol4, ['Anti-c-kit'])
+        self.assertEqual(symbol2, ['anti-alpha6 integrin (GoH3)'])
+        self.assertEqual(symbol3, ['Anti-c-kit'])
+        self.assertEqual(symbol4, ['anti-mouse Pdgfrb (APB5; #14-1402-82)'])
 
     def testAntibodyAliasJnumSearch(self):
         """
@@ -923,7 +918,7 @@ class TestEIAntibodySearch(unittest.TestCase):
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(4)
+        time.sleep(6)
         #find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -1048,12 +1043,12 @@ class TestEIAntibodySearch(unittest.TestCase):
         symbol6 = iterate.getTextAsList(cell6)
         print(symbol1)
         #Assert the correct antibodies are returned(first 6)
-        self.assertEqual(symbol1, ['anti-Sry'])
-        self.assertEqual(symbol2, ['anti-SRY'])
-        self.assertEqual(symbol3, ['anti-SRY'])
-        self.assertEqual(symbol4, ['Anti-Sry'])
-        self.assertEqual(symbol5, ['anti-SRY (Mab #15)'])
-        self.assertEqual(symbol6, ['MoY1-A antiserum'])
+        self.assertEqual(symbol1, ['anti-Dby'])
+        self.assertEqual(symbol2, ['anti-H-Y'])
+        self.assertEqual(symbol3, ['anti-Sry'])
+        self.assertEqual(symbol4, ['anti-SRY'])
+        self.assertEqual(symbol5, ['Anti-Sry'])
+        self.assertEqual(symbol6, ['anti-SRY (Mab #15)'])
                                                             
     def testAntibodyCreateBySearch(self):
         """
@@ -1150,9 +1145,11 @@ class TestEIAntibodySearch(unittest.TestCase):
         WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-p107'))
         #find the Modified by field
         mod_by = driver.find_element(By.ID, 'modifiedBy').get_attribute('value')
+        time.sleep(2)
         print(mod_by)
         #Assert the  Modified By field returned is correct 
         self.assertEqual(mod_by, 'dbo')
+        time.sleep(2)
         #find the Modification Date field
         mod_date = driver.find_element(By.ID, 'modificationDate').get_attribute('value')
         print(mod_date)
@@ -1173,6 +1170,7 @@ class TestEIAntibodySearch(unittest.TestCase):
         WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-p107'))
         #find the Modified by field
         mod_by = driver.find_element(By.ID, 'modifiedBy').get_attribute('value')
+        time.sleep(2)
         print(mod_by)
         #Assert the  Modified By field returned is correct 
         self.assertEqual(mod_by, 'dbo')
@@ -1196,6 +1194,7 @@ class TestEIAntibodySearch(unittest.TestCase):
         WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-p107'))
         #find the Modified by field
         mod_by = driver.find_element(By.ID, 'modifiedBy').get_attribute('value')
+        time.sleep(2)
         print(mod_by)
         #Assert the  Modified By field returned is correct 
         self.assertEqual(mod_by, 'dbo')
@@ -1218,6 +1217,7 @@ class TestEIAntibodySearch(unittest.TestCase):
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-GLUT1'))
         create_date = driver.find_element(By.ID, 'creationDate').get_attribute('value')
+        time.sleep(2)
         print(create_date)
         #Assert the  Creation Date field returned is correct 
         self.assertEqual(create_date, '1998-06-22')

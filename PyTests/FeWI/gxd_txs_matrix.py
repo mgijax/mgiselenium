@@ -121,7 +121,7 @@ class TestGXDTissueStageMatrix(unittest.TestCase):
         imagetab.click()
         #wait.forAjax(driver)
         time.sleep(1)
-        typelist = driver.find_element(By.ID, "imagesdata").find_elements_by_css_selector('td.yui-dt-col-hybridization')
+        typelist = driver.find_element(By.ID, "imagesdata").find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-hybridization')
         items = typelist[0].find_elements(By.TAG_NAME, "li")
         searchTextItems = iterate.getTextAsList(items)
         time.sleep(1)
@@ -162,7 +162,7 @@ class TestGXDTissueStageMatrix(unittest.TestCase):
         time.sleep(2)
         items = genelist[0].find_elements(By.TAG_NAME, "li")
         searchTextItems = iterate.getTextAsList(items)
-        self.assertEqual(searchTextItems, ["Arx", "Olig2", "Shh"])
+        self.assertEqual(searchTextItems, ["Ano1", "Cftr", "Shh"])
         
     def test_assaytype_column_sort(self):
         """

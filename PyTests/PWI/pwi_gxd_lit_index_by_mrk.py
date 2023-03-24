@@ -31,18 +31,21 @@ class TestPwiGxdLitIndexByMrk(unittest.TestCase):
         """
         driver = self.driver
         #opens the PWI marker form
-        driver.get(TEST_PWI_URL + '/#markerForm')
-        
-        nomenbox = driver.find_element(By.ID, 'nomen')
+        driver.get(TEST_PWI_URL + '/edit/marker')
+        time.sleep(2)
+        #locaste the symbol field
+        symbolbox = driver.find_element(By.ID, 'markerSymbol')
         # put your marker symbol in the box
-        nomenbox.send_keys("gata1")
-        nomenbox.send_keys(Keys.RETURN)
+        symbolbox.send_keys("gata1")
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(3)
-        #finds the marker link and clicks it
-        driver.find_element(By.LINK_TEXT, "Gata1").click()
-        wait.forAjax(driver)
+        #finds the marker detail link and clicks it
+        driver.find_element(By.ID, "mrkDetailButton").click()
+        #switch focus to the marker detail tab
+        self.driver.switch_to.window(self.driver.window_handles[-1])
+        time.sleep(2)
         driver.find_element(By.LINK_TEXT, "Lit Index").click()
-        wait.forAjax(driver)
+        time.sleep(4)
         #Locates the summary table and finds the table headings
         headerlist = driver.find_element(By.ID, 'indexRefsTable')
         items = headerlist.find_elements(By.TAG_NAME, "th")
@@ -58,18 +61,21 @@ class TestPwiGxdLitIndexByMrk(unittest.TestCase):
         """
         driver = self.driver
         #opens the PWI marker form
-        driver.get(TEST_PWI_URL + '/#markerForm')
-        
-        nomenbox = driver.find_element(By.ID, 'nomen')
+        driver.get(TEST_PWI_URL + '/edit/marker')
+        time.sleep(2)
+        # locate the symbol field
+        symbolbox = driver.find_element(By.ID, 'markerSymbol')
         # put your marker symbol in the box
-        nomenbox.send_keys("gata1")
-        nomenbox.send_keys(Keys.RETURN)
+        symbolbox.send_keys("gata1")
+        driver.find_element(By.ID, 'searchButton').click()
         time.sleep(3)
-        #finds the marker link and clicks it
-        driver.find_element(By.LINK_TEXT, "Gata1").click()
-        wait.forAjax(driver)
+        #finds the marker detail link and clicks it
+        driver.find_element(By.ID, "mrkDetailButton").click()
+        #switch focus to the marker detail tab
+        self.driver.switch_to.window(self.driver.window_handles[-1])
+        time.sleep(3)
         driver.find_element(By.LINK_TEXT, "Lit Index").click()
-        wait.forAjax(driver)
+        time.sleep(4)
         #finds the coded column and then the first 10 items
         refindextable = driver.find_element(By.ID, "indexRefsTable")
         coded = refindextable.find_elements(By.CSS_SELECTOR, 'td:nth-child(1)')
@@ -87,7 +93,7 @@ class TestPwiGxdLitIndexByMrk(unittest.TestCase):
         self.assertEqual(code1.text, "*")
         self.assertEqual(code2.text, "")
         self.assertEqual(code3.text, "")
-        self.assertEqual(code4.text, "")
+        self.assertEqual(code4.text, "*")
         self.assertEqual(code5.text, "")
         self.assertEqual(code6.text, "")
         self.assertEqual(code7.text, "")
@@ -115,7 +121,7 @@ class TestPwiGxdLitIndexByMrk(unittest.TestCase):
         self.assertEqual(pri5.text, "High")
         self.assertEqual(pri6.text, "Medium")
         self.assertEqual(pri7.text, "Medium")
-        self.assertEqual(pri8.text, "Low")
+        self.assertEqual(pri8.text, "Medium")
         self.assertEqual(pri9.text, "Medium")
         self.assertEqual(pri10.text, "High")
         
@@ -134,7 +140,7 @@ class TestPwiGxdLitIndexByMrk(unittest.TestCase):
         con10 = cond[9]
         #asserts the first 10 conditional labels are correct and in correct order
         self.assertEqual(con1.text, "Not Specified")
-        self.assertEqual(con2.text, "Not Specified")
+        self.assertEqual(con2.text, "Not Applicable")
         self.assertEqual(con3.text, "Conditional")
         self.assertEqual(con4.text, "Not Applicable")
         self.assertEqual(con5.text, "Conditional")

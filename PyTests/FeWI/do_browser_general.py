@@ -41,9 +41,13 @@ class TestDoBrowserGeneral(unittest.TestCase):
         # put your Gene ID in the quick search box
         searchbox.send_keys("DOID:14330")
         searchbox.send_keys(Keys.RETURN)
-        
+        time.sleep(2)
+        #find the Vocabulary Term tab and click it
+        self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, "Parkinson's disease").click()
-        
+        #switch to the new window
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        time.sleep(2)
         header = self.driver.find_element(By.ID, 'diseaseNameID')#identifies the header section of the DO Browser page
         print(header.text)
         
@@ -66,15 +70,21 @@ class TestDoBrowserGeneral(unittest.TestCase):
     def test_dobrowser_altIDs_links(self):
         '''
         @status this test verifies the alt IDs for OMIM, EFO, KEGG, MESH and ORDO are correct.
+        @bug: broken needs to be looked at!!!!!
         '''
         print ("BEGIN test_dobrowser_altIDs_links")
         searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene ID in the quick search box
         searchbox.send_keys("DOID:14330")
         searchbox.send_keys(Keys.RETURN)
-        
+        time.sleep(2)
+        #find the Vocabulary Term tab and click it
+        #self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, "Parkinson's disease").click()
-        wait.forAjax(self.driver)
+        #wait.forAjax(self.driver)
+        #switch to the new window
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        time.sleep(2)
         header = self.driver.find_element(By.ID, 'diseaseNameID')#identifies the header section of the DO Browser page
         print(header.text)
         
@@ -131,9 +141,13 @@ class TestDoBrowserGeneral(unittest.TestCase):
         # put your Gene ID in the quick search box
         searchbox.send_keys("DOID:1700")
         searchbox.send_keys(Keys.RETURN)
-        time.sleep(3)
+        time.sleep(2)
+        #find the Vocabulary Term tab and click it
+        self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'X-linked ichthyosis').click()
-        wait.forAjax(self.driver)
+        #switch to the new window
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        time.sleep(2)
         syn = self.driver.find_element(By.ID, 'diseaseSynonym')#identifies the synonym line in the header section of the DO Browser page
         print(syn.text)
         time.sleep(1)
@@ -148,9 +162,13 @@ class TestDoBrowserGeneral(unittest.TestCase):
         # put your Gene ID in the quick search box
         searchbox.send_keys("DOID:1700")
         searchbox.send_keys(Keys.RETURN)
-        
+        time.sleep(2)
+        #find the Vocabulary Term tab and click it
+        self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'X-linked ichthyosis').click()
-        
+        #switch to the new window
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        time.sleep(2)
         alt_id = self.driver.find_element(By.ID, 'diseaseSecondaryIDs')#identifies the alternate IDs line of the header section of the DO Browser page
         print(alt_id.text)
         

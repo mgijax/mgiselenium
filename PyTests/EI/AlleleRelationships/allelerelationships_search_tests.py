@@ -126,10 +126,10 @@ class TestEIAlleleRelationshipsSearch(unittest.TestCase):
         #Assert the correct relationships are returned
         self.assertEqual(result1, ['Gpc5<C57BL/6J>'])
         self.assertEqual(result2, ['Gpc5<DBA/2J>'])
-        self.assertEqual(result3, ['Gpc5<Gt(IST13574F4)Tigm>'])
-        self.assertEqual(result4, ['Gpc5<tm1.1Mrl>'])
-        self.assertEqual(result5, ['Gpc5<tm1a(KOMP)Wtsi>'])
-        self.assertEqual(result6, ['Gpc5<tm1e(KOMP)Wtsi>'])
+        self.assertEqual(result3, ['Gpc5<em1Gpt>'])
+        self.assertEqual(result4, ['Gpc5<em1Smoc>'])
+        self.assertEqual(result5, ['Gpc5<Gt(IST13574F4)Tigm>'])
+        self.assertEqual(result6, ['Gpc5<tm1.1Mrl>'])
         
     def testEIAlleleRelationshipsMITypeSearch(self):
         """
@@ -269,7 +269,7 @@ class TestEIAlleleRelationshipsSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the mutated involves note field and enters text , tabs out of the field then clicks the Search button
-        driver.find_element(By.ID, "MInote-0").send_keys('Exon 2 was inverted.')
+        driver.find_element(By.ID, "MInote-0").send_keys('translocation or duplication of exon 1')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -285,7 +285,7 @@ class TestEIAlleleRelationshipsSearch(unittest.TestCase):
         result1 = iterate.getTextAsList(cell1)
         print(result1)
         #Assert the correct relationships are returned
-        self.assertEqual(result1, ['Ext1<tm1.2Vcs>'])
+        self.assertEqual(result1, ['Tg(SNCA*A53T)2Nbm'])
         
     def testEIAlleleRelationshipsECTypeSearch(self):
         """
@@ -316,7 +316,7 @@ class TestEIAlleleRelationshipsSearch(unittest.TestCase):
         #Assert the correct relationships are returned
         self.assertEqual(result1, ['2500002B13Rik<tm1(CAG-2500002B13Rik)Yo>'])
         self.assertEqual(result2, ['Actb<tm3.1(Sirt1)Npa>'])
-        self.assertEqual(result3, ['Ak7<Tg(tetO-Hmox1)67Sami>'])
+        self.assertEqual(result3, ['Actb<tm3(Kras*)Arge>'])
         
     def testEIAlleleRelationshipsECJnumSearch(self):
         """

@@ -37,8 +37,8 @@ class TestEiMrkSearchHistory(unittest.TestCase):
     """
 
     def setUp(self):
-        #self.driver = webdriver.Firefox() 
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox() 
+        #self.driver = webdriver.Chrome()
         self.form = ModuleForm(self.driver)
         self.form.get_module(config.TEST_PWI_URL + "/edit/marker")
     
@@ -75,10 +75,10 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         @see pwi-mrk-search-2
         """
         driver = self.driver
-        #finds the results table and iterates through the table
+        #finds the marker type field and select the option 'DNA Segment'
         Select(driver.find_element(By.ID, "markerType")).select_by_value('string:2')
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        time.sleep(5)
         #find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -1176,7 +1176,7 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         mod_date1 = driver.find_element(By.ID, 'refAssocModification_date-2').get_attribute('value')
         print(mod_date1)
         #Assert the  Modified By field returned is correct 
-        self.assertEqual(mod_date1, '2015-07-13')
+        self.assertEqual(mod_date1, '2015-07-13 11:35:39.64')
 
 
     def testMrkRefSortSearch(self):
@@ -1194,8 +1194,8 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         #waits until the Reference table is displayed on the page    
         time.sleep(5)
         #find the reference results table type column
-        ref_type1 = driver.find_elements(By.ID, 'refAssocType')[7].get_attribute('value')
-        ref_type2 = driver.find_elements(By.ID, 'refAssocType')[8].get_attribute('value')        
+        ref_type1 = driver.find_elements(By.ID, 'refAssocType')[10].get_attribute('value')
+        ref_type2 = driver.find_elements(By.ID, 'refAssocType')[11].get_attribute('value')        
         print(ref_type1)
         #Assert the  synonym types returned are in the correct order
         self.assertEqual(ref_type1, 'string:1018')#string:1028  equals reference type general

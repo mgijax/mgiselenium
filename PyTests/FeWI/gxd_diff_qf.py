@@ -11,9 +11,9 @@ from selenium import webdriver
 #from selenium.webdriver.firefox.service import Service
 #f=Service("C:\\Users\jeffc\AppData\Local\Programs\Python\Python38-32\Scripts\geckodriver.exe")
 #webdriver.Firefox(service=f)
-from selenium.webdriver.chrome.service import Service
-s=Service("C:\\Users\jeffc\AppData\Local\Programs\Python\Python38-32\Scripts\chromedriver.exe")
-webdriver.Chrome(service=s)
+#from selenium.webdriver.chrome.service import Service
+#s=Service("C:\\Users\jeffc\AppData\Local\Programs\Python\Python38-32\Scripts\chromedriver.exe")
+#webdriver.Chrome(service=s)
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -31,8 +31,8 @@ class TestGxdDifferentialQF(unittest.TestCase):
 
 
     def setUp(self):
-        self.driver = webdriver.Chrome(service=s)
-        #self.driver = webdriver.Firefox(service=f)
+        self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Chrome()
 
     def test_diff_wt_results(self):
         """
@@ -71,7 +71,7 @@ class TestGxdDifferentialQF(unittest.TestCase):
         items = genelist.find_elements(By.TAG_NAME, "text")
         searchTextItems = iterate.getTextAsList(items)
         #print searchTextItems
-        #self.assertIn('Adgrb2', searchTextItems)
+        self.assertIn('Adgrb2', searchTextItems)
         self.assertIn('Agtr2', searchTextItems)
         #self.assertIn('Cldn2', searchTextItems)
         #find the tissue grid box for bladder for marker Agtr2
@@ -99,16 +99,33 @@ class TestGxdDifferentialQF(unittest.TestCase):
         driver = self.driver
         driver.get(config.TEST_URL + '/gxd/differential')
         #self.driver.find_element(By.ID, 'difStructure3').clear()
-        pickitem = self.driver.find_element(By.ID, 'difStructure3').send_keys('pulmonary valve')
-        actions = ActionChains(driver)
-        actions.move_to_element(pickitem)
-        actions.click(pickitem)
+        anatStructure = driver.find_element(By.ID, 'difStructure3')
+        # Enter your anatomical structure in the box
+        anatStructure.send_keys("pul")
+        time.sleep(2)
+        selectstructure = driver.find_element(By.CSS_SELECTOR, '#difStructureContainer3 > div:nth-child(1) > div:nth-child(2) > ul:nth-child(1) > li:nth-child(5)').click()
+        print(selectstructure)
+        
+        #anatStructure.send_keys(Keys.TAB)
+        #pickitem = self.driver.find_element(By.ID, 'difStructure3').send_keys('pulmonary valve TS21-28')
+        #actions = ActionChains(driver)
+        #actions.move_to_element(pickitem).perform()
+        #actions.click(pickitem)
         time.sleep(2)
         #self.driver.find_element(By.ID, 'difStructure4').clear()
-        pickitem2 = self.driver.find_element(By.ID, 'difStructure4').send_keys('aortic valve')
-        actions = ActionChains(driver)
-        actions.move_to_element(pickitem2)
-        actions.click(pickitem2)
+        anatStructure2 = driver.find_element(By.ID, 'difStructure4')
+        # Enter your anatomical structure in the box
+        anatStructure2.send_keys("aorti")
+        time.sleep(2)
+        selectstructure2 = driver.find_element(By.CSS_SELECTOR, '#difStructureContainer4 > div:nth-child(1) > div:nth-child(2) > ul:nth-child(1) > li:nth-child(3)')
+        print(selectstructure2)
+        selectstructure2.click()
+        #anatStructure2.click()
+        #anatStructure2.send_keys(Keys.TAB)
+        #pickitem2 = self.driver.find_element(By.ID, 'difStructure4').send_keys('aortic valve TS21-28')
+        #actions = ActionChains(driver)
+        #actions.move_to_element(pickitem2).perform()
+        #actions.click(pickitem2)
         time.sleep(5)
         self.driver.find_element(By.ID, 'submit4').click()
         time.sleep(10)
@@ -131,7 +148,6 @@ class TestGxdDifferentialQF(unittest.TestCase):
         self.assertIn('Itga6', searchTextItems)
         self.assertIn('Mki67', searchTextItems)
         self.assertIn('Notch2', searchTextItems)
-        self.assertIn('Vcan', searchTextItems)
         #find the tissue grid box for bladder for marker Agtr2
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
         item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row0.col12 > rect.blue1')
@@ -147,25 +163,44 @@ class TestGxdDifferentialQF(unittest.TestCase):
         #Now assert that only this system is returned in the grid
         self.assertIn('pulmonary valve', searchTextItems)
 
-    def test_diff_parent(self):
+    def test_same_parent(self):
         """
         @status: Tests that query for detected in "A", Not detected in "B", where "A" is a parent of "B" in the same anatomical system
         @note: GXD-Diff-4(partial test)
         @attention: the time sleeps need to be replaced by expected conditions code
+        @attention: under construction!!!!!
         """
         driver = self.driver
         driver.get(config.TEST_URL + '/gxd/differential')
-        #self.driver.find_element(By.ID, 'difStructure3').clear()
-        pickitem = self.driver.find_element(By.ID, 'difStructure3').send_keys('pulmonary valve')
-        actions = ActionChains(driver)
-        actions.move_to_element(pickitem)
-        actions.click(pickitem)
+        anatStructure = driver.find_element(By.ID, 'difStructure3')
+        # Enter your anatomical structure in the box
+        anatStructure.send_keys("pul")
         time.sleep(2)
+        selectstructure = driver.find_element(By.CSS_SELECTOR, '#difStructureContainer3 > div:nth-child(1) > div:nth-child(2) > ul:nth-child(1) > li:nth-child(5)').click()
+        print(selectstructure)
+        
+        
+        #self.driver.find_element(By.ID, 'difStructure3').clear()
+        #pickitem = self.driver.find_element(By.ID, 'difStructure3').send_keys('pulmonary valve')
+        #actions = ActionChains(driver)
+        #actions.move_to_element(pickitem)
+        #actions.click(pickitem)
+        time.sleep(2)
+        #anatStructure2 = driver.find_element(By.ID, 'difStructure4')
+        # Enter your anatomical structure in the box
+        #anatStructure2.send_keys("pulmo")
+        #time.sleep(2)
+        #selectstructure2 = driver.find_element(By.CSS_SELECTOR, '#difStructureContainer4 > div:nth-child(1) > div:nth-child(2) > ul:nth-child(1) > li:nth-child(3)')
+        #print(selectstructure2)
+        #selectstructure2.click()
+        
+        
         #self.driver.find_element(By.ID, 'difStructure4').clear()
         pickitem2 = self.driver.find_element(By.ID, 'difStructure4').send_keys('pulmonary valve leaflet')
         actions = ActionChains(driver)
         actions.move_to_element(pickitem2)
         actions.click(pickitem2)
+        actions.perform()
         time.sleep(5)
         self.driver.find_element(By.ID, 'submit4').click()
         time.sleep(10)
@@ -220,11 +255,11 @@ class TestGxdDifferentialQF(unittest.TestCase):
         driver.get(config.TEST_URL + '/gxd/differential')
         #self.driver.find_element(By.ID, 'difStructure3').clear()
         pickitem = self.driver.find_element(By.ID, 'difStructure3').send_keys('liver TS16-28')
-        self.driver.pickitem.click()
-        #actions = ActionChains(driver)
-        #actions.move_to_element(pickitem)
-        #actions.click(pickitem)
-        #actions.perform()
+        #self.driver.pickitem.click()
+        actions = ActionChains(driver)
+        actions.move_to_element(pickitem)
+        actions.click(pickitem)
+        actions.perform()
         time.sleep(2)
         #self.driver.find_element(By.ID, 'difStructure4').clear()
         pickitem2 = self.driver.find_element(By.ID, 'difStructure4').send_keys('spleen')
@@ -263,7 +298,7 @@ class TestGxdDifferentialQF(unittest.TestCase):
         self.assertIn('spleen', searchTextItems)               
                 
     def tearDown(self):
-        self.driver.quit()
+        self.driver.close()
 
 def suite():
     suite = unittest.TestSuite()

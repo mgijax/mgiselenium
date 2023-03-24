@@ -48,7 +48,7 @@ class TestGxdRnaSeqSearching(unittest.TestCase):
     def test_rnaseq_theiler_search(self):
         '''
         @status this test verifies the searching by theiler stage on the rna seq query form works.
-        @see GXD-RNASeq-search-2, broken - keeps any developmental stage clicked even after selecting TS5!
+        @see GXD-RNASeq-search-2 
         '''
         print ("BEGIN test_rnaseq_theiler_search")
         self.driver.find_element(By.ID, 'stagesTab').click()#Clicks the "Use Thieler Stages" tab
@@ -60,10 +60,10 @@ class TestGxdRnaSeqSearching(unittest.TestCase):
         self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
         #identify the titles of the results returned
-        result_set = self.driver.find_element(By.ID, "injectedResults").find_elements_by_class_name('title')
+        result_set = self.driver.find_element(By.ID, "injectedResults").find_elements(By.CLASS_NAME, 'title')
         print(result_set[0].text)
         self.assertEqual(result_set[0].text, "Transcription profiling by high throughput sequencing of Oct4 null and wild type mouse embryos at three embryonic stages")
-        self.assertEqual(result_set[1].text, "Transcription profiling by array of individual inner cells during mouse blastocyst development")
+        self.assertEqual(result_set[1].text, "Transcriptome of mouse preimplantation development [Rlim KO]")
 
     def test_rnaseq_age_search(self):
         '''
@@ -80,7 +80,7 @@ class TestGxdRnaSeqSearching(unittest.TestCase):
         result_set = self.driver.find_element(By.ID, "injectedResults").find_elements(By.CLASS_NAME, 'title')
         print(result_set[0].text)
         self.assertEqual(result_set[0].text, "Transcription profiling of mouse preimplantation development")
-        self.assertEqual(result_set[1].text, "Transcription profiling of global gene expression changes during mouse preimplantation development: unfertilized eggs, fertilized egg, 2-cell embryos, 4-cell embryos, 8-cell embryos, morulae, blastocysts")
+        self.assertEqual(result_set[1].text, "Transcriptome of mouse preimplantation development [Xist KO]")
 
     def test_rnaseq_mutant_search(self):
         '''
@@ -116,10 +116,10 @@ class TestGxdRnaSeqSearching(unittest.TestCase):
         self.assertEqual(slist[10], "Hdac2tm1.1Eno/Hdac2tm1.1Eno\nHdac1tm1.1Eno/Hdac1tm1.1Eno\nTg(Zp3-cre)3Mrt/0")
         self.assertEqual(slist[11], "Hdac2tm1.1Eno/Hdac2tm1.1Eno\nHdac1tm1.1Eno/Hdac1tm1.1Eno\nTg(Zp3-cre)3Mrt/0")
         self.assertEqual(slist[12], "Hdac2tm1.1Eno/Hdac2tm1.1Eno\nHdac1tm1.1Eno/Hdac1tm1.1Eno\nTg(Zp3-cre)3Mrt/0")
-        self.assertEqual(slist[13], "Hdac2tm1.1Eno/Hdac2tm1.1Eno\nHdac1tm1.1Eno/Hdac1tm1.1Eno")
-        self.assertEqual(slist[14], "Hdac2tm1.1Eno/Hdac2tm1.1Eno\nHdac1tm1.1Eno/Hdac1tm1.1Eno")
-        self.assertEqual(slist[15], "Hdac2tm1.1Eno/Hdac2tm1.1Eno\nHdac1tm1.1Eno/Hdac1tm1.1Eno")
-        self.assertEqual(slist[16], "Hdac2tm1.1Eno/Hdac2tm1.1Eno\nHdac1tm1.1Eno/Hdac1tm1.1Eno")
+        self.assertEqual(slist[13], "Hdac1tm1.1Eno/Hdac1tm1.1Eno\nHdac2tm1.1Eno/Hdac2tm1.1Eno")
+        self.assertEqual(slist[14], "Hdac1tm1.1Eno/Hdac1tm1.1Eno\nHdac2tm1.1Eno/Hdac2tm1.1Eno")
+        self.assertEqual(slist[15], "Hdac1tm1.1Eno/Hdac1tm1.1Eno\nHdac2tm1.1Eno/Hdac2tm1.1Eno")
+        self.assertEqual(slist[16], "Hdac1tm1.1Eno/Hdac1tm1.1Eno\nHdac2tm1.1Eno/Hdac2tm1.1Eno")
 
     def test_rnaseq_mutant_search1(self):
         '''
@@ -146,11 +146,9 @@ class TestGxdRnaSeqSearching(unittest.TestCase):
         self.assertEqual(slist[1], "Hnf1atm1.1Ylee/Hnf1atm1.1Ylee")
         self.assertEqual(slist[2], "Hnf1atm1.1Ylee/Hnf1atm1.1Ylee")
         self.assertEqual(slist[3], "Hnf1atm1.1Ylee/Hnf1atm1.1Ylee")
-        self.assertEqual(slist[4], "Hnf1atm1.1Ylee/Hnf1atm1.1Ylee")
+        self.assertEqual(slist[4], "")
         self.assertEqual(slist[5], "")
         self.assertEqual(slist[6], "")
-        self.assertEqual(slist[7], "")
-        self.assertEqual(slist[8], "")
 
     def test_rnaseq_mutant_search2(self):
         '''
@@ -224,7 +222,7 @@ class TestGxdRnaSeqSearching(unittest.TestCase):
         #find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
-        self.driver.find_elements_by_link_text('View')[0].click()#clicks the first View link of the first sample result
+        self.driver.find_elements(By.LINK_TEXT, 'View')[0].click()#clicks the first View link of the first sample result
         time.sleep(2)
         #switch focus to the new tab for Sample Experiments page
         self.driver.switch_to.window(self.driver.window_handles[-1])

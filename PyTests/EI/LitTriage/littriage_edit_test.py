@@ -54,7 +54,7 @@ class TestEiLitTriageEdit(unittest.TestCase):
         @see LitTri-edit-1,2 (1) consider getting rid of this test, currently broken 11/18/2021
         """
         #enter text into the authors filed,click the alleles Not Routed box then search
-        self.driver.find_element(By.ID, 'authors').send_keys('Nakamura%')
+        self.driver.find_element(By.ID, 'authors').send_keys('Baran%')
         self.driver.find_element(By.ID, 'status_AP_Not_Routed').click()
         self.driver.find_element(By.ID, 'searchButton').click()
         #time.sleep(5)

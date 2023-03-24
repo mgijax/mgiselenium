@@ -145,7 +145,7 @@ class TestBatchQuery(unittest.TestCase):
         #print each row of data to the console
         print(row1_data.text)        
         #Assert each row of data is correct
-        self.assertEqual(row1_data.text, 'MGP_CBAJ_G0024006\nMouse Genome Project\nMGI:2447322\nPcdha9\nprotocadherin alpha 9\nprotein coding gene\n18\n+\n36997880\n37187657', 'Row1 data is not correct!')
+        self.assertEqual(row1_data.text, 'MGP_CBAJ_G0024006\nMouse Genome Project\nMGI:2447322\nPcdha9\nprotocadherin alpha 9\nprotein coding gene\n18\n+\n37130933\n37320710', 'Row1 data is not correct!')
        
     def test_bq_mgp_ids_has_no_b6coord(self):
         """

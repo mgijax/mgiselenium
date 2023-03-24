@@ -88,7 +88,7 @@ class TestHmdcSearchTerm(unittest.TestCase):
         grid_tab.click()
         
         #cells captures every field from Human Gene heading to the last disease angled, this test is only testing the disease.
-        cells = self.driver.find_elements_by_css_selector("div.ngc.cell-content.ngc-custom-html.ng-binding.ng-scope")
+        cells = self.driver.find_elements(By.CSS_SELECTOR, "div.ngc.cell-content.ngc-custom-html.ng-binding.ng-scope")
         #print iterate.getTextAsList(cells) #if you want to see what it captures uncomment this
         #displays each angled column of disease heading, note that there is 1 blank field between pheno headings and disease headings.
         disease1 = cells[22]
@@ -310,11 +310,12 @@ class TestHmdcSearchTerm(unittest.TestCase):
         wait.forAngular(self.driver)
         
         #identify the Disease tab and click it
-        disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
+        #disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
+        disease_tab = self.driver.find_element(By.CSS_SELECTOR, "li.uib-tab:nth-child(3) > a:nth-child(1)")
         time.sleep(2)
         disease_tab.click()
-        
-        disease_table = Table(self.driver.find_element(By.CSS_SELECTOR, "diseaseTable"))
+        time.sleep(2)
+        disease_table = Table(self.driver.find_element(By.ID, "diseaseTable"))
         
         cells = disease_table.get_column_cells("DO ID")
         ids = iterate.getTextAsList(cells)
@@ -563,7 +564,7 @@ class TestHmdcSearchTerm(unittest.TestCase):
         #Verify that the simple genotype is displayed in the genotype pop-up
         
         #phenocell captures all the table behavior/neurological cell on the first row of data
-        phenocell = self.driver.find_element(By.CSS_SELECTOR, "td.middle:nth-child(3) > div:nth-child(1) > div:nth-child(1)")
+        phenocell = self.driver.find_element(By.CSS_SELECTOR, "td.middle:nth-child(4) > div:nth-child(1) > div:nth-child(1)")
         phenocell.click() #clicks the cell for behavior/neurological (new data could break this)
         self.driver.switch_to.window(self.driver.window_handles[1])#switches focus to the genotype popup page
         time.sleep(2)

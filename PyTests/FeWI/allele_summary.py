@@ -64,7 +64,7 @@ class TestAlleleSummary(unittest.TestCase):
         self.driver.find_element(By.CLASS_NAME, "buttonLabel").click()
         self.driver.find_element(By.PARTIAL_LINK_TEXT, "tm2Jzh").click()
         assert "Pkd1<sup>tm2Jzh</sup>" in self.driver.page_source
-        assert 'id="nomenclatureHeader"' in self.driver.page_source
+        assert 'id="summaryHeader"' in self.driver.page_source
         assert 'id="originHeader"' in self.driver.page_source  
         self.highlight(self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle'))  
         
@@ -100,8 +100,8 @@ class TestAlleleSummary(unittest.TestCase):
         cells = data_table.find_elements(By.TAG_NAME, "td")
         searchTextItems = iterate.getTextAsList(cells)
         print(searchTextItems)
-        #this is the 41st cell which corresponds to the Human Disease model result for the seventh allele 
-        self.assertEqual(searchTextItems[41], 'brachydactyly type A1 (IDs)')
+        #this is the 167th cell which corresponds to the Human Disease model result for the seventh allele 
+        self.assertEqual(searchTextItems[167], 'brachydactyly type A1 (IDs)')
         
         
     def tearDown(self):

@@ -33,8 +33,8 @@ class TestEiGenotypeSearch(unittest.TestCase):
     """
 
     def setUp(self):
-        #self.driver = webdriver.Firefox() 
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox() 
+        #self.driver = webdriver.Chrome()
         self.form = ModuleForm(self.driver)
         self.form.get_module(config.TEST_PWI_URL + "/edit/genotype")
     
@@ -63,7 +63,7 @@ class TestEiGenotypeSearch(unittest.TestCase):
         headings = iterate.getTextAsList(header_cells)
         print(headings)
         #assert the headers are correct
-        self.assertEqual(headings, ['', '#', 'Chr', 'Marker', 'Allele 1', 'Allele 2', 'State', 'Compound', 'Mutant 1', 'Mutant 2'])
+        self.assertEqual(headings, ['', '#', 'Chr', 'Marker Acc ID', 'Marker', 'Allele 1', 'Allele 2', 'State', 'Compound', 'Mutant 1', 'Mutant 2'])
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'alleleDetailNote')))
         #find the search results table first row of data
@@ -95,7 +95,7 @@ class TestEiGenotypeSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Conditionally Targetted field and selects the Yes option, tabs out of the field then clicks the Search button
-        driver.find_element(By.ID, "isConditional").send_keys('Yes')
+        Select(self.driver.find_element(By.ID, 'isConditional')).select_by_value('string:1')#Yes option
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -138,7 +138,7 @@ class TestEiGenotypeSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Genotype Exists as field and then selects the right option, then clicks the Search button
-        driver.find_element(By.ID, "existsAs").send_keys('Chimeric')
+        Select(self.driver.find_element(By.ID, 'existsAs')).select_by_value('string:3982948')#Chimeric option
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -160,7 +160,7 @@ class TestEiGenotypeSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Genotype Exists as field and then selects the right option, then clicks the Search button
-        driver.find_element(By.ID, "existsAs").send_keys('Mouse Line')
+        Select(self.driver.find_element(By.ID, 'existsAs')).select_by_value('string:3982946')#Not Specified option
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -182,7 +182,7 @@ class TestEiGenotypeSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the Genotype Exists as field and then selects the right option, then clicks the Search button
-        driver.find_element(By.ID, "existsAs").send_keys('Not Specified')
+        Select(self.driver.find_element(By.ID, 'existsAs')).select_by_value('string:3982949')#Not Specified option
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -191,7 +191,7 @@ class TestEiGenotypeSearch(unittest.TestCase):
         driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'resultsTable')))
-        #find the search Genotype Exista as field and get it's value
+        #find the search Genotype Exists as field and get it's value
         exists0 = driver.find_element(By.ID, 'existsAs').get_property('value')
         print(exists0)    
         #we are asserting the Genotype Exists as field is correct, should be string:3982949 which is Not Specified
@@ -271,9 +271,9 @@ class TestEiGenotypeSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the State field and then selects the right option, then clicks the Search button
-        driver.find_element(By.ID, "pairState-0").send_keys('Homoplasmic')
+        Select(self.driver.find_element(By.ID, 'pairState-0')).select_by_value('string:7107400')#Homoplasmic option
         #You do not tab out of the State field or it will break the search because it tries to validate an empty marker field.
-        time.sleep(2)
+        time.sleep(6)
         driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'resultsTable')))
