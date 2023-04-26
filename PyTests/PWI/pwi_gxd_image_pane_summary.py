@@ -33,23 +33,25 @@ class TestPwiGxdImagePanePage(unittest.TestCase):
         """
         driver = self.driver
         driver.get(TEST_PWI_URL)
+        time.sleep(5)
         #find the Acc ID(s) / Gene Symbol box and enter text
         accbox = driver.find_element(By.NAME, 'ids')
         # put your J number in the box
         accbox.send_keys("J:83696")
         accbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Assays')))#waits until the Assays link is displayed on the page
-        time.sleep(3)
+        time.sleep(5)
         #finds the specimens link and clicks it
         driver.find_element(By.LINK_TEXT, "Exp Images").click()
-        wait.forAjax(driver)
+        #wait.forAjax(driver)
+        time.sleep(2)
         #Locates the summary table and finds the table headings
         headerlist = driver.find_element(By.ID, "paneSummaryTable")
         items = headerlist.find_elements(By.TAG_NAME, "th")
         searchTextItems = iterate.getTextAsList(items)
         wait.forAjax(driver)
         #verifies all the table headings are correct and in order
-        self.assertEqual(searchTextItems, ['Image', 'Figure', 'Pane', 'Specimen', 'Assay (Gene)', 'Assay Type'])
+        self.assertEqual(searchTextItems, ['Image', 'Figure', 'Pane', 'Specimen', 'Assay (Gene)', 'Assay Type', 'Specimen Note'])
         
     def test_page_sort(self):
         """
@@ -59,16 +61,18 @@ class TestPwiGxdImagePanePage(unittest.TestCase):
         """
         driver = self.driver
         driver.get(TEST_PWI_URL)
+        time.sleep(5)
         #find the Acc ID(s) / Gene Symbol box and enter text
         accbox = driver.find_element(By.NAME, 'ids')
         # put your J number in the box
         accbox.send_keys("J:213157")
         accbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Assays')))#waits until the Assays link is displayed on the page
-        time.sleep(3)
+        time.sleep(5)
         #finds the specimens link and clicks it
         driver.find_element(By.LINK_TEXT, "Exp Images").click()
-        wait.forAjax(driver)
+        #wait.forAjax(driver)
+        time.sleep(2)
         #Locates the images table and finds the table headings
         imagestable = driver.find_element(By.ID, "paneSummaryTable")
         rows = imagestable.find_elements(By.CSS_SELECTOR, 'tr')

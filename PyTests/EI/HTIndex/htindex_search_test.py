@@ -43,6 +43,8 @@ class TestEiHTindexSearch(unittest.TestCase):
         self.form = ModuleForm(self.driver)
         self.form.get_module(config.TEST_PWI_URL + "/edit/gxdHTEval")
     
+    def tearDown(self):
+        self.driver.close()
         
     def testArrayExpSearch(self):
         """

@@ -285,10 +285,9 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         driver = self.driver
         #finds the Marker Status field, selects the option Official and Chromosome 16, then clicks search
         Select(driver.find_element(By.ID, "markerStatus")).select_by_value('string:1')
-        driver.find_element(By.ID, 'chromosome').clear();
         driver.find_element(By.ID, 'chromosome').send_keys("16");
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        time.sleep(8)
         #find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)

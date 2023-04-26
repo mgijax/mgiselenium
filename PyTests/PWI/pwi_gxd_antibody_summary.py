@@ -22,8 +22,8 @@ from config import TEST_PWI_URL
 class TestPwiGxdAntibodySummaryPage(unittest.TestCase):
 
     def setUp(self):
-        #self.driver = webdriver.Chrome()
-        self.driver = webdriver.Firefox() 
+        self.driver = webdriver.Chrome()
+        #self.driver = webdriver.Firefox() 
 
     def test_table_headers(self):
         """
@@ -33,19 +33,23 @@ class TestPwiGxdAntibodySummaryPage(unittest.TestCase):
         driver = self.driver
         driver.get(TEST_PWI_URL)
         #opens the Marker detail page
+        time.sleep(3)
         accidbox = driver.find_element(By.ID, 'accessionForm').find_element(By.NAME, 'ids')
         # put your MGI ID number in the box
-        accidbox.send_keys("MGI:97281")
-        accidbox.send_keys(Keys.RETURN)
         time.sleep(3)
+        accidbox.send_keys("MGI:97281")
+        accidbox.send_keys(Keys.ENTER)
+        time.sleep(6)
         #finds the antibodies link and clicks it
         driver.find_element(By.LINK_TEXT, "Antibodies").click()
         wait.forAjax(driver)
+        time.sleep(3)
         #Locates the antibodies summary table and finds the table headings
         headerlist = driver.find_element(By.ID, "antibodySummary")
         items = headerlist.find_elements(By.TAG_NAME, "th")
         searchTextItems = iterate.getTextAsList(items)
         wait.forAjax(driver)
+        time.sleep(2)
         #verifies all the table headings are correct and in order
         self.assertEqual(searchTextItems, ['Antibody Fields','Antigen Fields','','MGI ID', 'Name','Alias(es)','Organism','Type','Class','Notes','MGI ID','Name','Organism','Region','Notes','Markers','Reference'])
         
@@ -57,14 +61,17 @@ class TestPwiGxdAntibodySummaryPage(unittest.TestCase):
         driver = self.driver
         driver.get(TEST_PWI_URL)
         #opens the Marker detail page
+        time.sleep(2)
         accidbox = driver.find_element(By.ID, 'accessionForm').find_element(By.NAME, 'ids')
         # put your MGI ID number in the box
+        time.sleep(2)
         accidbox.send_keys("MGI:97281")
-        accidbox.send_keys(Keys.RETURN)
-        time.sleep(3)
+        accidbox.send_keys(Keys.ENTER)
+        time.sleep(5)
         #finds the antibodies link and clicks it
         driver.find_element(By.LINK_TEXT, "Antibodies").click()
         wait.forAjax(driver)
+        time.sleep(2)
         #finds the antibody name column and then the first 12 items
         resultstable = driver.find_element(By.ID, "antibodySummary")
         rows = resultstable.find_elements(By.CSS_SELECTOR, 'tr')

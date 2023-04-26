@@ -293,8 +293,8 @@ class TestEIAlleleRelationshipsSearch(unittest.TestCase):
         @see pwi-allele-rel-search-8
         """
         driver = self.driver
-        #finds the Expresses component Relationship Type field and select option expresses_mouse_gene(string:12965808), tabs out of the field then clicks the Search button
-        Select(driver.find_element(By.ID, "ECrelationshipTerm-0")).select_by_value('string:12965808')
+        #finds the Expresses component Relationship Type field and select option mouse(string:1), tabs out of the field then clicks the Search button
+        Select(driver.find_element(By.ID, "ECorganism-0")).select_by_value('string:1')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -351,7 +351,7 @@ class TestEIAlleleRelationshipsSearch(unittest.TestCase):
         """
         driver = self.driver
         #finds the expresses component marker acc ID field and enters an MGI ID, tabs out of the field then clicks the Search button
-        driver.find_element(By.ID, "ECmarkerAccID-0").send_keys('MGI:104847')
+        driver.find_element(By.ID, "ECmarkerAccID-0").send_keys('MGI:96163')
         time.sleep(2)
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -367,7 +367,7 @@ class TestEIAlleleRelationshipsSearch(unittest.TestCase):
         result1 = iterate.getTextAsList(cell1)
         print(result1)
         #Assert the correct relationshipss are returned
-        self.assertEqual(result1, ['Adora3<tm1(ADORA3)Msth>'])
+        self.assertEqual(result1, ['Ak7<Tg(tetO-Hmox1)67Sami>'])
         
     def testEIAlleleRelationshipsECMrkSearch(self):
         """
@@ -424,12 +424,12 @@ class TestEIAlleleRelationshipsSearch(unittest.TestCase):
 
     def testEIAlleleRelationshipsOrganismSearch(self):
         """
-        @Status tests that a basic allele relationships Organism Pick List search  works 
+        @Status tests that a basic allele relationships Driver Component Organism Pick List search  works 
         @see pwi-allele-der-search-13
         """
         driver = self.driver
-        #finds the Organism pick list field and select  the option zebrafish , then click the Search button
-        Select(driver.find_element(By.ID, "organismLookup")).select_by_value('string:zebrafish')
+        #finds the Driver Component Organism pick list field and select  the option zebrafish('string:84') , then click the Search button
+        Select(driver.find_element(By.ID, "DCorganism")).select_by_value('string:84')
         time.sleep(2)        
         actions = ActionChains(driver) 
         actions.send_keys(Keys.TAB)
@@ -459,7 +459,7 @@ class TestEIAlleleRelationshipsSearch(unittest.TestCase):
     def testEIAlleleRelationshipsPropertySearch(self):
         """
         @Status tests that a basic allele relationships property search  works 
-        @see pwi-allele-der-search-14
+        @see pwi-allele-der-search-14!!!!! (this test is no longer valid. All tests need review to fix the changes made for this form)
         """
         driver = self.driver
         #finds the Property list field and select the option Non-mouse_organism , set value to zebrafish and then click the Search button

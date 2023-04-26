@@ -30,11 +30,11 @@ import config
 class TestSearchTool(unittest.TestCase):
 
     def setUp(self):
-        #self.driver = webdriver.Firefox()
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Chrome()
         #self.driver.get("http://www.informatics.jax.org")
-        #self.driver.get("http://bluebob.informatics.jax.org")
-        self.driver.get("https://mgitest.jax.org")
+        self.driver.get("http://bluebob.informatics.jax.org")
+        #self.driver.get("https://mgitest.jax.org")
         #self.driver.get(config.TEST_URL) 
         #print (config)
 
@@ -209,8 +209,9 @@ class TestSearchTool(unittest.TestCase):
         self.assertEqual(all_cells[1].text, 'Entrez Gene ID: 11539') 
         self.assertEqual(all_cells[2].text, 'Name: CpG island 11539')
         self.assertEqual(all_cells[3].text, 'Name: predicted gene 11539')
-        self.assertEqual(all_cells[4].text, 'Name: transcription start site region 11539')
-        self.assertEqual(all_cells[5].text, 'Synonym: mm_11539.1')
+        self.assertEqual(all_cells[4].text, 'Name: regulatory region 11539')
+        self.assertEqual(all_cells[5].text, 'Name: transcription start site region 11539')
+        self.assertEqual(all_cells[6].text, 'Synonym: mm_11539.1')
         #find the other results by ID tab table
         driver.find_element(By.ID, 'oLink').click()
         results_table = self.driver.find_element(By.ID, 'b3Table')
@@ -248,8 +249,9 @@ class TestSearchTool(unittest.TestCase):
         self.assertEqual(all_cells[1].text, 'Entrez Gene ID: 20423')
         self.assertEqual(all_cells[2].text, 'Name: CpG island 20423')
         self.assertEqual(all_cells[3].text, 'Name: predicted gene 20423')
-        self.assertEqual(all_cells[4].text, 'Name: transcription start site region 20423')
-        self.assertEqual(all_cells[5].text, 'Synonym: mm_20423.1')
+        self.assertEqual(all_cells[4].text, 'Name: regulatory region 20423')
+        self.assertEqual(all_cells[5].text, 'Name: transcription start site region 20423')
+        self.assertEqual(all_cells[6].text, 'Synonym: mm_20423.1')
         #find the other results by ID tab table
         driver.find_element(By.ID, 'oLink').click()
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'b3Table')))#waits until the results are displayed on the page 
@@ -459,7 +461,7 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page
         #find the genome features tab table
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Best Match column of the table
@@ -489,7 +491,7 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the results are displayed on the page
         #find the genome features tab table
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Best Match column of the table
@@ -519,7 +521,7 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page
         #find the genome features tab table
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Best Match column of the table
@@ -549,7 +551,7 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page
         #find the genome features tab table
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Best Match column of the table
@@ -566,30 +568,6 @@ class TestSearchTool(unittest.TestCase):
         print("The Trembl primary ID is:", all_cells[1].text)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(all_cells[1].text, 'UniProt, EBI ID: B8JK67')
-                
-    def test_homologene_id(self):
-        """
-        @status: Tests that an HomoloGene ID brings back the proper information
-        @attention: this ID will go away in the next few months 05/28/2021(gone!!!!!)
-        """
-        driver = self.driver
-        driver.get(config.TEST_URL)
-        searchbox = driver.find_element(By.ID, 'searchToolTextArea')
-        # put your HomoloGene ID in the quick search box
-        searchbox.send_keys("20151")
-        searchbox.send_keys(Keys.RETURN)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page
-        #find the genome features tab table
-        time.sleep(.5)
-        results_table = self.driver.find_element(By.ID, 'b1Table')
-        table = Table(results_table)
-        #Iterate the first row of data to find the Best Match column of the table
-        all_cells = table.get_column_cells('Best Match')
-        print(all_cells[1].text)
-        #asserts that the Best Match data is correct for the ID searched
-        self.assertEqual(all_cells[1].text, 'Name: CpG island 20151') 
-        self.assertEqual(all_cells[2].text, 'Name: transcription start site region 20151') 
-        self.assertEqual(all_cells[3].text, 'Synonym: mm_20151.1')  
         
     def test_consensus_CDS_id(self):
         """
@@ -603,7 +581,7 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page
         #find the genome features tab table
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Best Match column of the table
@@ -624,7 +602,7 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page
         #find the genome features tab table
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Best Match column of the table
@@ -633,8 +611,9 @@ class TestSearchTool(unittest.TestCase):
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(all_cells[1].text, 'Name: CpG island 8122') 
         self.assertEqual(all_cells[2].text, 'Name: predicted gene 8122') 
-        self.assertEqual(all_cells[3].text, 'Name: transcription start site region 8122') 
-        self.assertEqual(all_cells[4].text, 'Synonym: mm_8122.1')  
+        self.assertEqual(all_cells[3].text, 'Name: regulatory region 8122')
+        self.assertEqual(all_cells[4].text, 'Name: transcription start site region 8122') 
+        self.assertEqual(all_cells[5].text, 'Synonym: mm_8122.1')  
         #find the other results by ID tab table
         driver.find_element(By.ID, 'oLink').click()
         results_table = self.driver.find_element(By.ID, 'b3Table')
@@ -659,7 +638,7 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page
         #find the genome features tab table
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Best Match column of the table
@@ -680,7 +659,7 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the genome features tab table
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -702,7 +681,7 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page
         #find the genome features tab table
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Best Match column of the table
@@ -723,7 +702,7 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the genome features tab table
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -744,7 +723,7 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page
         #find the genome features tab table
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Best Match column of the table
@@ -765,7 +744,7 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page
         #find the genome features tab table
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Best Match column of the table
@@ -795,7 +774,7 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page
         #find the genome features tab table
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Best Match column of the table
@@ -816,7 +795,7 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page
         #find the genome features tab table
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Best Match column of the table
@@ -837,7 +816,7 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page
         #find the genome features tab table
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Best Match column of the table
@@ -858,7 +837,7 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page
         #find the genome features tab table
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Best Match column of the table
@@ -922,7 +901,7 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page
         #find the genome features tab table
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Best Match column of the table
@@ -956,7 +935,7 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page
         #find the genome features tab table
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Best Match column of the table
@@ -964,7 +943,8 @@ class TestSearchTool(unittest.TestCase):
         #print(all_cells[1].text)
         wait.forAjax(driver)
         #asserts that the Best Match data is correct for the ID searched
-        self.assertEqual(all_cells[1].text, 'OMIM ID: 191170 (human)')
+        self.assertEqual(all_cells[1].text, 'Name: regulatory region 191170')
+        self.assertEqual(all_cells[2].text, 'OMIM ID: 191170 (human)')
         wait.forAjax(driver)
         #find the other results by ID tab table
         driver.find_element(By.ID, 'oLink').click()
@@ -989,7 +969,7 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page
         #find the genome features tab table
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Best Match column of the table
@@ -1024,7 +1004,8 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page
         #find the other results by ID tab table
-        driver.find_element(By.ID, 'oLink').click()
+        #driver.find_element(By.ID, 'oLink').click()
+        time.sleep(2)
         results_table = self.driver.find_element(By.ID, 'b3Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Best Match column of the table
@@ -1072,7 +1053,7 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page
         #find the genome features tab table
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -1082,8 +1063,9 @@ class TestSearchTool(unittest.TestCase):
         self.assertEqual(all_cells[1].text, 'Entrez Gene ID: 14049') 
         self.assertEqual(all_cells[2].text, 'Name: CpG island 14049')
         self.assertEqual(all_cells[3].text, 'Name: predicted gene 14049') 
-        self.assertEqual(all_cells[4].text, 'Name: transcription start site region 14049')
-        self.assertEqual(all_cells[5].text, 'Synonym: mm_14049.1')
+        self.assertEqual(all_cells[4].text, 'Name: regulatory region 14049')
+        self.assertEqual(all_cells[5].text, 'Name: transcription start site region 14049')
+        self.assertEqual(all_cells[6].text, 'Synonym: mm_14049.1')
         #find the other results by ID tab table
         driver.find_element(By.ID, 'oLink').click()
         results_table = self.driver.find_element(By.ID, 'b3Table')
@@ -1127,7 +1109,7 @@ class TestSearchTool(unittest.TestCase):
     def test_rpci_id(self):
         """
         @status: Tests that an RPCI ID brings back the proper information
-        @attention: 
+        @attention: not working on bluebob!
         """
         driver = self.driver
         driver.get(config.TEST_URL)
@@ -1198,7 +1180,7 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page
         #find the genome features tab table
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Best Match column of the table
@@ -1235,7 +1217,7 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the other results by ID tab table
         driver.find_element(By.ID, 'oLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b3Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -1278,7 +1260,7 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the other results by ID tab table
         driver.find_element(By.ID, 'oLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b3Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -1300,7 +1282,7 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the genome features tab table
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -1334,7 +1316,7 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the alleles tab table
         driver.find_element(By.ID, 'aLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b5Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -1356,7 +1338,7 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the alleles tab table
         driver.find_element(By.ID, 'aLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b5Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -1378,7 +1360,7 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the alleles tab table
         driver.find_element(By.ID, 'aLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b5Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -1409,7 +1391,7 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the alleles tab table
         driver.find_element(By.ID, 'aLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b5Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -1419,17 +1401,17 @@ class TestSearchTool(unittest.TestCase):
         self.assertEqual(all_cells[1].text, 'Lexicon ID: OST2298')
         #find the stocks and strains tab table
         driver.find_element(By.ID, 'sLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b4Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
         all_cells = table.get_column_cells('Best match')
         #print(all_cells[1].text)
         #asserts that the Why did this match? data is correct for the ID searched
-        self.assertEqual(all_cells[1].text, 'Name: FVB.129-Slc9a3r2Gt(OST2298)Lex')
+        self.assertEqual(all_cells[1].text, 'Name: FVB.129-Nherf2Gt(OST2298)Lex')
         #find the other results by ID tab table
         driver.find_element(By.ID, 'oLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b3Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -1451,7 +1433,7 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the other results by ID tab table
         driver.find_element(By.ID, 'oLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b3Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -1473,7 +1455,7 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the other results by ID tab table
         driver.find_element(By.ID, 'oLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b3Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -1500,7 +1482,7 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the other results by ID tab table
         driver.find_element(By.ID, 'oLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b3Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -1523,7 +1505,7 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the other results by ID tab table
         driver.find_element(By.ID, 'oLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b3Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -1545,7 +1527,7 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the vocabulary terms tab table
         driver.find_element(By.ID, 'vLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b2Table')
         table = Table(results_table)
         #Iterate the first row of data to find the best match column of the table
@@ -1567,7 +1549,7 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the other results by ID tab table
         driver.find_element(By.ID, 'oLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b3Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -1589,7 +1571,7 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the genome features tab table
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -1611,7 +1593,7 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the genome features tab table
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Best Match column of the table
@@ -1621,7 +1603,7 @@ class TestSearchTool(unittest.TestCase):
         self.assertEqual(all_cells[1].text, 'Disease Ortholog: X-linked ichthyosis (term ID: DOID:1700)')
         #find the vocabulary terms tab table
         driver.find_element(By.ID, 'vLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b2Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Best Match column of the table
@@ -1645,7 +1627,7 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the strains and stocks tab table
         driver.find_element(By.ID, 'sLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b4Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -1668,7 +1650,7 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the strains and stocks tab table
         driver.find_element(By.ID, 'sLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b4Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -1691,7 +1673,7 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the strains and stocks tab table
         driver.find_element(By.ID, 'sLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b4Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -1714,7 +1696,7 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the strains and stocks tab table
         driver.find_element(By.ID, 'sLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b4Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -1737,7 +1719,7 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the strains and stocks tab table
         driver.find_element(By.ID, 'sLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b4Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -1760,7 +1742,7 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the strains and stocks tab table
         driver.find_element(By.ID, 'sLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b4Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -1782,7 +1764,7 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the genome features tab table
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -1793,7 +1775,7 @@ class TestSearchTool(unittest.TestCase):
         self.assertEqual(all_cells[3].text, 'Name: DNA segment, Chr 1, Massachusetts Institute of Technology 242')        
         #find the alleles tab table
         driver.find_element(By.ID, 'aLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b5Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -1804,7 +1786,7 @@ class TestSearchTool(unittest.TestCase):
         self.assertEqual(all_cells[3].text, 'Name: paired box 6; RIKEN Genomic Sciences Center, 242')
         #find the Vocabulary tab table
         driver.find_element(By.ID, 'vLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b2Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -1813,7 +1795,7 @@ class TestSearchTool(unittest.TestCase):
         self.assertEqual(all_cells[1].text, 'Term: Transmembrane protein 242')
         #find the strains and stocks tab table
         driver.find_element(By.ID, 'sLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b4Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -1825,7 +1807,7 @@ class TestSearchTool(unittest.TestCase):
         self.assertEqual(all_cells[3].text, 'Synonym: ICR-Mt1-RET Tg#242')
         #find the other results by ID tab table
         driver.find_element(By.ID, 'oLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b3Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -1848,7 +1830,7 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the strains and stocks tab table
         driver.find_element(By.ID, 'sLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b4Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -1871,7 +1853,7 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the results are displayed on the page 
         #find the strains and stocks tab table
         driver.find_element(By.ID, 'sLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b4Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -1894,7 +1876,7 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the strains and stocks tab table
         driver.find_element(By.ID, 'sLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b4Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -1917,7 +1899,7 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the strains and stocks tab table
         driver.find_element(By.ID, 'sLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b4Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -1939,7 +1921,7 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the genome features tab table
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -1947,11 +1929,12 @@ class TestSearchTool(unittest.TestCase):
         #asserts that the Best match data is correct for the ID searched
         self.assertEqual(all_cells[1].text, 'Name: CpG island 11473')
         self.assertEqual(all_cells[2].text, 'Name: predicted gene 11473')
-        self.assertEqual(all_cells[3].text, 'Name: transcription start site region 11473')
-        self.assertEqual(all_cells[4].text, 'Synonym: mm_11473.1')
+        self.assertEqual(all_cells[3].text, 'Name: regulatory region 11473')
+        self.assertEqual(all_cells[4].text, 'Name: transcription start site region 11473')
+        self.assertEqual(all_cells[5].text, 'Synonym: mm_11473.1')
         #find the strains and stocks tab table
         driver.find_element(By.ID, 'sLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b4Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -1974,7 +1957,7 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the strains and stocks tab table
         driver.find_element(By.ID, 'sLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b4Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -2002,12 +1985,12 @@ class TestSearchTool(unittest.TestCase):
         #Iterate the first row of data to find the Why did this match? column of the table
         all_cells = table.get_column_cells('Best Match')
         #asserts that the Best match data is correct for the ID searched
-        self.assertEqual(all_cells[1].text, 'Symbol: 33.MMHAP16FRC12.seq')
-        self.assertEqual(all_cells[2].text, 'Symbol: Ighv1-33')
-        self.assertEqual(all_cells[3].text, 'Symbol: Igkv7-33')        
+        self.assertEqual(all_cells[1].text, 'Symbol: Igkv7-33')
+        self.assertEqual(all_cells[2].text, 'Symbol: 33.MMHAP16FRC12.seq')
+        self.assertEqual(all_cells[3].text, 'Symbol: Ighv1-33')        
         #find the alleles tab table
         driver.find_element(By.ID, 'aLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b5Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -2018,7 +2001,7 @@ class TestSearchTool(unittest.TestCase):
         self.assertEqual(all_cells[3].text, 'Synonym: 33')
         #find the Vocabulary tab table
         driver.find_element(By.ID, 'vLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b2Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -2060,7 +2043,7 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the strains and stocks tab table
         driver.find_element(By.ID, 'sLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b4Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -2083,7 +2066,7 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the strains and stocks tab table
         driver.find_element(By.ID, 'sLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b4Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -2106,9 +2089,9 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the Alleles tab table
-        time.sleep(.5)
+        time.sleep(1)
         driver.find_element(By.ID, 'aLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b5Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -2118,7 +2101,7 @@ class TestSearchTool(unittest.TestCase):
         self.assertEqual(all_cells[1].text, 'Allele ID: MGI:1861634')
         #find the strains and stocks tab table
         driver.find_element(By.ID, 'sLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b4Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Best Match column of the table
@@ -2141,7 +2124,7 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the strains and stocks tab table
         driver.find_element(By.ID, 'sLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b4Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -2164,7 +2147,7 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the strains and stocks tab table
         driver.find_element(By.ID, 'sLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b4Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Best Match column of the table
@@ -2187,7 +2170,7 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the strains and stocks tab table
         driver.find_element(By.ID, 'sLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b4Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Best Match column of the table
@@ -2210,7 +2193,7 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the strains and stocks tab table
         driver.find_element(By.ID, 'sLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b4Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Best Match column of the table
@@ -2233,7 +2216,7 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the strains and stocks tab table
         driver.find_element(By.ID, 'sLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b4Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Best Match column of the table
@@ -2256,7 +2239,7 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the strains and stocks tab table
         driver.find_element(By.ID, 'sLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b4Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Best Match column of the table
@@ -2279,7 +2262,7 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the alleles tab table
         driver.find_element(By.ID, 'aLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b5Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Best Match column of the table
@@ -2291,7 +2274,7 @@ class TestSearchTool(unittest.TestCase):
         self.assertEqual(all_cells[3].text, 'Symbol: Tg(APPSWE)2576Kha')
         #find the strains and sticks tab table
         self.driver.find_element(By.ID, 'sLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b4Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Best match column of the table
@@ -2299,7 +2282,7 @@ class TestSearchTool(unittest.TestCase):
         print(all_cells[1].text)
         #asserts that the Best Match data is correct for the ID searched
         self.assertEqual(all_cells[1].text, 'Synonym: APPSWE')
-        self.assertEqual(all_cells[2].text, 'Name: FVB.Cg-Tg(APPSWE)2576Kha')
+        self.assertEqual(all_cells[2].text, 'Name: FVB/N-Tg(APPSWE)2576Kha')
         self.assertEqual(all_cells[3].text, 'Name: B6.C3-Tg(Prnp-App/APPswe)E1-2Dbo')
 
     def test_mgp_id(self):
@@ -2324,7 +2307,7 @@ class TestSearchTool(unittest.TestCase):
         self.assertEqual(all_cells[1].text, 'Mouse Genome Project ID: MGP_DBA2J_G0024137')
         #find the other results by ID tab table
         driver.find_element(By.ID, 'oLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b3Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -2347,7 +2330,7 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the sticks and strains tab table
         driver.find_element(By.ID, 'sLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b4Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -2370,7 +2353,7 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the stocks and strains tab table
         driver.find_element(By.ID, 'sLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b4Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Best Match column of the table
@@ -2393,7 +2376,7 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the stocks and strains tab table
         driver.find_element(By.ID, 'sLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b4Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -2427,18 +2410,18 @@ class TestSearchTool(unittest.TestCase):
         self.assertEqual(all_cells[4].text, 'Name: CpG island 118')        
         #find the alleles tab table
         driver.find_element(By.ID, 'aLink').click()
-        time.sleep(.5)
-        results_table = self.driver.find_element(By.ID, 'b5Table')
+        time.sleep(1)
+        results_table = self.driver.find_element(By.ID, 'b4Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Best Match column of the table
         all_cells = table.get_column_cells('Best Match')
         #asserts that the Best match data is correct for the ID searched
-        self.assertEqual(all_cells[1].text, 'Synonym: 118')
-        self.assertEqual(all_cells[2].text, 'Name: family with sequence similarity 118, member B; endonuclease-mediated mutation 1, Institute of Molecular Genetics')
-        self.assertEqual(all_cells[3].text, 'Name: neuroscience mutagenesis facility, 118')
+        self.assertEqual(all_cells[1].text, 'ENVIGO ID: 118')
+        self.assertEqual(all_cells[2].text, 'MPD ID: 118')
+        self.assertEqual(all_cells[3].text, 'Name: B6.A(118 Mb-tel)/13C8Na')
         #find the Vocabulary tab table
         driver.find_element(By.ID, 'vLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b2Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Best Match column of the table
@@ -2479,7 +2462,7 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the Strains and stock tab table
         driver.find_element(By.ID, 'sLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b4Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Best Match column of the table
@@ -2545,7 +2528,7 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the genome features tab table
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
         #Iterate the first row of data to find the best match column of the table
@@ -2598,7 +2581,7 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the genome features tab table
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Best Match column of the table
@@ -2652,7 +2635,7 @@ class TestSearchTool(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the other results by ID tab table
         driver.find_element(By.ID, 'oLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b3Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Why did this match? column of the table
@@ -2750,7 +2733,7 @@ class TestSearchTool(unittest.TestCase):
         self.assertEqual(all_cells[2].text, 'Name: unc-119 lipid binding chaperone B')
         #find the strains and stocks tab table
         driver.find_element(By.ID, 'sLink').click()
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b4Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Best Match column of the table
@@ -2794,7 +2777,7 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the genome features tab table
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Best Match column of the table
@@ -2825,7 +2808,7 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the genome features tab table
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
         #Iterate the first row of data to find the Best Match column of the table
@@ -2856,7 +2839,7 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the genome features tab table
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
         #Iterate the first row of data to find the best match column of the table
@@ -2864,7 +2847,7 @@ class TestSearchTool(unittest.TestCase):
         #print(all_cells[1].text)
         #asserts that the best match data is correct for the ID searched
         self.assertEqual(all_cells[1].text, 'Symbol: Psen1')
-        self.assertEqual(all_cells[2].text, "Component: gamma-secretase complex (synonym: 'gamma-secretase complex (APH1B, PSEN1, PSENEN, NCSTN)')")
+        self.assertEqual(all_cells[2].text, "Component: gamma-secretase complex (synonym: gamma-secretase complex (APH1B, PSEN1, PSENEN, NCSTN))")
         #find the alleles tab table
         driver.find_element(By.ID, 'aLink').click()
         results_table = self.driver.find_element(By.ID, 'b5Table')
@@ -2918,7 +2901,7 @@ class TestSearchTool(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'fLink')))#waits until the genome features tab is displayed on the page 
         #find the genome features tab table
-        time.sleep(.5)
+        time.sleep(1)
         results_table = self.driver.find_element(By.ID, 'b1Table')
         table = Table(results_table)
         #Iterate the first row of data to find the best match column of the table

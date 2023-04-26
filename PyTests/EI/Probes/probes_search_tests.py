@@ -111,7 +111,7 @@ class TestEIProbeSearch(unittest.TestCase):
         results_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
         table = Table(results_table)
         #find and print the search results for row 1 alias field
-        alias1 = table.get_cell(1, 7)
+        alias1 = table.get_cell(1, 8)
         print(alias1.text)
         #Assert the correct alias is returned
         self.assertEqual(alias1.text, 'probe1')

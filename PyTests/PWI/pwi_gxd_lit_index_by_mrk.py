@@ -33,7 +33,7 @@ class TestPwiGxdLitIndexByMrk(unittest.TestCase):
         #opens the PWI marker form
         driver.get(TEST_PWI_URL + '/edit/marker')
         time.sleep(2)
-        #locaste the symbol field
+        #locate the symbol field
         symbolbox = driver.find_element(By.ID, 'markerSymbol')
         # put your marker symbol in the box
         symbolbox.send_keys("gata1")
@@ -43,7 +43,7 @@ class TestPwiGxdLitIndexByMrk(unittest.TestCase):
         driver.find_element(By.ID, "mrkDetailButton").click()
         #switch focus to the marker detail tab
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        time.sleep(2)
+        time.sleep(4)
         driver.find_element(By.LINK_TEXT, "Lit Index").click()
         time.sleep(4)
         #Locates the summary table and finds the table headings

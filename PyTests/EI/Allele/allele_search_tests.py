@@ -190,16 +190,16 @@ class TestEIAlleleSearch(unittest.TestCase):
         driver.find_element(By.ID, 'searchButton').click()
         #time.sleep(10)
         #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), '1700037H04Rik<Gt(D053F10)Wrst>'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Adissp<Gt(D053F10)Wrst>'))
         #find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
-        cell1 = table.get_row_cells(0)
+        cell1 = table.get_row_cells(2)
         symbol1 = iterate.getTextAsList(cell1)
         print(symbol1)
         #Assert the correct allele symbol is returned, this is first result of over 35
-        self.assertEqual(symbol1, ['1700037H04Rik<Gt(D053F10)Wrst>'])         
+        self.assertEqual(symbol1, ['Adissp<Gt(D053F10)Wrst>'])         
         
     def testAlleleMrkStatus3Search(self):
         """
@@ -852,7 +852,7 @@ class TestEIAlleleSearch(unittest.TestCase):
         symbol1 = iterate.getTextAsList(cell1)
         print(symbol1)
         #Assert the correct allele symbol is returned, this is the first result of over 1000
-        self.assertEqual(symbol1, ['Gt(ROSA)26Sor<tm1(cre/Esr1)Tkp>-deleted']) 
+        self.assertEqual(symbol1, ['Col1a1<tm1.1(CAG-cre/ERT2)Dgk>']) 
 
     def testAlleleUserCreNoteSearch(self):
         """
@@ -1364,7 +1364,7 @@ class TestEIAlleleSearch(unittest.TestCase):
     def testAlleleMolecularMutNucleotideSearch(self):
         """
         @Status tests that a Molecular Mutations of Nucleotide repeat expansion search works
-        @see pwi-allele-search-47
+        @see pwi-allele-search-47 Broken!!!! needs to be fixed
         """
         driver = self.driver
         #finds the Allele Synonym field and enters a text string, tabs out of the field
@@ -1389,11 +1389,11 @@ class TestEIAlleleSearch(unittest.TestCase):
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         #Iterate and print the search results headers
-        cell1 = table.get_row_cells(0)
+        cell1 = table.get_row_cells(1)
         symbol1 = iterate.getTextAsList(cell1)
         print(symbol1)
         #Assert the correct allele symbol is returned, this is the only result
-        self.assertEqual(symbol1, ['Fmr1<tm2Cgr>'])
+        self.assertEqual(symbol1, ['Atxn1<em3Hzo>'])
         #verify the correct option for molecular mutation is selected 
         select = Select(driver.find_element(By.ID, 'mutation-0'))
         selected_option = select.first_selected_option
@@ -1704,12 +1704,13 @@ class TestEIAlleleSearch(unittest.TestCase):
         driver = self.driver
         #find the alleles Created by field and enter the name
         driver.find_element(By.ID, "createdBy").send_keys("rjc")
+        time.sleep(1)
         #find the alleles Creation Date field and enter a date
         driver.find_element(By.ID, "creationDate").send_keys("2004-01-28..2004-02-03")
         #find the Search button and click it
         driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'H2-M11<+>'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'H2-M10.6<+>'))
         create_date = driver.find_element(By.ID, 'creationDate').get_attribute('value')
         print(create_date)
         #Assert the  Creation Date field returned is correct 

@@ -319,7 +319,7 @@ class TestEIDoannotSearch(unittest.TestCase):
         driver.find_element(By.ID, 'searchButton').click()
         #waits until the element is located or 10 seconds
         #WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'termID-0')))
-        time.sleep(10)
+        time.sleep(15)
         #find the search results table thirteenth row of data
         term0 = driver.find_element(By.ID, 'termID-0').get_property('value')
         print(term0)

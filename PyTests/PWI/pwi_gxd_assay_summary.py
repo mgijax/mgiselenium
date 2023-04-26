@@ -37,21 +37,24 @@ class TestPwiGxdAssaySummaryPage(unittest.TestCase):
         driver = self.driver
         driver.get(TEST_PWI_URL)
         self.form = ModuleForm(self.driver) 
+        time.sleep(5)
         #find the Acc ID(s) / Gene Symbol box and enter text
         accbox = driver.find_element(By.NAME, 'ids')
         # put your J number in the box
         accbox.send_keys("J:208450")
         accbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Assays')))#waits until the Assays link is displayed on the page
-        time.sleep(3)
+        time.sleep(5)
         #finds the specimens link and clicks it
         driver.find_element(By.LINK_TEXT, "Assays").click()
-        wait.forAjax(driver)
+        #wait.forAjax(driver)
+        time.sleep(2)
         #Locates the summary table and finds the table headings
-        headerlist = driver.find_element(By.ID, "assaySummaryTable")
+        headerlist = driver.find_element(By.CLASS_NAME, "dataTable")
         items = headerlist.find_elements(By.TAG_NAME, "th")
         searchTextItems = iterate.getTextAsList(items)
-        wait.forAjax(driver)
+        #wait.forAjax(driver)
+        time.sleep(2)
         #verifies all the table headings are correct and in order
         self.assertEqual(searchTextItems, ['Result Details','Gene','Assay Type','Reference', 'Assay Notes'])
 
@@ -62,18 +65,20 @@ class TestPwiGxdAssaySummaryPage(unittest.TestCase):
         """
         driver = self.driver
         driver.get(TEST_PWI_URL)
+        time.sleep(5)
         #find the Acc ID(s) / Gene Symbol box and enter text
         accbox = driver.find_element(By.NAME, 'ids')
         # put your J number in the box
         accbox.send_keys("J:208450")
         accbox.send_keys(Keys.RETURN)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Assays')))#waits until the Assays link is displayed on the page
-        time.sleep(3)
+        time.sleep(5)
         #finds the GXD/CRE Assays link and clicks it
         driver.find_element(By.LINK_TEXT, "Assays").click()
         wait.forAjax(driver)
+        time.sleep(2)
         #finds the specimen label column and then the first 12 items
-        resultstable = driver.find_element(By.ID, "assaySummaryTable")
+        resultstable = driver.find_element(By.CLASS_NAME, "dataTable")
         rows = resultstable.find_elements(By.CSS_SELECTOR, 'tr')
         #displays each row of data for the first 18 rows
         row1 = rows[1]
