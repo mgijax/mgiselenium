@@ -5,11 +5,12 @@ Created on Jun 12, 2018
 '''
 # filename: highlight_elements.py
 import unittest
+import tracemalloc
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
 
-
+tracemalloc.start()
 class HighlightElements(unittest.TestCase):
 
     def setUp(self):

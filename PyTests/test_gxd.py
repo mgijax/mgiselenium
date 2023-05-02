@@ -4,7 +4,8 @@ Created on Jan 4, 2016
 @author: jeffc
 '''
 import unittest
-import HtmlTestRunner
+import tracemalloc
+from jd_HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
@@ -19,6 +20,8 @@ import config
 @Attention: This file does not have tests yet. Need to add them
 '''
 
+#Tests
+tracemalloc.start()
 class TestGxd(unittest.TestCase):
 
 
@@ -31,7 +34,7 @@ class TestGxd(unittest.TestCase):
         self.assertIn("Mouse Gene Expression", driver.title, "page not found")
 
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
 
 def suite():
     suite = unittest.TestSuite()
@@ -39,4 +42,4 @@ def suite():
     return suite
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

@@ -5,6 +5,8 @@ Tests the searching features of the Variant module
 '''
 import unittest
 import time
+import tracemalloc
+from jd_HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -13,7 +15,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import Select
 #from.selenium.webdriver.support.color import Color
-import HtmlTestRunner
+#import jd-HTMLTestRunner
 import json
 import sys,os.path
 from selenium.webdriver.support.color import Color
@@ -28,21 +30,21 @@ from util.form import ModuleForm
 from util.table import Table
 
 # Tests
-
+tracemalloc.start()
 class TestEiVariantSearch(unittest.TestCase):
     """
     @status Test Variant search fields
     """
 
     def setUp(self):
-        self.driver = webdriver.Firefox()
-        # self.driver = webdriver.Chrome()
+        #self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
         self.form = ModuleForm(self.driver)
         # self.form.get_module("bhmgipwi02lt:5099/pwi/edit/variant/")
         self.form.get_module(config.TEST_PWI_URL + "/edit/variant/")
 
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
 
     def testVarAlleleIDSearch(self):
         """
@@ -65,7 +67,7 @@ class TestEiVariantSearch(unittest.TestCase):
         symbols = iterate.getTextAsList(cells)
         print(symbols)
         # assert all the correct symbols are returned
-        self.assertEquals(symbols, ['Rora<tmgc26>'])
+        self.assertEqual(symbols, ['Rora<tmgc26>'])
 
     def testVarAlleleSymbolSearch(self):
         """
@@ -88,7 +90,7 @@ class TestEiVariantSearch(unittest.TestCase):
         symbols = iterate.getTextAsList(cells)
         print(symbols)
         # assert all the correct symbols are returned
-        self.assertEquals(symbols, ['Cntn1<usl>'])
+        self.assertEqual(symbols, ['Cntn1<usl>'])
 
     def testVarAlleleSymbolWildSearch(self):
         """
@@ -111,7 +113,7 @@ class TestEiVariantSearch(unittest.TestCase):
         symbols = iterate.getTextAsList(cells)
         print(symbols)
         # assert all the correct symbols are returned
-        self.assertEquals(symbols,
+        self.assertEqual(symbols,
                           ['Cntn1<m1J>', 'Cntn1<usl>', 'Cntnap1<M1Btlr>', 'Cntnap1<shm-5J>', 'Cntnap2<em1Cnbc>'])
 
     def testVarRefSearch(self):
@@ -135,7 +137,7 @@ class TestEiVariantSearch(unittest.TestCase):
         symbols = iterate.getTextAsList(cells)
         print(symbols)
         # assert all the correct symbols are returned
-        self.assertEquals(symbols, ['Cpe<fat>'])
+        self.assertEqual(symbols, ['Cpe<fat>'])
 
     def testVarRefMultiSearch(self):
         """
@@ -467,4 +469,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

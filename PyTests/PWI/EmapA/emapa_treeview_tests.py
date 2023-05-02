@@ -5,10 +5,11 @@ This test verifies searching within the EmapA module
 '''
 import unittest
 import time
+import tracemalloc
+from jd_HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-import HtmlTestRunner
 import sys, os.path
 
 # adjust the path to find config
@@ -22,7 +23,7 @@ from util.table import Table
 
 
 # Tests
-
+tracemalloc.start()
 class TestEiEmapaTreeView(unittest.TestCase):
     """
     Test EMAPA browser treeview
@@ -223,7 +224,7 @@ class TestEiEmapaTreeView(unittest.TestCase):
         self.assertTrue("muscle tissue" in tree.text, "muscle tissue should be in tree view")
 
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
 
 
 def suite():
@@ -233,4 +234,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

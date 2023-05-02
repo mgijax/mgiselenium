@@ -5,6 +5,8 @@ These are tests that check the searching options of the DO Annotations module
 '''
 import unittest
 import time
+import tracemalloc
+from jd_HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -13,7 +15,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 # from configparser import SafeConfigParser
-import HtmlTestRunner
 import json
 import config
 import sys, os.path
@@ -29,7 +30,7 @@ from util.table import Table
 
 
 # Tests
-
+tracemalloc.start()
 class TestEIDoannotSearch(unittest.TestCase):
     """
     @status Test DO Annotations searching, etc
@@ -42,7 +43,7 @@ class TestEIDoannotSearch(unittest.TestCase):
         self.form.get_module(config.TEST_PWI_URL + "/edit/doannot")
 
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
 
     def testDoMgiIdSearch(self):
         """
@@ -892,4 +893,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

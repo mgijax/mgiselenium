@@ -4,7 +4,8 @@ This test verifies correct functioning of the clip board features within the Ema
 @author: jeffc
 '''
 import unittest
-import HtmlTestRunner
+import tracemalloc
+from jd_HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -47,7 +48,7 @@ class TestEiEmapaClipboard(unittest.TestCase):
         time.sleep(1)
 
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
 
     """def testOutRangeStage(self):        
 
@@ -467,4 +468,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

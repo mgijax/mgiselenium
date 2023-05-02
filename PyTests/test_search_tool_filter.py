@@ -7,7 +7,8 @@ needs total rewrite  now filters are inside each tab!!!!!!!!!!!!!!!!!!
 
 import unittest
 import time
-import HtmlTestRunner
+import tracemalloc
+from jd_HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -27,6 +28,8 @@ sys.path.append(
 import config
 #from config import TEST_URL
 
+#Tests
+tracemalloc.start()
 class TestSearchTool(unittest.TestCase):
 
     def setUp(self):
@@ -287,4 +290,4 @@ def suite():
     return suite
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

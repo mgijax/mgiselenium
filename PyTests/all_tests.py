@@ -10,7 +10,8 @@ sys.path.append(
 import config
 
 import unittest
-
+import tracemalloc
+from jd_HTMLTestRunner import HTMLTestRunner
 # import all sub test suites
 from .EI import all_tests as ei_tests
 from .FeWI import all_tests as fewi_tests

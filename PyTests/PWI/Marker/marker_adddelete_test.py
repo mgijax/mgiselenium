@@ -6,6 +6,8 @@ Created on Nov 21, 2018
 
 import unittest
 import time
+import tracemalloc
+from jd_HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -14,7 +16,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
-import HtmlTestRunner
+import jd_HTMLTestRunner
 import json
 import sys, os.path
 from select import select
@@ -30,7 +32,7 @@ from util.table import Table
 
 
 # Tests
-
+tracemalloc.start()
 class TestEiMrkAddDelete(unittest.TestCase):
     """
     @status Tests you can add and delete markers of various types and statuses
@@ -50,7 +52,7 @@ class TestEiMrkAddDelete(unittest.TestCase):
         submit.click()
 
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
 
     def testTypeGeneAdd(self):
         """
@@ -409,4 +411,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

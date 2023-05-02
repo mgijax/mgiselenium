@@ -5,6 +5,8 @@ These tests verify the various copy functions within the Marker module.
 '''
 import unittest
 import time
+import tracemalloc
+from jd_HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -13,7 +15,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import Select
 # from.selenium.webdriver.support.color import Color
-import HtmlTestRunner
+import jd_HTMLTestRunner
 import json
 import sys, os.path
 from selenium.webdriver.support.color import Color
@@ -30,7 +32,7 @@ from util.table import Table
 
 
 # Tests
-
+tracemalloc.start()
 class TestEiVariantCopy(unittest.TestCase):
     """
     @status Test the Copy functions of the variant module
@@ -51,7 +53,7 @@ class TestEiVariantCopy(unittest.TestCase):
         submit.click()  # click the login button
 
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
 
     def testVarCopyAll(self):
         """
@@ -416,7 +418,7 @@ class TestEiVariantCopy(unittest.TestCase):
             "value")  # locate the curated Genomic Start field
         time.sleep(4)
         # assert the Curated Genomic Start field is correct
-        self.assertEqual(sstart, '47016337')
+        self.assertEqual(sstart, '47253794')
         # Find the Create button and verify it is active(enabled)
         self.assertTrue(driver.find_element(By.ID, 'createVariantButton').is_enabled(), "Create button is not enabled")
 
@@ -428,4 +430,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

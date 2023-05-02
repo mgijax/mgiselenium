@@ -5,7 +5,8 @@ Created on Mar 21, 2016
 '''
 import unittest
 import time
-import HtmlTestRunner
+import tracemalloc
+from jd_HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -22,7 +23,8 @@ sys.path.append(
 import config
 #from util import iterate, wait
 
-
+#Tests
+tracemalloc.start()
 class TestSnpBuildNumbers(unittest.TestCase):
 
 
@@ -164,4 +166,4 @@ def suite():
     return suite
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

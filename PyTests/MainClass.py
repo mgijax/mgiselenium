@@ -4,13 +4,14 @@ Created on Nov 23, 2016
 @author: jeffc
 '''
 import unittest
+import tracemalloc
+from jd_HTMLTestRunner import HTMLTestRunner
 from .test_search_tool import TestSearchTool
 from .test_snp_build_numbers import TestSnpBuild
 from .test_private_data import TestPrivateData
 import os
-import HtmlTestRunner
 
-
+tracemalloc.start()
 def main():
     searchtool_test = unittest.TestLoader().loadTestsFromTestCase(TestSearchTool)
     snpbuild_test = unittest.TestLoader().loadTestsFromTestCase(TestSnpBuild)
@@ -20,7 +21,7 @@ def main():
 #file
     dir = os.getcwd()
     outfile = open(dir + "PWItestreport.html", "w")
-    runner = HtmlTestRunner.HTMLTestRunner(stream = outfile,title = 'Test Report',description = 'PWI Test Report')
+    runner = HTMLTestRunner(stream = outfile,title = 'Test Report',description = 'PWI Test Report')
     runner.run(pwi_tests)
 
 if __name__=="__main__":

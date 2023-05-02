@@ -5,7 +5,8 @@ Add'l 4 tests added August 2016; jlewis
 @author: jeffc
 '''
 import unittest
-import HtmlTestRunner
+import tracemalloc
+from jd_HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -23,7 +24,7 @@ from util.table import Table
 
 
 # Tests
-
+tracemalloc.start()
 class TestEiEmapaSearch(unittest.TestCase):
     """
     @status Test EMAPA browser search using terms, stages, synonymns
@@ -44,7 +45,7 @@ class TestEiEmapaSearch(unittest.TestCase):
         time.sleep(1)
 
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
 
     def testBasicSearch(self):
         """
@@ -285,4 +286,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

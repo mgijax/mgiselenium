@@ -8,8 +8,9 @@ Test uses for notes picklist items
 
 import unittest
 import time
+import tracemalloc
+from jd_HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
-import HtmlTestRunner
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
@@ -26,7 +27,7 @@ from util.table import Table
 
 
 # Tests
-
+tracemalloc.start()
 class TestEiGxdIndexNotesPicklist(unittest.TestCase):
     """
     @status Test GXD Index browser for ability to modify marker and notes data, later will need to verify created and modified by/dates
@@ -45,7 +46,7 @@ class TestEiGxdIndexNotesPicklist(unittest.TestCase):
         submit.click()  # click the login button
 
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
 
     def testSelectedNotes(self):
         """
@@ -164,4 +165,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

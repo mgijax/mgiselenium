@@ -7,7 +7,8 @@ This test is for searches using the quick search feature of the WI
 
 import unittest
 import time
-import HtmlTestRunner
+import tracemalloc
+from jd_HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
@@ -26,7 +27,7 @@ sys.path.append(
 
 import config
 #from config import TEST_URL
-
+tracemalloc.start()
 class TestSearchTool(unittest.TestCase):
 
     def setUp(self):
@@ -2928,4 +2929,4 @@ def suite():
     return suite
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

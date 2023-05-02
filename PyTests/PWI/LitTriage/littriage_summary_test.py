@@ -6,12 +6,13 @@ Tests the results returned when doing certain queries.
 '''
 import unittest
 import time
+import tracemalloc
+from jd_HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-import HtmlTestRunner
 import sys, os.path
 
 # adjust the path to find config
@@ -25,7 +26,7 @@ from util.table import Table
 
 
 # Tests
-
+tracemalloc.start()
 class TestEiLitTriageSummarySearch(unittest.TestCase):
     """
     @status Test Literature Triage search results setup
@@ -38,7 +39,7 @@ class TestEiLitTriageSummarySearch(unittest.TestCase):
         self.form.get_module(config.TEST_PWI_URL + "/edit/triageFull")
 
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
 
     def testJournalFieldLinkSearch(self):
         """
@@ -253,4 +254,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

@@ -5,7 +5,8 @@ It does not test what is found for data on each page.
 @author: jeffc
 '''
 import unittest
-import HtmlTestRunner
+import tracemalloc
+from jd_HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -16,6 +17,8 @@ sys.path.append(
 )
 import config
 
+#Tests
+tracemalloc.start()
 class TestMarkerDetailLinks(unittest.TestCase):
 
 #Genes, Genome Features & Maps
@@ -545,7 +548,7 @@ class TestMarkerDetailLinks(unittest.TestCase):
 
 
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
 
 
 def suite():
@@ -555,5 +558,5 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))    
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))
         

@@ -10,7 +10,8 @@ sys.path.append(
 import config
 
 import unittest
-import HtmlTestRunner
+import tracemalloc
+from jd_HTMLTestRunner import HTMLTestRunner
 # import all sub test suites
 from .FeWI import all_tests as fewi_tests
 
@@ -32,7 +33,7 @@ def master_suite():
     return master_suite
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))
 
     ret = not runner.run(test_suite).wasSuccessful()
     sys.exit(ret)

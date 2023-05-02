@@ -7,9 +7,10 @@ Created on Sep 20, 2016
 '''
 import unittest
 import time
+import tracemalloc
+from jd_HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-import HtmlTestRunner
 from selenium.webdriver.common.by import By
 import sys, os.path
 
@@ -24,7 +25,7 @@ from util.table import Table
 
 
 # Tests
-
+tracemalloc.start()
 class TestEiGxdIndexAddDelete(unittest.TestCase):
     """
     @status Test GXD Index browser for ability to add an index
@@ -188,7 +189,7 @@ class TestEiGxdIndexAddDelete(unittest.TestCase):
     def tearDown(self):
         driver = self.driver
         form = self.form
-        self.driver.close()
+        self.driver.quit()
 
 
 def suite():
@@ -198,4 +199,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

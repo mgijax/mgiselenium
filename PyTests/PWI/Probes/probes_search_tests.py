@@ -5,6 +5,8 @@ Created on Sep 8, 2022
 '''
 import unittest
 import time
+import tracemalloc
+from jd_HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -12,7 +14,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
-import HtmlTestRunner
+import jd_HTMLTestRunner
 import json
 import sys, os.path
 from test.test_base64 import BaseXYTestCase
@@ -28,7 +30,7 @@ from util.table import Table
 
 
 # Tests
-
+tracemalloc.start()
 class TestEIProbeSearch(unittest.TestCase):
     """
     @status Test Probe searching, etc
@@ -161,5 +163,5 @@ class TestEIProbeSearch(unittest.TestCase):
         self.assertEqual(name4.text, 'ND3_riboprobe')
 
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
 

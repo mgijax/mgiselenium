@@ -4,9 +4,10 @@ These tests are to confirm results you get back using various result requirement
 @author: jeffc
 '''
 import unittest
+import tracemalloc
+from jd_HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-import HtmlTestRunner
 import sys, os.path
 
 # adjust the path to find config
@@ -21,7 +22,7 @@ from util.table import Table
 
 
 # Tests
-
+tracemalloc.start()
 class TestEiLitTriageDetail(unittest.TestCase):
     """
     @status Test Literature Triage search using J number, etc
@@ -34,7 +35,7 @@ class TestEiLitTriageDetail(unittest.TestCase):
         self.form.get_module(config.TEST_PWI_URL + "/edit/triageFull")
 
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
 
     def testGoRefResult(self):
         """
@@ -267,4 +268,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

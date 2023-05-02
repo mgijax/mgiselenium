@@ -5,6 +5,8 @@ Tests the update and delete features for the Marker History table(none of these 
 '''
 import unittest
 import time
+import tracemalloc
+from jd_HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -12,7 +14,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
-import HtmlTestRunner
+import jd_HTMLTestRunner
 import json
 import sys, os.path
 
@@ -28,7 +30,7 @@ from util.table import Table
 
 
 # Tests
-
+tracemalloc.start()
 class TestEiMrkUpdateDeleteHistory(unittest.TestCase):
     """
     @status Test Marker History update and delete fields
@@ -47,7 +49,7 @@ class TestEiMrkUpdateDeleteHistory(unittest.TestCase):
         submit.click()  # click the login button
 
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
 
     #    def testSymbolHistoryAdd(self):
     #        """
@@ -524,4 +526,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

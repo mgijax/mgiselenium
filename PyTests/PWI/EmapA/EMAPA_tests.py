@@ -9,6 +9,7 @@ sys.path.append(
 )
 
 import unittest
+import tracemalloc
 
 # import all sub test suites
 from . import emapaclipboardtest
@@ -18,7 +19,7 @@ from EI.EmapA import emapamodifytest
 from EI.EmapA import emapasearchtest
 from configparser import SafeConfigParser
 
-
+tracemalloc.start()
 # add the test suites
 def master_suite():
     suites = []

@@ -6,7 +6,8 @@ Add'l 4 tests added Aug 2016; jlewis
 '''
 import unittest
 import time
-import HtmlTestRunner
+import tracemalloc
+from jd_HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -23,7 +24,8 @@ from util.table import Table
 
 
 # from .base_class import EmapaBaseClass
-
+#Tests
+tracemalloc.start()
 class TestEiEmapaDetail(unittest.TestCase):
 
     def setUp(self):
@@ -310,7 +312,7 @@ class TestEiEmapaDetail(unittest.TestCase):
         self.assertTrue(("of %d" % annotCount) in body.text, "same annotation count not found on results summary")
 
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
 
 
 def suite():
@@ -320,4 +322,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

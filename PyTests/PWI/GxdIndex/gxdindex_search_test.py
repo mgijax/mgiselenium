@@ -7,11 +7,12 @@ This test verifies searching within the EmapA module, Both a term search and a s
 '''
 import unittest
 import time
+import tracemalloc
+from jd_HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-import HtmlTestRunner
 import sys, os.path
 from selenium.webdriver.support.wait import WebDriverWait
 
@@ -26,7 +27,7 @@ from util.table import Table
 
 
 # Tests
-
+tracemalloc.start()
 class TestEiGxdIndexSearch(unittest.TestCase):
     """
     @status Test GXD Index browser search using J number, marker symbol, ???
@@ -39,7 +40,7 @@ class TestEiGxdIndexSearch(unittest.TestCase):
         self.form.get_module(config.TEST_PWI_URL + "/edit/gxdindex")
 
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
 
     def testJnumSearch(self):
         """
@@ -649,4 +650,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

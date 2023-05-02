@@ -5,6 +5,8 @@ Created on Mar 17, 2022
 '''
 import unittest
 import time
+import tracemalloc
+from jd_HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -12,7 +14,6 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
-import HtmlTestRunner
 import json
 import sys, os.path
 from test.test_base64 import BaseXYTestCase
@@ -28,7 +29,7 @@ from util.table import Table
 
 
 # Tests
-
+tracemalloc.start()
 class TestEIAlleleRelationshipsSearch(unittest.TestCase):
     """
     @status Test Allele Relationships searching, etc
@@ -41,7 +42,7 @@ class TestEIAlleleRelationshipsSearch(unittest.TestCase):
         self.form.get_module(config.TEST_PWI_URL + "/edit/allelefear/")
 
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
 
     def testEIAlleleRelationshipsMGI_IDSearch(self):
         """
@@ -528,4 +529,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

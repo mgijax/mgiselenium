@@ -6,7 +6,8 @@ Created on Jan 28, 2016
 @author: jeffc
 '''
 import unittest
-import HtmlTestRunner
+import tracemalloc
+from jd_HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.keys import Keys
@@ -23,7 +24,8 @@ from util import iterate, wait
 from util.form import ModuleForm
 from util.table import Table
 
-
+#Tests
+tracemalloc.start()
 class TestEiEmapaModify(unittest.TestCase):
 
     def setUp(self):
@@ -40,7 +42,7 @@ class TestEiEmapaModify(unittest.TestCase):
         submit.click()  # click the login button
 
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
 
 
 def suite():
@@ -50,4 +52,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

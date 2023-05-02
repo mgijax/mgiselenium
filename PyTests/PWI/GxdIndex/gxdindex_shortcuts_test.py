@@ -6,11 +6,12 @@ this test was created to verify the proper operation of the shortcut key options
 '''
 import unittest
 import time
+import tracemalloc
+from jd_HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
-import HtmlTestRunner
 import sys, os.path
 
 # adjust the path to find config
@@ -25,7 +26,7 @@ from util.TestResultUtility import Report
 
 
 # Tests
-
+tracemalloc.start()
 class TestEiGxdIndexShortcuts(unittest.TestCase):
     """
     @status Test GXD Index browser for the correct fields being cleared
@@ -212,4 +213,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))
