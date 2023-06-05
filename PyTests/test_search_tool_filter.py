@@ -8,7 +8,7 @@ needs total rewrite  now filters are inside each tab!!!!!!!!!!!!!!!!!!
 import unittest
 import time
 import tracemalloc
-from jd_HTMLTestRunner import HTMLTestRunner
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -52,7 +52,7 @@ class TestSearchTool(unittest.TestCase):
         # put your EntrezGene(NCBI) ID in the quick search box
         searchbox.send_keys("GO:0071514")
         searchbox.send_keys(Keys.RETURN)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'ui-id-1')))#waits until the results are displayed on the page
+        #WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'ui-id-1')))#waits until the results are displayed on the page
         time.sleep(2)
         #find the Molecular Function filter button and click it
         self.driver.find_element(By.ID, 'functionFilter').click()
@@ -283,6 +283,7 @@ class TestSearchTool(unittest.TestCase):
            
     def tearDown(self):
         self.driver.quit()
+        tracemalloc.stop()
         
 def suite():
     suite = unittest.TestSuite()

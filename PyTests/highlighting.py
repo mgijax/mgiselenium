@@ -19,6 +19,7 @@ class HighlightElements(unittest.TestCase):
 
     def tearDown(self):
         self.driver.quit()
+        tracemalloc.stop()
 
 # ...
     def highlight(self, element, duration=3):

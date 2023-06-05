@@ -5,13 +5,14 @@ Tests for the RNA-Seq Samples page
 '''
 import unittest
 import time
+import tracemalloc
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import HtmlTestRunner
 # from lib import *
 import sys,os.path
 # adjust the path to find config
@@ -23,7 +24,7 @@ from util import iterate, wait
 from util.form import ModuleForm
 from util.table import Table
 # Tests
-
+tracemalloc.start()
 class TestGxdRnaSeqSamples(unittest.TestCase):
 
     def setUp(self):
@@ -154,7 +155,8 @@ class TestGxdRnaSeqSamples(unittest.TestCase):
         self.assertEqual(notes[1], "Conditional mutant. day 6 of pregnancy")
     
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
+        tracemalloc.stop()
 
 def suite():
     suite = unittest.TestSuite()
@@ -162,4 +164,4 @@ def suite():
     return suite 
        
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

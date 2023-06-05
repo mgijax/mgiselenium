@@ -5,7 +5,8 @@ test needs to be reworked, completely fails right now 5/19/21
 '''
 import unittest
 import time
-import HtmlTestRunner
+import tracemalloc
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -17,12 +18,13 @@ sys.path.append(
 )
 import config
 from config import TEST_PWI_URL
-
+#Tests
+tracemalloc.start()
 class TestPwiGxdSpecSumByRef(unittest.TestCase):
 
     def setUp(self):
-        #self.driver = webdriver.Chrome() 
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
+        #self.driver = webdriver.Firefox()
         self.driver.get(config.TEST_PWI_URL)
         self.driver.implicitly_wait(10)
 
@@ -121,13 +123,13 @@ class TestPwiGxdSpecSumByRef(unittest.TestCase):
         agenote6 = agenotes[5]
         agenote7 = agenotes[6]
         #asserts the first 7 age notes are correct and in correct order
-        self.assertEqual(agenote1.text, "*  ")
-        self.assertEqual(agenote2.text, "*  ")
-        self.assertEqual(agenote3.text, "*  ")
-        self.assertEqual(agenote4.text, "*  ")
-        self.assertEqual(agenote5.text, "*  ")
-        self.assertEqual(agenote6.text, "*  ")
-        self.assertEqual(agenote7.text, "*  ")
+        self.assertEqual(agenote1.text, "*")
+        self.assertEqual(agenote2.text, "*")
+        self.assertEqual(agenote3.text, "*")
+        self.assertEqual(agenote4.text, "*")
+        self.assertEqual(agenote5.text, "*")
+        self.assertEqual(agenote6.text, "*")
+        self.assertEqual(agenote7.text, "*")
         
 
     def test_specimen_note(self):
@@ -229,7 +231,8 @@ class TestPwiGxdSpecSumByRef(unittest.TestCase):
         
 
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
+        tracemalloc.stop()
         
 def suite():
     suite = unittest.TestSuite()
@@ -237,4 +240,4 @@ def suite():
     return suite
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

@@ -4,14 +4,13 @@ Created on Apr 28, 2020
 @author: jeffc
 '''
 import unittest
-import HtmlTestRunner
 from unittest import TestLoader, TestSuite
-from HtmlTestRunner import HTMLTestRunner
-#from Allele.allele_search_tests import TestEIAlleleSearch
+from HTMLTestRunner import HTMLTestRunner
+#from Allele.Allelesearchtests import TestPwiAlleleSearch
 from DOAnnot.do_annot_search_tests import TestEIDoannotSearch
-from EmapA.emapaclipboardtest import TestEiEmapaClipboard
-from EmapA.emapadetailtest import TestEiEmapaDetail
-from EmapA.emapasearchtest import TestEiEmapaSearch
+from EmapA.emapa_clipboard_tests import TestPwiEmapaClipboard
+from EmapA.emapadetailtest import TestPwiEmapaDetail
+from EmapA.emapasearchtest import TestPwiEmapaSearch
 from EmapA.emapatreeviewtest import TestEiEmapaTreeView
 from Genotype.genotype_search_tests import TestEiGenotypeSearch
 from GxdIndex.gxdindex_clear_test import TestEiGxdIndexClear
@@ -30,11 +29,11 @@ from MPAnnot.mp_annot_search_tests import TestEiMpannotSearch
 from Variant.variant_search_test import TestEiVariantSearch
 from Logintest import TestLogintest
 print('Begin EI testing')
-#ei_allele_search_test = TestLoader().loadTestsFromTestCase(TestEIAlleleSearch)
+ei_allele_search_test = TestLoader().loadTestsFromTestCase(TestPwiAlleleSearch)
 ei_doannot_search_test = TestLoader().loadTestsFromTestCase(TestEIDoannotSearch)
-ei_emapa_clipboard_test = TestLoader().loadTestsFromTestCase(TestEiEmapaClipboard)
-ei_emapa_detail_test = TestLoader().loadTestsFromTestCase(TestEiEmapaDetail)
-ei_emapa_search_test = TestLoader().loadTestsFromTestCase(TestEiEmapaSearch)
+ei_emapa_clipboard_test = TestLoader().loadTestsFromTestCase(TestPwiEmapaClipboard)
+ei_emapa_detail_test = TestLoader().loadTestsFromTestCase(TestPwiEmapaDetail)
+ei_emapa_search_test = TestLoader().loadTestsFromTestCase(TestPwiEmapaSearch)
 ei_emapa_treeeview_test = TestLoader().loadTestsFromTestCase(TestEiEmapaTreeView)
 ei_genotype_search_test = TestLoader().loadTestsFromTestCase(TestEiGenotypeSearch)
 ei_gxdindex_clear_test = TestLoader().loadTestsFromTestCase(TestEiGxdIndexClear)
@@ -55,11 +54,14 @@ ei_login_test = TestLoader().loadTestsFromTestCase(TestLogintest)
 #Put them in an Array
 ei_test_suite = TestSuite([ei_doannot_search_test, ei_emapa_clipboard_test, ei_emapa_detail_test, ei_emapa_search_test, ei_emapa_treeeview_test, ei_genotype_search_test, ei_gxdindex_clear_test, ei_gxdindex_picklist_test, ei_gxdindex_search_test, ei_gxdindex_shortcuts_test, ei_image_cc_test, ei_image_pane_test, ei_image_search_test, ei_littriage_detail_test, ei_littriage_search_test, ei_littriage_summary_test, ei_marker_search_history_test, ei_marker_search_test, ei_mp_annot_search_test, ei_variant_search_test, ei_login_test])
 print('End EI testing')
-#file
-runner = HTMLTestRunner(output='C://WebdriverTests/ei_test_suite')
-h = HtmlTestRunner.HTMLTestRunner(combine_reports=True, report_name="MyEIReport", add_timestamp=False).run(ei_test_suite)
-#runner.run(ei_test_suite)
-
+def test_suite():
+  test1 = unittest.TestLoader().loadTestsFromTestCase(TestPwiEmapaClipboard)
+  test2 = unittest.TestLoader().loadTestsFromTestCase(TestPwiEmapaDetail)
+  test3 = unittest.TestLoader().loadTestsFromTestCase(TestPwiEmapaSearch)
+  suite = unittest.TestSuite([test1, test2, test3])
+  runner = HTMLTestRunner(log=True, verbosity=2, output='report', title='Test report', report_name='report',
+                          open_in_browser=True, description="HTMLTestReport")
+  runner.run(suite)
 if __name__=="__main__":
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner())
+    unittest.main(testRunner=HTMLTestRunner())
 #reports generated Users/jeffc/git/mgiselenium/PyTests/EI/reports  

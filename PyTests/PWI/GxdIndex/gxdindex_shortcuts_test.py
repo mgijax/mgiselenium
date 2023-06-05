@@ -7,7 +7,7 @@ this test was created to verify the proper operation of the shortcut key options
 import unittest
 import time
 import tracemalloc
-from jd_HTMLTestRunner import HTMLTestRunner
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -204,7 +204,7 @@ class TestEiGxdIndexShortcuts(unittest.TestCase):
         self.report.WriteReportFooter()
         self.report.WriteToFile("GXDIndexEITestResults.html")
         self.driver.quit()
-
+        tracemalloc.stop()
 
 def suite():
     suite = unittest.TestSuite()

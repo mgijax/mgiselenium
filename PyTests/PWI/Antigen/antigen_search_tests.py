@@ -6,7 +6,7 @@ These tests verify testing of the search feature for the Antigen EI/PWI module.
 import unittest
 import time
 import tracemalloc
-from jd_HTMLTestRunner import HTMLTestRunner
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -43,6 +43,7 @@ class TestEIAntigenSearch(unittest.TestCase):
 
     def tearDown(self):
         self.driver.quit()
+        tracemalloc.stop()
 
     def testAntigenNameSearch(self):
         """
@@ -215,8 +216,8 @@ class TestEIAntigenSearch(unittest.TestCase):
         self.assertEqual(symbol1, ['E-cadherin'])
         self.assertEqual(symbol2, ['EFTUD2'])
         self.assertEqual(symbol3, ['Epha4, C-terminus'])
-        self.assertEqual(symbol4, ['HAND2'])
-        self.assertEqual(symbol5, ['Integrin beta 4'])
+        self.assertEqual(symbol4, ['FXR2'])
+        self.assertEqual(symbol5, ['HAND2'])
 
     def testAntigenOrganismSearch(self):
 

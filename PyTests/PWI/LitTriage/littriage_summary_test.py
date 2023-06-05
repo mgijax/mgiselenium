@@ -7,7 +7,7 @@ Tests the results returned when doing certain queries.
 import unittest
 import time
 import tracemalloc
-from jd_HTMLTestRunner import HTMLTestRunner
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
@@ -40,6 +40,7 @@ class TestEiLitTriageSummarySearch(unittest.TestCase):
 
     def tearDown(self):
         self.driver.quit()
+        tracemalloc.stop()
 
     def testJournalFieldLinkSearch(self):
         """
@@ -75,7 +76,7 @@ class TestEiLitTriageSummarySearch(unittest.TestCase):
         @see LitTri-sum-3 (5)
         """
         form = self.form
-        form.enter_value('accids', 'J:41759')
+        form.enter_value('accids', 'J:305143')
         form.click_search()
         # finds the results table and iterates through the table
         table_element = self.driver.find_element(By.ID, "resultsTable")

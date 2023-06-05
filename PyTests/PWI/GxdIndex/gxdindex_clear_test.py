@@ -7,7 +7,7 @@ this test was created to verify the proper field are cleared when hitting the Cl
 import unittest
 import time
 import tracemalloc
-from jd_HTMLTestRunner import HTMLTestRunner
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -177,6 +177,7 @@ class TestEiGxdIndexClear(unittest.TestCase):
     def tearDown(self):
         driver = self.driver
         driver.quit()
+        tracemalloc.stop()
 
 
 '''

@@ -6,7 +6,7 @@ These are Image Pane tests for searching, displaying, adding and editing.
 import unittest
 import time
 import tracemalloc
-from jd_HTMLTestRunner import HTMLTestRunner
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -43,6 +43,7 @@ class TestEiImagePaneSearch(unittest.TestCase):
 
     def tearDown(self):
         self.driver.quit()
+        tracemalloc.stop()
 
     def testImagePaneSearch(self):
         """
@@ -53,7 +54,7 @@ class TestEiImagePaneSearch(unittest.TestCase):
         # finds the Image Pane Label field and enters text then clicks the Search button
         driver.find_element(By.ID, "paneLabelID").send_keys('A heart WT')
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        time.sleep(10)
         # find the Pane Labels results table
         pane_table = self.driver.find_element(By.ID, "imagePaneTable")
         time.sleep(2)
@@ -73,7 +74,7 @@ class TestEiImagePaneSearch(unittest.TestCase):
         # finds the Image Pane Label field and enters text then clicks the Search button
         driver.find_element(By.ID, "paneLabelID").send_keys('%liver Paxx%')
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        time.sleep(10)
         # find the Pane Labels results table
         pane_table = self.driver.find_element(By.ID, "imagePaneTable")
         table = Table(pane_table)
@@ -128,7 +129,7 @@ class TestEiImagePaneSearch(unittest.TestCase):
         driver.find_element(By.ID, "paneLabelID").send_keys(
             "C merge (EFGP and choline acetyltransferase immunoreactivity)")
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        time.sleep(10)
         # find the Pane Labels results table
         pane_table = self.driver.find_element(By.ID, "imagePaneTable")
         table = Table(pane_table)
@@ -181,7 +182,7 @@ class TestEiImagePaneSearch(unittest.TestCase):
     def testImagePaneSortSearch(self):
         """
         @Status tests that a basic Image Pane Label search has the correct alpha sort of the pane labels
-        @see pwi-image-pane-search-7 !currently broken, same issue as search 5
+        @see pwi-image-pane-search-7
         """
         driver = self.driver
         # finds the J# field and enter a J Number for an expression image then click the Search button

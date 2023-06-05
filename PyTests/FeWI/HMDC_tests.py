@@ -4,9 +4,8 @@ Created on Jan 27, 2017
 @author: jeffc
 '''
 import unittest
-import HtmlTestRunner
 from unittest import TestLoader, TestSuite
-from HtmlTestRunner import HTMLTestRunner
+from HTMLTestRunner import HTMLTestRunner
 from hmdc_autocomplete_list import TestHmdcAutocomplete
 from hmdc_diseasetab import TestHmdcDiseaseTab
 from hmdc_genetab import TestHmdcGeneTab
@@ -17,22 +16,19 @@ from hmdc_search_id import TestHmdcSearchID
 from hmdc_search_term import TestHmdcSearchTerm
 
 print('Begin HMDC testing')
-hmdc_autocomplete_test = TestLoader().loadTestsFromTestCase(TestHmdcAutocomplete)
-hmdc_diseasetab_test = TestLoader().loadTestsFromTestCase(TestHmdcDiseaseTab)
-hmdc_genetab_test = TestLoader().loadTestsFromTestCase(TestHmdcGeneTab)
-hmdc_indextab_test = TestLoader().loadTestsFromTestCase(TestHmdcIndex)
-hmdc_genesearch_test = TestLoader().loadTestsFromTestCase(TestHmdcGenesSearch)
-hmdc_geneidsearch_test = TestLoader().loadTestsFromTestCase(TestHmdcSearchGeneid)
-hmdc_idsearch_test = TestLoader().loadTestsFromTestCase(TestHmdcSearchID)
-hmdc_termsearch_test = TestLoader().loadTestsFromTestCase(TestHmdcSearchTerm)
-#Put them in an Array
-hmdc_suite = TestSuite([hmdc_autocomplete_test, hmdc_diseasetab_test, hmdc_genetab_test, hmdc_indextab_test, hmdc_genesearch_test, hmdc_geneidsearch_test, hmdc_idsearch_test, hmdc_termsearch_test])
-print('End HMDC testing')
-#file
-runner = HTMLTestRunner(output='C://WebdriverTests/hmdc_suite')
-h = HtmlTestRunner.HTMLTestRunner(combine_reports=True, report_name="MyHMDCReport", add_timestamp=False).run(hmdc_suite)
-#runner.run(hmdc_suite)
+test1 = TestLoader().loadTestsFromTestCase(TestHmdcAutocomplete)
+test2 = TestLoader().loadTestsFromTestCase(TestHmdcDiseaseTab)
+test3 = TestLoader().loadTestsFromTestCase(TestHmdcGeneTab)
+test4 = TestLoader().loadTestsFromTestCase(TestHmdcIndex)
+test5 = TestLoader().loadTestsFromTestCase(TestHmdcGenesSearch)
+test6 = TestLoader().loadTestsFromTestCase(TestHmdcSearchGeneid)
+test7 = TestLoader().loadTestsFromTestCase(TestHmdcSearchID)
+test8 = TestLoader().loadTestsFromTestCase(TestHmdcSearchTerm)
+suite = unittest.TestSuite([test1, test2, test3, test4, test5, test6, test7, test8])
+runner = HTMLTestRunner(log=True, verbosity=2, output='report', title='fewi HDMC Test report', report_name='fewihdmcreport',
+                          open_in_browser=True, description="HTMLTestReport")
+runner.run(suite)
 
 if __name__=="__main__":
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner())
-#reports generated Users/jeffc/git/mgiselenium/PyTests/PWI/reports  
+    unittest.main(testRunner=HTMLTestRunner())
+

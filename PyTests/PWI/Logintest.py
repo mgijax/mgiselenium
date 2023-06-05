@@ -13,7 +13,7 @@ sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../config',)
 )
 import config
-
+tracemalloc.start()
 class TestLogintest(unittest.TestCase):
 
 
@@ -71,6 +71,7 @@ class TestLogintest(unittest.TestCase):
 
     def tearDown(self):
         self.driver.close()
+        tracemalloc.stop()
 
 def suite():
     suite = unittest.TestSuite()

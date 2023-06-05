@@ -6,7 +6,7 @@ This test verifies searching within the EmapA module
 import unittest
 import time
 import tracemalloc
-from jd_HTMLTestRunner import HTMLTestRunner
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -57,11 +57,12 @@ class TestEiEmapaTreeView(unittest.TestCase):
         self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
         wait.forAngular(self.driver)
         treesort = self.driver.find_element(By.ID, "emapaTree").find_element(By.CLASS_NAME, "mgitreeview")
-        items = treesort.find_elements(By.CSS_SELECTOR, ".node")
-
+        items = treesort.find_elements(By.CSS_SELECTOR, ".nodeClick")
         # add all li text to a list for "assertIn" test
+
         searchTreeItems = iterate.getTextAsList(items)
         time.sleep(5)
+        print(searchTreeItems)
         self.assertEqual(searchTreeItems,
                          ["mouse", "body fluid or substance", "body region", "cavity or lining", "conceptus",
                           "early embryo", "embryo", "extracellular matrix", "extraembryonic component", "germ layer",
@@ -225,7 +226,7 @@ class TestEiEmapaTreeView(unittest.TestCase):
 
     def tearDown(self):
         self.driver.quit()
-
+        tracemalloc.stop()
 
 def suite():
     suite = unittest.TestSuite()

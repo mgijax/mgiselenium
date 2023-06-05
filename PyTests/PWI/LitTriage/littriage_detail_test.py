@@ -5,7 +5,7 @@ These tests are to confirm results you get back using various result requirement
 '''
 import unittest
 import tracemalloc
-from jd_HTMLTestRunner import HTMLTestRunner
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import sys, os.path
@@ -36,6 +36,7 @@ class TestEiLitTriageDetail(unittest.TestCase):
 
     def tearDown(self):
         self.driver.quit()
+        tracemalloc.stop()
 
     def testGoRefResult(self):
         """

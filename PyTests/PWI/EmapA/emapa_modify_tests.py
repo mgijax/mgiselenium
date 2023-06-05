@@ -7,7 +7,7 @@ Created on Jan 28, 2016
 '''
 import unittest
 import tracemalloc
-from jd_HTMLTestRunner import HTMLTestRunner
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.keys import Keys
@@ -43,7 +43,7 @@ class TestEiEmapaModify(unittest.TestCase):
 
     def tearDown(self):
         self.driver.quit()
-
+        tracemalloc.stop()
 
 def suite():
     suite = unittest.TestSuite()

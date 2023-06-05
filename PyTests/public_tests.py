@@ -11,29 +11,28 @@ import config
 
 import unittest
 import tracemalloc
-from jd_HTMLTestRunner import HTMLTestRunner
+from HTMLTestRunner import HTMLTestRunner
 # import all sub test suites
-from .FeWI import all_tests as fewi_tests
+from unittest import TestLoader, TestSuite
+from test_mrk_detail_links import TestMarkerDetailLinks
+from test_private_data import TestPrivateData
+from test_snp_build_numbers import TestSnpBuildNumbers
 
-import test_mrk_detail_links
-import test_private_data
-import test_snp_build_numbers
 
-# add the test suites
-def master_suite():
-    suites = []
-    # run all EmapA test suites
-    suites.append(fewi_tests.master_suite())
-    
-    suites.append(test_mrk_detail_links.suite())
-    suites.append(test_private_data.suite())
-    suites.append(test_snp_build_numbers.suite())
+def test_suite():
+  test1 = unittest.TestLoader().loadTestsFromTestCase(TestMarkerDetailLinks)
+  test2 = unittest.TestLoader().loadTestsFromTestCase(TestPrivateData)
+  test3 = unittest.TestLoader().loadTestsFromTestCase(TestSnpBuildNumbers)
+  suite = unittest.TestSuite([test1, test2, test3])
+  runner = HTMLTestRunner(log=True, verbosity=2, output='report', title='Test report', report_name='report',
+                          open_in_browser=True, description="HTMLTestReport")
+  runner.run(suite)
 
-    master_suite = unittest.TestSuite(suites)
-    return master_suite
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))
+  test_suite()
 
-    ret = not runner.run(test_suite).wasSuccessful()
-    sys.exit(ret)
+
+
+
+

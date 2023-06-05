@@ -5,7 +5,8 @@ This set of tests verifies the Strains detail page results
 '''
 import unittest
 import time
-import HtmlTestRunner
+import tracemalloc
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
@@ -23,6 +24,8 @@ from util import wait, iterate
 import config
 from config import TEST_URL
 
+#Tests
+tracemalloc.start()
 class TestStrainDetail(unittest.TestCase):
 
 
@@ -1448,10 +1451,9 @@ class TestStrainDetail(unittest.TestCase):
         self.assertEqual(mginum.text, 'MGI:3028467')       
 
 
-        
     def tearDown(self):
-        #self.driver.close()
         self.driver.quit()
+        tracemalloc.stop()
 
 def suite():
     suite = unittest.TestSuite()
@@ -1459,4 +1461,4 @@ def suite():
     return suite
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))        
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

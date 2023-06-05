@@ -6,7 +6,8 @@ these tests need  to be worked on!!! none of them work right now5/20/2021
 '''
 import unittest
 import time
-import HtmlTestRunner
+import tracemalloc
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 #from selenium.webdriver.firefox.service import Service
 #f=Service("C:\\Users\jeffc\AppData\Local\Programs\Python\Python38-32\Scripts\geckodriver.exe")
@@ -26,7 +27,8 @@ sys.path.append(
 )
 from util import iterate, wait
 import config
-
+#Tests
+tracemalloc.start()
 class TestGxdDifferentialQF(unittest.TestCase):
 
 
@@ -298,7 +300,8 @@ class TestGxdDifferentialQF(unittest.TestCase):
         self.assertIn('spleen', searchTextItems)               
                 
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
+        tracemalloc.stop()
 
 def suite():
     suite = unittest.TestSuite()
@@ -306,5 +309,5 @@ def suite():
     return suite
         
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))
     

@@ -8,7 +8,7 @@ This test verifies searching within the Marker module.
 import unittest
 import time
 import tracemalloc
-from jd_HTMLTestRunner import HTMLTestRunner
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -31,7 +31,7 @@ from util.table import Table
 
 # Tests
 tracemalloc.start()
-class TestEiMrkSearchHistory(unittest.TestCase):
+class TestEiMrkSearch(unittest.TestCase):
     """
     @status Test Literature Triage search using J number, etc
     """
@@ -44,6 +44,7 @@ class TestEiMrkSearchHistory(unittest.TestCase):
 
     def tearDown(self):
         self.driver.quit()
+        tracemalloc.stop()
 
     def testTypeGeneSearch(self):
         """
@@ -1260,7 +1261,7 @@ class TestEiMrkSearchHistory(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestEiMrkSearchHistory))
+    suite.addTest(unittest.makeSuite(TestEiMrkSearch))
     return suite
 
 

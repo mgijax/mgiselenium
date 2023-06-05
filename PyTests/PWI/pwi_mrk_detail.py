@@ -1,15 +1,13 @@
 '''
 Created on Jul 24, 2018
 These tests start out using the Marker form to display and test Marker Details
-@attention: All these tests need to be rewritten using the new Marker module!!!!!!!
-@attention: All these tests need to be rewritten using the new Marker module!!!!!!!
-@attention: All these tests need to be rewritten using the new Marker module!!!!!!!
 @author: jeffc
 '''
 
 import unittest
 import time
-import HtmlTestRunner
+import tracemalloc
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -24,12 +22,12 @@ sys.path.append(
 )
 import config
 from config import TEST_PWI_URL
-
+tracemalloc.start()
 class TestPwiMrkDetail(unittest.TestCase):
 
     def setUp(self):
-        #self.driver = webdriver.Chrome()
-        self.driver = webdriver.Firefox() 
+        self.driver = webdriver.Chrome()
+        #self.driver = webdriver.Firefox()
 
     def test_mrk_det_type_gene(self):
         """
@@ -41,7 +39,7 @@ class TestPwiMrkDetail(unittest.TestCase):
         driver = self.driver
         #opens the PWI marker form
         driver.get(TEST_PWI_URL + '/edit/marker/')  
-        time.sleep(5)
+        time.sleep(2)
         #find the Symbol field and enter the text      
         driver.find_element(By.ID, 'markerSymbol').send_keys('Kit')
         # Find the search button and click it.
@@ -201,7 +199,7 @@ class TestPwiMrkDetail(unittest.TestCase):
         self.assertEqual(mtype.text, 'QTL', 'The Marker Type is not correct!')
         self.assertEqual(ftype.text, 'QTL', 'The Marker Feature Type is not correct!')
         self.assertEqual(biotype.text, '', 'The Marker Biotype is not correct!')
-        self.assertEqual(location.text, 'Chr4:63603826-63603826 bp, Null strand From MGI annotation of GRCm39', 'The Marker Location is not correct!')
+        self.assertEqual(location.text, 'Chr4:63603826-63603826 bp, null strand From MGI annotation of GRCm39', 'The Marker Location is not correct!')
         self.assertEqual(mrkclip.text, '', 'The Marker Detail Clip is not correct!')
 
 
@@ -603,7 +601,8 @@ class TestPwiMrkDetail(unittest.TestCase):
 
 
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
+        tracemalloc.stop()
         
 def suite():
     suite = unittest.TestSuite()
@@ -611,4 +610,4 @@ def suite():
     return suite
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

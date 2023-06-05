@@ -6,7 +6,7 @@ These tests verify the various copy functions within the Marker module.
 import unittest
 import time
 import tracemalloc
-from jd_HTMLTestRunner import HTMLTestRunner
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -15,7 +15,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import Select
 # from.selenium.webdriver.support.color import Color
-import jd_HTMLTestRunner
 import json
 import sys, os.path
 from selenium.webdriver.support.color import Color
@@ -54,6 +53,7 @@ class TestEiVariantCopy(unittest.TestCase):
 
     def tearDown(self):
         self.driver.quit()
+        tracemalloc.stop()
 
     def testVarCopyAll(self):
         """

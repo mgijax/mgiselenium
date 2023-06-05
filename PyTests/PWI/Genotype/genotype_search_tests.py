@@ -6,7 +6,7 @@ These are tests that check the searching options of the Genotype module
 import unittest
 import time
 import tracemalloc
-from jd_HTMLTestRunner import HTMLTestRunner
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -29,7 +29,7 @@ from util.table import Table
 
 
 # Tests
-
+tracemalloc.start()
 class TestEiGenotypeSearch(unittest.TestCase):
     """
     @status Test Genotype searching, etc
@@ -43,6 +43,7 @@ class TestEiGenotypeSearch(unittest.TestCase):
 
     def tearDown(self):
         self.driver.quit()
+        tracemalloc.stop()
 
     def testGenoStrainSearch(self):
         """

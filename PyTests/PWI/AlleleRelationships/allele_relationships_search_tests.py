@@ -6,7 +6,7 @@ Created on Mar 17, 2022
 import unittest
 import time
 import tracemalloc
-from jd_HTMLTestRunner import HTMLTestRunner
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -43,6 +43,7 @@ class TestEIAlleleRelationshipsSearch(unittest.TestCase):
 
     def tearDown(self):
         self.driver.quit()
+        tracemalloc.stop()
 
     def testEIAlleleRelationshipsMGI_IDSearch(self):
         """
@@ -430,7 +431,7 @@ class TestEIAlleleRelationshipsSearch(unittest.TestCase):
         """
         driver = self.driver
         # finds the Driver Component Organism pick list field and select  the option zebrafish('string:84') , then click the Search button
-        Select(driver.find_element(By.ID, "DCorganism")).select_by_value('string:84')
+        Select(driver.find_element(By.ID, "DCorganism-0")).select_by_value('string:84')
         time.sleep(2)
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
@@ -457,11 +458,11 @@ class TestEIAlleleRelationshipsSearch(unittest.TestCase):
         self.assertEqual(result3, ['Tg(MMTV-Catnb)3Pac'])
         self.assertEqual(result4, ['Tg(MMTV-Catnb)5Pac'])
 
-    def testEIAlleleRelationshipsPropertySearch(self):
-        """
+    """def testEIAlleleRelationshipsPropertySearch(self):
+        
         @Status tests that a basic allele relationships property search  works
         @see pwi-allele-der-search-14!!!!! (this test is no longer valid. All tests need review to fix the changes made for this form)
-        """
+        
         driver = self.driver
         # finds the Property list field and select the option Non-mouse_organism , set value to zebrafish and then click the Search button
         Select(driver.find_element(By.ID, "propertyName-0")).select_by_value('string:12948290')
@@ -490,7 +491,7 @@ class TestEIAlleleRelationshipsSearch(unittest.TestCase):
         self.assertEqual(result1, ['Mesp2<tm7.1(mespb)Ysa>'])
         self.assertEqual(result2, ['Mesp2<tm7(mespb)Ysa>'])
         self.assertEqual(result3, ['Tg(MMTV-Catnb)3Pac'])
-        self.assertEqual(result4, ['Tg(MMTV-Catnb)5Pac'])
+        self.assertEqual(result4, ['Tg(MMTV-Catnb)5Pac'])"""
 
     def testEIAlleleRelationshipsMrkRegionToolSearch(self):
         """

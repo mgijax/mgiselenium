@@ -7,7 +7,7 @@ These tests are to confirm results you get back using various edit requirements
 import unittest
 import time
 import tracemalloc
-from jd_HTMLTestRunner import HTMLTestRunner
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
@@ -47,7 +47,8 @@ class TestEiLitTriageEdit(unittest.TestCase):
         submit.click()  # click the login button
 
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
+        tracemalloc.stop()
 
     def testRefStatusEdit(self):
         """

@@ -6,7 +6,7 @@ Tests the searching features of the Variant module
 import unittest
 import time
 import tracemalloc
-from jd_HTMLTestRunner import HTMLTestRunner
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -45,6 +45,7 @@ class TestEiVariantSearch(unittest.TestCase):
 
     def tearDown(self):
         self.driver.quit()
+        tracemalloc.stop()
 
     def testVarAlleleIDSearch(self):
         """
@@ -183,14 +184,16 @@ class TestEiVariantSearch(unittest.TestCase):
         symbols = iterate.getTextAsList(cells)
         print(symbols[0])
         # assert some of the correct symbols are returned
-        self.assertEqual(symbols[0], 'Ace2<em2Shyy>', 'symbol0 is wrong')
-        self.assertEqual(symbols[1], 'Alg13<em1Mbp>', 'symbol1 is wrong')
-        self.assertEqual(symbols[2], 'Arhgap36<em1Seul>', 'symbol2 is wrong')
-        self.assertEqual(symbols[3], 'Armcx4<C57BL/6N>', 'symbol3 is wrong')
-        self.assertEqual(symbols[4], 'Arx<tm2Kki>', 'symbol4 is wrong')
-        self.assertEqual(symbols[5], 'Arx<tm3Kki>', 'symbol5 is wrong')
-        self.assertEqual(symbols[6], 'Arx<tm4Kki>', 'symbol6 is wrong')
-        self.assertEqual(symbols[7], 'Arx<tm5Kki>', 'symbol7 is wrong')
+        self.assertEqual(symbols[0], 'Ace2<em1Mccc>', 'symbol0 is wrong')
+        self.assertEqual(symbols[1], 'Ace2<em2Mccc>', 'symbol1 is wrong')
+        self.assertEqual(symbols[2], 'Ace2<em2Shyy>', 'symbol2 is wrong')
+        self.assertEqual(symbols[3], 'Alg13<em1Mbp>', 'symbol3 is wrong')
+        self.assertEqual(symbols[4], 'Arhgap36<em1Seul>', 'symbol4 is wrong')
+        self.assertEqual(symbols[5], 'Armcx4<C57BL/6N>', 'symbol5 is wrong')
+        self.assertEqual(symbols[6], 'Arx<tm2Kki>', 'symbol6 is wrong')
+        self.assertEqual(symbols[7], 'Arx<tm3Kki>', 'symbol7 is wrong')
+        self.assertEqual(symbols[8], 'Arx<tm4Kki>', 'symbol8 is wrong')
+
 
     def testVarStrandSearch(self):
         """
@@ -306,7 +309,7 @@ class TestEiVariantSearch(unittest.TestCase):
         rgb = driver.find_element(By.ID, 'strand').value_of_css_property('background-color')
         print(rgb)
         # verify the RGB code is correct for the color Red
-        self.assertEqual(rgb, 'rgb(255, 0, 0)', 'the wrong RGB code is returning')
+        self.assertEqual(rgb, 'rgba(255, 0, 0, 1)', 'the wrong RGB code is returning')
 
     def testAlleleWithMultVarSearch(self):
         """

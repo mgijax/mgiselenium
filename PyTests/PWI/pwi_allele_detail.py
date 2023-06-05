@@ -6,7 +6,8 @@ These tests start out using the Marker form THE MARKER FORM IS NOW GONE reevalua
 
 import unittest
 import time
-import HtmlTestRunner
+import tracemalloc
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -21,12 +22,13 @@ sys.path.append(
 )
 import config
 from config import TEST_PWI_URL
-
+#Tests
+tracemalloc.start()
 class TestPwiAlleleDetail(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Firefox()
-        #self.driver = webdriver.Chrome() 
+        #self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
 
     def test_disease_annotations(self):
         """
@@ -219,8 +221,8 @@ class TestPwiAlleleDetail(unittest.TestCase):
         # put your allele ID in the box
         accbox.send_keys("MGI:1861932")
         accbox.send_keys(Keys.RETURN)
-        WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'div.genotypeDetail:nth-child(1024) > dl:nth-child(1) > dd:nth-child(6)')))#waits until the last phenotype annotation MGI ID is displayed on the page
-        time.sleep(4)
+        #WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.CLASS_NAME, 'external')))#waits until the last phenotype annotation MGI ID is displayed on the page
+        time.sleep(15)
         #find the high level phenotype terms for the forth genotype(MGI:3852467 (key 46893))
         high_lvl_term1 = driver.find_element(By.CSS_SELECTOR, "div.genotypeDetail:nth-child(82) > div:nth-child(3) > span:nth-child(1)")
         high_lvl_term2 = driver.find_element(By.CSS_SELECTOR, "div.genotypeDetail:nth-child(82) > div:nth-child(4) > span:nth-child(1)")
@@ -242,19 +244,19 @@ class TestPwiAlleleDetail(unittest.TestCase):
         pheno_id6 = driver.find_element(By.CSS_SELECTOR, "div.genotypeDetail:nth-child(88) > dl:nth-child(1) > dd:nth-child(6)")
         pheno_id7 = driver.find_element(By.CSS_SELECTOR, "div.genotypeDetail:nth-child(92) > dl:nth-child(1) > dd:nth-child(6)")
         pheno_id8 = driver.find_element(By.CSS_SELECTOR, "div.genotypeDetail:nth-child(99) > dl:nth-child(1) > dd:nth-child(6)")
-        pheno_id9 = driver.find_element(By.CSS_SELECTOR, "div.genotypeDetail:nth-child(100) > dl:nth-child(1) > dd:nth-child(6)")
-        pheno_id10 = driver.find_element(By.CSS_SELECTOR, "div.genotypeDetail:nth-child(101) > dl:nth-child(1) > dd:nth-child(6)")
-        pheno_id11 = driver.find_element(By.CSS_SELECTOR, "div.genotypeDetail:nth-child(102) > dl:nth-child(1) > dd:nth-child(6)")
-        pheno_id12 = driver.find_element(By.CSS_SELECTOR, "div.genotypeDetail:nth-child(103) > dl:nth-child(1) > dd:nth-child(6)")
-        pheno_id13 = driver.find_element(By.CSS_SELECTOR, "div.genotypeDetail:nth-child(104) > dl:nth-child(1) > dd:nth-child(6)")
-        pheno_id14 = driver.find_element(By.CSS_SELECTOR, "div.genotypeDetail:nth-child(105) > dl:nth-child(1) > dd:nth-child(6)")
-        pheno_id15 = driver.find_element(By.CSS_SELECTOR, "div.genotypeDetail:nth-child(108) > dl:nth-child(1) > dd:nth-child(6)")
-        pheno_id16 = driver.find_element(By.CSS_SELECTOR, "div.genotypeDetail:nth-child(110) > dl:nth-child(1) > dd:nth-child(6)")
-        pheno_id17 = driver.find_element(By.CSS_SELECTOR, "div.genotypeDetail:nth-child(111) > dl:nth-child(1) > dd:nth-child(6)")
-        pheno_id18 = driver.find_element(By.CSS_SELECTOR, "div.genotypeDetail:nth-child(112) > dl:nth-child(1) > dd:nth-child(6)")
-        pheno_id19 = driver.find_element(By.CSS_SELECTOR, "div.genotypeDetail:nth-child(113) > dl:nth-child(1) > dd:nth-child(6)")
-        pheno_id20 = driver.find_element(By.CSS_SELECTOR, "div.genotypeDetail:nth-child(115) > dl:nth-child(1) > dd:nth-child(6)")
-        pheno_id21 = driver.find_element(By.CSS_SELECTOR, "div.genotypeDetail:nth-child(116) > dl:nth-child(1) > dd:nth-child(6)")
+        pheno_id9 = driver.find_element(By.CSS_SELECTOR, "div.genotypeDetail:nth-child(101) > dl:nth-child(1) > dd:nth-child(6)")
+        pheno_id10 = driver.find_element(By.CSS_SELECTOR, "div.genotypeDetail:nth-child(103) > dl:nth-child(1) > dd:nth-child(6)")
+        pheno_id11 = driver.find_element(By.CSS_SELECTOR, "div.genotypeDetail:nth-child(104) > dl:nth-child(1) > dd:nth-child(6)")
+        pheno_id12 = driver.find_element(By.CSS_SELECTOR, "div.genotypeDetail:nth-child(105) > dl:nth-child(1) > dd:nth-child(6)")
+        pheno_id13 = driver.find_element(By.CSS_SELECTOR, "div.genotypeDetail:nth-child(106) > dl:nth-child(1) > dd:nth-child(6)")
+        pheno_id14 = driver.find_element(By.CSS_SELECTOR, "div.genotypeDetail:nth-child(108) > dl:nth-child(1) > dd:nth-child(6)")
+        pheno_id15 = driver.find_element(By.CSS_SELECTOR, "div.genotypeDetail:nth-child(111) > dl:nth-child(1) > dd:nth-child(6)")
+        pheno_id16 = driver.find_element(By.CSS_SELECTOR, "div.genotypeDetail:nth-child(112) > dl:nth-child(1) > dd:nth-child(6)")
+        pheno_id17 = driver.find_element(By.CSS_SELECTOR, "div.genotypeDetail:nth-child(113) > dl:nth-child(1) > dd:nth-child(6)")
+        pheno_id18 = driver.find_element(By.CSS_SELECTOR, "div.genotypeDetail:nth-child(114) > dl:nth-child(1) > dd:nth-child(6)")
+        pheno_id19 = driver.find_element(By.CSS_SELECTOR, "div.genotypeDetail:nth-child(116) > dl:nth-child(1) > dd:nth-child(6)")
+        pheno_id20 = driver.find_element(By.CSS_SELECTOR, "div.genotypeDetail:nth-child(117) > dl:nth-child(1) > dd:nth-child(6)")
+        pheno_id21 = driver.find_element(By.CSS_SELECTOR, "div.genotypeDetail:nth-child(118) > dl:nth-child(1) > dd:nth-child(6)")
         print(pheno_id1.text)
         print(pheno_id2.text)
         print(pheno_id3.text) 
@@ -285,23 +287,24 @@ class TestPwiAlleleDetail(unittest.TestCase):
         self.assertIn(pheno_id6.text, "MGI:4839957 (key 53677)")
         self.assertIn(pheno_id7.text, "MGI:3531461 (key 20218)")  
         self.assertIn(pheno_id8.text, "MGI:3807487 (key 40126)")
-        self.assertIn(pheno_id9.text, "MGI:5563244 (key 69739)") 
-        self.assertIn(pheno_id10.text, "MGI:5563247 (key 69742)")         
-        self.assertIn(pheno_id11.text, "MGI:3836424 (key 43990)")
+        self.assertIn(pheno_id9.text, "MGI:5563247 (key 69742)")
+        self.assertIn(pheno_id10.text, "MGI:3836424 (key 43990)")
+        self.assertIn(pheno_id11.text, "MGI:3767612 (key 35568)")
         self.assertIn(pheno_id12.text, "MGI:3767613 (key 35569)")
-        self.assertIn(pheno_id13.text, "MGI:3767612 (key 35568)")  
-        self.assertIn(pheno_id14.text, "MGI:4940095 (key 54878)")
-        self.assertIn(pheno_id15.text, "MGI:3716982 (key 32733)")
-        self.assertIn(pheno_id16.text, "MGI:5563246 (key 69741)")  
+        self.assertIn(pheno_id13.text, "MGI:4940095 (key 54878)")
+        self.assertIn(pheno_id14.text, "MGI:3716982 (key 32733)")
+        self.assertIn(pheno_id15.text, "MGI:5563246 (key 69741)")
+        self.assertIn(pheno_id16.text, "MGI:5447167 (key 63213)")
         self.assertIn(pheno_id17.text, "MGI:5447168 (key 63214)")
-        self.assertIn(pheno_id18.text, "MGI:5447167 (key 63213)")
-        self.assertIn(pheno_id19.text, "MGI:5304570 (key 59128)")  
-        self.assertIn(pheno_id20.text, "MGI:5285375 (key 57539)")
-        self.assertIn(pheno_id21.text, "MGI:5308956 (key 59703)")
+        self.assertIn(pheno_id18.text, "MGI:5304570 (key 59128)")
+        self.assertIn(pheno_id19.text, "MGI:5285375 (key 57539)")
+        self.assertIn(pheno_id20.text, "MGI:5308956 (key 59703)")
+        self.assertIn(pheno_id21.text, "MGI:5308958 (key 59704)")
         
         
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
+        tracemalloc.stop()
         
 def suite():
     suite = unittest.TestSuite()
@@ -310,5 +313,5 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))    
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))
         

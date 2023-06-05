@@ -5,7 +5,8 @@ This set of tests verifies results you might get from the GXD query form, it cov
 '''
 import unittest
 import time
-import HtmlTestRunner
+import tracemalloc
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
@@ -26,6 +27,8 @@ from util import wait, iterate
 import config
 from config import TEST_URL
 
+#Test
+tracemalloc.start()
 class TestGxdResults(unittest.TestCase):
 
 
@@ -645,8 +648,8 @@ class TestGxdResults(unittest.TestCase):
         self.assertIn('E-MTAB-3662 Pilot KOMP knockout mouse strains', searchTextItems[8]) 
     
     def tearDown(self):
-        #self.driver.close()
         self.driver.quit()
+        tracemalloc.stop()
 
 def suite():
     suite = unittest.TestSuite()
@@ -655,4 +658,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))    
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

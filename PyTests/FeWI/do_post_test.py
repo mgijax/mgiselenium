@@ -6,11 +6,12 @@ Test to try and get post feature to work with selenium-requests
 import unittest
 import time
 import requests
+import tracemalloc
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-import HtmlTestRunner
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -21,7 +22,8 @@ from util import iterate, wait
 from util.form import ModuleForm
 from util.table import Table
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-    
+#Tests
+tracemalloc.start()
 class TestDoPostTest(unittest.TestCase):
     
     def setUp(self):
@@ -64,6 +66,7 @@ class TestDoPostTest(unittest.TestCase):
         
     def tearDown(self):
         self.driver.quit()
+        tracemalloc.stop()
 
 def suite():
     suite = unittest.TestSuite()
@@ -71,4 +74,4 @@ def suite():
     return suite
        
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests')) 
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

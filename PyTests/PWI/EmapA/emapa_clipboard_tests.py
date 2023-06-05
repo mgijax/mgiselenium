@@ -5,27 +5,24 @@ This test verifies correct functioning of the clip board features within the Ema
 '''
 import unittest
 import tracemalloc
-from jd_HTMLTestRunner import HTMLTestRunner
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 import sys, os.path
-
-# adjust the path to find config
-sys.path.append(
-    os.path.join(os.path.dirname(__file__), '../../..', )
-)
 import config
-
 from util import iterate, wait
 from util.form import ModuleForm
 from util.table import Table
 import time
-
+# adjust the path to find config
+sys.path.append(
+    os.path.join(os.path.dirname(__file__), '../../..', )
+)
 
 # Tests
-
+tracemalloc.start()
 class TestEiEmapaClipboard(unittest.TestCase):
     """
     Tests various features connected with the clipboard.
@@ -49,6 +46,7 @@ class TestEiEmapaClipboard(unittest.TestCase):
 
     def tearDown(self):
         self.driver.quit()
+        tracemalloc.stop()
 
     """def testOutRangeStage(self):        
 

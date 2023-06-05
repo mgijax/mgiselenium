@@ -5,11 +5,12 @@ This set of tests is for the disease auto complete list
 '''
 import unittest
 import time
+import tracemalloc
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-import HtmlTestRunner
 # from lib import *
 import sys,os.path
 # adjust the path to find config
@@ -24,7 +25,7 @@ from util.table import Table
 
 
 # Tests
-
+tracemalloc.start()
 class TestHmdcAutocomplete(unittest.TestCase):
 
     def setUp(self):
@@ -68,7 +69,8 @@ class TestHmdcAutocomplete(unittest.TestCase):
         
         
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
+        tracemalloc.stop()
        
 def suite():
     suite = unittest.TestSuite()
@@ -76,4 +78,4 @@ def suite():
     return suite 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

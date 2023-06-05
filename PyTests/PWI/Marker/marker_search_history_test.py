@@ -8,7 +8,7 @@ These tests verify searching within the Marker module.
 import unittest
 import time
 import tracemalloc
-from jd_HTMLTestRunner import HTMLTestRunner
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -18,7 +18,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 import json
 import sys, os.path
-from symbol import sym_name
+#from symbol import sym_name
 
 # adjust the path to find config
 sys.path.append(
@@ -45,6 +45,7 @@ class TestEiMrkSearchHistory(unittest.TestCase):
 
     def tearDown(self):
         self.driver.quit()
+        tracemalloc.stop()
 
     def testSymbolHistorySearch(self):
         """

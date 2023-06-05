@@ -5,7 +5,8 @@ These tests were created to verify details on the Genotype detail pages(genoview
 '''
 import unittest
 import time
-import HtmlTestRunner
+import tracemalloc
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -21,10 +22,8 @@ from util import iterate, wait
 from util.form import ModuleForm
 from util.table import Table
 
-
-
 # Tests
-
+tracemalloc.start()
 class TestGenotypeDetail(unittest.TestCase):
 
     def setUp(self):
@@ -104,12 +103,10 @@ class TestGenotypeDetail(unittest.TestCase):
             #print ('Found the strain link and clicked it!')
         #else: 
             #print ("Strain link not found this test passes!") 
-            
-        
-     
-    
+
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
+        tracemalloc.stop()
        
 
 def suite():
@@ -118,4 +115,4 @@ def suite():
     return suite
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

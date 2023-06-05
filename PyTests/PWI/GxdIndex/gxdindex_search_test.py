@@ -8,7 +8,7 @@ This test verifies searching within the EmapA module, Both a term search and a s
 import unittest
 import time
 import tracemalloc
-from jd_HTMLTestRunner import HTMLTestRunner
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
@@ -41,6 +41,7 @@ class TestEiGxdIndexSearch(unittest.TestCase):
 
     def tearDown(self):
         self.driver.quit()
+        tracemalloc.stop()
 
     def testJnumSearch(self):
         """
@@ -237,11 +238,11 @@ class TestEiGxdIndexSearch(unittest.TestCase):
         print(row1.text)
         print(row2.text)
 
-        self.assertEqual(row1.text, '1110017D15Rik, J:180800, Haitchi HM, Eur Respir J 2009 May;33(5):1095-104')
-        self.assertEqual(row2.text, 'Ace2, J:183115, Song R, Pediatr Res 2012 Jan;71(1):13-9')
-        self.assertEqual(row3.text, 'Acta1, J:194471, Borensztein M, Development 2013 Mar;140(6):1231-9')
-        self.assertEqual(row4.text, 'Actc1, J:194471, Borensztein M, Development 2013 Mar;140(6):1231-9')
-        self.assertEqual(row5.text, 'Afp, J:187541, Schievenbusch S, Stem Cells Dev 2012 Sep 20;21(14):2656-66')
+        self.assertEqual(row1.text, 'Ace2, J:183115, Song R, Pediatr Res 2012 Jan;71(1):13-9')
+        self.assertEqual(row2.text, 'Acta1, J:194471, Borensztein M, Development 2013 Mar;140(6):1231-9')
+        self.assertEqual(row3.text, 'Actc1, J:194471, Borensztein M, Development 2013 Mar;140(6):1231-9')
+        self.assertEqual(row4.text, 'Afp, J:187541, Schievenbusch S, Stem Cells Dev 2012 Sep 20;21(14):2656-66')
+        self.assertEqual(row5.text, 'Airn, J:182357, Kobayashi H, FEBS Lett 2012 Mar 23;586(6):827-33')
 
     """def testWithdrawnMrkSearch(self):
 

@@ -10,6 +10,7 @@ sys.path.append(
 import config
 
 import unittest
+from HTMLTestRunner import HTMLTestRunner
 
 # import all sub test suites
 from PWI import pwi_gxd_antibody_summary

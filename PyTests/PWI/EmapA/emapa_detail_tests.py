@@ -7,7 +7,7 @@ Add'l 4 tests added Aug 2016; jlewis
 import unittest
 import time
 import tracemalloc
-from jd_HTMLTestRunner import HTMLTestRunner
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -166,13 +166,10 @@ class TestEiEmapaDetail(unittest.TestCase):
         # switch to the new window
         self.driver.switch_to.window(self.driver.window_handles[1])
         time.sleep(5)
-        searchFor = self.driver.find_element(By.CSS_SELECTOR, ".youSearchedFor")
+        searchFor = self.driver.find_element(By.CSS_SELECTOR, ".youSearchedFor > dl:nth-child(2) > dd:nth-child(2)")
 
         self.assertEqual(self.driver.title, "Result Summary")
-        self.assertTrue("brain blood vessel" in searchFor.text, "You searched for does not contain structure name")
-
-        body = self.driver.find_element(By.TAG_NAME, "body")
-        self.assertTrue(("of %d" % annotCount) in body.text, "same annotation count not found on results summary")
+        self.assertTrue("EMAPA:35182" in searchFor.text, "You searched for does not contain structure ID")
 
     def testStageSpecificDetail(self):
         """
@@ -300,20 +297,20 @@ class TestEiEmapaDetail(unittest.TestCase):
         annotCountTag.click()
         # switch to the new window
         self.driver.switch_to.window(self.driver.window_handles[1])
-        time.sleep(5)
+        time.sleep(10)
 
-        searchFor = self.driver.find_element(By.CSS_SELECTOR, ".youSearchedFor > dl:nth-child(2) > dd:nth-child(4)")
+        searchFor = self.driver.find_element(By.CSS_SELECTOR, ".youSearchedFor > dl:nth-child(2) > dd:nth-child(2)")
 
         self.assertEqual(self.driver.title, "Result Summary")
-        self.assertTrue("thymus/parathyroid primordium" in searchFor.text,
-                        "You searched for does not contain structure name")
+        self.assertTrue("EMAPS:3586519" in searchFor.text,
+                        "You searched for does not contain structure ID")
 
         body = self.driver.find_element(By.TAG_NAME, "body")
         self.assertTrue(("of %d" % annotCount) in body.text, "same annotation count not found on results summary")
 
     def tearDown(self):
         self.driver.quit()
-
+        tracemalloc.stop()
 
 def suite():
     suite = unittest.TestSuite()

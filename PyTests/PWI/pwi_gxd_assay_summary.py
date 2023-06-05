@@ -6,7 +6,8 @@ This page is linked to from the References page
 '''
 import unittest
 import time
-import HtmlTestRunner
+import tracemalloc
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -22,12 +23,13 @@ sys.path.append(
 )
 import config
 from config import TEST_PWI_URL
-
+#Tests
+tracemalloc.start()
 class TestPwiGxdAssaySummaryPage(unittest.TestCase):
 
     def setUp(self):
-        #self.driver = webdriver.Chrome() 
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
+        #self.driver = webdriver.Firefox()
 
     def test_table_headers(self):
         """
@@ -71,12 +73,11 @@ class TestPwiGxdAssaySummaryPage(unittest.TestCase):
         # put your J number in the box
         accbox.send_keys("J:208450")
         accbox.send_keys(Keys.RETURN)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Assays')))#waits until the Assays link is displayed on the page
-        time.sleep(5)
+        WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.LINK_TEXT, 'Assays')))#waits until the Assays link is displayed on the page
         #finds the GXD/CRE Assays link and clicks it
         driver.find_element(By.LINK_TEXT, "Assays").click()
-        wait.forAjax(driver)
-        time.sleep(2)
+        #wait.forAjax(driver)
+        time.sleep(8)
         #finds the specimen label column and then the first 12 items
         resultstable = driver.find_element(By.CLASS_NAME, "dataTable")
         rows = resultstable.find_elements(By.CSS_SELECTOR, 'tr')
@@ -155,7 +156,8 @@ class TestPwiGxdAssaySummaryPage(unittest.TestCase):
         self.assertEqual(detail16.text, "MGI:5688696")
         
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
+        tracemalloc.stop()
         
 def suite():
     suite = unittest.TestSuite()
@@ -163,4 +165,4 @@ def suite():
     return suite
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))          
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

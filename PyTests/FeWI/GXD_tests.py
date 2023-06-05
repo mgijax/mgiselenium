@@ -3,10 +3,9 @@ Created on Apr 23, 2018
 
 @author: jeffc
 '''
-import HtmlTestRunner
 import unittest
 from unittest import TestLoader, TestSuite
-from HtmlTestRunner import HTMLTestRunner
+from HTMLTestRunner import HTMLTestRunner
 from gxd_diff_qf import TestGxdDifferentialQF
 from gxd_image_summary import TestGxdImageSummary
 from gxd_qf import TestGxdQF
@@ -19,24 +18,20 @@ from gxd_txp_matrix import TestGXDTissuePhenotypeMatrix
 from gxd_txs_matrix import TestGXDTissueStageMatrix
 
 print('Begin GXD testing')
-gxd_diff_qf_test = TestLoader().loadTestsFromTestCase(TestGxdDifferentialQF)
-gxd_image_summary_test = TestLoader().loadTestsFromTestCase(TestGxdImageSummary)
-gxd_qf_test = TestLoader().loadTestsFromTestCase(TestGxdQF)
-gxd_results_test = TestLoader().loadTestsFromTestCase(TestGxdResults)
-gxd_rna_seq_qf_autocomplete_test = TestLoader().loadTestsFromTestCase(TestGxdRnaSeqAutocomplete)
-gxd_rna_seq_qf_search_test = TestLoader().loadTestsFromTestCase(TestGxdRnaSeqSearching)
-gxd_rna_seq_samples_test = TestLoader().loadTestsFromTestCase(TestGxdRnaSeqSamples)
-gxd_rna_seq_summary_test = TestLoader().loadTestsFromTestCase(TestGxdRnaSeqSummary)
-gxd_txp_matrix_test = TestLoader().loadTestsFromTestCase(TestGXDTissuePhenotypeMatrix)
-gxd_txs_matrix_test = TestLoader().loadTestsFromTestCase(TestGXDTissueStageMatrix)
-#Put them in an Array
-gxd_suite = TestSuite([gxd_diff_qf_test, gxd_image_summary_test, gxd_qf_test, gxd_results_test, gxd_rna_seq_qf_autocomplete_test, gxd_rna_seq_qf_search_test, gxd_rna_seq_samples_test, gxd_rna_seq_summary_test, gxd_txp_matrix_test, gxd_txs_matrix_test])
-print('End GXD testing') 
-#file
-runner = HTMLTestRunner(output='C://WebdriverTests')
-h = HtmlTestRunner.HTMLTestRunner(combine_reports=True, report_name="MyGXDReport", add_timestamp=False).run(gxd_suite)
-#runner.run(gxd_suite)
+test1 = TestLoader().loadTestsFromTestCase(TestGxdDifferentialQF)
+test2 = TestLoader().loadTestsFromTestCase(TestGxdImageSummary)
+test3 = TestLoader().loadTestsFromTestCase(TestGxdQF)
+test4 = TestLoader().loadTestsFromTestCase(TestGxdResults)
+test5 = TestLoader().loadTestsFromTestCase(TestGxdRnaSeqAutocomplete)
+test6 = TestLoader().loadTestsFromTestCase(TestGxdRnaSeqSearching)
+test7 = TestLoader().loadTestsFromTestCase(TestGxdRnaSeqSamples)
+test8 = TestLoader().loadTestsFromTestCase(TestGxdRnaSeqSummary)
+test9 = TestLoader().loadTestsFromTestCase(TestGXDTissuePhenotypeMatrix)
+test10 = TestLoader().loadTestsFromTestCase(TestGXDTissueStageMatrix)
+suite = unittest.TestSuite([test1, test2, test3, test4, test5, test6, test7, test8, test9, test10])
+runner = HTMLTestRunner(log=True, verbosity=2, output='report', title='fewi GXD Test report', report_name='fewigxdreport',
+                          open_in_browser=True, description="HTMLTestReport")
+runner.run(suite)
 
 if __name__=="__main__":
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner())
-#reports generated Users/jeffc/git/mgiselenium/PyTests/PWI/reports    
+    unittest.main(testRunner=HTMLTestRunner())

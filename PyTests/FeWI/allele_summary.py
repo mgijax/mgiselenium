@@ -5,7 +5,8 @@ Created on Jun 6, 2016
 '''
 
 import unittest
-import HtmlTestRunner
+import tracemalloc
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -21,6 +22,8 @@ import time
 import config
 from config import TEST_URL
 
+#Tests
+tracemalloc.start()
 class TestAlleleSummary(unittest.TestCase):
 
 
@@ -105,7 +108,8 @@ class TestAlleleSummary(unittest.TestCase):
         
         
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
+        tracemalloc.stop()
 
 def suite():
     suite = unittest.TestSuite()
@@ -113,4 +117,4 @@ def suite():
     return suite
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))     
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

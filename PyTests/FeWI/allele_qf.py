@@ -5,7 +5,8 @@ This set of tests verifies items found on the allele query form page
 '''
 import unittest
 import time
-import HtmlTestRunner
+import tracemalloc
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -21,6 +22,8 @@ from util.table import Table
 import config
 from config import TEST_URL
 
+#Tests
+tracemalloc.start()
 class TestAlleleQueryForm(unittest.TestCase):
 
 
@@ -67,13 +70,9 @@ class TestAlleleQueryForm(unittest.TestCase):
         #self.assertEquals(disease_cells[1], 'myelofibrosis   DOID:4971')
 
         
-             
-        
-        
-        
-        
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
+        tracemalloc.stop()
 
 def suite():
     suite = unittest.TestSuite()
@@ -84,4 +83,4 @@ def suite():
     # import sys;sys.argv = ['', 'Test.testName']
     #unittest.main()                
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))        
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

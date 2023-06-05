@@ -4,13 +4,14 @@ These tests are for verifying the correct data get returned for the heading sect
 The default tab to be displayed is the Term tab.
 @author: jeffc
 '''
+import tracemalloc
 import unittest
 import time
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-import HtmlTestRunner
 import sys,os.path
 from selenium.webdriver import firefox
 # adjust the path to find config
@@ -22,7 +23,7 @@ from util import iterate, wait
 from util.form import ModuleForm
 from util.table import Table
 
-
+tracemalloc.start()
 class TestDoBrowserGeneral(unittest.TestCase):
 
     def setUp(self):
@@ -176,7 +177,8 @@ class TestDoBrowserGeneral(unittest.TestCase):
         
 
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
+        tracemalloc.stop()
        
 def suite():
     suite = unittest.TestSuite()
@@ -184,4 +186,4 @@ def suite():
     return suite
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

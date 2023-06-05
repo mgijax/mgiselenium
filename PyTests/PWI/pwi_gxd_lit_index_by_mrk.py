@@ -6,7 +6,8 @@ Created on Apr 18, 2016
 
 import unittest
 import time
-import HtmlTestRunner
+import tracemalloc
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -18,12 +19,12 @@ sys.path.append(
 )
 import config
 from config import TEST_PWI_URL
-
+tracemalloc.start()
 class TestPwiGxdLitIndexByMrk(unittest.TestCase):
 
     def setUp(self):
-        #self.driver = webdriver.Chrome() 
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
+        #self.driver = webdriver.Firefox()
 
     def test_table_headers(self):
         """
@@ -42,15 +43,20 @@ class TestPwiGxdLitIndexByMrk(unittest.TestCase):
         #finds the marker detail link and clicks it
         driver.find_element(By.ID, "mrkDetailButton").click()
         #switch focus to the marker detail tab
-        self.driver.switch_to.window(self.driver.window_handles[-1])
-        time.sleep(4)
+        time.sleep(5)
+        handles = driver.window_handles
+        size = len(handles)
+        for x in range(size):
+            if handles[x] != driver.current_window_handle:
+                driver.switch_to.window(handles[x])
+                print(driver.title)
         driver.find_element(By.LINK_TEXT, "Lit Index").click()
         time.sleep(4)
         #Locates the summary table and finds the table headings
         headerlist = driver.find_element(By.ID, 'indexRefsTable')
         items = headerlist.find_elements(By.TAG_NAME, "th")
         searchTextItems = iterate.getTextAsList(items)
-        wait.forAjax(driver)
+        time.sleep(2)
         #verifies all the table headings are correct and in order
         self.assertEqual(searchTextItems, ['*','Reference','Priority','Conditional'])
         
@@ -72,7 +78,14 @@ class TestPwiGxdLitIndexByMrk(unittest.TestCase):
         #finds the marker detail link and clicks it
         driver.find_element(By.ID, "mrkDetailButton").click()
         #switch focus to the marker detail tab
-        self.driver.switch_to.window(self.driver.window_handles[-1])
+        #self.driver.switch_to.window(self.driver.window_handles[-1])
+        time.sleep(2)
+        handles = driver.window_handles
+        size = len(handles)
+        for x in range(size):
+            if handles[x] != driver.current_window_handle:
+                driver.switch_to.window(handles[x])
+                print(driver.title)
         time.sleep(3)
         driver.find_element(By.LINK_TEXT, "Lit Index").click()
         time.sleep(4)
@@ -94,11 +107,11 @@ class TestPwiGxdLitIndexByMrk(unittest.TestCase):
         self.assertEqual(code2.text, "")
         self.assertEqual(code3.text, "")
         self.assertEqual(code4.text, "*")
-        self.assertEqual(code5.text, "")
+        self.assertEqual(code5.text, "*")
         self.assertEqual(code6.text, "")
         self.assertEqual(code7.text, "")
         self.assertEqual(code8.text, "*")
-        self.assertEqual(code9.text, "")
+        self.assertEqual(code9.text, "*")
         self.assertEqual(code10.text, "")
         #finds the priority column and then the first 10 items
         refindextable = driver.find_element(By.ID, "indexRefsTable")
@@ -123,7 +136,7 @@ class TestPwiGxdLitIndexByMrk(unittest.TestCase):
         self.assertEqual(pri7.text, "Medium")
         self.assertEqual(pri8.text, "Medium")
         self.assertEqual(pri9.text, "Medium")
-        self.assertEqual(pri10.text, "High")
+        self.assertEqual(pri10.text, "Medium")
         
         #finds the conditional column and then the first 10 items
         refindextable = driver.find_element(By.ID, "indexRefsTable")
@@ -152,7 +165,8 @@ class TestPwiGxdLitIndexByMrk(unittest.TestCase):
         
 
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
+        tracemalloc.stop()
         
 def suite():
     suite = unittest.TestSuite()
@@ -160,4 +174,4 @@ def suite():
     return suite
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

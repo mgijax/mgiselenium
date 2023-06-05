@@ -4,7 +4,8 @@ Created on Jan 5, 2016
 @author: jeffc
 '''
 import unittest
-import HtmlTestRunner
+import tracemalloc
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -18,6 +19,8 @@ from config import PUBLIC_URL
 from util import wait
 import time
 
+#Tests
+tracemalloc.start()
 class TestPrivateAllele(unittest.TestCase):
     """
     @status: Tests that the dummy private allele Brca1<test1> does not display on public
@@ -65,6 +68,7 @@ class TestPrivateAllele(unittest.TestCase):
     
     def tearDown(self):
         self.driver.quit()
+        tracemalloc.stop()
 
 def suite():
     suite = unittest.TestSuite()
@@ -72,4 +76,4 @@ def suite():
     return suite
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

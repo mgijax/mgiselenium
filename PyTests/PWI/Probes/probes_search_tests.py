@@ -6,7 +6,7 @@ Created on Sep 8, 2022
 import unittest
 import time
 import tracemalloc
-from jd_HTMLTestRunner import HTMLTestRunner
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -14,7 +14,6 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
-import jd_HTMLTestRunner
 import json
 import sys, os.path
 from test.test_base64 import BaseXYTestCase
@@ -58,6 +57,7 @@ class TestEIProbeSearch(unittest.TestCase):
         driver.find_element(By.ID, 'searchSummaryButton').click()
         time.sleep(2)
         self.driver.switch_to.window(self.driver.window_handles[1])
+        time.sleep(2)
         # find the search results table
         results_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
         table = Table(results_table)
@@ -164,4 +164,4 @@ class TestEIProbeSearch(unittest.TestCase):
 
     def tearDown(self):
         self.driver.quit()
-
+        tracemalloc.stop()

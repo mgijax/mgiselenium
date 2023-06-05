@@ -1,5 +1,6 @@
 """
 Run all PWI/EI test suites
+!!!!!!This set of tests will need to be  rewritten for the new htmltestrunner-rv!!!!!!
 """
 import sys,os.path
 

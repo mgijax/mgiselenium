@@ -6,7 +6,7 @@ Created on Mar 21, 2016
 import unittest
 import time
 import tracemalloc
-from jd_HTMLTestRunner import HTMLTestRunner
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -158,6 +158,7 @@ class TestSnpBuildNumbers(unittest.TestCase):
         
     def tearDown(self):
         self.driver.quit()
+        tracemalloc.stop()
         
 
 def suite():

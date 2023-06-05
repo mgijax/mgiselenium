@@ -5,7 +5,8 @@ This set of tests verifies the Strains query form does correct searching by Name
 '''
 import unittest
 import time
-import HtmlTestRunner
+import tracemalloc
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -22,6 +23,8 @@ from util import wait, iterate
 import config
 #from config import TEST_URL
 
+#Tests
+tracemalloc.start()
 class TestStrainQF(unittest.TestCase):
 
 
@@ -921,8 +924,8 @@ class TestStrainQF(unittest.TestCase):
         self.assertIn('chromosome aberration\nmutant strain\ntrisomy', attributesReturned) # contains this attribute
         
     def tearDown(self):
-        #self.driver.close()
         self.driver.quit()
+        tracemalloc.stop()
 
 def suite():
     suite = unittest.TestSuite()
@@ -930,4 +933,4 @@ def suite():
     return suite
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

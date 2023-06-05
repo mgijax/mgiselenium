@@ -6,7 +6,8 @@ This suite of tests are for marker detail pages
 '''
 import unittest
 import time
-import HtmlTestRunner
+import tracemalloc
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
@@ -25,6 +26,8 @@ import config
 
 from config import TEST_URL
 
+#Test
+tracemalloc.start()
 class TestMarkerDetail(unittest.TestCase):
 
 
@@ -1026,7 +1029,8 @@ class TestMarkerDetail(unittest.TestCase):
 
                 
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
+        tracemalloc.stop()
 
 def suite():
     suite = unittest.TestSuite()
@@ -1034,4 +1038,4 @@ def suite():
     return suite
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

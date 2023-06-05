@@ -1,5 +1,6 @@
 """
 Run all PWI/EI test suites
+@Note: this test suite does not work currently
 """
 import sys,os.path
 
@@ -10,14 +11,14 @@ sys.path.append(
 import config
 
 import unittest
-
+import tracemalloc
 # import all sub test suites
-from . import private_allele
-from . import Emapa_Browser
-from . import QTL_allele_detail
-from . import gxd_image_summary
-from . import test_emboss_data
-
+import private_allele
+import Emapa_Browser
+import QTL_allele_detail
+import gxd_image_summary
+import test_emboss_data
+from HTMLTestRunner import HTMLTestRunner
 # add the test suites
 def master_suite():
     suites = []

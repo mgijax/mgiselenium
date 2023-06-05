@@ -5,7 +5,8 @@ Created on Feb 22, 2016
 This test verifies EMBOSS data is being returned from the EMBOSS server.
 '''
 import unittest
-import HtmlTestRunner
+import tracemalloc
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -24,7 +25,8 @@ from config import PUBLIC_URL
 ### constants ###
 SEQUENCE_URL = PUBLIC_URL + "/sequence/"
 
-
+#Tests
+tracemalloc.start()
 class TestEmbossData(unittest.TestCase):
 
 
@@ -84,7 +86,8 @@ class TestEmbossData(unittest.TestCase):
     
         
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
+        tracemalloc.stop()
 
 def suite():
     suite = unittest.TestSuite()
@@ -92,4 +95,4 @@ def suite():
     return suite
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

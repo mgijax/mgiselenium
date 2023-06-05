@@ -10,32 +10,22 @@ sys.path.append(
 
 import unittest
 import tracemalloc
+from HTMLTestRunner import HTMLTestRunner
+from unittest import TestLoader, TestSuite
+from emapa_clipboard_tests import TestEiEmapaClipboard
+from emapa_detail_tests import TestEiEmapaDetail
+from emapa_search_tests import TestEiEmapaSearch
+from emapa_treeview_tests import TestEiEmapaTreeView
 
-# import all sub test suites
-from . import emapaclipboardtest
-from . import emapadetailtest
-from . import emapatreeviewtest
-from EI.EmapA import emapamodifytest
-from EI.EmapA import emapasearchtest
-from configparser import SafeConfigParser
+def test_suite():
+  test1 = unittest.TestLoader().loadTestsFromTestCase(TestEiEmapaClipboard)
+  test2 = unittest.TestLoader().loadTestsFromTestCase(TestEiEmapaDetail)
+  test3 = unittest.TestLoader().loadTestsFromTestCase(TestEiEmapaSearch)
+  test4 = unittest.TestLoader().loadTestsFromTestCase(TestEiEmapaTreeView)
+  suite = unittest.TestSuite([test1, test2, test3, test4])
+  runner = HTMLTestRunner(log=True, verbosity=2, output='report', title='EmapA Test report', report_name='emapareport',
+                          open_in_browser=True, description="HTMLTestReport")
+  runner.run(suite)
 
-tracemalloc.start()
-# add the test suites
-def master_suite():
-    suites = []
-    suites.append(emapaclipboardtest.suite())
-    suites.append(emapadetailtest.suite())
-    suites.append(emapatreeviewtest.suite())
-    suites.append(emapamodifytest.suite())
-    suites.append(emapasearchtest.suite())
-
-    master_suite = unittest.TestSuite(suites)
-    return master_suite
-
-
-if __name__ == '__main__':
-    test_suite = master_suite()
-    runner = unittest.TextTestRunner()
-
-    ret = not runner.run(test_suite).wasSuccessful()
-    sys.exit(ret)
+if __name__=="__main__":
+    unittest.main(testRunner=HTMLTestRunner())

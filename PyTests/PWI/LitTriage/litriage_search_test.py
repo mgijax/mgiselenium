@@ -8,7 +8,7 @@ This test verifies searching within the Lit Triage module.
 import unittest
 import time
 import tracemalloc
-from jd_HTMLTestRunner import HTMLTestRunner
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -44,6 +44,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
 
     def tearDown(self):
         self.driver.quit()
+        tracemalloc.stop()
 
     def testJnumSearch(self):
         """
@@ -639,13 +640,14 @@ class TestEiLitTriageSearch(unittest.TestCase):
     def testPubMedSummarySearch(self):
         """
         @Status tests that a basic Pub Med number summary search works
-        @see LitTri-search-sum-1 broken! no longer a valid ID
+        @see LitTri-search-sum-1 Broken, can't figure out why it's doing what it is doing.
         """
         form = self.form
-        form.enter_value('accids', '27097562')
+        form.enter_value('accids', '35656878')
         form.click_searchSummary()
-        time.sleep(2)
+        time.sleep(8)
         self.driver.switch_to.window(self.driver.window_handles[1])
+        time.sleep(5)
         # find the search results table
         results_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
         table = Table(results_table)
@@ -762,6 +764,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
         form.click_searchSummary()
         time.sleep(2)
         self.driver.switch_to.window(self.driver.window_handles[1])
+        time.sleep(2)
         # find the search results table
         results_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
         table = Table(results_table)

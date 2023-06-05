@@ -5,7 +5,8 @@ This set of tests verifies items found on the Recombinase specificity page
 '''
 
 import unittest
-import HtmlTestRunner
+import tracemalloc
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
@@ -24,7 +25,7 @@ from util.table import Table
 import config
 from config import TEST_URL
 import time
-
+tracemalloc.start()
 class TestCreSpecificity(unittest.TestCase):
 
 
@@ -107,19 +108,15 @@ class TestCreSpecificity(unittest.TestCase):
         #self.assertEqual('Project Collection:', term1.text, 'Term1 is not returning' )
         #self.assertEqual('Neuroscience Blueprint cre', term2.text, "Term2 is incorrect")
         #assert 'Project Collection:' not in self.driver.page_source
-                
-        
-        
-        
-        
+
         
     def tearDown(self):
-        self.driver.close()
-
+        self.driver.quit()
+        tracemalloc.stop()
 def suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(TestCreSpecificity))
     return suite
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))   
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

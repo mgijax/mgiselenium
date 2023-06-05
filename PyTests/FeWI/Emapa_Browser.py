@@ -5,7 +5,8 @@ Created on Apr 22, 2016
 '''
 import unittest
 import time
-import HtmlTestRunner
+import tracemalloc
+from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -18,7 +19,7 @@ sys.path.append(
 )
 from util import wait, iterate
 import config
-
+tracemalloc.start()
 class TestEmapaBrowser(unittest.TestCase):
 
     def setUp(self):
@@ -345,11 +346,11 @@ class TestEmapaBrowser(unittest.TestCase):
     def tearDown(self):
         pass
         self.driver.quit()
-
+        tracemalloc.stop()
 def suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(TestEmapaBrowser))
     return suite
         
 if __name__ == '__main__':
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output='C:\WebdriverTests'))    
+    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))
