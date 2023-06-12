@@ -54,13 +54,13 @@ class TestEIDoannotSearch(unittest.TestCase):
         driver = self.driver
         # finds the MGI ID field and enters an MGI genotype ID, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "genotypeAccId").send_keys('MGI:3624942')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), '(NZB x BXSB)F1 Yaa'))
         # find the Genotype field and verify it's text
         geno = driver.find_element(By.ID, 'genotypeDisplay').get_property('value')
         print(geno)
@@ -119,14 +119,13 @@ class TestEIDoannotSearch(unittest.TestCase):
         driver = self.driver
         # finds the Genotype field and enters a genotype(can also use wildcard of %, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "genotypeDisplay").send_keys('B6.Cg-Il10<tm1Cgn> Tg(MUC1)%')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
-        # WebDriverWait(self.driver, 15).until(EC.visibility_of_element_located((By.ID, 'termID-1')))
-        time.sleep(5)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'B6.Cg-Il10<tm1Cgn> Tg(MUC1)79.24Gend Il10<tm1Cgn>,Il10<tm1Cgn>,Tg(MUC1)79.24Gend'))
         # find the search results table first row of data
         term0 = driver.find_element(By.ID, 'termID-0').get_property('value')
         print(term0)
@@ -170,14 +169,14 @@ class TestEIDoannotSearch(unittest.TestCase):
         driver = self.driver
         # finds the Term ID field and enters an MP ID then clicks the Search button
         driver.find_element(By.ID, "termID-0").send_keys('DOID:9256')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'termID-3')))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), '129-Rab25<tm1Jrgo> Smad3<tm1Par> Rab25<tm1Jrgo>,Rab25<tm1Jrgo>,Smad3<tm1Par>,Smad3<+>'))
         # find the search results table first row of data
         term0 = driver.find_element(By.ID, 'termID-0').get_property('value')
         print(term0)
@@ -221,14 +220,14 @@ class TestEIDoannotSearch(unittest.TestCase):
         driver = self.driver
         # finds the Qualifier field and select 'NOT' then clicks the Search button
         driver.find_element(By.ID, "qualifierAbbreviation-0").send_keys('NOT')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'termID-3')))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), '129P2/OlaHsd-Prnp<tm1Edin>/EdinH Prnp<tm1Edin>,Prnp<tm1Edin>'))
         # find the search results table third row of data
         term0 = driver.find_element(By.ID, 'termID-0').get_property('value')
         print(term0)
@@ -272,15 +271,14 @@ class TestEIDoannotSearch(unittest.TestCase):
         driver = self.driver
         # finds the J number field and enters a J number then clicks the Search button
         driver.find_element(By.ID, "jnumID-0").send_keys('J:271850')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
-        # WebDriverWait(self.driver, 15).until(EC.visibility_of_element_located((By.ID, 'termID-0')))
-        time.sleep(5)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'C57BL/6J-Arid1b<em1Iha> Arid1b<em1Iha>,Arid1b<+>'))
         # find the search results table seventh row of data
         term0 = driver.find_element(By.ID, 'termID-0').get_property('value')
         print(term0)
@@ -324,15 +322,14 @@ class TestEIDoannotSearch(unittest.TestCase):
         driver = self.driver
         # finds the Evidence Code field and select and evidence code then clicks the Search button
         Select(driver.find_element(By.ID, "evidenceAbbreviation-0")).select_by_value('string:847168')  # TAS option
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
-        # WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'termID-0')))
-        time.sleep(15)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), '(129S6.129P2-Mecp2<tm1Bird> x C57BL/6)F1 Mecp2<tm1Bird>'))
         # find the search results table thirteenth row of data
         term0 = driver.find_element(By.ID, 'termID-0').get_property('value')
         print(term0)
@@ -376,15 +373,14 @@ class TestEIDoannotSearch(unittest.TestCase):
         driver = self.driver
         # finds the Note field and enter text, then clicks the Search button
         driver.find_element(By.ID, "noteType-0").send_keys('aneuploidy syndromes')
-        time.sleep(2)
+        WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
-        # WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'termID-0')))
-        time.sleep(10)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'involves: 101 * C3H * PWD/Ph T(16;17)43H'))
         # find the search results table thirteenth row of data
         term0 = driver.find_element(By.ID, 'termID-0').get_property('value')
         print(term0)

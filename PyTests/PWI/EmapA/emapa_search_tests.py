@@ -2,12 +2,15 @@
 Created on Jan 28, 2016
 This test verifies searching within the EmapA module, Both a term search and a stage search
 Add'l 4 tests added August 2016; jlewis
+all tests verified to work 6/9/2023
 @author: jeffc
 '''
 import unittest
 import tracemalloc
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 import time
@@ -51,13 +54,14 @@ class TestEiEmapaSearch(unittest.TestCase):
         """
         tests that a basic term search works
         """
+        driver = self.driver
         wait.forAngular(self.driver)
         # find the "Term Search" box and enter the term brain
         self.driver.find_element(By.ID, "termSearch").send_keys('brain')
-        time.sleep(2)
+        wait.forAngular(self.driver)
         # find the Search button and click it
         self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
-        wait.forAngular(self.driver)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'stageList')))  # waits until the PWI stagelist field is displayed on the page
         term_result = self.driver.find_element(By.ID, "termResultList")
         items = term_result.find_elements(By.TAG_NAME, "li")
 
@@ -70,13 +74,14 @@ class TestEiEmapaSearch(unittest.TestCase):
         """
         tests that a synonym term search works
         """
+        driver = self.driver
         wait.forAngular(self.driver)
         # find the "Term Search" box and enter the term myocardium
         self.driver.find_element(By.ID, "termSearch").send_keys('myocardium')
-        time.sleep(2)
+        wait.forAngular(self.driver)
         # find the Search button and click it
         self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
-        wait.forAngular(self.driver)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'stageList')))  # waits until the PWI stagelist field is displayed on the page
         term_result = self.driver.find_element(By.ID, "emapTermArea")
         items = term_result.find_elements(By.TAG_NAME, "li")
 
@@ -89,13 +94,14 @@ class TestEiEmapaSearch(unittest.TestCase):
         """
         tests that a wildcard term search works
         """
+        driver = self.driver
         wait.forAngular(self.driver)
         # find the "Term Search" box and enter the term %tectum
         self.driver.find_element(By.ID, "termSearch").send_keys('%tectum')
-        time.sleep(2)
+        wait.forAngular(self.driver)
         # find the Search button and click it
         self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
-        wait.forAngular(self.driver)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'stageList')))  # waits until the PWI stagelist field is displayed on the page
         term_result = self.driver.find_element(By.ID, "termResultList")
         items = term_result.find_elements(By.TAG_NAME, "li")
 
@@ -109,13 +115,14 @@ class TestEiEmapaSearch(unittest.TestCase):
         """
         tests that a stage search works
         """
+        driver = self.driver
         wait.forAngular(self.driver)
         # find the "Stage Search" box and enter the stage "10"
         self.driver.find_element(By.ID, "stageSearch").send_keys('10')
-        time.sleep(2)
+        wait.forAngular(self.driver)
         # find the Search button and click it
         self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
-        wait.forAngular(self.driver)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'stageList')))  # waits until the PWI stagelist field is displayed on the page
         term_result = self.driver.find_element(By.ID, "emapTermArea")
         items = term_result.find_elements(By.TAG_NAME, "li")
 
@@ -132,13 +139,14 @@ class TestEiEmapaSearch(unittest.TestCase):
         """
         tests that a multiple stages search works.
         """
+        driver = self.driver
         wait.forAngular(self.driver)
         # find the "Stage Search" box and enter the stages "10,11,12"
         self.driver.find_element(By.ID, "stageSearch").send_keys('10,11,12')
-        time.sleep(2)
+        wait.forAngular(self.driver)
         # find the Search button and click it
         self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
-        wait.forAngular(self.driver)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'stageList')))  # waits until the PWI stagelist field is displayed on the page
         term_result = self.driver.find_element(By.ID, "emapTermArea")
         items = term_result.find_elements(By.TAG_NAME, "li")
 
@@ -155,15 +163,16 @@ class TestEiEmapaSearch(unittest.TestCase):
         """
         tests that the shortcut ALT + c clears the term and stage fields
         """
+        driver = self.driver
         wait.forAngular(self.driver)
         # find the "Term Search" box and enter the term brain
         self.driver.find_element(By.ID, "termSearch").send_keys('brain')
         # find the "Stage Search" box and enter the stages "20,21,22"
         self.driver.find_element(By.ID, "stageSearch").send_keys('20,21,22')
-        time.sleep(2)
+        wait.forAngular(self.driver)
         # find the Search button and click it
         self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
-        wait.forAngular(self.driver)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'stageList')))  # waits until the PWI stagelist field is displayed on the page
         term_result = self.driver.find_element(By.ID, "termResultList")
         items = term_result.find_elements(By.TAG_NAME, "li")
 
@@ -181,15 +190,16 @@ class TestEiEmapaSearch(unittest.TestCase):
         """
         tests that a combined search of term and stage works; also includes wild cards; jlewis
         """
+        driver = self.driver
         wait.forAngular(self.driver)
         # find the "Term Search" box and enter the term %renal artery%
         self.driver.find_element(By.ID, "termSearch").send_keys('%renal artery%')
         # find the "Stage Search" box and enter the stage "27"
         self.driver.find_element(By.ID, "stageSearch").send_keys('27')
-        time.sleep(2)
+        wait.forAngular(self.driver)
         # find the Search button and click it
         self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
-        wait.forAngular(self.driver)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'stageList')))  # waits until the PWI stagelist field is displayed on the page
         term_result = self.driver.find_element(By.ID, "termResultList")
         items = term_result.find_elements(By.TAG_NAME, "li")
 
@@ -202,13 +212,14 @@ class TestEiEmapaSearch(unittest.TestCase):
         """
         tests that a term with a special character works; jlewis
         """
+        driver = self.driver
         wait.forAngular(self.driver)
         # find the "Term Search" box and enter the term rathke's pouch
         self.driver.find_element(By.ID, "termSearch").send_keys("rathke's pouch")
-        time.sleep(2)
+        wait.forAngular(self.driver)
         # find the Search button and click it
         self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
-        wait.forAngular(self.driver)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'stageList')))  # waits until the PWI stagelist field is displayed on the page
         term_result = self.driver.find_element(By.ID, "emapTermArea")
         items = term_result.find_elements(By.TAG_NAME, "li")
 
@@ -221,13 +232,14 @@ class TestEiEmapaSearch(unittest.TestCase):
         """
         tests that a search with multiple terms works; semi-colon is the delimiter; jlewis
         """
+        driver = self.driver
         wait.forAngular(self.driver)
         # find the "Term Search" box and enter the term "liver; brain; heart"
         self.driver.find_element(By.ID, "termSearch").send_keys("liver; brain; heart")
-        time.sleep(2)
+        wait.forAngular(self.driver)
         # find the Search button and click it
         self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
-        wait.forAngular(self.driver)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'stageList')))  # waits until the PWI stagelist field is displayed on the page
         term_result = self.driver.find_element(By.ID, "termResultList")
         items = term_result.find_elements(By.TAG_NAME, "li")
 
@@ -242,13 +254,14 @@ class TestEiEmapaSearch(unittest.TestCase):
         """
         tests that a search for a range of stages works; jlewis
         """
+        driver = self.driver
         wait.forAngular(self.driver)
         # find the "Stage Search" box and enter the stages "1-3"
         self.driver.find_element(By.ID, "stageSearch").send_keys("1-3")
-        time.sleep(2)
+        wait.forAngular(self.driver)
         # find the Search button and click it
         self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
-        wait.forAngular(self.driver)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'stageList')))  # waits until the PWI stagelist field is displayed on the page
         term_result = self.driver.find_element(By.ID, "emapTermArea")
         items = term_result.find_elements(By.TAG_NAME, "li")
 

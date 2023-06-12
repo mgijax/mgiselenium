@@ -1,9 +1,10 @@
 '''
 Created on Feb 4, 2016
-
+verified working on Scrum 6/6/2023
 @author: jeffc
 '''
 import unittest
+import tracemalloc
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -18,9 +19,9 @@ class TestLogintest(unittest.TestCase):
 
 
     def setUp(self):
-        #self.driver = webdriver.Firefox()
-        self.driver = webdriver.Chrome()
-        self.driver.implicitly_wait(10)
+        self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Chrome()
+        #self.driver.implicitly_wait(10)
 
     def testLoginNoPwd(self):#verifies entering no password gives error
         driver = self.driver
@@ -70,7 +71,7 @@ class TestLogintest(unittest.TestCase):
         self.assertIn("Login", self.driver.page_source) #verify the login button now exists
 
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
         tracemalloc.stop()
 
 def suite():

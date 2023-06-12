@@ -1,9 +1,9 @@
 '''
 Created on Oct 24, 2016
-
 @author: jeffc
 @attention: These tests must only be run against a development environment!!!
 Test uses for notes picklist items
+verified all tests work on 6/9/2023
 '''
 
 import unittest

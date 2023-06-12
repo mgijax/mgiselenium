@@ -39,7 +39,8 @@ class TestPwiMrkDetail(unittest.TestCase):
         driver = self.driver
         #opens the PWI marker form
         driver.get(TEST_PWI_URL + '/edit/marker/')  
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
+        #time.sleep(2)
         #find the Symbol field and enter the text      
         driver.find_element(By.ID, 'markerSymbol').send_keys('Kit')
         # Find the search button and click it.
@@ -70,10 +71,6 @@ class TestPwiMrkDetail(unittest.TestCase):
         print("the location is: " + location.text)
         mrkclip = driver.find_element(By.CSS_SELECTOR, 'dl.detailPageListData > dd:nth-child(23)')
         print("the marker detail clip is: " + mrkclip.text)
-        #wait until the delete column of the history table is present
-        #WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.ID, 'deleteIconColumn')))
-        #WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'deleteIconColumn')))
-         
         #Verifies that the returned data is all correct for the 11 fields
         self.assertEqual(symbol.text, 'Kit Public Kit Page', 'The Symbol is not correct!')
         self.assertEqual(mrkid.text, 'MGI:96677', 'The MGI ID is not correct!')
@@ -98,13 +95,12 @@ class TestPwiMrkDetail(unittest.TestCase):
         driver = self.driver
         #opens the PWI marker form
         driver.get(TEST_PWI_URL + '/edit/marker/')  
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         #find the Symbol field and enter the text      
         driver.find_element(By.ID, 'markerSymbol').send_keys('Alm')
         # Find the search button and click it.
         driver.find_element(By.ID, 'searchButton').click()
         time.sleep(3)
-        #WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'mrkDetailButton')))#waits until the results are displayed on the page by looking for the Marker Detail link to be displayed
         #Find the Marker Detail link and click it
         driver.find_element(By.ID, 'mrkDetailButton').click()
         time.sleep(3)
@@ -156,13 +152,12 @@ class TestPwiMrkDetail(unittest.TestCase):
         driver = self.driver
         #opens the PWI marker form
         driver.get(TEST_PWI_URL + '/edit/marker/')        
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         #find the Symbol field and enter the text      
         driver.find_element(By.ID, 'markerSymbol').send_keys('Aanq1')
         # Find the search button and click it.
         driver.find_element(By.ID, 'searchButton').click()
         time.sleep(3)
-        #WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'mrkDetailButton')))#waits until the results are displayed on the page by looking for the Marker Detail link to be displayed
         #Find the Marker Detail link and click it
         driver.find_element(By.ID, 'mrkDetailButton').click()
         time.sleep(3)
@@ -213,13 +208,12 @@ class TestPwiMrkDetail(unittest.TestCase):
         driver = self.driver
         #opens the PWI marker form
         driver.get(TEST_PWI_URL + '/edit/marker/')        
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         #find the Symbol field and enter the text      
         driver.find_element(By.ID, 'markerSymbol').send_keys('Et(cre/ERT2)8131Rdav')
         # Find the search button and click it.
         driver.find_element(By.ID, 'searchButton').click()
         time.sleep(3)
-        #WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'mrkDetailButton')))#waits until the results are displayed on the page by looking for the Marker Detail link to be displayed
         #Find the Marker Detail link and click it
         driver.find_element(By.ID, 'mrkDetailButton').click()
         time.sleep(3)
@@ -270,13 +264,12 @@ class TestPwiMrkDetail(unittest.TestCase):
         driver = self.driver
         #opens the PWI marker form
         driver.get(TEST_PWI_URL + '/edit/marker/')        
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         #find the Symbol field and enter the text      
         driver.find_element(By.ID, 'markerSymbol').send_keys('Csn')
         # Find the search button and click it.
         driver.find_element(By.ID, 'searchButton').click()
         time.sleep(3)
-        #WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'mrkDetailButton')))#waits until the results are displayed on the page by looking for the Marker Detail link to be displayed
         #Find the Marker Detail link and click it
         driver.find_element(By.ID, 'mrkDetailButton').click()
         time.sleep(3)
@@ -327,13 +320,12 @@ class TestPwiMrkDetail(unittest.TestCase):
         driver = self.driver
         #opens the PWI marker form
         driver.get(TEST_PWI_URL + '/edit/marker/')        
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         #find the Symbol field and enter the text      
         driver.find_element(By.ID, 'markerSymbol').send_keys('Del(Y)1Tac')
         # Find the search button and click it.
         driver.find_element(By.ID, 'searchButton').click()
         time.sleep(3)
-        #WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'mrkDetailButton')))#waits until the results are displayed on the page by looking for the Marker Detail link to be displayed
         #Find the Marker Detail link and click it
         driver.find_element(By.ID, 'mrkDetailButton').click()
         time.sleep(3)
@@ -384,13 +376,12 @@ class TestPwiMrkDetail(unittest.TestCase):
         driver = self.driver
         #opens the PWI marker form
         driver.get(TEST_PWI_URL + '/edit/marker/')        
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         #find the Symbol field and enter the text      
         driver.find_element(By.ID, 'markerSymbol').send_keys('10S')
         # Find the search button and click it.
         driver.find_element(By.ID, 'searchButton').click()
         time.sleep(3)
-        #WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'mrkDetailButton')))#waits until the results are displayed on the page by looking for the Marker Detail link to be displayed
         #Find the Marker Detail link and click it
         driver.find_element(By.ID, 'mrkDetailButton').click()
         time.sleep(3)
@@ -441,13 +432,12 @@ class TestPwiMrkDetail(unittest.TestCase):
         driver = self.driver
         #opens the PWI marker form
         driver.get(TEST_PWI_URL + '/edit/marker/')        
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         #find the Symbol field and enter the text      
         driver.find_element(By.ID, 'markerSymbol').send_keys('AA414768')
         # Find the search button and click it.
         driver.find_element(By.ID, 'searchButton').click()
         time.sleep(3)
-        #WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'mrkDetailButton')))#waits until the results are displayed on the page by looking for the Marker Detail link to be displayed
         #Find the Marker Detail link and click it
         driver.find_element(By.ID, 'mrkDetailButton').click()
         time.sleep(3)
@@ -498,13 +488,12 @@ class TestPwiMrkDetail(unittest.TestCase):
         driver = self.driver
         #opens the PWI marker form
         driver.get(TEST_PWI_URL + '/edit/marker/')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         #find the Symbol field and enter the text      
         driver.find_element(By.ID, 'markerSymbol').send_keys('Acf1')        
         # Find the search button and click it.
         driver.find_element(By.ID, 'searchButton').click()
         time.sleep(3)
-        #WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'mrkDetailButton')))#waits until the results are displayed on the page by looking for the Marker Detail link to be displayed
         #Find the Marker Detail link and click it
         driver.find_element(By.ID, 'mrkDetailButton').click()
         time.sleep(3)
@@ -553,13 +542,12 @@ class TestPwiMrkDetail(unittest.TestCase):
         driver = self.driver
         #opens the PWI marker form
         driver.get(TEST_PWI_URL + '/edit/marker/')  
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         #find the Symbol field and enter the text      
         driver.find_element(By.ID, 'markerSymbol').send_keys('Gm7981')        
         # Find the search button and click it.
         driver.find_element(By.ID, 'searchButton').click()
         time.sleep(3)
-        #WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'mrkDetailButton')))#waits until the results are displayed on the page by looking for the Marker Detail link to be displayed
         #Find the Marker Detail link and click it
         driver.find_element(By.ID, 'mrkDetailButton').click()
         time.sleep(3)

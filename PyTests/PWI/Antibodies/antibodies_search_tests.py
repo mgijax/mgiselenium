@@ -52,13 +52,13 @@ class TestEIAntibodySearch(unittest.TestCase):
         driver = self.driver
         # finds the Antibody Name field and enters an antibody name, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "antibodyName").send_keys('anti-uvomorulin ')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-uvomorulin'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -77,13 +77,13 @@ class TestEIAntibodySearch(unittest.TestCase):
         driver = self.driver
         # finds the Antibody Name field and enters an antibody name w/wildcard, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "antibodyName").send_keys('anti-Dkk%')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-Dkk-1'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -102,13 +102,13 @@ class TestEIAntibodySearch(unittest.TestCase):
         driver = self.driver
         # finds the antibody type field and selects the option 'Monoclonal' (value=string:107367161), tabs out of the field then clicks the Search button
         Select(driver.find_element(By.ID, "antibodyType")).select_by_value('string:107367161')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(5)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), '121'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -133,13 +133,13 @@ class TestEIAntibodySearch(unittest.TestCase):
         driver = self.driver
         # finds the antibody class field and selects the option 'IgG2c' (value=string:107080512), tabs out of the field then clicks the Search button
         Select(driver.find_element(By.ID, "antibodyClass")).select_by_value('string:107080512')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(5)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'AIRE Monoclonal Antibody (5H12), eFluor 660'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -158,13 +158,13 @@ class TestEIAntibodySearch(unittest.TestCase):
         driver = self.driver
         # finds the antibody organism field and selects the option 'monkey' (value=string:72), tabs out of the field then clicks the Search button
         Select(driver.find_element(By.ID, "antibodyOrganism")).select_by_value('string:72')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(5)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Anti-GH'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -186,13 +186,13 @@ class TestEIAntibodySearch(unittest.TestCase):
         driver = self.driver
         # finds the antigen accession ID field and enters text , tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "antigenAcc").send_keys('MGI:2684475')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Gli3ab1'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -211,13 +211,13 @@ class TestEIAntibodySearch(unittest.TestCase):
         driver = self.driver
         # finds the antigen name field and enters text , tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "antigenName").send_keys('uvomorulin')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-uvomorulin'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -236,13 +236,13 @@ class TestEIAntibodySearch(unittest.TestCase):
         driver = self.driver
         # finds the antigen name field and enters text , tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "antigenName").send_keys('CDEBP%')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Ab61'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -261,13 +261,13 @@ class TestEIAntibodySearch(unittest.TestCase):
         driver = self.driver
         # finds the antibody region covered field and enters text , tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "regionCovered").send_keys('carboxyl-terminal domain')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-GATA5'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -286,13 +286,13 @@ class TestEIAntibodySearch(unittest.TestCase):
         driver = self.driver
         # finds the region covered field and enters text, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "regionCovered").send_keys('histidyl-tagged%')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'ANTI-myosin VIIA'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -305,19 +305,19 @@ class TestEIAntibodySearch(unittest.TestCase):
 
     def testAntigenNotesSearch(self):
         """
-        @Status tests that a basic antigens notes works
+        @Status tests that a basic antigen notes works
         @see pwi-antibody-search-8
         """
         driver = self.driver
         # finds the antigen notes field and enters text, tabs out of the field then clicks the Search button
-        driver.find_element(By.ID, "antigenNote").send_keys('fused to GST')
-        time.sleep(2)
+        driver.find_element(By.ID, "antibodyNote").send_keys('Fused to GST')
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-mHSF1J'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -333,19 +333,19 @@ class TestEIAntibodySearch(unittest.TestCase):
 
     def testAntigenNotes2Search(self):
         """
-        @Status tests that a basic antigens notes with wildcard works
+        @Status tests that a basic antigen notes with wildcard works
         @see pwi-antibody-search-8
         """
         driver = self.driver
         # finds the antigen notes field and enters text, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "antigenNote").send_keys('%describe%')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-Syk'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -368,15 +368,15 @@ class TestEIAntibodySearch(unittest.TestCase):
         @see pwi-antibody-search-9
         """
         driver = self.driver
-        # finds the organism(antigen) field and select the option 'Hampster, Armenian', tabs out of the field then clicks the Search button
-        Select(driver.find_element(By.ID, "antigenOrganism")).select_by_value('string:89')
-        time.sleep(2)
+        # finds the organism(antigen) field and select the option 'Hampster, Chinese', tabs out of the field then clicks the Search button
+        Select(driver.find_element(By.ID, "antigenOrganism")).select_by_value('string:20')
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-Itga8 (#AF4076)'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -385,7 +385,7 @@ class TestEIAntibodySearch(unittest.TestCase):
         symbol1 = iterate.getTextAsList(cell1)
         print(symbol1)
         # Assert the correct antibodies are returned
-        self.assertEqual(symbol1, ['1B4'])
+        self.assertEqual(symbol1, ['anti-Itga8 (#AF4076)'])
 
     def testAntigenStrainSearch(self):
         """
@@ -395,13 +395,13 @@ class TestEIAntibodySearch(unittest.TestCase):
         driver = self.driver
         # finds the antibody antigen strain field and enters text, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "strain").send_keys('BALB/c')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), '2A7'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -432,13 +432,13 @@ class TestEIAntibodySearch(unittest.TestCase):
         driver = self.driver
         # finds the antibody antigen strain field and enters text, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "strain").send_keys('(C57BL/6 x A)F1')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), '9C10'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -457,13 +457,13 @@ class TestEIAntibodySearch(unittest.TestCase):
         driver = self.driver
         # finds the tissue field and enters a tissue, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "tissue").send_keys('thymus')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-PARP1 (556362)'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -526,13 +526,13 @@ class TestEIAntibodySearch(unittest.TestCase):
         driver = self.driver
         # finds the tissue description field and enters a description, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "description").send_keys('mast cell')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'PS-2'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -577,13 +577,13 @@ class TestEIAntibodySearch(unittest.TestCase):
         driver = self.driver
         # finds the cell line field and enter a cell line, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "cellLine").send_keys('MC/9')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Integrin alpha5 antibody (5H10-27 (MFR5))'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -605,13 +605,13 @@ class TestEIAntibodySearch(unittest.TestCase):
         driver = self.driver
         # finds the cell line field and enters a description, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "cellLine").send_keys('PCC4 Aza RI')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-uvomorulin/E-Cadherin (DECMA-1), rat'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -633,13 +633,13 @@ class TestEIAntibodySearch(unittest.TestCase):
         driver = self.driver
         # finds the age prefix field and select the option 'postnatal day', tabs out of the field then clicks the Search button
         Select(driver.find_element(By.ID, "age")).select_by_value('string:postnatal year')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'A4.840'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -661,13 +661,13 @@ class TestEIAntibodySearch(unittest.TestCase):
         driver = self.driver
         # finds the age stage field and enters an age range, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "ageStage").send_keys('11.5')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'mouse anti-ICD'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -686,13 +686,13 @@ class TestEIAntibodySearch(unittest.TestCase):
         driver = self.driver
         # finds the age stage field and enters an age stage, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "ageStage").send_keys('12%')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(4)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'mAb 13A4'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -711,13 +711,13 @@ class TestEIAntibodySearch(unittest.TestCase):
         driver = self.driver
         # finds the gender field and enter the option 'female'(string:315164, tabs out of the field then clicks the Search button
         Select(driver.find_element(By.ID, "gender")).select_by_value('string:315164')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'serum 231'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -736,13 +736,13 @@ class TestEIAntibodySearch(unittest.TestCase):
         driver = self.driver
         # finds the antibody reference J# field and enter a J number, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "jnumid_ref-0").send_keys('J:147857')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), '14-1'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -761,13 +761,13 @@ class TestEIAntibodySearch(unittest.TestCase):
         driver = self.driver
         # finds the antibody reference J# field and enter a J number, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "jnumid_ref-0").send_keys('J:14789%')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(4)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-PLZF clone 2A9'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -798,13 +798,13 @@ class TestEIAntibodySearch(unittest.TestCase):
         driver = self.driver
         # finds the antibody reference citation field and enters text, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "short_citation-0").send_keys('Jubb AM, J Pathol 2012 Jan;226(1):50-60')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(4)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-LYVE1 (AF2125)'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -832,13 +832,13 @@ class TestEIAntibodySearch(unittest.TestCase):
         driver = self.driver
         # finds the antibody alias field and enters text, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "alias-0").send_keys('anti-CD117')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(4)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Anti-c-kit'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -857,13 +857,13 @@ class TestEIAntibodySearch(unittest.TestCase):
         driver = self.driver
         # finds the antibody alias field and enters text, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "alias-0").send_keys('anti-CD%')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(4)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Anti-c-kit'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -891,13 +891,13 @@ class TestEIAntibodySearch(unittest.TestCase):
         driver = self.driver
         # finds the antibody alias J number field and enters a J number, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "jnumid-0").send_keys('J:37016')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(4)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'MJ7/18'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -916,13 +916,13 @@ class TestEIAntibodySearch(unittest.TestCase):
         driver = self.driver
         # finds the antibody alias J number field and enters a J number, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "short_citation-0").send_keys('Velling T, Dev Dyn 1996 Dec;207(4):355-71')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(6)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'MJ7/18'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -941,13 +941,13 @@ class TestEIAntibodySearch(unittest.TestCase):
         driver = self.driver
         # finds the antibody alias J number field and enters a J number, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "antibodyNote").send_keys('%reduction in fluorescence% ')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(4)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), '1310'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -966,13 +966,13 @@ class TestEIAntibodySearch(unittest.TestCase):
         driver = self.driver
         # finds the antibody marker field and enters text, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "markerSymbol-0").send_keys('sfpq')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(4)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-SFPQ'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -994,13 +994,13 @@ class TestEIAntibodySearch(unittest.TestCase):
         driver = self.driver
         # finds the antibody alias J number field and enters a J number, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "markerSymbol-0").send_keys('Sfp%')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(4)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-SFPQ'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -1022,13 +1022,13 @@ class TestEIAntibodySearch(unittest.TestCase):
         driver = self.driver
         # finds the antibody chromosome field and enters text, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "chromosome-0").send_keys('Y')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(4)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-Dby'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -1155,7 +1155,6 @@ class TestEIAntibodySearch(unittest.TestCase):
         print(mod_by)
         # Assert the  Modified By field returned is correct
         self.assertEqual(mod_by, 'dbo')
-        time.sleep(2)
         # find the Modification Date field
         mod_date = driver.find_element(By.ID, 'modificationDate').get_attribute('value')
         print(mod_date)
@@ -1176,7 +1175,6 @@ class TestEIAntibodySearch(unittest.TestCase):
         WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-p107'))
         # find the Modified by field
         mod_by = driver.find_element(By.ID, 'modifiedBy').get_attribute('value')
-        time.sleep(2)
         print(mod_by)
         # Assert the  Modified By field returned is correct
         self.assertEqual(mod_by, 'dbo')
@@ -1200,7 +1198,6 @@ class TestEIAntibodySearch(unittest.TestCase):
         WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-p107'))
         # find the Modified by field
         mod_by = driver.find_element(By.ID, 'modifiedBy').get_attribute('value')
-        time.sleep(2)
         print(mod_by)
         # Assert the  Modified By field returned is correct
         self.assertEqual(mod_by, 'dbo')
@@ -1223,7 +1220,6 @@ class TestEIAntibodySearch(unittest.TestCase):
         # waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-GLUT1'))
         create_date = driver.find_element(By.ID, 'creationDate').get_attribute('value')
-        time.sleep(2)
         print(create_date)
         # Assert the  Creation Date field returned is correct
         self.assertEqual(create_date, '1998-06-22')
@@ -1239,7 +1235,6 @@ class TestEIAntibodySearch(unittest.TestCase):
         # find the Search button and click it
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
-        time.sleep(2)
         WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-GLUT1'))
         create_date = driver.find_element(By.ID, 'creationDate').get_attribute('value')
         print(create_date)

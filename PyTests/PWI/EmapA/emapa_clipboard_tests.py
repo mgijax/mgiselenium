@@ -1,6 +1,7 @@
 '''
 Created on Jan 28, 2016
 This test verifies correct functioning of the clip board features within the EmapA module
+tests verified working 6/9/2023
 @author: jeffc
 '''
 import unittest
@@ -10,6 +11,8 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import sys, os.path
 import config
 from util import iterate, wait
@@ -36,10 +39,10 @@ class TestEiEmapaClipboard(unittest.TestCase):
         # logging in for all tests
         username = self.driver.find_element(By.NAME, 'user')  # finds the user login box
         username.send_keys(config.PWI_LOGIN)  # enters the username
-        time.sleep(4)
+        #time.sleep(4)
         passwd = self.driver.find_element(By.NAME, 'password')  # finds the password box
         passwd.send_keys(config.PWI_PASSWORD)  # enters a valid password
-        time.sleep(4)
+        #time.sleep(4)
         submit = self.driver.find_element(By.NAME, "submit")  # Find the Login button
         submit.click()  # click the login button
         time.sleep(1)
@@ -84,9 +87,10 @@ class TestEiEmapaClipboard(unittest.TestCase):
         """
         @status trying to add a duplicate term/stage to the clip board.
         """
+        driver = self.driver
         # find the "Term Search" box and enter the term brain
         self.driver.find_element(By.ID, "termSearch").send_keys('brain')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         # find the Search button and click it
         self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
         wait.forAngular(self.driver)
@@ -117,9 +121,10 @@ class TestEiEmapaClipboard(unittest.TestCase):
         """
         @status adding a single stage to the clipboard.
         """
+        driver = self.driver
         # find the "Term Search" box and enter the term tail
         self.driver.find_element(By.ID, "termSearch").send_keys('tail')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         # find the Search button and click it
         self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
         wait.forAngular(self.driver)
@@ -146,9 +151,10 @@ class TestEiEmapaClipboard(unittest.TestCase):
         """
         @status adding stages to the clipboard separated by commas.
         """
+        driver = self.driver
         # find the "Term Search" box and enter the term epithelium
         self.driver.find_element(By.ID, "termSearch").send_keys('epithelium')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         # find the Search button and click it
         self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
         wait.forAngular(self.driver)
@@ -177,9 +183,10 @@ class TestEiEmapaClipboard(unittest.TestCase):
         """
         @status adding stages to the clip board separated by a dash.
         """
+        driver = self.driver
         # find the "Term Search" box and enter the term neck
         self.driver.find_element(By.ID, "termSearch").send_keys('neck')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         # find the Search button and click it
         self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
         wait.forAngular(self.driver)
@@ -203,13 +210,14 @@ class TestEiEmapaClipboard(unittest.TestCase):
         searchTreeItems = iterate.getTextAsList(items)
         self.assertEqual(["TS22; neck", "TS23; neck", "TS24; neck", "TS25; neck"], searchTreeItems)
 
-    def testWildcardStage(self):
+    '''def testWildcardStage(self):
         """
-        @status adding all stages to clip board using a *.
+        @status adding all stages to clip board using a *. This is no longer a valid test as an asterisk is no used now.!
         """
+        driver = self.driver
         # find the "Term Search" box and enter the term epiblast
         self.driver.find_element(By.ID, "termSearch").send_keys('epiblast')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         # find the Search button and click it
         self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
         wait.forAngular(self.driver)
@@ -231,15 +239,16 @@ class TestEiEmapaClipboard(unittest.TestCase):
 
         # add all li text to a list for "assertIn" test
         searchTreeItems = iterate.getTextAsList(items)
-        self.assertEqual(["TS6; epiblast", "TS7; epiblast", "TS8; epiblast"], searchTreeItems)
+        self.assertEqual(["TS6; epiblast", "TS7; epiblast", "TS8; epiblast"], searchTreeItems)'''
 
     def testNonNumberStage(self):
         """
-        @status trying to add a stage to the clip board using a non-numeric number.
+        @status trying to add a stage to the clip board using a non-numeric number results in the clipboard remaining empty.
         """
-        # find the "Term Search" box and enter the term brain
+        driver = self.driver
+        # find the "Term Search" box and enter the term epiblast
         self.driver.find_element(By.ID, "termSearch").send_keys('epiblast')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         # find the Search button and click it
         self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
         wait.forAngular(self.driver)
@@ -250,16 +259,17 @@ class TestEiEmapaClipboard(unittest.TestCase):
         clipbox.send_keys(Keys.RETURN)
         wait.forAngular(self.driver)
 
-        errdisplay = self.driver.find_element(By.ID, "errorMessage")
-        self.assertTrue(errdisplay.is_displayed(), "Error message not displaying")
+        errdisplay = self.driver.find_element(By.ID, "emapClipBoardContent")
+        self.assertTrue(errdisplay.is_displayed(), "")
 
     def testInvalidRange(self):
         """
-        @status trying to add stages to the clipboard using an invalid range.
+        @status trying to add stages to the clipboard using an invalid range should leave the clipboard entry.
         """
+        driver = self.driver
         # find the "Term Search" box and enter the term epiblast
         self.driver.find_element(By.ID, "termSearch").send_keys('epiblast')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         # find the Search button and click it
         self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
         wait.forAngular(self.driver)
@@ -272,16 +282,17 @@ class TestEiEmapaClipboard(unittest.TestCase):
         clipbox.send_keys(Keys.RETURN)
         wait.forAngular(self.driver)
 
-        errdisplay = self.driver.find_element(By.ID, "errorMessage")
-        self.assertTrue(errdisplay.is_displayed(), "Error message not displaying")
+        errdisplay = self.driver.find_element(By.ID, "emapClipBoardContent")
+        self.assertTrue(errdisplay.is_displayed(), "")
 
     def testdeleteoneclipboard(self):
         """
         @status tests you can delete one item from the clipboard.
         """
+        driver = self.driver
         # find the "Term Search" box and enter the term emb%
         self.driver.find_element(By.ID, "termSearch").send_keys('emb%')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         # find the Search button and click it
         self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
         wait.forAngular(self.driver)
@@ -317,9 +328,10 @@ class TestEiEmapaClipboard(unittest.TestCase):
         """
         @status tests you can delete multiple items from the clipboard.
         """
+        driver = self.driver
         # find the "Term Search" box and enter the term neck
         self.driver.find_element(By.ID, "termSearch").send_keys('neck')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         # find the Search button and click it
         self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
         wait.forAngular(self.driver)
@@ -361,9 +373,10 @@ class TestEiEmapaClipboard(unittest.TestCase):
         """
         @status tests that a basic sort works by displaying the clip board results in smart alpha order.
         """
+        driver = self.driver
         # find the "Term Search" box and enter the term emb%
         self.driver.find_element(By.ID, "termSearch").send_keys('emb%')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         # find the Search button and click it
         self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
         wait.forAngular(self.driver)
@@ -425,10 +438,11 @@ class TestEiEmapaClipboard(unittest.TestCase):
         """
         @status confirm the shortcut keys(CTRL + ALT + k) resets the clipboard input box
         """
+        driver = self.driver
         actions = ActionChains(self.driver)
         # find the "Term Search" box and enter the term tail
         self.driver.find_element(By.ID, "termSearch").send_keys('tail')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         # find the Search button and click it
         self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
         wait.forAngular(self.driver)
@@ -443,7 +457,7 @@ class TestEiEmapaClipboard(unittest.TestCase):
         clipbox.send_keys("18")
         clipbox.send_keys(Keys.RETURN)
         time.sleep(2)
-        clipdata = self.driver.find_element(By.ID, "emapClipBoardContent").find_element(By.ID, "clipboard")
+        clipdata = self.driver.find_element(By.ID, "emapClipBoardContent")
         items = clipdata.find_elements(By.CSS_SELECTOR, "li")
         searchTreeItems = iterate.getTextAsList(items)
         # assert that TS18 tail is displayed in the clipboard

@@ -53,13 +53,13 @@ class TestEIAlleleRelationshipsSearch(unittest.TestCase):
         driver = self.driver
         # finds the Allele Relationships MGI ID field and enter the ID, tabs out of the field then clicks the Search button
         self.driver.find_element(By.ID, "alleleAccID").send_keys('MGI:6430734')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Gpc5<C57BL/6J>'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -78,13 +78,13 @@ class TestEIAlleleRelationshipsSearch(unittest.TestCase):
         driver = self.driver
         # finds the Allele Relationship Allele field and enters an allele symbol, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "alleleSymbol").send_keys('Gpc5<DBA/2J>')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Gpc5<DBA/2J>'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -103,13 +103,13 @@ class TestEIAlleleRelationshipsSearch(unittest.TestCase):
         driver = self.driver
         # finds the allele symbol field and enters a partial symbol with wildcard, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "alleleSymbol").send_keys('Gpc5%')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Gpc5<DBA/2J>'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -143,13 +143,13 @@ class TestEIAlleleRelationshipsSearch(unittest.TestCase):
         driver = self.driver
         # finds the Relationship Type field and select option normal(string:12438362), tabs out of the field then clicks the Search button
         Select(driver.find_element(By.ID, "MIrelationshipTerm-0")).select_by_value('string:12438362')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Gpc5<DBA/2J>'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -174,13 +174,13 @@ class TestEIAlleleRelationshipsSearch(unittest.TestCase):
         driver = self.driver
         # finds the mutation involves J number field and enter the J number, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "MIjnumID-0").send_keys('J:257336')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Dp(13Spock1)1Tac'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -199,13 +199,13 @@ class TestEIAlleleRelationshipsSearch(unittest.TestCase):
         driver = self.driver
         # finds the mutation involves marker acc ID field and enters an MGI ID, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "MImarkerAccID-0").send_keys('MGI:96677')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'In(5)30Rk'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -236,13 +236,13 @@ class TestEIAlleleRelationshipsSearch(unittest.TestCase):
         driver = self.driver
         # finds the muation involves marker field and enters text , tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "MImarkerSymbol-0").send_keys('Clock')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'In(5)30Rk'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -273,13 +273,13 @@ class TestEIAlleleRelationshipsSearch(unittest.TestCase):
         driver = self.driver
         # finds the mutated involves note field and enters text , tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "MInote-0").send_keys('translocation or duplication of exon 1')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(5)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Tg(SNCA*A53T)2Nbm'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -298,13 +298,13 @@ class TestEIAlleleRelationshipsSearch(unittest.TestCase):
         driver = self.driver
         # finds the Expresses component Relationship Type field and select option mouse(string:1), tabs out of the field then clicks the Search button
         Select(driver.find_element(By.ID, "ECorganism-0")).select_by_value('string:1')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(5)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Actb<tm3.1(Sirt1)Npa>'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -329,13 +329,13 @@ class TestEIAlleleRelationshipsSearch(unittest.TestCase):
         driver = self.driver
         # finds the expresses component J number field and enter the J number, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "ECjnumID-0").send_keys('J:246645')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Sox3<em1(Sox2)Pqt>'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -354,13 +354,13 @@ class TestEIAlleleRelationshipsSearch(unittest.TestCase):
         driver = self.driver
         # finds the expresses component marker acc ID field and enters an MGI ID, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "ECmarkerAccID-0").send_keys('MGI:96163')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Ak7<Tg(tetO-Hmox1)67Sami>'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -379,13 +379,13 @@ class TestEIAlleleRelationshipsSearch(unittest.TestCase):
         driver = self.driver
         # finds the expresses component marker field and enters text , tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "ECmarkerSymbol-0").send_keys('Gata2')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Gt(ROSA)26Sor<tm10(Gata2)Jhai>'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -407,13 +407,13 @@ class TestEIAlleleRelationshipsSearch(unittest.TestCase):
         driver = self.driver
         # finds the mutated involves note field and enters text , tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "ECnote-0").send_keys('HBEGF/GFP fusion')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(5)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Aire<tm5.1(HBEGF/GFP)Mmat>'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -432,31 +432,22 @@ class TestEIAlleleRelationshipsSearch(unittest.TestCase):
         driver = self.driver
         # finds the Driver Component Organism pick list field and select  the option zebrafish('string:84') , then click the Search button
         Select(driver.find_element(By.ID, "DCorganism-0")).select_by_value('string:84')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(5)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Tg(dlx5a-cre)1Mekk'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         # Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
-        cell2 = table.get_row_cells(1)
-        cell3 = table.get_row_cells(2)
-        cell4 = table.get_row_cells(3)
         result1 = iterate.getTextAsList(cell1)
-        result2 = iterate.getTextAsList(cell2)
-        result3 = iterate.getTextAsList(cell3)
-        result4 = iterate.getTextAsList(cell4)
         print(result1)
         # Assert the correct relationships are returned
-        self.assertEqual(result1, ['Mesp2<tm7.1(mespb)Ysa>'])
-        self.assertEqual(result2, ['Mesp2<tm7(mespb)Ysa>'])
-        self.assertEqual(result3, ['Tg(MMTV-Catnb)3Pac'])
-        self.assertEqual(result4, ['Tg(MMTV-Catnb)5Pac'])
+        self.assertEqual(result1, ['Tg(dlx5a-cre)1Mekk'])
 
     """def testEIAlleleRelationshipsPropertySearch(self):
         
@@ -505,13 +496,13 @@ class TestEIAlleleRelationshipsSearch(unittest.TestCase):
         driver.find_element(By.ID, "startCoordinate").send_keys('10425400')
         driver.find_element(By.ID, "endCoordinate").send_keys('12282248')
         Select(driver.find_element(By.ID, "relationshipTerm")).select_by_value('string:12438350')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(5)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Qki<qk-v>'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)

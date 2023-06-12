@@ -38,24 +38,20 @@ class TestPwiGxdImagePanePage(unittest.TestCase):
         """
         driver = self.driver
         driver.get(TEST_PWI_URL)
-        time.sleep(5)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         # find the Acc ID(s) / Gene Symbol box and enter text
         accbox = driver.find_element(By.NAME, 'ids')
         # put your J number in the box
         accbox.send_keys("J:83696")
         accbox.send_keys(Keys.RETURN)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located(
-            (By.LINK_TEXT, 'Assays')))  # waits until the Assays link is displayed on the page
-        time.sleep(5)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Exp Images')))  # waits until the Exp Images link is displayed on the page
         # finds the specimens link and clicks it
         driver.find_element(By.LINK_TEXT, "Exp Images").click()
-        # wait.forAjax(driver)
-        time.sleep(2)
+        WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.ID, 'paneSummaryTable'))) #wait for the summary results to display
         # Locates the summary table and finds the table headings
         headerlist = driver.find_element(By.ID, "paneSummaryTable")
         items = headerlist.find_elements(By.TAG_NAME, "th")
         searchTextItems = iterate.getTextAsList(items)
-        wait.forAjax(driver)
         # verifies all the table headings are correct and in order
         self.assertEqual(searchTextItems,
                          ['Image', 'Figure', 'Pane', 'Specimen', 'Assay (Gene)', 'Assay Type', 'Specimen Note'])
@@ -68,18 +64,16 @@ class TestPwiGxdImagePanePage(unittest.TestCase):
         """
         driver = self.driver
         driver.get(TEST_PWI_URL)
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         # find the Acc ID(s) / Gene Symbol box and enter text
         accbox = driver.find_element(By.NAME, 'ids')
         # put your J number in the box
         accbox.send_keys("J:213157")
         accbox.send_keys(Keys.RETURN)
-        #WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Assays')))  # waits until the Assays link is displayed on the page
-        time.sleep(5)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Exp Images')))  # waits until the Exp Images link is displayed on the page
         # finds the specimens link and clicks it
         driver.find_element(By.LINK_TEXT, "Exp Images").click()
-        # wait.forAjax(driver)
-        time.sleep(2)
+        WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.ID, 'paneSummaryTable'))) #wait for the summary results to display
         # Locates the images table and finds the table headings
         imagestable = driver.find_element(By.ID, "paneSummaryTable")
         rows = imagestable.find_elements(By.CSS_SELECTOR, 'tr')
@@ -133,10 +127,10 @@ class TestPwiGxdImagePanePage(unittest.TestCase):
         self.assertEqual(row1.text, 'MGI:5619605\n1 F 1F\nMGI:5619609 (Gata3)\nIn situ reporter (knock in)')
         self.assertEqual(row2.text, 'MGI:5619605\n1 G 1G\nMGI:5619609 (Gata3)\nIn situ reporter (knock in)')
         self.assertEqual(row3.text, 'MGI:5619568\n3 A 3A\nMGI:5619549 (Gata3)\nRecombinase reporter')
-        self.assertEqual(row4.text, 'MGI:5619568\n3 F 3F\nMGI:5619666 (Calb1)\nImmunohistochemistry section from lumbar region; triple labeled: white - calbindin; red - vGluT1 (assay MGI:5619668 [P]); recombinase reporter - green.')
-        self.assertEqual(row5.text, '3F\nMGI:5619668 (Slc17a1)\nImmunohistochemistry section from lumbar region; triple labeled: red - vGluT1; white - calbindin (assay MGI:5619666 [P]); recombinase reporter - green.')
-        self.assertEqual(row6.text, "MGI:5619568\n3 G 3G\nMGI:5619666 (Calb1)\nImmunohistochemistry section from lumbar region; triple labeled: white - calbindin; red - vGluT1 (assay MGI:5619668 [P]); recombinase reporter - green.")
-        self.assertEqual(row7.text, "3G\nMGI:5619668 (Slc17a1)\nImmunohistochemistry section from lumbar region; triple labeled: red - vGluT1; white - calbindin (assay MGI:5619666 [P]); recombinase reporter - green.")
+        self.assertEqual(row4.text, 'MGI:5619568\n3 F 3F\nMGI:5619666 (Calb1)\nImmunohistochemistry Section from lumbar region. triple labeled: white - Calb1; red - Slc17a1 (vGluT1; assay MGI:5619668 [P]); green - Cre reporter.')
+        self.assertEqual(row5.text, '3F\nMGI:5619668 (Slc17a1)\nImmunohistochemistry Section from lumbar region; Triple labeled: red - Slc17a1 (vGluT1); white - Calb1 (assay MGI:5619666 [P]); green - Cre reporter.')
+        self.assertEqual(row6.text, "MGI:5619568\n3 G 3G\nMGI:5619666 (Calb1)\nImmunohistochemistry Section from lumbar region; Triple labeled: white - Calb1; red - Slc17a1 (vGluT1; assay MGI:5619668 [P]); green - Cre reporter.")
+        self.assertEqual(row7.text, "3G\nMGI:5619668 (Slc17a1)\nImmunohistochemistry Section from lumbar region; Triple labeled: red - Slc17a1 (vGluT1); white - Calb1 (assay MGI:5619666 [P]); green - Cre reporter.")
         self.assertEqual(row8.text, "MGI:5619422\nS2 B S2B\nMGI:5619502 (Gata3)\nRecombinase reporter Double labeled: red - recombinase reporter; green - Gata3.")
         self.assertEqual(row9.text, "S2B\nMGI:5619674 (Gata3)\nImmunohistochemistry Double labeled: green - Gata3; red - recombinase reporter.")
         self.assertEqual(row10.text, "MGI:5619422\nS2 B' S2B\nMGI:5619502 (Gata3)\nRecombinase reporter")
@@ -183,17 +177,16 @@ class TestPwiGxdImagePanePage(unittest.TestCase):
         """
         driver = self.driver
         driver.get(TEST_PWI_URL)
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         # find the Acc ID(s) / Gene Symbol box and enter text
         accbox = driver.find_element(By.NAME, 'ids')
         # put your J number in the box
         accbox.send_keys("J:83696")
         accbox.send_keys(Keys.RETURN)
-        #WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Assays')))  # waits until the Assays link is displayed on the page
-        time.sleep(3)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Exp Images'))) # waits until the Exp Images link is displayed on the page
         # finds the specimens link and clicks it
         driver.find_element(By.LINK_TEXT, "Exp Images").click()
-        time.sleep(2)
+        WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.ID, 'paneSummaryTable'))) #wait for the summary results to display
         # Locates the images table and finds the table headings
         imagestable = driver.find_element(By.ID, "paneSummaryTable")
         rows = imagestable.find_elements(By.CSS_SELECTOR, 'tr')
@@ -245,17 +238,17 @@ class TestPwiGxdImagePanePage(unittest.TestCase):
         """
         driver = self.driver
         driver.get(TEST_PWI_URL)
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         # find the Acc ID(s) / Gene Symbol box and enter text
         accbox = driver.find_element(By.NAME, 'ids')
         # put your J number in the box
         accbox.send_keys("J:85300")
         accbox.send_keys(Keys.RETURN)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Assays')))  # waits until the Assays link is displayed on the page
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Exp Images')))  # waits until the Exp Images link is displayed on the page
         #time.sleep(3)
         # finds the specimens link and clicks it
         driver.find_element(By.LINK_TEXT, "Exp Images").click()
-        time.sleep(2)
+        WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.ID, 'paneSummaryTable'))) #wait for the summary results to display
         # Locates the images table and finds the table headings
         imagestable = driver.find_element(By.ID, "paneSummaryTable")
         rows = imagestable.find_elements(By.CSS_SELECTOR, 'tr')
@@ -284,11 +277,6 @@ class TestPwiGxdImagePanePage(unittest.TestCase):
         row22 = rows[22]
         row23 = rows[23]
         row24 = rows[24]
-        row25 = rows[25]
-        row26 = rows[26]
-        row27 = rows[27]
-        row28 = rows[28]
-        row29 = rows[29]
 
         # asserts that the rows of data are correct for the first 18 rows
         self.assertEqual(row1.text, 'MGI:3763145\n1 A 1A\nMGI:3763234 (Etv4)\nRNA in situ')
@@ -298,28 +286,23 @@ class TestPwiGxdImagePanePage(unittest.TestCase):
         self.assertEqual(row5.text, 'MGI:3763147\n2 A 2A\nMGI:3763236 (Myod1)\nRNA in situ')
         self.assertEqual(row6.text, "MGI:3763147\n2 B 2B\nMGI:3763236 (Myod1)\nRNA in situ")
         self.assertEqual(row7.text, "MGI:3763147\n2 C 2C\nMGI:3763236 (Myod1)\nRNA in situ")
-        self.assertEqual(row8.text, "MGI:3763147\n2 D 2D\nMGI:3763237 (Isl1)\nImmunohistochemistry 49 somites. This specimen was also immunolabeled for Pea3 (Etv4) (see assay MGI:3763238 [P]).")
-        self.assertEqual(row9.text, "2D\nMGI:3763238 (Etv4)\nImmunohistochemistry 49 somites. This specimen was also immunolabeled for Isl1/2 (see assays MGI:3763237 [P] and MGI:3763239 [P]).")
-        self.assertEqual(row10.text, "2D\nMGI:3763239 (Isl2)\nImmunohistochemistry 49 somites. This specimen was also immunolabeled for Pea3 (Etv4) (see assay MGI:3763238 [P]).")
-        self.assertEqual(row11.text, "MGI:3763147\n2 E 2E\nMGI:3763237 (Isl1)\nImmunohistochemistry 49 somites. This specimen was also immunolabeled for Pea3 (Etv4) (see assay MGI:3763238 [P]).")
-        self.assertEqual(row12.text, '2E\nMGI:3763238 (Etv4)\nImmunohistochemistry 49 somites. This specimen was also immunolabeled for Isl1/2 (see assays MGI:3763237 [P] and MGI:3763239 [P]).')
-        self.assertEqual(row13.text, "2E\nMGI:3763239 (Isl2)\nImmunohistochemistry 49 somites. This specimen was also immunolabeled for Pea3 (Etv4) (see assay MGI:3763238 [P]).")
-        self.assertEqual(row14.text, "MGI:3763147\n2 F 2F\nMGI:3763237 (Isl1)\nImmunohistochemistry 49 somites. This specimen was also immunolabeled for Pea3 (Etv4) (see assay MGI:3763238 [P]).")
-        self.assertEqual(row15.text, "2F\nMGI:3763238 (Etv4)\nImmunohistochemistry 49 somites. This specimen was also immunolabeled for Isl1/2 (see assays MGI:3763237 [P] and MGI:3763239 [P]).")
-        self.assertEqual(row16.text, '2F\nMGI:3763239 (Isl2)\nImmunohistochemistry 49 somites. This specimen was also immunolabeled for Pea3 (Etv4) (see assay MGI:3763238 [P]).')
+        self.assertEqual(row8.text, "MGI:3763147\n2 D 2D\nMGI:3763237 (Isl1)\nImmunohistochemistry 49 somites. Double labeled: green - Isl1 and Isl2; red - Etv4 (assay MGI:3763238 [P]).")
+        self.assertEqual(row9.text, "2D\nMGI:3763238 (Etv4)\nImmunohistochemistry 49 somites. Double labeled: red - Etv4; green - Isl1 (assay MGI:3763237 [P]) and Isl2 (assay MGI:3763239 [P]).")
+        self.assertEqual(row10.text, "2D\nMGI:3763239 (Isl2)\nImmunohistochemistry 49 somites. Double labeled: green - Isl1 and Isl2; red - Etv4 (assay MGI:3763238 [P]).")
+        self.assertEqual(row11.text, "MGI:3763147\n2 E 2E\nMGI:3763237 (Isl1)\nImmunohistochemistry 49 somites. Double labeled: green - Isl1 and Isl2; red - Etv4 (assay MGI:3763238 [P]).")
+        self.assertEqual(row12.text, '2E\nMGI:3763238 (Etv4)\nImmunohistochemistry 49 somites. Double labeled: red - Etv4; green - Isl1 (assay MGI:3763237 [P]) and Isl2 (assay MGI:3763239 [P]).')
+        self.assertEqual(row13.text, "2E\nMGI:3763239 (Isl2)\nImmunohistochemistry 49 somites. Double labeled: green - Isl1 and Isl2; red - Etv4 (assay MGI:3763238 [P]).")
+        self.assertEqual(row14.text, "MGI:3763147\n2 F 2F\nMGI:3763237 (Isl1)\nImmunohistochemistry 49 somites. Double labeled: green - Isl1 and Isl2; red - Etv4 (assay MGI:3763238 [P]).")
+        self.assertEqual(row15.text, "2F\nMGI:3763238 (Etv4)\nImmunohistochemistry 49 somites. Double labeled: red - Etv4; green - Isl1 (assay MGI:3763237 [P]) and Isl2 (assay MGI:3763239 [P]).")
+        self.assertEqual(row16.text, '2F\nMGI:3763239 (Isl2)\nImmunohistochemistry 49 somites. Double labeled: green - Isl1 and Isl2; red - Etv4 (assay MGI:3763238 [P]).')
         self.assertEqual(row17.text, 'MGI:3763149\n3 A 3A 40s\nMGI:3763245 (Etv4)\nIn situ reporter (knock in)')
         self.assertEqual(row18.text, 'MGI:3763149\n3 B 3B 41s\nMGI:3763245 (Etv4)\nIn situ reporter (knock in)')
         self.assertEqual(row19.text, "MGI:3763149\n3 C 3C 43s\nMGI:3763245 (Etv4)\nIn situ reporter (knock in)")
         self.assertEqual(row20.text, "MGI:3763149\n3 D 3D 58s\nMGI:3763245 (Etv4)\nIn situ reporter (knock in)")
-        self.assertEqual(row21.text, 'MGI:3763149\n3 E 3E 43-45s\nMGI:3763245 (Etv4)\nIn situ reporter (knock in) 43-45 somites. The data in Figure 3E was presented graphically as counts of the number of B-galactosidase-positive motor neurons.')
-        self.assertEqual(row22.text, '3E 41s\nMGI:3763245 (Etv4)\nIn situ reporter (knock in) 41 somites. The data in Figure 3E was presented graphically as counts of the number of B-galactosidase-positive motor neurons.')
-        self.assertEqual(row23.text, '3E 39s\nMGI:3763245 (Etv4)\nIn situ reporter (knock in) 39 somites. The data in Figure 3E was presented graphically as counts of the number of B-galactosidase-positive motor neurons.')
-        self.assertEqual(row24.text, '3E 40s\nMGI:3763245 (Etv4)\nIn situ reporter (knock in) 40 somites. The data in Figure 3E was presented graphically as counts of the number of B-galactosidase-positive motor neurons.')
-        self.assertEqual(row25.text, '3E 47-48s\nMGI:3763245 (Etv4)\nIn situ reporter (knock in) 47-48 somites. The data in Figure 3E was presented graphically as counts of the number of B-galactosidase-positive motor neurons.')
-        self.assertEqual(row26.text, "MGI:3763151\n4 4\nMGI:3763238 (Etv4)\nImmunohistochemistry")
-        self.assertEqual(row27.text, "MGI:3763153\n5 F left 5F\nMGI:3776083 (Met)\nRNA in situ")
-        self.assertEqual(row28.text, "MGI:3763153\n5 F right 5F right\nMGI:3776080 (Etv4)\nRNA in situ 52 somites. This specimen was also analyzed for Met expression; see MGI:3776083 [P].")
-        self.assertEqual(row29.text, '5F\nMGI:3776083 (Met)\nRNA in situ 52 somites. The specimen on the right side was also analyzed for Etv4 (Pea3) expression; see MGI:3776080 [P].')
+        self.assertEqual(row21.text, "MGI:3763151\n4 4\nMGI:3763238 (Etv4)\nImmunohistochemistry")
+        self.assertEqual(row22.text, "MGI:3763153\n5 F left 5F\nMGI:3776083 (Met)\nRNA in situ")
+        self.assertEqual(row23.text, "MGI:3763153\n5 F right 5F right\nMGI:3776080 (Etv4)\nRNA in situ 52 somites. Double labeled: red - Etv4; blue - Met (assay MGI:3776083 [P]).")
+        self.assertEqual(row24.text, '5F\nMGI:3776083 (Met)\nRNA in situ 52 somites. Double labeled: blue - Met; red - Etv4 (assay MGI:3776080 [P]).')
 
     def test_multispecs_sameassay_samepane(self):
         """
@@ -328,17 +311,16 @@ class TestPwiGxdImagePanePage(unittest.TestCase):
         """
         driver = self.driver
         driver.get(TEST_PWI_URL)
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         # find the Acc ID(s) / Gene Symbol box and enter text
         accbox = driver.find_element(By.NAME, 'ids')
         # put your J number in the box
         accbox.send_keys("J:85638")
         accbox.send_keys(Keys.RETURN)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Assays')))  # waits until the Assays link is displayed on the page
-        #time.sleep(3)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Exp Images')))  # waits until the Exp Images link is displayed on the page
         # finds the specimens link and clicks it
         driver.find_element(By.LINK_TEXT, "Exp Images").click()
-        time.sleep(2)
+        WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.ID, 'paneSummaryTable'))) #wait for the summary results to display
         # Locates the images table and finds the table headings
         imagestable = driver.find_element(By.ID, "paneSummaryTable")
         rows = imagestable.find_elements(By.CSS_SELECTOR, 'tr')
@@ -394,17 +376,16 @@ class TestPwiGxdImagePanePage(unittest.TestCase):
         """
         driver = self.driver
         driver.get(TEST_PWI_URL)
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         # find the Acc ID(s) / Gene Symbol box and enter text
         accbox = driver.find_element(By.NAME, 'ids')
         # put your J number in the box
         accbox.send_keys("J:102285")
         accbox.send_keys(Keys.RETURN)
-        #WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Assays')))  # waits until the Assays link is displayed on the page
-        time.sleep(4)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Exp Images')))  # waits until the Exp Images link is displayed on the page
         # finds the specimens link and clicks it
         driver.find_element(By.LINK_TEXT, "Exp Images").click()
-        time.sleep(2)
+        WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.ID, 'paneSummaryTable'))) #wait for the summary results to display
         # Locates the images table and finds the table headings
         imagestable = driver.find_element(By.ID, "paneSummaryTable")
         rows = imagestable.find_elements(By.CSS_SELECTOR, 'tr')
@@ -451,17 +432,16 @@ class TestPwiGxdImagePanePage(unittest.TestCase):
         """
         driver = self.driver
         driver.get(TEST_PWI_URL)
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         # find the Acc ID(s) / Gene Symbol box and enter text
         accbox = driver.find_element(By.NAME, 'ids')
         # put your J number in the box
         accbox.send_keys("J:9026")
         accbox.send_keys(Keys.RETURN)
-        # WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.LINK_TEXT, 'Assays')))#waits until the Assays link is displayed on the page
-        time.sleep(6)
+        WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.LINK_TEXT, 'Exp Images')))#waits until the Exp Images link is displayed on the page
         # finds the specimens link and clicks it
         driver.find_element(By.LINK_TEXT, "Exp Images").click()
-        time.sleep(2)
+        WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.ID, 'paneSummaryTable'))) #wait for the summary results to display
         # Locates the images table and finds the table headings
         imagestable = driver.find_element(By.ID, "paneSummaryTable")
         rows = imagestable.find_elements(By.CSS_SELECTOR, 'tr')

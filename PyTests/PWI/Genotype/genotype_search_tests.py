@@ -1,6 +1,7 @@
 '''
 Created on Dec 19, 2019
 These are tests that check the searching options of the Genotype module
+verified all tests work 6/9/2023
 @author: jeffc
 '''
 import unittest
@@ -53,13 +54,13 @@ class TestEiGenotypeSearch(unittest.TestCase):
         driver = self.driver
         # finds the Strain field and enters a strain w/wildcard, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "strain").send_keys('129.B6-Adamts13%')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), '129.B6-Adamts13<s>,Adamts13<s>,Adamts13<s>'))
         an_table = self.driver.find_element(By.ID, 'allelePairTable')
         table = Table(an_table)
         # Iterate and print the table results
@@ -103,7 +104,7 @@ class TestEiGenotypeSearch(unittest.TestCase):
         driver = self.driver
         # finds the Conditionally Targetted field and selects the Yes option, tabs out of the field then clicks the Search button
         Select(self.driver.find_element(By.ID, 'isConditional')).select_by_value('string:1')  # Yes option
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
@@ -124,7 +125,7 @@ class TestEiGenotypeSearch(unittest.TestCase):
         driver = self.driver
         # finds the Genotype Exists as field and then selects the right option, then clicks the Search button
         driver.find_element(By.ID, "existsAs").send_keys('Cell Line')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
@@ -146,7 +147,7 @@ class TestEiGenotypeSearch(unittest.TestCase):
         driver = self.driver
         # finds the Genotype Exists as field and then selects the right option, then clicks the Search button
         Select(self.driver.find_element(By.ID, 'existsAs')).select_by_value('string:3982948')  # Chimeric option
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
@@ -168,7 +169,7 @@ class TestEiGenotypeSearch(unittest.TestCase):
         driver = self.driver
         # finds the Genotype Exists as field and then selects the right option, then clicks the Search button
         Select(self.driver.find_element(By.ID, 'existsAs')).select_by_value('string:3982946')  # Not Specified option
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
@@ -190,7 +191,7 @@ class TestEiGenotypeSearch(unittest.TestCase):
         driver = self.driver
         # finds the Genotype Exists as field and then selects the right option, then clicks the Search button
         Select(self.driver.find_element(By.ID, 'existsAs')).select_by_value('string:3982949')  # Not Specified option
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
@@ -215,13 +216,12 @@ class TestEiGenotypeSearch(unittest.TestCase):
         # finds the Chromosome field and select 'Y'
         driver.find_element(By.ID, "chromsome-0").send_keys('X')
         # You do not tab out of the Chromosome field or it will break the search because it tries to validate an empty marker field.
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'resultsTable')))
         # find the chromosone field of the first row
         chrom0 = driver.find_element(By.ID, 'chromsome-0').get_property('value')
-        time.sleep(2)
         print(chrom0)
         # we are asserting the chromosome data is correct
         self.assertEqual(chrom0, 'string:X')
@@ -234,7 +234,7 @@ class TestEiGenotypeSearch(unittest.TestCase):
         driver = self.driver
         # finds the Marker as field and then enters text, then clicks the Search button
         driver.find_element(By.ID, "markerSymbol-0").send_keys('Gata1')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
@@ -256,7 +256,7 @@ class TestEiGenotypeSearch(unittest.TestCase):
         driver = self.driver
         # finds the Allele 1 field and then enters text, then clicks the Search button
         driver.find_element(By.ID, "allele1-0").send_keys('Slc11a1<r>')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
@@ -279,7 +279,7 @@ class TestEiGenotypeSearch(unittest.TestCase):
         # finds the State field and then selects the right option, then clicks the Search button
         Select(self.driver.find_element(By.ID, 'pairState-0')).select_by_value('string:7107400')  # Homoplasmic option
         # You do not tab out of the State field or it will break the search because it tries to validate an empty marker field.
-        time.sleep(6)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'resultsTable')))
@@ -298,7 +298,7 @@ class TestEiGenotypeSearch(unittest.TestCase):
         # finds the Compound field and then selects the right option, then clicks the Search button
         driver.find_element(By.ID, "compound-0").send_keys('Top')
         # You do not tab out of the Compound field or it will break the search because it tries to validate an empty marker field.
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'resultsTable')))
@@ -316,7 +316,7 @@ class TestEiGenotypeSearch(unittest.TestCase):
         driver = self.driver
         # finds the J# field and then enters text, then clicks the Search button
         driver.find_element(By.ID, "jnum-0").send_keys('J:124405')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
@@ -326,7 +326,6 @@ class TestEiGenotypeSearch(unittest.TestCase):
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'jnum-0')))
         # find the J# field and get it's value
         jnumber = driver.find_element(By.ID, 'jnum-0').get_property('value')
-        time.sleep(2)
         print(jnumber)
         # we are asserting the J# field is correct
         self.assertEqual(jnumber, 'J:124405')

@@ -1,7 +1,6 @@
 '''
 Created on Jul 20, 2016
-
-This page is linked to from the References page
+verified working on Scrum 6/6/2023
 @author: jeffc
 '''
 import tracemalloc
@@ -12,6 +11,8 @@ from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import sys,os.path
 from util import wait, iterate
 # adjust the path to find config
@@ -34,24 +35,20 @@ class TestPwiGxdAntibodySummaryPage(unittest.TestCase):
         """
         driver = self.driver
         driver.get(TEST_PWI_URL)
-        #opens the Marker detail page
-        time.sleep(3)
+        #opens the PWI page
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         accidbox = driver.find_element(By.ID, 'accessionForm').find_element(By.NAME, 'ids')
         # put your MGI ID number in the box
-        time.sleep(3)
         accidbox.send_keys("MGI:97281")
         accidbox.send_keys(Keys.ENTER)
-        time.sleep(6)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Antibodies'))) # wait for the Antibodies link to display
         #finds the antibodies link and clicks it
         driver.find_element(By.LINK_TEXT, "Antibodies").click()
-        wait.forAjax(driver)
-        time.sleep(3)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'antibodySummary'))) #wait for the antibody results to display
         #Locates the antibodies summary table and finds the table headings
         headerlist = driver.find_element(By.ID, "antibodySummary")
         items = headerlist.find_elements(By.TAG_NAME, "th")
         searchTextItems = iterate.getTextAsList(items)
-        wait.forAjax(driver)
-        time.sleep(2)
         #verifies all the table headings are correct and in order
         self.assertEqual(searchTextItems, ['Antibody Fields','Antigen Fields','','MGI ID','Markers','Name','Alias(es)','Organism','Type','Class','Notes','MGI ID','Name','Organism','Region','Notes','Reference'])
         
@@ -63,17 +60,15 @@ class TestPwiGxdAntibodySummaryPage(unittest.TestCase):
         driver = self.driver
         driver.get(TEST_PWI_URL)
         #opens the Marker detail page
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR,'#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         accidbox = driver.find_element(By.ID, 'accessionForm').find_element(By.NAME, 'ids')
         # put your MGI ID number in the box
-        time.sleep(2)
         accidbox.send_keys("MGI:97281")
         accidbox.send_keys(Keys.ENTER)
-        time.sleep(5)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Antibodies')))  # wait for the Antibodies link to display
         #finds the antibodies link and clicks it
         driver.find_element(By.LINK_TEXT, "Antibodies").click()
-        wait.forAjax(driver)
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'antibodySummary')))  # wait for the antibody results to display
         #finds the antibody name column and then the first 12 items
         resultstable = driver.find_element(By.ID, "antibodySummary")
         rows = resultstable.find_elements(By.CSS_SELECTOR, 'tr')
@@ -121,7 +116,7 @@ class TestPwiGxdAntibodySummaryPage(unittest.TestCase):
         
         
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
         tracemalloc.stop()
         
 def suite():

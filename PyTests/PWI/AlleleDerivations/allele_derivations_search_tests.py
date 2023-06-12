@@ -53,13 +53,13 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         driver = self.driver
         # finds the Allele Derivation Type field and select the option Endonuclease-mediated(string:11927650), tabs out of the field then clicks the Search button
         Select(driver.find_element(By.ID, "derivationType")).select_by_value('string:11927650')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Not Specified Endonuclease-mediated Library BD10 C57BL/6NTac Not Specified'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -78,13 +78,13 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         driver = self.driver
         # finds the Allele Derivation J number field and enters a J number, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "jnumID").send_keys('J:14927')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Achim Gossler Gene trapped Library D3 129S2/SvPas p6LSN'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -103,13 +103,13 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         driver = self.driver
         # finds the J number field and enters a partial J number with wilcard, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "jnumID").send_keys('J:14%')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Elizabeth Simpson Targeted Library E14TG2a 129P2/OlaHsd Not Specified'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -135,13 +135,13 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         driver = self.driver
         # finds the citation field and enters an citation name w/wildcard, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "citation").send_keys('Mitchell%')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'BayGenomics Gene Trap Library pGT0,1,2'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -160,13 +160,13 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         driver = self.driver
         # finds the creator field and select the option Achim Gossler(string:4788779), tabs out of the field then clicks the Search button
         Select(driver.find_element(By.ID, "creator")).select_by_value('string:4788779')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Achim Gossler Gene trapped Library D3 129S2/SvPas p6LSN'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -185,13 +185,13 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         driver = self.driver
         # finds the parent cell line field and enters text w/wildcard, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "parentCellLine").send_keys('mEMS%')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Elizabeth Simpson Targeted Library mEMS1202 (B6.129P2-Hprt<b-m3>/J x 129S-Gt(ROSA)26Sor<tm1Sor>/J)F1 Not Specified'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -226,13 +226,13 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         driver = self.driver
         # finds the parent cell line field and enters text , tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "parentCellLine").send_keys('D3')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Harald von Melchner Gene trapped Library D3 129S2/SvPas ppgklxneoLacZ'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -264,13 +264,13 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         driver = self.driver
         # finds the parent cell line strain field and enters text w/wildcard, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "parentCellLineStrain").send_keys('129S7%')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'FHCRC Gene Trap Library ROSABetageo'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -304,13 +304,13 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         driver = self.driver
         # finds the parent cell line strain field and enters text , tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "parentCellLineStrain").send_keys('129S2/SvPas')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'ESDB Gene Trap Library MICB1'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -341,13 +341,13 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         driver = self.driver
         # finds the Cell line Type field and select the option 'Spermatogonial Stem Cell'(string:3982970), tabs out of the field then clicks the Search button
         Select(driver.find_element(By.ID, "cellLineType")).select_by_value('string:3982969')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Not Specified Gene trapped Library Not Specified Not Specified ROSABetageo'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -366,13 +366,13 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         driver = self.driver
         # finds the vector name field and enters some text with wildcard, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "vector").send_keys('U3N%')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'ESDB Gene Trap Library MICB2'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -403,13 +403,13 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         driver = self.driver
         # finds the vector name field and enters some text, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "vector").send_keys('ROSANBeta-geo')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Masahide Asano Gene trapped Library E14.1 129P2/OlaHsd ROSANBeta-geo'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -432,13 +432,13 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         driver = self.driver
         # finds the vector type field and enter the option 'poly-A trap'(string:3982975, tabs out of the field then clicks the Search button
         Select(driver.find_element(By.ID, "vectorType")).select_by_value('string:3982975')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Peter Gruss Gene trapped Library MPI-II 129/Sv IRESbetagalNeo(-pA)'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -460,13 +460,13 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         driver = self.driver
         # finds the note field and enter test with wildcard, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "generalNote").send_keys('%Lexicon%')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Lexicon Genetics Gene Trap Library 129S5/SvEvBrd'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -488,8 +488,7 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         # find the Search button and click it
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'),
-                                                                              'Not Specified Gene trapped Library Not Specified Not Specified ROSABetageo'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Not Specified Gene trapped Library Not Specified Not Specified ROSABetageo'))
         # find the Created by field
         create_by = driver.find_element(By.ID, 'createdBy').get_attribute('value')
         print(create_by)
@@ -512,8 +511,7 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         # find the Search button and click it
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'),
-                                                                              'Not Specified Gene trapped Library Not Specified Not Specified ROSABetageo'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Not Specified Gene trapped Library Not Specified Not Specified ROSABetageo'))
         # find the Modified by field
         mod_by = driver.find_element(By.ID, 'modifiedBy').get_attribute('value')
         print(mod_by)
@@ -536,8 +534,7 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         # find the Search button and click it
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'),
-                                                                              'Achim Gossler Gene trapped Library D3 129S2/SvPas p6LSN'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Achim Gossler Gene trapped Library D3 129S2/SvPas p6LSN'))
         create_date = driver.find_element(By.ID, 'creationDate').get_attribute('value')
         print(create_date)
         # Assert the  Creation Date field returned is correct
@@ -554,8 +551,7 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         # find the Search button and click it
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'),
-                                                                              'Not Specified Gene trapped Library Not Specified Not Specified ROSABetageo'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Not Specified Gene trapped Library Not Specified Not Specified ROSABetageo'))
         # find the Modification Date field
         mod_date = driver.find_element(By.ID, 'modificationDate').get_attribute('value')
         print(mod_date)
@@ -573,8 +569,7 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         # find the Search button and click it
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(
-            EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'BayGenomics Gene Trap Library pGT0,1,2'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'BayGenomics Gene Trap Library pGT0,1,2'))
         # find the Modified by field
         mod_by = driver.find_element(By.ID, 'modifiedBy').get_attribute('value')
         print(mod_by)
@@ -597,8 +592,7 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         # find the Search button and click it
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'),
-                                                                              'Achim Gossler Gene trapped Library D3 129S2/SvPas p6LSN'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Achim Gossler Gene trapped Library D3 129S2/SvPas p6LSN'))
         # find the Modified by field
         mod_by = driver.find_element(By.ID, 'modifiedBy').get_attribute('value')
         print(mod_by)
@@ -621,8 +615,7 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         # find the Search button and click it
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'),
-                                                                              'Achim Gossler Gene trapped Library D3 129S2/SvPas p6LSN'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Achim Gossler Gene trapped Library D3 129S2/SvPas p6LSN'))
         # find the Modified by field
         mod_by = driver.find_element(By.ID, 'modifiedBy').get_attribute('value')
         print(mod_by)
@@ -645,8 +638,7 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         # find the Search button and click it
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'),
-                                                                              'Achim Gossler Gene trapped Library D3 129S2/SvPas p6LSN'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Achim Gossler Gene trapped Library D3 129S2/SvPas p6LSN'))
         create_date = driver.find_element(By.ID, 'creationDate').get_attribute('value')
         print(create_date)
         # Assert the  Creation Date field returned is correct
@@ -663,8 +655,7 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         # find the Search button and click it
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'),
-                                                                              'Achim Gossler Gene trapped Library D3 129S2/SvPas p6LSN'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Achim Gossler Gene trapped Library D3 129S2/SvPas p6LSN'))
         create_date = driver.find_element(By.ID, 'creationDate').get_attribute('value')
         print(create_date)
         # Assert the  Creation Date field returned is correct
@@ -681,8 +672,7 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         # find the Search button and click it
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'),
-                                                                              'Harald von Melchner Gene trapped Library D3 129S2/SvPas ppgklxneoLacZ'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Harald von Melchner Gene trapped Library D3 129S2/SvPas ppgklxneoLacZ'))
         create_date = driver.find_element(By.ID, 'creationDate').get_attribute('value')
         print(create_date)
         # Assert the  Creation Date field returned is correct

@@ -8,6 +8,8 @@ import time
 import tracemalloc
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 import sys, os.path
@@ -49,13 +51,14 @@ class TestEiEmapaTreeView(unittest.TestCase):
         @status: test works
         @todo: add comments
         """
+        driver = self.driver
         wait.forAngular(self.driver)
         # find the "Term Search" box and enter the term mouse
         self.driver.find_element(By.ID, "termSearch").send_keys('mouse')
-        time.sleep(2)
+        wait.forAngular(self.driver)
         # find the Search button and click it
         self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
-        wait.forAngular(self.driver)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'stageList')))  # waits until the PWI stagelist field is displayed on the page
         treesort = self.driver.find_element(By.ID, "emapaTree").find_element(By.CLASS_NAME, "mgitreeview")
         items = treesort.find_elements(By.CSS_SELECTOR, ".nodeClick")
         # add all li text to a list for "assertIn" test
@@ -74,13 +77,14 @@ class TestEiEmapaTreeView(unittest.TestCase):
         @status: test works
         @todo: add comments
         """
+        driver = self.driver
         wait.forAngular(self.driver)
         # find the "Term Search" box and enter the term embryo
         self.driver.find_element(By.ID, "termSearch").send_keys('embryo')
-        time.sleep(2)
+        wait.forAngular(self.driver)
         # find the Search button and click it
         self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
-        wait.forAngular(self.driver)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'stageList')))  # waits until the PWI stagelist field is displayed on the page
         # select specific stage
         stage20 = self.driver.find_element(By.ID, "stageList").find_element(By.LINK_TEXT, "20")
         stage20.click()
@@ -98,13 +102,14 @@ class TestEiEmapaTreeView(unittest.TestCase):
         @status:  test works
         @todo: needs comments
         """
+        driver = self.driver
         wait.forAngular(self.driver)
         # find the "Term Search" box and enter the term cortical renal tubule
         self.driver.find_element(By.ID, "termSearch").send_keys('cortical renal tubule')
-        time.sleep(2)
+        wait.forAngular(self.driver)
         # find the Search button and click it
         self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
-        wait.forAngular(self.driver)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'stageList')))  # waits until the PWI stagelist field is displayed on the page
         term_det = self.driver.find_element(By.ID, "termDetailContent")
         items = term_det.find_elements(By.TAG_NAME, "dd")
         self.assertEqual(items[0].text, "cortical renal tubule")
@@ -152,13 +157,14 @@ class TestEiEmapaTreeView(unittest.TestCase):
         @status: works fine
         @todo: add comments
         """
+        driver = self.driver
         wait.forAngular(self.driver)
         # find the "Term Search" box and enter the term 3rd ventricle%
         self.driver.find_element(By.ID, "termSearch").send_keys('3rd ventricle%')
-        time.sleep(2)
+        wait.forAngular(self.driver)
         # find the Search button and click it
         self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
-        wait.forAngular(self.driver)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'stageList')))  # waits until the PWI stagelist field is displayed on the page
         term_det = self.driver.find_element(By.ID, "termDetailContent")
         items = term_det.find_elements(By.TAG_NAME, "dd")
         self.assertEqual(items[0].text, "3rd ventricle")
@@ -199,13 +205,14 @@ class TestEiEmapaTreeView(unittest.TestCase):
         tests that if a term is clicked, the detail updates,
             and also that node expands
         """
+        driver = self.driver
         wait.forAngular(self.driver)
         # find the "Term Search" box and enter the term mouse
         self.driver.find_element(By.ID, "termSearch").send_keys('mouse')
-        time.sleep(2)
+        wait.forAngular(self.driver)
         # find the Search button and click it
         self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
-        wait.forAngular(self.driver)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'stageList')))  # waits until the PWI stagelist field is displayed on the page
         # click tissue node in tree
         tree = self.driver.find_element(By.ID, "emapaTree")
         time.sleep(1)

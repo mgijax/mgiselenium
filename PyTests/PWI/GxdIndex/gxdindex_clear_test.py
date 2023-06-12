@@ -1,8 +1,8 @@
 '''
 Created on Oct 4, 2016
-
 @author: jeffc
-this test was created to verify the proper field are cleared when hitting the Clear button
+this test was created to verify the proper fields are cleared when hitting the Clear button
+this test was verified to work on 6/9/2023
 '''
 import unittest
 import time
@@ -49,62 +49,62 @@ class TestEiGxdIndexClear(unittest.TestCase):
         driver = self.driver
         form = self.form
         time.sleep(2)
-        form.enter_value('jnumid', '74162')
+        form.enter_value('jnumID', '74162')
         # click the Tab key
         form.press_tab()
         # finds the citation field
-        citation = form.get_value('citation')
+        citation = form.get_value('short_citation')
         print(citation)
         self.assertEqual(citation, 'Abdelwahid E, Cell Tissue Res 2001 Jul;305(1):67-78')
         # finds the marker field
-        form.enter_value('marker_symbol', 'Bmp2')
-        marker_symbol = form.get_value('marker_symbol')
+        form.enter_value('markerSymbol', 'Bmp2')
+        marker_symbol = form.get_value('markerSymbol')
         form.press_tab()
         print(marker_symbol)
         self.assertEqual(marker_symbol, 'Bmp2')
         form.click_search()
 
         # finds the coded? field
-        is_coded = form.get_value('is_coded')
+        is_coded = form.get_value('isFullCoded')
 
         print(is_coded)
-        self.assertEqual(is_coded, 'false')
+        self.assertEqual(is_coded, 'string:1')
 
         # finds the priority field
-        priority = form.get_selected_text('_priority_key')
+        priority = form.get_selected_text('priority')
 
         print(priority)
         self.assertEqual(priority, 'High')
 
         # finds the conditional mutants field
-        conditional = form.get_selected_text('_conditionalmutants_key')
+        conditional = form.get_selected_text('conditional')
 
         print(conditional)
         self.assertEqual(conditional, 'Not Specified')
 
         # finds the created by field
-        created_user = form.get_value('createdby_login')
+        created_user = form.get_value('createdBy')
 
         print(created_user)
         self.assertEqual(created_user, 'MGI_2.97')
 
         # finds the modified by field
-        modified_user = form.get_value('modifiedby_login')  # .find_element_by_css_selector('td')
+        modified_user = form.get_value('modifiedBy')  # .find_element_by_css_selector('td')
 
         print(modified_user)
         self.assertEqual(modified_user, 'MGI_2.97')
 
         # finds the created by date field
-        created_date = form.get_value('creation_date')
+        created_date = form.get_value('creationDate')
 
         print(created_date)
-        self.assertEqual(created_date, '04/23/2002')
+        self.assertEqual(created_date, '2002-04-23')
 
         # finds the created by date field
-        modified_date = form.get_value('modification_date')
+        modified_date = form.get_value('modificationDate')
 
         print(modified_date)
-        self.assertEqual(modified_date, '04/23/2002')
+        self.assertEqual(modified_date, '2002-04-23')
 
         # find the table field to check
         table_element = driver.find_element(By.ID, "indexGrid")
@@ -117,50 +117,50 @@ class TestEiGxdIndexClear(unittest.TestCase):
 
         form.click_clear()  # press the clear button
         # finds the citation field
-        citation = form.get_value('citation')
+        citation = form.get_value('short_citation')
         print(citation)
         self.assertEqual(citation, '')
         # finds the marker field
-        marker_symbol = form.get_value('marker_symbol')
+        marker_symbol = form.get_value('markerSymbol')
         print(marker_symbol)
         self.assertEqual(marker_symbol, '')
         # finds the coded? field
-        is_coded = form.get_value('is_coded')
+        is_coded = form.get_value('isFullCoded')
         print(is_coded)
         self.assertEqual(is_coded, '')
 
         # finds the priority field
-        priority = form.get_selected_text('_priority_key')
+        priority = form.get_selected_text('priority')
 
         print(priority)
         self.assertEqual(priority, 'Search All')
 
         # finds the conditional mutants field
-        conditional = form.get_selected_text('_conditionalmutants_key')
+        conditional = form.get_selected_text('conditional')
 
         print(conditional)
         self.assertEqual(conditional, 'Search All')
 
         # finds the created by field
-        created_user = form.get_value('createdby_login')
+        created_user = form.get_value('createdBy')
 
         print(created_user)
         self.assertEqual(created_user, '')
 
         # finds the modified by field
-        modified_user = form.get_value('modifiedby_login')  # .find_element_by_css_selector('td')
+        modified_user = form.get_value('modifiedBy')  # .find_element_by_css_selector('td')
 
         print(modified_user)
         self.assertEqual(modified_user, '')
 
         # finds the created by date field
-        created_date = form.get_value('creation_date')
+        created_date = form.get_value('creationDate')
 
         print(created_date)
         self.assertEqual(created_date, '')
 
         # finds the created by date field
-        modified_date = form.get_value('modification_date')
+        modified_date = form.get_value('modificationDate')
 
         print(modified_date)
         self.assertEqual(modified_date, '')

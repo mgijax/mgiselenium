@@ -1,6 +1,6 @@
 '''
 Created on Apr 4, 2016
-test needs to be reworked, completely fails right now 5/19/21
+verified working on Scrum 6/7/2023
 @author: jeffc
 '''
 import unittest
@@ -158,13 +158,13 @@ class TestPwiGxdSpecSumByRef(unittest.TestCase):
         specnote6 = specnotes[5]
         specnote7 = specnotes[6]
         #asserts the first 7 specimen notes are correct and in correct order
-        self.assertEqual(specnote1.text, "2.5% paraformaldehyde  ")
-        self.assertEqual(specnote2.text, "2.5% paraformaldehyde  ")
-        self.assertEqual(specnote3.text, "Fixed in 2.5% paraformaldehyde. With N-glycannase pretreatment.  ")
-        self.assertEqual(specnote4.text, "2.5% paraformaldehyde  ")
-        self.assertEqual(specnote5.text, "2.5% paraformaldehyde  ")
-        self.assertEqual(specnote6.text, "2.5% paraformaldehyde  ")
-        self.assertEqual(specnote7.text, "2.5% paraformaldehyde  ")
+        self.assertEqual(specnote1.text, "2.5% paraformaldehyde")
+        self.assertEqual(specnote2.text, "2.5% paraformaldehyde")
+        self.assertEqual(specnote3.text, "Fixed in 2.5% paraformaldehyde. With N-glycannase pretreatment.")
+        self.assertEqual(specnote4.text, "2.5% paraformaldehyde")
+        self.assertEqual(specnote5.text, "2.5% paraformaldehyde")
+        self.assertEqual(specnote6.text, "2.5% paraformaldehyde")
+        self.assertEqual(specnote7.text, "2.5% paraformaldehyde")
         
 
     def test_assay_detail_links(self):

@@ -1,6 +1,7 @@
 '''
 Created on Apr 18, 2016
 !!these tests might not be valid anymore since the PWI marker form has been replaced by the PWI marker module!!
+verified working on Scrum 6/7/2023
 @author: jeffc  remove these tests??????
 '''
 
@@ -9,6 +10,8 @@ import time
 import tracemalloc
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 import sys,os.path
@@ -33,16 +36,17 @@ class TestPwiGxdLitIndexByMrk(unittest.TestCase):
         driver = self.driver
         #opens the PWI marker form
         driver.get(TEST_PWI_URL + '/edit/marker')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         #locate the symbol field
         symbolbox = driver.find_element(By.ID, 'markerSymbol')
         # put your marker symbol in the box
         symbolbox.send_keys("gata1")
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(3)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'mrkDetailButton')))  # waits until the marker detail link is displayed on the page
         #finds the marker detail link and clicks it
         driver.find_element(By.ID, "mrkDetailButton").click()
         #switch focus to the marker detail tab
+        #WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.LINK_TEXT, 'Lit Index')))#waits until the Lit Index link is displayed on the page
         time.sleep(5)
         handles = driver.window_handles
         size = len(handles)
@@ -51,12 +55,11 @@ class TestPwiGxdLitIndexByMrk(unittest.TestCase):
                 driver.switch_to.window(handles[x])
                 print(driver.title)
         driver.find_element(By.LINK_TEXT, "Lit Index").click()
-        time.sleep(4)
+        WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.LINK_TEXT, 'Public Gata1 Page')))#waits until the Public Gata1 Page link is displayed on the page
         #Locates the summary table and finds the table headings
         headerlist = driver.find_element(By.ID, 'indexRefsTable')
         items = headerlist.find_elements(By.TAG_NAME, "th")
         searchTextItems = iterate.getTextAsList(items)
-        time.sleep(2)
         #verifies all the table headings are correct and in order
         self.assertEqual(searchTextItems, ['*','Reference','Priority','Conditional'])
         
@@ -68,17 +71,16 @@ class TestPwiGxdLitIndexByMrk(unittest.TestCase):
         driver = self.driver
         #opens the PWI marker form
         driver.get(TEST_PWI_URL + '/edit/marker')
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         # locate the symbol field
         symbolbox = driver.find_element(By.ID, 'markerSymbol')
         # put your marker symbol in the box
         symbolbox.send_keys("gata1")
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(3)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'mrkDetailButton')))  # waits until the marker detail link is displayed on the page
         #finds the marker detail link and clicks it
         driver.find_element(By.ID, "mrkDetailButton").click()
         #switch focus to the marker detail tab
-        #self.driver.switch_to.window(self.driver.window_handles[-1])
         time.sleep(2)
         handles = driver.window_handles
         size = len(handles)
@@ -86,9 +88,8 @@ class TestPwiGxdLitIndexByMrk(unittest.TestCase):
             if handles[x] != driver.current_window_handle:
                 driver.switch_to.window(handles[x])
                 print(driver.title)
-        time.sleep(3)
         driver.find_element(By.LINK_TEXT, "Lit Index").click()
-        time.sleep(4)
+        WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.LINK_TEXT, 'Public Gata1 Page')))#waits until the Public Gata1 Page link is displayed on the page
         #finds the coded column and then the first 10 items
         refindextable = driver.find_element(By.ID, "indexRefsTable")
         coded = refindextable.find_elements(By.CSS_SELECTOR, 'td:nth-child(1)')
