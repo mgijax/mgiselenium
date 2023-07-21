@@ -45,10 +45,8 @@ class TestStrainQF(unittest.TestCase):
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("CD")
-        time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
@@ -70,7 +68,6 @@ class TestStrainQF(unittest.TestCase):
         # Enter your strain name
         strainsearchbox.send_keys("APPSWE")
         strainsearchbox.send_keys(Keys.RETURN)
-        time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
@@ -95,7 +92,6 @@ class TestStrainQF(unittest.TestCase):
         # Enter your strain name
         strainsearchbox.send_keys("*129")
         strainsearchbox.send_keys(Keys.RETURN)
-        time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
@@ -117,10 +113,8 @@ class TestStrainQF(unittest.TestCase):
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("*Crygs*")
-        time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
@@ -142,10 +136,8 @@ class TestStrainQF(unittest.TestCase):
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("MGI:2159854")
-        time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
@@ -169,10 +161,8 @@ class TestStrainQF(unittest.TestCase):
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("MGI:2164529")
-        time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
@@ -196,10 +186,8 @@ class TestStrainQF(unittest.TestCase):
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("000651")
-        time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
@@ -222,23 +210,22 @@ class TestStrainQF(unittest.TestCase):
         driver.get(config.TEST_URL + "/strains_SNPs.shtml")
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
-        strainsearchbox.send_keys("mmrrc:029868")
-        time.sleep(2)
+        #strainsearchbox.send_keys("mmrrc:029868")
+        strainsearchbox.send_keys("MMRRC:043486-UCD")
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
         print(iterate.getTextAsList(cells))
         strainNamesReturned = iterate.getTextAsList(cells)
         #asserts that the following strains are returned
-        self.assertIn('129-Myh7tm1Unc/Mmnc', strainNamesReturned) # Strain/Stock Name
+        self.assertIn('C57BL/6NCrl-Clcnkbem1(IMPC)Mbp/MbpMmucd', strainNamesReturned) # Strain/Stock Name
         cells1 = strain_table.get_column_cells("IDs")
         print(iterate.getTextAsList(cells1))
         idReturned = iterate.getTextAsList(cells1)
         #asserts that the correct ID is  returned
-        self.assertIn('MGI:4452117\nMMRRC:029868', idReturned) # ID is correct        
+        self.assertIn('MGI:6143482\nMMRRC:043486-UCD', idReturned) # ID is correct
 
     def test_search_strain_APB_id(self):
         """
@@ -250,10 +237,8 @@ class TestStrainQF(unittest.TestCase):
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("APB:629")
-        time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
@@ -277,10 +262,8 @@ class TestStrainQF(unittest.TestCase):
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("ARC:B6")
-        time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
@@ -306,7 +289,6 @@ class TestStrainQF(unittest.TestCase):
         # Enter your strain name
         strainsearchbox.send_keys("242")
         strainsearchbox.send_keys(Keys.RETURN)
-        time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
@@ -330,11 +312,9 @@ class TestStrainQF(unittest.TestCase):
         driver.get(config.TEST_URL + "/strains_SNPs.shtml")
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
-        strainsearchbox.send_keys("0076")        
-        time.sleep(2)
+        strainsearchbox.send_keys("0076")
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
@@ -359,10 +339,8 @@ class TestStrainQF(unittest.TestCase):
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("EM:05001")
-        time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
@@ -387,7 +365,6 @@ class TestStrainQF(unittest.TestCase):
         # Enter your strain name
         strainsearchbox.send_keys("PacEMS1D")
         strainsearchbox.send_keys(Keys.RETURN)
-        time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
@@ -412,10 +389,8 @@ class TestStrainQF(unittest.TestCase):
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("FESA:03299")
-        time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
@@ -439,10 +414,8 @@ class TestStrainQF(unittest.TestCase):
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("11473")
-        time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
@@ -468,10 +441,8 @@ class TestStrainQF(unittest.TestCase):
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("01XH9")
-        time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
@@ -496,7 +467,6 @@ class TestStrainQF(unittest.TestCase):
         # Enter your strain name
         strainsearchbox.send_keys("53")
         strainsearchbox.send_keys(Keys.RETURN)
-        time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
@@ -521,10 +491,8 @@ class TestStrainQF(unittest.TestCase):
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("M193046")
-        time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
@@ -549,7 +517,6 @@ class TestStrainQF(unittest.TestCase):
         # Enter your strain name
         strainsearchbox.send_keys("NIG:229")
         strainsearchbox.send_keys(Keys.RETURN)
-        time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
@@ -573,10 +540,8 @@ class TestStrainQF(unittest.TestCase):
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("MGI:1861634")
-        time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
@@ -600,10 +565,8 @@ class TestStrainQF(unittest.TestCase):
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("OBS:27")
-        time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
@@ -627,10 +590,8 @@ class TestStrainQF(unittest.TestCase):
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("47BS")
-        time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
@@ -654,10 +615,8 @@ class TestStrainQF(unittest.TestCase):
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("RBRC00222")
-        time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
@@ -683,7 +642,6 @@ class TestStrainQF(unittest.TestCase):
         # Enter your strain name
         strainsearchbox.send_keys("1334")
         strainsearchbox.send_keys(Keys.RETURN)
-        time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
@@ -708,10 +666,8 @@ class TestStrainQF(unittest.TestCase):
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("RMRC11005")
-        time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
         #locates the strain table and verify the strain name is correct
         strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Strain/Stock Name")
@@ -735,10 +691,8 @@ class TestStrainQF(unittest.TestCase):
         driver.get(config.TEST_URL + "/strains_SNPs.shtml")
         #find the conplastic option in the list and select it
         Select (driver.find_element(By.NAME, 'attributes')).select_by_visible_text('conplastic')
-        time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
         #locates the strain table and find the data in the Attributes column
         strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Attributes")
@@ -758,10 +712,8 @@ class TestStrainQF(unittest.TestCase):
         select_box = Select (driver.find_element(By.NAME, 'attributes'))
         select_box.select_by_visible_text('conplastic')
         select_box.select_by_visible_text('inbred strain')
-        time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
         #locates the strain table and find the data in the Attributes column
         strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Attributes")
@@ -785,16 +737,14 @@ class TestStrainQF(unittest.TestCase):
         select_box = Select (driver.find_element(By.NAME, 'attributes'))
         select_box.select_by_visible_text('conplastic')
         select_box.select_by_visible_text('closed colony')
-        time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
         #locates the strain table and find the data in the Attributes column
         strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Attributes")
         print(iterate.getTextAsList(cells))
         attributesReturned = iterate.getTextAsList(cells)
-        time.sleep(2)
+
         #asserts the following attributes are returned
         self.assertIn('conplastic\ntargeted mutation', attributesReturned) # contains this attribute
         self.assertIn('closed colony\nmutant stock', attributesReturned) # contains this attribute
@@ -802,7 +752,6 @@ class TestStrainQF(unittest.TestCase):
         cells1 = strain_table.get_column_cells("Strain/Stock Name")
         print(iterate.getTextAsList(cells))
         strainsReturned = iterate.getTextAsList(cells1)
-        time.sleep(2)
         #asserts the following strains are returned
         self.assertIn('B6.Cg-mt-Co1m1Jiha', strainsReturned) # contains this attribute
         self.assertIn('B6;129X1-Decr1tm1Jkh/Oulu[cc]', strainsReturned) # contains this attribute
@@ -821,16 +770,13 @@ class TestStrainQF(unittest.TestCase):
         #find the Match selected attributes list and select the "all" option
         #self.driver.find_element(By.NAME, 'seqPullDownForm')
         Select(driver.find_element(By.NAME, 'attributeOperator')).select_by_visible_text('all')
-        time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
         #locates the strain table and find the data in the Attributes column
         strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Attributes")
         print(iterate.getTextAsList(cells))
         attributesReturned = iterate.getTextAsList(cells)
-        time.sleep(2)
         #asserts the following attributes are returned
         self.assertIn('coisogenic\nmutant strain\nrevertant\ntargeted mutation', attributesReturned) # contains this attribute
         self.assertIn('coisogenic\nmutant strain\nrevertant\ntargeted mutation', attributesReturned) # contains this attribute
@@ -849,16 +795,13 @@ class TestStrainQF(unittest.TestCase):
         #find the Match selected attributes list and select the "all" option
         #self.driver.find_element(By.NAME, 'seqPullDownForm')
         Select(driver.find_element(By.NAME, 'attributeOperator')).select_by_visible_text('any')
-        time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
         #locates the strain table and find the data in the Attributes column
         strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Attributes")
         print(iterate.getTextAsList(cells))
         attributesReturned = iterate.getTextAsList(cells)
-        time.sleep(2)
         #asserts the following attributes are returned
         self.assertIn('F3 hybrid\nmutant stock', attributesReturned) # contains this attribute
         self.assertIn('F3 hybrid', attributesReturned) # contains this attribute
@@ -879,16 +822,13 @@ class TestStrainQF(unittest.TestCase):
         #find the Match selected attributes list and select the "all" option
         #self.driver.find_element(By.NAME, 'seqPullDownForm')
         Select(driver.find_element(By.NAME, 'attributeOperator')).select_by_visible_text('all')
-        time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
         #locates the strain table and find the data in the Attributes column
         strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Attributes")
         print(iterate.getTextAsList(cells))
         attributesReturned = iterate.getTextAsList(cells)
-        time.sleep(2)
         #asserts the following attributes are returned
         self.assertIn('coisogenic\nmutant strain\nrevertant\ntargeted mutation', attributesReturned) # contains this attribute
         self.assertIn('coisogenic\nmutant strain\nrevertant\ntargeted mutation', attributesReturned) # contains this attribute
@@ -908,16 +848,13 @@ class TestStrainQF(unittest.TestCase):
         #find the Match selected attributes list and select the "all" option
         #self.driver.find_element(By.NAME, 'seqPullDownForm')
         Select(driver.find_element(By.NAME, 'attributeOperator')).select_by_visible_text('any')
-        time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
         #locates the strain table and find the data in the Attributes column
         strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         cells = strain_table.get_column_cells("Attributes")
         print(iterate.getTextAsList(cells))
         attributesReturned = iterate.getTextAsList(cells)
-        time.sleep(2)
         #asserts the following attributes are returned
         self.assertIn('F3 hybrid\nmutant stock', attributesReturned) # contains this attribute
         self.assertIn('F3 hybrid', attributesReturned) # contains this attribute

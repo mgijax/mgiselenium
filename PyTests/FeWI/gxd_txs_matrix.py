@@ -2,7 +2,7 @@
 Created on Nov 2, 2017
 
 @author: jeffc
-@attention: Beginning  test for Tissue X Stage Matrix
+@attention: Beginning  test for Tissue X Stage Matrix. Only the first test is valid, all others are copied tests from images tab!!!!
 '''
 
 import unittest
@@ -12,7 +12,8 @@ from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -33,22 +34,22 @@ class TestGXDTissueStageMatrix(unittest.TestCase):
     def test_structure_names_sort(self):
         """
         @status: Tests that the high level anatomy terms are displayed in the correct order
-        @attention: the time sleeps need to be replaced by expected conditions code
+        @attention:
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")
         #driver.get(config.PUBLIC_URL + "/gxd")
         stagebox = driver.find_element(By.NAME, 'vocabTerm')
-        # put your vocabulary term to search in the box
+        # put your structure term to search in the box
         stagebox.send_keys("mouse")
         stagebox.send_keys(Keys.RETURN)
-        #wait.forAjax(driver)
+        driver.find_element(By.ID, 'submit2').click()
         #find the Tissue x Stage Matrix tab
         tissuestagetab = driver.find_element(By.ID, 'stagegridtab')
-        time.sleep(2)
         #click the Tissue x Stage Matrix tab
         tissuestagetab.click()
-        time.sleep(5)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'rowGroupInner'))):
+            print('tissue x stage tab data loaded')
         #find the Anatomical systems high level terms
         termslist = driver.find_element(By.ID, 'stagegriddata').find_element(By.ID, 'rowGroupInner')
         items = termslist.find_elements(By.TAG_NAME, 'text')
@@ -70,7 +71,7 @@ class TestGXDTissueStageMatrix(unittest.TestCase):
     def test_anat_terms_results(self):
         """
         @status: Tests the correct anatomy terms and Theiler stages are returned for a simple gene search
-        @attention: the time sleeps need to be replaced by expected conditions code
+        @attention:
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")
@@ -81,11 +82,10 @@ class TestGXDTissueStageMatrix(unittest.TestCase):
         genebox.send_keys(Keys.RETURN)
         #find the Tissue x Stage Matrix tab
         tissuestagetab = driver.find_element(By.ID, "stagegridtab")
-        time.sleep(1)
         #click the Tissue x Matrix tab
         tissuestagetab.click()
-        
-        time.sleep(2)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'rowGroupInner'))):
+            print('tissue x stage tab data loaded')
         #find the Anatomical Terms column
         termslist = driver.find_element(By.ID, "stagegriddata").find_element(By.ID, 'rowGroupInner')
         items = termslist.find_elements(By.TAG_NAME, "text")
@@ -119,15 +119,15 @@ class TestGXDTissueStageMatrix(unittest.TestCase):
         genebox.send_keys(Keys.RETURN)
         #find the Image tab
         imagetab = driver.find_element(By.ID, "imagestab")
-        time.sleep(1)
         #click the image tab
         imagetab.click()
         #wait.forAjax(driver)
-        time.sleep(1)
+        if WebDriverWait(self.driver, 8).until(EC.presence_of_element_located((By.ID, 'imagesdata'))):
+            print('images tab data loaded')
         typelist = driver.find_element(By.ID, "imagesdata").find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-hybridization')
         items = typelist[0].find_elements(By.TAG_NAME, "li")
         searchTextItems = iterate.getTextAsList(items)
-        time.sleep(1)
+        #time.sleep(1)
         self.assertEqual(searchTextItems, ["section", "section from whole mount"])
                 
     def test_gene_column_sort(self):

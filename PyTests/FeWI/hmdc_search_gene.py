@@ -55,7 +55,6 @@ class TestHmdcGenesSearch(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("football")#identifies the input field and a bogus symbol
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         #identify the Grid tab and click on it
@@ -64,7 +63,6 @@ class TestHmdcGenesSearch(unittest.TestCase):
         time.sleep(2)
         self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (0 x 0)", "Grid tab is not visible!")
         grid_tab.click()
-        
         self.assertIn('No data available for your query.', self.driver.page_source)
         
         #Open up the query form again (click on "Click to modify search" button)
@@ -79,7 +77,6 @@ class TestHmdcGenesSearch(unittest.TestCase):
       
         self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys('football game') #multi token query string that should return nothing
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -88,7 +85,6 @@ class TestHmdcGenesSearch(unittest.TestCase):
         time.sleep(2)
         print(gene_tab.text)
         gene_tab.click()
-        
         #Check for no results message
         self.assertIn('No Matching Genes', self.driver.page_source)
         
@@ -105,7 +101,6 @@ class TestHmdcGenesSearch(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Pax6*")#identifies the input field and a symbol with an appended asterisk
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -139,13 +134,11 @@ class TestHmdcGenesSearch(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Smn1")#identifies the input field and enters a gene symbol
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Genes tab and click on it
         grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
-       
         time.sleep(2)
         print(grid_tab.text)
         grid_tab.click()
@@ -178,13 +171,11 @@ class TestHmdcGenesSearch(unittest.TestCase):
       
         self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys('SMN2') #human symbol for a homology class with multiple human symbols
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
      
         #identify the Genes tab and click on it
         grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
-       
         time.sleep(2)
         print(grid_tab.text)
         grid_tab.click()
@@ -216,33 +207,26 @@ class TestHmdcGenesSearch(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Bbx")#identifies the input field and a gene symbol
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
         print(grid_tab.text)
-        
         grid_tab.click()
-        
         hgenes = self.driver.find_element(By.CSS_SELECTOR, "td.ngc.left.middle.cell.first")
          
         self.assertEqual(hgenes.text, 'BBX')
         mgenes = self.driver.find_element(By.CSS_SELECTOR, "td.ngc.left.middle.cell.last")
-        
         self.assertEqual(mgenes.text, "Bbx")#cells = mgenes.get_all()
         
         #Click on the Disease Tab and verify the no data message displayed.
         disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         time.sleep(2)
         print(disease_tab.text)
-        
         disease_tab.click()
-        
         self.assertIn('No Matching Diseases', self.driver.page_source)
-       
-        
+
 
     def test_gene_homology_union(self):
         '''
@@ -261,19 +245,15 @@ class TestHmdcGenesSearch(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("selenbp2")#enter a symbol that is in 2 different homology classes
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
         gene_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)
         print(gene_tab.text)
-        
         gene_tab.click()
         gene_table = Table(self.driver.find_element(By.ID, "geneTable"))
-        
         cells = gene_table.get_column_cells("Gene Symbol")
-        
         geneList = iterate.getTextAsList(cells)
     
         #asserts that the genes from 2 different homology classes are returned (the "homology union")
@@ -297,7 +277,6 @@ class TestHmdcGenesSearch(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("transformation related protein 53") #mouse gene name for Trp53
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -335,7 +314,6 @@ class TestHmdcGenesSearch(unittest.TestCase):
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("tumor protein p53") #mouse gene name for Trp53
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -374,7 +352,6 @@ class TestHmdcGenesSearch(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("C4a")#identifies the input field and enters a gene symbol
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -415,7 +392,6 @@ class TestHmdcGenesSearch(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("leptin") #enter a single token gene name
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         #identify the Genes tab and click on it
@@ -446,7 +422,6 @@ class TestHmdcGenesSearch(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("leptin") #enter a single token gene name
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
@@ -472,7 +447,6 @@ class TestHmdcGenesSearch(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("paupar")#identifies the input field and enters a gene symbol
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -511,7 +485,6 @@ class TestHmdcGenesSearch(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("paxillin")#identifies the input field and enters a gene name
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -535,7 +508,6 @@ class TestHmdcGenesSearch(unittest.TestCase):
         print(disease_tab.text)
         
         disease_tab.click()
-        
         #Look for no results message
         self.assertIn('No Matching Diseases', self.driver.page_source)
         
@@ -556,7 +528,6 @@ class TestHmdcGenesSearch(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("dickie's small eye")#identifies the input field and enters multiple token synonym
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -586,7 +557,6 @@ class TestHmdcGenesSearch(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("dickie's small eye")
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -624,7 +594,6 @@ class TestHmdcGenesSearch(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Solt")#identifies the input field and enters a mouse synonym
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -655,7 +624,6 @@ class TestHmdcGenesSearch(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("HMPH")#identifies the input field and enters a human synonym
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -693,7 +661,6 @@ class TestHmdcGenesSearch(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("p19<ARF>")#identifies the input field and enter the synonym with a superscript
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -725,7 +692,6 @@ class TestHmdcGenesSearch(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("p19<ARF>")#identifies the input field and enter the synonym with a superscript
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -749,11 +715,10 @@ class TestHmdcGenesSearch(unittest.TestCase):
     def test_gene_NOT_disease(self):
         '''
         @status This test verifies that a NOT disease annotation is not included in the results for a query by the Gene Symbol
-                with that annotation.  In this case the NOT annotation is to DOID:2841 (asthma) for gene Adam33.  This test checks the 
+                with that annotation.  In this case the NOT annotation is to DOID:10588 (adrenoleukodystrophy) for gene Acsbg1.  This test checks the
                 Grid and Disease tabs.
         @see: HMDC-grid-12 (NOT disease annotations not displayed on Grid); HMDC-disease-19 (NOT disease annotations not 
               displayed on Disease Tab); HMDC-genetab-19 (NOT references included in Disease relevant reference count/link)
-        @bug: this test no longer works as asthma is now  valid, not NOT
         '''
         print ("BEGIN test_gene_NOT_disease")
         my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
@@ -762,8 +727,7 @@ class TestHmdcGenesSearch(unittest.TestCase):
                 option.click()
                 break
         
-        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Adam33")#identifies the input field and enters the symbol
-        wait.forAngular(self.driver)
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Acsbg1")#identifies the input field and enters the symbol
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -791,8 +755,8 @@ class TestHmdcGenesSearch(unittest.TestCase):
         #save each row of gene data and verify the expected genes are returned
         gene1 = cells[1]
         gene2 = cells[2]
-        self.assertEqual(gene1.text, 'ADAM33')
-        self.assertEqual(gene2.text, 'Adam33')
+        self.assertEqual(gene1.text, 'ACSBG1')
+        self.assertEqual(gene2.text, 'Acsbg1')
         
         cells2 = gene_table.get_column_cells("References in MGI")
         time.sleep(2)
@@ -804,7 +768,7 @@ class TestHmdcGenesSearch(unittest.TestCase):
         time.sleep(2)
         #asserts that the References in MGI column displays a Disease Relevant link since the is a NOT disease
         self.assertEqual(ref1.text, '')
-        self.assertEqual(ref2.text, 'All Mouse: 41\nDisease Relevant: 1')
+        self.assertEqual(ref2.text, 'All Mouse: 47\nDisease Relevant: 1')
         
         #identify the Disease tab and verify the tab's text
         disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
@@ -831,7 +795,6 @@ class TestHmdcGenesSearch(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Gt(ROSA)26Sor")#identifies the input field and enters symbol of Gt(ROSA)26Sor
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -867,7 +830,6 @@ class TestHmdcGenesSearch(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Gt(ROSA)26Sor")
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         #identify the Grid tab and click on it
@@ -907,7 +869,6 @@ class TestHmdcGenesSearch(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Gja1")#identifies the input field and enters mouse synonym for C4a
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -956,7 +917,6 @@ class TestHmdcGenesSearch(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Foxm1")#identifies the input field and enters a mouse symbol
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -1003,7 +963,6 @@ class TestHmdcGenesSearch(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("phenylalkylamine Ca2+ antagonist (emopamil) binding protein")#enter a gene name
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -1033,7 +992,7 @@ class TestHmdcGenesSearch(unittest.TestCase):
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("RTF1, Paf1/RNA polymerase II complex component")#enter a gene name
-        wait.forAngular(self.driver)
+
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -1065,7 +1024,6 @@ class TestHmdcGenesSearch(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("ET-BR")#identifies the input field and enters a synonym
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -1099,7 +1057,6 @@ class TestHmdcGenesSearch(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("AA06")#identifies the input field and enters a human symbol
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -1131,19 +1088,16 @@ class TestHmdcGenesSearch(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("RGD:1560248") #enter a rat symbol
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Genes tab and click on it
         gene_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
-        time.sleep(2)
         print(gene_tab.text)
         gene_tab.click()
         time.sleep(2)
         #get the list of genes and verify the one we searched for is there
         gene_table = Table(self.driver.find_element(By.ID, "geneTable"))
-        time.sleep(2)
         cells = gene_table.get_column_cells("Gene Symbol")
         geneList = iterate.getTextAsList(cells)
         
@@ -1165,7 +1119,6 @@ class TestHmdcGenesSearch(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("TP53")#enter a human symbol
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -1198,7 +1151,6 @@ class TestHmdcGenesSearch(unittest.TestCase):
                 break
             
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys('KITLG, Foxm1, Lepr') #Enter a mix of mouse and human symbols
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -1233,7 +1185,6 @@ class TestHmdcGenesSearch(unittest.TestCase):
       
         self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys('KITLG Foxm1 Lepr') #IDs for Foxm1, LEP, Ins2
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -1267,7 +1218,6 @@ class TestHmdcGenesSearch(unittest.TestCase):
       
         self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys('KITLG, Foxm1, Lepr') #comma delimited list of symbols
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         

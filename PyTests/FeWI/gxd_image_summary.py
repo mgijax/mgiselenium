@@ -12,7 +12,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.support import expected_conditions as EC
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -40,10 +40,9 @@ class TestGxdImageSummary(unittest.TestCase):
         # put your marker symbol
         genebox.send_keys("pax6")
         genebox.send_keys(Keys.RETURN)
-        time.sleep(5)
+        time.sleep(2)
         #finds the Images tab and clicks it
         driver.find_element(By.ID, 'imagestab').click()
-        time.sleep(2)
         #locates the genes column and lists the genes found
         genelist = driver.find_element(By.ID, 'imagesdata').find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-gene')
         items = genelist[15].find_elements(By.TAG_NAME, 'li')
@@ -63,7 +62,7 @@ class TestGxdImageSummary(unittest.TestCase):
         # put your marker symbol
         genebox.send_keys("Igfbpl1")
         genebox.send_keys(Keys.RETURN)
-        time.sleep(3)
+        time.sleep(2)
         #finds the Images tab and clicks it
         driver.find_element(By.ID, 'imagestab').click()
         #finds the first row of data and verifies the Assay Type data
@@ -118,9 +117,7 @@ class TestGxdImageSummary(unittest.TestCase):
         geneheader = imagesdata.find_element(By.CSS_SELECTOR, 'th.yui-dt-col-gene')
         #click the gene header column to re-sort
         geneheader.click()
-        time.sleep(1)
         genelist = driver.find_element(By.ID, 'imagesdata').find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-gene')
-        time.sleep(2)
         items = genelist[0].find_elements(By.TAG_NAME, 'li')
         searchTextItems = iterate.getTextAsList(items)
         self.assertEqual(searchTextItems, ["Ano1", "Cftr", "Shh"])
@@ -143,7 +140,8 @@ class TestGxdImageSummary(unittest.TestCase):
         time.sleep(2)
         #find the Image tab and click it
         driver.find_element(By.ID, 'imagestab').click()
-        time.sleep(1)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'imagesdata'))):
+            print('Images Tab details loaded')
         assaylist = driver.find_element(By.ID, 'imagesdata').find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-assayType')
         items = assaylist[0].find_elements(By.TAG_NAME, 'li')
         searchTextItems = iterate.getTextAsList(items)
@@ -151,7 +149,7 @@ class TestGxdImageSummary(unittest.TestCase):
         assayheader = driver.find_element(By.ID, 'imagesdata').find_element(By.CSS_SELECTOR, 'th.yui-dt-col-assayType')
         #click the gene header column to re-sort
         assayheader.click()
-        time.sleep(1)
+        #time.sleep(1)
         #find the second row of data and verify the assay type
         assaylist = driver.find_element(By.ID, 'imagesdata').find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-assayType')
         items = assaylist[2].find_elements(By.TAG_NAME, 'li')
@@ -186,7 +184,8 @@ class TestGxdImageSummary(unittest.TestCase):
         time.sleep(2)
         #find the Image tab and click it
         driver.find_element(By.ID, 'imagestab').click()
-        time.sleep(2)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'imagesdata'))):
+            print('Images Tab details loaded')
         #Find the first row of data and verify the specimen type
         typelist = driver.find_element(By.ID, 'imagesdata').find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-hybridization')
         items = typelist[0].find_elements(By.TAG_NAME, 'li')
@@ -195,8 +194,6 @@ class TestGxdImageSummary(unittest.TestCase):
         specimenheader = driver.find_element(By.ID, 'imagesdata').find_element(By.CSS_SELECTOR, 'th.yui-dt-col-hybridization')
         #click the gene header column to sort
         specimenheader.click()
-        
-        time.sleep(2)
         assaylist = driver.find_element(By.ID, 'imagesdata').find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-hybridization')
         items = assaylist[0].find_elements(By.TAG_NAME, 'li')
         searchTextItems = iterate.getTextAsList(items)

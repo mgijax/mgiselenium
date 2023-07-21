@@ -44,7 +44,6 @@ class TestBatchQuery(unittest.TestCase):
         # Enter an MGP ID into the ID/Symbols field
         idsearchbox.send_keys("MGP_CBAJ_G0024006")
         idsearchbox.submit()
-        #time.sleep(2)
         #locates the Input Type column, find all the rows of data and print it to the console
         type_header = self.driver.find_element(By.ID, 'yui-dt0-th-type')
         print(type_header.text)        
@@ -67,7 +66,6 @@ class TestBatchQuery(unittest.TestCase):
         # Enter an MGP ID into the ID/Symbols field
         idsearchbox.send_keys("MGP_CBAJ_G0024006, MGP_NZOHlLtJ_G0024761, MGP_AJ_G0024271, MGP_WSBEiJ_G0023575")
         idsearchbox.submit()
-        #time.sleep(2)
         #locates the Input column, find all the rows of data and print it to the console
         input_header = self.driver.find_element(By.ID, 'yui-dt0-th-term-liner')
         print(input_header.text)        
@@ -100,7 +98,6 @@ class TestBatchQuery(unittest.TestCase):
         # Enter an MGP ID into the ID/Symbols field
         idsearchbox.send_keys("MGP_CBAJ_G0024006, NM_008089, MGP_AJ_G0024271, MGI:95661")
         idsearchbox.submit()
-        #time.sleep(2)
         #locates the Input column, find all the rows of data and print it to the console
         input_header = self.driver.find_element(By.ID, 'yui-dt0-th-term-liner')
         print(input_header.text)        
@@ -135,7 +132,6 @@ class TestBatchQuery(unittest.TestCase):
         # Enter an MGP ID into the ID/Symbols field
         idsearchbox.send_keys("MGP_CBAJ_G0024006")
         idsearchbox.submit()
-        #time.sleep(2)
         #locates the Input column, find all the rows of data and print it to the console
         input_header = self.driver.find_element(By.ID, 'yui-dt0-th-term-liner')
         print(input_header.text)        
@@ -161,7 +157,6 @@ class TestBatchQuery(unittest.TestCase):
         # Enter an MGP ID into the ID/Symbols field
         idsearchbox.send_keys("MGP_DBA2J*")
         idsearchbox.submit()
-        #time.sleep(2)
         #locates the Input column row1
         input_1 = self.driver.find_element(By.CSS_SELECTOR, 'td.yui-dt0-col-term > div:nth-child(1)')
         print(input_1.text)        
@@ -186,7 +181,6 @@ class TestBatchQuery(unittest.TestCase):
         # Enter an MGP ID into the ID/Symbols field
         idsearchbox.send_keys("MGI_C57BL6J_98660")
         idsearchbox.submit()
-        #time.sleep(2)
         #locates the Input column, find all the rows of data and print it to the console
         input_header = self.driver.find_element(By.ID, 'yui-dt0-th-term-liner')
         print(input_header.text)        

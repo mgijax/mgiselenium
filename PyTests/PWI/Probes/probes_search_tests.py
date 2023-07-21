@@ -49,15 +49,14 @@ class TestEIProbeSearch(unittest.TestCase):
         driver = self.driver
         # finds the Probe segment type field and select the option Mitochondrial, then click the Search Summary button
         Select(driver.find_element(By.ID, "segmentType")).select_by_value('string:63471')
-        time.sleep(2)
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchSummaryButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'ND3 mtDNA1'))
         self.driver.switch_to.window(self.driver.window_handles[1])
-        time.sleep(2)
+        WebDriverWait(self.driver, 5).until(EC.text_to_be_present_in_element((By.CSS_SELECTOR, '.youSearchedFor > dl:nth-child(2) > dd:nth-child(2)'), '63471'))
         # find the search results table
         results_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
         table = Table(results_table)
@@ -88,15 +87,15 @@ class TestEIProbeSearch(unittest.TestCase):
         driver = self.driver
         # finds the Probe segment type field and select the option Primer, enter mm04% in the name field then click the Search Summary button
         Select(driver.find_element(By.ID, "segmentType")).select_by_value('string:63473')
-        time.sleep(2)
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'name').send_keys('mm04%')
         driver.find_element(By.ID, 'searchSummaryButton').click()
-        time.sleep(5)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Mm04203788_gl'))
         self.driver.switch_to.window(self.driver.window_handles[1])
+        WebDriverWait(self.driver, 5).until(EC.text_to_be_present_in_element((By.CSS_SELECTOR, '.youSearchedFor > dl:nth-child(2) > dd:nth-child(4)'), '63473'))
         # find the search results table
         results_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
         table = Table(results_table)
@@ -118,23 +117,24 @@ class TestEIProbeSearch(unittest.TestCase):
         """
         driver = self.driver
         # enter probe1 in the name field then click the Search Summary button
-        driver.find_element(By.ID, 'name').send_keys('probe1')
+        driver.find_element(By.ID, 'name').send_keys('NP5')
         driver.find_element(By.ID, 'searchSummaryButton').click()
-        time.sleep(5)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'NP5'))
         self.driver.switch_to.window(self.driver.window_handles[1])
+        wait.forAngular(self.driver)
         # find the search results table
         results_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
         table = Table(results_table)
         # find and print the search results for row 1 alias field
-        alias1 = table.get_cell(1, 8)
+        alias1 = table.get_cell(2, 8)
         print(alias1.text)
         # Assert the correct alias is returned
-        self.assertEqual(alias1.text, 'probe1')
+        self.assertEqual(alias1.text, 'Probe 1')
         # find and print the search results for row 2 Name field
         name2 = table.get_cell(2, 1)
         print(name2.text)
         # Assert the correct names are returned
-        self.assertEqual(name2.text, 'probe1')
+        self.assertEqual(name2.text, 'NP5')
 
     def testProbeNamewWildcardSearch(self):
         """
@@ -145,8 +145,9 @@ class TestEIProbeSearch(unittest.TestCase):
         # enter probe1 in the name field then click the Search Summary button
         driver.find_element(By.ID, 'name').send_keys('ND3%')
         driver.find_element(By.ID, 'searchSummaryButton').click()
-        time.sleep(5)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'ND3_riboprobe'))
         self.driver.switch_to.window(self.driver.window_handles[1])
+        wait.forAngular(self.driver)
         # find the search results table
         results_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
         table = Table(results_table)

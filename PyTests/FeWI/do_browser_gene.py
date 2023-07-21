@@ -12,7 +12,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.support import expected_conditions as EC
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -42,12 +42,13 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         searchbox.send_keys("DOID:1324")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
+        #WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'vLink'))) # waits until the Vocabulary Terms tab is displayed on the page
         #find the Vocabulary Terms tab and click it
         self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'lung cancer').click()
         self.driver.switch_to.window(self.driver.window_handles[1]) 
         #Does a webdriver wait until the disease name is present so we know the page is loaded
-        if WebDriverWait(self.driver, 5).until(ec.presence_of_element_located((By.CLASS_NAME, 'titleBarMainTitle'))):
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'titleBarMainTitle'))):
             print('page loaded')
         header = self.driver.find_element(By.ID, 'diseaseNameID')#identifies the header section of the DO Browser page
         print(header.text)
@@ -77,14 +78,14 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         #find the Vocabulary Terms tab and click it
         self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'DiGeorge syndrome').click()
-        self.driver.switch_to.window(self.driver.window_handles[1]) 
-        time.sleep(4)
-        gene_tab = self.driver.find_element(By.LINK_TEXT, 'Genes (21)')#identifies the Genes tab.
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        gene_tab = self.driver.find_element(By.LINK_TEXT, 'Genes (24)')#identifies the Genes tab.
         print(gene_tab.text)
-        self.assertEqual(gene_tab.text, "Genes (21)", "The Genes Tab number is not correct")
+        self.assertEqual(gene_tab.text, "Genes (24)", "The Genes Tab number is not correct")
         model_tab = self.driver.find_element(By.LINK_TEXT, 'Models (44)')#identifies the Genes tab.
         print(model_tab.text)
-        self.assertEqual(model_tab.text, "Models (44)", "The Models Tab number is not correct")#time.sleep(2)   
+        self.assertEqual(model_tab.text, "Models (44)", "The Models Tab number is not correct")
+
         
     def test_dobrowser_genestab_m_hmht(self):
         '''
@@ -100,10 +101,10 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         #find the Vocabulary Terms tab and click it
         self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'DiGeorge syndrome').click()
-        self.driver.switch_to.window(self.driver.window_handles[1]) 
-        time.sleep(4)
+        self.driver.switch_to.window(self.driver.window_handles[1])
         self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Genes tab and clicks it.
-        time.sleep(4)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'titleBarMainTitle'))):
+            print('page loaded')
         gene_table = self.driver.find_element(By.ID, "geneTabTable")
         table = Table(gene_table)
         cells = table.get_rows()
@@ -129,8 +130,10 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         row18 = cells[19]
         row19 = cells[20]
         row20 = cells[21]
+        row21 = cells[22]
+        row22 = cells[23]
     
-        self.assertEqual(row1.text, '       DiGeorge syndrome TBX1* Tbx1* 21 models Alliance of Genome Resources')
+        self.assertEqual(row1.text, '       DiGeorge syndrome TBX1* Tbx1* 23 models Alliance of Genome Resources')
         self.assertEqual(row2.text, '       DiGeorge syndrome ALDH1A2 Aldh1a2* 1 model Alliance of Genome Resources')
         self.assertEqual(row3.text, 'DiGeorge syndrome b2b954Clo* 1 model')
         self.assertEqual(row4.text, 'DiGeorge syndrome b2b1941Clo* 1 model')
@@ -149,8 +152,11 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         self.assertEqual(row17.text, 'DiGeorge syndrome TGFBR2 Tgfbr2* 1 model Alliance of Genome Resources')
         self.assertEqual(row18.text, 'DiGeorge syndrome VEGFA Vegfa* 2 models Alliance of Genome Resources')
         self.assertEqual(row19.text, 'DiGeorge syndrome ZNF366 Zfp366* 1 model Alliance of Genome Resources')
-        self.assertEqual(row20.text, '       DiGeorge syndrome DGCR*  ')
-        
+        self.assertEqual(row20.text, '       DiGeorge syndrome ARVCF* Arvcf 2 models Alliance of Genome Resources')
+        self.assertEqual(row21.text, 'DiGeorge syndrome DVL1*, DVL1P1* Dvl1   Alliance of Genome Resources')
+        self.assertEqual(row22.text, 'DiGeorge syndrome UFD1* Ufd1 2 models Alliance of Genome Resources')
+
+
         transgene_table = self.driver.find_element(By.ID, "transgeneTable")
         table = Table(transgene_table)
         cells = table.get_rows()
@@ -178,10 +184,10 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         #find the Vocabulary Terms tab and click it
         self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'Beckwith-Wiedemann syndrome').click()
-        self.driver.switch_to.window(self.driver.window_handles[1]) 
-        time.sleep(4)
+        self.driver.switch_to.window(self.driver.window_handles[1])
         self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Genes tab and clicks it.
-        time.sleep(4)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'titleBarMainTitle'))):
+            print('page loaded')
         gene_table = self.driver.find_element(By.ID, "geneTabTable")
         table = Table(gene_table)
         cells = table.get_rows()
@@ -190,15 +196,9 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         row1 = cells[2]
         row2 = cells[3]
         row3 = cells[4]
-        row4 = cells[5]
-        row5 = cells[6]
-        row6 = cells[7]
         self.assertEqual(row1.text, '       Beckwith-Wiedemann syndrome CDKN1C* Cdkn1c* 2 models Alliance of Genome Resources')
         self.assertEqual(row2.text, '       Beckwith-Wiedemann syndrome SPTBN1 Sptbn1* 1 model Alliance of Genome Resources')
-        self.assertEqual(row3.text, '       Beckwith-Wiedemann syndrome H19-ICR*  ')
-        self.assertEqual(row4.text, 'Beckwith-Wiedemann syndrome IGF2* Igf2   Alliance of Genome Resources')
-        self.assertEqual(row5.text, 'Beckwith-Wiedemann syndrome KCNQ1* Kcnq1 1 model Alliance of Genome Resources')
-        self.assertEqual(row6.text, 'Beckwith-Wiedemann syndrome KCNQ1OT1* Kcnq1ot1   Alliance of Genome Resources')       
+        self.assertEqual(row3.text, '       Beckwith-Wiedemann syndrome KCNQ1OT1* Kcnq1ot1   Alliance of Genome Resources')
         time.sleep(2)
         transgene_table = self.driver.find_element(By.ID, "transgeneTable")
         table = Table(transgene_table)
@@ -222,10 +222,10 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         #find the Vocabulary Terms tab and click it
         self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'Krabbe disease').click()
-        self.driver.switch_to.window(self.driver.window_handles[1]) 
-        time.sleep(4)
+        self.driver.switch_to.window(self.driver.window_handles[1])
         self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Genes tab and clicks it.
-        time.sleep(2)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'titleBarMainTitle'))):
+            print('page loaded')
         gene_table = self.driver.find_element(By.ID, "geneTabTable")
         table = Table(gene_table)
         cells = table.get_rows()
@@ -250,10 +250,10 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         #find the Vocabulary Terms tab and click it
         self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'Kearns-Sayre syndrome').click()
-        self.driver.switch_to.window(self.driver.window_handles[1]) 
-        time.sleep(4)
+        self.driver.switch_to.window(self.driver.window_handles[1])
         self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Genes tab and clicks it.
-        time.sleep(4)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'titleBarMainTitle'))):
+            print('page loaded')
         gene_table = self.driver.find_element(By.ID, "geneTabTable")
         table = Table(gene_table)
         cells = table.get_rows()
@@ -277,9 +277,9 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, "Finnish type amyloidosis").click()
         self.driver.switch_to.window(self.driver.window_handles[1])
-        time.sleep(4) 
         self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Genes tab and clicks it.
-        time.sleep(2)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'titleBarMainTitle'))):
+            print('page loaded')
         gene_table = self.driver.find_element(By.ID, 'geneTabTable')
         table = Table(gene_table)
         cells = table.get_rows()
@@ -287,7 +287,7 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         print(iterate.getTextAsList(cells))
         #displays each row of gene data
         row1 = cells[2]
-        self.assertEqual(row1.text, "       Finnish type amyloidosis GSN* Gsn 2 models Alliance of Genome Resources")
+        self.assertEqual(row1.text, "       Finnish type amyloidosis GSN* Gsn   Alliance of Genome Resources")
         
         transgene_table = self.driver.find_element(By.ID, 'transgeneTable')
         table = Table(transgene_table)
@@ -311,10 +311,10 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         #find the Vocabulary Terms tab and click it
         self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, "Kahrizi syndrome").click()
-        self.driver.switch_to.window(self.driver.window_handles[1]) 
-        time.sleep(4)
+        self.driver.switch_to.window(self.driver.window_handles[1])
         self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Genes tab and clicks it.
-        time.sleep(2)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'titleBarMainTitle'))):
+            print('page loaded')
         gene_table = self.driver.find_element(By.ID, 'geneTabTable')
         table = Table(gene_table)
         cells = table.get_rows()
@@ -337,10 +337,10 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         #find the Vocabulary Terms tab and click it
         self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'Johanson-Blizzard syndrome').click()
-        self.driver.switch_to.window(self.driver.window_handles[1]) 
-        time.sleep(4)
+        self.driver.switch_to.window(self.driver.window_handles[1])
         self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Genes tab and clicks it.
-        
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'titleBarMainTitle'))):
+            print('page loaded')
         gene_table = self.driver.find_element(By.ID, 'geneTabTable')
         table = Table(gene_table)
         cells = table.get_rows()
@@ -363,10 +363,10 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         #find the Vocabulary Terms tab and click it
         self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'hemochromatosis').click()
-        self.driver.switch_to.window(self.driver.window_handles[1]) 
-        time.sleep(4)
+        self.driver.switch_to.window(self.driver.window_handles[1])
         self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Genes tab and clicks it.
-        
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'titleBarMainTitle'))):
+            print('page loaded')
         gene_table = self.driver.find_element(By.ID, "geneTabTable")
         table = Table(gene_table)
         cells = table.get_rows()
@@ -381,6 +381,12 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         row7 = cells[8]
         row8 = cells[9]
         row9 = cells[10]
+        row10 = cells[11]
+        row11 = cells[12]
+        row12 = cells[13]
+        row13 = cells[14]
+        row14 = cells[15]
+        row15 = cells[16]
         self.assertEqual(row1.text, '       hemochromatosis type 1 HFE* Hfe* 13 models Alliance of Genome Resources')
         self.assertEqual(row2.text, 'hemochromatosis type 2A HJV* Hjv* 2 models Alliance of Genome Resources')
         self.assertEqual(row3.text, 'hemochromatosis type 2B HAMP* Hamp*, Hamp2 1 model Alliance of Genome Resources')
@@ -388,9 +394,15 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         self.assertEqual(row5.text, 'hemochromatosis type 4 SLC40A1* Slc40a1* 3 models Alliance of Genome Resources')
         self.assertEqual(row6.text, '       hemochromatosis B2M B2m* 1 model Alliance of Genome Resources')
         self.assertEqual(row7.text, 'hemochromatosis HMOX1 Hmox1* 1 model Alliance of Genome Resources')
-        self.assertEqual(row8.text, '       hemochromatosis type 1 BMP2* Bmp2   Alliance of Genome Resources')
-        self.assertEqual(row9.text, 'hemochromatosis type 5 FTH1* Fth1   Alliance of Genome Resources')
-        
+        self.assertEqual(row8.text, '       hemochromatosis ALAS2* Alas2   Alliance of Genome Resources')
+        self.assertEqual(row9.text, 'hemochromatosis HAMP* Hamp, Hamp2   Alliance of Genome Resources')
+        self.assertEqual(row10.text, 'hemochromatosis HFE* Hfe   Alliance of Genome Resources')
+        self.assertEqual(row11.text, 'hemochromatosis HJV* Hjv   Alliance of Genome Resources')
+        self.assertEqual(row12.text, 'hemochromatosis TFR2* Tfr2   Alliance of Genome Resources')
+        self.assertEqual(row13.text, 'hemochromatosis TNF* Tnf   Alliance of Genome Resources')
+        self.assertEqual(row14.text, 'hemochromatosis type 1 BMP2* Bmp2   Alliance of Genome Resources')
+        self.assertEqual(row15.text, 'hemochromatosis type 5 FTH1* Fth1   Alliance of Genome Resources')
+
     def test_dobrowser_genestab_mult_homolog(self):
         '''
         @status this test verifies the correct genes, models and source are returned. This test example displays a disease that returns
@@ -405,10 +417,10 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         #find the Vocabulary Terms tab and click it
         self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'myositis').click()
-        self.driver.switch_to.window(self.driver.window_handles[1]) 
-        time.sleep(4)
+        self.driver.switch_to.window(self.driver.window_handles[1])
         self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Genes tab and clicks it.
-        
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'titleBarMainTitle'))):
+            print('page loaded')
         gene_table = self.driver.find_element(By.ID, 'geneTabTable')
         table = Table(gene_table)
         cells = table.get_rows()
@@ -416,8 +428,37 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         #displays each row of gene data
         row1 = cells[2]
         row2 = cells[3]
-        self.assertEqual(row1.text, '       dermatomyositis ANGPTL2 Angptl2* 1 model Alliance of Genome Resources')
-        self.assertEqual(row2.text, 'myositis HLA-A, HLA-B, HLA-C, HLA-E, HLA-F, HLA-G, HLA-H H2-K1*, Gm7030, Gm8909, Gm11127, H2-D1, H2-M1, H2-M2, H2-M3, H2-M5, H2-M9, H2-M10.1, H2-M10.2, H2-M10.3, H2-M10.4, H2-M10.5, H2-M10.6, H2-Q1, H2-Q2, H2-Q4, H2-Q6, H2-Q7, H2-Q8, H2-Q10, H2-T3, H2-T22, H2-T23 1 model Alliance of Genome Resources')
+        row3 = cells[4]
+        row4 = cells[5]
+        row5 = cells[6]
+        row6 = cells[7]
+        row7 = cells[8]
+        row8 = cells[9]
+        row9 = cells[10]
+        row10 = cells[11]
+        row11 = cells[12]
+        row12 = cells[13]
+        row13 = cells[14]
+        row14 = cells[15]
+        row15 = cells[16]
+        row16 = cells[17]
+        self.assertEqual(row1.text, '       dermatomyositis PMS1* Pms1   Alliance of Genome Resources')
+        self.assertEqual(row2.text, 'dermatomyositis STAT4* Stat4   Alliance of Genome Resources')
+        self.assertEqual(row3.text, 'dermatomyositis MBL2* Mbl2   Alliance of Genome Resources')
+        self.assertEqual(row4.text, 'inclusion body myositis SOD2* Sod2   Alliance of Genome Resources')
+        self.assertEqual(row5.text, 'inclusion body myositis TUBG1* Tubg1   Alliance of Genome Resources')
+        self.assertEqual(row6.text, 'inclusion body myositis VCP* Vcp   Alliance of Genome Resources')
+        self.assertEqual(row7.text, 'inclusion body myositis CLU* Clu   Alliance of Genome Resources')
+        self.assertEqual(row8.text, 'inclusion body myositis DAG1* Dag1   Alliance of Genome Resources')
+        self.assertEqual(row9.text, 'inclusion body myositis MYH2* Myh2   Alliance of Genome Resources')
+        self.assertEqual(row10.text, 'myositis HLA-DRB1*, HLA-DRB3, HLA-DRB4, HLA-DRB5 H2-Eb1, H2-Eb2   Alliance of Genome Resources')
+        self.assertEqual(row11.text, 'myositis FCGR3A*, FCGR3B Fcgr4   Alliance of Genome Resources')
+        self.assertEqual(row12.text, 'myositis HLA-DQB1*, HLA-DQB2 H2-Ab1   Alliance of Genome Resources')
+        self.assertEqual(row13.text, 'myositis HLA-DQA1*, HLA-DQA2 H2-Aa   Alliance of Genome Resources')
+        self.assertEqual(row14.text, 'polymyositis PMS1* Pms1   Alliance of Genome Resources')
+        self.assertEqual(row15.text, 'polymyositis STAT4* Stat4   Alliance of Genome Resources')
+        self.assertEqual(row16.text, 'polymyositis ELN* Eln   Alliance of Genome Resources')
+
         transgene_table = self.driver.find_element(By.ID, "transgeneTable")
         table = Table(transgene_table)
         cells = table.get_rows()
@@ -446,10 +487,10 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         #find the Vocabulary Terms tab and click it
         self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'osteogenesis imperfecta').click()
-        self.driver.switch_to.window(self.driver.window_handles[1]) 
-        time.sleep(4)
+        self.driver.switch_to.window(self.driver.window_handles[1])
         self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Models tab and clicks it.
-        
+        if WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'titleBarMainTitle'))):
+            print('page loaded')
         model_table = self.driver.find_element(By.ID, 'geneTabTable')
         table = Table(model_table)
         cells = table.get_rows()
@@ -488,39 +529,41 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         row31 = cells[32]
         row32 = cells[33]
         row33 = cells[34]
-        self.assertEqual(row1.text, '       osteogenesis imperfecta type 1 COL1A1* Col1a1* 2 models Alliance of Genome Resources')
-        self.assertEqual(row2.text, 'osteogenesis imperfecta type 10 SERPINH1* Serpinh1* 1 model Alliance of Genome Resources')
-        self.assertEqual(row3.text, 'osteogenesis imperfecta type 2 COL1A1* Col1a1* 2 models Alliance of Genome Resources')
-        self.assertEqual(row4.text, 'osteogenesis imperfecta type 3 COL1A2* Col1a2* 2 models Alliance of Genome Resources')
-        self.assertEqual(row5.text, 'osteogenesis imperfecta type 3 COL1A1* Col1a1* 1 model Alliance of Genome Resources')
-        self.assertEqual(row6.text, 'osteogenesis imperfecta type 4 COL1A1* Col1a1* 3 models Alliance of Genome Resources')
-        self.assertEqual(row7.text, 'osteogenesis imperfecta type 6 SERPINF1* Serpinf1* 1 model Alliance of Genome Resources')
-        self.assertEqual(row8.text, 'osteogenesis imperfecta type 7 CRTAP* Crtap* 1 model Alliance of Genome Resources')
-        self.assertEqual(row9.text, 'osteogenesis imperfecta type 8 P3H1* P3h1* 1 model Alliance of Genome Resources')
-        self.assertEqual(row10.text, 'osteogenesis imperfecta type 9 PPIB* Ppib* 2 models Alliance of Genome Resources')
-        self.assertEqual(row11.text, '       osteogenesis imperfecta COL1A1 Col1a1* 1 model Alliance of Genome Resources')
-        self.assertEqual(row12.text, 'osteogenesis imperfecta COL1A2 Col1a2* 5 models Alliance of Genome Resources')
-        self.assertEqual(row13.text, 'osteogenesis imperfecta SMAD4 Smad4* 1 model Alliance of Genome Resources')
+        row34 = cells[35]
+        self.assertEqual(row1.text, '       osteogenesis imperfecta COL1A1* Col1a1* 1 model Alliance of Genome Resources')
+        self.assertEqual(row2.text, 'osteogenesis imperfecta COL1A2* Col1a2* 5 models Alliance of Genome Resources')
+        self.assertEqual(row3.text, 'osteogenesis imperfecta type 1 COL1A1* Col1a1* 1 model Alliance of Genome Resources')
+        self.assertEqual(row4.text, 'osteogenesis imperfecta type 10 SERPINH1* Serpinh1* 1 model Alliance of Genome Resources')
+        self.assertEqual(row5.text, 'osteogenesis imperfecta type 2 COL1A1* Col1a1* 2 models Alliance of Genome Resources')
+        self.assertEqual(row6.text, 'osteogenesis imperfecta type 3 COL1A2* Col1a2* 2 models Alliance of Genome Resources')
+        self.assertEqual(row7.text, 'osteogenesis imperfecta type 3 COL1A1* Col1a1* 1 model Alliance of Genome Resources')
+        self.assertEqual(row8.text, 'osteogenesis imperfecta type 4 COL1A1* Col1a1* 3 models Alliance of Genome Resources')
+        self.assertEqual(row9.text, 'osteogenesis imperfecta type 6 SERPINF1* Serpinf1* 1 model Alliance of Genome Resources')
+        self.assertEqual(row10.text, 'osteogenesis imperfecta type 7 CRTAP* Crtap* 1 model Alliance of Genome Resources')
+        self.assertEqual(row11.text, 'osteogenesis imperfecta type 8 P3H1* P3h1* 1 model Alliance of Genome Resources')
+        self.assertEqual(row12.text, 'osteogenesis imperfecta type 9 PPIB* Ppib* 2 models Alliance of Genome Resources')
+        self.assertEqual(row13.text, '       osteogenesis imperfecta SMAD4 Smad4* 1 model Alliance of Genome Resources')
         self.assertEqual(row14.text, 'osteogenesis imperfecta SMPD3 Smpd3* 1 model Alliance of Genome Resources')
         self.assertEqual(row15.text, 'osteogenesis imperfecta type 2 SMPD3 Smpd3* 1 model Alliance of Genome Resources')
         self.assertEqual(row16.text, 'osteogenesis imperfecta type 3 SMPD3 Smpd3* 1 model Alliance of Genome Resources')
         self.assertEqual(row17.text, 'osteogenesis imperfecta type 5 SUCO Suco* 1 model Alliance of Genome Resources')
         self.assertEqual(row18.text, '       Cole-Carpenter syndrome P4HB* P4hb   Alliance of Genome Resources')
         self.assertEqual(row19.text, 'Cole-Carpenter syndrome SEC24D* Sec24d   Alliance of Genome Resources')
-        self.assertEqual(row20.text, 'osteogenesis imperfecta type 11 FKBP10* Fkbp10   Alliance of Genome Resources')
-        self.assertEqual(row21.text, 'osteogenesis imperfecta type 12 SP7* Sp7   Alliance of Genome Resources')
-        self.assertEqual(row22.text, 'osteogenesis imperfecta type 13 BMP1* Bmp1   Alliance of Genome Resources')
-        self.assertEqual(row23.text, 'osteogenesis imperfecta type 14 TMEM38B* Tmem38b   Alliance of Genome Resources')
-        self.assertEqual(row24.text, 'osteogenesis imperfecta type 15 WNT1* Wnt1   Alliance of Genome Resources')
-        self.assertEqual(row25.text, 'osteogenesis imperfecta type 16 CREB3L1* Creb3l1   Alliance of Genome Resources')
-        self.assertEqual(row26.text, 'osteogenesis imperfecta type 17 SPARC* Sparc   Alliance of Genome Resources')
-        self.assertEqual(row27.text, 'osteogenesis imperfecta type 18 TENT5A* Tent5a   Alliance of Genome Resources')
-        self.assertEqual(row28.text, 'osteogenesis imperfecta type 19 MBTPS2* Mbtps2   Alliance of Genome Resources')
-        self.assertEqual(row29.text, 'osteogenesis imperfecta type 2 COL1A2* Col1a2   Alliance of Genome Resources')
-        self.assertEqual(row30.text, 'osteogenesis imperfecta type 20 MESD* Mesd   Alliance of Genome Resources')
-        self.assertEqual(row31.text, 'osteogenesis imperfecta type 21 KDELR2* Kdelr2   Alliance of Genome Resources')
-        self.assertEqual(row32.text, 'osteogenesis imperfecta type 4 COL1A2* Col1a2   Alliance of Genome Resources')
-        self.assertEqual(row33.text, 'osteogenesis imperfecta type 5 IFITM5* Ifitm5 1 "NOT" model Alliance of Genome Resources')
+        self.assertEqual(row20.text, 'osteogenesis imperfecta CCDC134* Ccdc134   Alliance of Genome Resources')
+        self.assertEqual(row21.text, 'osteogenesis imperfecta type 11 FKBP10* Fkbp10   Alliance of Genome Resources')
+        self.assertEqual(row22.text, 'osteogenesis imperfecta type 12 SP7* Sp7   Alliance of Genome Resources')
+        self.assertEqual(row23.text, 'osteogenesis imperfecta type 13 BMP1* Bmp1   Alliance of Genome Resources')
+        self.assertEqual(row24.text, 'osteogenesis imperfecta type 14 TMEM38B* Tmem38b   Alliance of Genome Resources')
+        self.assertEqual(row25.text, 'osteogenesis imperfecta type 15 WNT1* Wnt1   Alliance of Genome Resources')
+        self.assertEqual(row26.text, 'osteogenesis imperfecta type 16 CREB3L1* Creb3l1   Alliance of Genome Resources')
+        self.assertEqual(row27.text, 'osteogenesis imperfecta type 17 SPARC* Sparc   Alliance of Genome Resources')
+        self.assertEqual(row28.text, 'osteogenesis imperfecta type 18 TENT5A* Tent5a   Alliance of Genome Resources')
+        self.assertEqual(row29.text, 'osteogenesis imperfecta type 19 MBTPS2* Mbtps2   Alliance of Genome Resources')
+        self.assertEqual(row30.text, 'osteogenesis imperfecta type 2 COL1A2* Col1a2   Alliance of Genome Resources')
+        self.assertEqual(row31.text, 'osteogenesis imperfecta type 20 MESD* Mesd   Alliance of Genome Resources')
+        self.assertEqual(row32.text, 'osteogenesis imperfecta type 21 KDELR2* Kdelr2   Alliance of Genome Resources')
+        self.assertEqual(row33.text, 'osteogenesis imperfecta type 4 COL1A2* Col1a2   Alliance of Genome Resources')
+        self.assertEqual(row34.text, 'osteogenesis imperfecta type 5 IFITM5* Ifitm5 1 model Alliance of Genome Resources')
         transgene_table = self.driver.find_element(By.ID, "transgeneTable")
         table = Table(transgene_table)
         cells = table.get_rows()
@@ -532,7 +575,7 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         self.assertEqual(row2.text, '  osteogenesis imperfecta type 5 Tg(Col1a1-Ifitm5*)1Brle 1 model')
             
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
         tracemalloc.stop()
 
 def suite():

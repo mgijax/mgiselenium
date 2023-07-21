@@ -12,6 +12,8 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -47,14 +49,14 @@ class TestHmdcGeneTab(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Gata1")#identifies the input field and enters gata1
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
+        wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
         gene_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
-        time.sleep(2)
         print(gene_tab.text)
-        
         gene_tab.click()
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#geneTable > tbody:nth-child(2) > tr:nth-child(3) > td:nth-child(2) > nobr:nth-child(1) > a:nth-child(1) > div:nth-child(1)'))):
+            print('HMDC disease tab data loaded')
         gene_table_headers = self.driver.find_element(By.ID, "geneTable").find_element(By.CSS_SELECTOR, "tr")
         items = gene_table_headers.find_elements(By.TAG_NAME, "th")
         searchTermItems = iterate.getTextAsList(items)
@@ -80,19 +82,17 @@ class TestHmdcGeneTab(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Gata1")#identifies the input field and enters gata1
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
         gene_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
-        time.sleep(2)
         print(gene_tab.text)
-        
         gene_tab.click()
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#geneTable > tbody:nth-child(2) > tr:nth-child(3) > td:nth-child(2) > nobr:nth-child(1) > a:nth-child(1) > div:nth-child(1)'))):
+            print('HMDC disease tab data loaded')
         gene_table = Table(self.driver.find_element(By.ID, "geneTable"))
         cells = gene_table.get_column_cells("Gene Symbol")
         print(iterate.getTextAsList(cells))
-       
         geneSymbolsReturned = iterate.getTextAsList(cells)
        
         #asserts that the matching mouse and human genes are returned
@@ -114,15 +114,14 @@ class TestHmdcGeneTab(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Tg(IGH@*)SALed")#identifies the input field and enters gata1
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
         gene_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
-        time.sleep(2)
         print(gene_tab.text)
-        
         gene_tab.click()
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'a.ng-scope > div:nth-child(1)'))):
+            print('HMDC disease tab data loaded')
         gene_table = Table(self.driver.find_element(By.ID, "geneTable"))
         cells = gene_table.get_column_cells("Gene Symbol")
         print(iterate.getTextAsList(cells))
@@ -145,22 +144,22 @@ class TestHmdcGeneTab(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Gata1")#identifies the input field and enters gata1
-        wait.forAngular(self.driver)
+        #wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
         gene_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
-        time.sleep(2)
-        print(gene_tab.text) 
-        
+        print(gene_tab.text)
         gene_tab.click()
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#geneTable > tbody:nth-child(2) > tr:nth-child(3) > td:nth-child(2) > nobr:nth-child(1) > a:nth-child(1) > div:nth-child(1)'))):
+            print('HMDC disease tab data loaded')
         gene_table = Table(self.driver.find_element(By.ID, "geneTable"))
         cells = gene_table.get_column_cells("Associated Human Diseases (Source)")
         assocHumanDiseases = iterate.getTextAsList(cells)
         print(assocHumanDiseases)
         #asserts that the expected diseases are returned for these genes
-        self.assertIn("beta thalassemia\ncolon adenocarcinoma\nDown syndrome\nmental depression\nmyeloid leukemia associated with Down Syndrome\nthrombocytopenia\ntransient myeloproliferative syndrome\nX-linked dyserythropoietic anemia\nX-linked thrombocytopenia with beta-thalassemia", assocHumanDiseases) #diseases associated to Gata1
-        self.assertIn('myelodysplastic syndrome\nmyelofibrosis\nthrombocytopenia', assocHumanDiseases) #diseases associated to GATA1
+        self.assertIn('beta thalassemia\ncolon adenocarcinoma\ndepressive disorder\nDown syndrome\nmyeloid leukemia associated with Down Syndrome\nthrombocytopenia\ntransient myeloproliferative syndrome\nX-linked dyserythropoietic anemia\nX-linked thrombocytopenia with beta-thalassemia', assocHumanDiseases) #diseases associated to Gata1
+        self.assertIn('myelodysplastic syndrome\nmyelofibrosis', assocHumanDiseases) #diseases associated to GATA1
         
         
     

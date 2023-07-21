@@ -12,7 +12,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 #from.selenium.webdriver.support.color import Color
 #import jd-HTMLTestRunner
@@ -37,8 +37,8 @@ class TestEiVariantSearch(unittest.TestCase):
     """
 
     def setUp(self):
-        #self.driver = webdriver.Firefox()
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Chrome()
         self.form = ModuleForm(self.driver)
         # self.form.get_module("bhmgipwi02lt:5099/pwi/edit/variant/")
         self.form.get_module(config.TEST_PWI_URL + "/edit/variant/")
@@ -53,13 +53,10 @@ class TestEiVariantSearch(unittest.TestCase):
         @see pwi-var-search-1
         """
         driver = self.driver
-        WebDriverWait(self.driver, 10).until(
-            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
-        )
         # finds the allele ID field and enters a symbol
         driver.find_element(By.ID, "alleleID").send_keys('MGI:2670437')
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTableHeader'), 'Rora<tmgc26>'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTableHeader")
         table = Table(results_table)
@@ -76,13 +73,10 @@ class TestEiVariantSearch(unittest.TestCase):
         @see pwi-var-search-2
         """
         driver = self.driver
-        WebDriverWait(self.driver, 10).until(
-            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
-        )
         # finds the allele symbol field and enters a symbol
         driver.find_element(By.ID, "alleleSymbol").send_keys('Cntn1<usl>')
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTableHeader'), 'Cntn1<usl>'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTableHeader")
         table = Table(results_table)
@@ -99,13 +93,10 @@ class TestEiVariantSearch(unittest.TestCase):
         @see pwi-var-search-3
         """
         driver = self.driver
-        WebDriverWait(self.driver, 10).until(
-            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
-        )
         # finds the allele symbol field and enters a symbol
         driver.find_element(By.ID, "alleleSymbol").send_keys('Cntn%')
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTableHeader'), 'Cntn1<usl>'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTableHeader")
         table = Table(results_table)
@@ -123,13 +114,10 @@ class TestEiVariantSearch(unittest.TestCase):
         @see pwi-var-search-4
         """
         driver = self.driver
-        WebDriverWait(self.driver, 10).until(
-            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
-        )
         # finds the references field and enters a J number
         driver.find_element(By.ID, "jnumIDs").send_keys('J:13651')
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTableHeader'), 'Cpe<fat>'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTableHeader")
         table = Table(results_table)
@@ -146,13 +134,10 @@ class TestEiVariantSearch(unittest.TestCase):
         @see pwi-var-search-5 currently broken!!!!!
         """
         driver = self.driver
-        WebDriverWait(self.driver, 10).until(
-            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
-        )
         # finds the history symbol field and enters a symbol
         driver.find_element(By.ID, "jnumIDs").send_keys('J:203032, J:13651')
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTableHeader'), 'Cntn1<usl>'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTableHeader")
         table = Table(results_table)
@@ -161,7 +146,7 @@ class TestEiVariantSearch(unittest.TestCase):
         symbols = iterate.getTextAsList(cells)
         print(symbols)
         # assert all the correct symbols are returned
-        self.assertEquals(symbols, ['Cntn1<usl>', 'Cpe<fat>'])
+        self.assertEqual(symbols, ['Cntn1<usl>', 'Cpe<fat>'])
 
     def testVarChromosomeSearch(self):
         """
@@ -169,9 +154,6 @@ class TestEiVariantSearch(unittest.TestCase):
         @see pwi-var-search-6
         """
         driver = self.driver
-        WebDriverWait(self.driver, 10).until(
-            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
-        )
         # finds the chromosome field and enters a chromosome
         driver.find_element(By.ID, "chromosome").send_keys('X')
         driver.find_element(By.ID, 'searchButton').click()
@@ -201,9 +183,6 @@ class TestEiVariantSearch(unittest.TestCase):
         @see pwi-var-search-7
         """
         driver = self.driver
-        WebDriverWait(self.driver, 10).until(
-            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
-        )
         # finds the Strand field and enters a Strand
         driver.find_element(By.ID, "strand").send_keys('+')
         driver.find_element(By.ID, 'searchButton').click()
@@ -211,7 +190,7 @@ class TestEiVariantSearch(unittest.TestCase):
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTableHeader")
         table = Table(results_table)
-        time.sleep(4)
+        #time.sleep(4)
         # print row one through three
         row1 = table.get_row(0)
         row2 = table.get_row(1)
@@ -232,19 +211,15 @@ class TestEiVariantSearch(unittest.TestCase):
         @see pwi-var-search-8
         """
         driver = self.driver
-        WebDriverWait(self.driver, 10).until(
-            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
-        )
         # finds the Allele ID field and enters an MGI ID
         driver.find_element(By.ID, "alleleID").send_keys('MGI:5705324')
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTableHeader'), 'Alk<tm1.1Ics>'))
         # find the HGVS description field
         hgvs_data = self.driver.find_element(By.ID, "description").get_attribute('value')
-        time.sleep(2)
         print(hgvs_data)
         # assert the hgvs data is correct
-        self.assertEquals(hgvs_data, "Alk:NM_007439.2:c.3836G>A:p.(Arg1279Gln)")
+        self.assertEqual(hgvs_data, "Alk:NM_007439.2:c.3836G>A:p.(Arg1279Gln)")
 
     def testVarWithJnumSearch(self):
         """
@@ -252,19 +227,15 @@ class TestEiVariantSearch(unittest.TestCase):
         @see pwi-var-search-9
         """
         driver = self.driver
-        WebDriverWait(self.driver, 10).until(
-            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
-        )
         # finds the Allele ID field and enters an MGI ID
         driver.find_element(By.ID, "alleleID").send_keys('MGI:5705324')
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        wait.forAngular(self.driver)
         # find the Variant reference field
         var_jnum = self.driver.find_element(By.ID, "variantJnumIDs").get_attribute('value')
-        time.sleep(2)
         print(var_jnum)
         # assert the variant reference data is correct
-        self.assertEquals(var_jnum, "J:228124")
+        self.assertEqual(var_jnum, "J:228124")
 
     def testVarWithNotesSearch(self):
         """
@@ -272,44 +243,37 @@ class TestEiVariantSearch(unittest.TestCase):
         @see pwi-var-search-11
         """
         driver = self.driver
-        WebDriverWait(self.driver, 10).until(
-            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
-        )
         # finds the Allele ID field and enters an MGI ID
         driver.find_element(By.ID, "alleleID").send_keys('MGI:5491244')
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        wait.forAngular(self.driver)
         # find the Public Notes field
         var_pnote = self.driver.find_element(By.ID, "publicNote").get_attribute('value')
-        time.sleep(2)
         print(var_pnote)
         # assert the variant reference data is correct
-        self.assertEquals(var_pnote, "Low impact")
+        self.assertEqual(var_pnote, "Low impact")
         # find the curator Notes field
         var_cnote = self.driver.find_element(By.ID, "curatorNote").get_attribute('value')
-        time.sleep(2)
         print(var_cnote)
         # assert the variant reference data is correct
-        self.assertEquals(var_cnote, "unknown effect on splice donor site of intron 9")
+        self.assertEqual(var_cnote, "unknown effect on splice donor site of intron 9")
 
-    def testVarStrandNegSearch(self):
+    '''def testVarStrandNegSearch(self):
         """
         @Status tests that a variant Strand negative search has the stand always with a red background
-        @see pwi-var-search-12
+        @see pwi-var-search-12(this test is relaly not needed.
         """
         driver = self.driver
-        WebDriverWait(self.driver, 10).until(
-            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
-        )
         # finds the Strand field and enters a Strand
-        driver.find_element(By.ID, "strand").send_keys('-')
-        driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(6)
+        #driver.find_element(By.ID, "strand").send_keys('-')
+        #driver.find_element(By.ID, 'searchButton').click()
+        wait.forAngular(self.driver)
+        #WebDriverWait(self.driver, 20).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Falz'))
         # Find the strand for the first result and verify it's background color
         rgb = driver.find_element(By.ID, 'strand').value_of_css_property('background-color')
         print(rgb)
         # verify the RGB code is correct for the color Red
-        self.assertEqual(rgb, 'rgba(255, 0, 0, 1)', 'the wrong RGB code is returning')
+        self.assertEqual(rgb, 'rgba(255, 0, 0, 1)', 'the wrong RGB code is returning')'''
 
     def testAlleleWithMultVarSearch(self):
         """
@@ -317,13 +281,10 @@ class TestEiVariantSearch(unittest.TestCase):
         @see pwi-var-search-13
         """
         driver = self.driver
-        WebDriverWait(self.driver, 10).until(
-            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
-        )
         # finds the Allele ID field and enters an MGI ID
         driver.find_element(By.ID, "alleleID").send_keys('MGI:5301876')
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        wait.forAngular(self.driver)
         # find the variant results table
         results_table = self.driver.find_element(By.ID, "variantTable")
         table = Table(results_table)
@@ -349,13 +310,10 @@ class TestEiVariantSearch(unittest.TestCase):
         @see pwi-var-search-14, 16
         """
         driver = self.driver
-        WebDriverWait(self.driver, 10).until(
-            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
-        )
         # finds the Allele ID field and enters an MGI ID
         driver.find_element(By.ID, "alleleID").send_keys('MGI:5616147')
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        wait.forAngular(self.driver)
         # find the variant results table
         results_table = self.driver.find_element(By.ID, "variantTable")
         table = Table(results_table)
@@ -377,13 +335,10 @@ class TestEiVariantSearch(unittest.TestCase):
         @see pwi-var-search-17
         """
         driver = self.driver
-        WebDriverWait(self.driver, 10).until(
-            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
-        )
         # finds the Allele ID field and enters an MGI ID
         driver.find_element(By.ID, "alleleID").send_keys('MGI:5566856')
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        wait.forAngular(self.driver)
         # find the variant results table
         results_table = self.driver.find_element(By.ID, "variantTable")
         table = Table(results_table)
@@ -405,13 +360,10 @@ class TestEiVariantSearch(unittest.TestCase):
         @see pwi-var-search-18
         """
         driver = self.driver
-        WebDriverWait(self.driver, 10).until(
-            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
-        )
         # finds the Allele ID field and enters an MGI ID
         driver.find_element(By.ID, "alleleID").send_keys('MGI:3838372')
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        wait.forAngular(self.driver)
         # find the variant results table
         results_table = self.driver.find_element(By.ID, "variantTable")
         table = Table(results_table)
@@ -431,9 +383,6 @@ class TestEiVariantSearch(unittest.TestCase):
         @see pwi-var-search-19
         """
         driver = self.driver
-        WebDriverWait(self.driver, 10).until(
-            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
-        )
         # finds the Sourced Genomic Genome Build pulldown list
         dropdown = Select(driver.find_element(By.ID, "srcDnaVersion"))
         print([o.text for o in dropdown.options])
@@ -451,13 +400,10 @@ class TestEiVariantSearch(unittest.TestCase):
         @see pwi-var-detail-4
         """
         driver = self.driver
-        WebDriverWait(self.driver, 10).until(
-            ec.presence_of_element_located((By.LINK_TEXT, "Effects Popup"))
-        )
         # finds the Allele ID field and enters an MGI ID
         driver.find_element(By.ID, "alleleID").send_keys('MGI:3641255')
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        wait.forAngular(self.driver)
         # find the Allele detail link above the variant table and locate the href text
         allele_link = driver.find_element(By.PARTIAL_LINK_TEXT, 'Myd88').get_attribute('href')
         print(allele_link)

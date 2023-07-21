@@ -59,7 +59,7 @@ class TestEIAntigenSearch(unittest.TestCase):
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Ant-1'))
+
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)

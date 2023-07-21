@@ -11,6 +11,8 @@ import tracemalloc
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 import sys, os.path
@@ -218,7 +220,7 @@ class TestEiGxdIndexSearch(unittest.TestCase):
             'string:4834242')  # not applicable option
         Select(self.driver.find_element(By.ID, 'isFullCoded')).select_by_value('string:1')  # Yes option
         self.driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(5)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Acta1'))
         # find the note field
         noteinfo = self.driver.find_element(By.ID, 'note')
         # self.assertEqual(noteinfo.text, 'Age of embryo at noon of plug day not specified in reference.  Some of the RT-PCR data was obtained using quantitative RT-PCR.')
@@ -307,9 +309,9 @@ class TestEiGxdIndexSearch(unittest.TestCase):
         """
         @Status tests that a multiple marker search works
         """
-        self.driver.find_element(By.ID, 'markerSymbol').send_keys("t")  # marker symbol
+        self.driver.find_element(By.ID, 'markerSymbol').send_keys("T")  # marker symbol
         self.driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(5)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'T, J:314668, Abrams SR, Elife 2021 Oct 21;10():e68558'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -330,7 +332,7 @@ class TestEiGxdIndexSearch(unittest.TestCase):
         Select(self.driver.find_element(By.ID, 'conditional')).select_by_value('string:4834240')  # conditional option
         Select(self.driver.find_element(By.ID, 'isFullCoded')).select_by_value('string:1')  # Yes option
         self.driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(5)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Bmp4, J:153554, Chen J, Dev Biol 2009 Oct 1;334(1):174-85'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -360,7 +362,7 @@ class TestEiGxdIndexSearch(unittest.TestCase):
         Select(self.driver.find_element(By.ID, 'isFullCoded')).select_by_value('string:1')  # Yes option
         self.driver.find_element(By.ID, 'createdBy').send_keys("ijm")
         self.driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(5)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Acta2, J:124920, Garrison WD, Gastroenterology 2006 Apr;130(4):1207-20'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -390,7 +392,7 @@ class TestEiGxdIndexSearch(unittest.TestCase):
         Select(self.driver.find_element(By.ID, 'isFullCoded')).select_by_value('string:1')  # Yes option
         self.driver.find_element(By.ID, 'modifiedBy').send_keys("ijm")
         self.driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(5)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Mbp, J:98585, Stolt CC, Dev Biol 2005 May 15;281(2):309-17'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -420,7 +422,7 @@ class TestEiGxdIndexSearch(unittest.TestCase):
         # Select(self.driver.find_element(By.ID, 'isFullCoded')).select_by_value('string:0')#No option
         self.driver.find_element(By.ID, 'creationDate').send_keys("05/06/2015")
         self.driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(5)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Sst, J:53372, Charollais A, Dev Genet 1999;24(1-2):13-26'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -445,7 +447,7 @@ class TestEiGxdIndexSearch(unittest.TestCase):
         Select(self.driver.find_element(By.ID, 'isFullCoded')).select_by_value('string:0')  # No option
         self.driver.find_element(By.ID, 'modificationDate').send_keys("<05/06/2009")
         self.driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(5)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Acox1, J:106993, Briancon N, EMBO J 2006 Mar 22;25(6):1253-62'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -476,7 +478,7 @@ class TestEiGxdIndexSearch(unittest.TestCase):
         Select(self.driver.find_element(By.ID, 'isFullCoded')).select_by_value('string:0')  # No option
         self.driver.find_element(By.ID, 'creationDate').send_keys("<05/06/2009")
         self.driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(1)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Acta2, J:102947, Wilm B, Development 2005 Dec;132(23):5317-28'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -507,7 +509,7 @@ class TestEiGxdIndexSearch(unittest.TestCase):
         Select(self.driver.find_element(By.ID, 'isFullCoded')).select_by_value('string:1')  # Yes option
         self.driver.find_element(By.ID, 'creationDate').send_keys("<=09/28/2010")
         self.driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(1)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Bdnf, J:102293, Matei V, Dev Dyn 2005 Nov;234(3):633-50'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -539,7 +541,7 @@ class TestEiGxdIndexSearch(unittest.TestCase):
         self.driver.find_element(By.ID, 'creationDate').send_keys("10/01/2015..12/01/2015")
         self.driver.find_element(By.ID, 'searchButton').click()
         # find the search results table
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Acta2, J:225159, Rudat C, PLoS One 2014;9(11):e112112'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)

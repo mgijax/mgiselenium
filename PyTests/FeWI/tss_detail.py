@@ -45,8 +45,7 @@ class TestTssDetail(unittest.TestCase):
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Pax6').click() 
         #Click the link for the TSS popup table
-        self.driver.find_element(By.ID, 'showTss').click()        
-        time.sleep(2)
+        self.driver.find_element(By.ID, 'showTss').click()
         tss_table = self.driver.find_element(By.ID, 'tssTable')
         table = Table(tss_table)
         #Capture each row of the TSS table(only the first 5 rows)

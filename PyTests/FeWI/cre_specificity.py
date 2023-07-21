@@ -44,7 +44,6 @@ class TestCreSpecificity(unittest.TestCase):
         self.driver.find_element(By.NAME, 'submit').click()
         self.driver.find_element(By.ID, 'aLink').click()
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1.1(cre)Mull').click()
-        time.sleep(2)
         self.driver.switch_to.window(self.driver.window_handles[-1]) 
         WebDriverWait(self.driver, 20).until(EC.text_to_be_present_in_element((By.NAME, 'centeredTitle'), 'Targeted Allele Detail'))
         origin_table = self.driver.find_element(By.ID, 'mutationOriginTable')
@@ -55,7 +54,6 @@ class TestCreSpecificity(unittest.TestCase):
         
         print(term1.text)
         print(term2.text)
-        time.sleep(2)
         # verifies the returned terms are the correct terms for this search
         self.assertEqual('Project Collection:', term1.text, 'Term1 is not returning' )
         self.assertEqual('Neuroscience Blueprint cre', term2.text, "Term2 is incorrect")
@@ -70,7 +68,6 @@ class TestCreSpecificity(unittest.TestCase):
         self.driver.find_element(By.NAME, 'submit').click()
         self.driver.find_element(By.ID, 'aLink').click()
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1(CAG-cre)Mnn').click()
-        time.sleep(2)
         self.driver.switch_to.window(self.driver.window_handles[-1]) 
         WebDriverWait(self.driver, 20).until(EC.text_to_be_present_in_element((By.NAME, 'centeredTitle'), 'Targeted Allele Detail'))
         assert 'Project Collection:' not in self.driver.page_source
@@ -85,29 +82,19 @@ class TestCreSpecificity(unittest.TestCase):
         self.driver.find_element(By.NAME, 'submit').click()
         self.driver.find_element(By.ID, 'aLink').click()
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1(cre)Zjh').click()
-        time.sleep(2)
         self.driver.switch_to.window(self.driver.window_handles[-1]) 
         WebDriverWait(self.driver, 20).until(EC.text_to_be_present_in_element((By.NAME, 'centeredTitle'), 'Targeted Allele Detail'))
-        time.sleep(2)
         #toggles open the Recombinase activity table
         self.driver.find_element(By.ID, 'recomRibbonTeaser').click()
-        time.sleep(3)
         #finds the cell for adipose tissue pre-weaning and clicks it
         self.driver.find_element(By.CSS_SELECTOR, 'tr.pgg-row:nth-child(1) > td:nth-child(6)').click()
-        time.sleep(2)
         #switch to the Counts popup
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        time.sleep(2)
-        #click the link "View All result Deatails and Images" link
+        #click the link "View All result Details and Images" link
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'View All Result').click()
-        time.sleep(2)
         #verify the cre image is displayed in the Images section
         self.driver.find_element(By.ID, 'creImg429235').is_displayed()
-        
-        # verifies the returned terms are the correct terms for this search
-        #self.assertEqual('Project Collection:', term1.text, 'Term1 is not returning' )
-        #self.assertEqual('Neuroscience Blueprint cre', term2.text, "Term2 is incorrect")
-        #assert 'Project Collection:' not in self.driver.page_source
+
 
         
     def tearDown(self):

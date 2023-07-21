@@ -54,13 +54,12 @@ class TestEIMCLSearch(unittest.TestCase):
         driver = self.driver
         # finds the Mutant Cell Line field and enters a cell line, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "cellLine").send_keys('CT14%')
-        time.sleep(2)
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'CT141'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -85,13 +84,12 @@ class TestEIMCLSearch(unittest.TestCase):
         driver = self.driver
         # finds the Mutant Cell Line field and enters a mutant cell line, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "cellLine").send_keys('CT45')
-        time.sleep(2)
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'CT45'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -110,13 +108,12 @@ class TestEIMCLSearch(unittest.TestCase):
         driver = self.driver
         # finds the Creator filed and selects the option 'shinichi Aizawa'(string:4811539), tabs out of the field then clicks the Search button
         Select(driver.find_element(By.ID, "creator")).select_by_value('string:4811539')
-        time.sleep(2)
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'PAT-12'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -135,13 +132,12 @@ class TestEIMCLSearch(unittest.TestCase):
         driver = self.driver
         # finds the parent cell line field and enters a parent cell line, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "parentCellLine").send_keys('RENKA')
-        time.sleep(2)
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Not Specified'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -166,13 +162,12 @@ class TestEIMCLSearch(unittest.TestCase):
         driver = self.driver
         # finds the notes field and enters test, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "parentCellLineStrain").send_keys('129S7/SvEvBrd-Hprt%')
-        time.sleep(2)
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(4)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), '8D7'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -203,13 +198,12 @@ class TestEIMCLSearch(unittest.TestCase):
         driver = self.driver
         # finds the cell line type field and select the option 'spermatogonial stem cell'(string:3982969), tabs out of the field then clicks the Search button
         Select(driver.find_element(By.ID, "cellLineType")).select_by_value('string:3982969')
-        time.sleep(2)
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Not Specified'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -231,13 +225,12 @@ class TestEIMCLSearch(unittest.TestCase):
         driver = self.driver
         # finds the derivation type field and selects the option 'transposon induced' (value='string:2327161), tabs out of the field then clicks the Search button
         Select(driver.find_element(By.ID, "derivationType")).select_by_value('string:2327161')
-        time.sleep(2)
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Not Specified'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -256,13 +249,12 @@ class TestEIMCLSearch(unittest.TestCase):
         driver = self.driver
         # finds the vector name field and enters a vector, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "vector").send_keys('pGT0lxf')
-        time.sleep(2)
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(5)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'XP0012'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -293,15 +285,13 @@ class TestEIMCLSearch(unittest.TestCase):
         driver = self.driver
         # finds the strain field and enters a strain w/wildcard, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "vector").send_keys('ROSANB%')
-        time.sleep(2)
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        # Does a webdriver wait until the results table is present so we know the page is loaded
-        # if WebDriverWait(self.driver, 15).until(EC.presence_of_element_located((By.ID, 'resultsCount'))):
-        # print('page loaded')
+        #webdriver wait until the results table is present so we know the page is loaded
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'CN3'))
         time.sleep(2)
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
@@ -330,13 +320,12 @@ class TestEIMCLSearch(unittest.TestCase):
         driver = self.driver
         # finds the vector type field and select the option 'enhancer trap'(string:3982972, tabs out of the field then clicks the Search button
         Select(driver.find_element(By.ID, "vectorType")).select_by_value('string:3982972')
-        time.sleep(2)
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'gt216'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -361,13 +350,12 @@ class TestEIMCLSearch(unittest.TestCase):
         driver = self.driver
         # finds the allele field and enters an allele, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "alleleSymbols").send_keys('Gata1<tm1Phi>')
-        time.sleep(2)
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Not Specified'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -386,13 +374,12 @@ class TestEIMCLSearch(unittest.TestCase):
         driver = self.driver
         # finds the allelesymbols field and enters an allele symbol w/wildcard, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "alleleSymbols").send_keys('Meg3%')
-        time.sleep(2)
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Not Specified'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -423,13 +410,12 @@ class TestEIMCLSearch(unittest.TestCase):
         driver = self.driver
         # finds the logical bd field and select the option 'TIGM'(string:97), tabs out of the field then clicks the Search button
         Select(driver.find_element(By.ID, "accName")).select_by_value('string:97')
-        time.sleep(2)
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'SGT207T1'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -454,13 +440,12 @@ class TestEIMCLSearch(unittest.TestCase):
         driver = self.driver
         # finds the Acc Name field and enter a name, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "accName-0").send_keys('E209G12')
-        time.sleep(2)
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'E209G12'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -479,13 +464,12 @@ class TestEIMCLSearch(unittest.TestCase):
         driver = self.driver
         # finds the cell line field and enters a description w/wildcard, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "accName-0").send_keys('E209G0%')
-        time.sleep(2)
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'E209G06'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -516,13 +500,12 @@ class TestEIMCLSearch(unittest.TestCase):
         driver = self.driver
         # finds the mutant cell line field and enter a cell line, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "cellLine").send_keys('10226A-A7 ')
-        time.sleep(2)
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), '10226A-A7'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -677,7 +660,7 @@ class TestEIMCLSearch(unittest.TestCase):
         # find the Search button and click it
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Ex54'))
+        WebDriverWait(self.driver, 5).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'W052E02'))
         # find the Modified by field
         mod_by = driver.find_element(By.ID, 'modifiedBy').get_attribute('value')
         print(mod_by)

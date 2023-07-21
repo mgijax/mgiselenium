@@ -44,27 +44,29 @@ class TestSequenceDetail(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL)
-        time.sleep(1)
         searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene ID in the quick search box
         searchbox.send_keys('MGP_AKRJ_G0023142')
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
         driver.find_element(By.ID, 'oLink').click()
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
+        # waits until the results are displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence'))):
+            print('Sequence link loaded')
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
         #switch focus to the new tab for sequence detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'seqIdTable')))#waits until the sequence ID table is  displayed on the page
+        #waits until the sequence ID table is  displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.CLASS_NAME, 'detailStructureTable'))):
+            print('sequence detail page loaded')
         #find the sequence ID in the ID/Version ribbon
         #locates the first row of the Sequence table
-        seq_table = Table(self.driver.find_element(By.ID, "seqIdTable"))
+        seq_table = Table(self.driver.find_element(By.CLASS_NAME, "detailStructureTable"))
         cells = seq_table.get_row(0)
         print(cells.text)
-        #time.sleep(2)
         #asserts the ID ribbon data is correct
-        self.assertEqual("MGP_AKRJ_G0023142 (Ensembl) Multiple Genome Viewer (MGV) Version: MGP_AKRJ_G0023142.Ensembl Release 92", cells.text)         
+        self.assertEqual("ID/Version\nMGP_AKRJ_G0023142 (Ensembl) Multiple Genome Viewer (MGV) Version: MGP_AKRJ_G0023142.Ensembl Release 92", cells.text)
         
     def test_mgi_b6_id(self):
         """
@@ -79,19 +81,21 @@ class TestSequenceDetail(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
         driver.find_element(By.ID, 'oLink').click()
-        time.sleep(2)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
+        # waits until the results are displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence'))):
+            print('Sequence link loaded')
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
         #switch focus to the new tab for sequence detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'seqIdTable')))#waits until the sequence ID table is  displayed on the page
+        # waits until the sequence ID table is  displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'seqIdTable'))):
+            print('Sequence Table loaded')
         #find the sequence ID in the ID/Version ribbon
         #locates the first row of the sequence table
         seq_table = Table(self.driver.find_element(By.ID, "seqIdTable"))
         cells = seq_table.get_row(0)
         print(cells.text)
-        #time.sleep(2)
         #asserts the ID ribbon data is correct
         self.assertEqual('MGI_C57BL6J_5804994 Multiple Genome Viewer (MGV) Version: MGI_C57BL6J_5804994.GRCm39', cells.text)          
         
@@ -108,15 +112,18 @@ class TestSequenceDetail(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
         driver.find_element(By.ID, 'oLink').click()
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
+        # waits until the results are displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence'))):
+            print('Sequence link loaded')
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
         #switch focus to the new tab for sequence detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Ensembl')))#waits until the results are  displayed on the page
+        # waits until the results are  displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.LINK_TEXT, 'Ensembl'))):
+            print('Ensembl link loaded')
         #locates the Ensembl link and clicks it
         self.driver.find_element(By.LINK_TEXT, 'Ensembl').click()
-        #time.sleep(2)
         page_title = self.driver.find_element(By.CLASS_NAME, 'species')
         print(page_title.text)
         #Asserts that the emsembl page is for the correct strain
@@ -137,18 +144,21 @@ class TestSequenceDetail(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
         driver.find_element(By.ID, 'oLink').click()
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
+        # waits until the results are displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence'))):
+            print('Sequence link loaded')
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
         #switch focus to the new tab for sequence detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'detailStructureTable')))#waits until the sequence ID table is  displayed on the page
+        # waits until the sequence ID table is  displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'seqIdTable'))):
+            print('Sequence Table loaded')
         #find the sequence description in the sequence description ribbon
         #locates the second row of the Sequence table
         seq_table = Table(self.driver.find_element(By.CLASS_NAME, 'detailStructureTable'))
         cells = seq_table.get_cell(2, 1)
         print(cells.text)
-        #time.sleep(2)
         #asserts the sequence description ribbon data is correct
         self.assertEqual("chr18:34262022-34436126, + strand. Annotation of mouse strain CAROLI/EiJ genome assembly provided by the University of California Santa Cruz (UCSC) Genome Browser Group and the Wellcome Sanger Institute's Mouse Genomes Project (MGP). Distributed via Ensembl Release 103. Gene type: protein coding gene; Gene Name: Pcdha9.", cells.text)         
 
@@ -165,20 +175,23 @@ class TestSequenceDetail(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
         driver.find_element(By.ID, 'oLink').click()
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
+        # waits until the results are displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence'))):
+            print('Sequence link loaded')
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
         #switch focus to the new tab for sequence detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'detailStructureTable')))#waits until the sequence ID table is  displayed on the page
+        # waits until the sequence ID table is  displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'seqIdTable'))):
+            print('Sequence Table loaded')
         #find the sequence description in the sequence description ribbon
         #locates the second row of the Sequence table
         seq_table = Table(self.driver.find_element(By.CLASS_NAME, 'detailStructureTable'))
         cells = seq_table.get_cell(2, 1)
         print(cells.text)
-        #time.sleep(2)
         #asserts the sequence description ribbon data is correct
-        self.assertEqual('ChrX:7825499-7844310, - strand. MGI derived this sequence for the C57BL/6J strain version of Gene: Gata1, Gene type: protein coding gene, from outermost boundary coordinates of combined annotations to mouse reference assembly GRCm39 provided by: NCBI_Gene:14460,ENSEMBL:ENSMUSG00000031162. Note that the source annotations for this representation of the C57BL/6J gene model sequence can derive from different assembly patches (J:262996).', cells.text)         
+        self.assertEqual('ChrX:7825499-7844310, - strand. MGI derived this sequence for the C57BL/6J strain version of Gene: Gata1, Gene type: protein coding gene, from outermost boundary coordinates of combined annotations to mouse reference assembly GRCm39 provided by: ENSEMBL:ENSMUSG00000031162,NCBI_Gene:14460. Note that the source annotations for this representation of the C57BL/6J gene model sequence can derive from different assembly patches (J:262996).', cells.text)
 
     def test_mgp_seq_provider(self):
         """
@@ -193,12 +206,16 @@ class TestSequenceDetail(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
         driver.find_element(By.ID, 'oLink').click()
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
+        # waits until the results are displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence'))):
+            print('Sequence link loaded')
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
         #switch focus to the new tab for sequence detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'detailStructureTable')))#waits until the sequence ID table is  displayed on the page
+        # waits until the sequence ID table is  displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'seqIdTable'))):
+            print('Sequence Table loaded')
         #find the sequence provider in the Provider ribbon
         #locates the third row, second cell of the Sequence table
         seq_table = Table(self.driver.find_element(By.CLASS_NAME, 'detailStructureTable'))
@@ -220,18 +237,21 @@ class TestSequenceDetail(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
         driver.find_element(By.ID, 'oLink').click()
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
+        # waits until the results are displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence'))):
+            print('Sequence link loaded')
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
         #switch focus to the new tab for sequence detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'detailStructureTable')))#waits until the sequence ID table is  displayed on the page
+        # waits until the sequence ID table is  displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'seqIdTable'))):
+            print('Sequence Table loaded')
         #find the sequence provider in the Provider ribbon
         #locates the third row, second cell of the Sequence table
         seq_table = Table(self.driver.find_element(By.CLASS_NAME, 'detailStructureTable'))
         cells = seq_table.get_cell(3, 1)
         print(cells.text)
-        time.sleep(2)
         #asserts the Provider ribbon data is correct
         self.assertEqual('MGI C57BL/6J Strain Gene Model', cells.text)         
 
@@ -249,22 +269,25 @@ class TestSequenceDetail(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
         driver.find_element(By.ID, 'oLink').click()
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
+        # waits until the results are displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence'))):
+            print('Sequence link loaded')
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
         #switch focus to the new tab for sequence detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//input[@value='Go']")))#waits until the GO button is displayed on the page
+        # waits until the GO button for FASTA download is displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.XPATH, "//input[@value='Go']"))):
+            print('FASTA download GO button loaded')
         #find the GO button beside FASTA download and click it
         driver.find_element(By.XPATH, "//input[@value='Go']").click()
         #asserts that the correct sequence data is returned from FASTA
-        assert "MGP_AKRJ_G0020754 13:94228187-94249372" in self.driver.page_source 
-        wait.forAjax(driver)
+        assert "MGP_AKRJ_G0020754 13:94228187-94249372" in self.driver.page_source
    
     def test_mgp_ncbi_blast(self):
         """
         @status: Tests that an MGP sequence can be sent to NCBI Blast
-        @note: seqdetail-seq-2 *** this test does not work because NCBI will not let Webdriver access it's page!!!
+        @note: seqdetail-seq-2
         """
         driver = self.driver
         driver.get(config.TEST_URL)
@@ -274,28 +297,33 @@ class TestSequenceDetail(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
         driver.find_element(By.ID, 'oLink').click()
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
+        # waits until the results are displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence'))):
+            print('Sequence link loaded')
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
         #switch focus to the new tab for sequence detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, 'seqPullDownForm')))#waits until the sequence pulldown form is displayed on the page
+        # waits until the sequence pulldown form is displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.NAME, 'seqPullDownForm'))):
+            print('Sequence pull down form loaded')
         #find the sequence list and select the "forward to NCBI Blast" option
         self.driver.find_element(By.NAME, 'seqPullDownForm')
         Select(driver.find_element(By.NAME, 'seqPullDown')).select_by_visible_text('forward to NCBI BLAST')
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//input[@value='Go']")))#waits until the GO button is displayed on the page
+        # waits until the GO button for forward to NCBI Blast is displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.XPATH, "//input[@value='Go']"))):
+            print('forward to NCBI Blast GO button loaded')
         #find the GO button beside FASTA download and click it
         driver.find_element(By.XPATH, "//input[@value='Go']").click()
-        time.sleep(2)
         #asserts that the correct blast page is returned by NCBI
         #switch focus to the new tab for strain detail page
         driver.switch_to.window(self.driver.window_handles[-1])
-        time.sleep(2)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'pageTitle'))):
+            print('forward to NCBI Blast page loaded')
         #Identify the page title
-        #page_header = self.driver.find_element(By.CLASS_NAME, 'pageTitle')      
+        page_header = self.driver.find_element(By.CLASS_NAME, 'pageTitle')
         #asserts that the Page header is correct
-        #self.assertEqual('Standard Nucleotide BLAST', page_header.text)         
-        wait.forAjax(driver)
+        self.assertEqual('Standard Nucleotide BLAST', page_header.text)
 
     def test_mgi_gm_fasta(self):
         """
@@ -310,22 +338,25 @@ class TestSequenceDetail(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
         driver.find_element(By.ID, 'oLink').click()
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
+        # waits until the results are displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence'))):
+            print('Sequence link loaded')
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
         #switch focus to the new tab for sequence detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//input[@value='Go']")))#waits until the GO button is displayed on the page
+        # waits until the GO button for FASTA download is displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.XPATH, "//input[@value='Go']"))):
+            print('forward to NCBI Blast GO button loaded')
         #find the GO button beside FASTA download and click it
         driver.find_element(By.XPATH, "//input[@value='Go']").click()
         #asserts that the correct sequence data is returned from FASTA
         assert "MGI_C57BL6J_98660 Y:2662471-2663658" in self.driver.page_source 
-        wait.forAjax(driver)
 
     def test_mgi_gm_ncbi_blast(self):
         """
         @status: Tests that an MGI gene model sequence can be sent to NCBI Blast
-        @note: seqdetail-seq-4 *** this test does not work because NCBI will not let Webdriver access it's page!!!
+        @note: seqdetail-seq-4
         """
         driver = self.driver
         driver.get(config.TEST_URL)
@@ -335,26 +366,33 @@ class TestSequenceDetail(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
         driver.find_element(By.ID, 'oLink').click()
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
+        # waits until the results are displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence'))):
+            print('Sequence link loaded')
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
         #switch focus to the new tab for sequence detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
+        # waits until the sequence pulldown form is displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.NAME, 'seqPullDownForm'))):
+            print('Sequence pull down form loaded')
         #find the sequence list and select the "forward to NCBI Blast" option
         self.driver.find_element(By.NAME, 'seqPullDownForm')
         Select(driver.find_element(By.NAME, 'seqPullDown')).select_by_visible_text('forward to NCBI BLAST')
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//input[@value='Go']")))#waits until the GO button is displayed on the page
+        # waits until the GO button for forward to NCBI Blast is displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.XPATH, "//input[@value='Go']"))):
+            print('forward to NCBI Blast GO button loaded')
         #find the GO button beside FASTA download and click it
         driver.find_element(By.XPATH, "//input[@value='Go']").click()
         #asserts that the correct blast page is returned by NCBI
         #switch focus to the new tab for strain detail page
         driver.switch_to.window(self.driver.window_handles[-1])
-        time.sleep(2)
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.CLASS_NAME, 'pageTitle'))):
+            print('forward to NCBI Blast page loaded')
         #Identify the page title
-        #page_header = self.driver.find_element(By.CLASS_NAME, 'pageTitle')      
+        page_header = self.driver.find_element(By.CLASS_NAME, 'pageTitle')
         #asserts that the Page header is correct
-        #self.assertEqual('Standard Nucleotide BLAST', page_header.text)         
-        wait.forAjax(driver)
+        self.assertEqual('Standard Nucleotide BLAST', page_header.text)
 
     def test_mgp_seq_bp(self):
         """
@@ -369,12 +407,16 @@ class TestSequenceDetail(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
         driver.find_element(By.ID, 'oLink').click()
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
+        # waits until the results are displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence'))):
+            print('Sequence link loaded')
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
         #switch focus to the new tab for sequence detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'detailStructureTable')))#waits until the sequence ID table is  displayed on the page
+        # waits until the sequence ID table is  displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'seqIdTable'))):
+            print('Sequence Table loaded')
         #find the sequence in the Sequence ribbon
         #locates the fourth row, second cell of the Sequence table
         seq_info = self.driver.find_element(By.CSS_SELECTOR, '.detailStructureTable > tbody:nth-child(1) > tr:nth-child(4) > td:nth-child(2) > div:nth-child(1)')
@@ -395,12 +437,16 @@ class TestSequenceDetail(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
         driver.find_element(By.ID, 'oLink').click()
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
+        # waits until the results are displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence'))):
+            print('Sequence link loaded')
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
         #switch focus to the new tab for sequence detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'detailStructureTable')))#waits until the sequence ID table is  displayed on the page
+        # waits until the sequence ID table is  displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'seqIdTable'))):
+            print('Sequence Table loaded')
         #find the sequence in the Sequence ribbon
         #locates the fourth row, second cell of the Sequence table
         seq_table = Table(self.driver.find_element(By.CLASS_NAME, 'detailStructureTable'))
@@ -412,7 +458,7 @@ class TestSequenceDetail(unittest.TestCase):
     def test_mgp_source_data(self):
         """
         @status: Tests that an MGP sequence detail displays the correct sequence base pair
-        @note: seqdetail-source-1 !!! waiting for Jon to add IDs to inner tables of source table.
+        @note: seqdetail-source-1
         """
         driver = self.driver
         driver.get(config.TEST_URL)
@@ -422,12 +468,17 @@ class TestSequenceDetail(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
         driver.find_element(By.ID, 'oLink').click()
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
+        # waits until the results are displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence'))):
+            print('Sequence link loaded')
+        #WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
         #switch focus to the new tab for sequence detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'sourceTable')))#waits until the source table is displayed on the page
+        # waits until the source table is displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'sourceTable'))):
+            print('Source Table loaded')
         #find the source data in the Source ribbon
         #locates the Source table
         src_table = Table(self.driver.find_element(By.ID, 'sourceTable'))
@@ -476,12 +527,16 @@ class TestSequenceDetail(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
         driver.find_element(By.ID, 'oLink').click()
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
+        # waits until the results are displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence'))):
+            print('Sequence link loaded')
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
         #switch focus to the new tab for sequence detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'sourceTable')))#waits until the source table is displayed on the page
+        # waits until the source table is displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'sourceTable'))):
+            print('Source Table loaded')
         #find the source data in the Source ribbon
         #locates the Source table
         src_table = Table(self.driver.find_element(By.ID, 'sourceTable'))
@@ -529,12 +584,16 @@ class TestSequenceDetail(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
         driver.find_element(By.ID, 'oLink').click()
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
+        # waits until the results are displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence'))):
+            print('Sequence link loaded')
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
         #switch focus to the new tab for sequence detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'detailStructureTable')))#waits until the sequence ID table is  displayed on the page
+        # waits until the sequence ID table is  displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'seqIdTable'))):
+            print('Sequence Table loaded')
         #find the chromosome data in the Chromosome ribbon
         chromo = self.driver.find_element(By.CSS_SELECTOR, '.detailStructureTable > tbody:nth-child(1) > tr:nth-child(6) > td:nth-child(2)')
         print(chromo.text)
@@ -553,12 +612,16 @@ class TestSequenceDetail(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
         driver.find_element(By.ID, 'oLink').click()
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
+        # waits until the results are displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence'))):
+            print('Sequence link loaded')
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
         #switch focus to the new tab for sequence detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'detailStructureTable')))#waits until the sequence ID table is  displayed on the page
+        # waits until the sequence ID table is  displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'seqIdTable'))):
+            print('Sequence Table loaded')
         #find the chromosome data in the Chromosome ribbon
         chromo = self.driver.find_element(By.CSS_SELECTOR, '.detailStructureTable > tbody:nth-child(1) > tr:nth-child(6) > td:nth-child(2)')
         print(chromo.text)
@@ -577,12 +640,16 @@ class TestSequenceDetail(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
         driver.find_element(By.ID, 'oLink').click()
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
+        # waits until the results are displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence'))):
+            print('Sequence link loaded')
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
         #switch focus to the new tab for sequence detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'markerTable')))#waits until the source table is displayed on the page
+        # waits until the Annotated genes and markers table is displayed on the page
+        if WebDriverWait(driver, 2).until(EC.presence_of_element_located((By.ID, 'markerTable'))):
+            print('annotated genes and markers table displayed')
         #locates the Source table
         mrk_table = Table(self.driver.find_element(By.ID, 'markerTable'))
         #find the Type cell, print it and assert it to be correct
@@ -627,12 +694,18 @@ class TestSequenceDetail(unittest.TestCase):
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
         driver.find_element(By.ID, 'oLink').click()
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
+        # waits until the results are displayed on the page
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence'))):
+            print('Sequence link loaded')
+        #WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence')))#waits until the results are displayed on the page
         #finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
         #switch focus to the new tab for sequence detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'markerTable')))#waits until the source table is displayed on the page
+        # waits until the Annotated genes and markers table is displayed on the page
+        if WebDriverWait(driver, 2).until(EC.presence_of_element_located((By.ID, 'markerTable'))):
+            print('annotated genes and markers table displayed')
+        #WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'markerTable')))#waits until the source table is displayed on the page
         #locates the Source table
         mrk_table = Table(self.driver.find_element(By.ID, 'markerTable'))
         #find the Type cell, print it and assert it to be correct
@@ -650,11 +723,11 @@ class TestSequenceDetail(unittest.TestCase):
         #find the GO Terms cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 3)
         print(cell1.text)
-        self.assertIn('40', cell1.text) 
+        self.assertIn('38', cell1.text)
         #find the Expression Assays cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 4)
         print(cell1.text)
-        self.assertIn('193', cell1.text) 
+        self.assertIn('196', cell1.text)
         #find the Orthologs cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 5)
         print(cell1.text)

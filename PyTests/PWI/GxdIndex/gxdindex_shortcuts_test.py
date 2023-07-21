@@ -54,7 +54,7 @@ class TestEiGxdIndexShortcuts(unittest.TestCase):
         """
         driver = self.driver
         form = self.form
-        time.sleep(2)
+        wait.forAngular(driver)
         action = ActionChains(self.driver)
         form.enter_value('jnumID', '74162')
         # click the Tab key
@@ -82,9 +82,9 @@ class TestEiGxdIndexShortcuts(unittest.TestCase):
             self.report.AppendToReport("gxdIdx1-1", "testctrrlaltc", "marker symbol displays",
                                        "correct marker symbol displays", "symbol is ", "Fail", "")
         form.click_search()
-        time.sleep(2)
+        wait.forAngular(driver)
         action.key_down(Keys.CONTROL).key_down(Keys.ALT).send_keys('c').key_up(Keys.CONTROL).key_up(Keys.ALT).perform()
-        time.sleep(5)
+        wait.forAngular(driver)
         # finds the citation field
         citation = form.get_value('short_citation')
         print(citation)
@@ -138,7 +138,7 @@ class TestEiGxdIndexShortcuts(unittest.TestCase):
         """
         driver = self.driver
         form = self.form
-        time.sleep(2)
+        wait.forAngular(driver)
         actions = ActionChains(self.driver)
         form.enter_value('jnumID', '124809')
         # click the Tab key
@@ -154,7 +154,7 @@ class TestEiGxdIndexShortcuts(unittest.TestCase):
             self.report.AppendToReport("gxdIdx1-2", "testctrrlalts", "Citation is displayed",
                                        "correct citation displays", "citation is ", "Fail", "")
         actions.key_down(Keys.CONTROL).key_down(Keys.ALT).send_keys('s').key_up(Keys.CONTROL).key_up(Keys.ALT).perform()
-        time.sleep(5)
+        wait.forAngular(driver)
         # finds the citation field
         citation = form.get_value('short_citation')
         print(citation)

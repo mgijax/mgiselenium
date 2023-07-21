@@ -61,7 +61,7 @@ class TestEiLitTriageSummarySearch(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, '10.1073/pnas.0706671104').click()
         # switches focus to the newly opened tab
         self.driver.switch_to.window(driver.window_handles[-1])
-        time.sleep(5)
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'li.a2a_listitem_custom:nth-child(2) > a:nth-child(1)')))
         page_title = driver.find_element(By.CSS_SELECTOR,
                                          '.article-container > article:nth-child(2) > header:nth-child(1) > div:nth-child(1) > h1:nth-child(2)')
         print(page_title.text)
@@ -105,7 +105,7 @@ class TestEiLitTriageSummarySearch(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, '18042720').click()
         # switches focus to the newly opened tab
         driver.switch_to.window(driver.window_handles[-1])
-        time.sleep(5)
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'span.search-input-link > a:nth-child(1)')))
         page_title = driver.find_element(By.CSS_SELECTOR, 'h1.heading-title:nth-child(2)')
         print(page_title.text)
         # asserts the page title for this page is correct
@@ -234,7 +234,7 @@ class TestEiLitTriageSummarySearch(unittest.TestCase):
     def testTitleNoResultSearch(self):
         """
         @Status Tests that a search returns No Title for the reference.
-        @See LitTri-sum-7 (16) broken 11/18/2021
+        @See LitTri-sum-7 (16)
         """
         form = self.form
         form.enter_value('accids', 'J:43743')

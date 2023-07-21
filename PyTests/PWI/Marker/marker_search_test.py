@@ -52,10 +52,10 @@ class TestEiMrkSearch(unittest.TestCase):
         @see pwi-mrk-search-1
         """
         driver = self.driver
-        # finds the results table and iterates through the table
-        Select(driver.find_element(By.ID, "markerType")).select_by_value('string:2')
+        # finds the Marker Type Field and select the option Gene
+        Select(driver.find_element(By.ID, "markerType")).select_by_value('string:1')
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(5)
+        WebDriverWait(self.driver, 20).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Falz'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -64,10 +64,10 @@ class TestEiMrkSearch(unittest.TestCase):
         symbol1 = iterate.getTextAsList(cell1)
         print(symbol1)
         # Assert the correct marker symbol and marker type is returned
-        self.assertEqual(symbol1, ['03.MMHAP34FRA.seq'])
+        self.assertEqual(symbol1, ['0610005A07Rik'])
         # since we search for a particular marker type verify the correct type is displayed
         mrktype = driver.find_element(By.ID, 'markerType').get_attribute('value')
-        self.assertEqual(mrktype, 'string:2')  # 2 equals "DNA Segment"
+        self.assertEqual(mrktype, 'string:1')  # 1 equals "Gene"
 
     def testTypeDnaSegSearch(self):
         """
@@ -79,7 +79,7 @@ class TestEiMrkSearch(unittest.TestCase):
         # finds the marker type field and select the option 'DNA Segment'
         Select(driver.find_element(By.ID, "markerType")).select_by_value('string:2')
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(5)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), '12B1'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -100,10 +100,10 @@ class TestEiMrkSearch(unittest.TestCase):
         @see pwi-mrk-search-3
         """
         driver = self.driver
-        # finds the results table and iterates through the table
+        # finds the marker type field and selct the option QTL
         Select(driver.find_element(By.ID, "markerType")).select_by_value('string:6')
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Acq1'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -114,7 +114,7 @@ class TestEiMrkSearch(unittest.TestCase):
         self.assertEqual(symbol1, ['Aaaq1'])
         # since we search for a particular marker type verify the correct type is displayed
         mrktype = driver.find_element(By.ID, 'markerType').get_attribute('value')
-        self.assertEqual(mrktype, 'string:6')  # 9 equals "QTL"
+        self.assertEqual(mrktype, 'string:6')  # 6 equals "QTL"
 
     def testTypeTransSearch(self):
         """
@@ -123,10 +123,10 @@ class TestEiMrkSearch(unittest.TestCase):
         @see pwi-mrk-search-4
         """
         driver = self.driver
-        # finds the results table and iterates through the table
+        # finds the Marker Type field and select the option Transgene
         Select(driver.find_element(By.ID, "markerType")).select_by_value('string:12')
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Et(cre)TFC.09Lois'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -146,10 +146,10 @@ class TestEiMrkSearch(unittest.TestCase):
         @see pwi-mrk-search-5
         """
         driver = self.driver
-        # finds the results table and iterates through the table
+        # finds the Marker Type field and select the option Complex/Cluster/Region
         Select(driver.find_element(By.ID, "markerType")).select_by_value('string:10')
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Csn'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -168,10 +168,10 @@ class TestEiMrkSearch(unittest.TestCase):
         @see pwi-mrk-search-6
         """
         driver = self.driver
-        # finds the results table and iterates through the table
+        # finds the Marker Type field and select the option Cytogenetic marker
         Select(driver.find_element(By.ID, "markerType")).select_by_value('string:3')
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Del(11)10Brd'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -186,19 +186,18 @@ class TestEiMrkSearch(unittest.TestCase):
 
     def testTypeBacYacSearch(self):
         """
-        @Status tests that a basic Marker Type BAC/YAC search works
+        @Status tests that a basic Marker Type BAC/YAC end search works
         @note: A BAC/YAC end type should not display Feature Type
         @see pwi-mrk-search-7
         """
         driver = self.driver
-        # finds the results table and iterates through the table
+        # finds the Marker Type field and selects the option BAC/YAC end
         Select(driver.find_element(By.ID, "markerType")).select_by_value('string:8')
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), '10T'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
-
         # print row 1
         cell1 = table.get_row_cells(0)
         symbol1 = iterate.getTextAsList(cell1)
@@ -216,10 +215,10 @@ class TestEiMrkSearch(unittest.TestCase):
         driver = self.driver
         # finds the marker type pseudogene and selects it, then selects chromosome 16 to narrow down results set
         Select(driver.find_element(By.ID, "markerType")).select_by_value('string:7')
-        driver.find_element(By.ID, 'chromosome').clear();
-        driver.find_element(By.ID, 'chromosome').send_keys("16");
+        driver.find_element(By.ID, 'chromosome').clear()
+        driver.find_element(By.ID, 'chromosome').send_keys("16")
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Bod1-ps'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -240,10 +239,10 @@ class TestEiMrkSearch(unittest.TestCase):
         driver = self.driver
         # finds the Marker Type field and select the Other Genome Feature option, then selects chromosome 16 to narrow down search results
         Select(driver.find_element(By.ID, "markerType")).select_by_value('string:9')
-        driver.find_element(By.ID, 'chromosome').clear();
-        driver.find_element(By.ID, 'chromosome').send_keys("16");
+        driver.find_element(By.ID, 'chromosome').clear()
+        driver.find_element(By.ID, 'chromosome').send_keys("16")
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Chuk-rs1'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -266,7 +265,7 @@ class TestEiMrkSearch(unittest.TestCase):
         # finds the Symbol field . Enter Asun and click the Search button
         driver.find_element(By.ID, "markerSymbol").send_keys("Asun")
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Asun'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -286,9 +285,9 @@ class TestEiMrkSearch(unittest.TestCase):
         driver = self.driver
         # finds the Marker Status field, selects the option Official and Chromosome 16, then clicks search
         Select(driver.find_element(By.ID, "markerStatus")).select_by_value('string:1')
-        driver.find_element(By.ID, 'chromosome').send_keys("16");
+        driver.find_element(By.ID, 'chromosome').send_keys("MT")
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(8)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'mt-Cytb'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -297,7 +296,7 @@ class TestEiMrkSearch(unittest.TestCase):
         # print column 1
         print(cells.text)
         # assert the symbol is correct
-        self.assertEqual(cells.text, '0610009F21Rik')
+        self.assertEqual(cells.text, 'mt-Atp6')
         # locate the Marker status field and assert it is correct
         mrkstatus = driver.find_element(By.ID, 'markerStatus').get_attribute('value')
         self.assertEqual(mrkstatus, 'string:1')  # 1 equals "Official"
@@ -310,10 +309,12 @@ class TestEiMrkSearch(unittest.TestCase):
         driver = self.driver
         # finds the Marker Status field, selects the option Withdrawn, selects chromosome 16 and clicks search
         Select(driver.find_element(By.ID, "markerStatus")).select_by_value('string:2')
-        driver.find_element(By.ID, 'chromosome').clear();
-        driver.find_element(By.ID, 'chromosome').send_keys("16");
+        driver.find_element(By.ID, 'chromosome').clear()
+        driver.find_element(By.ID, 'chromosome').send_keys("MT")
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        #time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'AU020885'))
+
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -322,7 +323,7 @@ class TestEiMrkSearch(unittest.TestCase):
         # print column 1
         print(cells.text)
         # assert the symbol is correct
-        self.assertEqual(cells.text, '0610006N12Rik')
+        self.assertEqual(cells.text, 'AL024059')
         # locate the Marker status field and assert it is correct
         mrkstatus = driver.find_element(By.ID, 'markerStatus').get_attribute('value')
         self.assertEqual(mrkstatus, 'string:2')  # 2 equals "Withdrawn"
@@ -336,7 +337,7 @@ class TestEiMrkSearch(unittest.TestCase):
         # finds the Marker Status field, selects the option Reserved and clicks search
         Select(driver.find_element(By.ID, "markerStatus")).select_by_value('string:3')
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Agit'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -359,7 +360,7 @@ class TestEiMrkSearch(unittest.TestCase):
         # finds the Symbol field, enters a symbol and clicks search
         driver.find_element(By.ID, "markerSymbol").send_keys("10S")
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), '10S'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -381,7 +382,7 @@ class TestEiMrkSearch(unittest.TestCase):
         # finds the Name field, enters a name and clicks search
         driver.find_element(By.ID, "markerName").send_keys("sonic hedgehog")
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 5).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Shh'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -409,13 +410,12 @@ class TestEiMrkSearch(unittest.TestCase):
         # finds the accession ID field, enters an ID and hits the search button
         driver.find_element(By.ID, "accIdQuery").send_keys("MGI:87875")
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        wait.forAngular(self.driver)
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         # print row 1
         cells = table.get_row(0)
-        time.sleep(2)
         print(cells.text)
         # Assert the correct symbol has been returned in the results table
         self.assertEqual(cells.text, 'Acf1')
@@ -435,7 +435,7 @@ class TestEiMrkSearch(unittest.TestCase):
         # finds the accession ID field, enters an ID and hits the search button
         driver.find_element(By.ID, "accIdQuery").send_keys("MGI:98297")
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(10)
+        wait.forAngular(self.driver)
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -487,7 +487,7 @@ class TestEiMrkSearch(unittest.TestCase):
         # finds the marker symbol field, enters a symbol and hits the search button
         driver.find_element(By.ID, "markerSymbol").send_keys("Pax%")
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(4)
+        wait.forAngular(self.driver)
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -513,7 +513,7 @@ class TestEiMrkSearch(unittest.TestCase):
         # finds the marker name field, enters a name and hits the search button
         driver.find_element(By.ID, "markerName").send_keys("casein%")
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(4)
+        wait.forAngular(self.driver)
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -569,7 +569,7 @@ class TestEiMrkSearch(unittest.TestCase):
         driver.find_element(By.ID, "markerCreationDate").send_keys("2001-07-03")
         # finds the Search button and clicks it
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(4)
+        wait.forAngular(self.driver)
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -597,7 +597,7 @@ class TestEiMrkSearch(unittest.TestCase):
         driver.find_element(By.ID, "markerModificationDate").send_keys("2014-09-08")
         # finds the Search button and clicks it
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(4)
+        wait.forAngular(self.driver)
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -623,7 +623,7 @@ class TestEiMrkSearch(unittest.TestCase):
         driver.find_element(By.ID, "markerCreationDate").send_keys("2008-10-03")
         # finds the Search button and clicks it
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(4)
+        wait.forAngular(self.driver)
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -649,7 +649,7 @@ class TestEiMrkSearch(unittest.TestCase):
         driver.find_element(By.ID, "markerModificationDate").send_keys("2008-10-10")
         # finds the Search button and clicks it
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(4)
+        wait.forAngular(self.driver)
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -676,7 +676,7 @@ class TestEiMrkSearch(unittest.TestCase):
         driver.find_element(By.ID, "markerModificationDate").send_keys('<2004-12-15')
         # finds the Search button and clicks it
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(4)
+        wait.forAngular(self.driver)
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -704,7 +704,7 @@ class TestEiMrkSearch(unittest.TestCase):
         driver.find_element(By.ID, "markerModificationDate").send_keys('<=2004-12-15')
         # finds the Search button and clicks it
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(4)
+        wait.forAngular(self.driver)
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -732,7 +732,7 @@ class TestEiMrkSearch(unittest.TestCase):
         driver.find_element(By.ID, "markerModificationDate").send_keys("2018-11-26..2018-11-27")
         # finds the Search button and clicks it
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(4)
+        wait.forAngular(self.driver)
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -760,7 +760,7 @@ class TestEiMrkSearch(unittest.TestCase):
         driver.find_element(By.ID, "markerCreationDate").send_keys('<2002-05-20')
         # finds the Search button and clicks it
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(4)
+        wait.forAngular(self.driver)
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -788,7 +788,7 @@ class TestEiMrkSearch(unittest.TestCase):
         driver.find_element(By.ID, "markerCreationDate").send_keys('<=2002-05-20')
         # finds the Search button and clicks it
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(4)
+        wait.forAngular(self.driver)
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -816,7 +816,7 @@ class TestEiMrkSearch(unittest.TestCase):
         driver.find_element(By.ID, "markerCreationDate").send_keys("2002-05-20..2002-05-21")
         # finds the Search button and clicks it
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(4)
+        wait.forAngular(self.driver)
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -842,7 +842,7 @@ class TestEiMrkSearch(unittest.TestCase):
         Select(driver.find_element(By.ID, "synonymType-0")).select_by_value('string:1006')
         # finds the Search button and clicks it
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(4)
+        wait.forAngular(self.driver)
         # find the synonym results table type column row 5
         syn_type = driver.find_element(By.ID, 'synonymType-4').get_attribute('value')
         print(syn_type)
@@ -859,7 +859,7 @@ class TestEiMrkSearch(unittest.TestCase):
         driver.find_element(By.ID, "synonymName-0").send_keys("Gf-1")
         # finds the Search button and clicks it
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(4)
+        wait.forAngular(self.driver)
         # find the synonym results table type column row 5
         syn_name = driver.find_element(By.ID, 'synonymName-1').get_attribute('value')
         print(syn_name)
@@ -876,7 +876,7 @@ class TestEiMrkSearch(unittest.TestCase):
         driver.find_element(By.ID, "synjnumID-0").send_keys("J:9808")
         # finds the Search button and clicks it
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(4)
+        wait.forAngular(self.driver)
         syn_jnum = driver.find_element(By.ID, 'synjnumID-1').get_attribute('value')
         print(syn_jnum)
         # Assert the synonym J number is correct for row 2
@@ -892,7 +892,7 @@ class TestEiMrkSearch(unittest.TestCase):
         driver.find_element(By.ID, "synjnumID-0").send_keys("9808")
         # finds the Search button and clicks it
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(4)
+        wait.forAngular(self.driver)
         syn_jnum = driver.find_element(By.ID, 'synjnumID-1').get_attribute('value')
         print(syn_jnum)
         # Assert the synonym J number is correct for row 2
@@ -962,7 +962,7 @@ class TestEiMrkSearch(unittest.TestCase):
         # finds the Symbol field . Enter Asun and click the Search button
         driver.find_element(By.ID, "markerSymbol").send_keys("Ncam1")
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        wait.forAngular(self.driver)
         # find the STS markers tab and click it
         driver.find_element(By.ID, 'aliasTabButton').click()
         # find the alias results table
@@ -989,16 +989,14 @@ class TestEiMrkSearch(unittest.TestCase):
         # finds the Symbol field . Enter Gata1 and click the Search button
         driver.find_element(By.ID, "markerSymbol").send_keys("Gata1")
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        wait.forAngular(self.driver)
         # find the TSS tab and click it
         driver.find_element(By.ID, 'tssTabButton').click()
-        time.sleep(2)
         # find the tss results table
         alias_table = self.driver.find_element(By.ID, "tssTable")
         table = Table(alias_table)
         # find the tss column of data
         cells = table.get_column_cells('TSS or Gene')
-        time.sleep(2)
         # print the first row result
         print(cells[1].text)
         # locate the tss fields and verify the results are correct
@@ -1019,7 +1017,7 @@ class TestEiMrkSearch(unittest.TestCase):
         # finds the Symbol field . Enter Gata1 and click the Search button
         driver.find_element(By.ID, "markerSymbol").send_keys("Tssr162832")
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        wait.forAngular(self.driver)
         # find the TSS tab and click it
         driver.find_element(By.ID, 'tssTabButton').click()
         # find the tss results table
@@ -1027,7 +1025,6 @@ class TestEiMrkSearch(unittest.TestCase):
         table = Table(alias_table)
         # find the tss column of data
         cells = table.get_column_cells('TSS or Gene')
-        time.sleep(2)
         # print the first row result
         print(cells[1].text)
         # locate the tss fields and verify the results are correct
@@ -1047,11 +1044,11 @@ class TestEiMrkSearch(unittest.TestCase):
         refbox = driver.find_element(By.ID, "refjnumID-0")
         refbox.send_keys("J:180800")
         refbox.send_keys(Keys.TAB)
-        time.sleep(2)
+        #time.sleep(2)
         # find the Search button and click it
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 40 seconds
-        WebDriverWait(self.driver, 40).until(EC.visibility_of_element_located((By.ID, 'refAssocModification_date-1')))
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'refAssocModification_date-1')))
         # waits until the Reference table is displayed on the page
         # wait.forAngular(self.driver)
         # time.sleep(20)
@@ -1100,8 +1097,7 @@ class TestEiMrkSearch(unittest.TestCase):
         # find the Search button and click it
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the Reference table is displayed on the page
-        # wait.forAngular(self.driver)
-        time.sleep(4)
+        wait.forAngular(self.driver)
         # find the reference results table J# column
         ref_jnum1 = driver.find_element(By.ID, 'refjnumID-0').get_attribute('value')
         ref_jnum2 = driver.find_element(By.ID, 'refjnumID-1').get_attribute('value')
@@ -1141,14 +1137,13 @@ class TestEiMrkSearch(unittest.TestCase):
         driver = self.driver
         # find the Reference tab and click it
         driver.find_element(By.ID, 'refsTabButton').click()
-        time.sleep(2)
+        wait.forAngular(self.driver)
         # find the references Modified By field and enter the name
         driver.find_element(By.ID, "refAssocModifiedBy-0").send_keys("rbabiuk")
         # find the Search button and click it
         driver.find_element(By.ID, 'searchButton').click()
         # wait until the Reference table is displayed on the page
-        # wait.forAngular(self.driver)
-        time.sleep(20)
+        wait.forAngular(self.driver)
         # find the Modified by column eighth row
         mod_by1 = driver.find_element(By.ID, 'refAssocModifiedBy-8').get_attribute('value')
         print(mod_by1)
@@ -1190,7 +1185,7 @@ class TestEiMrkSearch(unittest.TestCase):
         # find the Reference tab and click it
         driver.find_element(By.ID, 'refsTabButton').click()
         # waits until the Reference table is displayed on the page
-        time.sleep(5)
+        wait.forAngular(self.driver)
         # find the reference results table type column
         ref_type1 = driver.find_elements(By.ID, 'refAssocType')[10].get_attribute('value')
         ref_type2 = driver.find_elements(By.ID, 'refAssocType')[11].get_attribute('value')

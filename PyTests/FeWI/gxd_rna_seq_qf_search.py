@@ -53,13 +53,10 @@ class TestGxdRnaSeqSearching(unittest.TestCase):
         '''
         print ("BEGIN test_rnaseq_theiler_search")
         self.driver.find_element(By.ID, 'stagesTab').click()#Clicks the "Use Thieler Stages" tab
-        time.sleep(2)
         Select(self.driver.find_element(By.ID, 'theilerStage')).deselect_by_value('0')#deselect the default option
         Select(self.driver.find_element(By.ID, 'theilerStage')).select_by_value('5')#finds the theiler stage list and select the TS 5 option
-        time.sleep(2)
         #find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
-        time.sleep(2)
         #identify the titles of the results returned
         result_set = self.driver.find_element(By.ID, "injectedResults").find_elements(By.CLASS_NAME, 'title')
         print(result_set[0].text)
@@ -76,7 +73,6 @@ class TestGxdRnaSeqSearching(unittest.TestCase):
         Select(self.driver.find_element(By.ID, 'age')).select_by_value('1.5')#finds the age list and select the E1.5 option
         #find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
-        time.sleep(2)
         #identify the titles of the results returned
         result_set = self.driver.find_element(By.ID, "injectedResults").find_elements(By.CLASS_NAME, 'title')
         print(result_set[0].text)
@@ -92,9 +88,7 @@ class TestGxdRnaSeqSearching(unittest.TestCase):
         self.driver.find_element(By.ID, 'mutatedIn').send_keys('Tg(Zp3-cre)3mrt')#finds the mutant field and enters the gene symbol
         #find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
-        time.sleep(2)
         self.driver.find_elements(By.LINK_TEXT, 'View')[0].click()#clicks the first View link of the first sample result
-        time.sleep(2)
         #switch focus to the new tab for Sample Experiments page
         self.driver.switch_to.window(self.driver.window_handles[-1])
         #find the sample table
@@ -131,9 +125,7 @@ class TestGxdRnaSeqSearching(unittest.TestCase):
         self.driver.find_element(By.ID, 'mutatedIn').send_keys('Tcf1')#finds the mutant field and enters the Synonym
         #find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
-        time.sleep(2)
         self.driver.find_elements(By.LINK_TEXT, 'View')[1].click()#clicks the second View link of the first sample result
-        time.sleep(2)
         #switch focus to the new tab for Sample Experiments page
         self.driver.switch_to.window(self.driver.window_handles[-1])
         #find the sample table
@@ -160,9 +152,7 @@ class TestGxdRnaSeqSearching(unittest.TestCase):
         self.driver.find_element(By.ID, 'mutatedIn').send_keys('MGI:95661')#finds the mutant field and enters the MGI ID
         #find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
-        time.sleep(2)
         self.driver.find_elements(By.LINK_TEXT, 'View')[0].click()#clicks the first View link of the first sample result
-        time.sleep(2)
         #switch focus to the new tab for Sample Experiments page
         self.driver.switch_to.window(self.driver.window_handles[-1])
         #find the sample table
@@ -191,9 +181,7 @@ class TestGxdRnaSeqSearching(unittest.TestCase):
         self.driver.find_element(By.ID, 'strainNameAC').send_keys('C57BL/6JRj')#finds the strains field and enters the text
         #find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
-        time.sleep(2)
         self.driver.find_elements(By.LINK_TEXT, 'View')[0].click()#clicks the first View link of the first sample result
-        time.sleep(2)
         #switch focus to the new tab for Sample Experiments page
         self.driver.switch_to.window(self.driver.window_handles[-1])
         #find the sample table
@@ -222,9 +210,7 @@ class TestGxdRnaSeqSearching(unittest.TestCase):
         self.driver.find_element(By.ID, 'strainNameAC').send_keys('C57BL/6JR*')#finds the strains field and enters the text
         #find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
-        time.sleep(2)
         self.driver.find_elements(By.LINK_TEXT, 'View')[0].click()#clicks the first View link of the first sample result
-        time.sleep(2)
         #switch focus to the new tab for Sample Experiments page
         self.driver.switch_to.window(self.driver.window_handles[-1])
         #find the sample table
@@ -251,15 +237,15 @@ class TestGxdRnaSeqSearching(unittest.TestCase):
     def test_rnaseq_sex_search(self):
         '''
         @status this test verifies the searching by sex on the rna seq query form works.
-        @see GXD-RNASeq-search-7 *under constuction*
+        @see GXD-RNASeq-search-7
         '''
         print ("BEGIN test_rnaseq_sex_search")
         self.driver.find_element(By.ID, 'sex2').click()#finds the sex radio button Pooled and clicks it
         #find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
-        time.sleep(2)
+        #time.sleep(2)
         self.driver.find_elements(By.LINK_TEXT, 'View')[1].click()#clicks the second View link of the first sample result
-        time.sleep(2)
+        #time.sleep(2)
         #switch focus to the new tab for Sample Experiments page
         self.driver.switch_to.window(self.driver.window_handles[-1])
         #find the sample table
@@ -377,7 +363,7 @@ class TestGxdRnaSeqSearching(unittest.TestCase):
            
     
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
         tracemalloc.stop()
        
 def suite():

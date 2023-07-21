@@ -40,17 +40,16 @@ class TestGxdProfileQF(unittest.TestCase):
         #driver.get(config.TEST_URL + '/gxd/profile')
         driver.get(config.TEST_URL + '/gxd')
         self.driver.find_element(By.CSS_SELECTOR, '#expressionSearch > ul:nth-child(1) > li:nth-child(3) > a:nth-child(1) > em:nth-child(1)').click()
-        time.sleep(2)
         struct1 = self.driver.find_element(By.ID, 'profileStructure1')
         # Enter your structure
         struct1.send_keys("molar root")
         time.sleep(2)
-        self.driver.find_element(By.ID, 'profileDetected1').click()
-        struct1.send_keys(Keys.RETURN)
+        self.driver.find_element(By.ID, 'profileDetected1').is_selected()
+        struct1.send_keys(Keys.TAB)
+        struct2 = self.driver.find_element(By.ID, 'profileStructure2')
+        struct2.send_keys(Keys.RETURN)
         time.sleep(2)
         self.driver.find_element(By.ID, 'resultstab').click()
-        time.sleep(2)
-
         #locates the structure column and lists the structures found
         structurelist = self.driver.find_element(By.ID, 'resultsdata').find_element(By.CLASS_NAME, 'yui-dt-data')
         items = structurelist.find_elements(By.CLASS_NAME, 'yui-dt-col-structure')
@@ -70,7 +69,6 @@ class TestGxdProfileQF(unittest.TestCase):
         #driver.get(config.TEST_URL + '/gxd/profile')
         driver.get(config.TEST_URL + '/gxd')
         self.driver.find_element(By.CSS_SELECTOR, '#expressionSearch > ul:nth-child(1) > li:nth-child(3) > a:nth-child(1) > em:nth-child(1)').click()
-        time.sleep(2)
         struct1 = self.driver.find_element(By.ID, 'profileStructure1')
         # Enter your structure
         struct1.send_keys("tooth root")
@@ -78,7 +76,6 @@ class TestGxdProfileQF(unittest.TestCase):
         self.driver.find_element(By.ID, 'profileDetected1').is_selected()
         struct1.send_keys(Keys.RETURN)
         time.sleep(2)
-        
         struct2 = self.driver.find_element(By.ID, 'profileStructure2')
         # Enter your structure
         struct2.send_keys("molar root")
@@ -87,8 +84,6 @@ class TestGxdProfileQF(unittest.TestCase):
         struct2.send_keys(Keys.RETURN)
         time.sleep(2)
         self.driver.find_element(By.ID, 'resultstab').click()
-        time.sleep(2)
-        
         #locates the structure column and lists the structures found
         structurelist = self.driver.find_element(By.ID, 'resultsdata').find_element(By.CLASS_NAME, 'yui-dt-data')
         items = structurelist.find_elements(By.CLASS_NAME, 'yui-dt-col-structure')
@@ -108,7 +103,6 @@ class TestGxdProfileQF(unittest.TestCase):
         #driver.get(config.TEST_URL + '/gxd/profile')
         driver.get(config.TEST_URL + '/gxd')
         self.driver.find_element(By.CSS_SELECTOR, '#expressionSearch > ul:nth-child(1) > li:nth-child(3) > a:nth-child(1) > em:nth-child(1)').click()
-        time.sleep(2)
         struct1 = self.driver.find_element(By.ID, 'profileStructure1')
         # Enter your structure
         struct1.send_keys("blood island")
@@ -116,11 +110,8 @@ class TestGxdProfileQF(unittest.TestCase):
         self.driver.find_element(By.ID, 'profileDetected1').click()
         struct1.send_keys(Keys.RETURN)
         time.sleep(2)
-        self.driver.find_element(By.ID, 'nowhereElseCheckbox').is_selected()
-        time.sleep(2)
+        self.driver.find_element(By.ID, 'profileNowhereElseCheckbox').is_selected()
         self.driver.find_element(By.ID, 'resultstab').click()
-        time.sleep(2)
-        
         #locates the structure column and lists the structures found
         structurelist = self.driver.find_element(By.ID, 'resultsdata').find_element(By.CLASS_NAME, 'yui-dt-data')
         items = structurelist.find_elements(By.CLASS_NAME, 'yui-dt-col-structure')
@@ -140,7 +131,6 @@ class TestGxdProfileQF(unittest.TestCase):
         #driver.get(config.TEST_URL + '/gxd/profile')
         driver.get(config.TEST_URL + '/gxd')
         self.driver.find_element(By.CSS_SELECTOR, '#expressionSearch > ul:nth-child(1) > li:nth-child(3) > a:nth-child(1) > em:nth-child(1)').click()
-        time.sleep(2)
         struct1 = self.driver.find_element(By.ID, 'profileStructure1')
         # Enter your structure
         struct1.send_keys("tongue anterior part")
@@ -148,7 +138,6 @@ class TestGxdProfileQF(unittest.TestCase):
         self.driver.find_element(By.ID, 'profileDetected1').is_selected()
         struct1.send_keys(Keys.RETURN)
         time.sleep(2)
-        
         struct2 = self.driver.find_element(By.ID, 'profileStructure2')
         # Enter your structure
         struct2.send_keys("tongue extrinsic muscle")
@@ -158,7 +147,6 @@ class TestGxdProfileQF(unittest.TestCase):
         time.sleep(2)
         self.driver.find_element(By.ID, 'resultstab').click()
         time.sleep(2)
-        
         #locates the structure column and lists the structures found
         structurelist = self.driver.find_element(By.ID, 'resultsdata').find_element(By.CLASS_NAME, 'yui-dt-data')
         items = structurelist.find_elements(By.CLASS_NAME, 'yui-dt-col-structure')
@@ -170,17 +158,17 @@ class TestGxdProfileQF(unittest.TestCase):
         self.assertNotIn('TS23: tongue extrinsic muscle', searchTextItems, 'TS23: tongue extrinsic muscle is being returned!') 
 
         
-    def test_profile_all_no(self):
-        """
-        @status: Tests that searching by  3 not detected structures return the correct results
-        @note: GXD-Profile-5
+    """def test_profile_all_no(self):
+        
+        @status: Tests that searching by 3 not detected structures return the correct results
+        @note: GXD-Profile-5 Test no longer valid! 6/28/2023
         @attention: the time sleeps need to be replaced by expected conditions code. This test has a long sleep because something is slow!
-        """
+        
         driver = self.driver
         #driver.get(config.TEST_URL + '/gxd/profile')
         driver.get(config.TEST_URL + '/gxd')
         self.driver.find_element(By.CSS_SELECTOR, '#expressionSearch > ul:nth-child(1) > li:nth-child(3) > a:nth-child(1) > em:nth-child(1)').click()
-        time.sleep(2)
+        #time.sleep(2)
         struct1 = self.driver.find_element(By.ID, 'profileStructure1')
         # Enter your structure
         struct1.send_keys("???")
@@ -188,7 +176,6 @@ class TestGxdProfileQF(unittest.TestCase):
         self.driver.find_element(By.ID, 'profileDetected1').is_selected()
         struct1.send_keys(Keys.RETURN)
         time.sleep(2)
-        
         struct2 = self.driver.find_element(By.ID, 'profileStructure2')
         # Enter your structure
         struct2.send_keys("???")
@@ -198,7 +185,6 @@ class TestGxdProfileQF(unittest.TestCase):
         time.sleep(2)
         self.driver.find_element(By.ID, 'resultstab').click()
         time.sleep(2)
-        
         #locates the structure column and lists the structures found
         structurelist = self.driver.find_element(By.ID, 'resultsdata').find_element(By.CLASS_NAME, 'yui-dt-data')
         items = structurelist.find_elements(By.CLASS_NAME, 'yui-dt-col-structure')
@@ -208,7 +194,7 @@ class TestGxdProfileQF(unittest.TestCase):
         self.assertIn('TS28: tongue anterior part', searchTextItems, 'TS28: tongue anterior part is not being returned!')   
         #assert that this gene is not returned since it has no expression annotations
         self.assertNotIn('TS23: tongue extrinsic muscle', searchTextItems, 'TS23: tongue extrinsic muscle is being returned!') 
-           
+     """
                 
     def tearDown(self):
         self.driver.quit()

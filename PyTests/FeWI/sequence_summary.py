@@ -11,6 +11,8 @@ from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import sys,os.path
 from util import wait, iterate
 from config.config import TEST_URL
@@ -39,25 +41,22 @@ class TestSequenceSummaryPage(unittest.TestCase):
         # put your marker symbol
         genebox.send_keys("Bloc1s2")
         genebox.send_keys(Keys.RETURN)
-        time.sleep(3)
+        time.sleep(2)
         #finds the correct marker link and clicks it
         driver.find_element(By.LINK_TEXT, 'Bloc1s2').click()
-        time.sleep(2)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'summaryRibbon'))):
+            print('Summary data is loaded')
         #Finds the All sequences link and clicks it
         driver.find_element(By.ID, 'allSeqLink').click()
-        wait.forAjax(driver)
         #Locates the marker header table and finds the table headings
         markerheaderlist = driver.find_element(By.CLASS_NAME, 'summaryHeaderCat1')
         items = markerheaderlist.find_elements(By.TAG_NAME, 'div')
         searchTextItems = iterate.getTextAsList(items)
-        wait.forAjax(driver)
         #verifies all the table headings are correct and in order
         self.assertEqual(searchTextItems, ['Symbol','Name','ID'])
-        wait.forAjax(driver)
         #Locates the sequence summary table and finds the table headings
         columnheaderlist = driver.find_elements(By.CLASS_NAME, 'yui-dt-label')
         searchTextItems = iterate.getTextAsList(columnheaderlist)
-        wait.forAjax(driver)
         #verifies all the table headings are correct and in order
         self.assertEqual(searchTextItems, ['Select','Sequence','Type','Length','Strain/Species','Description From\nSequence Provider','Clone\nCollection','Marker\nSymbol'])
 
@@ -78,14 +77,12 @@ class TestSequenceSummaryPage(unittest.TestCase):
         time.sleep(3)
         #finds the correct marker link and clicks it
         driver.find_element(By.LINK_TEXT, 'Gabarap').click()
-        time.sleep(2)
         #Finds the All sequences link and clicks it
         driver.find_element(By.ID, 'allSeqLink').click()
         time.sleep(2)
         #finds the Type column and then iterates through all items
         seqtypelist = driver.find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-seqType .yui-dt-liner')
         searchTextItems = iterate.getTextAsList(seqtypelist)
-        time.sleep(2)
         print(searchTextItems)
         #asserts that the rows of Type data are in correct order
         self.assertEqual(searchTextItems, ['RNA', 'RNA', 'RNA', 'RNA', 'RNA', 'RNA', 'RNA', 'RNA', 'RNA', 'RNA', 'RNA', 'RNA', 'RNA', 'RNA', 'RNA', 'DNA', 'DNA', 'DNA', 'DNA', 'DNA', 'DNA', 'DNA', 'DNA', 'DNA', 'DNA'])
@@ -93,7 +90,6 @@ class TestSequenceSummaryPage(unittest.TestCase):
         #finds the Sequence column and then iterates through all items
         seqlist = driver.find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-seqInfo .yui-dt-liner')
         searchTextItems = iterate.getTextAsList(seqlist)
-        time.sleep(2)
         print(searchTextItems)
         #asserts that the rows of length data are in correct order
         self.assertEqual(searchTextItems, ['ENSMUST00000018711\n  Ensembl\n  MGI Sequence Detail', 'ENSMUST00000144443\n  Ensembl\n  MGI Sequence Detail', 'ENSMUST00000108592\n  Ensembl\n  MGI Sequence Detail', 'ENSMUST00000139007\n  Ensembl\n  MGI Sequence Detail', 'NM_019749\n  RefSeq\n  MGI Sequence Detail', 'BC030350\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail', 'BC002126\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail', 'BC024621\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail', 'AV029091\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail', 'BC029329\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail', 'AK002879\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail', 'AK011731\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail', 'AF161587\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail', 'KY499680\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail', 'AW124839\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail', 'ENSMUSG00000018567\n  Ensembl Gene Model\n  MGI Sequence Detail', '56486\n  NCBI Gene Model\n  MGI Sequence Detail', 'MGP_129S1SvImJ_G0018575\n  Ensembl\n  MGI Sequence Detail', 'MGP_WSBEiJ_G0017937\n  Ensembl\n  MGI Sequence Detail', 'MGP_NODShiLtJ_G0018423\n  Ensembl\n  MGI Sequence Detail', 'MGP_PWKPhJ_G0017657\n  Ensembl\n  MGI Sequence Detail', 'MGP_NZOHlLtJ_G0019008\n  Ensembl\n  MGI Sequence Detail', 'MGP_C3HHeJ_G0018328\n  Ensembl\n  MGI Sequence Detail', 'MGP_BALBcJ_G0018515\n  Ensembl\n  MGI Sequence Detail', 'MGP_C57BL6NJ_G0018966\n  Ensembl\n  MGI Sequence Detail'])
@@ -101,7 +97,6 @@ class TestSequenceSummaryPage(unittest.TestCase):
         #finds the Length column and then iterates through all items
         lengthlist = driver.find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-length .yui-dt-liner')
         searchTextItems = iterate.getTextAsList(lengthlist)
-        time.sleep(2)
         print(searchTextItems)
         #asserts that the rows of length data are in correct order,sort is large to small
         self.assertEqual(searchTextItems, ['1351', '932', '750', '454', '1122', '1152', '924', '899', '893', '879', '872', '776', '565', '492', '465', '3809', '3580', '6111', '5983', '5196', '4974', '4641', '4400', '3763', '3731'])
@@ -121,21 +116,17 @@ class TestSequenceSummaryPage(unittest.TestCase):
         time.sleep(3)
         #finds the correct marker link and clicks it
         driver.find_element(By.LINK_TEXT, 'Ppnr').click()
-        time.sleep(2)
         #Finds the All sequences link and clicks it
         driver.find_element(By.ID, 'allSeqLink').click()
         time.sleep(2)
         #finds the link for Ensembl of sequence MGP_CBAJ_G0036567 and clicks it.
         driver.find_element(By.CSS_SELECTOR, '#yui-rec5 > td:nth-child(2) > div:nth-child(1) > a:nth-child(2)').click()
-        time.sleep(2)
         species_m = driver.find_element(By.CLASS_NAME, 'species')
         #asserts that the link takes you to the correct sequence at ensembl.
         self.assertEqual(species_m.text, 'Mouse CBA/J')
         driver.back()
-        time.sleep(2)
         #finds the link for MGI Sequence Detail of sequence MGP_CBAJ_G0036567 and clicks it.
         driver.find_element(By.CSS_SELECTOR, '#yui-rec5 > td:nth-child(2) > div:nth-child(1) > a:nth-child(4)').click()
-        time.sleep(2)
         #find the ID listed in the ID/Version ribbon of the sequence detail page
         seq_id = driver.find_element(By.CSS_SELECTOR, '#seqIdTable > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > b:nth-child(1)')
         #asserts that the link takes you to the correct sequence detail page.
@@ -155,13 +146,11 @@ class TestSequenceSummaryPage(unittest.TestCase):
         time.sleep(3)
         #finds the correct marker link and clicks it
         driver.find_element(By.LINK_TEXT, 'Ppnr').click()
-        time.sleep(2)
         #Finds the All sequences link and clicks it
         driver.find_element(By.ID, 'allSeqLink').click()
         time.sleep(2)
         #finds the link for MGI Sequence Detail of sequence MGI_C57BL6J_1349458 and clicks it.
         driver.find_element(By.CSS_SELECTOR, '#yui-rec21 > td:nth-child(2) > div:nth-child(1) > a:nth-child(2)').click()
-        time.sleep(2)
         #find the ID listed in the ID/Version ribbon of the sequence detail page
         seq_id = driver.find_element(By.CSS_SELECTOR, '#seqIdTable > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > b:nth-child(1)')
         #asserts that the link takes you to the correct sequence detail page.

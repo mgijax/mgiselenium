@@ -45,7 +45,6 @@ class TestReferenceSummaryStrain(unittest.TestCase):
         # Enter your J number in the searchbox
         idsearchbox.send_keys("J:24637")
         idsearchbox.submit()
-        #time.sleep(2)
         #find the link beside the word Strains in the Curated Data column and click it
         self.driver.find_element(By.LINK_TEXT, '2').click()
         #locates the strain summary table, find all the rows of data and print it to the console

@@ -11,7 +11,9 @@ from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from util import iterate
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from util import iterate, wait
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -34,13 +36,12 @@ class TestHPOBrowser(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/hp_ontology/HP:0000118")
-        time.sleep(1)
         #identifies the table tags that  contain  parent terms
         parent = driver.find_element(By.ID, 'termPaneDetails').find_elements(By.TAG_NAME, 'td')
         print([x.text for x in parent])
         
         # verifies that the returned part terms are correct
-        #self.assertEqual(parent[3].text, "is-a All")
+        self.assertEqual(parent[3].text, "is-a All")
         
         
     def test_default_sort_treeview(self):
@@ -50,7 +51,7 @@ class TestHPOBrowser(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/hp_ontology/HP:0000005")
-        time.sleep(2)
+        time.sleep(1)
         termList = driver.find_elements(By.CLASS_NAME, 'jstree-anchor')
         terms = iterate.getTextAsList(termList)
         print([x.text for x in termList])
@@ -69,7 +70,8 @@ class TestHPOBrowser(unittest.TestCase):
         # put your HPO search term in the search box
         searchbox.send_keys("Abnormality of the chin")
         searchbox.send_keys(Keys.RETURN)
-        time.sleep(2)
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'searchResults'))):
+            print('results loaded')
         searchList = driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
         print([x.text for x in searchList])

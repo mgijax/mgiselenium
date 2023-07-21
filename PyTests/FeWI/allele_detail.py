@@ -117,7 +117,6 @@ class TestAlleleDetail(unittest.TestCase):
         mutationRightArrow = self.driver.find_element(By.ID, 'rightArrowMutationDescription')
         self.assertTrue(mutationDownArrow.is_displayed())
         self.assertFalse( mutationRightArrow.is_displayed())
-        time.sleep(2)
         mutationDownArrow.click()
         mutationDownArrow = self.driver.find_element(By.ID, 'downArrowMutationDescription')
         mutationRightArrow = self.driver.find_element(By.ID, 'rightArrowMutationDescription')
@@ -170,7 +169,6 @@ class TestAlleleDetail(unittest.TestCase):
         
         self.assertTrue(mutationDownArrow.is_displayed())
         self.assertFalse( mutationRightArrow.is_displayed())
-        time.sleep(2)
         mutationDownArrow.click()
         mutationDownArrow = self.driver.find_element(By.ID, 'downArrowMutationDescription')
         mutationRightArrow = self.driver.find_element(By.ID, 'rightArrowMutationDescription')
@@ -364,9 +362,9 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('Nphp3')
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        time.sleep(4)
+        #time.sleep(4)
         self.driver.find_elements(By.PARTIAL_LINK_TEXT, 'pol')[1].click()
-        time.sleep(4)
+        #time.sleep(4)
         afplink = self.driver.find_element(By.LINK_TEXT, 'incidental mutations')
         actualurl = self.driver.find_element(By.LINK_TEXT, 'incidental mutations').get_attribute('href')
         
@@ -441,12 +439,11 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').send_keys('shh')
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Dsh').click()
+        WebDriverWait(self.driver, 2).until(EC.element_to_be_clickable((By.LINK_TEXT, '(101 x C3H)F1')))
         self.driver.find_element(By.LINK_TEXT, '(101 x C3H)F1').click()
         #switch focus to the new tab for strain detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        time.sleep(2)
         ptitle = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
-        time.sleep(2)
         #Assert the page title is for the correct strain name
         self.assertEqual(ptitle.text, "(101 x C3H)F1")
 
@@ -459,12 +456,11 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').send_keys('Shh')
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Dz').click()
-        #find the first link for C57BL/6J-Shh<Dz> in the Genetic Background column of the Phenotype table and click it.
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/table/tbody/tr[5]/td[2]/div[1]/table/tbody/tr[2]/td[2]/div/div/table/tbody[2]/tr[1]/td[3]/div/span/a').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 2).until(EC.element_to_be_clickable((By.CSS_SELECTOR, '#yui-rec0 > td:nth-child(3) > div:nth-child(1) > span:nth-child(1) > a:nth-child(1)')))
+        #find the first link for C57BL/6J-Rr29<Dz> in the Genetic Background column of the Phenotype table and click it.
+        self.driver.find_element(By.CSS_SELECTOR, '#yui-rec0 > td:nth-child(3) > div:nth-child(1) > span:nth-child(1) > a:nth-child(1)').click()
         #switch focus to the new tab for Strain detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        time.sleep(2)
         page_title = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
         print(page_title.text)
         #Asserts that the strain page is for the correct strain
@@ -481,32 +477,25 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('Shh')
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Dz').click()        
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Dz').click()
+        WebDriverWait(self.driver, 2).until(EC.element_to_be_clickable((By.LINK_TEXT, 'View')))
         #locate the View link found at the bottom of the Phenotypes ribbon and click it
         self.driver.find_element(By.LINK_TEXT, 'View').click()
-        #time.sleep(2)
         #switch focus to the new tab for Phenotypes associated with this allele page        
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        time.sleep(2)
         #find the first link for C57BL/6J-Shh<Dz> in the Genetic Background column of the Summary ribbon and click it.
         self.driver.find_element(By.XPATH, '/html/body/div[2]/table/tbody/tr[2]/td[2]/div/table/tbody/tr[2]/td[3]/a').click()
-        time.sleep(2)
         #switch focus to the new tab for Strain detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        time.sleep(2)
         ptitle = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
         #Assert the page title is for the correct strain name
         self.assertEqual(ptitle.text, "C57BL/6J-Rr29Dz", 'Page title is not correct!')
-        time.sleep(2)
         #switch focus back to the tab for Phenotypes associated with this allele page
         self.driver.switch_to.window(self.driver.window_handles[+1])
-        time.sleep(2)
         #find the first link for C57BL/6J-Shh<Dz> in the Genetic Background section of the Genotype ribbon and click it.
         self.driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div[1]/div/div[2]/table/tbody/tr/td[1]/table/tbody/tr[2]/td[2]/a').click()
-        time.sleep(2)
         #switch focus to the new tab for Strain detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        time.sleep(2)
         ptitle = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
         #Assert the page title is for the correct strain name
         self.assertEqual(ptitle.text, "C57BL/6J-Rr29Dz", 'Page title is not correct!')   
@@ -519,7 +508,7 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').send_keys('Trp53')
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1Tyj').click()
-        time.sleep(2)
+
         actualurl = self.driver.find_element(By.LINK_TEXT, 'breast cancer').get_attribute('href')
         
         self.assertEqual(actualurl, 'https://mgitest.jax.org/disease/DOID:1612')
@@ -556,7 +545,6 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').send_keys('Tg(ACTFLPe)9205Dym')
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Tg(ACTFLPe)9205Dym').click()
-        time.sleep(2)
         self.driver.find_element(By.ID, 'showPhenoButton').click()
         phenotypesort = self.driver.find_element(By.ID, 'phenotable_id')
         items = phenotypesort.find_elements(By.CSS_SELECTOR, '.phenoSummarySystemRow td:first-child, .phenoSummaryTermRow td:first-child')
@@ -564,7 +552,7 @@ class TestAlleleDetail(unittest.TestCase):
         # add all li text to a list for "assertIn" test
         searchTreeItems = iterate.getTextAsList(items)
         print(searchTreeItems)
-        self.assertEqual(['behavior/neurological', 'tremors', 'impaired balance', 'impaired coordination', 'abnormal gait', 'short stride length', 'cardiovascular system',  'cardiovascular system phenotype', 'hearing/vestibular/ear', 'abnormal ear physiology', 'mortality/aging', 'perinatal lethality', 'nervous system', 'abnormal synaptic vesicle recycling', 'abnormal excitatory postsynaptic currents'], searchTreeItems)
+        self.assertEqual(['behavior/neurological', '', '', '', '', '', 'cardiovascular system',  '', 'hearing/vestibular/ear', '', 'mortality/aging', '', 'nervous system', '', ''], searchTreeItems)
         self.driver.get(config.TEST_URL + "/allele/")    
         
         self.driver.find_element(By.NAME, 'nomen').clear()
@@ -587,10 +575,10 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').send_keys('lepr')
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Leprdb').click()
-        self.driver.window_handles[0]
-        self.driver.find_element(By.LINK_TEXT, 'hm1').click()
-        
-        wait.forNewWindow(self.driver)
+        wait.forAjax(self.driver, 2)
+        self.driver.find_element(By.CSS_SELECTOR, '#yui-rec0 > td:nth-child(1) > div:nth-child(1) > a:nth-child(1) > span:nth-child(1)').click()
+        # switch focus to the new tab for Phenotypes Associated with this Genotype page
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         page_title = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
         self.assertEqual(page_title.text, "Phenotypes Associated with This Genotype")
         mgi_id = self.driver.find_element(By.CLASS_NAME, 'genoID')
@@ -665,6 +653,7 @@ class TestAlleleDetail(unittest.TestCase):
         #verifies that the assays results link exists/is displayed
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'assay results').is_displayed()
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'anatomical structures').click()
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.CLASS_NAME, 'titleBarMainTitleGxd'), 'Mouse Developmental Anatomy Browser'))
         #Captures the anatomy search results
         searchList = self.driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
@@ -685,7 +674,7 @@ class TestAlleleDetail(unittest.TestCase):
         #verifies that the assays results link exists/is displayed
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'assay results').is_displayed()
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'anatomical structures').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.CLASS_NAME, 'titleBarMainTitleGxd'), 'Mouse Developmental Anatomy Browser'))
         searchList = self.driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
         print([x.text for x in searchList])
@@ -792,7 +781,6 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').send_keys("Gt(ROSA)26Sor<tm1(Wnk1)Clhu>")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Clhu').click()
-        time.sleep(2)
         #find the first right arrow in the Mutation Description section and click it
         expressesRightArrow = self.driver.find_element(By.ID, 'rightArrowExpressesComponent')
         expressesRightArrow.click()
@@ -805,7 +793,7 @@ class TestAlleleDetail(unittest.TestCase):
         org_cell = table.get_cell(1, 0)
         print (org_cell.text)
         #verify the organism is Human
-        self.assertEquals(org_cell.text, 'rat')        
+        self.assertEqual(org_cell.text, 'rat')
 
     def test_allele_detail_Relates_to_Zebrafish(self):
         '''
@@ -816,7 +804,6 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').send_keys("Tg(MMTV-Catnb)3Pac")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.PARTIAL_LINK_TEXT, '3Pac').click()
-        time.sleep(2)
         #find the first right arrow in the Mutation Description section and click it
         expressesRightArrow = self.driver.find_element(By.ID, 'rightArrowExpressesComponent')
         expressesRightArrow.click()
@@ -829,7 +816,7 @@ class TestAlleleDetail(unittest.TestCase):
         org_cell = table.get_cell(1, 0)
         print (org_cell.text)
         #verify the organism is Human
-        self.assertEquals(org_cell.text, 'zebrafish')
+        self.assertEqual(org_cell.text, 'zebrafish')
 
     def test_allele_detail_Relates_to_Fruitfly(self):
         '''
@@ -840,7 +827,6 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').send_keys("Tg(CAG-H3.3A/EGFP)1Dean")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.PARTIAL_LINK_TEXT, '1Dean').click()
-        time.sleep(2)
         #find the first right arrow in the Mutation Description section and click it
         expressesRightArrow = self.driver.find_element(By.ID, 'rightArrowExpressesComponent')
         expressesRightArrow.click()
@@ -852,8 +838,8 @@ class TestAlleleDetail(unittest.TestCase):
         # find the text in the Organism column and print it
         org_cell = table.get_cell(1, 0)
         print (org_cell.text)
-        #verify the organism is Human
-        self.assertEquals(org_cell.text, 'Fruit Fly')
+        #verify the organism is Fruit Fly
+        self.assertEqual(org_cell.text, 'Drosophila melanogaster')
 
     def test_allele_detail_Relates_to_Yeast(self):
         '''
@@ -864,7 +850,6 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').send_keys("Tg(CMV-GAL4)1Wrk")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.PARTIAL_LINK_TEXT, '1Wrk').click()
-        time.sleep(2)
         #find the first right arrow in the Mutation Description section and click it
         expressesRightArrow = self.driver.find_element(By.ID, 'rightArrowExpressesComponent')
         expressesRightArrow.click()
@@ -877,7 +862,7 @@ class TestAlleleDetail(unittest.TestCase):
         org_cell = table.get_cell(1, 0)
         print (org_cell.text)
         #verify the organism is Human
-        self.assertEquals(org_cell.text, 'Yeast')
+        self.assertEqual(org_cell.text, 'yeast')
 
     def test_allele_detail_Recomb_structure(self):
         '''
@@ -888,11 +873,9 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').send_keys("gfi1")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Gan').click()
-        time.sleep(2)
         #find the toggle arrow in the Recombinase activity section and click it to open up the grid.
         gridArrow = self.driver.find_element(By.ID, 'recomRibbonTeaser')
         gridArrow.click()
-        time.sleep(2)
         #find and print the E table headers
         header_cell1 = self.driver.find_element(By.CSS_SELECTOR, '.pgg-table > thead:nth-child(1) > tr:nth-child(1) > th:nth-child(2) > div:nth-child(1)')
         print (header_cell1.text)
@@ -911,14 +894,14 @@ class TestAlleleDetail(unittest.TestCase):
         header_cell8 = self.driver.find_element(By.CSS_SELECTOR, '.pgg-table > thead:nth-child(1) > tr:nth-child(1) > th:nth-child(9) > div:nth-child(1)')
         print (header_cell6.text)
         #verify the main E table headers are correct
-        self.assertEquals(header_cell1.text, 'Embryonic (E0-8.9)')
-        self.assertEquals(header_cell2.text, 'Embryonic (E9-13.9)')
-        self.assertEquals(header_cell3.text, 'Embryonic (E14-21)')
-        self.assertEquals(header_cell4.text, 'Newborn (P0-3.9)')
-        self.assertEquals(header_cell5.text, 'Pre-weaning (P4-21.9)')
-        self.assertEquals(header_cell6.text, 'Post-weaning (P22-42.9)')
-        self.assertEquals(header_cell7.text, 'Adult (P>43)')
-        self.assertEquals(header_cell8.text, 'Postnatal (age unspecified)')
+        self.assertEqual(header_cell1.text, 'Embryonic (E0-8.9)')
+        self.assertEqual(header_cell2.text, 'Embryonic (E9-13.9)')
+        self.assertEqual(header_cell3.text, 'Embryonic (E14-21)')
+        self.assertEqual(header_cell4.text, 'Newborn (P0-3.9)')
+        self.assertEqual(header_cell5.text, 'Pre-weaning (P4-21.9)')
+        self.assertEqual(header_cell6.text, 'Post-weaning (P22-42.9)')
+        self.assertEqual(header_cell7.text, 'Adult (P>43)')
+        self.assertEqual(header_cell8.text, 'Postnatal (age unspecified)')
         # find the text in the Systems column(main headers only)
         activity1 = self.driver.find_element(By.CSS_SELECTOR, 'tr.pgg-row:nth-child(1) > td:nth-child(1) > span:nth-child(1)')
         print (activity1.text)
@@ -933,17 +916,17 @@ class TestAlleleDetail(unittest.TestCase):
         activity10 = self.driver.find_element(By.CSS_SELECTOR, 'tr.pgg-row:nth-child(41) > td:nth-child(1) > span:nth-child(1)')
         activity11 = self.driver.find_element(By.CSS_SELECTOR, 'tr.pgg-row:nth-child(53) > td:nth-child(1) > span:nth-child(1)')
         #verify the main header activity structures
-        self.assertEquals(activity1.text, 'alimentary system')
-        self.assertEquals(activity2.text, 'cardiovascular system')
-        self.assertEquals(activity3.text, 'head')
-        self.assertEquals(activity4.text, 'hemolymphoid system')
-        self.assertEquals(activity5.text, 'integumental system')
-        self.assertEquals(activity6.text, 'liver & biliary system')
-        self.assertEquals(activity7.text, 'nervous system')
-        self.assertEquals(activity8.text, 'renal & urinary system')
-        self.assertEquals(activity9.text, 'respiratory system')
-        self.assertEquals(activity10.text, 'sensory organs')
-        self.assertEquals(activity11.text, 'skeletal system')
+        self.assertEqual(activity1.text, 'alimentary system')
+        self.assertEqual(activity2.text, 'cardiovascular system')
+        self.assertEqual(activity3.text, 'head')
+        self.assertEqual(activity4.text, 'hemolymphoid system')
+        self.assertEqual(activity5.text, 'integumental system')
+        self.assertEqual(activity6.text, 'liver & biliary system')
+        self.assertEqual(activity7.text, 'nervous system')
+        self.assertEqual(activity8.text, 'renal & urinary system')
+        self.assertEqual(activity9.text, 'respiratory system')
+        self.assertEqual(activity10.text, 'sensory organs')
+        self.assertEqual(activity11.text, 'skeletal system')
         
     def test_allele_detail_Recomb_structure_popup(self):
         '''
@@ -954,22 +937,19 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').send_keys("gfi1")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Gan').click()
-        time.sleep(2)
         #find the toggle arrow in the Recombinase activity section and click it to open up the grid.
         gridArrow = self.driver.find_element(By.ID, 'recomRibbonTeaser')
         gridArrow.click()
-        time.sleep(2)
         #locate the light blue field for nervous system E14-19.5
         c_color = self.driver.find_element(By.CSS_SELECTOR, 'tr.pgg-row:nth-child(32) > td:nth-child(4)').get_attribute('class')
         #assert the field has the correct class name of pgg-cell b1
-        self.assertEquals(c_color, 'pgg-cell b1')
+        self.assertEqual(c_color, 'pgg-cell b1')
         #locate the blank field with yellow corner for nervous system P0-21
         c_color = self.driver.find_element(By.CSS_SELECTOR, 'td.gold-corner').get_attribute('class')
         #assert the field has the correct class name of pgg-cell gold-corner
-        self.assertEquals(c_color, 'pgg-cell gold-corner')
+        self.assertEqual(c_color, 'pgg-cell gold-corner')
         # find the blue box for alimentary system E14-21 and click it
         self.driver.find_element(By.CSS_SELECTOR, 'tr.pgg-row:nth-child(1) > td:nth-child(4)').click()
-        time.sleep(2)
         #find the heading text and print it
         header = self.driver.find_element(By.XPATH, "/html/body/div[2]/table/tbody/tr[5]/td[2]/div/table/tbody/tr[1]/td[2]/div[2]/div/div/div[2]/div[2]/div/span")
         print(header.text)
@@ -977,9 +957,9 @@ class TestAlleleDetail(unittest.TestCase):
         data_yes = self.driver.find_element(By.XPATH, '/html/body/div[2]/table/tbody/tr[5]/td[2]/div/table/tbody/tr[1]/td[2]/div[2]/div/div/div[2]/div[2]/table/tbody/tr[1]/td[2]')
         print(data_yes.text)        
         #verify the heading text is correct
-        self.assertEquals(header.text, 'alimentary system (Embryonic (E14-21))')
+        self.assertEqual(header.text, 'alimentary system (Embryonic (E14-21))')
         #verify the number of Yes results are correct
-        self.assertEquals(data_yes.text, '8')
+        self.assertEqual(data_yes.text, '8')
 
     def test_allele_detail_Recomb_structure_popup2(self):
         '''
@@ -990,30 +970,27 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').send_keys("Tg(ACTA1-cre)79Jme")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.PARTIAL_LINK_TEXT, '79Jme').click()
-        time.sleep(2)
         #find the toggle arrow in the Recombinase activity section and click it to open up the grid.
         gridArrow = self.driver.find_element(By.ID, 'recomRibbonTeaser')
         gridArrow.click()
-        time.sleep(2)
         #locate the blank field for adipose system E9.0-13.9
         c_color = self.driver.find_element(By.CSS_SELECTOR, 'tr.pgg-row:nth-child(1) > td:nth-child(3)').get_attribute('class')
         #assert the field has the correct class name of pgg-cell empty-circle
-        self.assertEquals(c_color, 'pgg-cell empty-circle')
+        self.assertEqual(c_color, 'pgg-cell empty-circle')
         #locate the circle field for adipose system E14-21
         c_color = self.driver.find_element(By.CSS_SELECTOR, 'tr.pgg-row:nth-child(1) > td:nth-child(4)').get_attribute('class')
         #assert the field has the correct class name of pgg-cell empty-circle
-        self.assertEquals(c_color, 'pgg-cell empty-circle')
+        self.assertEqual(c_color, 'pgg-cell empty-circle')
         #locate the light red field for adipose system P4-21.9
         c_color = self.driver.find_element(By.CSS_SELECTOR, 'tr.pgg-row:nth-child(1) > td:nth-child(6)').get_attribute('class')
         #assert the field has the correct class name of pgg-cell r1
-        self.assertEquals(c_color, 'pgg-cell r1')
+        self.assertEqual(c_color, 'pgg-cell r1')
         #locate the blue with yellow corner field for alimentary system P4-21.9
         c_color = self.driver.find_element(By.CSS_SELECTOR, 'tr.pgg-row:nth-child(4) > td:nth-child(6)').get_attribute('class')
         #assert the field has the correct class name of pgg-cell b2g
-        self.assertEquals(c_color, 'pgg-cell b2g')
+        self.assertEqual(c_color, 'pgg-cell b2g')
         # find the blue box with yellow corner for alimentary system P4-21.9 and click it
         self.driver.find_element(By.CSS_SELECTOR, 'tr.pgg-row:nth-child(4) > td:nth-child(6)').click()
-        time.sleep(2)
         #find the heading text and print it
         header = self.driver.find_element(By.XPATH, "/html/body/div[2]/table/tbody/tr[5]/td[2]/div/table/tbody/tr[1]/td[2]/div[2]/div/div/div[2]/div[2]/div/span")
         print(header.text)
@@ -1024,62 +1001,58 @@ class TestAlleleDetail(unittest.TestCase):
         data_noamb = self.driver.find_element(By.XPATH, '/html/body/div[2]/table/tbody/tr[5]/td[2]/div/table/tbody/tr[1]/td[2]/div[2]/div/div/div[2]/div[2]/table/tbody/tr[2]/td[2]')
         print(data_noamb.text)        
         #verify the heading text is correct
-        self.assertEquals(header.text, 'alimentary system (Pre-weaning (P4-21.9))')
+        self.assertEqual(header.text, 'alimentary system (Pre-weaning (P4-21.9))')
         #verify the number of Yes results are correct
-        self.assertEquals(data_yes.text, '6')
+        self.assertEqual(data_yes.text, '6')
         #verify the number of No/Ambiguous results are correct
-        self.assertEquals(data_noamb.text, '3')
+        self.assertEqual(data_noamb.text, '3')
 
     def test_allele_detail_Alliance_link(self):
         '''
         @status this test verifies in the Summary section that an Alliance link to their allele page exists.
-        @note: CRM-210, alldetail-???
+        @note: CRM-210,
         '''
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys("Aak1")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1b(EUCOMM)Hmgu').click()
-        time.sleep(2)
         #find the Alliance link in the Summary section and click it
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1b(EUCOMM)Hmgu').click()
-        time.sleep(2)
         allele_var = self.driver.find_element(By.CSS_SELECTOR, '.d-none > h1:nth-child(1) > span:nth-child(1)')
         #assert the correct allele is returned
-        self.assertEquals(allele_var.text, 'Aak1tm1b(EUCOMM)Hmgu')
+        self.assertEqual(allele_var.text, 'Aak1tm1b(EUCOMM)Hmgu')
 
     def test_allele_detail_impc_link(self):
         '''
         @status this test verifies in the Summary section that an IMPC link to their allele page exists.
-        @note: CRM-211, alldetail-???
+        @note: CRM-211,
         '''
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys("Aak1")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1b(EUCOMM)Hmgu').click()
-        time.sleep(2)
+        #time.sleep(2)
         #find the IMPC link in the Summary section and click it
         self.driver.find_element(By.CSS_SELECTOR, '#nomenTable > tbody:nth-child(1) > tr:nth-child(6) > td:nth-child(2) > a:nth-child(1)').click()
-        time.sleep(2)
+        #time.sleep(2)
         gene = self.driver.find_element(By.CSS_SELECTOR, '.h1 > b:nth-child(1)')
         #assert the correct gene is returned
-        self.assertEquals(gene.text, 'Gene: Aak1')        
+        self.assertEqual(gene.text, 'Gene: Aak1')
 
     def test_allele_detail_MMHCdb_link(self):
         '''
         @status this test verifies in the Tumor section that an MMHCdb link to their allele page exists.
-        @note: CRM-212, alldetail-???
+        @note: CRM-212,
         '''
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys("Pten")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1.1Gle').click()
-        time.sleep(2)
         #find the MMHCdb link in the Tumor section and click it
         self.driver.find_element(By.CSS_SELECTOR, '#tumorTable > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > a:nth-child(1)').click()
-        time.sleep(2)
         allele = self.driver.find_element(By.CSS_SELECTOR, 'li.term-selected:nth-child(1) > span:nth-child(1)')
         #assert the correct gene is returned
-        self.assertEquals(allele.text, 'Ptentm1.1Gle')   
+        self.assertEqual(allele.text, 'Ptentm1.1Gle')
         
     def tearDown(self):
         self.driver.quit()

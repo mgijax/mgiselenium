@@ -11,7 +11,9 @@ from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 #from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from util import iterate
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from util import iterate,wait
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -34,7 +36,6 @@ class TestMPBrowser(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/mp_ontology/MP:0005375")
-        time.sleep(1)
         #identifies the table tags that  contain  parent terms
         parent = driver.find_element(By.ID, 'termPaneDetails').find_elements(By.TAG_NAME, 'td')
         print([x.text for x in parent])
@@ -50,7 +51,7 @@ class TestMPBrowser(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/mp_ontology/MP:0011614")
-        time.sleep(2)
+        wait.forAjax(self.driver, 2)
         termList = driver.find_elements(By.CLASS_NAME, 'jstree-anchor')
         terms = iterate.getTextAsList(termList)
         print([x.text for x in termList])
@@ -65,9 +66,8 @@ class TestMPBrowser(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/mp_ontology/MP:0002633")
-        time.sleep(2)
         driver.find_element(By.LINK_TEXT, 'tissues').click()
-        time.sleep(2)
+        wait.forAjax(self.driver, 2)
         searchList = driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
         print([x.text for x in searchList])
@@ -83,12 +83,11 @@ class TestMPBrowser(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/mp_ontology/MP:0014185")
-        time.sleep(2)
         driver.find_element(By.LINK_TEXT, 'tissues').click()
         searchList = driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
         print([x.text for x in searchList])
-        time.sleep(2)
+        wait.forAjax(self.driver, 2)
         # This 1 term should be returned in the anatomy search results
         self.assertIn('cerebellum TS21-28', terms, 'this term is not listed!')
         
@@ -100,7 +99,7 @@ class TestMPBrowser(unittest.TestCase):
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/mp_ontology/MP:0030355")
         driver.find_element(By.LINK_TEXT, 'tissues').click()
-        time.sleep(2)
+        wait.forAjax(self.driver, 2)
         searchList = driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
         print([x.text for x in searchList])
@@ -116,7 +115,7 @@ class TestMPBrowser(unittest.TestCase):
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/mp_ontology/MP:0000914")
         driver.find_element(By.LINK_TEXT, 'tissues').click()
-        time.sleep(2)
+        wait.forAjax(self.driver, 2)
         searchList = driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
         print([x.text for x in searchList])
@@ -131,9 +130,7 @@ class TestMPBrowser(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/mp/annotations/MP:0006209")
-        time.sleep(2)
         driver.find_element(By.LINK_TEXT, 'C57BL/6J-Enpp1asj/GrsrJ').click()
-        time.sleep(2)
         #switch focus to the new tab for Strain detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
         time.sleep(2)

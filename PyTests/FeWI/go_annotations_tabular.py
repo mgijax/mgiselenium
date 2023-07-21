@@ -39,10 +39,9 @@ class TestGoAnnotationsPage(unittest.TestCase):
         # put your marker symbol in the Nomenclature box
         genebox.send_keys("Ccr3")
         genebox.send_keys(Keys.RETURN)
-        time.sleep(3)
+        time.sleep(2)
         #finds the correct marker link and clicks it
         driver.find_element(By.LINK_TEXT, 'Ccr3').click()
-        time.sleep(3)
         #Finds the All GO Annotations link and clicks it
         driver.find_element(By.CLASS_NAME, 'goRibbon').find_element(By.ID, 'goAnnotLink').click()
         wait.forAjax(driver)
@@ -58,7 +57,7 @@ class TestGoAnnotationsPage(unittest.TestCase):
     def test_context_display(self):
         """
         @status: Tests that the correct items are displayed in the Context column, also that items that should not display are hidden(like noctua-model-id, orchid id, ECO id)
-        @attention: This test is still under construction!!!
+        @attention: This test is still under construction!!! Need to figure out how to capture/assert  items in Context  fields
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/marker")
@@ -74,15 +73,14 @@ class TestGoAnnotationsPage(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'goRibbon').find_element(By.ID, 'goAnnotLink').click()
         wait.forAjax(driver)
         #finds the Type column and then iterates through all items
-        #contextlist = driver.find_elements(By.CSS_SELECTOR, 'td.yui-dt-annotationExtensions div.goProperties.span.value')
-        webElement = driver.find_elements(By.CLASS_NAME, 'goProperties')
-        print(webElement)
+        context = driver.find_elements(By.CLASS_NAME, 'goProperties')
+        print(context)
         #searchTextItems = iterate.getTextAsList(webElement)
         #wait.forAjax(driver)
         #print searchTextItems
         time.sleep(5)
-        element = driver.find_element(By.CLASS_NAME, 'goProperties')
-        elementText = element.text
+        #element = driver.find_element(By.CLASS_NAME, 'goProperties')
+        #elementText = element.text
         #print(elementText)
         #asserts that the rows of Context data are in correct order and displayed correctly
         #self.assertEqual(searchTextItems, [u'', u'', u'', u'', u'', u'', u'', u'', u'happens in lung\nhappens in larynx mucous membrane\nresults in the movement of macrophage', u'', u'', u'', u'', u'', u'', u''])
@@ -95,7 +93,7 @@ class TestGoAnnotationsPage(unittest.TestCase):
         """
         @status: Tests that the sorting of Aspect column is by smart alpha/reverse smart alpha
         Note: annotations with Proteoform data always display at top of table
-        Note: this test is not perfect but it does test the basic sorting  of aspect!! needs to be fixed!
+        Note: this test is not perfect but it does test the basic sorting of aspect!!
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/marker")
@@ -103,31 +101,27 @@ class TestGoAnnotationsPage(unittest.TestCase):
         # put your marker symbol in the Nomenclature box
         genebox.send_keys("Ednrb")
         genebox.send_keys(Keys.RETURN)
-        time.sleep(3)
+        time.sleep(2)
         #finds the correct marker link and clicks it
         driver.find_element(By.LINK_TEXT, 'Ednrb').click()
-        time.sleep(3)
+        wait.forAjax(driver)
         #Finds the All GO Annotations link and clicks it
         driver.find_element(By.CLASS_NAME, 'goRibbon').find_element(By.ID, 'goAnnotLink').click()
-        time.sleep(3)
+        wait.forAjax(driver)
         #Locates  the table by row
         tabularheaderlist = driver.find_element(By.ID, 'dynamicdata')
         items = tabularheaderlist.find_elements(By.TAG_NAME, 'div')
         searchTextItems = iterate.getTextAsList(items)
         asp1 = driver.find_element(By.CSS_SELECTOR, '#yui-rec0')
         asp11 = driver.find_element(By.CSS_SELECTOR, '#yui-rec10')
-        asp19 = driver.find_element(By.CSS_SELECTOR, '#yui-rec18')
+        asp16 = driver.find_element(By.CSS_SELECTOR, '#yui-rec15')
         print(asp1.text)
         print(asp11.text)
-        print(asp19.text)
+        print(asp16.text)
         wait.forAjax(driver)
-        #print(searchTextItems)
-        #print(searchTextItems[10])
-        #verifies all the table headings are correct and in order
-        #self.assertEqual(searchTextItems, ['Aspect','Category','Classification Term', 'Context', 'Proteoform', 'Evidence', 'Inferred From', 'Reference(s)'])    
-        self.assertEqual(asp1.text, 'Molecular Function\nsignaling receptor activity\nendothelin receptor activity\nIDA\nJ:81728 [PMID:12441350]', 'the aspect is wrong')
-        self.assertEqual(asp11.text, 'Cellular Component\nmembrane raft\nISO\nRGD:2536\nJ:155856', 'the aspect is wrong')
-        self.assertEqual(asp19.text, 'Biological Process\nresponse to stimulus, signaling\ncalcium-mediated signaling\nISO\nP24530\nJ:164563', 'the aspect is wrong')
+        self.assertEqual(asp1.text, 'Molecular Function\nsignaling receptor activity\nendothelin receptor activity\nIBA\nPTN002517505\nJ:265628 [PMID:21873635]', 'the aspect is wrong')
+        self.assertEqual(asp11.text, 'Cellular Component\nmembrane\nIEA\nIPR000276 | IPR000499 | IPR001112 | IPR017452\nJ:72247', 'the aspect is wrong')
+        self.assertEqual(asp16.text, 'Biological Process\nlipid metabolic process\naldosterone metabolic process\nIMP\nMGI:3693642\nJ:116002 [PMID:16868309]', 'the aspect is wrong')
     
     
         

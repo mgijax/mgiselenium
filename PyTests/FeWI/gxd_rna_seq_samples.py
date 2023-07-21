@@ -45,17 +45,14 @@ class TestGxdRnaSeqSamples(unittest.TestCase):
         self.driver.find_element(By.ID, 'arrayExpressID').send_keys('E-MEXP-5')
         #find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
-        time.sleep(2)
         #find the View button of the first result and click it
         self.driver.find_element(By.ID, 'row0button').click()
-        #print result_set[2].text
-        time.sleep(2)
         #switch focus the the popup samples window
         #switch focus to the next tab
         self.driver.switch_to.window(self.driver.window_handles[-1])
         #find the ArrayExpress ID E-MEXP-5 link and click it
         self.driver.find_element(By.LINK_TEXT, 'E-MEXP-5').click()
-        time.sleep(5)
+        time.sleep(2)
         #switch focus to the next tab
         self.driver.switch_to.window(self.driver.window_handles[-2])
         #get the URL of the page
@@ -71,25 +68,17 @@ class TestGxdRnaSeqSamples(unittest.TestCase):
         '''
         print ("BEGIN test_rnaseq_samples_exp_atlas_link")
 
-
         self.driver.find_element(By.ID, 'stagesTab').click()
         Select(self.driver.find_element(By.ID, 'theilerStage')).deselect_by_value('0')#deselect the default option
         Select(self.driver.find_element(By.ID, 'theilerStage')).select_by_value('27')#finds the theiler stage list and select the TS 27 option
-        time.sleep(2)
         self.driver.find_element(By.ID, 'strainNameAC').send_keys('C57BL/6J')#finds the strain field and enter C57BL/6J
-        
-        
         #find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
-        time.sleep(2)
         #find the View button of the first result and click it
         self.driver.find_element(By.ID, 'row0button').click()
-        #print result_set[2].text
-        time.sleep(2)
         #switch focus the the popup samples window
         self.driver.switch_to.window(self.driver.window_handles[-1])
         #find the Expression Atlas ID E-GEOD-1294 link and click it
-        time.sleep(2)
         Atlas_Link = self.driver.find_element(By.LINK_TEXT, 'E-GEOD-1294').click() 
         time.sleep(2)
         print(Atlas_Link)
@@ -111,10 +100,8 @@ class TestGxdRnaSeqSamples(unittest.TestCase):
         self.driver.find_element(By.ID, 'strainNameAC').send_keys('C57BL/6J')#finds the age list and select the E4.0 option
         #find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
-        time.sleep(2)
         #find the View button of the second result and click it
         self.driver.find_element(By.ID, 'row1button').click()
-        time.sleep(2)
         #switch focus the the popup samples window
         self.driver.switch_to.window(self.driver.window_handles[-1])
         #find the GEO link GSE868 and click it
@@ -138,10 +125,8 @@ class TestGxdRnaSeqSamples(unittest.TestCase):
         self.driver.find_element(By.ID, 'arrayExpressID').send_keys('E-GEOD-37646')#finds the age list and select the E4.0 option
         #find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
-        time.sleep(2)
         #find the View button of the first result and click it
         self.driver.find_element(By.ID, 'row0button').click()
-        time.sleep(2)
         #switch focus the the popup samples window
         self.driver.switch_to.window(self.driver.window_handles[-1])
         #Find the sample table and locate the Note column

@@ -33,11 +33,10 @@ class TestEmapaBrowser(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:16042")
-        time.sleep(3)
         #identifies the table tags that contain parent terms
         parent = driver.find_element(By.ID, 'termPaneDetails').find_elements(By.TAG_NAME, 'td')
-        #print [x.text for x in parent]
-        
+        if WebDriverWait(self.driver, 4).until(EC.presence_of_element_located((By.ID, 'termPaneDetails'))):
+          print('Term details loaded')
         # verifies that the returned part terms are correct
         self.assertEqual(parent[4].text, "part-of conceptus\npart-of egg cylinder\npart-of mouse")
         
@@ -50,13 +49,44 @@ class TestEmapaBrowser(unittest.TestCase):
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:16042")
         time.sleep(2)
-        termList = driver.find_elements(By.CLASS_NAME, 'ygtvlabel')
-        terms = iterate.getTextAsList(termList)
-        print([x.text for x in termList])
-        time.sleep(2)
+        term1 = driver.find_element(By.ID, 'ygtvlabelel2')
+        term2 = driver.find_element(By.ID, 'ygtvlabelel3')
+        term3 = driver.find_element(By.ID, 'ygtvlabelel4')
+        term4 = driver.find_element(By.ID, 'ygtvlabelel5')
+        term5 = driver.find_element(By.ID, 'ygtvlabelel15')
+        term6 = driver.find_element(By.ID, 'ygtvlabelel16')
+        term7 = driver.find_element(By.ID, 'ygtvlabelel17')
+        term8 = driver.find_element(By.ID, 'ygtvlabelel18')
+        term9 = driver.find_element(By.ID, 'ygtvlabelel19')
+        term10 = driver.find_element(By.ID, 'ygtvlabelel20')
+        term11 = driver.find_element(By.ID, 'ygtvlabelel21')
+        term12 = driver.find_element(By.ID, 'ygtvlabelel22')
+        term13 = driver.find_element(By.ID, 'ygtvlabelel6')
+        term14 = driver.find_element(By.ID, 'ygtvlabelel7')
+        term15 = driver.find_element(By.ID, 'ygtvlabelel8')
+        term16 = driver.find_element(By.ID, 'ygtvlabelel9')
+        print(term1.text)
+        print(term16.text)
+        if WebDriverWait(self.driver, 4).until(EC.presence_of_element_located((By.CLASS_NAME, 'ygtvchildren'))):
+            print('Tree view details loaded')
         # extra embryonic component should not be 2nd item in list
-        self.assertGreater(terms.index('extraembryonic component'), 2)
-        
+        self.assertEqual(term1.text, 'body fluid or substance')
+        self.assertEqual(term2.text, 'body region')
+        self.assertEqual(term3.text, 'cavity or lining')
+        self.assertEqual(term4.text, 'conceptus')
+        self.assertEqual(term5.text, 'blastocyst')
+        self.assertEqual(term6.text, 'early conceptus')
+        self.assertEqual(term7.text, 'embryo')
+        self.assertEqual(term8.text, 'extraembryonic component')
+        self.assertEqual(term9.text, 'polar body')
+        self.assertEqual(term10.text, 'primitive endoderm')
+        self.assertEqual(term11.text, 'primordial germ cell')
+        self.assertEqual(term12.text, 'zona pellucida')
+        self.assertEqual(term13.text, 'early embryo')
+        self.assertEqual(term14.text, 'embryo')
+        self.assertEqual(term15.text, 'extracellular matrix')
+        self.assertEqual(term16.text, 'extraembryonic component')
+
     def test_pheno_link_multi(self):
         """
         @status: Tests that searching by an Emapa term that is associated with multiple phenotypes return the correct results/link
@@ -64,13 +94,13 @@ class TestEmapaBrowser(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:16237")
-        time.sleep(2)
         driver.find_element(By.LINK_TEXT, 'phenotype terms').click()
-        time.sleep(2)
         searchList = driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
         print([x.text for x in searchList])
-        time.sleep(1)
+        if WebDriverWait(self.driver, 3).until(EC.presence_of_element_located((By.ID, 'searchResults'))):
+            print('MP Annotation summary loaded')
+        # print('Tree view details loaded')
         # These 2 terms should be returned in the phenotype search results(could be other terms as well)
         self.assertIn('absent sinus venosus\nsinus venosus hypoplasia', terms, 'these terms are not listed!')
         
@@ -82,13 +112,12 @@ class TestEmapaBrowser(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:16076")
-        time.sleep(2)
         driver.find_element(By.LINK_TEXT, 'phenotype terms').click()
-        time.sleep(2)
         searchList = driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
         print([x.text for x in searchList])
-        time.sleep(1)
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'searchResults'))):
+            print('MP Annotation summary loaded')
         # This term should be returned in the phenotype search results
         self.assertIn('absent amniotic folds', terms, 'this term is not listed!')
         
@@ -99,12 +128,12 @@ class TestEmapaBrowser(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:16044")
-        time.sleep(2)
         driver.find_element(By.LINK_TEXT, 'phenotype terms').click()
         searchList = driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
         print([x.text for x in searchList])
-        time.sleep(5)
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'searchResults'))):
+            print('MP Annotation summary loaded')
         # These 2 terms should be returned in the phenotype search results
         self.assertIn('abnormal blastocoele morphology\nabsent blastocoele', terms, 'these terms are not listed!')
         
@@ -115,7 +144,8 @@ class TestEmapaBrowser(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:35272")
-        time.sleep(2)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'phenotypeAnnotationCount'))):
+            print('Tree view details loaded')
         driver.find_element(By.CLASS_NAME, 'phenotypeAnnotationCount').click()#clicks the phenotype annotations link found in the Treeview section
         results_table = self.driver.find_element(By.ID, 'resultsTable')
         table = Table(results_table)
@@ -128,7 +158,8 @@ class TestEmapaBrowser(unittest.TestCase):
         print(term2.text)
         print(term3.text)
         print(term4.text)
-        time.sleep(10)
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'resultsTable'))):
+            print('MP Annotation summary loaded')
         # verifies the returned terms are the correct terms for this search
         self.assertEqual('abnormal cerebellum deep nucleus morphology', term1.text, 'Term1 is not returning' )
         self.assertEqual('abnormal cerebellum fastigial nucleus morphology', term2.text, 'Term2 is not returning' )
@@ -142,14 +173,16 @@ class TestEmapaBrowser(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:36506")
-        time.sleep(2)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'phenotypeAnnotationCount'))):
+            print('Tree view details loaded')
         driver.find_element(By.CLASS_NAME, 'phenotypeAnnotationCount').click()#clicks the phenotype annotations link found in the Treeview section
         results_table = self.driver.find_element(By.ID, 'resultsTable')
         table = Table(results_table)
         #gets the 1st and only row of the Annotated term column
         term1 = table.get_cell(3, 1)
         print(term1.text)
-        time.sleep(2)
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'resultsTable'))):
+            print('MP Annotation summary loaded')
         # verifies the returned terms are the correct terms for this search
         self.assertEqual("abnormal Peyer's patch epithelium morphology", term1.text, 'Term1 is not returning' )
 
@@ -160,7 +193,8 @@ class TestEmapaBrowser(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:16333")
-        time.sleep(2)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'phenotypeAnnotationCount'))):
+            print('Tree view details loaded')
         driver.find_element(By.CLASS_NAME, 'phenotypeAnnotationCount').click()#clicks the phenotype annotations link found in the Treeview section
         results_table = self.driver.find_element(By.ID, 'resultsTable')
         table = Table(results_table)
@@ -169,7 +203,8 @@ class TestEmapaBrowser(unittest.TestCase):
         term2 = table.get_cell(4, 1)
         print(term1.text)
         print(term2.text)
-        time.sleep(2)
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'resultsTable'))):
+            print('MP Annotation summary loaded')
         # verifies the returned terms are the correct terms for this search
         self.assertEqual('abnormal bulbus cordis morphology', term1.text, 'Term1 is not returning' )
         self.assertEqual('abnormal bulbus cordis morphology', term2.text, 'Term2 is not returning' )
@@ -181,20 +216,20 @@ class TestEmapaBrowser(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:32750")
-        wait.forAjax(driver)
-        time.sleep(2)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'expressionResultCount'))):
+            print('Tree view details loaded')
         #the phenotype annotations link found in the Treeview section should be zero
         assert '0 phenotype annotations' in driver.page_source
 
     def test_zero_pheno_link_zero_exp_link(self):
         """
         @status: Tests that when you have a 1to1 NO mapping for expression or pheno, NO child terms, the phenotype annotations is zero and expression results links in the Treeview section is normal.
-        @note: EMAPA-ID-search-10 * this test fails because example used is no longer valid!!!
+        @note: EMAPA-ID-search-10
         """
         driver = self.driver
-        driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:37435")
-        wait.forAjax(driver)
-        time.sleep(2)      
+        driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:37850")
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'ygtvchildren'))):
+            print('Tree view details loaded')
         # verifies the returned results are zero for this search
         assert '(0 expression results; 0 phenotype annotations)' in driver.page_source 
         
@@ -206,8 +241,8 @@ class TestEmapaBrowser(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:16824")
-        wait.forAjax(driver)
-        time.sleep(2)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'expressionResultCount'))):
+            print('Tree view details loaded')
         linkE = driver.find_element(By.CLASS_NAME, 'expressionResultCount') #the expression annotations link found in the Treeview section
         print(linkE.text)
         # verifies the returned terms are the correct terms for this search
@@ -221,7 +256,8 @@ class TestEmapaBrowser(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:28373")
-        time.sleep(2)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'expressionResultCount'))):
+            print('Tree view details loaded')
         driver.find_element(By.CLASS_NAME, 'phenotypeAnnotationCount').click()#clicks the phenotype annotations link found in the Treeview section
         results_table = self.driver.find_element(By.ID, 'resultsTable')
         table = Table(results_table)
@@ -242,7 +278,6 @@ class TestEmapaBrowser(unittest.TestCase):
         print(term6.text)
         print(term7.text)
         print(term8.text)
-        time.sleep(2)
         # verifies the returned terms are the correct terms for this search
         self.assertEqual('abnormal renal artery morphology', term1.text, 'Term1 is not returning' )
         self.assertEqual('abnormal renal artery morphology', term2.text, 'Term2 is not returning' )
@@ -260,7 +295,8 @@ class TestEmapaBrowser(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:16075")
-        time.sleep(2)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'expressionResultCount'))):
+            print('Tree view details loaded')
         driver.find_element(By.CLASS_NAME, 'phenotypeAnnotationCount').click()#clicks the phenotype annotations link found in the Treeview section
         results_table = self.driver.find_element(By.ID, 'resultsTable')
         table = Table(results_table)
@@ -275,7 +311,6 @@ class TestEmapaBrowser(unittest.TestCase):
         print(term3.text)
         print(term4.text)
         print(term5.text)
-        time.sleep(2)
         # verifies the returned terms are the correct terms for this search
         self.assertEqual('absent embryonic cilia', term1.text, 'Term1 is not returning' )
         self.assertEqual('absent primitive node', term2.text, 'Term2 is not returning' )
@@ -304,7 +339,8 @@ class TestEmapaBrowser(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:36473")
-        time.sleep(3)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'expressionResultCount'))):
+            print('Tree view details loaded')
         linkE = driver.find_element(By.CLASS_NAME, 'expressionResultCount') #the expression annotations link found in the Treeview section
         bodyText = driver.find_element(By.TAG_NAME, 'body').text
         print(linkE.text)
@@ -332,13 +368,13 @@ class TestEmapaBrowser(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:16117")
-        time.sleep(2)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'expressionResultCount'))):
+            print('Tree view details loaded')
         driver.find_element(By.LINK_TEXT, 'phenotype terms').click()
         searchList = driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
         print([x.text for x in searchList])
         print(terms)
-        time.sleep(2)
         # These terms should be returned in the phenotype search results with the order given
         self.assertIn('abnormal pharyngeal arch morphology\nabsent pharyngeal arches\nectopic pharyngeal arch\nenlarged pharyngeal arch\nfused pharyngeal arches\npharyngeal arch hypoplasia\nsmall pharyngeal arch', terms, 'The sort order is not correct' )
                 

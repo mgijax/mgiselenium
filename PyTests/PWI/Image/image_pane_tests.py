@@ -54,13 +54,10 @@ class TestEiImagePaneSearch(unittest.TestCase):
         # finds the Image Pane Label field and enters text then clicks the Search button
         driver.find_element(By.ID, "paneLabelID").send_keys('A heart WT')
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(10)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'J:236776; Full Size; S8'))
         # find the Pane Labels results table
         pane_table = self.driver.find_element(By.ID, "imagePaneTable")
-        time.sleep(2)
-
         third_row = self.driver.find_element(By.ID, "paneLabelID480566").get_attribute("value")
-        time.sleep(2)
         print(third_row)
         # Assert the correct details are returned, the third Pane Label should be 'A heart WT
         self.assertEqual(third_row, 'A heart WT')
@@ -74,17 +71,15 @@ class TestEiImagePaneSearch(unittest.TestCase):
         # finds the Image Pane Label field and enters text then clicks the Search button
         driver.find_element(By.ID, "paneLabelID").send_keys('%liver Paxx%')
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(10)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'J:236776; Full Size; S8'))
         # find the Pane Labels results table
         pane_table = self.driver.find_element(By.ID, "imagePaneTable")
         table = Table(pane_table)
-        time.sleep(2)
         row1 = self.driver.find_element(By.ID, "paneLabelID480567").get_attribute("value")
         row2 = self.driver.find_element(By.ID, "paneLabelID480569").get_attribute("value")
         row3 = self.driver.find_element(By.ID, "paneLabelID480566").get_attribute("value")
         row4 = self.driver.find_element(By.ID, "paneLabelID480568").get_attribute("value")
         row5 = self.driver.find_element(By.ID, "paneLabelID480571").get_attribute("value")
-        time.sleep(2)
         print(row1)
         print(row2)
         print(row3)
@@ -106,14 +101,12 @@ class TestEiImagePaneSearch(unittest.TestCase):
         # finds the Image Pane Label field and enters text then clicks the Search button
         driver.find_element(By.ID, "paneLabelID").send_keys("k/k'")
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 15).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'J:24127; Full Size; 7'))
         # find the Pane Labels results table
         pane_table = self.driver.find_element(By.ID, "imagePaneTable")
         table = Table(pane_table)
-        time.sleep(2)
         row14 = self.driver.find_element(By.ID, "paneLabelID480840").get_attribute("value")
         row15 = self.driver.find_element(By.ID, "paneLabelID480847").get_attribute("value")
-        time.sleep(2)
         print(row14)
         # Assert the correct details are returned
         self.assertEqual(row14, "k/k'")
@@ -129,14 +122,12 @@ class TestEiImagePaneSearch(unittest.TestCase):
         driver.find_element(By.ID, "paneLabelID").send_keys(
             "C merge (EFGP and choline acetyltransferase immunoreactivity)")
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(10)
+        WebDriverWait(self.driver, 15).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'J:145110; Full Size; 1'))
         # find the Pane Labels results table
         pane_table = self.driver.find_element(By.ID, "imagePaneTable")
         table = Table(pane_table)
-        time.sleep(2)
         row8 = self.driver.find_element(By.ID, "paneLabelID313902").get_attribute("value")
         row9 = self.driver.find_element(By.ID, "paneLabelID313901").get_attribute("value")
-        time.sleep(5)
         print(row8)
         # Assert the correct details are returned
         self.assertEqual(row8, 'C merge (EFGP and choline acetyltransferase immunoreactivity)')
@@ -151,7 +142,7 @@ class TestEiImagePaneSearch(unittest.TestCase):
         # finds the J# field and enter a J Number for an expression image then click the Search button
         driver.find_element(By.ID, "JNumID").send_keys('73')
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'J:73; Full Size; 4'))
         # find the Pane Labels results table
         pane_row1 = self.driver.find_element(By.ID, "paneLabelID6895").get_attribute("value")
         # prints the pane label for row 1(should be blank)
@@ -168,7 +159,8 @@ class TestEiImagePaneSearch(unittest.TestCase):
         # finds the Image Pane Label field and enters text then clicks the Search button
         driver.find_element(By.ID, "paneLabelID").send_keys("_Hox-4-4")
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(5)
+        #time.sleep(5)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'J:130; Full Size; 3'))
         # find the Pane Labels results table
         pane_row1 = self.driver.find_element(By.ID, "paneLabelID472753").get_attribute('value')
         pane_row2 = self.driver.find_element(By.ID, "paneLabelID472754").get_attribute('value')
@@ -188,7 +180,7 @@ class TestEiImagePaneSearch(unittest.TestCase):
         # finds the J# field and enter a J Number for an expression image then click the Search button
         driver.find_element(By.ID, "JNumID").send_keys('38389')
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'J:38389; Full Size; 1'))
         # find the Pane Labels results table
         pane_row1 = self.driver.find_element(By.ID, "paneLabelID465633").get_attribute('value')
         pane_row2 = self.driver.find_element(By.ID, "paneLabelID465634").get_attribute('value')

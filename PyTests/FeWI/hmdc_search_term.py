@@ -14,6 +14,8 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -77,12 +79,10 @@ class TestHmdcSearchTerm(unittest.TestCase):
                 option.click()
                 break
         self.driver.find_element(By.NAME, "formly_3_autocomplete_input_0").send_keys("mucosulfatidosis")#identifies the input field and enters term/ID
-        #time.sleep(5)
         self.driver.find_element(By.ID, "searchButton").click()
         #identify the Grid tab and verify the tab's text
         grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         wait.forAngular(self.driver)
-        time.sleep(3)
         print(grid_tab.text)
         time.sleep(2)
         self.assertIn(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (1 x 20)", "Data has changed for this test - update may be needed")
@@ -100,9 +100,8 @@ class TestHmdcSearchTerm(unittest.TestCase):
         #phenocells captures the inherited metabolic disorder cell on the first row of data
         phenocells = self.driver.find_element(By.CSS_SELECTOR, "td.middle:nth-child(23) > div:nth-child(1) > div:nth-child(1)")
         phenocells.click() #clicks the disease cell (last one in list) to open up the genotype popup page
-        time.sleep(2)
         self.driver.switch_to.window(self.driver.window_handles[1])#switches focus to the genotype popup page
-        time.sleep(5)
+        wait.forNewWindow(self.driver, 5)
         matching_text = "Human Genes and Mouse Models for inherited metabolic disorder and SUMF1/Sumf1"
         #asserts the heading text is correct in page source
         self.assertIn(matching_text, self.driver.page_source, 'matching text not displayed')
@@ -143,7 +142,6 @@ class TestHmdcSearchTerm(unittest.TestCase):
         
         self.driver.find_element(By.ID, "formly_3_input_input_0").clear()
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Celsr3")#identifies the input field and enters Celsr3
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -155,12 +153,10 @@ class TestHmdcSearchTerm(unittest.TestCase):
         grid_tab.click()
         
         mgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.last")
-        
         searchTermItems = iterate.getTextAsList(mgenes)
      
         self.assertEqual(searchTermItems[0], "Celsr3")
         print(searchTermItems)
-        
         # Add checks for Phenotype Categories returned
         #cells captures every field from Human Gene heading to the last angled term -- this test checks that the 2 MP headers associated with this term are displayed
         cells = self.driver.find_elements(By.CSS_SELECTOR, "div.ngc.cell-content.ngc-custom-html.ng-binding.ng-scope")
@@ -195,18 +191,15 @@ class TestHmdcSearchTerm(unittest.TestCase):
                 break
         
         self.driver.find_element(By.ID, "formly_3_input_input_0").clear()
-        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("TFAP2A")#identifies the input field and enters Celsr3
-        wait.forAngular(self.driver)
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("TFAP2A")#identifies the input field and enters TFAP2A
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
-        
-        
+
         #Identify the grid tab and click on it
         grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         print(grid_tab.text)
         time.sleep(2)
         grid_tab.click()
-        
         #headingcells captures all column headings of the grid
         headingcells = self.driver.find_elements(By.CSS_SELECTOR, "div.ngc.cell-content.ngc-custom-html.ng-binding.ng-scope")
         
@@ -214,21 +207,21 @@ class TestHmdcSearchTerm(unittest.TestCase):
         print(searchTermItems) #if you want to see what it captures uncomment this
         
         #verify that the correct MP header terms for this phenotype term are included in the grid
-         
         self.assertIn('hearing/vestibular/ear', searchTermItems, "expected MP header not returned")
         self.assertIn('skeleton', searchTermItems, "expected MP header not returned")
         
         #Verify that the actual term is displayed in the genotype pop-up
-        
         #phenocell captures the table hearing/vestibular/ear cell on the first row of data
-        phenocell = self.driver.find_element(By.CSS_SELECTOR, "td.middle:nth-child(9) > div:nth-child(1) > div:nth-child(1)")
+        phenocell = self.driver.find_element(By.CSS_SELECTOR, "td.middle:nth-child(8) > div:nth-child(1) > div:nth-child(1)")
         
         phenocell.click() #clicks the cell for hearing/vestibular/ear (new data could break this)
         self.driver.switch_to.window(self.driver.window_handles[1])#switches focus to the genotype popup page
-        time.sleep(2)
-        matching_text = "Human hearing/vestibular/ear abnormalities for TFAP2A/Tfap2a"
+        wait.forNewWindow(self.driver, 2)
+        matching_text = self.driver.find_element(By.ID, 'title')
+        #matching_text = "Human hearing/vestibular/ear abnormalities for TFAP2A/Tfap2a"
+        print(matching_text.text)
         #asserts the heading text is correct in page source
-        self.assertIn(matching_text, self.driver.page_source, 'expected pop-up box heading not displayed')
+        self.assertEqual(matching_text.text,'Human hearing/vestibular/ear abnormalities for TFAP2A/Tfap2a', 'expected pop-up box heading not displayed')
         
         #asserts that the HP term queried for has been returned
         self.assertIn("Fusion of middle ear ossicles", self.driver.page_source, "expected HP term not found")
@@ -248,7 +241,7 @@ class TestHmdcSearchTerm(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_autocomplete_input_0").send_keys("rickets, vitamin D-resistant")#synonym for DOID:0050445; X-linked hypophosphatemic
-        wait.forAngular(self.driver)
+        #wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         #identify the grid tab and click on it
@@ -260,7 +253,6 @@ class TestHmdcSearchTerm(unittest.TestCase):
         
         cellheadings = iterate.getTextAsList(cells)
         print(cellheadings)
-        
         #asserts that the correct diseases(at angle) display in the correct order
         self.assertIn('musculoskeletal system disease', cellheadings, "expected disease header not displayed")
         
@@ -270,7 +262,6 @@ class TestHmdcSearchTerm(unittest.TestCase):
         disease_tab.click()
         
         disease_table = Table(self.driver.find_element(By.ID, "diseaseTable"))
-        
         cells = disease_table.get_column_cells("DO ID")
         
         print(iterate.getTextAsList(cells))
@@ -306,14 +297,12 @@ class TestHmdcSearchTerm(unittest.TestCase):
         
         self.driver.find_element(By.ID, "formly_3_input_input_0").clear()
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Mitf")#identifies the input field and enters a specific gene symbol
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Disease tab and click it
         #disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
         disease_tab = self.driver.find_element(By.CSS_SELECTOR, "li.uib-tab:nth-child(3) > a:nth-child(1)")
-        time.sleep(2)
         disease_tab.click()
         time.sleep(2)
         disease_table = Table(self.driver.find_element(By.ID, "diseaseTable"))
@@ -343,16 +332,17 @@ class TestHmdcSearchTerm(unittest.TestCase):
         self.assertIn('pigmentation', searchTermItems, "expected MP header not returned")
         
         #Verify that the actual term is displayed in the genotype pop-up
-        
         #phenocells captures all the table data cells on the first row of data
         phenocells = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.center.cell.middle")
         
-        phenocells[10].click() #clicks the cell for hearing/vestibular/ear (new data could break this)
+        phenocells[10].click() #clicks the cell for integument (new data could break this)
         self.driver.switch_to.window(self.driver.window_handles[1])#switches focus to the genotype popup page
-        time.sleep(2)
-        matching_text = "Mouse integument abnormalities for MITF/Mitf"
+        wait.forNewWindow(self.driver, 2)
+        matching_text = self.driver.find_element(By.ID,'title')
+        #matching_text = "Mouse integument abnormalities for MITF/Mitf"
+        print(matching_text.text)
         #asserts the heading text is correct in page source
-        self.assertIn(matching_text, self.driver.page_source, 'expected pop-up box heading not displayed')
+        self.assertEqual(matching_text.text, 'Mouse integument abnormalities for MITF/Mitf', 'expected heading not displayed')
         
         #asserts that the HP term queried for has been returned
         self.assertIn("absent coat pigmentation", self.driver.page_source, "expected MP term not found")
@@ -373,7 +363,6 @@ class TestHmdcSearchTerm(unittest.TestCase):
         
         self.driver.find_element(By.NAME, "formly_3_autocomplete_input_0").send_keys("Gower sign")#this is a synonym for the HP term "Gowers sign"
         wait.forAngular(self.driver)
-        
         self.driver.find_element(By.XPATH, "//*[contains(text(), 'Add')]").click()
         my_select1 = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_4')]")#identifies the select field and picks the phenotype name option
         for option in my_select1.find_elements(By.TAG_NAME, "option"):
@@ -384,7 +373,6 @@ class TestHmdcSearchTerm(unittest.TestCase):
         
         self.driver.find_element(By.ID, "formly_3_input_input_0").clear()
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("ALG2")#identifies the input field and enters a specific gene symbol
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -394,9 +382,7 @@ class TestHmdcSearchTerm(unittest.TestCase):
         disease_tab.click()
         
         disease_table = Table(self.driver.find_element(By.ID, "diseaseTable"))
-        
         cells = disease_table.get_column_cells("DO ID")
-    
         ids = iterate.getTextAsList(cells)
         self.assertIn("DOID:0110669", ids, "expected DO ID not returned in results")
         
@@ -412,13 +398,12 @@ class TestHmdcSearchTerm(unittest.TestCase):
         self.assertIn("muscle", cellheadings, "expected phenotype header not in results")
         
         #Verify that the actual term (Gowers sign) is displayed in the genotype pop-up
-        
         #phenocells captures all the table data cells on the first row of data
         phenocells = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.center.cell.middle")
         
         phenocells[3].click() #clicks the cell for muscle (new data could break this)
         self.driver.switch_to.window(self.driver.window_handles[1])#switches focus to the genotype popup page
-        time.sleep(2)
+        wait.forNewWindow(self.driver, 2)
         matching_text = "Human muscle abnormalities for ALG2/Alg2"
         #asserts the heading text is correct in page source
         self.assertIn(matching_text, self.driver.page_source, 'expected pop-up box heading not displayed')
@@ -443,7 +428,6 @@ class TestHmdcSearchTerm(unittest.TestCase):
         
         self.driver.find_element(By.NAME, "formly_3_autocomplete_input_0").send_keys("ciliopathy")#identifies the input field and enters term/ID
         wait.forAngular(self.driver)
-      
         self.driver.find_element(By.XPATH, "//*[contains(text(), 'Add')]").click()
         my_select1 = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_4')]")#identifies the select field and picks the phenotype name option
         for option in my_select1.find_elements(By.TAG_NAME, "option"):
@@ -454,7 +438,6 @@ class TestHmdcSearchTerm(unittest.TestCase):
         
         self.driver.find_element(By.ID, "formly_3_input_input_0").clear()
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Ahi1")#identifies the input field and enters a specific gene symbol
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -477,7 +460,6 @@ class TestHmdcSearchTerm(unittest.TestCase):
         disease_table = Table(self.driver.find_element(By.ID, "diseaseTable"))
         
         cells = disease_table.get_column_cells("DO ID")
-        
         ids = iterate.getTextAsList(cells)
        
         #asserts that the disease that is a child of Ciliopathy is returned -- Joubert syndrome 3
@@ -499,7 +481,6 @@ class TestHmdcSearchTerm(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Pax9")#identifies the input field and enters Pax9
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -548,8 +529,7 @@ class TestHmdcSearchTerm(unittest.TestCase):
                 break
         
         self.driver.find_element(By.ID, "formly_3_input_input_0").clear()
-        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Aars")#identifies the input field and enters a specific gene symbol
-        wait.forAngular(self.driver)
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Aars1")#identifies the input field and enters a specific gene symbol
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -560,21 +540,20 @@ class TestHmdcSearchTerm(unittest.TestCase):
         
         mgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.last")
         searchTermItems = iterate.getTextAsList(mgenes)
-        self.assertIn("Aars", searchTermItems, "expected gene not returned")
+        self.assertIn("Aars1", searchTermItems, "expected gene not returned")
         
         #Verify that the simple genotype is displayed in the genotype pop-up
-        
         #phenocell captures all the table behavior/neurological cell on the first row of data
         phenocell = self.driver.find_element(By.CSS_SELECTOR, "td.middle:nth-child(4) > div:nth-child(1) > div:nth-child(1)")
         phenocell.click() #clicks the cell for behavior/neurological (new data could break this)
         self.driver.switch_to.window(self.driver.window_handles[1])#switches focus to the genotype popup page
-        time.sleep(2)
-        matching_text = "Mouse behavior/neurological abnormalities for AARS1/Aars"
+        wait.forNewWindow(self.driver, 2)
+        matching_text = "Mouse behavior/neurological abnormalities for AARS1/Aars1"
         #asserts the heading text is correct in page source
         self.assertIn(matching_text, self.driver.page_source, 'expected pop-up box heading not displayed')
         
         #asserts that the MP term queried for has been returned
-        self.assertIn("Aars<sup>sti</sup>/Aars<sup>sti</sup>", self.driver.page_source, "expected simple genotype not found")
+        self.assertIn("Aars1<sup>sti</sup>/Aars1<sup>sti</sup>", self.driver.page_source, "expected simple genotype not found")
         
     def test_mp_term_simple_Hemizygous(self):
         '''
@@ -602,7 +581,6 @@ class TestHmdcSearchTerm(unittest.TestCase):
         
         self.driver.find_element(By.ID, "formly_3_input_input_0").clear()
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Tg(Camk2a-tTA)1Mmay")#identifies the input field and enters a specific gene symbol
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -616,13 +594,12 @@ class TestHmdcSearchTerm(unittest.TestCase):
         self.assertIn("Tg(Camk2a-tTA)1Mmay", searchTermItems, "expected gene not returned")
         
         #Verify that the simple genotype is displayed in the genotype pop-up
-        
         #phenocells captures all the table data cells on the first row of data
         phenocells = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.center.cell.middle")
         
         phenocells[1].click() #clicks the cell for nervous system (new data could break this)
         self.driver.switch_to.window(self.driver.window_handles[1])#switches focus to the genotype popup page
-        time.sleep(2)
+        wait.forNewWindow(self.driver, 2)
         matching_text = "Mouse nervous system abnormalities for Tg(Camk2a-tTA)1Mmay"
         #asserts the heading text is correct in page source
         self.assertIn(matching_text, self.driver.page_source, 'expected pop-up box heading not displayed')
@@ -657,7 +634,6 @@ class TestHmdcSearchTerm(unittest.TestCase):
         
         self.driver.find_element(By.ID, "formly_3_input_input_0").clear()
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Eda")#identifies the input field and enters a specific gene symbol
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -671,13 +647,12 @@ class TestHmdcSearchTerm(unittest.TestCase):
         self.assertIn("Eda", searchTermItems, "expected gene not returned")
         
         #Verify that the Indeterminate genotype is displayed in the genotype pop-up
-        
         #phenocells captures all the table data cells on the first row of data
         phenocells = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.center.cell.middle")
         
         phenocells[4].click() #clicks the cell for immune system (new data could break this)
         self.driver.switch_to.window(self.driver.window_handles[1])#switches focus to the genotype popup page
-        time.sleep(2)
+        wait.forNewWindow(self.driver, 2)
         matching_text = "Mouse immune system abnormalities for EDA/Eda"
         #asserts the heading text is correct in page source
         self.assertIn(matching_text, self.driver.page_source, 'expected pop-up box heading not displayed')
@@ -712,7 +687,6 @@ class TestHmdcSearchTerm(unittest.TestCase):
         
         self.driver.find_element(By.ID, "formly_3_input_input_0").clear()
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Abcb7, Tg(Alb-cre)21Mgn")#identifies the input field and enters a specific gene symbol
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -752,7 +726,6 @@ class TestHmdcSearchTerm(unittest.TestCase):
         
         self.driver.find_element(By.ID, "formly_3_input_input_0").clear()
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Hesx1")#identifies the input field and both genes of the complex genotype
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -794,7 +767,6 @@ class TestHmdcSearchTerm(unittest.TestCase):
         
         self.driver.find_element(By.ID, "formly_3_input_input_0").clear()
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Kras")#identifies the input field and both genes of the complex genotype
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -835,7 +807,6 @@ class TestHmdcSearchTerm(unittest.TestCase):
         
         self.driver.find_element(By.ID, "formly_3_input_input_0").clear()
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Nrp1, Tg(Thy1-YFP)16Jrs")#identifies the input field and both genes of the complex genotype
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -873,8 +844,6 @@ class TestHmdcSearchTerm(unittest.TestCase):
         #Enter MP ID for term = increased activated T cell number
         self.driver.find_element(By.ID, "formly_3_input_input_0").clear()
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("MP:0001829")#identifies the input field and enters an ID
-        wait.forAngular(self.driver)
-        
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -890,7 +859,7 @@ class TestHmdcSearchTerm(unittest.TestCase):
         self.assertIsNot(mousegenes, "Brca2", 'this gene is being returned, it should not!')    
 
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
         tracemalloc.stop()
        
 def suite():

@@ -46,7 +46,6 @@ class TestRefByStrain(unittest.TestCase):
         strainsearchbox.send_keys(Keys.RETURN)
         #locates the reference link in row 1 and clicks it
         driver.find_element(By.CLASS_NAME, 'referenceLink').click()
-        time.sleep(2)
         #switch focus to the new tab for strain detail page
         driver.switch_to.window(self.driver.window_handles[-1])
         #verify the strain name is correct for this page
@@ -69,15 +68,12 @@ class TestRefByStrain(unittest.TestCase):
         # Enter your strain name
         strainsearchbox.send_keys("C57BL/6J")
         strainsearchbox.send_keys(Keys.RETURN)
-        time.sleep(2)
         #locate the link for C57BL/6J and click it
         driver.find_element(By.LINK_TEXT, 'C57BL/6J').click()
-        time.sleep(2)
         #switch focus to the new tab for strain detail page
         driver.switch_to.window(self.driver.window_handles[-1])
         #locates the All reference link and clicks it
         driver.find_element(By.ID, 'allRefs').click()
-        time.sleep(2)
         #rows of data for this page and verify sort by asserting correct results
         row1 = driver.find_element(By.XPATH, "//*[@id='dynamicdata']/table/tbody/tr[1]/td[6]/div")
         print(row1.text)
@@ -99,16 +95,16 @@ class TestRefByStrain(unittest.TestCase):
         print(row6.text)
         row7 = driver.find_element(By.XPATH, "//*[@id='dynamicdata']/table/tbody/tr[7]/td[6]/div")
         print(row7.text)
-        self.assertEqual(row1.text, '2022')   
-        self.assertEqual(row2a.text, '35023384\nJ:317802\nJournal Link')
-        self.assertEqual(row3a.text, '34999736\nJ:320321\nJournal Link')
-        self.assertEqual(row4a.text, '34823217\nJ:318687\nJournal Link')       
-        self.assertEqual(row2.text, '2022')
-        self.assertEqual(row3.text, '2022')
-        self.assertEqual(row4.text, '2022')
-        self.assertEqual(row5.text, '2022')
-        self.assertEqual(row6.text, '2022') 
-        self.assertEqual(row7.text, '2022')    
+        self.assertEqual(row1.text, '2023')
+        self.assertEqual(row2a.text, '36807146\nJ:334156\nJournal Link')
+        self.assertEqual(row3a.text, '37071993\nJ:335191\nJournal Link')
+        self.assertEqual(row4a.text, '36821387\nJ:335481\nJournal Link')
+        self.assertEqual(row2.text, '2023')
+        self.assertEqual(row3.text, '2023')
+        self.assertEqual(row4.text, '2023')
+        self.assertEqual(row5.text, '2023')
+        self.assertEqual(row6.text, '2023')
+        self.assertEqual(row7.text, '2023')
         
     def tearDown(self):
         self.driver.quit()

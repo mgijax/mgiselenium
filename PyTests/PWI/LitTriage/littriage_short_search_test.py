@@ -59,14 +59,13 @@ class TestEiLitTriageShortSearch(unittest.TestCase):
         driver.find_element(By.ID, 'alleleTabButton').click()
         # enter the allele symbol is the allele symbol field
         driver.find_element(By.CLASS_NAME, 'alleleSymbol').send_keys('Gata1<Plt13>')
-        time.sleep(2)
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         # find the Search button and click it
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        wait.forAngular(self.driver)
         # finds the results table and iterates through the table
         result = self.driver.find_element(By.ID, "resultsTable")
         data = result.find_elements(By.TAG_NAME, "td")
@@ -120,14 +119,13 @@ class TestEiLitTriageShortSearch(unittest.TestCase):
         driver.find_element(By.ID, 'markerTabButton').click()
         # enter the allele symbol is the allele symbol field
         driver.find_element(By.ID, 'markerSymbol').send_keys('Il27ra')
-        time.sleep(2)
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         # find the Search button and click it
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(5)
+        wait.forAngular(self.driver)
         # finds the results table and iterates through the table
         result = self.driver.find_element(By.ID, "resultsTable")
         data = result.find_elements(By.TAG_NAME, "td")
@@ -181,14 +179,13 @@ class TestEiLitTriageShortSearch(unittest.TestCase):
         driver.find_element(By.ID, 'strainTabButton').click()
         # enter the allele symbol is the allele symbol field
         driver.find_element(By.ID, 'strainSymbol').send_keys('STOCK In(13)31Rk/J')
-        time.sleep(2)
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         # find the Search button and click it
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(5)
+        wait.forAngular(self.driver)
         # finds the results table and iterates through the table
         result = self.driver.find_element(By.ID, "resultsTable")
         data = result.find_elements(By.TAG_NAME, "td")
@@ -239,7 +236,6 @@ class TestEiLitTriageShortSearch(unittest.TestCase):
         driver = self.driver
         # find the Accession IDs field and enter the J number
         driver.find_element(By.ID, 'accids').send_keys('J:284955')
-        time.sleep(2)
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
@@ -248,14 +244,14 @@ class TestEiLitTriageShortSearch(unittest.TestCase):
         driver.find_element(By.ID, 'alleleTabButton').click()
         # enter the allele symbol is the allele symbol field
         driver.find_element(By.CLASS_NAME, 'alleleSymbol').send_keys('Sirt6<tm1Fwa>')
-        time.sleep(2)
+        wait.forAngular(self.driver)
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         # find the Search button and click it
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(5)
+        wait.forAngular(self.driver)
         # finds the results table and iterates through the table
         result = self.driver.find_element(By.ID, "resultsTable")
         data = result.find_elements(By.TAG_NAME, "td")
@@ -289,7 +285,6 @@ class TestEiLitTriageShortSearch(unittest.TestCase):
         driver = self.driver
         # find the Accession IDs field and enter the J number
         driver.find_element(By.ID, 'accids').send_keys('J:23349')
-        time.sleep(2)
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
@@ -298,14 +293,14 @@ class TestEiLitTriageShortSearch(unittest.TestCase):
         driver.find_element(By.ID, 'markerTabButton').click()
         # enter the marker symbol is the marker symbol field
         driver.find_element(By.ID, 'markerSymbol').send_keys('Gnb2')
-        time.sleep(2)
+        wait.forAngular(self.driver)
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         # find the Search button and click it
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(5)
+        wait.forAngular(self.driver)
         # finds the results table and iterates through the table
         result = self.driver.find_element(By.ID, "resultsTable")
         data = result.find_elements(By.TAG_NAME, "td")
@@ -339,7 +334,6 @@ class TestEiLitTriageShortSearch(unittest.TestCase):
         driver = self.driver
         # find the Accession IDs field and enter the J number
         driver.find_element(By.ID, 'accids').send_keys('J:109968')
-        time.sleep(2)
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
@@ -348,14 +342,14 @@ class TestEiLitTriageShortSearch(unittest.TestCase):
         driver.find_element(By.ID, 'strainTabButton').click()
         # enter the strain symbol is the strain symbol field
         driver.find_element(By.ID, 'strainSymbol').send_keys('STOCK In(5)2Rk/J')
-        time.sleep(2)
+        wait.forAngular(self.driver)
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         # find the Search button and click it
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(5)
+        wait.forAngular(self.driver)
         # finds the results table and iterates through the table
         result = self.driver.find_element(By.ID, "resultsTable")
         data = result.find_elements(By.TAG_NAME, "td")

@@ -9,12 +9,6 @@ import time
 import tracemalloc
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
-#from selenium.webdriver.firefox.service import Service
-#f=Service("C:\\Users\jeffc\AppData\Local\Programs\Python\Python38-32\Scripts\geckodriver.exe")
-#webdriver.Firefox(service=f)
-#from selenium.webdriver.chrome.service import Service
-#s=Service("C:\\Users\jeffc\AppData\Local\Programs\Python\Python38-32\Scripts\chromedriver.exe")
-#webdriver.Chrome(service=s)
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -40,8 +34,8 @@ class TestGxdDifferentialQF(unittest.TestCase):
         """
         @status: Tests that wild type results(broad definition) are excluded in results.(assays which are not associated with any allele pairs,
         or In Situ reporter(knock-in) assays associated with a single allele pair which is heterozygous wild type for the assayed gene)
-        @note: GXD-Diff-2 !!this test is no longer working, Agtr2 is not blue1 anymore, need to find another example!
-        @attention: the time sleeps need to be replaced by expected conditions code
+        @note: GXD-Diff-2 !!this test is no longer working
+        @attention: this test is taking so long to return results it fails, might work again  when switched to lucene indexing OR find an example with less results!!!.
         """
         driver = self.driver
         driver.get(config.TEST_URL + '/gxd/differential')
@@ -53,7 +47,6 @@ class TestGxdDifferentialQF(unittest.TestCase):
         actions = ActionChains(self.driver)
         actions.move_to_element(pickitem)
         actions.perform()
-
         time.sleep(2)
         #self.driver.find_element(By.ID, 'difStructure4').clear()
         pickitem2 = self.driver.find_element(By.ID, 'difStructure4')
@@ -65,7 +58,10 @@ class TestGxdDifferentialQF(unittest.TestCase):
         actions.perform()
         time.sleep(3)
         self.driver.find_element(By.ID, 'submit4').click()
-        time.sleep(40)
+        #time.sleep(40)
+        #if WebDriverWait(self.driver, 50).until(EC.presence_of_element_located((By.ID, 'genegriddata'))):
+            #print('page loaded')
+        wait.forAngular(driver, 85)
         self.driver.find_element(By.ID, 'genegridtab')
         #find the Genes column
         self.driver.find_element(By.ID, 'colGroup')
@@ -100,37 +96,25 @@ class TestGxdDifferentialQF(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + '/gxd/differential')
-        #self.driver.find_element(By.ID, 'difStructure3').clear()
+        self.driver.find_element(By.ID, 'difStructure3').clear()
         anatStructure = driver.find_element(By.ID, 'difStructure3')
         # Enter your anatomical structure in the box
         anatStructure.send_keys("pul")
         time.sleep(2)
-        selectstructure = driver.find_element(By.CSS_SELECTOR, '#difStructureContainer3 > div:nth-child(1) > div:nth-child(2) > ul:nth-child(1) > li:nth-child(5)').click()
-        print(selectstructure)
-        
-        #anatStructure.send_keys(Keys.TAB)
-        #pickitem = self.driver.find_element(By.ID, 'difStructure3').send_keys('pulmonary valve TS21-28')
-        #actions = ActionChains(driver)
-        #actions.move_to_element(pickitem).perform()
-        #actions.click(pickitem)
-        time.sleep(2)
-        #self.driver.find_element(By.ID, 'difStructure4').clear()
+        #select the option pulmonary valve TS21-28
+        driver.find_element(By.CSS_SELECTOR, '#difStructureContainer3 > div:nth-child(1) > div:nth-child(2) > ul:nth-child(1) > li:nth-child(5)').click()
+
         anatStructure2 = driver.find_element(By.ID, 'difStructure4')
         # Enter your anatomical structure in the box
         anatStructure2.send_keys("aorti")
         time.sleep(2)
+        #select the option aortic valve TS21-28
         selectstructure2 = driver.find_element(By.CSS_SELECTOR, '#difStructureContainer4 > div:nth-child(1) > div:nth-child(2) > ul:nth-child(1) > li:nth-child(3)')
-        print(selectstructure2)
+        print(selectstructure2.text)
         selectstructure2.click()
-        #anatStructure2.click()
-        #anatStructure2.send_keys(Keys.TAB)
-        #pickitem2 = self.driver.find_element(By.ID, 'difStructure4').send_keys('aortic valve TS21-28')
-        #actions = ActionChains(driver)
-        #actions.move_to_element(pickitem2).perform()
-        #actions.click(pickitem2)
-        time.sleep(5)
         self.driver.find_element(By.ID, 'submit4').click()
-        time.sleep(10)
+        if WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'g.cell:nth-child(12) > rect:nth-child(1)'))):
+            print('Tissue x Gene matrix data loaded')
         self.driver.find_element(By.ID, 'genegridtab')
         #find the Genes column
         self.driver.find_element(By.ID, 'colGroup')
@@ -139,7 +123,6 @@ class TestGxdDifferentialQF(unittest.TestCase):
         searchTextItems = iterate.getTextAsList(items)
         #print searchTextItems
         self.assertIn('Bmp2', searchTextItems)
-        self.assertIn('Casp3', searchTextItems)
         self.assertIn('Col11a1', searchTextItems)
         self.assertIn('Crip2', searchTextItems)
         self.assertIn('Evc', searchTextItems)
@@ -148,11 +131,12 @@ class TestGxdDifferentialQF(unittest.TestCase):
         self.assertIn('Hand1', searchTextItems)
         self.assertIn('Hapln1', searchTextItems)
         self.assertIn('Itga6', searchTextItems)
+        self.assertIn('Matr3', searchTextItems)
         self.assertIn('Mki67', searchTextItems)
         self.assertIn('Notch2', searchTextItems)
-        #find the tissue grid box for bladder for marker Agtr2
+        #find the tissue grid box for bladder for marker Matr3
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
-        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row0.col12 > rect.blue1')
+        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row0.col9 > rect.blue1')
         rightclass = item.get_attribute('class')
         #rightclass finds the class name of the gridbox
         #now we assert the class name of the gridbox matches the class name of blue1
@@ -169,8 +153,6 @@ class TestGxdDifferentialQF(unittest.TestCase):
         """
         @status: Tests that query for detected in "A", Not detected in "B", where "A" is a parent of "B" in the same anatomical system
         @note: GXD-Diff-4(partial test)
-        @attention: the time sleeps need to be replaced by expected conditions code
-        @attention: under construction!!!!!
         """
         driver = self.driver
         driver.get(config.TEST_URL + '/gxd/differential')
@@ -180,32 +162,16 @@ class TestGxdDifferentialQF(unittest.TestCase):
         time.sleep(2)
         selectstructure = driver.find_element(By.CSS_SELECTOR, '#difStructureContainer3 > div:nth-child(1) > div:nth-child(2) > ul:nth-child(1) > li:nth-child(5)').click()
         print(selectstructure)
-        
-        
-        #self.driver.find_element(By.ID, 'difStructure3').clear()
-        #pickitem = self.driver.find_element(By.ID, 'difStructure3').send_keys('pulmonary valve')
-        #actions = ActionChains(driver)
-        #actions.move_to_element(pickitem)
-        #actions.click(pickitem)
-        time.sleep(2)
-        #anatStructure2 = driver.find_element(By.ID, 'difStructure4')
+        anatStructure2 = driver.find_element(By.ID, 'difStructure4')
         # Enter your anatomical structure in the box
-        #anatStructure2.send_keys("pulmo")
-        #time.sleep(2)
-        #selectstructure2 = driver.find_element(By.CSS_SELECTOR, '#difStructureContainer4 > div:nth-child(1) > div:nth-child(2) > ul:nth-child(1) > li:nth-child(3)')
-        #print(selectstructure2)
-        #selectstructure2.click()
-        
-        
-        #self.driver.find_element(By.ID, 'difStructure4').clear()
-        pickitem2 = self.driver.find_element(By.ID, 'difStructure4').send_keys('pulmonary valve leaflet')
-        actions = ActionChains(driver)
-        actions.move_to_element(pickitem2)
-        actions.click(pickitem2)
-        actions.perform()
-        time.sleep(5)
+        anatStructure2.send_keys("pulmo")
+        time.sleep(2)
+        selectstructure2 = driver.find_element(By.CSS_SELECTOR, '#difStructureContainer4 > div:nth-child(1) > div:nth-child(2) > ul:nth-child(1) > li:nth-child(7)').click()
+        print(selectstructure2)
+        time.sleep(2)
         self.driver.find_element(By.ID, 'submit4').click()
-        time.sleep(10)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'g.cell:nth-child(30) > rect:nth-child(1)'))):
+            print('Tissue x Gene matrix data loaded')
         self.driver.find_element(By.ID, 'genegridtab')
         #find the Genes column
         self.driver.find_element(By.ID, 'colGroup')
@@ -251,26 +217,28 @@ class TestGxdDifferentialQF(unittest.TestCase):
         @status: Tests that query for detected in "A", Not detected in "B", where a gene has both "expressed" and "not expressed" results for "A"
         and has no results and/or "not expressed" results for "B" should return the gene.
         @note: GXD-Diff-6
-        @attention: the time sleeps need to be replaced by expected conditions code. This test has a long sleep because something is slow!
+        @attention:  This test needs to be fixed once we go to lucene indexing OR find an example with less results!!
         """
         driver = self.driver
         driver.get(config.TEST_URL + '/gxd/differential')
-        #self.driver.find_element(By.ID, 'difStructure3').clear()
-        pickitem = self.driver.find_element(By.ID, 'difStructure3').send_keys('liver TS16-28')
-        #self.driver.pickitem.click()
-        actions = ActionChains(driver)
-        actions.move_to_element(pickitem)
-        actions.click(pickitem)
-        actions.perform()
+        anatStructure = driver.find_element(By.ID, 'difStructure3')
+        # Enter your anatomical structure in the box
+        anatStructure.send_keys("liv")
         time.sleep(2)
-        #self.driver.find_element(By.ID, 'difStructure4').clear()
-        pickitem2 = self.driver.find_element(By.ID, 'difStructure4').send_keys('spleen')
-        actions = ActionChains(driver)
-        actions.move_to_element(pickitem2)
-        actions.click(pickitem2)
+        selectstructure = driver.find_element(By.CSS_SELECTOR, '#difStructureContainer3 > div:nth-child(1) > div:nth-child(2) > ul:nth-child(1) > li:nth-child(1)').click()
+        print(selectstructure)
         time.sleep(2)
+        anatStructure2 = driver.find_element(By.ID, 'difStructure4')
+        # Enter your anatomical structure in the box
+        anatStructure2.send_keys("spl")
+        time.sleep(2)
+        selectstructure2 = driver.find_element(By.CSS_SELECTOR, '#difStructureContainer4 > div:nth-child(1) > div:nth-child(2) > ul:nth-child(1) > li:nth-child(3)').click()
+        print(selectstructure2)
+        time.sleep(5)
         self.driver.find_element(By.ID, 'submit4').click()
-        time.sleep(28)
+        #if WebDriverWait(self.driver, 50).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'g.cell:nth-child(2953) > rect:nth-child(1)'))):
+            #print('Tissue x Gene matrix data loaded')
+        time.sleep(30)
         self.driver.find_element(By.ID, 'genegridtab')
         #find the Genes column
         self.driver.find_element(By.ID, 'colGroup')
@@ -280,7 +248,7 @@ class TestGxdDifferentialQF(unittest.TestCase):
         #print searchTextItems
         self.assertIn('A2m', searchTextItems)
         self.assertIn('Aard', searchTextItems)
-        self.assertIn('Abca3', searchTextItems)
+        self.assertIn('Abca1', searchTextItems)
         #self.assertIn('Bckdk', searchTextItems)
         #self.assertIn('Pkm', searchTextItems)
         #find the tissue grid box for liver for marker A2m

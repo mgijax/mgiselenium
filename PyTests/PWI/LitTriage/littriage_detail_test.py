@@ -42,13 +42,11 @@ class TestEiLitTriageDetail(unittest.TestCase):
         """
         @Status tests that detail results for a result w/ GO Ref ID is correct
         @see LitTri-detail-1 (2)
-        @attention: Under Construction!!!
         """
         # driver = self.driver
         form = self.form
         form.enter_value('accids', 'J:161428')
         form.click_search()
-
         # finds the Reference Type field and return it's value; 31576686 = MGI Curation Record
         ref_type = self.driver.find_element(By.ID, "editTabRefType").get_attribute('value')
         print(ref_type)
@@ -83,7 +81,6 @@ class TestEiLitTriageDetail(unittest.TestCase):
         form = self.form
         form.enter_value('accids', 'J:148145')
         form.click_search()
-
         # finds the Reference Type field and return it's value; 31576687 = Peer Reviewed Article
         ref_type = self.driver.find_element(By.ID, "editTabRefType").get_attribute('value')
         print(ref_type)
@@ -130,7 +127,6 @@ class TestEiLitTriageDetail(unittest.TestCase):
         form = self.form
         form.enter_value('accids', 'J:228427')
         form.click_search()
-
         # finds the isReviewed field and return it's value of 1(1 is equal to Yes)
         is_rvw = self.driver.find_element(By.ID, "refDataIsReview").get_attribute('value')
         print(is_rvw)
@@ -149,7 +145,6 @@ class TestEiLitTriageDetail(unittest.TestCase):
         form = self.form
         form.enter_value('accids', 'J:233396')
         form.click_search()
-
         # finds the isReviewed field and return it's value of 0(0 is equal to No)
         is_rvw = self.driver.find_element(By.ID, "refDataIsReview").get_attribute('value')
         print(is_rvw)
@@ -168,7 +163,6 @@ class TestEiLitTriageDetail(unittest.TestCase):
         form = self.form
         form.enter_value('accids', 'J:63277')
         form.click_search()
-
         # finds the Authors field and return it's text value
         author = self.driver.find_element(By.ID, "editTabAuthors").get_attribute('value')
         print(author)
@@ -212,7 +206,6 @@ class TestEiLitTriageDetail(unittest.TestCase):
         form = self.form
         form.enter_value('accids', 'J:18640')
         form.click_search()
-
         # finds the Title field and return it's text value
         title = self.driver.find_element(By.ID, "editTabTitle").get_attribute('value')
         print(title)
@@ -227,11 +220,9 @@ class TestEiLitTriageDetail(unittest.TestCase):
         form = self.form
         form.enter_value('accids', 'J:7537')
         form.click_search()
-        time.sleep(2)
         # find the Allele Associations button and click it
         self.driver.find_element(By.ID, 'alleleTabButton').click()
         # finds the Allele Association table and gets the first row of data
-        time.sleep(2)
         type_used = self.driver.find_elements(By.CLASS_NAME, 'alleleAssocType')[0].get_property(
             'value')  # value will be 1017 which associates to 'Used-FC'
         allele_used = self.driver.find_elements(By.CLASS_NAME, "alleleSymbol")[0].get_property('value')

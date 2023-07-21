@@ -54,7 +54,6 @@ class TestHmdcSearchGeneid(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("MGI:96677")#identifies the input field and enters an MGI ID
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -86,7 +85,6 @@ class TestHmdcSearchGeneid(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("MGI:96677")
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         #identify the Genes tab and verify the tab's text
@@ -113,7 +111,6 @@ class TestHmdcSearchGeneid(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("105763")#identifies the input field and enters an NCBI ID
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -145,7 +142,6 @@ class TestHmdcSearchGeneid(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("14460")#identifies the input field and enters ID for Gata1
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -189,98 +185,7 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         self.assertIn('DOID:14250', diseaseList) #ID for Down Syndrome (annotated to GATA1)
         self.assertIn('DOID:4971', diseaseList) #ID for myelofibrosis (annotated to Gata1)
         self.assertIn('DOID:1588', diseaseList) #ID for thrombocytopenia (annotated to both GATA1 and Gata1)
-        
-       
-        
-    '''def test_gene_all_vega_ids(self):
-        
-        @status This test is for searching by a mouse gene ID using a VEGA Gene Model ID, Transcript ID, and Protein ID.  All these queries 
-                return the mouse gene and its human ortholog.***this test is no longer valid since Vega is removed from the system**
-        @see: HMDC-GQ-19 (VEGA gene model ID, transcript ID, protein ID)
-        
-        print ("BEGIN test_gene_all_vega_ids")
-        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements_by_tag_name("option"):
-            if option.text == 'Gene Symbol(s) or ID(s)':
-                option.click()
-                break
-        
-        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("OTTMUSG00000005850")# enter VEGA gene model ID
-        wait.forAngular(self.driver)
-        self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
-        
-        #identify the Genes Tab and click on it
-        gene_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
-        time.sleep(2)
-        print(gene_tab.text)
-        gene_tab.click()
-        
-        #Grab the list of genes and verify both mouse and human genes are present
-        gene_table = Table(self.driver.find_element(By.ID, "geneTable"))
-        cells = gene_table.get_column_cells("Gene Symbol")
-        geneList = iterate.getTextAsList(cells)
-        self.assertIn('Ttc19', geneList)
-        self.assertIn('TTC19', geneList)
-        
-        #Open up the query form again (click on "Click to modify search" button
-        self.driver.find_element(By.XPATH, "//*[contains(text(), 'Click to modify search')]").click()
-        
-        #Redo the search using the VEGA transcript ID
-        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements(By.TAG_NAME, "option"):
-            if option.text == 'Gene Symbol(s) or ID(s)':
-                option.click()
-                break
-        
-        self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
-        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("OTTMUST00000013013")# enter VEGA transcript ID
-        wait.forAngular(self.driver)
-        self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
-        
-        #identify the Genes Tab and click on it
-        gene_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
-        time.sleep(2)
-        print(gene_tab.text)
-        gene_tab.click()
-        
-        #Grab the list of genes and verify both mouse and human genes are present
-        gene_table = Table(self.driver.find_element(By.ID, "geneTable"))
-        cells = gene_table.get_column_cells("Gene Symbol")
-        geneList = iterate.getTextAsList(cells)
-        self.assertIn('Ttc19', geneList)
-        self.assertIn('TTC19', geneList)
-        
-        #Open up the query form again (click on "Click to modify search" button
-        self.driver.find_element(By.XPATH, "//*[contains(text(), 'Click to modify search')]").click()
-        
-        #Redo the search using the VEGA protein ID
-        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")
-        for option in my_select.find_elements(By.TAG_NAME, "option"):
-            if option.text == 'Gene Symbol(s) or ID(s)':
-                option.click()
-                break
-        
-        self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
-        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("OTTMUSP00000006049")# enter VEGA protein ID
-        wait.forAngular(self.driver)
-        self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
-        
-        #identify the Genes Tab and click on it
-        gene_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
-        time.sleep(2)
-        print(gene_tab.text)
-        gene_tab.click()
-        
-        #Grab the list of genes and verify both mouse and human genes are present
-        gene_table = Table(self.driver.find_element(By.ID, "geneTable"))
-        cells = gene_table.get_column_cells("Gene Symbol")
-        geneList = iterate.getTextAsList(cells)
-        self.assertIn('Ttc19', geneList)
-        self.assertIn('TTC19', geneList)
-     '''   
+
         
     def test_gene_all_ensembl_ids(self):
         '''
@@ -296,7 +201,6 @@ class TestHmdcSearchGeneid(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("ENSMUSG00000022098")# enter Ensembl gene model ID
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -325,7 +229,6 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("ENSMUST00000022693")# enter Ensembl transcript ID
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -354,7 +257,6 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("ENSMUSP00000022693")# enter VEGA protein ID
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -386,7 +288,6 @@ class TestHmdcSearchGeneid(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("P32115") #enter the SWISS-PROT ID for Pax4
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -415,7 +316,6 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("G3UZE8")# enter VEGA protein ID
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -447,7 +347,6 @@ class TestHmdcSearchGeneid(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("PR:000004804") #enter the Protein Ontology ID for Brca2
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -476,7 +375,6 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("1MJE")# enter PDB ID for Brca2
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -508,7 +406,6 @@ class TestHmdcSearchGeneid(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("BC111528") #enter a GenBank RNA sequence ID for Sry
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -537,7 +434,6 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("AF068054")# enter GenBank DNA sequence for Sry
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -568,7 +464,6 @@ class TestHmdcSearchGeneid(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("10565422") #enter a Affy 1.0 ST id
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -597,7 +492,6 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("1417717_a_at")# enter Affy 430 2.0 id
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -626,7 +520,6 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("102666_at")# enter Affy U74 id
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -657,7 +550,6 @@ class TestHmdcSearchGeneid(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("1.11.1.6") #enter EC id for Cat
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -690,7 +582,6 @@ class TestHmdcSearchGeneid(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("MI0000570") #enter miRBase ID for Mir22
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -723,7 +614,6 @@ class TestHmdcSearchGeneid(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("CCDS36046.1") #enter CCDS id for Kitl
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -757,7 +647,6 @@ class TestHmdcSearchGeneid(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("MGI:104735")#identifies the input field and enters Gt(ROSA)26Sor MGI id
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -796,7 +685,6 @@ class TestHmdcSearchGeneid(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("MGI:1856798") #enter allele MGI ID for A<y>; should return 0 results
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -829,7 +717,6 @@ class TestHmdcSearchGeneid(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("5083")#identifies the input field: enter NCBI ID for human PAX9
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -887,7 +774,6 @@ class TestHmdcSearchGeneid(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("P01116") #enter human uniprot id
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -918,7 +804,6 @@ class TestHmdcSearchGeneid(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("NX_Q99884") #enter human NeXtProt id
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -949,7 +834,6 @@ class TestHmdcSearchGeneid(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("NM_001672") #enter human RefSeq sequence id
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -980,7 +864,6 @@ class TestHmdcSearchGeneid(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("AK131274") #enter human GenBank sequence id
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -1011,7 +894,6 @@ class TestHmdcSearchGeneid(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("OMIM:191170")#identifies the input field and enters an OMIM gene ID
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -1040,7 +922,6 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("OMIM:222100")# OMIM disease ID
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -1067,7 +948,6 @@ class TestHmdcSearchGeneid(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("HGNC:6554")#identifies the input field and enters an HGNC ID for LEPR
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -1097,8 +977,7 @@ class TestHmdcSearchGeneid(unittest.TestCase):
                 option.click()
                 break
         
-        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("RGD:2466") 
-        wait.forAngular(self.driver)
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("RGD:2466")
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -1131,7 +1010,6 @@ class TestHmdcSearchGeneid(unittest.TestCase):
                 break
 
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys('MGI:1347487, HGNC:6553, MGI:96573') #IDs for Foxm1, LEP, Ins2
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -1164,7 +1042,6 @@ class TestHmdcSearchGeneid(unittest.TestCase):
       
         self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys('MGI:1347487 HGNC:6553 MGI:96573') #IDs for Foxm1, LEP, Ins2
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         

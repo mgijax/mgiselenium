@@ -53,7 +53,6 @@ class TestEiMpannotSearch(unittest.TestCase):
         driver = self.driver
         # finds the MGI ID field and enters an MGI genotype ID, tabs out of the field
         driver.find_element(By.ID, "genotypeAccId").send_keys('MGI:5445717')
-        time.sleep(2)
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
@@ -117,7 +116,6 @@ class TestEiMpannotSearch(unittest.TestCase):
         driver = self.driver
         # finds the Genotype field and enters a genotype(can also use wildcard of %, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "genotypeDisplay").send_keys('129S/SvEv-Bey%')
-        time.sleep(2)
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
@@ -170,7 +168,6 @@ class TestEiMpannotSearch(unittest.TestCase):
         driver = self.driver
         # finds the Term ID field and enters an MP ID then Tabs out of the field
         driver.find_element(By.ID, "termID-0").send_keys('MP:0010768')
-        time.sleep(2)
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
@@ -226,17 +223,11 @@ class TestEiMpannotSearch(unittest.TestCase):
         @see pwi-mp-search-6
         """
         driver = self.driver
-        time.sleep(2)
-        # find and click the Clear button
-        driver.find_element(By.ID, "clearButton").click()
-        time.sleep(2)
         # finds the Qualifier field and select 'norm', find the Evidence field and select 'ND' then click Search.
         qual_box = Select(driver.find_element(By.ID, "qualifierAbbreviation-0"))
         qual_box.select_by_value('string:2181424')  # value is Norm
-        time.sleep(2)
         evid_box = Select(driver.find_element(By.ID, "evidenceAbbreviation-0"))
         evid_box.select_by_value('string:108')  # value is ND
-        time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located((By.ID, 'termID-3')))
@@ -293,7 +284,6 @@ class TestEiMpannotSearch(unittest.TestCase):
         driver = self.driver
         # finds the J number field and enters a J number then Tabs out of the field
         driver.find_element(By.ID, "jnumID-0").send_keys('J:29022')
-        time.sleep(2)
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
@@ -348,7 +338,6 @@ class TestEiMpannotSearch(unittest.TestCase):
         driver = self.driver
         # finds the Evidence Code field and select and evidence code then Tabs out of the field
         driver.find_element(By.ID, "evidenceAbbreviation-0").send_keys('NAS')
-        time.sleep(2)
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
@@ -402,7 +391,6 @@ class TestEiMpannotSearch(unittest.TestCase):
         driver = self.driver
         # finds the Sex field and select a sex code then clicks the Search button
         driver.find_element(By.ID, "sexAbbreviation-0").send_keys('M')
-        time.sleep(2)
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()

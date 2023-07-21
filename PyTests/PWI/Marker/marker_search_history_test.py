@@ -120,7 +120,6 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historySymbol-2')))
-        # time.sleep(2)
         # get the data for the Symbol column for all 9 rows
         hist_sym = driver.find_element(By.ID, 'historySymbol-0').get_attribute('value')
         hist_sym1 = driver.find_element(By.ID, 'historySymbol-1').get_attribute('value')
@@ -148,7 +147,6 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'synonymModification_date-1')))
-        # time.sleep(2)
         # get the data for the Symbol column for all 9 rows
         hist_sym = driver.find_element(By.ID, 'historySymbol-0').get_attribute('value')
         hist_sym1 = driver.find_element(By.ID, 'historySymbol-1').get_attribute('value')
@@ -178,8 +176,7 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         driver.find_element(By.ID, "historyEventDate-0").send_keys('2018-09-20')
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historyName-0')))
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Shs'))
         # capture the results table rows
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -204,7 +201,6 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historyName-0')))
-        time.sleep(2)
         # capture the results table rows
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -227,7 +223,6 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historyName-0')))
-        time.sleep(2)
         # capture the results table rows
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -296,7 +291,6 @@ class TestEiMrkSearchHistory(unittest.TestCase):
             'string:106563610')  # string:106563610 is option "not specified"
         # waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historyName-0')))
-        time.sleep(2)
         # get the data for the Event column, print the row 1 result
         evt_row = driver.find_element(By.ID, 'historyEvent-0').get_attribute('value')
         # Assert the sixth citation returned(row6) is correct
@@ -319,8 +313,7 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         Select(driver.find_element(By.ID, "historyEvent-0")).select_by_value('string:106563608')  # string:5 is 'split'
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historyName-0')))
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Ddx39b'))
         # get the data for the Event column, print the row 6 result
         evt_row = driver.find_element(By.ID, 'historyEvent-5').get_attribute('value')
         # Assert the sixth citation returned(row6) is correct
@@ -338,7 +331,6 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historyName-1')))
-        time.sleep(2)
         reason_row = driver.find_element(By.ID, 'historyEventReason-2').get_attribute('value')
         # Assert the third row returned is correct
         self.assertEqual(reason_row, 'string:106563618')  # string:106563615 equals 'personal comm w/Expert'
@@ -361,7 +353,6 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historyName-1')))
-        time.sleep(2)
         mod_row = driver.find_element(By.ID, 'historyModifiedBy-4').get_attribute('value')
         # Assert the fifth row returned is correct
         self.assertEqual(mod_row, 'hjd')  # string:4 equals 'personal comm w/Expert'
@@ -396,7 +387,6 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historyName-1')))
-        time.sleep(2)
         mod_row = driver.find_element(By.ID, 'historyModifiedBy-4').get_attribute('value')
         # Assert the fifth row returned is correct
         self.assertEqual(mod_row, 'hjd')  # string:4 equals 'personal comm w/Expert'

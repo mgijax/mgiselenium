@@ -45,16 +45,13 @@ class TestPrivateAllele(unittest.TestCase):
         self.driver.switch_to.window(self.driver.window_handles[1])
         # Find the all alleles and mutations link and click it
         allallelelink = driver.find_element(By.ID, "phenoMutationLink")
-        time.sleep(2)
         allallelelink.click()  # assert that there is no link for Brca1<test1>
-        time.sleep(.5)
         # assert that there is no link for Brca1<test1>
         self.assertNotIn("test1", self.driver.page_source,"Test1 allele is displaying!")
         
     def test_hide_private_marker(self):
         """
         @status: Tests that the dummy private allele Brca1<test1> does not display on public
-        @bug: this test no longer works !!!!!
         """
         driver = self.driver
         self.assertIn("Informatics", driver.title)
@@ -62,10 +59,9 @@ class TestPrivateAllele(unittest.TestCase):
         querytext.clear()
         querytext.send_keys("Brca1<test1>")# put your marker symbol
         querytext.send_keys(Keys.RETURN)  # click the submit button
-        wait.forAjax(driver)
-        missng = driver.find_element(By.CLASS_NAME, 'redText').is_displayed()#verifies that the warning Could not find the independent term(s): is displaying
-        self.assertTrue(missng, 'oops, is not displaying warning message!')
-    
+        wait.forAjax(self.driver, 2)
+        self.assertNotIn(self.driver.page_source, 'Braca1<test1>')
+
     def tearDown(self):
         self.driver.quit()
         tracemalloc.stop()

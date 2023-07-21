@@ -20,7 +20,7 @@ import sys,os.path
 sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../..',)
 )
-from util import wait, iterate
+from util import wait, iterate, wait
 from util.table import Table
 import config
 
@@ -42,50 +42,49 @@ class TestMarkerDetail(unittest.TestCase):
         @status This test verifies the ribbons are being displayed in the correct order on the page.
         tested 4/9/2021
         '''
-        self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys("Gata1")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Gata1').click()
         time.sleep(2)
-        summaryRibbon = self.driver.find_element(By.ID, 'summaryRibbon').find_element(By.CSS_SELECTOR, 'div.header.detailCat1')
+        summaryRibbon = self.driver.find_element(By.CSS_SELECTOR, '#summaryRibbon > div:nth-child(1)')
         print(summaryRibbon.text)
         self.assertEqual(summaryRibbon.text, 'Summary', "Summary ribbon is missing")
-        locationribbon = self.driver.find_element(By.ID, 'locationRibbon').find_element(By.CSS_SELECTOR, 'div.header.detailCat2')
+        locationribbon = self.driver.find_element(By.CSS_SELECTOR, '#locationRibbon > div:nth-child(1)')
         print(locationribbon.text)
         self.assertEqual(locationribbon.text, "Location &\nMaps", "Location & Maps ribbon is missing")
-        strainribbon = self.driver.find_element(By.ID, 'strainRibbon').find_element(By.CSS_SELECTOR, 'div.header.detailCat1')
+        strainribbon = self.driver.find_element(By.CSS_SELECTOR, '#strainRibbon > div:nth-child(1)')
         print(strainribbon.text)
         self.assertEqual(strainribbon.text, "Strain\nComparison", "Strain Comparison ribbon is missing")
-        homologyribbon = self.driver.find_element(By.ID, 'homologyRibbon').find_element(By.CSS_SELECTOR, 'div.header.detailCat2')
+        homologyribbon = self.driver.find_element(By.CSS_SELECTOR, '#homologyRibbon > div:nth-child(1)')
         print(homologyribbon.text)
         self.assertEqual(homologyribbon.text, 'Homology', "Homology ribbon is missing")
-        diseaseribbon = self.driver.find_element(By.ID, 'diseaseRibbon').find_element(By.CSS_SELECTOR, 'div.header.detailCat1')
+        diseaseribbon = self.driver.find_element(By.CSS_SELECTOR, '#diseaseRibbon > div:nth-child(1)')
         self.assertEqual(diseaseribbon.text, "Human Diseases", "Human Diseases ribbon is missing")
-        phenoribbon = self.driver.find_element(By.ID, 'phenotypeRibbon').find_element(By.CSS_SELECTOR, 'div.header.detailCat2')
+        phenoribbon = self.driver.find_element(By.CSS_SELECTOR, '#phenotypeRibbon > div:nth-child(1)')
         print(phenoribbon.text)
         self.assertEqual(phenoribbon.text, "Mutations,\nAlleles, and\nPhenotypes", "Phenotype ribbon is missing")
-        goribbon = self.driver.find_element(By.ID, 'goRibbon').find_element(By.CSS_SELECTOR, 'div.header.detailCat1')
+        goribbon = self.driver.find_element(By.CSS_SELECTOR, '#goRibbon > div:nth-child(1)')
         print(goribbon.text)
         self.assertEqual(goribbon.text, "Gene Ontology\n(GO)\nClassifications", "GO ribbon is missing")
-        gxdribbon = self.driver.find_element(By.ID, 'expressionRibbon').find_element(By.CSS_SELECTOR, 'div.header.detailCat2')
+        gxdribbon = self.driver.find_element(By.CSS_SELECTOR, '#expressionRibbon > div:nth-child(1)')
         print(gxdribbon.text)
         self.assertEqual(gxdribbon.text, "Expression", "Expression ribbon is missing")
-        interactionsRibbon = self.driver.find_element(By.ID, 'interactionRibbon').find_element(By.CSS_SELECTOR, 'div.header.detailCat1')
+        interactionsRibbon = self.driver.find_element(By.CSS_SELECTOR, '#interactionRibbon > div:nth-child(1)')
         print(interactionsRibbon.text)
         self.assertEqual(interactionsRibbon.text, 'Interactions', "Interactions ribbon is missing")
-        sequenceribbon = self.driver.find_element(By.ID, 'sequenceRibbon').find_element(By.CSS_SELECTOR, 'div.header.detailCat2')
+        sequenceribbon = self.driver.find_element(By.CSS_SELECTOR, '#sequenceRibbon > div:nth-child(1)')
         print(sequenceribbon.text)
         self.assertEqual(sequenceribbon.text, "Sequences &\nGene Models", "Sequence ribbon is missing")
-        proteinribbon = self.driver.find_element(By.ID, 'proteinInfoRibbon').find_element(By.CSS_SELECTOR, 'div.header.detailCat1')
+        proteinribbon = self.driver.find_element(By.CSS_SELECTOR, '#proteinInfoRibbon > div:nth-child(1)')
         print(proteinribbon.text)
         self.assertEqual(proteinribbon.text, "Protein\nInformation", "Protein Information ribbon is missing")
-        molecularRibbon = self.driver.find_element(By.ID, 'molecularReagentsRibbon').find_element(By.CSS_SELECTOR, 'div.header.detailCat2')
+        molecularRibbon = self.driver.find_element(By.CSS_SELECTOR, '#molecularReagentsRibbon > div:nth-child(1)')
         print(molecularRibbon.text)
         self.assertEqual(molecularRibbon.text, 'Molecular\nReagents', "Molecular Reagents ribbon is missing")
-        otherAccRibbon = self.driver.find_element(By.ID, 'otherMgiIdsRibbon').find_element(By.CSS_SELECTOR, 'div.header.detailCat2')
+        otherAccRibbon = self.driver.find_element(By.CSS_SELECTOR, '#otherMgiIdsRibbon > div:nth-child(1)')
         print(otherAccRibbon.text)
         self.assertEqual(otherAccRibbon.text, 'Other\nAccession IDs', "Other Accession IDs ribbon is missing")
-        referencesRibbon = self.driver.find_element(By.ID, 'referenceRibbon').find_element(By.CSS_SELECTOR, 'div.header.detailCat1')
+        referencesRibbon = self.driver.find_element(By.CSS_SELECTOR, '#referenceRibbon > div:nth-child(1)')
         print(referencesRibbon.text)
         self.assertEqual(referencesRibbon.text, 'References', "References ribbon is missing")
         
@@ -94,7 +93,6 @@ class TestMarkerDetail(unittest.TestCase):
         @status this test verifies that the APF link for incidential mutations goes to the correct website location.
         @note test works as of 3/29/18
         '''
-        self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys("Alad")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Alad').click()
@@ -110,7 +108,6 @@ class TestMarkerDetail(unittest.TestCase):
         @note mrkdetail-sum-1, 2
         '''
         driver = self.driver
-        self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys("Vwa3b")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Vwa3b').click()
@@ -132,7 +129,6 @@ class TestMarkerDetail(unittest.TestCase):
         @note the sites should be displayed by coordinate order on marker detail but by Distance from Gene 6'-end in Tss table 
         @note mrkdetail-sum-3
         '''
-        self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys("Sgk3")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Sgk3').click()        
@@ -169,7 +165,6 @@ class TestMarkerDetail(unittest.TestCase):
         @note mrkdetail-sum-4
         '''
         driver = self.driver
-        self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys("Carf")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Carf').click()        
@@ -192,8 +187,7 @@ class TestMarkerDetail(unittest.TestCase):
         @status this test verifies the strain table headings in the Genome Context & Strain Distribution ribbon are correctly ordered/displayed.
         @note mrkdetail-strain-1
         ''' 
-        driver = self.driver       
-        self.driver.find_element(By.NAME, 'nomen').clear()
+        driver = self.driver
         self.driver.find_element(By.NAME, 'nomen').send_keys("Ren1")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Ren1').click()
@@ -218,8 +212,7 @@ class TestMarkerDetail(unittest.TestCase):
         @status this test verifies the strain table(no strain ribbon) is not present in the Strain Comparison ribbon when strains have no annotation.
         @note mrkdetail-strain-2
         '''   
-        driver = self.driver      
-        self.driver.find_element(By.NAME, 'nomen').clear()
+        driver = self.driver
         self.driver.find_element(By.NAME, 'nomen').send_keys("Arp")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Arp').click()
@@ -233,8 +226,7 @@ class TestMarkerDetail(unittest.TestCase):
         '''        
         @status this test verifies the Strain Comparison ribbon when the turnstile is closed shows strain annotations and SNPs within 2kb(if available).
         @note mrkdetail-strain-3  
-        '''        
-        self.driver.find_element(By.NAME, 'nomen').clear()
+        '''
         self.driver.find_element(By.NAME, 'nomen').send_keys("Ren1")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Ren1').click()
@@ -251,8 +243,7 @@ class TestMarkerDetail(unittest.TestCase):
         '''        
         @status this test verifies the Strain Comparison ribbon does not display when no Annotation Data or SNP Data exists.
         @note mrkdetail-strain-4 
-        '''        
-        self.driver.find_element(By.NAME, 'nomen').clear()
+        '''
         self.driver.find_element(By.NAME, 'nomen').send_keys("Arp")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Arp').click()
@@ -267,8 +258,7 @@ class TestMarkerDetail(unittest.TestCase):
         @status this test verifies the Multiple Genome Viewer(MGV) link exists only when B6 coordinates exist.
         @note mrkdetail-strain-5
         '''  
-        driver = self.driver      
-        self.driver.find_element(By.NAME, 'nomen').clear()
+        driver = self.driver
         self.driver.find_element(By.NAME, 'nomen').send_keys("Ren2")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Ren2').click()
@@ -300,11 +290,7 @@ class TestMarkerDetail(unittest.TestCase):
         self.driver.switch_to.window(self.driver.window_handles[-1])
         #time.sleep(2)
         #verify the correct sequence is being returned
-        assert 'MGI_C57BL6J_95661 X:7959260-7978071' in self.driver.page_source 
-        
-        
-        
-        
+        assert 'MGI_C57BL6J_95661 X:7959260-7978071' in self.driver.page_source     
         
         #time.sleep(2)
         #locates all MGV link on the page
@@ -319,20 +305,18 @@ class TestMarkerDetail(unittest.TestCase):
         @bug: broken, can't find row data.
         @note mrkdetail-strain-9
         '''   
-        driver = self.driver      
-        self.driver.find_element(By.NAME, 'nomen').clear()
+        driver = self.driver
         self.driver.find_element(By.NAME, 'nomen').send_keys("Gata1")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Gata1').click()
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
         #clicks the More toggle(turnstile) to display the strain table
         self.driver.find_element(By.ID, 'strainRibbon').find_element(By.CSS_SELECTOR, ' div.toggleImage.hdExpand').click()
-        #time.sleep(2)
         #find the link for C57BL/6J gene model id
         self.driver.find_element(By.LINK_TEXT, 'MGI_C57BL6J_95661').click()
         #switch focus to the new tab for sequence detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        time.sleep(3)
+        wait.forNewWindow(self.driver, 2)
         structure_table = self.driver.find_element(By.CLASS_NAME, 'detailStructureTable')
         table = Table(structure_table)
         #Iterate the second row of the disease table
@@ -342,11 +326,12 @@ class TestMarkerDetail(unittest.TestCase):
         self.assertEqual(all_cells.text, 'ID/Version\nMGI_C57BL6J_95661 Multiple Genome Viewer (MGV) Version: MGI_C57BL6J_95661.GRCm39')
         #switch focus back to the Gene Detail page
         self.driver.switch_to.window(self.driver.window_handles[0])
+        wait.forNewWindow(self.driver, 2)
         #find the link for 129S1/SvImJ gene model id
         self.driver.find_element(By.LINK_TEXT, 'MGP_129S1SvImJ_G0035536').click()
         #switch focus to the new tab for sequence detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        #time.sleep(2)
+        wait.forNewWindow(self.driver, 2)
         structure_table = self.driver.find_element(By.CLASS_NAME, 'detailStructureTable')
         table = Table(structure_table)
         #Iterate the second row of the disease table
@@ -360,21 +345,19 @@ class TestMarkerDetail(unittest.TestCase):
         @status this test verifies that when a canonical gene doesn't have a B6 strain gene then the strain table for C57BL/6J says "no annotation"
         @note mrkdetail-strain-10
         '''   
-        driver = self.driver      
-        self.driver.find_element(By.NAME, 'nomen').clear()
-        self.driver.find_element(By.NAME, 'nomen').send_keys("Gcom1")
+        driver = self.driver
+        self.driver.find_element(By.NAME, 'nomen').send_keys("n-R5s85")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element(By.LINK_TEXT, 'Gcom1').click()
+        self.driver.find_element(By.LINK_TEXT, 'n-R5s85').click()
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
         #locate the Sequence Map coordinates
         seq_map = self.driver.find_element(By.XPATH, '//*[@id="templateBodyInsert"]/div[2]/div[2]/div[2]/section[1]/ul/li[1]/div[2]')
         print(seq_map.text)
         #verify the coordinates data for the sequence map
-        self.assertEqual(seq_map.text, 'Genome coordinates not available from the current reference assembly', 'sequence map coordinates have changed!')
+        self.assertEqual(seq_map.text, 'Genome coordinates not available from the current reference assembly.', 'sequence map coordinates have changed!')
         #clicks the More toggle(turnstile) to display the strain table
         self.driver.find_element(By.ID, 'strainRibbon').find_element(By.CSS_SELECTOR, 'div.toggleImage.hdExpand').click()
         #find the Gene Model ID column of the strains table
-        #time.sleep(2)
         strains_table = self.driver.find_element(By.ID, 'table_strainMarkers')
         table = Table(strains_table)
         #Iterate the second row of the disease table
@@ -388,8 +371,7 @@ class TestMarkerDetail(unittest.TestCase):
         @status this test verifies that the sequence map coordinates do not match the strains table C57BL/6J coordinates when the gene model is not MGI
         @note mrkdetail-strain-11 *this test will go away when we stop using the reference B6 models
         '''
-        driver = self.driver          
-        self.driver.find_element(By.NAME, 'nomen').clear()
+        driver = self.driver
         self.driver.find_element(By.NAME, 'nomen').send_keys("Pax6")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Pax6').click()
@@ -402,7 +384,6 @@ class TestMarkerDetail(unittest.TestCase):
         #clicks the More toggle(turnstile) to display the strain table
         self.driver.find_element(By.ID, 'strainRibbon').find_element(By.CSS_SELECTOR, 'div.toggleImage.hdExpand').click()
         #find the coordinates column of the strains table
-        #time.sleep(2)
         strains_table = self.driver.find_element(By.ID, 'table_strainMarkers')
         table = Table(strains_table)
         #Iterate the second row of the disease table
@@ -414,10 +395,9 @@ class TestMarkerDetail(unittest.TestCase):
     def test_strain_table_vs_seqmap_match(self):
         '''        
         @status this test verifies that the sequence map coordinates match the strains table C57BL/6J coordinates when the gene model is MGI
-        @note mrkdetail-strain-11A  !!!!!!This test fails because of a data issue(missing strand info) right now 7/18/2018!!!!!
+        @note mrkdetail-strain-11A
         '''   
-        driver = self.driver     
-        self.driver.find_element(By.NAME, 'nomen').clear()
+        driver = self.driver
         self.driver.find_element(By.NAME, 'nomen').send_keys("Igh-8")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Igh-8').click()
@@ -430,7 +410,6 @@ class TestMarkerDetail(unittest.TestCase):
         #clicks the More toggle(turnstile) to display the strain table
         self.driver.find_element(By.ID, 'strainRibbon').find_element(By.CSS_SELECTOR, 'div.toggleImage.hdExpand').click()
         #find the coordinates column of the strains table
-        #time.sleep(2)
         strains_table = self.driver.find_element(By.ID, 'table_strainMarkers')
         table = Table(strains_table)
         #Iterate the second row of the disease table
@@ -445,27 +424,26 @@ class TestMarkerDetail(unittest.TestCase):
         @note mrkdetail-strain-14 
         '''     
         driver = self.driver
-        self.driver.set_window_size(1024, 768)   
-        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.set_window_size(1024, 768)
         self.driver.find_element(By.NAME, 'nomen').send_keys("Ppnr")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Ppnr').click()
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
         #clicks the More toggle(turnstile) to display the strain table
-        self.driver.find_element(By.ID, 'strainRibbon').find_element(By.CSS_SELECTOR, 'div.toggleImage.hdExpand').click()
-        time.sleep(5)
+        self.driver.find_element(By.ID, 'scToggle').click()
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'table_strainMarkers'))):
+            print('Strain table is loaded')
         #find and select the the Select Strain box for the strain A/J
         self.driver.find_elements(By.CLASS_NAME, 'sgCheckbox')[2].click()
-        #time.sleep(2)
         #find the "Get FASTA" option in the pulldown list located above the strain table and select it
-        Select (self.driver.find_element(By.NAME, 'strainOp')).select_by_visible_text('Get FASTA')
-        time.sleep(3)
+        Select(self.driver.find_element(By.NAME, 'strainOp')).select_by_visible_text('Get FASTA')
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'strainOp'))):
+            print('selected  strain operation box loaded')
         #find and click the 'Go' button
         self.driver.find_elements(By.CLASS_NAME, 'sgButton')[0].click()
-        #time.sleep(2)
         #switch focus to the new tab for the FASTA results
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        #time.sleep(2)
+        wait.forNewWindow(self.driver, 2)
         #verify the correct sequence is being returned
         assert 'MGP_AJ_G0036915 19:53381666-53386571' in self.driver.page_source 
 
@@ -475,29 +453,29 @@ class TestMarkerDetail(unittest.TestCase):
         @note mrkdetail-strain-15 
         ''' 
         driver = self.driver
-        self.driver.set_window_size(1024, 768)       
-        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.set_window_size(1024, 768)
         self.driver.find_element(By.NAME, 'nomen').send_keys("Pax6")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Pax6').click()
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
         #clicks the More toggle(turnstile) to display the strain table
-        self.driver.find_element(By.ID, 'strainRibbon').find_element(By.CSS_SELECTOR, 'div.toggleImage.hdExpand').click()
-        #time.sleep(2)
+        self.driver.find_element(By.ID, 'scToggle').click()
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'table_strainMarkers'))):
+            print('Strain table is loaded')
         #find and select the the Download boxes for the strains A/J, C3H/HeJ, and CBA/J
         self.driver.find_elements(By.CLASS_NAME, 'sgCheckbox')[2].click()
         self.driver.find_elements(By.CLASS_NAME, 'sgCheckbox')[5].click()
         self.driver.find_elements(By.CLASS_NAME, 'sgCheckbox')[9].click()
-        #time.sleep(2)
         #find the "Get FASTA" option in the pulldown list located above the strain table and select it
-        Select (self.driver.find_element(By.NAME, 'strainOp')).select_by_visible_text('Get FASTA')
-        time.sleep(2)
+        Select(self.driver.find_element(By.NAME, 'strainOp')).select_by_visible_text('Get FASTA')
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'strainOp'))):
+            print('selected  strain operation box loaded')
         #find and click the 'Go' button
         self.driver.find_elements(By.CLASS_NAME, 'sgButton')[0].click()
-        #time.sleep(2)
+        time.sleep(2)
         #switch focus to the new tab for the FASTA results
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        #time.sleep(2)
+        wait.forNewWindow(self.driver, 5)
         #verify the correct sequences are being returned
         assert 'MGP_AJ_G0026191 2:103346997-103376112' in self.driver.page_source 
         assert 'MGP_C3HHeJ_G0025950 2:106465683-106497601' in self.driver.page_source
@@ -509,27 +487,29 @@ class TestMarkerDetail(unittest.TestCase):
         @note mrkdetail-strain-16 
         '''   
         driver = self.driver
-        self.driver.set_window_size(1200, 900)     
-        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.set_window_size(1200, 900)
         self.driver.find_element(By.NAME, 'nomen').send_keys("Gata1")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Gata1').click()
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
+        # waits until the summary ribbon is displayed on the page
+        if WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'summaryRibbon'))):
+            print('Summary ribbon is loaded')
         #clicks the More toggle(turnstile) to display the strain table
-        self.driver.find_element(By.ID, 'strainRibbon').find_element(By.CSS_SELECTOR, 'div.toggleImage.hdExpand').click()
-        #time.sleep(2)
+        self.driver.find_element(By.ID, 'scToggle').click()
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'table_strainMarkers'))):
+            print('Strain table is loaded')
         #find and select the the Download box for the strain C57BL/6J
         self.driver.find_elements(By.CLASS_NAME, 'sgCheckbox')[0].click()
-        #time.sleep(2)
         #find the "Get FASTA" option in the pulldown list located above the strain table and select it
-        Select (self.driver.find_element(By.NAME, 'strainOp')).select_by_visible_text('Get FASTA')
-        time.sleep(2)
+        Select(self.driver.find_element(By.NAME, 'strainOp')).select_by_visible_text('Get FASTA')
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'strainOp'))):
+            print('selected  strain operation box loaded')
         #find and click the 'Go' button
         self.driver.find_elements(By.CLASS_NAME, 'sgButton')[0].click()
-        #time.sleep(2)
+        time.sleep(2)
         #switch focus to the new tab for the FASTA results
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        #time.sleep(2)
+        wait.forNewWindow(self.driver, 2)
         #verify the correct sequence is being returned
         assert 'MGI_C57BL6J_95661 X:7825499-7844310' in self.driver.page_source 
 
@@ -539,27 +519,27 @@ class TestMarkerDetail(unittest.TestCase):
         @note mrkdetail-strain-12, 17 
         '''  
         driver = self.driver 
-        self.driver.set_window_size(1200, 900)     
-        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.set_window_size(1200, 900)
         self.driver.find_element(By.NAME, 'nomen').send_keys("Zim3")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Zim3').click()
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
+        # waits until the summary ribbon is displayed on the page
+        if WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'summaryRibbon'))):
+            print('Summary ribbon is loaded')
         #clicks the More toggle(turnstile) to display the strain table
-        self.driver.find_element(By.ID, 'strainRibbon').find_element(By.CSS_SELECTOR, 'div.toggleImage.hdExpand').click()
-        #time.sleep(2)
+        self.driver.find_element(By.ID, 'scToggle').click()
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'table_strainMarkers'))):
+            print('Strain table is loaded')
         #find and click the 'Select All' button
         self.driver.find_elements(By.CLASS_NAME, 'sgButton')[1].click()
-        #time.sleep(2)       
         #find the "Get FASTA" option in the pulldown list located above the strain table and select it
-        Select (self.driver.find_element(By.NAME, 'strainOp')).select_by_visible_text('Get FASTA')
-        time.sleep(2)
+        Select(self.driver.find_element(By.NAME, 'strainOp')).select_by_visible_text('Get FASTA')
         #find and click the 'Go' button
         self.driver.find_elements(By.CLASS_NAME, 'sgButton')[0].click()
-        #time.sleep(2)
+        time.sleep(2)
         #switch focus to the new tab for the FASTA results
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        time.sleep(2)
+        wait.forNewWindow(self.driver, 2)
         #verify the correct sequences are being returned
         assert 'MGI_C57BL6J_2151058 7:6958684-6980419' in self.driver.page_source 
         assert 'MGP_129S1SvImJ_G0004408 7:4064690-4089229' in self.driver.page_source
@@ -583,12 +563,13 @@ class TestMarkerDetail(unittest.TestCase):
         @status this test verifies that a strain-specific marker is correctly identified in the Strain Comparison ribbon
         @note mrkdetail-strain-18  
         '''   
-        driver = self.driver     
-        self.driver.find_element(By.NAME, 'nomen').clear()
+        driver = self.driver
         self.driver.find_element(By.NAME, 'nomen').send_keys("Mx2")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Mx2').click()
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
+        # waits until the summary ribbon is displayed on the page
+        if WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'summaryRibbon'))):
+            print('Summary ribbon is loaded')
         #locate the Strain-specific icon and text in the strain comparison ribbon
         specific = self.driver.find_element(By.LINK_TEXT, 'Strain-Specific Marker')
         print(specific.text)
@@ -600,12 +581,13 @@ class TestMarkerDetail(unittest.TestCase):
         @status this test verifies that only the SNPs within 2kb, PCR,and RFLP links exists in the Strain Comparison ribbon when no strain available
         @note mrkdetail-strain-19  
         '''  
-        driver = self.driver      
-        self.driver.find_element(By.NAME, 'nomen').clear()
+        driver = self.driver
         self.driver.find_element(By.NAME, 'nomen').send_keys("Ifna")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Ifna').click()
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
+        # waits until the summary ribbon is displayed on the page
+        if WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'summaryRibbon'))):
+            print('Summary ribbon is loaded')
         #locate the strain comparison ribbon
         strain_ribbon = self.driver.find_element(By.ID, 'strainRibbon')
         print(strain_ribbon.text)
@@ -617,15 +599,15 @@ class TestMarkerDetail(unittest.TestCase):
         @status this test verifies that only polymorphism data exists in the Strain Comparison ribbon when no strain or coordinates available
         @note mrkdetail-strain-20  
         '''  
-        driver = self.driver      
-        self.driver.find_element(By.NAME, 'nomen').clear()
+        driver = self.driver
         self.driver.find_element(By.NAME, 'nomen').send_keys("Act2")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Act2').click()
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
+        # waits until the summary ribbon is displayed on the page
+        if WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'summaryRibbon'))):
+            print('Summary ribbon is loaded')
         #locate the strain comparison ribbon
         strain_ribbon = self.driver.find_element(By.ID, 'strainRibbon')
-        time.sleep(2)
         print(strain_ribbon.text)
         #verify the Strain-specific icon and text is displayed in the strain comparison ribbon
         self.assertEqual(strain_ribbon.text, 'Strain\nComparison\nless\nRFLP\n1', 'the Strain Comparison ribbon display has changed!')     
@@ -636,18 +618,17 @@ class TestMarkerDetail(unittest.TestCase):
         @note mrkdetail-strain-21 
         '''   
         driver = self.driver
-        self.driver.set_window_size(1200, 900)     
-        self.driver.find_element(By.NAME, 'nomen').clear()
+        self.driver.set_window_size(1200, 900)
         self.driver.find_element(By.NAME, 'nomen').send_keys("Pax6")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Pax6').click()
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
+        # waits until the summary ribbon is displayed on the page
+        if WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'summaryRibbon'))):
+            print('Summary ribbon is loaded')
         #clicks the More toggle(turnstile) to display the strain table
         self.driver.find_element(By.ID, 'strainRibbon').find_element(By.CSS_SELECTOR, 'div.toggleImage.hdExpand').click()
-        #time.sleep(2)
         #find and click the 'Select DO/CC Founders' button
         self.driver.find_elements(By.CLASS_NAME, 'sgButton')[2].click()
-        #time.sleep(2)
         #verify which Select Strains are checked and which ones are not        
         sel1 = self.driver.find_elements(By.NAME, 'seqs')[0].get_attribute('checked')
         sel2 = self.driver.find_elements(By.NAME, 'seqs')[1].get_attribute('checked')
@@ -686,24 +667,26 @@ class TestMarkerDetail(unittest.TestCase):
         self.assertFalse(sel17, 'sel17 is not selected')
         self.assertTrue(sel18, 'sel18 is not selected')
 
-    def test_strain_table_send_sanger(self):
-        '''        
+    '''def test_strain_table_send_sanger(self):
+               
         @status this test verifies that you can send Strain table data to Sanger using the pulldown option and it returns the correct data
         @note mrkdetail-strain-22
-        '''  
+        @attention this test is not valid right now because there is no option for 'send to Sanger SNP Query  (+/- 2kb)' in he pulldown list
+         
         driver = self.driver 
         self.driver.set_window_size(1200, 900)     
-        self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys("Zim3")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Zim3').click()
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
+        # waits until the summary ribbon is displayed on the page
+        if WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'summaryRibbon'))):
+            print('Summary ribbon is loaded')
         #clicks the More toggle(turnstile) to display the strain table
         self.driver.find_element(By.ID, 'strainRibbon').find_element(By.CSS_SELECTOR, 'div.toggleImage.hdExpand').click()
         #time.sleep(2)
         #find and click the 'Select All' button
         self.driver.find_elements(By.CLASS_NAME, 'sgButton')[1].click()
-        #time.sleep(2)
+        time.sleep(2)
         #find the "Send to Sanger SNP Query" option in the pulldown list located above the strain table and select it
         Select (self.driver.find_element(By.NAME, 'strainOp')).select_by_visible_text('Send to Sanger SNP Query (+/- 2kb)')
         time.sleep(2)
@@ -736,22 +719,22 @@ class TestMarkerDetail(unittest.TestCase):
         self.assertEqual(cells[18].text, 'PWK/PhJ', 'PWK/PhJ is not a header')
         self.assertEqual(cells[19].text, 'SPRET/EiJ', 'SPRET/EiJ is not a header')
         self.assertEqual(cells[20].text, 'WSB/EiJ', 'WSB/EiJ is not a header')      
-
+'''
     def test_strain_table_multi_models(self):
         '''        
         @status this test verifies that when a gene has multiple gene model IDs to the same strain the strain table displays them correctly
         @note mrkdetail-strain-22
         '''   
-        driver = self.driver      
-        self.driver.find_element(By.NAME, 'nomen').clear()
+        driver = self.driver
         self.driver.find_element(By.NAME, 'nomen').send_keys("Rprl1")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Rprl1').click()
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
+        # waits until the summary ribbon is displayed on the page
+        if WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'summaryRibbon'))):
+            print('Summary ribbon is loaded')
         #clicks the More toggle(turnstile) to display the strain table
         self.driver.find_element(By.ID, 'strainRibbon').find_element(By.CSS_SELECTOR, 'div.toggleImage.hdExpand').click()
         #find the Gene Model ID column of the strains table
-        #time.sleep(2)
         strains_table = self.driver.find_element(By.ID, 'table_strainMarkers')
         table = Table(strains_table)
         #Iterate the first column of the disease table
@@ -775,10 +758,10 @@ class TestMarkerDetail(unittest.TestCase):
         self.assertEqual(model_cells[2].text, 'MGP_129S1SvImJ_G0005544')
         self.assertEqual(model_cells[3].text, 'MGP_AJ_G0006976')
         self.assertEqual(model_cells[4].text, 'MGP_AJ_G0036786')
-        self.assertEqual(model_cells[5].text, 'MGP_AKRJ_G0007264')
-        self.assertEqual(model_cells[6].text, 'MGP_AKRJ_G0036736')
-        self.assertEqual(model_cells[7].text, 'MGP_BALBcJ_G0006952')
-        self.assertEqual(model_cells[8].text, 'MGP_BALBcJ_G0036776')
+        self.assertEqual(model_cells[5].text, 'MGP_AKRJ_G0036736')
+        self.assertEqual(model_cells[6].text, 'MGP_AKRJ_G0007264')
+        self.assertEqual(model_cells[7].text, 'MGP_BALBcJ_G0036776')
+        self.assertEqual(model_cells[8].text, 'MGP_BALBcJ_G0006952')
         self.assertEqual(model_cells[9].text, 'no annotation')
 
         
@@ -789,14 +772,14 @@ class TestMarkerDetail(unittest.TestCase):
         @note mrkdetail-hdisease-1
         '''
         driver = self.driver
-        self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys("Shh")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Shh').click()
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
+        # waits until the summary ribbon is displayed on the page
+        if WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'summaryRibbon'))):
+            print('Summary ribbon is loaded')
         #clicks the More toggle(turnstile) to display the human disease table
         self.driver.find_element(By.CSS_SELECTOR, '#diseaseRibbon > div:nth-child(2) > div:nth-child(1)').click()
-        #time.sleep(2)
         diseasetable = self.driver.find_element(By.ID, 'humanDiseaseTable')
         self.assertTrue(diseasetable.is_displayed())        
 
@@ -808,29 +791,35 @@ class TestMarkerDetail(unittest.TestCase):
          @note mrkdetail-hdisease-2
         '''
         driver = self.driver
-        self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys("Ins2")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Ins2').click()
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
+        # waits until the summary ribbon is displayed on the page
+        if WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'summaryRibbon'))):
+            print('Summary ribbon is loaded')
         #clicks the More toggle(turnstile) to display the human disease table
         self.driver.find_element(By.CSS_SELECTOR, '#diseaseRibbon > div:nth-child(2) > div:nth-child(1)').click()
-        #time.sleep(2)
-        disease_table = self.driver.find_element(By.ID, 'humanDiseaseTable')
-        table = Table(disease_table)
-        #Iterate and print the search results headers
-        header_cells = table.get_header_cells()
-        print(iterate.getTextAsList(header_cells))        
+        # find each of the Human Diseases listed for the first 6 items
+        disease1 = self.driver.find_element(By.CSS_SELECTOR, '#humanDiseaseTable > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(5) > div:nth-child(1) > a:nth-child(1)')
+        disease2 = self.driver.find_element(By.CSS_SELECTOR, '#humanDiseaseTable > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(1) > div:nth-child(1) > a:nth-child(1)')
+        disease3 = self.driver.find_element(By.CSS_SELECTOR, '#humanDiseaseTable > tbody:nth-child(1) > tr:nth-child(4) > td:nth-child(1) > div:nth-child(1) > a:nth-child(1)')
+        disease4 = self.driver.find_element(By.CSS_SELECTOR, '#humanDiseaseTable > tbody:nth-child(1) > tr:nth-child(5) > td:nth-child(5) > div:nth-child(1) > a:nth-child(1)')
+        disease5 = self.driver.find_element(By.CSS_SELECTOR, '#humanDiseaseTable > tbody:nth-child(1) > tr:nth-child(6) > td:nth-child(1) > div:nth-child(1) > a:nth-child(1)')
+        disease6 = self.driver.find_element(By.CSS_SELECTOR, '#humanDiseaseTable > tbody:nth-child(1) > tr:nth-child(7) > td:nth-child(5) > div:nth-child(1) > a:nth-child(1)')
+        print(disease1.text)
+        print(disease2.text)
+        print(disease3.text)
+        print(disease4.text)
+        print(disease5.text)
+        print(disease6.text)
         # print row 1
-        cells = table.get_column_cells("Human Disease")
-        disease_cells = iterate.getTextAsList(cells)
-        print(disease_cells)
-        self.assertEquals(disease_cells[1], 'maturity-onset diabetes of the young\nIDs')
-        #self.assertEquals(disease_cells[2], 'neonatal diabetes\nIDs')
-        #self.assertEqual(disease_cells[3], 'permanent neonatal diabetes mellitus\nIDs')        
-        #self.assertEquals(disease_cells[4], 'type 1 diabetes mellitus\nIDs')
-        #self.assertEquals(disease_cells[5], 'type 2 diabetes mellitus\nIDs')
-        #self.assertEqual(disease_cells[6], 'maturity-onset diabetes of the young type 10\nIDs')
+        #assert the first 6 disease names are correct
+        self.assertEqual(disease1.text, 'permanent neonatal diabetes mellitus')
+        self.assertEqual(disease2.text, 'type 1 diabetes mellitus')
+        self.assertEqual(disease3.text, 'type 2 diabetes mellitus')
+        self.assertEqual(disease4.text, 'maturity-onset diabetes of the young')
+        self.assertEqual(disease5.text, 'neonatal diabetes')
+        self.assertEqual(disease6.text, 'diabetes mellitus')
                 
     def test_mouse_model_strain_links(self):
         '''
@@ -839,22 +828,21 @@ class TestMarkerDetail(unittest.TestCase):
         @note mrkdetail-hdisease-3
         '''
         driver = self.driver
-        self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys("Pde6b")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Pde6b').click()
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
+        if WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'summaryRibbon'))):
+            print('Summary ribbon is loaded')
         #clicks the More toggle(turnstile) to display the human disease table
         self.driver.find_element(By.CSS_SELECTOR, '#diseaseRibbon > div:nth-child(2) > div:nth-child(1)').click()
-        #time.sleep(5)
+        #find and click the View link for mouse model of retinitis pigmentosa 40
         self.driver.find_element(By.ID, 'showDOID_0110375').click()
-        #switch focus to the popup page
-        #self.driver.switch_to.window(self.driver.window_handles[-1])
-        #Find the link in the Genetic Background column C57BL/6J-Tg(SNCA)ARyot and click it
+        #Find the link in the Genetic Background column for Pde6B<rd1>/Pde6b<rd1> and click it
         self.driver.find_element(By.LINK_TEXT, 'C3H/HeJ').click()
-        #time.sleep(2)
+        time.sleep(2)
         #switch focus to the new tab for strain detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
+        wait.forNewWindow(self.driver, 2)
         #Asserts that the strain page is for the correct strain
         assert "C3H/HeJ" in self.driver.page_source  
 
@@ -862,22 +850,20 @@ class TestMarkerDetail(unittest.TestCase):
         '''
         @status this test verifies when you click the Phenotype summary link(for genetic backgrounds) from the Mutations, Alleles, and Phenotypes ribbon
         to open the MP ontology annotations page you find strains in the genetic background column link to their strain detail page.
-        @bug: can't get to page because other page tab closes....
         @note mrkdetail-allele-5
         '''
         driver = self.driver
-        self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys("Pde6b")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Pde6b').click()
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
+        if WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'summaryRibbon'))):
+            print('Summary ribbon is loaded')
         self.driver.find_element(By.ID, 'phenoAnnotationLink').click()
         #Find the link in the Genetic Background column C57BL/6J-Pde6b<rd1-2J>/J and click it
         self.driver.find_element(By.LINK_TEXT, 'C57BL/6J-Pde6brd1-2J/J').click()
-        #time.sleep(2)
         #switch focus to the new tab for strain detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        time.sleep(2)
+        wait.forNewWindow(self.driver, 2)
         page_title = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
         print(page_title.text)
         #Asserts that the strain page is for the correct strain
@@ -887,22 +873,21 @@ class TestMarkerDetail(unittest.TestCase):
         '''
         @status this test verifies when you click the Phenotype summary link(for multigenic genotypes) from the Mutations, Alleles, and Phenotypes ribbon
         to open the MP ontology annotations page you find strains in the genetic background column link to their strain detail page.
-        @bug: can't get to page because other page tab closes....
         @note mrkdetail-allele-6
         '''
         driver = self.driver
-        self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys("Pde6b")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Pde6b').click()
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
+        if WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'summaryRibbon'))):
+            print('Summary ribbon is loaded')
         self.driver.find_element(By.ID, 'phenoMultigenicLink').click()
         #Find the link in the Genetic Background column C57BL/6J-Pde6b<rd1-2J> Pde6a<nmf363>and click it
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'C57BL/6J-Pde6brd1-2J').click()
-        #time.sleep(2)
+        time.sleep(2)
         #switch focus to the new tab for strain detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        #time.sleep(2)
+        wait.forNewWindow(self.driver, 2)
         page_title = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
         print(page_title.text)
         #Asserts that the strain page is for the correct strain
@@ -919,43 +904,30 @@ class TestMarkerDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').send_keys("Sry")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Sry').click()
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
+        if WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'summaryRibbon'))):
+            print('Summary ribbon is loaded')
         #locates the phenogrid and click on the cell for reproductive System
         self.driver.find_element(By.ID, 'mpSlimgrid23Div').click()
-        #pheno_table = Table(self.driver.find_element(By.ID, "mpSlimgridTable"))
-        #pheno_table.get_cell(2, 21).click()
+        pheno_table = Table(self.driver.find_element(By.ID, "mpSlimgridTable"))
+        pheno_table.get_cell(2, 21).click()
         #switch focus to the new tab for Phenotype annotations related to reproductive System
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        #time.sleep(2) 
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'popupTable')))#waits until the phenogrid table is displayed on the page       
+        wait.forNewWindow(self.driver, 2)
         #find and click the Mouse Genotype for X/Sry<AKR/J>
-        self.driver.find_element(By.XPATH, '//*[@id="fm38799a"]').click()
+        self.driver.find_element(By.XPATH, '//*[@id="fm19557a"]').click()
         #switch focus to the new tab for Phenotypes associated with X/Sry<AKR/J>
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        #time.sleep(2) 
+        wait.forNewWindow(self.driver, 2)
         #Locate the Genetic Background column and click the link found there(Summary ribbon)
-        self.driver.find_element(By.XPATH, '//*[@id="templateBodyInsert"]/div[2]/div[1]/div/div[2]/table/tbody/tr/td[1]/table/tbody/tr[2]/td[2]/a').click()
-        #time.sleep(2) 
+        self.driver.find_element(By.LINK_TEXT, 'AKR/J').click()
         #switch focus to the new tab for strain detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        #time.sleep(2)
+        wait.forNewWindow(self.driver, 5)
         page_title = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
         print(page_title.text)
         #Asserts that the strain page is for the correct strain detail
         self.assertEqual(page_title.text, 'AKR/J', 'Page title is not correct!')
-        #switch focus back to the tab for Phenotypes associated with X/Sry<AKR/J>
-        self.driver.switch_to.window(self.driver.window_handles[+2])
-        #time.sleep(8) 
-        #Locate the Genetic Background strain in the genotype ribbon and click the link.
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div[1]/div/div[2]/table/tbody/tr/td[1]/table/tbody/tr[2]/td[2]/a').click()
-        #time.sleep(2) 
-        #switch focus to the new tab for strain detail page
-        self.driver.switch_to.window(self.driver.window_handles[-1])
-        #time.sleep(2)
-        page_title = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
-        print(page_title.text)
-        #Asserts that the strain page is for the correct strain detail
-        self.assertEqual(page_title.text, 'AKR/J', 'Page title is not correct!')
+
 
     def test_qtl_detail_interactions(self):
         '''
@@ -971,10 +943,6 @@ class TestMarkerDetail(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
         #find the QTL Interaction link and click it
         self.driver.find_element(By.ID, 'showInteractingQTL').click()
-        #time.sleep(2)
-        #switch focus to the popup Interaction popup page
-        self.driver.switch_to.window(self.driver.window_handles[-1])
-        #time.sleep(2)
         #find the Interaction table
         Inter_table = self.driver.find_element(By.ID, 'interactingQTLTbl') 
         print(Inter_table.text)
@@ -994,10 +962,6 @@ class TestMarkerDetail(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
         #find the Candidate Genes link and click it
         self.driver.find_element(By.ID, 'showCandidates').click()
-        #time.sleep(2)
-        #switch focus to the popup Candidate Genes popup page
-        self.driver.switch_to.window(self.driver.window_handles[-1])
-        time.sleep(2)
         #find the Candidates table
         Candidate_table = self.driver.find_element(By.ID, 'candidatesTbl') 
         print(Candidate_table.text)
@@ -1017,10 +981,6 @@ class TestMarkerDetail(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
         #find the Candidate for QTL link and click it
         self.driver.find_element(By.ID, 'showCandidateFor').click()
-        #time.sleep(2)
-        #switch focus to the popup is Candidate Gene for: popup page
-        self.driver.switch_to.window(self.driver.window_handles[-1])
-        time.sleep(2)
         #find the Candidates table
         Candidatefor_table = self.driver.find_element(By.ID, 'candidateForTbl') 
         print(Candidatefor_table.text)

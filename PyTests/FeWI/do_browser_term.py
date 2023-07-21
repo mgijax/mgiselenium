@@ -11,6 +11,8 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -40,9 +42,14 @@ class TestDoBrowserTermTab(unittest.TestCase):
         # put your Gene ID in the quick search box
         searchbox.send_keys("DOID:1324")
         searchbox.send_keys(Keys.RETURN)
-        
+        time.sleep(2)
+        # find the Vocabulary Term tab and click it
+        self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'lung cancer').click()
-        
+        # switch to the new window
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'genesTabButton'))):
+            print('page loaded')
         header = self.driver.find_element(By.ID, 'diseaseNameID')#identifies the header section of the DO Browser page
         print(header.text)
         
@@ -70,9 +77,14 @@ class TestDoBrowserTermTab(unittest.TestCase):
         # put your Gene ID in the quick search box
         searchbox.send_keys("DOID:12217")
         searchbox.send_keys(Keys.RETURN)
-        
+        time.sleep(2)
+        # find the Vocabulary Term tab and click it
+        self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'Lewy body dementia').click()
-        
+        # switch to the new window
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'genesTabButton'))):
+            print('page loaded')
         #locate the Parent Term box
         parent = self.driver.find_elements(By.ID, 'termTabParentWrapper')#identifies all the parents found in the Parents term box
         searchTermItems = iterate.getTextAsList(parent)
@@ -92,9 +104,14 @@ class TestDoBrowserTermTab(unittest.TestCase):
         # put your Gene ID in the quick search box
         searchbox.send_keys("DOID:225")
         searchbox.send_keys(Keys.RETURN)
-        
+        time.sleep(5)
+        # find the Vocabulary Term tab and click it
+        self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'syndrome').click()
-        
+        # switch to the new window
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'genesTabButton'))):
+            print('page loaded')
         #locate the Parent Term box
         parent = self.driver.find_elements(By.ID, 'termTabParentWrapper')#identifies all the parents found in the Parents term box
         searchTermItems = iterate.getTextAsList(parent)
@@ -115,9 +132,14 @@ class TestDoBrowserTermTab(unittest.TestCase):
         # put your Gene ID in the quick search box
         searchbox.send_keys("DOID:12365")
         searchbox.send_keys(Keys.RETURN)
-        
+        time.sleep(2)
+        # find the Vocabulary Term tab and click it
+        self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'malaria').click()
-        
+        # switch to the new window
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'genesTabButton'))):
+            print('page loaded')
         #locate the Parent Term box
         parent = self.driver.find_elements(By.ID, 'termTabParentWrapper')#identifies all the parents found in the Parents term box
         searchTermItems = iterate.getTextAsList(parent)
@@ -144,9 +166,14 @@ class TestDoBrowserTermTab(unittest.TestCase):
         # put your Gene ID in the quick search box
         searchbox.send_keys("DOID:9562")
         searchbox.send_keys(Keys.RETURN)
-        
+        time.sleep(2)
+        # find the Vocabulary Term tab and click it
+        self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'primary ciliary dyskinesia').click()
-        
+        # switch to the new window
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'genesTabButton'))):
+            print('page loaded')
         #locate the Parent Term box
         parent = self.driver.find_elements(By.ID, 'termTabParentWrapper')#identifies all the parents found in the Parents term box
         searchTermItems = iterate.getTextAsList(parent)
@@ -173,9 +200,14 @@ class TestDoBrowserTermTab(unittest.TestCase):
         # put your Gene ID in the quick search box
         searchbox.send_keys("DOID:14332")
         searchbox.send_keys(Keys.RETURN)
-        
+        time.sleep(2)
+        # find the Vocabulary Term tab and click it
+        self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'postencephalitic Parkinson disease').click()
-        
+        # switch to the new window
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'genesTabButton'))):
+            print('page loaded')
         #locate the Parent Term box
         parent = self.driver.find_elements(By.ID, 'termTabParentWrapper')#identifies all the parents found in the Parents term box
         searchTermItems = iterate.getTextAsList(parent)
@@ -197,9 +229,14 @@ class TestDoBrowserTermTab(unittest.TestCase):
         # put your Gene ID in the quick search box
         searchbox.send_keys("DOID:680")
         searchbox.send_keys(Keys.RETURN)
-        
+        time.sleep(2)
+        # find the Vocabulary Term tab and click it
+        self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'tauopathy').click()
-        
+        # switch to the new window
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'genesTabButton'))):
+            print('page loaded')
         #locate the Parent Term box
         parent = self.driver.find_elements(By.ID, 'termTabParentWrapper')#identifies all the parents found in the Parents term box
         searchTermItems = iterate.getTextAsList(parent)
@@ -208,17 +245,17 @@ class TestDoBrowserTermTab(unittest.TestCase):
         #locate the siblings terms box
         siblings = self.driver.find_elements(By.ID, 'termTabTermWrapper')
         searchTermItems = iterate.getTextAsList(siblings)
-        self.assertIn(searchTermItems[0], "tauopathy +\n\nagenesis of the corpus callosum with peripheral neuropathy\namyotrophic lateral sclerosis-parkinsonism/dementia complex 1\ndemyelinating disease +\nfamilial encephalopathy with neuroserpin inclusion bodies\nhereditary ataxia +\nHuntington's disease\nHuntington's disease-like 2\ninfantile cerebellar-retinal degeneration\nmotor neuron disease +\nmyoclonic cerebellar dyssynergia\nneuroacanthocytosis +\nneurodegeneration with brain iron accumulation +\nolivopontocerebellar atrophy\nPick's disease\nplexopathy\npontocerebellar hypoplasia +\nprimary cerebellar degeneration\nsecondary Parkinson disease +\nSPOAN syndrome\nstress-induced childhood-onset neurodegeneration with variable ataxia and seizures\nsynucleinopathy +")
+        self.assertIn(searchTermItems[0], " tauopathy +\n\nagenesis of the corpus callosum with peripheral neuropathy\namyotrophic lateral sclerosis-parkinsonism/dementia complex 1\nfamilial encephalopathy with neuroserpin inclusion bodies\nhereditary ataxia +\nHuntington's disease\nHuntington's disease-like 2\ninfantile cerebellar-retinal degeneration\nmotor neuron disease +\nmyoclonic cerebellar dyssynergia\nneuroacanthocytosis +\nneurodegeneration with ataxia, dystonia, and gaze palsy, childhood-onset\nneurodegeneration with brain iron accumulation +\nneurodevelopmental disorder with regression, abnormal movements, loss of speech, and seizures\nneuronal intranuclear inclusion disease\nolivopontocerebellar atrophy\nPick's disease\nplexopathy\npontocerebellar hypoplasia +\nprimary cerebellar degeneration\nsecondary Parkinson disease +\nSPOAN syndrome\nstress-induced childhood-onset neurodegeneration with variable ataxia and seizures\nsynucleinopathy + ")
         print(searchTermItems)
         #locate the children terms box
         children = self.driver.find_elements(By.ID, 'termTabChildWrapper')
         searchTermItems = iterate.getTextAsList(children)
-        self.assertEqual(searchTermItems[0], "Alzheimer's disease +")
+        self.assertEqual(searchTermItems[0], "Alzheimer's disease +\nchronic traumatic encephalopathy")
         print(searchTermItems)
             
-        def tearDown(self):
-            self.driver.quit()
-            tracemalloc.stop()
+    def tearDown(self):
+        self.driver.quit()
+        tracemalloc.stop()
 
 def suite():
     suite = unittest.TestSuite()

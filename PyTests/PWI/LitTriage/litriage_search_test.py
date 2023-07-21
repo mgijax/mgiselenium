@@ -440,10 +440,9 @@ class TestEiLitTriageSearch(unittest.TestCase):
         form.enter_value('journal', 'Blood')
         form.enter_value('year', '2020')
         form.click_search()
-        WebDriverWait(self.driver, 30).until(EC.presence_of_element_located((By.ID, "resultsTable")))
+        wait.forAngular(self.driver)
         # Confirms that the MGI Discard box is checked(selected)
         radio_button = self.driver.find_element(By.CSS_SELECTOR, "input.ng-pristine:nth-child(4)")
-        time.sleep(5)
         self.assertTrue(radio_button.is_selected(), 'discard is not selected')
 
     def testSingleTagSearch(self):
@@ -527,7 +526,6 @@ class TestEiLitTriageSearch(unittest.TestCase):
         self.driver.find_element(By.ID, 'status_GO_Indexed').click()
         # click the AND option
         self.driver.find_element(By.XPATH, "//input[@value='AND']").click()
-
         form.click_search()
         # finds the results table and iterates through the table
         table_element = self.driver.find_element(By.ID, 'editTabWorkFlowStatus')
@@ -544,8 +542,6 @@ class TestEiLitTriageSearch(unittest.TestCase):
         table = Table(results_table)
         ap_cell1 = table.get_cell(1, 7)
         go_cell2 = table.get_cell(1, 8)
-
-        time.sleep(2)
         # verifies the 16th AP item is rejected, the 1st AP item is Indexed, the 5th GO item is Rejected and the 1st GO item is Indexed
         self.assertEqual(ap_cell1.text, "Rejected", 'AP is not indexed')
         self.assertEqual(go_cell2.text, "Indexed", 'GO is not indexed')
@@ -643,11 +639,13 @@ class TestEiLitTriageSearch(unittest.TestCase):
         @see LitTri-search-sum-1 Broken, can't figure out why it's doing what it is doing.
         """
         form = self.form
-        form.enter_value('accids', '35656878')
+        form.enter_value('ids', '35656878')
         form.click_searchSummary()
-        time.sleep(8)
-        self.driver.switch_to.window(self.driver.window_handles[1])
-        time.sleep(5)
+        #time.sleep(8)
+        #wait.forAngular(self.driver)
+        #self.driver.switch_to.window(self.driver.window_handles[1])
+        #time.sleep(5)
+        wait.forAngular(self.driver)
         # find the search results table
         results_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
         table = Table(results_table)
@@ -665,7 +663,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
         form = self.form
         form.enter_value('accids', 'MGI:2156816')
         form.click_searchSummary()
-        time.sleep(2)
+        wait.forAngular(self.driver)
         self.driver.switch_to.window(self.driver.window_handles[1])
         # find the search results table
         results_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
@@ -684,7 +682,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
         form = self.form
         form.enter_value('accids', 'J:237402')
         form.click_searchSummary()
-        time.sleep(2)
+        wait.forAngular(self.driver)
         self.driver.switch_to.window(self.driver.window_handles[1])
         # find the search results table
         results_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
@@ -703,7 +701,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
         form = self.form
         form.enter_value('accids', 'MGI:5812656, J:237402, 27097562, 10.1002/cne.24025')
         form.click_searchSummary()
-        time.sleep(2)
+        wait.forAngular(self.driver)
         self.driver.switch_to.window(self.driver.window_handles[1])
         # find the search results table
         results_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
@@ -722,8 +720,8 @@ class TestEiLitTriageSearch(unittest.TestCase):
         form = self.form
         form.enter_value('authors', 'Recla%')
         form.click_searchSummary()
-        time.sleep(2)
-        self.driver.switch_to.window(self.driver.window_handles[1])
+        wait.forAngular(self.driver)
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         # find the search results table
         results_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
         table = Table(results_table)
@@ -742,8 +740,8 @@ class TestEiLitTriageSearch(unittest.TestCase):
         form = self.form
         form.enter_value('authors', 'Recla JM; Bubier JA;%')
         form.click_searchSummary()
-        time.sleep(2)
-        self.driver.switch_to.window(self.driver.window_handles[1])
+        wait.forAngular(self.driver)
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         # find the search results table
         results_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
         table = Table(results_table)
@@ -762,9 +760,9 @@ class TestEiLitTriageSearch(unittest.TestCase):
         form = self.form
         form.enter_value('title', 'Precise genetic mapping%')
         form.click_searchSummary()
-        time.sleep(2)
-        self.driver.switch_to.window(self.driver.window_handles[1])
-        time.sleep(2)
+        wait.forAngular(self.driver)
+        self.driver.switch_to.window(self.driver.window_handles[-1])
+        wait.forAngular(self.driver)
         # find the search results table
         results_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
         table = Table(results_table)
@@ -783,8 +781,8 @@ class TestEiLitTriageSearch(unittest.TestCase):
         form = self.form
         form.enter_value('journal', 'Pain')
         form.click_searchSummary()
-        time.sleep(2)
-        self.driver.switch_to.window(self.driver.window_handles[1])
+        wait.forAngular(self.driver)
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         # find the search results table
         results_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
         table = Table(results_table)
@@ -802,8 +800,8 @@ class TestEiLitTriageSearch(unittest.TestCase):
         form = self.form
         form.enter_value('year', '1958')
         form.click_searchSummary()
-        time.sleep(2)
-        self.driver.switch_to.window(self.driver.window_handles[1])
+        wait.forAngular(self.driver)
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         # find the search results table
         results_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
         table = Table(results_table)
@@ -821,8 +819,8 @@ class TestEiLitTriageSearch(unittest.TestCase):
         form = self.form
         form.enter_value('volume', '992')
         form.click_searchSummary()
-        time.sleep(2)
-        self.driver.switch_to.window(self.driver.window_handles[1])
+        wait.forAngular(self.driver)
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         # find the search results table
         results_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
         table = Table(results_table)

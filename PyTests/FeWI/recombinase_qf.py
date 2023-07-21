@@ -46,9 +46,8 @@ class TestCreSpecificity(unittest.TestCase):
         self.driver.find_element(By.NAME, 'structure_1').send_keys('definitive endoderm')
         time.sleep(2)
         self.driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
         self.driver.switch_to.window(self.driver.window_handles[-1]) 
-        WebDriverWait(self.driver, 20).until(EC.text_to_be_present_in_element((By.CLASS_NAME, 'titleBarMainTitle'), 'Recombinase Alleles - Tissue Summary'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.CLASS_NAME, 'titleBarMainTitle'), 'Recombinase Alleles - Tissue Summary'))
         #find all the results in the Driver column so they can be verified
         driver1 = self.driver.find_element(By.CSS_SELECTOR, '#yui-rec0 > td:nth-child(1) > div:nth-child(1)')
         print(driver1.text)
@@ -79,9 +78,8 @@ class TestCreSpecificity(unittest.TestCase):
         self.driver.find_element(By.NAME, 'structure_2').send_keys('pons')
         time.sleep(2)
         self.driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
         self.driver.switch_to.window(self.driver.window_handles[-1]) 
-        WebDriverWait(self.driver, 20).until(EC.text_to_be_present_in_element((By.CLASS_NAME, 'titleBarMainTitle'), 'Recombinase Alleles - Tissue Summary'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.CLASS_NAME, 'titleBarMainTitle'), 'Recombinase Alleles - Tissue Summary'))
         #find all the results in the Driver column so they can be verified
         driver1 = self.driver.find_element(By.CSS_SELECTOR, '#yui-rec0 > td:nth-child(1) > div:nth-child(1)')
         print(driver1.text)
@@ -91,32 +89,25 @@ class TestCreSpecificity(unittest.TestCase):
      
     def test_2structure_detected_nowhere(self):
         '''
-        @status This test verifies that searching by 2 structures detected and no where else return the correct results.
+        @status This test verifies that searching by a structure detected and nowhere else return the correct results.
         @note: Recomb-test-3
         '''
         #find the Anatomical Structure field and enter text
-        self.driver.find_element(By.NAME, 'structure_1').send_keys('brain stem')
+        self.driver.find_element(By.NAME, 'structure_1').send_keys('brain ependyma')
         time.sleep(2)
         #find and click the Add structure button
         self.driver.find_element(By.CLASS_NAME, 'addButton').click()
-        #find the new structure field and add a second structure, had  to use elem because autocomplete was not closing and causing nowhereEle box to be clicked.
-        elem = self.driver.find_element(By.NAME, 'structure_2')
-        elem.send_keys('pons')
-        time.sleep(2)
-        elem.send_keys(Keys.TAB)
         #click the No where else toggle
         self.driver.find_element(By.NAME, 'nowhereElse').click()
-        time.sleep(2)
         self.driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
         self.driver.switch_to.window(self.driver.window_handles[-1]) 
-        WebDriverWait(self.driver, 20).until(EC.text_to_be_present_in_element((By.CLASS_NAME, 'titleBarMainTitle'), 'Recombinase Alleles - Tissue Summary'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.CLASS_NAME, 'titleBarMainTitle'), 'Recombinase Alleles - Tissue Summary'))
         #find all the results in the Driver column so they can be verified
         driver1 = self.driver.find_element(By.CSS_SELECTOR, '#yui-rec0 > td:nth-child(1) > div:nth-child(1)')
         print(driver1.text)
         
         # verifies the returned terms are the correct terms for this search
-        self.assertEqual('Calca', driver1.text, 'driver1 is not correct' )
+        self.assertEqual('Anks1', driver1.text, 'driver1 is not correct' )
         
     def test_1structure_detected_1notdetected(self):
         '''
@@ -134,9 +125,8 @@ class TestCreSpecificity(unittest.TestCase):
         #set the not detected option for the structure pons
         self.driver.find_element(By.XPATH, "//input[@name='detected_2' and @value='false']").click()
         self.driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
-        self.driver.switch_to.window(self.driver.window_handles[-1]) 
-        WebDriverWait(self.driver, 20).until(EC.text_to_be_present_in_element((By.CLASS_NAME, 'titleBarMainTitle'), 'Recombinase Alleles - Tissue Summary'))
+        self.driver.switch_to.window(self.driver.window_handles[-1])
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.CLASS_NAME, 'titleBarMainTitle'), 'Recombinase Alleles - Tissue Summary'))
         #find all the results in the Driver column so they can be verified
         driver1 = self.driver.find_element(By.CSS_SELECTOR, '#yui-rec0 > td:nth-child(1) > div:nth-child(1)')
         print(driver1.text)
@@ -179,9 +169,8 @@ class TestCreSpecificity(unittest.TestCase):
         self.driver.find_element(By.XPATH, "//input[@name='detected_2' and @value='false']").click()
         self.driver.find_element(By.ID, 'creDriverAC').send_keys('Ltf')
         self.driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
         self.driver.switch_to.window(self.driver.window_handles[-1]) 
-        WebDriverWait(self.driver, 20).until(EC.text_to_be_present_in_element((By.CLASS_NAME, 'titleBarMainTitle'), 'Recombinase Alleles - Tissue Summary'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.CLASS_NAME, 'titleBarMainTitle'), 'Recombinase Alleles - Tissue Summary'))
         #find all the results in the Driver column so they can be verified
         driver1 = self.driver.find_element(By.CSS_SELECTOR, '#yui-rec0 > td:nth-child(1) > div:nth-child(1)')
         print(driver1.text)
@@ -203,13 +192,10 @@ class TestCreSpecificity(unittest.TestCase):
         self.driver.find_element(By.ID, 'creDriverAC').send_keys('Nes')
         self.driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
-        self.driver.switch_to.window(self.driver.window_handles[-1]) 
-        time.sleep(2)
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         #find the matric view icon and click it
         self.driver.find_element(By.CSS_SELECTOR, '#yui-rec1 > td:nth-child(2) > div:nth-child(1) > a:nth-child(1)').click()
-        time.sleep(2)
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        time.sleep(2)
         #find the gene expression column and grab the text
         geneexp = self.driver.find_element(By.CSS_SELECTOR, '#colGroupInner > g:nth-child(3) > g:nth-child(1) > text:nth-child(2)')
         print(geneexp.text)
@@ -253,28 +239,31 @@ class TestCreSpecificity(unittest.TestCase):
         print(all19.text)
         all20 = self.driver.find_element(By.CSS_SELECTOR, 'g.col20:nth-child(1) > text:nth-child(2) > a:nth-child(1)')
         print(all20.text)
+        all21 = self.driver.find_element(By.CSS_SELECTOR, 'g.col21:nth-child(1) > text:nth-child(2) > a:nth-child(1)')
+        print(all21.text)
         # verifies the returned terms are the correct terms and sort order for this search
         self.assertEqual('Nes - gene expression', geneexp.text, 'gene expression allele is not correct')        
-        self.assertEqual('Nes<em1(flpo)Awar>', all1.text, 'first allele is not correct')        
-        self.assertEqual('Tg(NES-cre)#Ajde', all2.text, 'second allele is not correct' )
-        self.assertEqual('Tg(Nes-cre)1Atp', all3.text, 'third allele is not correct' )
-        self.assertEqual('Tg(Nes-cre)1Kln', all4.text, 'forth allele is not correct' )
-        self.assertEqual('Tg(Nes-cre)1Sasa', all5.text, 'fifth allele is not correct' )
-        self.assertEqual('Tg(Nes-cre/ERT2)1Adra', all6.text, 'sixth allele is not correct')        
-        self.assertEqual('Tg(Nes-cre/ERT2)1Kag', all7.text, 'seventh allele is not correct' )
-        self.assertEqual('Tg(Nes-cre/ERT2)4Kag', all8.text, 'eighth allele is not correct' )
-        self.assertEqual('Tg(Nes-cre/ERT2)5-1Kag', all9.text, 'ninth allele is not correct' )
-        self.assertEqual('Tg(Nes-cre/ERT2)73Lfp', all10.text, 'tenth allele is not correct' )
-        self.assertEqual('Tg(Nes-cre/ERT2)KEisc', all11.text, 'eleventh allele is not correct')        
-        self.assertEqual('Tg(Nes-cre/Esr1*)4Ynj', all12.text, 'twelfth allele is not correct' )
-        self.assertEqual('Tg(Nes-cre)1Kag', all13.text, 'thirteenth allele is not correct' )
-        self.assertEqual('Tg(Nes-cre)1Nogu', all14.text, 'fourteenth allele is not correct' )
-        self.assertEqual('Tg(Nes-cre)1Wme', all15.text, 'fifteenth allele is not correct' )
-        self.assertEqual('Tg(Nes-cre)1Wmz', all16.text, 'sixteenth allele is not correct')        
-        self.assertEqual('Tg(Nes-cre/ERT2)1Fsh', all17.text, 'seventeenth allele is not correct' )
-        self.assertEqual('Tg(Nes-phiC31*)1Imayo', all18.text, 'eighteenth allele is not correct' )
-        self.assertEqual('Tg(Nes-phiC31*/ERT2)2Imayo', all19.text, 'nineteenth allele is not correct' )
-        self.assertEqual('Tg(Nes-phiC31*/ERT2)4Imayo', all20.text, 'twentieth allele is not correct' )
+        self.assertEqual('Nes<em1(flpo)Awar>', all1.text, 'first allele is not correct')
+        self.assertEqual('Tg(Nes-cre/ERT2,-EGFP,-HBEGF)1Lfp', all2.text, 'twentieth allele is not correct')
+        self.assertEqual('Tg(NES-cre)#Ajde', all3.text, 'second allele is not correct' )
+        self.assertEqual('Tg(Nes-cre)1Atp', all4.text, 'third allele is not correct' )
+        self.assertEqual('Tg(Nes-cre)1Kln', all5.text, 'forth allele is not correct' )
+        self.assertEqual('Tg(Nes-cre)1Sasa', all6.text, 'fifth allele is not correct' )
+        self.assertEqual('Tg(Nes-cre/ERT2)1Adra', all7.text, 'sixth allele is not correct')
+        self.assertEqual('Tg(Nes-cre/ERT2)1Kag', all8.text, 'seventh allele is not correct' )
+        self.assertEqual('Tg(Nes-cre/ERT2)4Kag', all9.text, 'eighth allele is not correct' )
+        self.assertEqual('Tg(Nes-cre/ERT2)5-1Kag', all10.text, 'ninth allele is not correct' )
+        self.assertEqual('Tg(Nes-cre/ERT2)73Lfp', all11.text, 'tenth allele is not correct' )
+        self.assertEqual('Tg(Nes-cre/ERT2)KEisc', all12.text, 'eleventh allele is not correct')
+        self.assertEqual('Tg(Nes-cre/Esr1*)4Ynj', all13.text, 'twelfth allele is not correct' )
+        self.assertEqual('Tg(Nes-cre)1Kag', all14.text, 'thirteenth allele is not correct' )
+        self.assertEqual('Tg(Nes-cre)1Nogu', all15.text, 'fourteenth allele is not correct' )
+        self.assertEqual('Tg(Nes-cre)1Wme', all16.text, 'fifteenth allele is not correct' )
+        self.assertEqual('Tg(Nes-cre)1Wmz', all17.text, 'sixteenth allele is not correct')
+        self.assertEqual('Tg(Nes-cre/ERT2)1Fsh', all18.text, 'seventeenth allele is not correct' )
+        self.assertEqual('Tg(Nes-phiC31*)1Imayo', all19.text, 'eighteenth allele is not correct' )
+        self.assertEqual('Tg(Nes-phiC31*/ERT2)2Imayo', all20.text, 'nineteenth allele is not correct' )
+        self.assertEqual('Tg(Nes-phiC31*/ERT2)4Imayo', all21.text, 'twentieth allele is not correct' )
 
     def test_Matrix_species(self):
         '''
@@ -289,13 +278,10 @@ class TestCreSpecificity(unittest.TestCase):
         self.driver.find_element(By.ID, 'creDriverAC').send_keys('Krt5, KRT5')
         self.driver.find_element(By.CLASS_NAME, 'goButton').click()
         time.sleep(2)
-        self.driver.switch_to.window(self.driver.window_handles[-1]) 
-        time.sleep(2)
-        #find the matric view icon in the 5th row and click it
-        self.driver.find_element(By.CSS_SELECTOR, '#yui-rec4 > td:nth-child(2) > div:nth-child(1) > a:nth-child(1) > img:nth-child(1)').click()
-        time.sleep(2)
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        time.sleep(2)
+        #find the matric view icon in the 5th row and click it
+        self.driver.find_element(By.CSS_SELECTOR, '#yui-rec5 > td:nth-child(2) > div:nth-child(1) > a:nth-child(1) > img:nth-child(1)').click()
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         #capture and print on hover text for first allele
         toolTip = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, "g.col1:nth-child(1) > text:nth-child(2) > a:nth-child(1)")))
         hov = ActionChains(self.driver).move_to_element(toolTip)
@@ -338,13 +324,27 @@ class TestCreSpecificity(unittest.TestCase):
         txt = hov.perform()
         tooltip7 = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, "g.col7:nth-child(1) > text:nth-child(2) > title:nth-child(2)"))).get_attribute("innerHTML")
         print(tooltip7)
+        # capture and print on hover text for seventh allele
+        toolTip8 = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, "g.col8:nth-child(1) > text:nth-child(2) > a:nth-child(1)")))
+        hov = ActionChains(self.driver).move_to_element(toolTip8)
+        txt = hov.perform()
+        tooltip8 = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, "g.col8:nth-child(1) > text:nth-child(2) > title:nth-child(2)"))).get_attribute("innerHTML")
+        print(tooltip8)
+        # capture and print on hover text for seventh allele
+        toolTip9 = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, "g.col9:nth-child(1) > text:nth-child(2) > a:nth-child(1)")))
+        hov = ActionChains(self.driver).move_to_element(toolTip9)
+        txt = hov.perform()
+        tooltip9 = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, "g.col9:nth-child(1) > text:nth-child(2) > title:nth-child(2)"))).get_attribute("innerHTML")
+        print(tooltip9)
         self.assertEqual('Tg(KRT5-cre/ERT2)1Blh\nhuman driver species', tooltip, 'the tooltip species is wrong')
-        self.assertEqual('Tg(KRT5-cre/PGR)1Der\nhuman driver species', tooltip2, 'the tooltip2 species is wrong')
-        self.assertEqual('Tg(KRT5-cre)5132Jlj\ncattle driver species', tooltip3, 'the tooltip2 species is wrong')
-        self.assertEqual('Tg(KRT5-cre/ERT2)2Ipc\ncattle driver species', tooltip4, 'the tooltip species is wrong')
-        self.assertEqual('Tg(KRT5-cre/ERT)ICmch\ncattle driver species', tooltip5, 'the tooltip2 species is wrong')
-        self.assertEqual('Tg(KRT5-cre/ERT)SCmch\ncattle driver species', tooltip6, 'the tooltip2 species is wrong')
-        self.assertEqual('Tg(Krt1-5-cre/ERT)1Ipc\nnot specified driver species', tooltip7, 'the tooltip2 species is wrong')
+        self.assertEqual('Tg(KRT5-cre/ERT2)2Blh\nhuman driver species', tooltip2, 'the tooltip2 species is wrong')
+        self.assertEqual('Tg(KRT5-cre/ERT2)#Mym\nhuman driver species', tooltip3, 'the tooltip3 species is wrong')
+        self.assertEqual('Tg(KRT5-cre/PGR)1Der\nhuman driver species', tooltip4, 'the tooltip4 species is wrong')
+        self.assertEqual('Tg(KRT5-cre)5132Jlj\ncattle driver species', tooltip5, 'the tooltip5 species is wrong')
+        self.assertEqual('Tg(KRT5-cre/ERT2)2Ipc\ncattle driver species', tooltip6, 'the tooltip6 species is wrong')
+        self.assertEqual('Tg(KRT5-cre/ERT)ICmch\ncattle driver species', tooltip7, 'the tooltip7 species is wrong')
+        self.assertEqual('Tg(KRT5-cre/ERT)SCmch\ncattle driver species', tooltip8, 'the tooltip8 species is wrong')
+        self.assertEqual('Tg(Krt1-5-cre/ERT)1Ipc\nnot specified driver species', tooltip9, 'the tooltip9 species is wrong')
         
     def tearDown(self):
         self.driver.quit()

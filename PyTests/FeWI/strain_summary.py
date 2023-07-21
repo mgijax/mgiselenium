@@ -50,10 +50,6 @@ class TestStrainSummary(unittest.TestCase):
         # Enter your strain name
         strainsearchbox.send_keys("101/H")
         strainsearchbox.send_keys(Keys.RETURN)
-        #time.sleep(2)
-        #find the search button and click it
-        #driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
         #locates the 'you searched for' text to verify it is correct correct
         you_srch = driver.find_element(By.ID, 'ysf')
         print(you_srch.text)
@@ -72,10 +68,8 @@ class TestStrainSummary(unittest.TestCase):
         strainsearchbox.send_keys("101/H")
         #find the inbred strain option in the list and select it
         Select (driver.find_element(By.NAME, 'attributes')).select_by_visible_text('inbred strain')
-        time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
         #locates the 'you searched for' text to verify it is correct correct
         you_srch = driver.find_element(By.ID, 'ysf')
         print(you_srch.text)
@@ -92,10 +86,8 @@ class TestStrainSummary(unittest.TestCase):
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("BALB/cJ")
-        time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
         #locates the strain table and verify the IDs/Links are correct
         strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         headings = strain_table.get_header_cells()
@@ -115,13 +107,10 @@ class TestStrainSummary(unittest.TestCase):
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("129(B6)-Elf5<tm1Mapr>")
-        time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
         #locates the link for the official strain name
         driver.find_element(By.PARTIAL_LINK_TEXT, '129').click()
-        time.sleep(2)
         #switch focus to the new tab for strain detail page
         driver.switch_to.window(self.driver.window_handles[-1])
         tpage = driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
@@ -139,13 +128,10 @@ class TestStrainSummary(unittest.TestCase):
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("B6Ei.LT-Y(IsXPAR;Y)Ei/EiJ")
-        time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
         #locates the link for the references
         driver.find_element(By.CLASS_NAME, 'referenceLink').click()
-        time.sleep(2)
         #switch focus to the new tab for strain detail page
         driver.switch_to.window(self.driver.window_handles[-1])
         sname = driver.find_element(By.CLASS_NAME, 'symbolLink')
@@ -164,10 +150,8 @@ class TestStrainSummary(unittest.TestCase):
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("129S1/SvImJ")
-        #time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
-        time.sleep(2)
         #locates the strain table and verify the IDs are correct
         strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         ids = strain_table.get_column_cells('IDs')
@@ -186,30 +170,23 @@ class TestStrainSummary(unittest.TestCase):
         strainsearchbox = driver.find_element(By.ID, 'strainNameAC')
         # Enter your strain name
         strainsearchbox.send_keys("SL*")
-        #time.sleep(2)
         #find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
-        #time.sleep(2)
         #locates the attribute filter and click it to display the list of filter options
         self.driver.find_element(By.CLASS_NAME, 'filterButton').click()
-        #time.sleep(5)
         self.driver.find_elements(By.CLASS_NAME, 'attributeFilter')
-        #time.sleep(2)
         #find the option 'congenic' and click it
         element = self.driver.find_element(By.CSS_SELECTOR, "input[value='congenic'][type='checkbox']")        
         ActionChains(driver).click(element)\
             .send_keys(Keys.ENTER)\
-            .perform()        
-        #time.sleep(2)
+            .perform()
         #locate the Filter button below the filter by attributes list and click it
         self.driver.find_element(By.ID, 'yui-gen0-button').click()
-        #time.sleep(2)
         #locates the strain table and verify the Attributes are correct for each of the 5 results
         strain_table = Table(self.driver.find_element(By.ID, "strainSummaryTable"))
         ids = strain_table.get_column_cells('Attributes')
         print(iterate.getTextAsList(ids))
         idsReturned = iterate.getTextAsList(ids)
-        #time.sleep(2)
         #asserts that the Headings are correct
         self.assertEqual('congenic\nmutant strain\ntargeted mutation', idsReturned[1]) #Assert the first row of attributes are correct
         self.assertEqual('congenic\nmutant strain\ntargeted mutation', idsReturned[2]) #Assert the second row of attributes are correct 

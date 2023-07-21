@@ -12,6 +12,8 @@ from selenium import webdriver
 #from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 #from selenium.webdriver.common.action_chains import ActionChains
 import sys,os.path
 # adjust the path to find config
@@ -49,16 +51,15 @@ class TestHmdcSearchID(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("DOID:11949")#enter primary DOID for Creutzfeldt-Jakob disease
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Grid Tab and click on it
         grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
-        time.sleep(2)
         print(grid_tab.text)
         grid_tab.click()
-        
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'mgHeader'))):
+            print('Mouse Gene header loaded')
         #Get the list of human and mouse genes
         hgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.first")
         humanGeneList = iterate.getTextAsList(hgenes)
@@ -75,10 +76,10 @@ class TestHmdcSearchID(unittest.TestCase):
         
         #Identify the Disease Tab and click on it
         disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
-        time.sleep(2)
         print(disease_tab.text)
         disease_tab.click()
-        
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'diseaseTable'))):
+            print('Disease Table loaded')
         #Verify disease searched for is returned
         #Get the list of diseases (by DOID)
         disease_table = Table(self.driver.find_element(By.ID, "diseaseTable"))
@@ -98,7 +99,6 @@ class TestHmdcSearchID(unittest.TestCase):
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("11949")#enter primary DOID for Creutzfeldt-Jakob disease
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
@@ -125,23 +125,20 @@ class TestHmdcSearchID(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("OMIM:125852")#enter OMIM ID for type 1 diabetes mellitus 2
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #Identify the Disease Tab and click on it
         disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
-        time.sleep(2)
         print(disease_tab.text)
         disease_tab.click()
-        
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'diseaseTable'))):
+            print('Disease Table loaded')
         #Verify disease searched for is returned
         #Get the list of diseases (by OMIM ID)
-        disease_table = Table(self.driver.find_element(By.ID, "diseaseTable"))
-        cells = disease_table.get_column_cells("OMIM ID(s)")
-        diseaseList = iterate.getTextAsList(cells)
-        self.assertIn('OMIM:125852', diseaseList) #ID for type 1 diabetes mellitus 2
-        
+        id = self.driver.find_element(By.ID, 'diseaseTable').find_element(By.CSS_SELECTOR, 'span.ng-scope > a:nth-child(1)')
+        print(id.text)
+        self.assertEqual(id.text, 'OMIM:125852', 'The OMIM ID is wrong!')
         #Repeat the same search, but without the DOID prefix.  This search should return nothing.
         #Open up the query form again (click on "Click to modify search" button
         self.driver.find_element(By.XPATH, "//*[contains(text(), 'Click to modify search')]").click()
@@ -154,16 +151,15 @@ class TestHmdcSearchID(unittest.TestCase):
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("125852")#enter an OMIM ID without the prefix (a disease ID)
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #Identify the Disease Tab and click on it
         disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
-        time.sleep(2)
         print(disease_tab.text)
         disease_tab.click()
-        
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'diseaseTable'))):
+            print('Disease table loaded')
         #Verify disease searched for is returned
         #Get the list of diseases (by OMIM ID)
         disease_table = Table(self.driver.find_element(By.ID, "diseaseTable"))
@@ -183,13 +179,13 @@ class TestHmdcSearchID(unittest.TestCase):
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("OMIM:605230")#enter an OMIM gene id -- this should return nothing using this query field
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Disease tab and click on it
         disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
-        time.sleep(2)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'diseaseTable'))):
+            print('Disease Table loaded')
         print(disease_tab.text)
         disease_tab.click()
         
@@ -211,22 +207,56 @@ class TestHmdcSearchID(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("DOID:183") #enter a DOID that is a secondary one for osteosarcoma
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #Identify the Disease Tab and click on it
         disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
-        time.sleep(2)
+        #time.sleep(2)
         print(disease_tab.text)
         disease_tab.click()
-        
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'diseaseTable'))):
+            print('Disease Table loaded')
         #Verify disease searched for is returned
         #Get the list of diseases (by DOID)
-        disease_table = Table(self.driver.find_element(By.ID, "diseaseTable"))
-        cells = disease_table.get_column_cells("DO ID")
-        diseaseList = iterate.getTextAsList(cells)
-        self.assertIn('DOID:3347', diseaseList) #primary DOID for osteosarcoma
+        id1 = self.driver.find_element(By.ID, 'diseaseTable').find_element(By.CSS_SELECTOR, '#diseaseTable > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(2) > a:nth-child(1)')
+        print(id1.text)
+        id2 = self.driver.find_element(By.ID, 'diseaseTable').find_element(By.CSS_SELECTOR, '#diseaseTable > tbody:nth-child(2) > tr:nth-child(2) > td:nth-child(2) > a:nth-child(1)')
+        print(id2.text)
+        self.assertTrue(id1.text, 'DOID:3356')
+        self.assertTrue(id2.text, 'DOID:3347')
+
+        #Repeat the same search for another alt id of this disease
+        #Open up the query form again (click on "Click to modify search" button
+        self.driver.find_element(By.XPATH, "//*[contains(text(), 'Click to modify search')]").click()
+        
+        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
+            if option.text == 'Disease or Phenotype ID(s)':
+                option.click()
+                break
+        
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("MESH:D012516")
+        self.driver.find_element(By.ID, "searchButton").click()
+        wait.forAngular(self.driver)
+        
+        #Identify the Disease Tab and click on it
+        disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
+        #time.sleep(2)
+        print(disease_tab.text)
+        disease_tab.click()
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'diseaseTable'))):
+            print('Disease Table loaded')
+        # Verify disease searched for is returned
+        # Get the list of diseases (by DOID)
+        id1 = self.driver.find_element(By.ID, 'diseaseTable').find_element(By.CSS_SELECTOR, '#diseaseTable > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(2) > a:nth-child(1)')
+        print(id1.text)
+        id2 = self.driver.find_element(By.ID, 'diseaseTable').find_element(By.CSS_SELECTOR, '#diseaseTable > tbody:nth-child(2) > tr:nth-child(2) > td:nth-child(2) > a:nth-child(1)')
+        print(id2.text)
+        self.assertTrue(id1.text, 'DOID:3356')
+        self.assertTrue(id2.text, 'DOID:3347')
+
         
         #Repeat the same search for another alt id of this disease
         #Open up the query form again (click on "Click to modify search" button
@@ -239,23 +269,26 @@ class TestHmdcSearchID(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
-        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("MESH:D012516") 
-        wait.forAngular(self.driver)
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("NCI:C9145")
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #Identify the Disease Tab and click on it
         disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
-        time.sleep(2)
+        #time.sleep(2)
         print(disease_tab.text)
         disease_tab.click()
-        
-        #Verify disease searched for is returned
-        #Get the list of diseases (by DOID)
-        disease_table = Table(self.driver.find_element(By.ID, "diseaseTable"))
-        cells = disease_table.get_column_cells("DO ID")
-        diseaseList = iterate.getTextAsList(cells)
-        self.assertIn('DOID:3347', diseaseList) #primary DOID for osteosarcoma
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'diseaseTable'))):
+            print('Disease Table loaded')
+        # Verify disease searched for is returned
+        # Get the list of diseases (by DOID)
+        id1 = self.driver.find_element(By.ID, 'diseaseTable').find_element(By.CSS_SELECTOR, '#diseaseTable > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(2) > a:nth-child(1)')
+        print(id1.text)
+        id2 = self.driver.find_element(By.ID, 'diseaseTable').find_element(By.CSS_SELECTOR, '#diseaseTable > tbody:nth-child(2) > tr:nth-child(2) > td:nth-child(2) > a:nth-child(1)')
+        print(id2.text)
+        self.assertTrue(id1.text, 'DOID:3356')
+        self.assertTrue(id2.text, 'DOID:3347')
+
         
         #Repeat the same search for another alt id of this disease
         #Open up the query form again (click on "Click to modify search" button
@@ -268,53 +301,25 @@ class TestHmdcSearchID(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
-        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("NCI:C9145") 
-        wait.forAngular(self.driver)
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("UMLS_CUI:C0206639")
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #Identify the Disease Tab and click on it
         disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
-        time.sleep(2)
+        #time.sleep(2)
         print(disease_tab.text)
         disease_tab.click()
-        
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'diseaseTable'))):
+            print('Disease Table loaded')
         #Verify disease searched for is returned
-        #Get the list of diseases (by DOID)
-        disease_table = Table(self.driver.find_element(By.ID, "diseaseTable"))
-        cells = disease_table.get_column_cells("DO ID")
-        diseaseList = iterate.getTextAsList(cells)
-        self.assertIn('DOID:3347', diseaseList) #primary DOID for osteosarcoma
-        
-        #Repeat the same search for another alt id of this disease
-        #Open up the query form again (click on "Click to modify search" button
-        self.driver.find_element(By.XPATH, "//*[contains(text(), 'Click to modify search')]").click()
-        
-        my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements(By.TAG_NAME, "option"):
-            if option.text == 'Disease or Phenotype ID(s)':
-                option.click()
-                break
-        
-        self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
-        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("UMLS_CUI:C0206639") 
-        wait.forAngular(self.driver)
-        self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
-        
-        #Identify the Disease Tab and click on it
-        disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
-        time.sleep(2)
-        print(disease_tab.text)
-        disease_tab.click()
-        
-        #Verify disease searched for is returned
-        #Get the list of diseases (by DOID)
-        disease_table = Table(self.driver.find_element(By.ID, "diseaseTable"))
-        cells = disease_table.get_column_cells("DO ID")
-        diseaseList = iterate.getTextAsList(cells)
-        self.assertIn('DOID:3347', diseaseList) #primary DOID for osteosarcoma
-        
+        # Get the list of diseases (by DOID)
+        id1 = self.driver.find_element(By.ID, 'diseaseTable').find_element(By.CSS_SELECTOR, '#diseaseTable > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(2) > a:nth-child(1)')
+        print(id1.text)
+        id2 = self.driver.find_element(By.ID, 'diseaseTable').find_element(By.CSS_SELECTOR, '#diseaseTable > tbody:nth-child(2) > tr:nth-child(2) > td:nth-child(2) > a:nth-child(1)')
+        print(id2.text)
+        self.assertTrue(id1.text, 'DOID:3356')
+        self.assertTrue(id2.text, 'DOID:3347')
 
 
     def test_mp_term_id(self):
@@ -331,30 +336,50 @@ class TestHmdcSearchID(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("MP:0005653")#primary ID for phototoxicity
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
-        #identify the Gene tab and click on it
-        gene_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
-        time.sleep(2)
+        #identify the Disease tab and click on it
+        disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
+        print(disease_tab.text)
+        disease_tab.click()
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'diseaseTable'))):
+            print('Disease Table loaded')
+        #Grab the gene list and verify the mouse gene is returned but NOT the human ortholog
+        id1 = self.driver.find_element(By.ID, 'diseaseTable').find_element(By.CSS_SELECTOR, '#diseaseTable > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(2) > a:nth-child(1)')
+        print(id1.text)
+        id2 = self.driver.find_element(By.ID, 'diseaseTable').find_element(By.CSS_SELECTOR, '#diseaseTable > tbody:nth-child(2) > tr:nth-child(2) > td:nth-child(2) > a:nth-child(1)')
+        print(id2.text)
+        id3 = self.driver.find_element(By.ID, 'diseaseTable').find_element(By.CSS_SELECTOR, '#diseaseTable > tbody:nth-child(2) > tr:nth-child(3) > td:nth-child(2) > a:nth-child(1)')
+        print(id3.text)
+        self.assertTrue(id1.text, 'DOID:13270')
+        self.assertTrue(id2.text, 'DOID:1920')
+        self.assertTrue(id3.text, 'DOID:0110849')
+        # identify the gene tab and click on it
+        gene_tab = self.driver.find_element(By.CSS_SELECTOR, "li.uib-tab:nth-child(2)")
+        # time.sleep(2)
         print(gene_tab.text)
         gene_tab.click()
-        
-        #Grab the gene list and verify the mouse gene is returned but NOT the human ortholog
-        gene_table = Table(self.driver.find_element(By.ID, "geneTable"))
-        cells = gene_table.get_column_cells("Gene Symbol")
-        geneList = iterate.getTextAsList(cells)
-        
-        self.assertIn('Ercc5', geneList)
-        self.assertNotIn('ERCC5', geneList) #human gene should not be returned for MP ID searches 'cause they only match the mouse gene
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'geneTable'))):
+            print('Gene Table loaded')
+        # Grab the gene list and verify the mouse gene is returned but NOT the human ortholog
+        id1 = self.driver.find_element(By.ID, 'geneTable').find_element(By.CSS_SELECTOR, '#geneTable > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(2) > nobr:nth-child(1) > a:nth-child(1) > div:nth-child(1)')
+        print(id1.text)
+        id2 = self.driver.find_element(By.ID, 'geneTable').find_element(By.CSS_SELECTOR, '#geneTable > tbody:nth-child(2) > tr:nth-child(2) > td:nth-child(2) > nobr:nth-child(1) > a:nth-child(1) > div:nth-child(1)')
+        print(id2.text)
+        id3 = self.driver.find_element(By.ID, 'geneTable').find_element(By.CSS_SELECTOR, '#geneTable > tbody:nth-child(2) > tr:nth-child(3) > td:nth-child(2) > nobr:nth-child(1) > a:nth-child(1) > div:nth-child(1)')
+        print(id3.text)
+        self.assertTrue(id1.text, 'Abcg2')
+        self.assertTrue(id2.text, 'Ercc5')
+        self.assertTrue(id3.text, 'Mirc35hg')
+        #human gene should not be returned for MP ID searches 'cause they only match the mouse gene
         
         #identify the Grid tab and click on it
         grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
-        time.sleep(2)
         print(grid_tab.text)
         grid_tab.click()
-        
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.tab-content'))):
+            print('Grid Table loaded')
         #Get the list of mouse genes and verify expected gene is there
         mgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.last")
         mouseGeneList = iterate.getTextAsList(mgenes)
@@ -363,7 +388,7 @@ class TestHmdcSearchID(unittest.TestCase):
         phenocells = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.center.cell.middle") 
         phenocells[6].click()#clicks the integument data cell to open up the genotype popup page (data changes can break this logic)
         self.driver.switch_to.window(self.driver.window_handles[1])#switches focus to the genotype popup page
-        time.sleep(2)
+        wait.forNewWindow(self.driver, 5)
         #asserts the heading text is correct in page title
         self.assertEqual('Mouse integument abnormalities for ABCG2/Abcg2, Abcg3', self.driver.title)
         
@@ -384,7 +409,6 @@ class TestHmdcSearchID(unittest.TestCase):
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Fyler:1431")#enter Alt ID for MP:0010472 (abnormal ascending aorta and coronary artery attachment)
         wait.forAngular(self.driver)
-        time.sleep(2)
       
         self.driver.find_element(By.XPATH, "//*[contains(text(), 'Add')]").click()
         my_select1 = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_4')]")#identifies the select field and picks another option
@@ -392,18 +416,16 @@ class TestHmdcSearchID(unittest.TestCase):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
-        
-        time.sleep(2)                                
-        self.driver.find_element(By.ID, "formly_3_input_input_0").send_keys(Keys.TAB + Keys.TAB + Keys.TAB + "Gja1")
-        
-        self.driver.find_element(By.ID, "searchButton").click()
+
         wait.forAngular(self.driver)
+        self.driver.find_element(By.ID, "formly_3_input_input_0").send_keys(Keys.TAB + Keys.TAB + Keys.TAB + "Gja1")
+        self.driver.find_element(By.ID, "searchButton").click()
         
         #identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
-        time.sleep(2)
         grid_tab.click()
-        
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.tab-content'))):
+            print('Grid Table loaded')
         mgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.last")
         searchTermItems = iterate.getTextAsList(mgenes)
         self.assertIn("Gja1, Gja6", searchTermItems, "expected gene not returned")
@@ -415,7 +437,7 @@ class TestHmdcSearchID(unittest.TestCase):
         
         phenocells[0].click() #clicks the cell for cardiovascular system (new data could break this)
         self.driver.switch_to.window(self.driver.window_handles[1])#switches focus to the genotype popup page
-        time.sleep(2)
+        wait.forNewWindow(self.driver, 5)
         matching_text = "Mouse cardiovascular system abnormalities for GJA1, GJA6P/Gja1, Gja6"
         #asserts the heading text is correct in page source
         self.assertIn(matching_text, self.driver.page_source, 'expected pop-up box heading not displayed')
@@ -445,20 +467,19 @@ class TestHmdcSearchID(unittest.TestCase):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
-        
-        time.sleep(2)                                
+
+        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "formly_3_input_input_0").send_keys(Keys.TAB + Keys.TAB + Keys.TAB + "ODAPH")
         
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
-        
-        
+
         #identify the Grid tab and click it
         grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
-        time.sleep(2)
         print(grid_tab.text)
         grid_tab.click()
-        
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.tab-content'))):
+            print('Grid Table loaded')
         #firstcell captures all the table data blocks of phenotypes on the first row of data
         phenocells = self.driver.find_elements(By.CSS_SELECTOR, "div.ngc.cell-content.ngc-custom-html.ng-binding.ng-scope")
         
@@ -468,13 +489,12 @@ class TestHmdcSearchID(unittest.TestCase):
         self.assertIn('skeleton', phenoheaders, "expected phenotype heading not found")
         
         #Verify that the correct HP term is displayed in the genotype pop-up
-        
         #phenocells captures all the table data cells on the first row of data
         phenocells = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.center.cell.middle")
         
         phenocells[0].click() #clicks the cell for craniofacial system (new data could break this)
         self.driver.switch_to.window(self.driver.window_handles[1])#switches focus to the genotype popup page
-        time.sleep(2)
+        wait.forNewWindow(self.driver, 5)
         matching_text = "Human craniofacial abnormalities for ODAPH/Odaph"
         #asserts the heading text is correct in page source
         self.assertIn(matching_text, self.driver.page_source, 'expected pop-up box heading not displayed')
@@ -496,21 +516,18 @@ class TestHmdcSearchID(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("KEGG:04950")#XREF id for DOID:0050524 (maturity-onset diabetes of the young)
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Diseases tab and click it
         disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
-        time.sleep(2)
         disease_tab.click()
-        
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'diseaseTable'))):
+            print('Disease Table loaded')
         #verify the DO ID for the xref ID entered is included in results
-        disease_table = Table(self.driver.find_element(By.ID, "diseaseTable"))
-        cells = disease_table.get_column_cells("DO ID")
-        ids = iterate.getTextAsList(cells)
-        
-        self.assertIn('DOID:0050524', ids, "expected DO ID not found in results")
+        id1 = self.driver.find_element(By.ID, 'diseaseTable').find_element(By.CSS_SELECTOR, '#diseaseTable > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(2) > a:nth-child(1)')
+        print(id1.text)
+        self.assertTrue(id1.text, 'DOID:0050524')#expected DO ID found
         
         
     def test_mp_term_multi_id(self):
@@ -534,17 +551,13 @@ class TestHmdcSearchID(unittest.TestCase):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
-        
-        time.sleep(2)                                
+
         self.driver.find_element(By.ID, "formly_3_input_input_0").send_keys(Keys.TAB + Keys.TAB + Keys.TAB + "Abcg2, Lgr4, Pmp22")
-        
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
-        
-        
+
         #identify the Grid tab and click it
         grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
-        time.sleep(2)
         print(grid_tab.text)
         grid_tab.click()
         
@@ -559,13 +572,11 @@ class TestHmdcSearchID(unittest.TestCase):
         self.assertIn('nervous system', phenoheaders, "expected phenotype heading not found")
         
         #Verify that the correct MP term is displayed in the genotype pop-up
-        
         #phenocells captures all the table data cells on the first row of data
         phenocells = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.center.cell.middle")
-        
         phenocells[5].click() #clicks the cell for homeostasis/metabolism system (new data could break this)
         self.driver.switch_to.window(self.driver.window_handles[1])#switches focus to the genotype popup page
-        time.sleep(2)
+        wait.forNewWindow(self.driver, 5)
         matching_text = "Mouse homeostasis/metabolism abnormalities for ABCG2/Abcg2"
         #asserts the heading text is correct in page source
         self.assertIn(matching_text, self.driver.page_source, 'expected pop-up box heading not displayed') 
@@ -586,13 +597,11 @@ class TestHmdcSearchID(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("HP:0008529, HP:0100739, HP:0012232")#identifies the input field and enters gata1
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Grid tab and click it
         grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
-        time.sleep(2)
         print(grid_tab.text)
         grid_tab.click()
         
@@ -627,17 +636,14 @@ class TestHmdcSearchID(unittest.TestCase):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
-        
-        time.sleep(2)                                
+
         self.driver.find_element(By.ID, "formly_3_input_input_0").send_keys(Keys.TAB + Keys.TAB + Keys.TAB + "Pax4")
         
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
-        
-        
+
         #identify the Grid tab and click it
         grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
-        time.sleep(2)
         print(grid_tab.text)
         grid_tab.click()
         
@@ -655,7 +661,7 @@ class TestHmdcSearchID(unittest.TestCase):
         
         phenocells[0].click() #clicks the cell for endocrine/exocrine (new data could break this)
         self.driver.switch_to.window(self.driver.window_handles[1])#switches focus to the genotype popup page
-        time.sleep(2)
+        wait.forNewWindow(self.driver, 5)
         matching_text = "Human and Mouse endocrine/exocrine glands abnormalities for PAX4/Pax4"
         #asserts the heading text is correct in page source
         self.assertIn(matching_text, self.driver.page_source, 'expected pop-up box heading not displayed') 
@@ -678,31 +684,25 @@ class TestHmdcSearchID(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("DOID:2581")#identifies the input field and enters term/ID
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
         
         #identify the Grid tab and click it
         grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
-        
-        time.sleep(2)
         print(grid_tab.text)
         grid_tab.click()
         
         #cells captures every field from Human Gene heading to the last disease angled, this test only captures the diseases, which are items 25,26,27
         cells = self.driver.find_elements(By.CSS_SELECTOR, "div.ngc.cell-content.ngc-custom-html.ng-binding.ng-scope")
-        
-        gridheaders = iterate.getTextAsList(cells) 
+        gridheaders = iterate.getTextAsList(cells)
         
         #asserts that the correct diseases(at angle) display in the correct order
         self.assertIn('autosomal genetic disease', gridheaders, "expected disease heading not found")
          
         #identify the Diseases tab and click on it
         disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
-        time.sleep(2)
         print(disease_tab.text)
         disease_tab.click()
-        
         disease_table = Table(self.driver.find_element(By.ID, "diseaseTable"))
         cells = disease_table.get_column_cells("DO ID")
         ids = iterate.getTextAsList(cells)

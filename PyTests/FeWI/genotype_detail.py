@@ -10,7 +10,8 @@ from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import sys,os.path
 from selenium.common.exceptions import NoSuchElementException
 # adjust the path to find config
@@ -42,8 +43,10 @@ class TestGenotypeDetail(unittest.TestCase):
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.PARTIAL_LINK_TEXT, '132-14Neu').click()
         self.driver.find_element(By.LINK_TEXT, 'hm1').click()
-        self.driver.implicitly_wait(10)
+        # switch to the new window
         self.driver.switch_to.window(self.driver.window_handles[1])
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'genoID'))):
+            print('Phenotypes Associated with This Genotype page loaded')
         mgiid = self.driver.find_element(By.CLASS_NAME, 'genoID')
         self.assertEqual(mgiid.text, "MGI:3707321", "This is not the correct MGI ID")#verifies we have the correct MGI ID  
         hmid = self.driver.find_element(By.CLASS_NAME, 'hmGeno')
@@ -65,13 +68,13 @@ class TestGenotypeDetail(unittest.TestCase):
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.PARTIAL_LINK_TEXT, '132-14Neu').click()
         self.driver.find_element(By.LINK_TEXT, 'hm1').click()
-        self.driver.implicitly_wait(10)
+        # switch to the new window
         self.driver.switch_to.window(self.driver.window_handles[1])
-        time.sleep(2)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'genoID'))):
+            print('Phenotypes Associated with This Genotype page loaded')
         #click the Genetic Background link     
         self.driver.find_element(By.LINK_TEXT, 'C3.Cg-Pax6132-14Neu').click()
         self.driver.switch_to.window(self.driver.window_handles[2])
-        time.sleep(2)
         ptitle = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
         #Assert the page title is for the correct strain name
         self.assertEqual(ptitle.text, "C3.Cg-Pax6132-14Neu")        
@@ -79,30 +82,25 @@ class TestGenotypeDetail(unittest.TestCase):
     def test_genotype_gb_nolink(self):
         '''
         @status this test verifies the Genetic Background strain is not a link when it has 'involves'.
-        @note genodetail-2 BUG!!! Needs work, maybe need to verify link does not exist!!
+        @note genodetail-2
         '''
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys("Pax6")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Pax62Neu').click()
-        self.driver.find_element(By.CSS_SELECTOR, '#yui-rec0 > td:nth-child(1) > div:nth-child(1) > a:nth-child(1)').click()
-        self.driver.implicitly_wait(5)
+        #self.driver.find_element(By.CSS_SELECTOR, '#yui-rec0 > td:nth-child(1) > div:nth-child(1) > a:nth-child(1)').click()
+        self.driver.find_element(By.LINK_TEXT, 'hm1').click()
+        # switch to the new window
         self.driver.switch_to.window(self.driver.window_handles[1])
-        time.sleep(2)
-        #click the Genetic Background link 
-        strain_link = self.driver.find_element(By.LINK_TEXT, 'involves: 102 * C3H')
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'genoID'))):
+            print('Phenotypes Associated with This Genotype page loaded')
+        #click the Genetic Background link
+        strain_link = self.driver.find_element(By.CSS_SELECTOR, '.detail > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(2)')
         if strain_link.tag_name=='a': #validating the element 
             print('element is link')
         else:
             print('element is text')  
-        
-        
-        #assert  'NoSuchElementException' in  self.driver.page_source
-        #if self.driver.strain_link.is_displayed():
-            #strain_link.click()
-            #print ('Found the strain link and clicked it!')
-        #else: 
-            #print ("Strain link not found this test passes!") 
+
 
     def tearDown(self):
         self.driver.quit()

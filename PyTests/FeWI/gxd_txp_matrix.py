@@ -11,13 +11,14 @@ from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
   os.path.join(os.path.dirname(__file__), '../..',)
 )
-from util import iterate
+from util import iterate, wait
 import config
 
 #Tests
@@ -40,15 +41,18 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         self.driver.find_element(By.ID, 'searchToolTextArea').clear()
         self.driver.find_element(By.ID, 'searchToolTextArea').send_keys('Foxe1')
         self.driver.find_element(By.NAME, 'submit').click()
-        time.sleep(1)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.LINK_TEXT, 'Foxe1'))):
+            print('quick search results loaded')
         #find the marker link and click it
-        driver.find_element(By.LINK_TEXT, 'Foxe1').click()
-        time.sleep(1)
+        self.driver.find_element(By.LINK_TEXT, 'Foxe1').click()
         self.driver.switch_to.window(self.driver.window_handles[-1]) 
-        time.sleep(2)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.LINK_TEXT, 'Gene Expression + Phenotype'))):
+            print('marker detail page loaded')
         #click the Gene Expression + Phenotype link
-        driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
-        time.sleep(2)
+        self.driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
+        #if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'phenoGridTarget'))):
+            #print('comparison matrix page loaded')
+        wait.forNewWindow(self.driver, 5)
         self.driver.switch_to.window(self.driver.window_handles[-1])
         #find the Anatomical Terms column
         termslist = driver.find_element(By.ID, "rowGroupInner")
@@ -87,17 +91,17 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         self.driver.find_element(By.ID, 'searchToolTextArea').clear()
         self.driver.find_element(By.ID, 'searchToolTextArea').send_keys('Pax4')
         self.driver.find_element(By.NAME, 'submit').click()
-        time.sleep(2)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.LINK_TEXT, 'Pax4'))):
+            print('quick search results loaded')
         #find the marker link and click it
         driver.find_element(By.LINK_TEXT, 'Pax4').click()
-        time.sleep(1)
         self.driver.switch_to.window(self.driver.window_handles[-1]) 
-        time.sleep(2)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.LINK_TEXT, 'Gene Expression + Phenotype'))):
+            print('marker detail page loaded')
         #click the Gene Expression + Phenotype link
         driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
-        time.sleep(2)
+        wait.forNewWindow(self.driver, 5)
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        time.sleep(2)
         #find the Anatomical Terms column
         termslist = driver.find_element(By.ID, "rowGroupInner")
         items = termslist.find_elements(By.TAG_NAME, 'text')
@@ -137,17 +141,17 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         self.driver.find_element(By.ID, 'searchToolTextArea').clear()
         self.driver.find_element(By.ID, 'searchToolTextArea').send_keys('Avp')
         self.driver.find_element(By.NAME, 'submit').click()
-        time.sleep(2)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.LINK_TEXT, 'Avp'))):
+            print('quick search results loaded')
         #find the marker link and click it
         driver.find_element(By.LINK_TEXT, 'Avp').click()
-        time.sleep(4)
         self.driver.switch_to.window(self.driver.window_handles[-1]) 
-        time.sleep(2)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.LINK_TEXT, 'Gene Expression + Phenotype'))):
+            print('marker detail page loaded')
         #click the Gene Expression + Phenotype link
         self.driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
-        time.sleep(4)
+        wait.forNewWindow(self.driver, 5)
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        time.sleep(2)
         #find the Anatomical Terms column
         termslist = driver.find_element(By.ID, "rowGroupInner")
         items = termslist.find_elements(By.TAG_NAME, 'text')
@@ -179,15 +183,16 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         self.driver.find_element(By.ID, 'searchToolTextArea').clear()
         self.driver.find_element(By.ID, 'searchToolTextArea').send_keys('Bmp15')
         self.driver.find_element(By.NAME, 'submit').click()
-        time.sleep(2)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.LINK_TEXT, 'Bmp15'))):
+            print('quick search results loaded')
         #find the marker link and click it
         driver.find_element(By.LINK_TEXT, 'Bmp15').click()
-        time.sleep(1)
         self.driver.switch_to.window(self.driver.window_handles[-1]) 
-        time.sleep(2)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.LINK_TEXT, 'Gene Expression + Phenotype'))):
+            print('marker detail page loaded')
         #click the Gene Expression + Phenotype link
         driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
-        time.sleep(2)
+        wait.forNewWindow(self.driver, 5)
         self.driver.switch_to.window(self.driver.window_handles[-1])
         #find the Anatomical Terms column
         termslist = driver.find_element(By.ID, "rowGroupInner")
@@ -221,15 +226,16 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         self.driver.find_element(By.ID, 'searchToolTextArea').clear()
         self.driver.find_element(By.ID, 'searchToolTextArea').send_keys('Foxe1')
         self.driver.find_element(By.NAME, 'submit').click()
-        time.sleep(2)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.LINK_TEXT, 'Foxe1'))):
+            print('quick search results loaded')
         #find the marker link and click it
         driver.find_element(By.LINK_TEXT, 'Foxe1').click()
-        time.sleep(1)
         self.driver.switch_to.window(self.driver.window_handles[-1]) 
-        time.sleep(2)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.LINK_TEXT, 'Gene Expression + Phenotype'))):
+            print('marker detail page loaded')
         #click the Gene Expression + Phenotype link
         driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
-        time.sleep(2)
+        wait.forNewWindow(self.driver, 5)
         self.driver.switch_to.window(self.driver.window_handles[-1])
         #find the Anatomical Terms column
         termslist = driver.find_element(By.ID, "rowGroupInner")
@@ -262,15 +268,16 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         self.driver.find_element(By.ID, 'searchToolTextArea').clear()
         self.driver.find_element(By.ID, 'searchToolTextArea').send_keys('Bmp15')
         self.driver.find_element(By.NAME, 'submit').click()
-        time.sleep(2)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.LINK_TEXT, 'Bmp15'))):
+            print('quick search results loaded')
         #find the marker link and click it
         driver.find_element(By.LINK_TEXT, 'Bmp15').click()
-        time.sleep(1)
         self.driver.switch_to.window(self.driver.window_handles[-1]) 
-        time.sleep(2)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.LINK_TEXT, 'Gene Expression + Phenotype'))):
+            print('marker detail page loaded')
         #click the Gene Expression + Phenotype link
         driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
-        time.sleep(2)
+        wait.forNewWindow(self.driver, 5)
         self.driver.switch_to.window(self.driver.window_handles[-1])
         #find the Anatomical Terms column
         termslist = driver.find_element(By.ID, "rowGroupInner")
@@ -334,22 +341,23 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
     def test_norm_mp_other_mp(self):
         """
         @status: Tests the display when you have a normal MP annotation and another annotation that roll up to a higher level term, but no N gets displayed
-        @note: GXD-TxP-17 currently this test is broken, ask connie  why this allele is now gone.
+        @note: GXD-TxP-17
         """
         driver = self.driver
         driver.get(config.TEST_URL + '/marker')
         self.driver.find_element(By.ID, 'searchToolTextArea').clear()
         self.driver.find_element(By.ID, 'searchToolTextArea').send_keys('Pax7')
         self.driver.find_element(By.NAME, 'submit').click()
-        time.sleep(2)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.LINK_TEXT, 'Pax7'))):
+            print('quick search results loaded')
         #find the marker link and click it
         driver.find_element(By.LINK_TEXT, 'Pax7').click()
-        time.sleep(2)
         self.driver.switch_to.window(self.driver.window_handles[-1]) 
-        time.sleep(2)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.LINK_TEXT, 'Gene Expression + Phenotype'))):
+            print('marker detail page loaded')
         #click the Gene Expression + Phenotype link
         driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
-        time.sleep(2)
+        wait.forNewWindow(self.driver, 5)
         self.driver.switch_to.window(self.driver.window_handles[-1])
         #find the Anatomical Terms column
         termslist = driver.find_element(By.ID, "rowGroupInner")
@@ -382,17 +390,19 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         self.driver.find_element(By.ID, 'searchToolTextArea').clear()
         self.driver.find_element(By.ID, 'searchToolTextArea').send_keys('Kras')
         self.driver.find_element(By.NAME, 'submit').click()
-        time.sleep(2)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.LINK_TEXT, 'Kras'))):
+            print('quick search results loaded')
         #find the marker link and click it
         driver.find_element(By.LINK_TEXT, 'Kras').click()
-        time.sleep(1)
         self.driver.switch_to.window(self.driver.window_handles[-1]) 
-        time.sleep(2)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.LINK_TEXT, 'Gene Expression + Phenotype'))):
+            print('marker detail page loaded')
         #click the Gene Expression + Phenotype link
         driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
-        time.sleep(2)
+        wait.forNewWindow(self.driver, 5)
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        time.sleep(2)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'rowGroupInner'))):
+            print('comparison matrix page loaded')
         #find the Anatomical Terms column
         termslist = driver.find_element(By.ID, "rowGroupInner")
         items = termslist.find_elements(By.TAG_NAME, 'text')
@@ -426,17 +436,17 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         self.driver.find_element(By.ID, 'searchToolTextArea').clear()
         self.driver.find_element(By.ID, 'searchToolTextArea').send_keys('Sry')
         self.driver.find_element(By.NAME, 'submit').click()
-        time.sleep(2)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sry'))):
+            print('quick search results loaded')
         #find the marker link and click it
         driver.find_element(By.LINK_TEXT, 'Sry').click()
-        time.sleep(1)
         self.driver.switch_to.window(self.driver.window_handles[-1]) 
-        time.sleep(2)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.LINK_TEXT, 'Gene Expression + Phenotype'))):
+            print('marker detail page loaded')
         #click the Gene Expression + Phenotype link
         driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
-        time.sleep(2)
+        wait.forNewWindow(self.driver, 5)
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        time.sleep(2)
         #find the Anatomical Terms column
         termslist = driver.find_element(By.ID, "rowGroupInner")
         items = termslist.find_elements(By.TAG_NAME, 'text')
@@ -517,15 +527,16 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         self.driver.find_element(By.ID, 'searchToolTextArea').clear()
         self.driver.find_element(By.ID, 'searchToolTextArea').send_keys('Lepr')
         self.driver.find_element(By.NAME, 'submit').click()
-        time.sleep(2)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.LINK_TEXT, 'Lepr'))):
+            print('quick search results loaded')
         #find the marker link and click it
         driver.find_element(By.LINK_TEXT, 'Lepr').click()
-        time.sleep(2)
         self.driver.switch_to.window(self.driver.window_handles[-1]) 
-        time.sleep(2)
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.LINK_TEXT, 'Gene Expression + Phenotype'))):
+            print('marker detail page loaded')
         #click the Gene Expression + Phenotype link
         driver.find_element(By.LINK_TEXT, "Gene Expression + Phenotype").click()
-        time.sleep(2)
+        wait.forNewWindow(self.driver, 5)
         self.driver.switch_to.window(self.driver.window_handles[-1])
         #find the Anatomical Terms column
         termslist = driver.find_element(By.ID, "rowGroupInner")

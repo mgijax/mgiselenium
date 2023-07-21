@@ -57,7 +57,6 @@ class TestEiHTindexSearch(unittest.TestCase):
         self.driver.find_element(By.ID, "arrayexpressid").send_keys("E-BAIR-1");
         # Find the Search button and click it
         self.driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(5)
         # find the search results
         html_list = self.driver.find_element(By.CLASS_NAME, "scrollable-menu")
         items = html_list.find_elements(By.TAG_NAME, "li")
@@ -89,7 +88,6 @@ class TestEiHTindexSearch(unittest.TestCase):
         # finds the ArrayExp field and enter the ID
         driver.find_element(By.ID, "arrayexpressid").send_keys("E-BAIR-%");
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
         # find the search results
         html_list = self.driver.find_element(By.CLASS_NAME, "scrollable-menu")
         items = html_list.find_elements(By.TAG_NAME, "li")
@@ -115,7 +113,6 @@ class TestEiHTindexSearch(unittest.TestCase):
         # finds the ArrayExp field and enter the ID
         driver.find_element(By.ID, "geoid").send_keys("GSE1008");
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(5)
         # find the search results
         html_list = self.driver.find_element(By.CLASS_NAME, "scrollable-menu")
         items = html_list.find_elements(By.TAG_NAME, "li")
@@ -147,7 +144,6 @@ class TestEiHTindexSearch(unittest.TestCase):
         # finds the ArrayExp field and enter the ID
         driver.find_element(By.ID, "geoid").send_keys("GSE10002");
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(5)
         # find the search results
         html_list = self.driver.find_element(By.CLASS_NAME, "scrollable-menu")
         items = html_list.find_elements(By.TAG_NAME, "li")
@@ -179,7 +175,6 @@ class TestEiHTindexSearch(unittest.TestCase):
         # finds the ArrayExp field and enter the ID
         driver.find_element(By.ID, "geoid").send_keys("GSE10005%");
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
         # find the search results
         html_list = self.driver.find_element(By.CLASS_NAME, "scrollable-menu")
         items = html_list.find_elements(By.TAG_NAME, "li")
@@ -199,7 +194,7 @@ class TestEiHTindexSearch(unittest.TestCase):
         # finds the ArrayExp field and enter the ID
         driver.find_element(By.ID, "name").send_keys("%microvasculature");
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.CSS_SELECTOR, 'div.well:nth-child(4) > span:nth-child(1)'), 'transcription profiling by array'))
         # find the search results
         html_list = self.driver.find_element(By.CLASS_NAME, "scrollable-menu")
         items = html_list.find_elements(By.TAG_NAME, "li")
@@ -221,7 +216,7 @@ class TestEiHTindexSearch(unittest.TestCase):
         # finds the ArrayExp field and enter the ID
         driver.find_element(By.ID, "description").send_keys("%angiogenesis and osteogenesis%")
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        wait.forAngular(driver)
         # find the search results
         html_list = self.driver.find_element(By.CLASS_NAME, "scrollable-menu")
         items = html_list.find_elements(By.TAG_NAME, "li")
@@ -244,7 +239,7 @@ class TestEiHTindexSearch(unittest.TestCase):
         # finds the ArrayExp field and enter the ID
         driver.find_element(By.ID, "name").send_keys("%microvasculature");
         driver.find_element(By.ID, 'searchButton').click()
-        time.sleep(2)
+        wait.forAngular(driver)
         # find the search results
         html_list = self.driver.find_element(By.CLASS_NAME, "scrollable-menu")
         items = html_list.find_elements(By.TAG_NAME, "li")

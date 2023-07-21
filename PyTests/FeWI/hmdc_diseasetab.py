@@ -13,6 +13,8 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import sys,os.path
 # adjust the path to find config
 sys.path.append(
@@ -52,10 +54,10 @@ class TestHmdcDiseaseTab(unittest.TestCase):
         
         #identify the Disease Tab and click on it
         disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
-        time.sleep(2)
         print(disease_tab.text)
-        time.sleep(2)
         disease_tab.click()
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'tr.ng-scope:nth-child(11) > td:nth-child(2) > a:nth-child(1)'))):
+            print('HMDC disease tab data loaded')
         disease_table_headers = self.driver.find_element(By.ID, "diseaseTable").find_element(By.CSS_SELECTOR, "tr")
         items = disease_table_headers.find_elements(By.TAG_NAME, "th")
         searchTermItems = iterate.getTextAsList(items)
@@ -83,14 +85,12 @@ class TestHmdcDiseaseTab(unittest.TestCase):
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Gata1")#identifies the input field and enters gata1
         wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
         #identify the Disease tab and verify the tab's text
         disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
-        time.sleep(2)
         print(disease_tab.text)
-        time.sleep(2)
-        
         disease_tab.click()
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'tr.ng-scope:nth-child(11) > td:nth-child(2) > a:nth-child(1)'))):
+            print('HMDC disease tab data loaded')
         disease_table = Table(self.driver.find_element(By.ID, "diseaseTable"))
         cells = disease_table.get_column_cells("Disease")
         print(iterate.getTextAsList(cells))
@@ -116,18 +116,14 @@ class TestHmdcDiseaseTab(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_autocomplete_input_0").send_keys("phototoxicity")#selects phototoxicity from the autocomplete list
-        wait.forAngular(self.driver)
-        time.sleep(2)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
-        
         #identify the Genes tab and verify the tab's text
         disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
-        time.sleep(2)
         print(disease_tab.text)
-        time.sleep(2)
-        
         disease_tab.click()
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#diseaseTable > tbody:nth-child(2) > tr:nth-child(3) > td:nth-child(2) > a:nth-child(1)'))):
+            print('HMDC disease tab data loaded')
         disease_table = Table(self.driver.find_element(By.ID, "diseaseTable"))
         cells = disease_table.get_column_cells("Disease")
         print(iterate.getTextAsList(cells))
@@ -154,17 +150,14 @@ class TestHmdcDiseaseTab(unittest.TestCase):
                 break
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("DOID:0050471") #identifies the input field and enters ID for "Carney complex"
-        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
-        
         #identify the Disease Tab and click on it
         disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
-        time.sleep(2)
         print(disease_tab.text)
-        time.sleep(2)
-        
         disease_tab.click()
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#diseaseTable > tbody:nth-child(2) > tr:nth-child(2) > td:nth-child(2) > a:nth-child(1)'))):
+            print('HMDC disease tab data loaded')
         disease_table = Table(self.driver.find_element(By.ID, "diseaseTable"))
         cells = disease_table.get_column_cells("DO ID")
         print(iterate.getTextAsList(cells))
