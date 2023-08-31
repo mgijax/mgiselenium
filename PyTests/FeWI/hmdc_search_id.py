@@ -2,6 +2,21 @@
 Created on Dec 16, 2016
 These tests should cover searching by different IDs and verify the results
 @author: jeffc
+Verify Test of a query by DO ID.  Verify that a subset of annotations to that disease are returned in the grid.  Also, verify that the disease
+    is listed in the Disease Tab.  Do the search a 2nd time with the "DOID:" prefix - that search should fail
+Verify Test of a query by OMIM ID (alternative ID for diseases).  Verify that the ID returns the correct results with and without the OMIM: prefix
+Verify Test of a queries by alternate DO IDs -- secondary DOID; MESH id; NCI id; UMLS_CUI id
+Verify the correct diseases are returned for this query, should return the MP term using an MP ID
+Verify the correct MP term is returned for this query using an Alt ID
+Verify the correct phenotype header and HP term name is returned for this query
+Verify that the DO ID for the KEGG ID entered is returned in the results.  KEGG is a xref ID
+Verify the correct phenotype headers and MP terms are returned for this query
+Verify the correct phenotypess are returned for this query. Should return multiple HP terms
+    This test verifies the correct phenotypes return at an angle in the correct sort order
+Verify the correct diseases are returned for this query, should return data for multiple terms with a mix of HP, MP, and DO terms.
+    This test uses an HP and an MP term, The HP term is  connected to markers DIAPH3 and OTOF
+Verify the correct diseases are returned for this query down the dag. This test verifies the disease listed on the grid
+    and then switches to the disease tab and verifies the diseases listed there
 '''
 
 import unittest

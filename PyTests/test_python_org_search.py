@@ -1,6 +1,6 @@
 '''
 Created on Dec 22, 2015
-
+This is just an example test suite for using send keys and asserting text from page source.
 @author: jeffc
 '''
 import unittest

@@ -1,7 +1,30 @@
 '''
 Created on Jul 31, 2020
-
 @author: jeffc
+Verify that a basic Derivation Type search works
+Verify that a basic allele derivation J number search works
+Verify that a basic allele derivation J number using wildcard search works
+Verify that a basic Citation search works with wildcard
+Verify that a basic Creator search works
+Verify that a basic Parent Cell Line search w/wildcard works
+Verify that a basic parent cell line search works
+Verify that a basic Parent Cell Line strain search w/wildcard works
+Verify that a basic parent cell line search works
+Verify that a basic Cell Line Type search works
+Verify that a basic vector name using a wildcard search works
+Verify that a basic vector name search works
+Verify that a basic vector type search works
+Verify that a basic note with wildcard search works
+Verify that an allele derivation search using the Created By field returns correct data
+Verify that a derivation search using the Modified By field returns correct data
+Verify that a derivation search using the Creation Date field returns correct data
+Verify that a derivation search using the Modified By field returns correct data
+Verify that a derivation search using the Modified By field and less than returns correct data
+Verify that a derivation search using the Modified By field and less than or equal to returns correct data
+Verify that a derivation search using the Modified By field and between dates returns correct data
+Verify that a derivation search using the Creation Date field and Less than returns correct data
+Verify that a derivation search using the Creation Date field and Less than, equals to returns correct data
+Verify that a derivation search using the Creation Date field and Between dates returns correct data
 '''
 import unittest
 import time
@@ -93,7 +116,7 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
 
     def testAlleleDerivationJnumwildSearch(self):
         """
-        @Status tests that a basic allele derivation J number using wilcard search works
+        @Status tests that a basic allele derivation J number using wildcard search works
         @see pwi-allele-der-search-2
         """
         driver = self.driver
@@ -348,7 +371,7 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         
     def testAlleleDerivationVectorNameWildSearch(self):
         """
-        @Status tests that a basic vector name using a wilcard search works
+        @Status tests that a basic vector name using a wildcard search works
         @see pwi-allele-der-search-8
         """
         driver = self.driver
@@ -666,8 +689,6 @@ class TestEIAlleleDerivationSearch(unittest.TestCase):
         print(create_date)
         #Assert the  Creation Date field returned is correct 
         self.assertEqual(create_date, '2009-08-17')
-
-
 
         
 def suite():

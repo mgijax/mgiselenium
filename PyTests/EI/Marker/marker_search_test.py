@@ -1,9 +1,55 @@
 '''
 Created on Oct 30, 2018
-
 This test verifies searching within the Marker module.
-
 @author: jeffc
+Verify that a basic Marker Type Gene search works
+Verify that a basic Marker Type DNA Segment Marker search works
+Verify that a basic Marker Type QTL Marker search works
+Verify that a basic Marker Type Transgene Marker search works
+Verify that a basic Marker Type Complex/Cluster/Region Marker search works
+Verify that a basic Marker Type Cytogenetic Marker search works
+Verify that a basic Marker Type BAC/YAC search works
+Verify that a basic Marker Type Pseudogene Marker search works
+Verify that a basic Marker Type Other Genome Feature search works
+Verify that a basic Withdrawn Symbol search works
+Verify that a basic Marker status Official search works
+Verify that a basic Marker status Withdrawn search works
+Verify that a basic Marker status Reserved search works
+Verify that a basic Symbol search works
+Verify that a basic Name search works
+Verify that a basic Accession ID search using an MGI ID works
+Verify that a marker symbol search using a wildcard works
+Verify that a marker name search using a wildcard works
+Verify that a basic Create User search works
+Verify that a basic Modified User search works
+Verify that a basic Modified User search works
+Verify that a basic Creation Date search works
+Verify that a basic Modification Date search works
+Verify that a basic Modification Date by less than works
+Verify that a basic Modification Date by less than equals works
+Verify that a basic Modification Date by range search works
+Verify that a basic Creation Date by less than works
+Verify that a basic Creation Date by less than equals works
+Verify that a basic Modification Date by range search works
+Verify that a basic Synonym type search works
+Verify that a basic Synonym name search works
+Verify that a basic Synonym J number search works
+Verify that a basic Synonym J number search without the J: works
+Verify that a basic Synonym Modified By search works
+Verify that a basic Synonym Date search works
+Verify that a basic Synonym name search returns  synonyms sorted in the correct order of exact,similiar,broad,narrow
+Verify that a marker search which has STS Markers displays these markers in the STS Markers tab
+Verify that a marker search which has TSS Markers displays these markers in the STS Markers tab
+Verify that a marker search of a TSS Marker displays the correct associated markers in the STS Markers tab
+Verify that a marker reference search which has reference type of General returns correct data
+Verify that a marker reference search which has reference type of strain-specific marker returns correct data
+Verify that a marker reference search using J number returns correct data
+Verify that a marker reference search using J number without J: returns correct data
+Verify that a marker reference search using the Modified By field returns correct data
+Verify that a marker reference search using the Date field returns correct data
+Verify that a marker reference search sorts the results correctly by Type then J#
+Verify that a marker reference search using the Citation field returns correct data
+Verify that a marker search sorts the AccIDs(other) results correctly by Name then Acc ID
 '''
 import unittest
 import time

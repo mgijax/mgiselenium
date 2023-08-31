@@ -3,6 +3,11 @@ Created on Feb 2, 2018
 These tests check the functionality of the the GXD Differental query form
 these tests need  to be worked on!!! none of them work right now5/20/2021
 @author: jeffc
+Verify that wild type results(broad definition) are excluded in results
+Verify query for detected in "A", Not detected in "B", where "A" and "B" are in different anatomical systems
+Verify query for detected in "A", Not detected in "B", where "A" is a parent of "B" in the same anatomical system
+Verify query for detected in "A", Not detected in "B", where a gene has both "expressed" and "not expressed" results
+       for "A" and has no results and/or "not expressed" results for "B" should return the gene
 '''
 import unittest
 import time
@@ -170,7 +175,7 @@ class TestGxdDifferentialQF(unittest.TestCase):
         print(selectstructure2)
         time.sleep(2)
         self.driver.find_element(By.ID, 'submit4').click()
-        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'g.cell:nth-child(30) > rect:nth-child(1)'))):
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'g.cell:nth-child(30) > rect:nth-child(1)'))):
             print('Tissue x Gene matrix data loaded')
         self.driver.find_element(By.ID, 'genegridtab')
         #find the Genes column

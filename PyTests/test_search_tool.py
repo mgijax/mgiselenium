@@ -1,6 +1,25 @@
 '''
 Created on Sep 14, 2016
-This test is for searches using the quick search feature of the WI
+This test is for searches using the quick search feature of the WI, it tests these IDs:
+MGI Gene ID, Ref J number ID, GO ID, old Gene ID, GeneTrap ID, Gene MGI Assay ID,
+EntrezGene ID, NCBI gene Model ID, Ensembl gene model ID, Ensembl Transcript ID,
+Ensembl Protein ID, RefSeq Protein ID, RefSeq Secondary ID, SeqDB Primary ID, SeqDB Secondary ID,
+SwissProt Primary ID, SwissProt Secondary ID, Trembl Primary ID, Consensus CDS ID,
+Unigene ID, Protein Ontology ID, EC ID, PDB ID, MirBase ID, QTL archive ID, NCBI gene model evidence
+ID, Affy 1.0 ST ID, Affy 430 2.0 ID, Affy U74 ID, OMIM ID, OMIM human gene ID, HGNC ID,
+ATCC clone ID, Image clone ID, MGC ID, Riken clone ID, RPCI ID, InterPRO ID, PIRSF ID, PubMed ID,
+MGI reference ID, dbSNP rs ID, GenBank ID, MGI Allele ID, Ruley HE ID, ES Cell Line ID(IGTC),
+ES Cell Line ID(Lexicon), MGI Probe ID, MGC Clone ID, Mapping Experiment ID, Adult Mouse Anatomy ID,
+MP ID, MGI Antibody ID, Proteoform ID, Disease Ontology ID, MGI Strain ID, MGI Alternate Strain ID,
+JAX Strain ID, MRRC Strain ID, APD Strain ID, ARC Strain ID, CARD Strain ID, CMMR Strain ID,
+EMMA Strain ID, EMS Strain ID, Harwell Strain ID, JPGA Strain ID, NCIMR Strain ID, MPD Strain ID,
+MUGEN Strain ID, NIG Strain ID, NMICE Strain ID, OBS Strain ID, ORNL Strain ID, RIKEN BRC Strain ID,
+TAC Strain ID, RMRC NLAC Strain ID, Strain Name ID, Strain Synonym ID, MGP Strain ID, Beta Cell
+Biology consortium Strain ID, Charles River Strain ID, Case Western Reserve Strain ID,
+Envigo Strain ID, Geno Strain ID, GenPharmaTech Strain ID, Mammalian Genome unit Stocklist Strain ID,
+RGD Strain ID, KMPC Strain ID, ZFin ID, MGI Genotype ID, MGI Phenotype Image ID, MGI GXD Image ID,
+RMRC Strain ID, Shanghai Model Organism center Strain ID, UNC Strain ID, VCMR Strain ID, MGP Strain ID,
+MGI Gene Model ID, MYGENE ID, Mouse Coordinates
 @author: jeffc
 
 '''

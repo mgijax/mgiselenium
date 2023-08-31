@@ -2,6 +2,11 @@
 Created on Mar 24, 2017
 These tests are for verifying the functionality and data for the Mouse model popup found off the Genes tab results
 @author: jeffc
+Verify mouse models popup header section
+Verify mouse models popup when only NOTs returned
+Verify mouse models popup when only Human data returned
+Verify mouse models popup when only Mouse and NOTS returned
+Verify mouse models popup strain links
 '''
 import unittest
 import time
@@ -284,8 +289,6 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         self.driver.switch_to.window(self.driver.window_handles[-1])
         #Asserts that the strain page is for the correct strain
         assert "Tg(SNCA*A30P)#Rwm" in self.driver.page_source
-
-
             
     def tearDown(self):
         self.driver.quit()

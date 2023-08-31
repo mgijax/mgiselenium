@@ -1,8 +1,8 @@
 '''
 Created on Jun 7, 2016
-
 @author: jeffc
 This set of tests verifies items found on the marker query form page.
+Verify the ribbons are being displayed in the correct order on the page
 '''
 import unittest
 import tracemalloc

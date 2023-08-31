@@ -4,6 +4,13 @@ This test should check the column headers for correct display and order. It curr
 in correct order and the returned diseases and their order, 
 Updated: July 2017 (jlewis) - updates to make tests more tolerant to changes in annotations.  e.g. removing counts
 @author: jeffc
+Verify the headings on the Gene Homologs x Phenotypes/Diseases tab( or Index tab) are correct and in the correct order.
+Verify that human/mouse; human only; mouse only disease associations exist as expected by checking the Title of the pop-up
+Verify the correct genes are returned for this query, both human and mouse.  This includes 3 transgenes that are
+    returned due to Expressed Component
+Verify the correct genes are returned for this query, The symbol used has several unusual characters
+Verify that the expected annotations are present under the phenotype systems.This includes a system with both mouse
+     and human; a system with only human; and a system withonly mouse.  The check is made using the Title of the phenotype pop-up
 '''
 import unittest
 import time

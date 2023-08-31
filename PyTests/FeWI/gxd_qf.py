@@ -2,6 +2,15 @@
 Created on Oct 19, 2016
 This set of tests verifies items found on the Gene Expression query form page
 @author: jeffc
+Verify the ribbons are being displayed in the correct order on the page
+Verify that the genes tab does not return normals(like Adcy8) or genes with no expression(like Ankfn1)
+Verify that the option "specimen mutated in Gene" option of the GXD query form works as expected
+Verify that the option "Wild type specimens only" option of the GXD query form works as expected
+Verify that the search by symbol(gene) of the GXD query form works as expected
+Verify that the search by chromosome of the GXD query form works as expected
+Verify that the search by chromosome location of the GXD query form works as expected
+Verify that the search by multiple chromosome locations of the GXD query form works as expected
+Verify that the search by chromosome location(using Mbp) of the GXD query form works as expected
 '''
 import unittest
 import time

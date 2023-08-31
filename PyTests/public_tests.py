@@ -1,5 +1,5 @@
 """
-Run all public WI related test suites
+This file runs all public WI related test suites as long as they are in this suite test.
 """
 import sys,os.path
 

@@ -2,6 +2,9 @@
 Created on Oct 21, 2016
 These tests were created to verify details on the Genotype detail pages(genoview) and all Genotype page(allgenoviews)
 @author: jeffc
+Verify the Genotype heading details except 'find mice' information
+Verify the Genetic Background link is correct
+Verify the Genetic Background strain is not a link when it has 'involves'
 '''
 import unittest
 import time
@@ -45,7 +48,7 @@ class TestGenotypeDetail(unittest.TestCase):
         self.driver.find_element(By.LINK_TEXT, 'hm1').click()
         # switch to the new window
         self.driver.switch_to.window(self.driver.window_handles[1])
-        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'genoID'))):
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.CLASS_NAME, 'genoID'))):
             print('Phenotypes Associated with This Genotype page loaded')
         mgiid = self.driver.find_element(By.CLASS_NAME, 'genoID')
         self.assertEqual(mgiid.text, "MGI:3707321", "This is not the correct MGI ID")#verifies we have the correct MGI ID  

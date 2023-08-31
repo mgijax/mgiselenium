@@ -1,7 +1,9 @@
 '''
 Created on Apr 6, 2018
-
 @author: jeffc
+Verify that the parent terms are correctly identified, In this case parent term should be is-a
+Verify that the terms are correctly sorted. The default sort for the tree view is smart alpha
+Verify that searching by an HP term that has 'of the' in the name correctly returns results
 '''
 
 import unittest

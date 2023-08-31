@@ -1,8 +1,10 @@
 '''
 Created on Feb 10, 2016
-
 @author: jeffc
 This suite of tests are for QTL allele pages
+Verify a QTL allele that has a variant Note
+Verify a QTL allele that has QTL Reference Note
+
 '''
 import unittest
 import tracemalloc
@@ -31,6 +33,9 @@ class TestAlleleDetailQTL(unittest.TestCase):
         self.driver.implicitly_wait(10)
 
     def test_variant_note(self):
+        '''
+        @status this test verifies a QTL allele that has a variant Note
+        '''
         self.driver.find_element(By.ID, "phenotype").clear()
         self.driver.find_element(By.ID, "phenotype").send_keys("Adre")
         self.driver.find_element(By.CLASS_NAME, "buttonLabel").click()
@@ -39,7 +44,7 @@ class TestAlleleDetailQTL(unittest.TestCase):
 
     def test_reference_note(self):
         '''
-        @status this test verifies a QTL allele that has  QTL Reference Note
+        @status this test verifies a QTL allele that has QTL Reference Note
         '''
         self.driver.find_element(By.ID, "phenotype").clear()
         self.driver.find_element(By.ID, "phenotype").send_keys("Ccc1")

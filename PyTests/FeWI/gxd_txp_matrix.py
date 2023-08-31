@@ -1,7 +1,21 @@
 '''
 Created on Jan 24, 2018
 @author: jeffc
-@attention: Beginning  tests for Tissue X Phenotype Matrix
+Verify that an MP to EMAPA  maps to a single anatomy system
+Verify the display when an MP term is annotated to multiple genotypes using different J numbers, each counted as 1 annotation
+Verify the display when an MP annotation maps to a child of mouse but has no GXD annotation
+Verify the display when MP term annotated to multiple genotypes with the same J number, each occurance counted as 1 annotation
+Verify the display for multiple MP annotations using different rollup to same EMAPA term with same genocluster.
+       each occurance counted as 1 annotation
+Verify the display when a normal MP annotation is the only annotation for a row/cell(7 cells), it also
+       verifies that normals have an N in their cells
+Verify the display when you have a normal MP annotation and another annotation that roll up to a higher
+       level term, but no N gets displayed
+Verify the display when an MP annotation is the only annotation for a row/cell that shows background
+       sensitivity
+Verify the display when a normal MP annotation with background sensitivity, is the only annotation for a
+       row/cell(7 cells)
+Verify the display when you have more than 100 MP annotations
 '''
 
 import unittest

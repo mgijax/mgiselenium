@@ -2,6 +2,33 @@
 Created on May 17, 2019
 These are tests that check the searching options of the Image module
 @author: jeffc
+Verify that a basic Image MGI ID thumbnail search works
+Verify that a basic Image MGI ID full image search works
+Verify that a basic Image J number Search All image search works
+Verify that a basic Image J number Expression image search works
+Verify that a basic Image J number Phenotype image search works
+Verify that a basic Image J number Molecular image search works
+Verify that a basic Image Figure Label search works
+Verify that a basic Image Citation w/wildcard search works
+Verify that a basic Image Class Expression search works
+Verify that a basic Image Class Phenotypes search works
+Verify that a basic Image Class Molecular search works
+Verify that a basic Image Caption w/wildcard search works
+Verify that a basic Image Copyright w/wildcard search works
+Verify that an image search using the Created By field returns correct data
+Verify that an image search using the Modified By field returns correct data
+Verify that a basic Creation Date search works
+Verify that a basic Modification Date search works
+Verify that a basic Modification Date by less than works
+Verify that a basic Modification Date by less than equals works
+Verify that a basic Modification Date by range search works
+Verify that a basic Creation Date by less than works
+Verify that a basic Creation Date by less than equals works
+Verify that a basic Modification Date by range search works
+Verify that a J number search that has no copyright does not fail but works
+Verify that a basic Image Accession Type GenePaint search works
+Verify that a basic Image Accession Type Gudmap search works
+Verify that a basic Image Accession Type Eurexpress search works
 '''
 import unittest
 import time

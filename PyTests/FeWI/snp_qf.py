@@ -2,6 +2,14 @@
 Created on Sep 7, 2018
 This set of tests verifies the SNP query form
 @author: jeffc
+Verify that you can search for snps using a single reference strain
+Verify that you can search for snps using a single reference strain and the option Different from the reference strain
+Verify that you can search for snps using a single reference strain and the Allele Agreement filter All reference strains
+    agree and all comparison strains agree with reference
+Verify that you can search for snps using multiple reference strains and selective comparison strains
+    this example is actually biologically significant.  All of the Reference strains in this example show what is
+    called the AH+ phenotype (for Ahr), while all of the comparison strains show the AH- phenotype (for Ahr).
+    The SNPs returned are all candidates for the genetic variation that defines the AH+ vs. AH- phenotype.
 '''
 
 import unittest

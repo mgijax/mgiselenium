@@ -2,6 +2,23 @@
 Created on Jan 14, 2019
 Tests the searching features of the Variant module
 @author: jeffc
+Verify that a basic Variant Allele ID search works
+Verify that a basic Variant Allele Symbol search works
+Verify that a basic Variant Allele Symbol search using a wildcard works
+Verify that a basic variant reference search works
+Verify that a variant multi reference search works
+Verify that a basic Chromosome search works
+Verify that a basic Strand search works
+Verify that a basic allele search returns HGVS data works
+Verify that a basic allele search returns variant reference data works
+Verify that a basic allele search returns variant notes(public & private) data works
+Verify that a variant Strand negative search has the stand always with a red background
+Verify that a basic allele search that has multiple variants displays all data correctly
+Verify that a basic allele search that has omly 1 variant displays all data correctly
+Verify that a basic allele search that has a variant with a long Genomic ref displays all data correctly
+Verify that a basic allele search that has a variant with a long Genomic var displays all data correctly
+Verify that the picklist for Genome Build is correct
+Verify that a basic allele search has a link to it's allele detail page just above the variant table
 '''
 import unittest
 import time

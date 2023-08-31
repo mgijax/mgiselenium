@@ -1,8 +1,15 @@
 '''
 Created on Feb 15, 2016
 Add'l 4 tests added Aug 2016; jlewis
-
 @author: jeffc
+Verify that the initial detail is of the main term
+Verify that all stage links exist in the term detail section and clicking them function correctly
+Verify that when you click a term from the tree the annotation results changes  to just that node results
+Verify that when you click on the annotations link in the detail section it  goes to the correct assay results
+Verify the stage-specific view of the Term Detail section
+Verify that all stage links exist in the term detail section and clicking them function correctly; this is for a case with only a few stages
+Verify that when you click a term for a specific stage from the tree the annotation results changes  to just that node results
+Verify that when you click on the annotations link in the detail section it  goes to the correct assay results
 '''
 import unittest
 import time 
@@ -170,7 +177,7 @@ class TestEiEmapaDetail(unittest.TestCase):
         
     def testStageSpecificDetail(self):
         """
-        This test verifies the stage-specific view of the Term Detail section; jlewis
+        This test verifies the stage-specific view of the Term Detail section
         @status: test works
         """
         wait.forAngular(self.driver)
@@ -199,7 +206,7 @@ class TestEiEmapaDetail(unittest.TestCase):
         
     def testMinimalStageLinks(self):
         """
-        tests that all stage links exist in the term detail section and clicking them function correctly; this is for a case with only a few stages; jlewis
+        tests that all stage links exist in the term detail section and clicking them function correctly; this is for a case with only a few stages
         """
         wait.forAngular(self.driver)
         #find the "Term Search" box and enter the term second polar body
@@ -232,7 +239,7 @@ class TestEiEmapaDetail(unittest.TestCase):
 
     def testAnnotationStageResults(self):
         """
-        tests that when you click a term for a specific stage from the tree the annotation results changes  to just that node results; jlewis
+        tests that when you click a term for a specific stage from the tree the annotation results changes  to just that node results
         @status: test works
         """        
         wait.forAngular(self.driver)
@@ -269,7 +276,7 @@ class TestEiEmapaDetail(unittest.TestCase):
         
     def testAnnotationStageDetailLink(self):
         """
-        tests that when you click on the annotations link in the detail section it  goes to the correct assay results; jlewis
+        tests that when you click on the annotations link in the detail section it  goes to the correct assay results
         """
         wait.forAngular(self.driver)
         #find the "Term Search" box and enter the term thymus/parathyroid primordium

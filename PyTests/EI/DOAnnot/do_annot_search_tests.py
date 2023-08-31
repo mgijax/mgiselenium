@@ -2,6 +2,23 @@
 Created on Nov 13, 2019
 These are tests that check the searching options of the DO Annotations module
 @author: jeffc
+Verify that a basic DO MGI ID genotype search works
+Verify that a basic Genotype search works
+Verify that a basic DO Term ID search works
+Verify that a basic DO Qualifier search works
+Verify that a basic MP J number search works
+Verify that a basic DO Evidence Code search works
+Verify that a basic note text search works
+Verify that an DO annotation search using the Created By field returns correct data
+Verify that a search using the Modified By field returns correct data
+Verify that a basic Creation Date search works
+Verify that a basic Modification Date search works
+Verify that a basic Modification Date by less than works
+Verify that a basic Modification Date by less than equals works
+Verify that a basic Modification Date by range search works
+Verify that a basic Creation Date by less than works
+Verify that a basic Creation Date by less than equals works
+Verify that a basic Creation Date by range search works
 '''
 import unittest
 import time

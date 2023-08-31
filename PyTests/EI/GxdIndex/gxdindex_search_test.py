@@ -1,9 +1,21 @@
 '''
 Created on Sep 7, 2016
-
 This test verifies searching within the EmapA module, Both a term search and a stage search
-
 @author: jeffc
+Verify that a basic J number search works
+Verify that a marker symbol search works, verifies the details of the first result listed
+Verify that a wildcard search for a marker works
+Verify that a wildcard search for a note works
+Verify that a multiple marker search works
+Verify that searching by marker, priority, conditional, and coded fields gives the correct results
+Verify that searching the Created by user field gives the correct results
+Verify that searching the Modified by user field gives the correct results
+Verify that searching by created date gives the correct results
+Verify that searching by modified date gives the correct results
+Verify that searching by less than created by date gives the correct results
+Verify that searching by less than created by date gives the correct results
+Verify that searching by inclusive dates gives the correct results
+Verify that an index record(s) can be searched
 '''
 import unittest
 import time
@@ -43,7 +55,6 @@ class TestEiGxdIndexSearch(unittest.TestCase):
     def testJnumSearch(self):
         """
         @Status tests that a basic J number search works
-        
         """
         driver = self.driver
         form = self.form

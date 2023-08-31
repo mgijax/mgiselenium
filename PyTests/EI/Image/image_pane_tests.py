@@ -2,6 +2,13 @@
 Created on Jun 4, 2019
 These are Image Pane tests for searching, displaying, adding and editing. 
 @author: jeffc
+Verify that a basic Image Pane Label search works
+Verify that a basic Image Pane Label search using a wildcard works
+Verify that a basic Image Pane Label search for a label with a special character works
+Verify that a basic Image Pane Label search for a label that is extremely long works
+Verify that a basic Image Pane Label search for a label is blank(no label) works
+Verify a pane label display that starts with an underscore
+Verify that a basic Image Pane Label search has the correct alpha sort of the pane labels
 '''
 import unittest
 import time

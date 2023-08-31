@@ -2,6 +2,12 @@
 Created on Feb 7, 2017
 These tests are for verifying information found on the Models tab of the Disease Ontology Browser
 @author: jeffc
+Verify term line header section
+Verify results that have NOT models
+Verify multiple results for various result combinations
+Verify results for same genes with multiple subtypes
+Verify results that has only NOT models
+Verify genetic background strain link
 '''
 import unittest
 import time

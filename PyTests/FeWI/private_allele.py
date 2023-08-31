@@ -1,7 +1,8 @@
 '''
 Created on Jan 5, 2016
-
 @author: jeffc
+Verify that private alleles are not displaying on allele summary page
+Verify that the dummy private allele Brca1<test1> does not display on public if queried by the quick search tool
 '''
 import unittest
 import tracemalloc
@@ -23,7 +24,7 @@ import time
 tracemalloc.start()
 class TestPrivateAllele(unittest.TestCase):
     """
-    @status: Tests that the dummy private allele Brca1<test1> does not display on public
+    @status: Tests that the dummy private allele Brca1<test1> does not display on public if queried by the quick search tool
     """
 
     def setUp(self):
@@ -33,6 +34,9 @@ class TestPrivateAllele(unittest.TestCase):
         self.driver.implicitly_wait(10)
 
     def test_private(self):
+        '''
+        Teste that private alleles are not displaying on allele summary page
+        '''
         driver = self.driver
         self.assertIn("Informatics", driver.title)
         querytext = driver.find_element(By.NAME, 'query')
@@ -51,7 +55,7 @@ class TestPrivateAllele(unittest.TestCase):
         
     def test_hide_private_marker(self):
         """
-        @status: Tests that the dummy private allele Brca1<test1> does not display on public
+        @status: Tests that the dummy private allele Brca1<test1> does not display on public if queried by the quick search tool
         """
         driver = self.driver
         self.assertIn("Informatics", driver.title)

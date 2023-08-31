@@ -1,6 +1,9 @@
 '''
 Created on Jun 6, 2016
-
+Verify column headings
+Verify DOIDs by allele
+Verify DOIDs by marker
+Note: uses highlight feature in these tests.
 @author: jeffc
 '''
 

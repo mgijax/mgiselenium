@@ -5,8 +5,49 @@ in tests that are outside scope of requirement being tested.
 
 This file contains the tests for Gene IDs (mouse and human) that are entered via the Gene Symbol(s)/ID(s) query field.  
 Tests are organized in this order in the file:  Mouse gene ID tests, Human gene ID tests, and multiple ID tests
-
 @author: jeffc
+Verify the correct genes are returned for query by mouse MGI ID in the Gene Symbol/ID field.  Return the mouse
+    gene and its human ortholog. Also verifies that IDs are not accepted in the Gene Name field.
+Verify searching by Gene ID using NCBI mouse gene ID.  Expect only results in the Gene Tab for a mouse gene with
+        no human ortholog.
+Verify searching by Gene ID using NCBI gene ID.  Expect mouse gene returned plus human ortholog on Grid
+        and Gene Tabs.  Diseases rolled up for this gene returned to Disease Tab
+Verify searching by a mouse gene ID using an Ensembl Gene Model ID, Transcript ID, and Protein ID.  All these queries
+        return the mouse gene and its human ortholog
+Verify searching for genes by the UniProt mouse ID types: SWISS-PROT and TrEMBL.  Verify that the mouse gene is returned
+        and its human ortholog on the Gene Tab
+Verify searching for genes by the PDB and Protein Ontology mouse IDs.  Verify that the mouse gene is returned
+        and its human ortholog on the Gene Tab
+Verify searching for genes by a GenBank sequence mouse ID.  Verify that the mouse gene is returned
+        and its human ortholog on the Gene Tab
+Verify searching for genes by Affy mouse IDs.  Verify that the mouse gene is returned
+        and its human ortholog on the Gene Tab
+Verify searching by Gene ID using EC mouse gene ID.  Verify that the mouse gene is returned
+        and its human ortholog on the Gene Tab
+Verify searching by Gene ID using miRBase mouse gene ID.  Verify that the mouse gene is returned
+        and its human ortholog on the Gene Tab
+Verify searching by Gene ID using CCDS mouse gene ID.  Verify that the mouse gene is returned
+        and its human ortholog on the Gene Tab
+Verify The marker Gt(ROSA)26Sor is a special case in the HMDC.  This marker should not be returned to the Grid Tab, but is valid to be
+        returned on the Gene Tab.  This test is a search by its MGI ID
+Verify This test checks to make sure MGI allele IDs are not accepted in this field in the HMDC
+Verify searching by Gene ID using NCBI human gene ID.  Expect human gene returned plus mouse ortholog on Grid
+        and Gene Tabs.  Diseases rolled up for these genes returned to Disease Tab
+Verify searching for genes by the UniProt human sequence id.  Verify that the human gene is returned
+        and its mouse ortholog on the Gene Tab
+Verify searching for genes by the NeXtProt id.  Verify that the human gene is returned
+        and its mouse ortholog on the Gene Tab
+Verify searching for genes by the RefSeq sequence id.  Verify that the human gene is returned
+        and its mouse ortholog on the Gene Tab
+Verify searching for genes by the GenBank sequence id.  Verify that the human gene is returned
+        and its mouse ortholog on the Gene Tab
+Verify that an OMIM ID for a human gene returns that gene and its mouse ortholog.
+        @see: HMDC-GQ-35 (OMIM gene IDs); HMDC-GQ-38 (do NOT return matches to OMIM Disease IDs)
+Verify that a HGNC ID for a human gene returns that gene and its mouse ortholog
+Verify the correct genes are returned for this query, both human and mouse. This test is for searching by
+        by RGD ID for a rat gene(RGD:2466 is associated to marker Cyp2b10 )
+Verify This is a test of a list of IDs in one query of Gene Symbols/IDs.  This is a mix of mouse gene IDs and human gene IDs.  The gene matching the ID
+        is expected in the results plus their mouse or human ortholog
 '''
 import unittest
 import time

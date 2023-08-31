@@ -2,6 +2,10 @@
 Created on Sep 30, 2019
 Tests for the RNA-Seq Samples page
 @author: jeffc
+Verify the array express link on the RNA-Seq samples page is correct
+Verify the expression atlas link on the RNA-Seq samples page is correct
+Verify the geo link on the RNA-Seq samples page is correct
+Verify a conditional mutant note on the RNA-Seq samples page for samples that require it
 '''
 import unittest
 import time

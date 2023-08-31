@@ -4,6 +4,13 @@ This test should check the column headers for correct display and order. It curr
 and the DO IDs in correct order, tests for the other columns need to be added later.
 Updated: July 2017 (jlewis) - updates to make Disease Tab tests more tolerant to changes in annotations.  e.g. removing counts
 @author: jeffc
+Verify the column headings on the Disease Tab are correct and in the correct order
+Verify the correct diseases are returned for this query
+Verify the correct diseases are returned for this query. This query uses search option Phenotype or Disease
+    Name for a query by an MP term name.
+Verify This query uses search option Gene Symbol(s) or ID(s).  Verified disease returned due to a Mouse, Human, and Mouse/Human annotations
+Verify the correct DO IDs are returned for this query. This query uses search option Phenotype or Disease ID(s)
+        this ID  should bring back the disease "Carney complex"
 '''
 import unittest
 import time

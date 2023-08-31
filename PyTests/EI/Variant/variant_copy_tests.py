@@ -2,6 +2,15 @@
 Created on Mar 21, 2019
 These tests verify the various copy functions within the Marker module.
 @author: jeffc
+Verify that the Copy All function works
+Verify that the Copy Coords function works for sourced Genomic
+Verify that the Copy Coords function works for sourced Transcript
+Verify that the Copy Coords function works for sourced Polypeptide
+Verify that the Copy Alleles function works for sourced Genomic
+Verify that the Copy Alleles function works for sourced Transcript
+Verify that the Copy Alleles function works for sourced Polypeptide
+Verify that the Duplicate Allele function works for the Variant Module
+Verify that the Duplicate Variant function works for the Variant Module
 '''
 import unittest
 import time

@@ -2,6 +2,64 @@
 Created on Apr 6, 2020
 These are tests that check the searching options of the Allele module
 @author: jeffc
+Verify that a basic allele symbol search works
+Verify that a basic allele name search works
+Verify that a basic allele marker symbol search works
+Verify that a basic allele marker symbol J number search works
+Verify that a basic allele marker symbol status curated search works
+Verify that a basic allele marker symbol status search for Curated invalidated works
+Verify that a basic allele marker symbol status search for loaded works
+Verify that a basic allele status search for In Progress works
+Verify that a basic allele status search for Reserved works
+Verify that a basic allele generation search for Chemically and Radiation induced works
+Verify that a basic allele generation search for Transposon induced works
+Verify that a basic allele Inheritance search for Codorminent works
+Verify that a basic allele Inheritance search for Semidorminent works
+Verify that a basic allele Germ Line search for Chimeric works
+Verify that a basic allele collection search for NorCOMM works
+Verify that a basic allele mixed search for Yes works
+Verify that a basic allele Extinct search for Yes works
+Verify that a basic allele Reference J number search works
+Verify that a basic allele Mutant Cell Line search works
+Verify that a basic allele Mutant Cell Line Creator search works
+Verify that a basic allele Mutant Cell Line Modified by search works
+Verify that a basic allele Mutant Cell Line Modification Date search works
+Verify that a basic allele cell line type search
+Verify that a basic allele MGI ID search
+Verify that a basic allele Marker Detail Clip search
+Verify that a basic allele General Note search
+Verify that a basic allele Nomenclature Note search
+Verify that a basic allele Inducible Note search
+Verify that a basic allele User(CRE) Note search
+Verify that a basic allele IKMC Colony Note search
+Verify that a basic allele Pro ID Note search
+Verify that an other ACC IDs KOMP Regeneron project search works
+Verify that an other ACC IDs KOMP CSD project search works
+Verify that an other ACC IDs NorCOMM project search works
+Verify that an other ACC IDs EUCOMM project search works
+Verify that an other ACC IDs mirKO project search works
+Verify that a basic allele marker symbol J number Validation works. If enter incorrect J number should get a popup message
+Verify that a basic allele  J number Validation works. If enter incorrect J number should get a popup message
+Verify that a basic allele Mutant Cell Line Validation works. If enter incorrect should get a popup message
+Verify that a basic allele Parent Cell Line Validation works. If enter incorrect should get a popup message
+Verify that a basic allele Synonym search
+Verify that a basic allele Synonym search
+Verify that an Attribute by Endonuclease search works
+Verify that an Attribute by Transposase search works
+Verify that a Molecular Mutations of Nucleotide repeat expansion search works
+Verify that a Molecular Mutations of Viral insertion search works
+Verify that a Driver gene of baboon, olive search works
+Verify that a Driver gene of Sheep search works
+Verify that an allele search using the Created By field returns correct data
+Verify that an allele search using the Modified By field returns correct data
+Verify that an allele search using the Creation Date field returns correct data
+Verify that an allele search using the Modified By field returns correct data
+Verify that an allele search using the Modified By field and less than returns correct data
+Verify that an allele search using the Modified By field and less than or equal to returns correct data
+Verify that an allele search using the Modified By field and between dates returns correct data
+Verify that an allele search using the Creation Date field and Less than returns correct data
+Verify that an allele search using the Creation Date field and Less than, equals to returns correct data
+Verify that an allele search using the Creation Date field and Between dates returns correct data
 '''
 import unittest
 import time
@@ -572,7 +630,7 @@ class TestEIAlleleSearch(unittest.TestCase):
 
     def testAlleleMutantCellLineCreateSearch(self):
         """
-        @Status tests that a basic allele Muatant Cell Line Creator search works
+        @Status tests that a basic allele Mutant Cell Line Creator search works
         @see pwi-allele-search-21
         """
         driver = self.driver

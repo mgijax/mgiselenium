@@ -1,7 +1,22 @@
 '''
 Created on Mar 17, 2022
-
 @author: jeffc
+Verify that a basic MGI ID search works
+Verify that a basic allele relationship Allele symbol search works
+Verify that a basic allele symbol using wildcard search works
+Verify that a basic allele relationships mutation involved type search works with wildcard
+Verify that a basic allele relationships Mutation Involves J# search works
+Verify that a basic allele relationships mutation involves marker Acc ID search works
+Verify that a basic allele relationships mutation involves marker search works
+Verify that a basic allele relationships Mutated Involves note search  works
+Verify that a basic allele relationships expresses component type search works
+Verify that a basic allele relationships Expresses Component J# search works
+Verify that a basic allele relationships expresses component marker Acc ID search works
+Verify that a basic allele relationships expresses component marker search works
+Verify that a basic allele relationships expresses component note search  works
+Verify that a basic allele relationships Driver Component Organism Pick List search  works
+Verify that a basic allele relationships property search  works
+Verify that a basic allele relationships Marker Region Tool search  works
 '''
 import unittest
 import time
@@ -93,7 +108,7 @@ class TestEIAlleleRelationshipsSearch(unittest.TestCase):
 
     def testEIAlleleRelationshipsAlleleSymbolwildSearch(self):
         """
-        @Status tests that a basic allele symbol using wilcard search works
+        @Status tests that a basic allele symbol using wildcard search works
         @see pwi-allele-rel-search-2
         """
         driver = self.driver

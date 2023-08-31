@@ -1,6 +1,6 @@
 '''
 Created on Dec 22, 2015
-
+This test suite checks that private alleles and private markers are not displayed on Public.
 @author: jeffc
 '''
 import unittest

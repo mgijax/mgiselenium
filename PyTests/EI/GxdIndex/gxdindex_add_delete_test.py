@@ -4,6 +4,10 @@ Created on Sep 20, 2016
 @author: jeffc
 @attention: These tests must only be run against a development environment!!
 @bug: since selenium 4 getting errors for popups(lines 153 and 184), need to find out why!!!!
+Verify that an index record can be added
+Verify that the correct error messages are displayed when entering an invalid J number and when entering an invalid Marker
+Verify that the correct error message is displayed when not selecting a priority
+Verify that the correct error message is displayed when not selecting any stage
 '''
 import unittest
 import time

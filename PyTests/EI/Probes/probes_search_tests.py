@@ -1,7 +1,10 @@
 '''
 Created on Sep 8, 2022
-
 @author: jeffc
+Verify that a basic probe segment type search works
+Verify that a basic probe segment type and name summary search works
+Verify that a basic probe name summary search works, this also checks for an Alias
+Verify that a basic probe name with wildcard summary search works
 '''
 import unittest
 import time

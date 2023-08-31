@@ -2,8 +2,17 @@
 '''
 Created on Jan 28, 2016
 This test verifies searching within the EmapA module, Both a term search and a stage search
-Add'l 4 tests added August 2016; jlewis
 @author: jeffc
+Verify that a basic term search works
+Verify that a synonym term search works
+Verify that a wildcard term search works
+Verify that a stage search works
+Verify that a multiple stages search works
+Verify that the shortcut ALT + c clears the term and stage fields
+Verify that a combined search of term and stage works; also includes wild cards
+Verify that a term with a special character works
+Verify that a search with multiple terms works; semi-colon is the delimiter
+Verify that a search for a range of stages works
 '''
 import unittest
 import HtmlTestRunner
@@ -178,7 +187,7 @@ class TestEiEmapaSearch(unittest.TestCase):
         
     def testComboTermStageSearch(self):
         """
-        tests that a combined search of term and stage works; also includes wild cards; jlewis
+        tests that a combined search of term and stage works; also includes wild cards
         """
         wait.forAngular(self.driver)
         #find the "Term Search" box and enter the term %renal artery% 
@@ -199,7 +208,7 @@ class TestEiEmapaSearch(unittest.TestCase):
         
     def testSpecialCharSearch(self):
         """
-        tests that a term with a special character works; jlewis
+        tests that a term with a special character works
         """
         wait.forAngular(self.driver)
         #find the "Term Search" box and enter the term rathke's pouch 
@@ -219,7 +228,7 @@ class TestEiEmapaSearch(unittest.TestCase):
 
     def testMultipleTermSearch(self):
         """
-        tests that a search with multiple terms works; semi-colon is the delimiter; jlewis
+        tests that a search with multiple terms works; semi-colon is the delimiter
         """
         wait.forAngular(self.driver)
         #find the "Term Search" box and enter the term "liver; brain; heart" 
@@ -240,7 +249,7 @@ class TestEiEmapaSearch(unittest.TestCase):
         
     def testStageRangeSearch(self):
         """
-        tests that a search for a range of stages works; jlewis
+        tests that a search for a range of stages works
         """
         wait.forAngular(self.driver)
         #find the "Stage Search" box and enter the stages "1-3" 

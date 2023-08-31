@@ -1,8 +1,48 @@
 '''
 Created on Oct 20, 2016
-
 @author: jeffc
 This suite of tests are for marker detail pages
+Verify the ribbons are being displayed in the correct order on the page
+Verify that the APF link for incidential mutations goes to the correct website location
+Verify the link for Transcription exits(and is correctly worded) in the summary ribbon and clicking it displays the popup table
+    @note the sites should be displayed by coordinate order
+Verify this test opens the Tss table and verifies the table results are sorted by location coordinates
+    @note the sites should be displayed by coordinate order on marker detail but by Distance from Gene 6'-end in Tss table
+Verify clicking a Tss site ID takes you to it's detail page
+Verify the strain table headings in the Genome Context & Strain Distribution ribbon are correctly ordered/displayed
+Verify the strain table(no strain ribbon) is not present in the Strain Comparison ribbon when strains have no annotation
+Verify the Strain Comparison ribbon when the turnstile is closed shows strain annotations and SNPs within 2kb(if available)
+Verify the Strain Comparison ribbon does not display when no Annotation Data or SNP Data exists
+Verify the Multiple Genome Viewer(MGV) link exists only when B6 coordinates exist
+Verify that the Gene Model IDs in the strains table link to their MGI gene model sequence, found in the Strain Comparison ribbon. (only verifying 1 link of 18)
+Verify that when a canonical gene doesn't have a B6 strain gene then the strain table for C57BL/6J says "no annotation"
+Verify that the sequence map coordinates do not match the strains table C57BL/6J coordinates when the gene model is not MGI
+Verify that the sequence map coordinates match the strains table C57BL/6J coordinates when the gene model is MGI
+Verify that you can download a single FASTA sequence from the Strain table using the download checkbox
+Verify that you can download multiple FASTA sequences from the Strain table using the download checkboxs
+Verify that you can download a B6 strain gene FASTA sequence from the Strain table using the download checkbox
+Verify that you can download all FASTA sequences from the Strain table using the 'Check All' button
+Verify that a strain-specific marker is correctly identified in the Strain Comparison ribbon
+Verify that only the SNPs within 2kb, PCR,and RFLP links exists in the Strain Comparison ribbon when no strain available
+Verify that only polymorphism data exists in the Strain Comparison ribbon when no strain or coordinates available
+Verify that when you click the Select DO/CC Founders button in the Strain Comparison ribbon the correct strains get selected in the strains table
+Verify that when a gene has multiple gene model IDs to the same strain the strain table displays them correctly
+Verify In the Human Diseases section, confirm there are turnstile icons for showing more data
+    and clicking the turnstile icon displays the complete Human Diseases table
+Verify that the disease table in the Human Diseases ribbon now displays the DOID beside
+    each disease instead of the OMIM ID
+Verify In the Human Diseases section, from the Mouse Model popup strains in Genetic background link to their strain
+    detail page
+Verify when you click the Phenotype summary link(for genetic backgrounds) from the Mutations, Alleles, and Phenotypes ribbon
+    to open the MP ontology annotations page you find strains in the genetic background column link to their strain detail page
+Verify when you click the Phenotype summary link(for multigenic genotypes) from the Mutations, Alleles, and Phenotypes ribbon
+    to open the MP ontology annotations page you find strains in the genetic background column link to their strain detail page
+Verify when you click one of the blue cells in the phenoslim grid from the Mutations, Alleles, and Phenotypes ribbon
+    to open the Phenotype annotations related to page, then click a Mouse Genotype to find strains in the genetic background column
+    link to their strain detail page(for Summary ribbon and for Genotype ribbon
+Verify the existence of a QTL interaction link in the summary section below the Feature Type. Clicking the link displays a popup table
+Verify the existence of a Candidate Genes link in the summary section below the Feature Type(on QTL detail). Clicking the link displays a popup table
+Verify the existence of a Candidate for QTL link in the summary section below the Feature Type(on Marker detail). Clicking the link displays a popup table
 '''
 import unittest
 import time
@@ -931,7 +971,7 @@ class TestMarkerDetail(unittest.TestCase):
 
     def test_qtl_detail_interactions(self):
         '''
-        @status this test verifies the existance of a QTL interaction link in the summary section below the Feature Type. Clicking the link displays a popup table.
+        @status this test verifies the existence of a QTL interaction link in the summary section below the Feature Type. Clicking the link displays a popup table.
         @bug: can't get to page because other page tab closes....
         @note mrkdetail-qtl-interaction-1
         '''
@@ -951,7 +991,7 @@ class TestMarkerDetail(unittest.TestCase):
 
     def test_qtl_detail_candidate(self):
         '''
-        @status this test verifies the existance of a Candidate Genes link in the summary section below the Feature Type(on QTL detail). Clicking the link displays a popup table.
+        @status this test verifies the existence of a Candidate Genes link in the summary section below the Feature Type(on QTL detail). Clicking the link displays a popup table.
         @note mrkdetail-qtl-candidate-gene-1
         '''
         driver = self.driver
@@ -970,7 +1010,7 @@ class TestMarkerDetail(unittest.TestCase):
 
     def test_qtl_detail_candidate1(self):
         '''
-        @status this test verifies the existance of a Candidate for QTL link in the summary section below the Feature Type(on Marker detail). Clicking the link displays a popup table.
+        @status this test verifies the existence of a Candidate for QTL link in the summary section below the Feature Type(on Marker detail). Clicking the link displays a popup table.
         @note mrkdetail-qtl-candidate-gene-1
         '''
         driver = self.driver

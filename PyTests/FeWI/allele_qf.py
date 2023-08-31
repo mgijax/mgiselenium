@@ -1,6 +1,8 @@
 '''
 Created on Oct 19, 2016
 This set of tests verifies items found on the allele query form page
+Verify ribbon locations
+Verify DOID search
 @author: jeffc
 '''
 import unittest

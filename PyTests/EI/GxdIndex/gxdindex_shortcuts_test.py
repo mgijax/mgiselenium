@@ -1,8 +1,9 @@
 '''
 Created on Oct 25, 2016
-
 @author: jeffc
 this test was created to verify the proper operation of the shortcut key options
+Verify that when an index record is cleared using Ctrl+Alt+c the correct fields are cleared
+Verify that when a reference is entered then Ctrl+Alt+s is pressed the correct results are returned
 '''
 import unittest
 import time

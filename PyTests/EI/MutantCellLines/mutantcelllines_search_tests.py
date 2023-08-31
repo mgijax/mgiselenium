@@ -2,6 +2,32 @@
 Created on Aug 3, 2020
 Tests the search features for the Mutant Cell Lines  EI module
 @author: jeffc
+Verify that a basic mutant cell line with wildcard search works
+Verify that a basic mutant cell line search works
+Verify that a basic MCL Creator search works
+Verify that a basic parent cell line search works
+Verify that a basic parent cell line strain search works
+Verify that a basic Cell Line Type works
+Verify that a basic derivation type search works
+Verify that a basic Vector Name search works
+Verify that a basic vector name w/wildcard search works
+*Verify that a basic tissue search works     still valid?
+Verify that a basic allele search works
+Verify that a basic allele symbol w/wildcard search works
+Verify that a basic logical DB search works
+Verify that a basic Acc Name search works
+Verify that a basic Acc Name search w/wildcard works
+Verify that a basic mutant cell line search works and brings back multiple alleles in the Allele Symbol(s) field
+Verify that an mcl search using the Created By field returns correct data
+Verify that an mcl search using the Modified By field returns correct data
+Verify that an mcl search using the Creation Date field returns correct data
+Verify that an mcl search using the Modified By field returns correct data
+Verify that an mcl search using the Modified By field and less than returns correct data
+Verify that an mcl search using the Modified By field and less than or equal to returns correct data
+Verify that an mcl search using the Modified By field and between dates returns correct data
+Verify that an mcl search using the Creation Date field and Less than returns correct data
+Verify that an mcl search using the Creation Date field and Less than, equals to returns correct data
+Verify that an mcl search using the Creation Date field and Between dates returns correct data
 '''
 import unittest
 import time
@@ -507,7 +533,7 @@ class TestEIMCLSearch(unittest.TestCase):
         
     def testMclMultiAllelesSearch(self):
         """
-        @Status tests that a basic mutant cell line search works and brings back multiple alles in the Allele Symbol(s) field
+        @Status tests that a basic mutant cell line search works and brings back multiple alleles in the Allele Symbol(s) field
         @see pwi-mcl-search-14
         """
         driver = self.driver
@@ -535,10 +561,10 @@ class TestEIMCLSearch(unittest.TestCase):
         
 #all the tests after this point need to be rewritten for the mutant cell line module
                                                             
-    def testAntigenCreateBySearch(self):
+    def testmclCreateBySearch(self):
         """
-        @Status tests that an antigen search using the Created By field returns correct data
-        @see pwi-antigen-date-search-1
+        @Status tests that an mcl search using the Created By field returns correct data
+        @see pwi-mcl-date-search-1
         """
         driver = self.driver
         #find the antigen Created By field and enter the name
@@ -558,10 +584,10 @@ class TestEIMCLSearch(unittest.TestCase):
         #Assert the  Creation Date field returned is correct 
         self.assertEqual(create_date, '2009-10-07')
 
-    def testAntigenModBySearch(self):
+    def testmclModBySearch(self):
         """
-        @Status tests that an antigen search using the Modified By field returns correct data
-        @see pwi-antigen-date-search-2
+        @Status tests that an mcl search using the Modified By field returns correct data
+        @see pwi-mcl-date-search-2
         """
         driver = self.driver
         #find the alleles Modified by field and enter the name
@@ -581,10 +607,10 @@ class TestEIMCLSearch(unittest.TestCase):
         #Assert the Modification Date field returned is correct 
         self.assertEqual(mod_date, '2015-01-07')
 
-    def testAntigenCreateDateSearch(self):
+    def testmclCreateDateSearch(self):
         """
-        @Status tests that an antigen search using the Creation Date field returns correct data
-        @see pwi-antigen-date-search-3
+        @Status tests that an mcl search using the Creation Date field returns correct data
+        @see pwi-mcl-date-search-3
         """
         driver = self.driver
         #find the antigen Creation Date field and enter a date
@@ -598,10 +624,10 @@ class TestEIMCLSearch(unittest.TestCase):
         #Assert the  Creation Date field returned is correct 
         self.assertEqual(create_date, '2013-01-23')
 
-    def testAntigenModDateSearch(self):
+    def testmclModDateSearch(self):
         """
-        @Status tests that an antigen search using the Modified By field returns correct data
-        @see pwi-antigen-date-search-4
+        @Status tests that an mcl search using the Modified By field returns correct data
+        @see pwi-mcl-date-search-4
         """
         driver = self.driver
         #find the antigen Modification Date field and enter a date
@@ -616,10 +642,10 @@ class TestEIMCLSearch(unittest.TestCase):
         #Assert the Modification Date field returned is correct 
         self.assertEqual(mod_date, '2013-01-02')
 
-    def testAntigenModDateLessSearch(self):
+    def testmclModDateLessSearch(self):
         """
-        @Status tests that an antigen search using the Modified By field and less than returns correct data
-        @see pwi-antigen-date-search-7
+        @Status tests that an mcl search using the Modified By field and less than returns correct data
+        @see pwi-mcl-date-search-7
         """
         driver = self.driver
         #find the antigen Modification Date field and enter a date
@@ -639,10 +665,10 @@ class TestEIMCLSearch(unittest.TestCase):
         #Assert the Modification Date field returned is correct 
         self.assertEqual(mod_date, '2005-06-02')
 
-    def testAntigenModDateLessEqualSearch(self):
+    def testmclModDateLessEqualSearch(self):
         """
-        @Status tests that an antigen search using the Modified By field and less than or equal to returns correct data
-        @see pwi-antigen-date-search-8
+        @Status tests that an mcl search using the Modified By field and less than or equal to returns correct data
+        @see pwi-mcl-date-search-8
         """
         driver = self.driver
         #find the antigen Modification Date field and enter a date
@@ -662,10 +688,10 @@ class TestEIMCLSearch(unittest.TestCase):
         #Assert the Modification Date field returned is correct 
         self.assertEqual(mod_date, '2005-06-02')
 
-    def testAntigenModDateBetweenSearch(self):
+    def testmclModDateBetweenSearch(self):
         """
-        @Status tests that an antigen search using the Modified By field and between dates returns correct data
-        @see pwi-antigen-date-search-9
+        @Status tests that an mcl search using the Modified By field and between dates returns correct data
+        @see pwi-mcl-date-search-9
         """
         driver = self.driver
         #find the antigen Modification Date field and enter a date
@@ -685,10 +711,10 @@ class TestEIMCLSearch(unittest.TestCase):
         #Assert the Modification Date field returned is correct 
         self.assertEqual(mod_date, '2005-06-02')
 
-    def testAntigenCreateDateLessSearch(self):
+    def testmclCreateDateLessSearch(self):
         """
-        @Status tests that an antigen search using the Creation Date field and Less than returns correct data
-        @see pwi-antigen-date-search-12
+        @Status tests that an mcl search using the Creation Date field and Less than returns correct data
+        @see pwi-mcl-date-search-12
         """
         driver = self.driver
         #find the antigen Creation Date field and enter a date
@@ -702,10 +728,10 @@ class TestEIMCLSearch(unittest.TestCase):
         #Assert the  Creation Date field returned is correct 
         self.assertEqual(create_date, '2005-05-09')
 
-    def testAntigenCreateDateLessEqualSearch(self):
+    def testmclCreateDateLessEqualSearch(self):
         """
-        @Status tests that an antigen search using the Creation Date field and Less than, equals to returns correct data
-        @see pwi-antigen-date-search-13
+        @Status tests that an mcl search using the Creation Date field and Less than, equals to returns correct data
+        @see pwi-mcl-date-search-13
         """
         driver = self.driver
         #find the alleles Creation Date field and enter a date
@@ -719,10 +745,10 @@ class TestEIMCLSearch(unittest.TestCase):
         #Assert the  Creation Date field returned is correct 
         self.assertEqual(create_date, '2005-05-09')
 
-    def testAntigenCreateDateBetweenSearch(self):
+    def testmclCreateDateBetweenSearch(self):
         """
-        @Status tests that an antigen search using the Creation Date field and Between dates returns correct data
-        @see pwi-antigen-date-search-14
+        @Status tests that an mcl search using the Creation Date field and Between dates returns correct data
+        @see pwi-mcl-date-search-14
         """
         driver = self.driver
         #find the antigen Creation Date field and enter a date

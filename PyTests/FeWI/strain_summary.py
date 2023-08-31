@@ -1,7 +1,13 @@
 '''
 Created on May 15, 2018
-
 @author: jeffc
+Verify that the text is correct for the 'you searched for section
+Verify that the text is correct for the 'you searched for section when searching for name and attribute
+Verify that the strain summary page table headings are correct
+Verify that the strain name link on a strain summary page goes to the correct page
+Verify that the Reference link on a strain summary page goes to the correct page
+Verify that all the ID have a prefix to further identify them
+Verify that you can filter results by an attribute
 '''
 import unittest
 import time

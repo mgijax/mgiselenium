@@ -2,6 +2,13 @@
 Created on Jul 27, 2017
 These tests are to confirm results you get back using various result requirements
 @author: jeffc
+Verify that detail results for a result w/ GO Ref ID is correct
+Verify that detail results for a result w/ Reference Type, pubmed ID, DOID is correct
+Verify that detail results for a result w/ isReview set to yes is correct
+Verify that detail results for a result w/ a note entry is correct
+Verify that detail results for a result w/ Author,Journal,Date,Vol,Issue,Pages,Year is correct
+Verify that detail results for a result w/ superscript in the title displays correctly
+Verify that the Allele Associations table displays correctly for a reference with associations
 '''
 import unittest
 from selenium import webdriver

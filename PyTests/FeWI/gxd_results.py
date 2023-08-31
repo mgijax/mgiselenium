@@ -2,6 +2,26 @@
 Created on Aug 16, 2019
 This set of tests verifies results you might get from the GXD query form, it covers all the Tabs
 @author: jeffc
+Verify that the disease list used on the GXD results page Disease filter is correct
+Verify that the Disease filter is correctly return the right genes for disease by infectious agent
+Verify that the Disease filter is correctly return no genes for disease by infectious agent
+Verify that the GO molecular function list used on the GXD results page Molecular Function filter is correct
+Verify that the GO molecular filter is correctly returning the right genes for molecular function ligase
+Verify that the Molecular Function filter is correctly returning the right message when there are no Molecular Function filtered results
+Verify that the GO biological process list used on the GXD results page Biological Process filter is correct
+Verify that the GO biological process filter is correctly returning the right genes for biological process ??????
+Verify that the Biological Process filter is correctly returning the right message when there are no Biological Process filtered results
+Verify that the GO cellular component list used on the GXD results page Cellular Component filter is correct
+Verify that the GO cellular component filter is correctly returning the right genes for cellular component ??????
+Verify that the Cellular Component filter is correctly returning the right message when there are no Cellular Component filtered results
+Verify that the "data" link in the Results Detail column goes to the correct website and experiment page
+Verify that the ID link in the Reference column goes to the correct website and experiment page
+Verify that the TPM Level (RNA-Seq) column is displayed and data is correct
+Verify that the columns display in correct order when Additional Sample Data is displayed
+Verify that the columns display in correct order when Additional Sample Data is not displayed
+Verify that the assay type column is sorted correctly
+Verify that the text Conditional Mutant get displayed in the Notes(RNA-Seq) column when appropriate. Always come first in the notes field
+Verify that the filter by assay type option on the assays tab Assays Detail column works as expected
 '''
 import unittest
 import time
@@ -43,7 +63,7 @@ class TestGxdResults(unittest.TestCase):
      
     def test_gene_tab_do_filter_list(self):
         """
-        @status: Tests that the disease list used on the GXD results page Disease  filter is correct.
+        @status: Tests that the disease list used on the GXD results page Disease filter is correct.
         @note: GXD-do-filter-1 
         """
         driver = self.driver
@@ -94,7 +114,7 @@ class TestGxdResults(unittest.TestCase):
         
     def test_gene_tab_do_filter_no_genes(self):
         """
-        @status: Tests that the Disease filter is correctly return the right genes for disease by infectious agent.
+        @status: Tests that the Disease filter is correctly return no genes for disease by infectious agent.
         @note: GXD-do-filter-3
         """
         driver = self.driver

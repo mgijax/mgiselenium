@@ -1,7 +1,20 @@
 '''
 Created on Nov 21, 2018
-
 @author: jeffc
+Verify that you can add a marker of type Gene
+Verify that you can add a reference to a marker of type Gene
+Verify that you can add a feature type to a Marker Type Gene
+Verify that you can't add a feature type to a Marker Type DNA Segment Marker
+Verify that you can add a feature type to a Marker Type Cytogenetic Marker
+Verify that you can't add a feature type to a Marker Type QTL
+Verify that you can add a feature type to a Marker Type Pseudogene Marker
+Verify that you can't add a feature type to a Marker Type BAC/YAC end
+Verify that you can add a feature type to a Marker Type Other Genome Feature
+Verify that you can't add a feature type to a Marker Type Complex/Cluster/Region
+Verify that you can't add a feature type to a Marker Type Transgene
+Verify that you can add multiple feature types to a Marker
+Verify that you get an error when you try to change the Marker type for an incompatible feature type
+Verify that you get an error when you try to change the Feature type for an incompatible Marker type
 '''
 
 import unittest

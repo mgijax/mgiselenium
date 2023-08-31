@@ -1,7 +1,15 @@
 '''
 Created on May 6, 2019
-
+Tests the GXD RNASeq summary page
 @author: jeffc
+Verify the array express link on the RNA-Seq summary results page is correct
+Verify the expression atlas link on the RNA-Seq summary results page is correct
+Verify the geo link on the RNA-Seq summary results page is correct
+Verify the filtering by a single variable on the RNA-Seq summary results page
+Verify the filtering by multiple variables on the RNA-Seq summary  results page
+Verify the filtering by a single study type on the RNA-Seq summary results page
+Verify the sort order on the RNA-Seq summary results page for the View Experiment at column is correct
+Verify the gxd link on the RNA-Seq summary results page is correct
 '''
 import unittest
 import time

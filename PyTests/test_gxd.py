@@ -1,7 +1,8 @@
 '''
 Created on Jan 4, 2016
-
+@Attention: This file does not have tests yet. Need to add them
 @author: jeffc
+Verify
 '''
 import unittest
 import tracemalloc
@@ -15,10 +16,6 @@ sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../config',)
 )
 import config
-
-'''
-@Attention: This file does not have tests yet. Need to add them
-'''
 
 #Tests
 tracemalloc.start()

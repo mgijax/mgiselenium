@@ -2,6 +2,52 @@
 Created on Apr 27, 2018
 This set of tests verifies the Strains detail page results
 @author: jeffc
+Verify that the ribbons are displayed in the correct order. *no example has all ribbons as of 7/20/2018
+Verify that the ribbons are displayed in the correct order. *no example has all ribbons as of 7/20/2018(part2)
+Verify that the strain name found in the Nomenclature ribbon is correct
+Verify that the strain MGI ID found in the Nomenclature ribbon is correct
+Verify that when a strain is set to standard=no it displays (interim) after the strain in the nomenclature ribbon
+Verify that when a strain is set to standard=yes it does not display (interim) after the strain in the nomenclature ribbon
+Verify that the strain synonyms found in the Nomenclature ribbon are correct
+Verify that the strain attributes found in the Nomenclature ribbon are correct
+Verify that when a strain is associated to MPD it has a link in the nomenclature ribbon
+Verify that an MGV link exists for sequenced strain in the nomenclature ribbon
+Verify that an MGV link exists for the canonical gene strain in the nomenclature ribbon
+Verify that Alternate IDs are displayed in the Nomenclature ribbon and are correct
+Verify that when a DO/CC Founder strain is displayed in the Nomenclature ribbon the Collection says DO/CC Founder
+Verify that Strain Family Member link is displayed in the Nomenclature ribbon for all Strain Family strains
+Verify the display when the strain description is only 5 characters
+Verify the display when the strain description has a link in it
+Verify the display when the strain description is so large it needs a scroll bar
+Verify the SNPs for a strain display the correct comparison strains
+Verify the SNPs ribbon does not display when no SNPs are associated to a strain
+Verify that counts on a cell hover match the number found from it's corresponding SNP summary page
+Verify that when you have a strain with multiple superscripting it displays correctly  in the SNP ribbon
+Verify that the results are correct and ordered correctly for associated mutations and markers when you have multiple mutations/genes
+Verify that the results are correct when only one associated mutation and marker
+Verify that the results are correct when no associated mutation and only one marker
+Verify that the results are correct when have associated mutation, marker, and Transgene
+Verify that the number count and text is correct just above the Mutations table
+Verify that the show all/showless buttons work correctly in the Associated Mutatations,Markers, and QTL ribbon
+Verify that the when less than 4 results the show all/show less buttons does not display in the Associated Mutatations, Markers, and QTL ribbon
+Verify that when you hover over a marker symbol in associated mutations table description text appears
+Verify that the results are correct when have associated QTL and Marker in the mutations, Marker, and QTL ribbon, verifies sorting as well
+Verify that the results are correct when have associated QTL and Marker in the mutatations, markers, and QTL ribbon even when no Associated Mutatations ribbon
+Verify that the number count and text is correct just above the QTL table in the mutations, markers, and QTL ribbon
+Verify that the show all/show less buttons work correctly in the QTL Mapped with this Strain ribbon
+Verify that the when less than 4 results the show all/show less buttons do not display in the QTL Mapped with this Strain ribbon
+Verify that when you hover over a marker symbol in associated qtl table description text appears
+Verify that an IMSR link exists to the correct IMSR page in the IMSR ribbon
+Verify that the Disease link is correct and the link goes to the correct page from Associated Diseases ribbon
+Verify that the Model link is correct and the link goes to the correct page from Associated Diseases ribbon
+Verify that the page can display more than 1 disease in the Associated Diseases ribbon
+Verify that the page can display more than 1 model in the Associated Diseases ribbon
+Verify that the page can display NOTs as well as diseases in the Associated Diseases ribbon
+Verify that the display is fine when phenogrid has association to just 1 genotype
+Verify that the display is fine when phenogrid has association to multiple genotypes
+Verify that when you hover over a blue box in the Phonoslimgrid it gives you the number of annotations associated
+Verify that the earlist reference is the correct one and the link goes to the correct page from Reference ribbon
+Verify that the All reference link is correct and the link goes to the correct page from Reference ribbon
 '''
 import unittest
 import time

@@ -1,7 +1,12 @@
 '''
 Created on May 31, 2018
-
 @author: jeffc
+Verify searching by an MGP ID
+Verify searching by multiple MGP IDs
+Verify searching by MGP ID and other IDs
+Verify searching by MGP ID with B6 coordinates
+Verify searching by MGP ID with no B6 coordinates
+Verify searching by MGI gene model ID with B6 coordinates
 '''
 import unittest
 import time

@@ -1,9 +1,44 @@
 '''
 Created on June 13, 2017
-
 This test verifies searching within the Lit Triage module.
-
 @author: jeffc
+Verify that a basic J number search works
+Verify that an invalid J number search gives no result back
+Verify that a list of multiple comma separated J numbers returns the correct J number results
+Verify that a list of multiple space separated J numbers returns the correct J number results
+Verify that a list of multiple space separated assorted IDs returns the correct results
+Verify that a search of a Pub Med ID returns the correct J number results
+Verify that a search of an MGI ID returns the correct J number results
+Verify that a search of a DOI ID returns the correct J number results
+Verify that a search of a GO ID returns the correct J number results
+Verify that a search of an exact match title returns the correct J number results
+Verify that a search of Reference Type and a partial text abstract with wildcard returns the correct J number results
+Verify that a search of an partial title, partial Author and a partial note with wildcard returns the correct J number results
+Verify that a search of Journal, Year, Volume, Issue, and Pages returns the correct J number results
+Verify that a search of Author, Journal, and Date returns the correct J number results
+Verify that a search of Year, Author, is Reviewed, and Title returns the correct J number results
+Verify that a search for a single AP status returns the correct results
+Verify that a search for multple Tumor statuses returns the correct results
+Verify that a search for results with a status in each group returns the correct results
+Verify that a search for results with multiple status with other fields combined returns the correct results
+Verify that a search for results with Only Discard returns the correct results
+Verify that a search of a single workflow tag returns the correct results
+Verify that searching for multiple statuses on multiple workflows(OR) returns correct results
+Verify that a search of Editors field using a wildcard returns the correct results
+Verify that a search of Book Title field using a wildcard returns the correct results
+Verify that a search of Place field using a wildcard returns the correct results
+Verify that a search of Publisher field using a wildcard returns the correct results
+Verify that a search of Edition field using a wildcard returns the correct results
+Verify that a basic Pub Med number summary search works
+Verify that a basic MGI number summary search works
+Verify that a basic J number summary search works
+Verify that a basic multiple IDs summary search works
+Verify that a basic Author summary search works
+Verify that a basic Authors summary search works
+Verify that a basic Title summary search works
+Verify that a basic Journal summary search works
+Verify that a basic Year summary search works
+Verify that a basic Volume summary search works
 '''
 import unittest
 import time

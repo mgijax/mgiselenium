@@ -1,8 +1,18 @@
 '''
 Created on Jun 26, 2017
-
 @author: jeffc
 Tests the results returned when doing certain queries.
+Verify that a DOI ID displays in the Journal column and the ID links correctly
+Verify that when a DOI ID does not exist the journal field is blank
+Verify that a Pub Med ID displays in the PMID column and the ID links correctly
+Verify that when a Pub Med ID does not exist the PMID field is blank
+Verify that a J number displays in the J:# column
+Verify that the Short citation is correct when returning a result that has all the citation components  required
+Verify that the Short citation is correct when returning a result that has a citation where reference has no pages
+Verify that the Short citation is correct when returning a result that has a citation of a book
+Verify that the Short citation is correct when returning a result that has a non-literature reference citation
+Verify that a search returns the correct Title for the reference
+Verify that a search returns No Title for the reference
 '''
 import unittest
 import time

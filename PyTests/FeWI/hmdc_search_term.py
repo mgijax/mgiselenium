@@ -3,6 +3,47 @@ Created on Dec 13, 2016
 These tests should cover searching by different terms and verify the results.  Updated November 2017 (jlewis).  Reworked each test to be less vulnerable to data changes.
 E.g. removed assertions re: counts; changed assertEqual to assertIn; etc.  All tests worked as-of Nov 15 2017 using the Test WI.
 @author: jeffc
+Verify the headings on the Gene Homologs x Phenotypes/Diseases tab
+    ( or Index tab) are correct and in the correct order
+Verify the correct diseases are returned for this query. This Disease term Heading should
+    only bring back the disease mucosulfatidosis. Verified by clicking the disease pop-up and confirming this is the only disease.  Add'l annotations that return
+    a new phenotype column will break this test
+Verify the correct diseases are returned for this query, should return the MP term.
+    This test is verifying the correct mouse genes are returned
+Verify the correct phenotypes(for Human) are coming back on the grid tab.  Include a specific
+    gene in the search so that only human annotations are returned
+Verify the correct diseases are returned for this query. This is a synonym term
+    This test verifies the disease header on the grid tab and then verifies the specific DO ID is returned in the Disease Tab
+Verify the correct results are returned for a query by MP synonyms.  The synonym "albino coat" is a synonym for
+    "absent coat pigmentation".  This test verifies the mouse phenotype returned on the grid tab.   The disease tab is checked to verify a
+    disease associated to a common genocluster is returned
+Verify the correct diseases are returned for this query. Should return the HP synonym term
+    This test verifies the diseases on the grid tab and then on the disease tab
+Verify the correct diseases are returned for this query down the dag.  In this case,
+    Joubert syndrome 3 is a child of the disease term Ciliopathy.
+    This test verifies that the disease header on the grid tab and the diseases on the disease tab are correct
+Verify that normal model genes are returned for this query.  Query by Pax9 returns 1 row with a normal annotation (noted by N in cell)
+    for the reproductive system column
+Verify that genes with a simple homozygous genotype annotated to an MP term are returned for this query.  Verify genotype in the
+    genotype pop-up
+Verify that genes with a simple hemizygous genotype annotated to an MP term are returned for this query.
+    Verify the hemizygous genotype in the genotype pop-up
+Verify that genes with a simple indeterminate genotype annotated to an MP term are returned for this query.
+    Should return the gene Eda to verify
+Verify Simple Genotype: Conditional Recombinase: When there are only 2 markers in the genotype, the genotype is
+    conditional, and one marker's allele is "recombinase" (has a Driver note), return the non-recombinase marker for
+    the disease. Do NOT return the recombinase marker
+Verify Simple Genotype: Recombinase alleles present in a non-conditional simple genotype pass the roll up rules.
+    genotype = MGI:3822764 is an example of this type of genotype.  Case where we WANT to return the Cre allele
+Verify Simple Genotype: Conditional Recombinase: When there are only 2 markers in the genotype, the genotype is
+    conditional, and one marker's allele is "recombinase" (Type = Transgenic (Recombinase), return the non-recombinase marker for
+    the disease. Do NOT return the recombinase marker.
+    (Genotype MGI:5304807MGI:5304807 has Kras alleles and is Conditional, but has no recombinase alleles, so it should NOT be excluded.)
+Verify Complex Genotype: Transgenic Reporter: When there are only 2 markers in the genotype, and one marker's allele is of
+    type "Transgenic (Reporter)", return the non-Transgenic (Reporter) marker for the disease. Do NOT return
+    the Transgenic (Reporter) marker
+Verify Pick a complex/conditional genotype that should not roll up to the marker.  Verify that it is not returned for a query by an MP ID that it is annotated to.
+    In this case the genotype = MGI:3831545
 '''
 
 import unittest

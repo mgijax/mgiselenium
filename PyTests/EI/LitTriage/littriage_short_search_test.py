@@ -1,9 +1,13 @@
 '''
 Created on Apr 15, 2022
-
 These tests use the short form of the Lit Triage module.
-
 @author: jeffc
+Verify that a basic Volume summary search works
+Verify that a search by marker symbol using marker association tab field works
+Verify that a search by strain symbol using strain association tab field works
+Verify that a search by J number and Allele Symbol works
+Verify that a search by J number and Marker Symbol works
+Verify that a search by J number and Strain Symbol works
 '''
 
 import unittest

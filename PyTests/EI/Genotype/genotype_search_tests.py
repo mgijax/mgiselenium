@@ -2,6 +2,18 @@
 Created on Dec 19, 2019
 These are tests that check the searching options of the Genotype module
 @author: jeffc
+Verify that a basic genotype strain search works
+Verify that a Conditionally Targeted = Yes search works
+Verify that a basic genotype exists as 'Cell Line' search works
+Verify that a basic genotype exists as 'Chimeric' search works
+Verify that a basic genotype exists as 'Mouse Line' search works
+Verify that a basic genotype exists as 'Not Specified' search works
+Verify that a basic Genotype Chromosome search works
+Verify that a basic genotype marker symbol search works
+Verify that a basic genotype allele symbol search works
+Verify that a basic State search works
+Verify that a basic Compound search works
+Verify that a basic J number search works
 '''
 import unittest
 import time

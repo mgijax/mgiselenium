@@ -3,6 +3,10 @@ Created on Jan 18, 2017
 These tests are for verifying the correct data get returned for the heading section, along with default sorts and settings for the data returned.
 The default tab to be displayed is the Term tab.
 @author: jeffc
+Verify term details
+Verify alternate IDs for OMIM, EFO, KEGG, MESH and ORDO
+Verify synonym data is displayed correctly when multiple synonyms exist
+Verify alternate IDs are sorted correctly
 '''
 import unittest
 import time
@@ -72,7 +76,6 @@ class TestDoBrowserGeneral(unittest.TestCase):
     def test_dobrowser_altIDs_links(self):
         '''
         @status this test verifies the alt IDs for OMIM, EFO, KEGG, MESH and ORDO are correct.
-        @bug: broken needs to be looked at!!!!!
         '''
         print ("BEGIN test_dobrowser_altIDs_links")
         searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')

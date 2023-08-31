@@ -2,6 +2,7 @@
 Created on Dec 2, 2016
 This set of tests is for the disease auto complete list 
 @author: jeffc
+Verify the auto complete list is displaying the terms associated to the text you entered
 '''
 import unittest
 import time
@@ -23,8 +24,6 @@ import config
 from util import iterate, wait
 from util.form import ModuleForm
 from util.table import Table
-
-
 
 # Tests
 tracemalloc.start()

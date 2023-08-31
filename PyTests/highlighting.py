@@ -1,6 +1,7 @@
 '''
 Created on Jun 12, 2018
-
+This utility allows you to highlight an element for a set period of time using the basis setup of
+example: self.highlight(driver.find_element(By.ID, 'element_name'))
 @author: jeffc
 '''
 # filename: highlight_elements.py

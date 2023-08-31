@@ -2,6 +2,9 @@
 Created on Jan 16, 2018
 This set of tests verifies items found on the Recombinase specificity page
 @author: jeffc
+Verify a cre allele displays the correct project collection
+Verify a cre allele with no project collection
+Verify recombinase image links
 '''
 
 import unittest

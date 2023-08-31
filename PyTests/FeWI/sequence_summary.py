@@ -1,8 +1,12 @@
 '''
 Created on Aug 5, 2016
-
 This page is linked to from the Marker detail page
 @author: jeffc
+Verify that the Sequence Summary table headers are correct
+Verify that the default page sort is correct for sequence summary by marker
+Verify that an MGP sequence has a link to Mouse Genomes Project and the link is correct
+    It then goes back to the sequence summary page and verifies the MGI Sequence Detail link for the same sequence is correct
+Verify that an MGI sequence(b6) has a link to its Sequence Detail page and the link is correct
 '''
 import unittest
 import time
@@ -103,7 +107,7 @@ class TestSequenceSummaryPage(unittest.TestCase):
         
     def test_mgp_links(self):
         """
-        @status: Tests that am MGP sequence has a link to Mouse Genomes Project and the link is correct
+        @status: Tests that an MGP sequence has a link to Mouse Genomes Project and the link is correct
         It then goes back to the sequence summary page and verifies the MGI Sequence Detail link for the same sequence is correct
         @note: seq-summary-3
         """
@@ -134,7 +138,7 @@ class TestSequenceSummaryPage(unittest.TestCase):
 
     def test_mgi_b6_links(self):
         """
-        @status: Tests that am MGI sequence(b6) has a link to its Sequence Detail page and the link is correct
+        @status: Tests that an MGI sequence(b6) has a link to its Sequence Detail page and the link is correct
         @note: seq-summary-4
         """
         driver = self.driver

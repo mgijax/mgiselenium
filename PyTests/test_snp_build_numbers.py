@@ -1,6 +1,12 @@
 '''
 Created on Mar 21, 2016
-
+Tests that the SNP build number or mouse build numbe ris correct for the following pages:
+SNP query form
+SNP summary page
+GXD query form
+Marker query form
+Marker detail page
+HMDC query page
 @author: jeffc
 '''
 import unittest

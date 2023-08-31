@@ -2,6 +2,9 @@
 Created on Jan 30, 2017
 These tests are to verify the data displayed on the Genes tab of the Do Browser page.
 @author: jeffc
+Verify term name in header section
+Verify genes tab  header text and number count
+Verify multiple genes tab results for different Mouse/Human/Trangene/Models, etc results.
 '''
 import unittest
 import time

@@ -3,6 +3,12 @@ Created on Nov 2, 2017
 
 @author: jeffc
 @attention: Beginning  test for Tissue X Stage Matrix. Only the first test is valid, all others are copied tests from images tab!!!!
+Verify that the high level anatomy terms are displayed in the correct order
+Verify the correct anatomy terms and Theiler stages are returned for a simple gene search
+Verify the sort order for specimen type using default sort
+Verify that the Gene column sort works correctly
+Verify that the assay type column sort works correctly
+Verify that the specimen type column sort works correctly
 '''
 
 import unittest

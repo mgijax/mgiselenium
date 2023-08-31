@@ -2,6 +2,25 @@
 Created on Jun 26, 2018
 These tests are for verifying functionality of a Sequence Detail page
 @author: jeffc
+Verify that an MGP sequence detail displays the correct sequence ID and that the version  is correct
+Verify that an MGI(B6) sequence detail displays the correct sequence ID and that the version is correct
+Verify that an MGP sequence detail has a link to Ensembl in the ID ribbon and this link goes to the correct page
+Verify that an MGP sequence detail displays the correct sequence description
+Verify that an MGI sequence detail displays the correct sequence description
+Verify that an MGP sequence detail displays the correct sequence provider
+Verify that an MGI sequence detail displays the correct sequence provider
+Verify that an MGP sequence can be downloaded for FASTA
+Verify that an MGP sequence can be sent to NCBI Blast
+Verify that an MGI gene model sequence can be downloaded for FASTA
+Verify that an MGI gene model sequence can be sent to NCBI Blast
+Verify that an MGP sequence detail displays the correct sequence base pair
+Verify that an MGI sequence detail displays the correct sequence base pair
+Verify that an MGP sequence detail displays the correct sequence base pair
+Verify that an MGI sequence detail displays the correct sequence base pair
+Verify that an MGP sequence detail displays the correct chromosome
+Verify that an MGI sequence detail displays the correct chromosome
+Verify that an MGP sequence detail displays the correct associated genes and markers data
+Verify that an MGI sequence detail displays the correct associated genes and markers data
 '''
 import unittest
 import time

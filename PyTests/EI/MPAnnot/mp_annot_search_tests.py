@@ -2,6 +2,23 @@
 Created on Oct 3, 2019
 These are tests that check the searching options of the MP Annotations module
 @author: jeffc
+Verify that a basic MP MGI ID genotype search works
+Verify that a basic Genotype search works
+Verify that a basic MP Term ID genotype search works
+Verify that a basic MP Qualifier search works
+Verify that a basic MP J number search works
+Verify that a basic MP Evidence Code search works
+Verify that a basic MP Sex search works
+Verify that an MP annotation search using the Created By field returns correct data
+Verify that an image search using the Modified By field returns correct data
+Verify that a basic Creation Date search works
+Verify that a basic Modification Date search works
+Verify that a basic Modification Date by less than works
+Verify that a basic Modification Date by less than equals works
+Verify that a basic Modification Date by range search works
+Verify that a basic Creation Date by less than works
+Verify that a basic Creation Date by less than equals works
+Verify that a basic Creation Date by range search works
 '''
 import unittest
 import time

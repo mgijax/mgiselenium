@@ -2,6 +2,11 @@
 Created on Jan 28, 2016
 This test verifies searching within the EmapA module
 @author: jeffc
+Verify that a basic term sort works by displaying the top terms and verifying the sort of them
+Verify that tree view changes to show just tree of term selected
+Verify that term detail updates including valid parents
+Verify that if parent link is clicked remain in the current stage
+Verify that if a term is clicked, the detail updates, and also that node expands
 '''
 import unittest
 import time

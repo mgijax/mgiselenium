@@ -1,9 +1,19 @@
 '''
 Created on Oct 30, 2018
-
 These tests verify searching within the Marker module.
-
 @author: jeffc
+Verify that a basic Marker History Symbol search works
+Verify that a basic Marker History Symbol search with a wildcard works
+Verify that a basic Marker History Name search works
+Verify that a basic Marker History Name search with a wildcard works
+Verify that a basic Marker History Date search works
+Verify that a basic Marker History J number search works
+Verify that a basic Marker History J number search works when the J: is not added
+Verify that a basic Marker History Event of Not Specified search works
+Verify that a basic Marker History Event of Split search works
+Verify that a basic Marker History Event Reason search works
+Verify that a basic Marker History Modified by search works
+Verify that a basic Marker History Modified by search with wildcard works
 '''
 import unittest
 import time

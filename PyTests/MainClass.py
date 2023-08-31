@@ -1,6 +1,6 @@
 '''
 Created on Nov 23, 2016
-
+This is just an example of how to run a suite of tests from one python file.
 @author: jeffc
 '''
 import unittest

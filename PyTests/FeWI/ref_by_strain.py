@@ -2,6 +2,8 @@
 Created on Apr 30, 2018
 This set of tests verifies the Reference by strain page results
 @author: jeffc
+Verify that the Reference by strain page has the correct header items
+Verify that the Reference by strain page has the sort of descending year, secondary sort of assending J number
 '''
 import unittest
 import time

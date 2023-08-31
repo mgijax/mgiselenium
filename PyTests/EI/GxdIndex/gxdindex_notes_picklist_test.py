@@ -1,10 +1,13 @@
 
 '''
 Created on Oct 24, 2016
-
 @author: jeffc
 @attention: These tests must only be run against a development environment!!!
 Test uses for notes picklist items
+Verify that Pick List options for the notes field are all correct by verifying each option's text
+Verify that the notes field adds proper text when Age Not Specified button is clicked
+Verify that the notes field adds proper text when Age Normalized button is clicked
+Verify that the notes field properly adds text when Age Assigned button is clicked
 '''
 
 import unittest

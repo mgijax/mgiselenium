@@ -1,8 +1,11 @@
 '''
 Created on Jul 20, 2022
 These tests check the functionality of the the GXD Profile query form
-these tests need  to be worked on!!! none of them work right now5/20/2021
 @author: jeffc
+Verify that searching by a single anatomical structure & detected return the correct results
+Verify that searching by two anatomical structures & detected return the correct results
+Verify that searching by 1 structure & detected and no where else return the correct results
+Verify that query for detected in "A", Not detected in "B", where "A" and "B" are in different anatomical systems
 '''
 import unittest
 import time
@@ -162,7 +165,6 @@ class TestGxdProfileQF(unittest.TestCase):
         
         @status: Tests that searching by 3 not detected structures return the correct results
         @note: GXD-Profile-5 Test no longer valid! 6/28/2023
-        @attention: the time sleeps need to be replaced by expected conditions code. This test has a long sleep because something is slow!
         
         driver = self.driver
         #driver.get(config.TEST_URL + '/gxd/profile')

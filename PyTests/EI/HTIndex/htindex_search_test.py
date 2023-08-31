@@ -2,8 +2,16 @@
 Created Aug 26, 2021
 !!!!!!!!!!!!!!!UNDER CONSTRUCTION!!!!!!!!!!!!
 This test verifies searching within the HT Index module.
-
 @author: jeffc
+Verify that an Array Express ID search works
+Verify that an Array Express ID wildcard search works
+Verify that a GEO ID search works
+Verify that a GEO ID search that is primary works
+Verify that a GEO ID wildcard search works
+Verify that a Title field wildcard search works
+Verify that a Description field wildcard search works
+Verify that an Evaluation search works
+
 '''
 import unittest
 import time

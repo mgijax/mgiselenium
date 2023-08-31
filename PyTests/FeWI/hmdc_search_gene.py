@@ -6,8 +6,54 @@ Remove assertions in tests that are outside scope of requirement being tested.
 This file contains the tests for Gene nomenclature searches (mouse and human) that are entered via the Gene Symbol(s)/ID(s)
 query field and/or the Gene Name query fields. 
 Tests are organized in this order in the file:  Negative tests; gene symbol tests, gene name tests, and multiple field tests
-
 @author: jeffc
+Verify that no results are returned when searching by a bogus gene symbol or gene name
+Verify that wildcards are not valid for the Gene Symbol query field
+Verify that multiple human genes for a homology class are returned correctly.  This test also verifies
+        that genoclusters that DO NOT roll up are not returned for this test
+Verify the correct genes are returned for this query, both human and mouse. The results will have phenotypes but no diseases
+Verify the correct genes are returned when a "homology union" case applies.  This happens when HomoloGene and HGNC have conflicting
+        sets of genes associated to a mouse gene.  The HMDC search returns the union of both sets to the user.  To verify this test we are using the Genes Tab.
+        Both Selenbp2 and Selenbp1 are associated with the human gene SELENBP1
+Verify the correct genes are returned for this query, both human and mouse. The results will have phenotypes and diseases
+Verify that a gene symbol may be entered into the Gene Name search field and get correct results.  Also returns a gene via a
+        partial match to a zebrafish gene name
+Verify the Gene Name field using a single token gene name and verifies return.  Also verifies that the same value
+        entered in the Gene Symbol/ID field returns no results
+Verify the correct genes are returned for this query, The symbol is unique because it has no grid or diseases, only genes
+Verify the correct genes are returned for this query, both human and mouse. The results will have phenotypes and genes, no diseases!
+Verify the correct genes are returned for this query, both human and mouse.
+        This test is a multi token synonym search, matches by gene name, but not by gene symbol
+Verify the correct genes are returned for a query by a mouse synonym.  It has no
+        grid or diseases, only genes
+Verify the correct genes are returned for this query by human synonym.  It has a grid and genes, no diseases
+Verify the correct genes are returned for this query, both human and mouse. This test is for
+        searching by Gene Name and Gene Symbol/ID when the query text contains superscript.  The match is to a mouse synonym (Cdkn2a)
+Verify that a NOT disease annotation is not included in the results for a query by the Gene Symbol
+        with that annotation.  In this case the NOT annotation is to DOID:10588 (adrenoleukodystrophy) for gene Acsbg1.  This test checks the
+        Grid and Disease tabs
+Verify the requirement that a match to the Gene Symbol Gt(ROSA)26Sor will not return a row on the Grid for
+        this gene.  It is okay to return this gene on the Genes Tab.  Transgenes that have this text as part of their marker
+        nomenclature are okay to be displayed on the Grid.  Verify using query by Gene Symbol and also by Gene Name.  Special
+        logic throughout the HMDC to exclude this gene from various results
+Verify the correct genes are returned for this query, both human and mouse.
+        This test is for searching by gene name when grid returns synonym to a mouse in a multi-gene
+        homology class(C4A, C4B)
+Verify the correct genotypes are returned when clicking on a particular phenotype cell.
+        Checks for a normal MP annotation; 1-marker genocluster (OMG); Conditional genocluster that passes roll-up
+Verify the correct genes are returned for this query, both human and mouse. This test is for searching by
+        by Gene Name with a name that includes special characters
+Verify the correct genes are returned for this query, both human and mouse. This test is for searching by
+        by Gene symbol using a human synonym that has a special character in it.(ie. -)
+Verify searches for a human gene that is not in a homology class (not linked) and only appears on the Genes Tab.  This category of
+        human genes is easy to spot as they are not linked
+Verify the correct genes are returned for this query, both human and mouse. This test is for searching by
+        by a gene symbol of a species other than mouse or human.  The mouse and human genes in the same homology
+        class are returned in the HMDC
+Verify the correct genes are returned for this query, both human and mouse. This test is for searching by
+        by Gene symbol using a symbol that has a human symbol match and a human synonym match (Trp53, Trp53bp1)
+Verify a list of symbols may be entered with comma or space delimiters.  Verify the correct genes are returned on the Genes Tab.
+        Return the matching symbol and its human/mouse ortholog
 '''
 import unittest
 import time

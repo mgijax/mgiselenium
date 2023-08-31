@@ -1,8 +1,26 @@
 '''
 Created on May 23, 2016
-
 @author: jeffc
 This suite of tests are for allele detail pages
+verify ribbon lacations
+verify turnstile functions in mutation ribbon
+verify allele subtypes in mutation ribbon
+verify molecular image displays
+verify mutagentix link(on public)
+verify thumbnail image caption for molecular images
+verify AFP link
+verify correct project collection listed
+verify mutation strain link
+verify phenotype table strain link
+verify disease models in phenotype table
+verify show/hide of phenotype ribbon
+verify data of genotype popup
+verify molecular images not included on allele detail
+verify display of DOIDs
+verify certain rollup rules
+verify alleles related to human, rat, zebrafish, fruitfly and yeast
+verify recombinase activity section
+verify Alliance link, IMPC link, MMHCdb link
 '''
 import unittest
 import tracemalloc
@@ -143,7 +161,8 @@ class TestAlleleDetail(unittest.TestCase):
         
     def test_no_turnstile(self):
         '''
-        @status this test verifies In the Mutation Description section, confirm that no turnstile icon exists because the notes are less than 100 characters.
+        @status this test verifies In the Mutation Description section, confirm that no turnstile icon exists
+        because the notes are less than 100 characters.
         '''
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('Kit')
@@ -643,7 +662,8 @@ class TestAlleleDetail(unittest.TestCase):
         
     def test_allele_detail_exp_sec_both_links_simple_geno(self):
         '''
-        @status this test verifies in the expression section that both the assay results & anatomical structures links exist when Allele w/ MP terms annotated to simple genotypes that roll-up.
+        @status this test verifies in the expression section that both the assay results & anatomical structures links
+        exist when Allele w/ MP terms annotated to simple genotypes that roll-up.
         @note: test #1
         '''
         self.driver.find_element(By.NAME, 'nomen').clear()

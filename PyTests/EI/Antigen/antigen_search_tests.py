@@ -2,6 +2,37 @@
 Created on Jul 13, 2020
 These tests verify testing of the search feature for the Antigen EI/PWI module.
 @author: jeffc
+Verify that a basic antigen name search works
+Verify that a basic antigen name search with wildcard works
+Verify that a basic region search works
+Verify that a basic region search works with wildcard
+Verify that a basic notes search works
+Verify that a basic notes search w/wildcard works
+Verify that a basic organism search works
+Verify that a basic strain search works
+Verify that a basic strain search w/wildcard works
+Verify that a basic tissue search works
+Verify that a basic tissue search w/wildcard works
+Verify that a basic tissue description search works
+Verify that a basic tissue description search w/wildcard works
+Verify that a basic cell line search works
+Verify that a basic cell line search w/wildcard works
+Verify that a basic age prefix search works
+Verify that a basic age range search works
+Verify that a basic gender search works
+Verify that a basic ACC ID search works
+Verify that a basic antibody name search works
+Verify that a basic antibody name search w/wildcard works
+Verify that an antigen search using the Created By field returns correct data
+Verify that an antigen search using the Modified By field returns correct data
+Verify that an antigen search using the Creation Date field returns correct data
+Verify that an antigen search using the Modified By field returns correct data
+Verify that an antigen search using the Modified By field and less than returns correct data
+Verify that an antigen search using the Modified By field and between dates returns correct data
+Verify that an antigen search using the Creation Date field and Less than returns correct data
+Verify that an antigen search using the Creation Date field and Less than returns correct data
+Verify that an antigen search using the Creation Date field and Less than, equals to returns correct data
+Verify that an antigen search using the Creation Date field and Between dates returns correct data
 '''
 import unittest
 import time
@@ -68,7 +99,7 @@ class TestEIAntigenSearch(unittest.TestCase):
 
     def testAntigenName2Search(self):
         """
-        @Status tests that a basic antigen name search works
+        @Status tests that a basic antigen name search with wildcard works
         @see pwi-antigen-search-1
         """
         driver = self.driver
@@ -604,7 +635,7 @@ class TestEIAntigenSearch(unittest.TestCase):
         
     def testAntigenAntibodyName1Search(self):
         """
-        @Status tests that a basic antidoby name search w/wildcard works
+        @Status tests that a basic antibody name search w/wildcard works
         @see pwi-antigen-search-12
         """
         driver = self.driver

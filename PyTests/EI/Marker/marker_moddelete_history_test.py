@@ -2,6 +2,14 @@
 Created on Feb 1, 2019
 Tests the update and delete features for the Marker History table(none of these tests are ready to use right now!!!!)
 @author: jeffc
+Verify that marker history symbol can be modified
+Verify that a basic Marker History Name can be modified
+Verify that a basic Marker History Date can be modified
+Verify that a basic Marker History J# can be modified
+Verify that a basic Marker History J number update verifies
+Verify that a basic Marker History Event can be modified
+Verify that a basic Marker History Event Reason can be modified
+Verify that a basic Marker History row deletion gives a validation popup confirmation and the row gets highlighted
 '''
 import unittest
 import time

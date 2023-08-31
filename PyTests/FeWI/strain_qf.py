@@ -2,6 +2,39 @@
 Created on Apr 24, 2018
 This set of tests verifies the Strains query form does correct searching by Name, wildcard and ID
 @author: jeffc
+Verify that you can search for a strain by its name
+Verify that you can search for a strain by its synonym name
+Verify that you can search for a strain by using a wildcard in front of text
+Verify that you can search for a strain by using a wildcard at the front and end of text
+Verify that you can search for a strain by using an MGI ID
+Verify that you can search for a strain by using an alternate MGI ID
+Verify that you can search for a strain by using a JAX ID
+Verify that you can search for a strain by using an MMRCC ID
+Verify that you can search for a strain by using an APB ID
+Verify that you can search for a strain by using an ARC ID
+Verify that you can search for a strain by using an CARD ID
+Verify that you can search for a strain by using an CMMR ID
+Verify that you can search for a strain by using an EMMA ID
+Verify that you can search for a strain by using an EMS ID
+Verify that you can search for a strain by using an Harwell ID
+Verify that you can search for a strain by using an JPGA ID
+Verify that you can search for a strain by using an NCIMR ID
+Verify that you can search for a strain by using an MPD ID
+Verify that you can search for a strain by using an CMMR ID
+Verify that you can search for a strain by using an NIG ID
+Verify that you can search for a strain by using an NMICE ID
+Verify that you can search for a strain by using an OBS ID
+Verify that you can search for a strain by using an ORNL ID
+Verify that you can search for a strain by using an RIKEN BRC ID
+Verify that you can search for a strain by using an TAC ID
+Verify that you can search for a strain by using an RMRC-NLAC ID
+Verify that you can search for a strains using the strain attribute of conplastic
+Verify that you can search for a strains using the strain attribute of conplastic and mutant strain with default of Any
+Verify that you can search for a strains and strain attributes
+Verify that you can search for 2 strain attributes using all(AND) option
+Verify that you can search for 2 strain attributes using any(OR) option
+Verify that you can search for multiple strain attributes using all(AND) option
+Verify that you can search for multiple strain attributes using any(OR) option
 '''
 import unittest
 import time
@@ -381,7 +414,7 @@ class TestStrainQF(unittest.TestCase):
 
     def test_search_strain_Harwell_id(self):
         """
-        @status: Tests that you can search for a strain by using an Harwell ID
+        @status: Tests that you can search for a strain by using a Harwell ID
         @note: Strain-qf-id-15 
         """
         driver = self.driver

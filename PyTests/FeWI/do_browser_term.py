@@ -2,6 +2,13 @@
 Created on Jan 23, 2017
 These test are for verifying the functionality of the Term detail tab of the DO Browser
 @author: jeffc
+Verify DO browser heading information
+Verify DO browser terms with siblings display properly
+Verify DO browser top level terms also display their siblings
+Verify DO browser displays proper terms, siblings and children
+Verify Do browser displays proper terms, siblings and many children
+Verify DO browser display when a term has no OMIM ID/no annotations
+Verify DO browser display when verifies that when a child term has children it's followed by a + sign
 '''
 import unittest
 import time

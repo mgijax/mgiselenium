@@ -1,8 +1,9 @@
 '''
 Created on Oct 4, 2016
-
 @author: jeffc
 @attention: These tests must only be run against a development environment!!!
+Verify that an index record Marker symbol can be modified
+Verify that the notes field can be modified
 '''
 
 import unittest

@@ -2,6 +2,13 @@
 Created on Apr 5, 2022
 Tests features(especially search features) of the Recombinase (CRE) query form
 @author: jeffc
+Verify that searching by a single structure detected return the correct results
+Verify that searching by a two structures detected return the correct results
+Verify that searching by a structure detected and nowhere else return the correct results
+Verify that searching by 2 structures, 1 detected and 1 not detected return the correct results
+Verify that searching by 2 structures, 1 detected and 1 not detected and driven by Ltf return the correct results
+Verify that the sorting order for alleles is correct on Gene Expression + Recombinase Activity Comparison Matrix
+Verify that the alleles popup displays correct species data on Gene Expression + Recombinase Activity Comparison Matrix
 '''
 import unittest
 import tracemalloc

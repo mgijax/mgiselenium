@@ -1,7 +1,7 @@
 '''
 Created on Jun 20, 2018
-
 @author: jeffc
+Verify opens the TSS Detail table and verifies it is sorted correctly by distance from the marker
 '''
 import unittest
 import time

@@ -2,6 +2,17 @@
 Created on Jan 28, 2016
 This test verifies correct functioning of the clip board features within the EmapA module
 @author: jeffc
+Verify trying to add a duplicate term/stage to the clip board
+Verify adding a single stage to the clipboard
+Verify adding stages to the clipboard separated by commas
+Verify adding stages to the clip board separated by a dash
+Verify adding all stages to clip board using a *
+Verify trying to add a stage to the clip board using a non-numeric number
+Verify trying to add stages to the clipboard using an invalid range
+Verify you can delete one item from the clipboard
+Verify you can delete multiple items from the clipboard
+Verify that a basic sort works by displaying the clip board results in smart alpha order
+Verify confirm the shortcut keys(CTRL + ALT + k) resets the clipboard input box
 '''
 import unittest
 import HtmlTestRunner

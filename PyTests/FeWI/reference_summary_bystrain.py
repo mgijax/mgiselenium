@@ -1,8 +1,9 @@
 '''
 Created on May 18, 2018
-
 @author: jeffc
+Verify that all the reference results are correct when you have a strain with both normal references and curator added references
 '''
+
 import unittest
 import time
 import tracemalloc

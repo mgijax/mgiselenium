@@ -3,6 +3,19 @@
 Created on Mar 7, 2019
 Tests the adding and deleting features of the Variant module
 @author: jeffc
+Verify that you can add a sourced transcript with a RefSeq ID
+Verify that the variant SO Types popup has the correct types sorted in the correct order
+Verify that the variant SO Effects popup has the correct effects sorted in the correct order
+Verify that the variant SO Types popup can add SO types using Save button
+Verify that the variant SO Types popup can discard changes using the Discard button
+Verify that the variant SO Effects popup can add SO effects using Save button
+Verify that the variant SO Effects popup can discard changes using the Discard button
+Verify that the All Variants Table displays the data that is displayed in the form
+Verify that the All Variants Table Transcript IDs link to their appropriate website(RefSeq ID)
+Verify that the All Variants Table Transcript IDs link to their appropriate website(Ensembl ID)
+Verify that the All Variants Table Transcript IDs link to their appropriate website(Genbank ID)
+Verify that the All Variants Table Polypeptide IDs link to their appropriate website(Swiis-Prot ID)
+Verify that the All Variants Table Polypeptide IDs link to their appropriate website(Trembl ID)
 '''
 import unittest
 import time

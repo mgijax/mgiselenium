@@ -1,8 +1,8 @@
 '''
 Created on Oct 4, 2016
-
 @author: jeffc
-this test was created to verify the proper field are cleared when hitting the Clear button
+this test was created to verify the proper fields are cleared when hitting the Clear button
+Verify that when an index record is cleared the correct fields get cleared
 '''
 import unittest
 import time

@@ -3,6 +3,11 @@ Created on Sep 7, 2017
 These tests are to confirm results you get back using various edit requirements
 @author: jeffc
 @attention: Do not use these tests against a production system! Since you are editing it will cause  data to be changed
+Verify that changing a "not routed" reference to "chosen" assigns it a J number
+Verify the modifying of a Reference Type by using the pulldown list
+Verify the setting of the MGI Discard flag
+Verify that you can add a tag using the autocomplete option
+Verify that you can change the Supplemental field option
 '''
 import unittest
 import time

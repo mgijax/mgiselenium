@@ -2,6 +2,9 @@
 Created on Sep 1, 2016
 This page is linked to from the Marker detail page
 @author: jeffc
+Verify the table headers are correct
+Verify the context column data
+Verify the sorting of the Aspect column
 '''
 import unittest
 import time

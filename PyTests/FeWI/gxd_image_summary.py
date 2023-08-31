@@ -1,8 +1,13 @@
 '''
 Created on Dec 12, 2016
-
 @author: jeffc
-A work in progress, bringing back data but now need to figure how to apply it.
+Tests the GXD Image summary page.
+Verify that the genes column sorts genes result correctly
+Verify the sort order for assay type using default sort
+Verify the sort order for specimen type using default sort
+Verify that the Gene column sort works correctly
+Verify that the assay type column sort works correctly
+Verify that the specimen type column sort works correctly
 '''
 import unittest
 import time

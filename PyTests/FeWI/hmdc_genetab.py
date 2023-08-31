@@ -3,6 +3,10 @@ Created on Nov 8, 2016
 These tests cover the the data and layout of the Genes tab results
 updated: July 2017 (jlewis) - updates to make Gene Tab tests more tolerant to changes in annotations.  e.g. removing counts
 @author: jeffc
+Verify all the table headers on the genes tab are correct and in the correct order
+Verify the correct genes are returned for a gene symbol query
+Verify the correct genes are returned for this query, in particular genes with special characters in their symbol.
+Verify the correct diseases are returned for this query
 '''
 import unittest
 import time

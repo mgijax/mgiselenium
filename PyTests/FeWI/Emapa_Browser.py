@@ -1,7 +1,23 @@
 '''
 Created on Apr 22, 2016
-
 @author: jeffc
+Verify parent data is correctly identified
+Verify tree view smart alpha sort order
+Verify search by EmapA term associated with multiple phenotypes
+Verify search by EmapA term associated to a single phenotype
+Verify search by  EmapA term associated to phenotype but NO expression
+Verify the phenotype link treeview returns correct results
+Verify 1to1 mapping with NO child terms phenotype link
+Verify 1to1 mapping with child terms phenotype link
+Verify 1to1 mapping with NO phenotype link but an expression link
+Verify 1to1 NO mapping for expression or phenotype
+Verify 1to1 NO mapping for expression or phenotype but has children
+Verify 1toN mapping with parents and 3 phenotype children
+Verify 1toN mapping with parents and expression children
+Verify NO phenotype mapping, zero expression, NO children
+Verify NO phenotype mapping, has expression mapping, NO children
+Verify NO phenotype mapping, NO expression mapping, NO children
+Verify the phenotype term link results are alphanumeric sorted
 '''
 import unittest
 import time
@@ -89,7 +105,8 @@ class TestEmapaBrowser(unittest.TestCase):
 
     def test_pheno_link_multi(self):
         """
-        @status: Tests that searching by an Emapa term that is associated with multiple phenotypes return the correct results/link
+        @status: Tests that searching by an Emapa term that is associated with multiple phenotypes return the
+        correct results/link
         @note: EMAPA-ID-Search-2
         """
         driver = self.driver
@@ -107,7 +124,8 @@ class TestEmapaBrowser(unittest.TestCase):
  
     def test_pheno_link_single(self):
         """
-        @status: Tests that searching by an Emapa term that is associated with a single phenotype returns the correct results/link
+        @status: Tests that searching by an Emapa term that is associated with a single phenotype returns the
+        correct results/link
         @note: EMAPA-ID-Search-1
         """
         driver = self.driver
@@ -123,7 +141,8 @@ class TestEmapaBrowser(unittest.TestCase):
         
     def test_pheno_link_noexpression(self):
         """
-        @status: Tests that searching by an Emapa term that is associated to a phenotype but has no expression annotations
+        @status: Tests that searching by an Emapa term that is associated to a phenotype but has no expression
+        annotations
         @note: EMAPA-ID_Search-4
         """
         driver = self.driver
@@ -168,7 +187,8 @@ class TestEmapaBrowser(unittest.TestCase):
 
     def test_pheno_link_nochild_treeview(self):
         """
-        @status: Tests that when you have a 1to1 mapping with no child terms associated(gxd&pheno),the phenotype annotations link in the Treeview section when clicked returns correct results.
+        @status: Tests that when you have a 1to1 mapping with no child terms associated(gxd&pheno),the phenotype
+        annotations link in the Treeview section when clicked returns correct results.
         @note: EMAPA-ID-search-7
         """
         driver = self.driver
@@ -188,7 +208,8 @@ class TestEmapaBrowser(unittest.TestCase):
 
     def test_pheno_link_withchildboth_treeview(self):
         """
-        @status: Tests that when you have a 1to1 mapping with child terms associated(gxd&pheno),the phenotype annotations link in the Treeview section when clicked returns correct results.
+        @status: Tests that when you have a 1to1 mapping with child terms associated(gxd&pheno),the phenotype
+        annotations link in the Treeview section when clicked returns correct results.
         @note: EMAPA-ID-search-8
         """
         driver = self.driver
@@ -211,7 +232,8 @@ class TestEmapaBrowser(unittest.TestCase):
 
     def test_no_pheno_link_exp_link(self):
         """
-        @status: Tests that when you have a 1to1 mapping with NO Pheno mapping/has GXD mapping,the GXD link has data the phenotype annotations link in the Treeview section has zero results.
+        @status: Tests that when you have a 1to1 mapping with NO Pheno mapping/has GXD mapping,the GXD link has data
+        the phenotype annotations link in the Treeview section has zero results.
         @note: EMAPA-ID-search-9 :broken, awaiting a software fix
         """
         driver = self.driver
@@ -223,7 +245,8 @@ class TestEmapaBrowser(unittest.TestCase):
 
     def test_zero_pheno_link_zero_exp_link(self):
         """
-        @status: Tests that when you have a 1to1 NO mapping for expression or pheno, NO child terms, the phenotype annotations is zero and expression results links in the Treeview section is normal.
+        @status: Tests that when you have a 1to1 NO mapping for expression or pheno, NO child terms, the phenotype
+        annotations is zero and expression results links in the Treeview section is normal.
         @note: EMAPA-ID-search-10
         """
         driver = self.driver
@@ -236,7 +259,8 @@ class TestEmapaBrowser(unittest.TestCase):
 
     def test_zero_pheno_link_zero_exp_link_MP_child(self):
         """
-        @status: Tests that when you have a 1to1  NO mapping for expression or pheno, has child terms,the phenotype annotations is zero and expression results links in the Treeview section is normal.
+        @status: Tests that when you have a 1to1  NO mapping for expression or pheno, has child terms,the phenotype
+        annotations is zero and expression results links in the Treeview section is normal.
         @note: EMAPA-ID-search-11 
         """
         driver = self.driver
@@ -251,7 +275,8 @@ class TestEmapaBrowser(unittest.TestCase):
         
     def test_pheno_link_withparent3child_treeview(self):
         """
-        @status: Tests that when you have a 1toN mapping with parent and 3 child terms associated(pheno)< has child terms,the phenotype annotations link in the Treeview section when clicked returns correct results.
+        @status: Tests that when you have a 1toN mapping with parent and 3 child terms associated(pheno)
+        has child terms,the phenotype annotations link in the Treeview section when clicked returns correct results.
         @note: EMAPA-ID-search-12
         """
         driver = self.driver
@@ -290,7 +315,8 @@ class TestEmapaBrowser(unittest.TestCase):
         
     def test_pheno_link_with_parent_and_child_treeview(self):
         """
-        @status: Tests that when you have a 1toN mapping for pheno and expression, child terms for expression,the phenotype annotations link in the Treeview section when clicked returns correct results.
+        @status: Tests that when you have a 1toN mapping for pheno and expression, child terms for expression,
+        the phenotype annotations link in the Treeview section when clicked returns correct results.
         @note: EMAPA-ID-search-13
         """
         driver = self.driver
@@ -321,7 +347,8 @@ class TestEmapaBrowser(unittest.TestCase):
         
     def test_no_pheno_mapping_zero_exp_link(self):
         """
-        @status: Tests that when you have no phenotype mapping but zero Expression mapping, NO child terms,,the phenotype annotations link in the Treeview section does not display, the expression results link is zero.
+        @status: Tests that when you have no phenotype mapping but zero Expression mapping, NO child terms,
+        the phenotype annotations link in the Treeview section does not display, the expression results link is zero.
         @note: EMAPA-ID-search-14
         """
         driver = self.driver
@@ -334,7 +361,8 @@ class TestEmapaBrowser(unittest.TestCase):
 
     def test_no_pheno_mapping_has_exp_link(self):
         """
-        @status: Tests that when you have no phenotype mapping but Expression mapping, NO child terms,the phenotype annotations link in the Treeview section does not display, the expression results link has normal display.
+        @status: Tests that when you have no phenotype mapping but Expression mapping, NO child terms,the phenotype
+        annotations link in the Treeview section does not display, the expression results link has normal display.
         @note: EMAPA-ID-search-15
         """
         driver = self.driver
@@ -350,7 +378,8 @@ class TestEmapaBrowser(unittest.TestCase):
 
     def test_no_pheno_mapping_zero_exp_link2(self):
         """
-        @status: Tests that when you have no phenotype mapping no Expression mapping, NO child terms,the phenotype annotations link in the Treeview section does not display, the expression results link has zero results.
+        @status: Tests that when you have no phenotype mapping no Expression mapping, NO child terms,the phenotype
+        annotations link in the Treeview section does not display, the expression results link has zero results.
         @note: EMAPA-ID-search-16
         """
         driver = self.driver
@@ -363,7 +392,8 @@ class TestEmapaBrowser(unittest.TestCase):
         
     def test_pheno_link_results_sort(self):
         """
-        @status: Tests that when you click the phenotypes term link in the detail section the results returned are in alphanumeric sort
+        @status: Tests that when you click the phenotypes term link in the detail section the results returned are
+        in alphanumeric sort
         @note: EMAPA-ID-Search-6
         """
         driver = self.driver

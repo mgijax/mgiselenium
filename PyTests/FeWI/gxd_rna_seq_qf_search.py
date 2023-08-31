@@ -2,6 +2,20 @@
 Created on Apr 25, 2019
 This set of tests is for searching of the RNA Seq and Microarray Experiments query form
 @author: jeffc
+Verify the searching by anatomical structure on the rna seq query form works
+Verify the searching by theiler stage on the rna seq query form works
+Verify the searching by age on the rna seq query form works
+Verify the searching by mutant using a marker symbol on the rna seq query form works
+Verify the searching by mutant using a marker synonym on the rna seq query form works
+Verify the searching by mutant using an MGI marker ID on the rna seq query form works
+Verify the searching by strain on the rna seq query form works
+Verify the searching by strain using a wildcard on the rna seq query form works
+Verify the searching by sex on the rna seq query form works
+Verify the searching by method on the rna seq query form works
+Verify the searching by text on the rna seq query form works
+Verify the searching by text using a wildcard on the rna seq query form works
+Verify the searching by arrayexpress ID on the rna seq query form works
+Verify the searching by GEO ID on the rna seq query form works
 '''
 import unittest
 import time

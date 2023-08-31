@@ -1,7 +1,51 @@
 '''
 Created on Jul 31, 2020
-TESTS HAVE NOT YET BEEN REWRITTEN FOR ANTIBODIES MODULE!!!!!!!
+Tests the PWI Antibodies module
 @author: jeffc
+Verify that a basic antibody name search works
+Verify that a basic antibody name w/wildcard search works
+Verify that a basic antibody type search works
+Verify that a basic Antibody class search works
+Verify that a basic antibody organism search works
+Verify that a basic antigen accession ID search works
+Verify that a basic antigen name search works
+Verify that a basic antigen name with wildcard search works
+Verify that a basic region covered search works
+Verify that a basic region covered search with wildcard works
+Verify that a basic antigens notes works
+Verify that a basic antigens notes with wildcard works
+Verify that a basic antigen organism search works
+Verify that a basic antibody antigen strain search  works
+Verify that a basic antibody antigen strain search with wildcard works
+Verify that a basic tissue search works
+Verify that a basic tissue description search works
+Verify that a basic cell line search works
+Verify that a basic cell line search w/wildcard works
+Verify that a basic age prefix search works
+Verify that a basic age stage search works
+Verify that a basic age stage search with wildcard works
+Verify that a basic gender search works
+Verify that a basic antibody reference J number search works
+Verify that a basic antibody reference J number with wildcard search works
+Verify that a basic antibody reference citation search works
+Verify that a basic antibody alias search works
+Verify that a basic antibody alias search with wildcard works
+Verify that a basic antibody alias J number search works
+Verify that a basic antibody alias citation search works
+Verify that a basic antibody notes using wildcards search works
+Verify that a basic antibody Marker search works
+Verify that a basic antibody marker using wildcards search works
+Verify that a basic antibody chromosome search works
+Verify that an antibody search using the Created By field returns correct data
+Verify that an antibody search using the Modified By field returns correct data
+Verify that an antibody search using the Creation Date field returns correct data
+Verify that an antibody search using the Modified By field returns correct data
+Verify that an antibody search using the Modified By field and less than returns correct data
+Verify that an antibody search using the Modified By field and less than or equal to returns correct data
+Verify that an antibody search using the Modified By field and between dates returns correct data
+Verify that an antibody search using the Creation Date field and Less than returns correct data
+Verify that an antibody search using the Creation Date field and Less than, equals to returns correct data
+Verify that an antibody search using the Creation Date field and Between dates returns correct data
 '''
 import unittest
 import time

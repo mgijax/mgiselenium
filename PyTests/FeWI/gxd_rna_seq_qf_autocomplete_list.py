@@ -2,6 +2,8 @@
 Created on Apr 25, 2019
 This set of tests is for the Anatomical structure autocomplete list of the RNA Seq and Microarray Experiments query form
 @author: jeffc
+Verify the auto complete list is displaying the correct anatomical structures associated to the text you entered
+Verify
 '''
 import unittest
 import time
