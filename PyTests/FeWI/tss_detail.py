@@ -6,19 +6,24 @@ Verify opens the TSS Detail table and verifies it is sorted correctly by distanc
 import unittest
 import time
 import tracemalloc
-from HTMLTestRunner import HTMLTestRunner
-from selenium import webdriver
-#from selenium.webdriver.common.keys import Keys
-
+import config
 import sys,os.path
 #from genericpath import exists
 # adjust the path to find config
 sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../..',)
 )
+from HTMLTestRunner import HTMLTestRunner
+from selenium import webdriver
+#from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.edge.service import Service as EdgeService
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
 from util import wait, iterate
 from util.table import Table
-import config
 from selenium.webdriver.common.by import By
 from config import TEST_URL
 
@@ -28,8 +33,10 @@ class TestTssDetail(unittest.TestCase):
 
 
     def setUp(self):
-        self.driver = webdriver.Firefox()
-        #self.driver = webdriver.Chrome()
+        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        self.driver.set_window_size(1500, 1000)
         self.driver.get(config.TEST_URL + "/marker/")
         self.driver.implicitly_wait(10)
 

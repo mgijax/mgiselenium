@@ -20,28 +20,37 @@ Verify the searching by GEO ID on the rna seq query form works
 import unittest
 import time
 import tracemalloc
+import config
+import sys,os.path
+# adjust the path to find config
+sys.path.append(
+  os.path.join(os.path.dirname(__file__), '../../..',)
+)
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 # from lib import *
-import sys,os.path
-# adjust the path to find config
-sys.path.append(
-  os.path.join(os.path.dirname(__file__), '../../..',)
-)
-import config
+from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.edge.service import Service as EdgeService
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
 from util import iterate, wait
 from util.form import ModuleForm
 from util.table import Table
+
 # Tests
 tracemalloc.start()
 class TestGxdRnaSeqSearching(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Firefox()
-        #self.driver = webdriver.Chrome()
+        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        self.driver.set_window_size(1500, 1000)
         self.driver.get(config.TEST_URL + "/gxd/htexp_index")
         self.driver.implicitly_wait(10)
         

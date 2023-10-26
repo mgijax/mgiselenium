@@ -8,6 +8,12 @@ This test verifies searching within the EmapA module, Both a term search and a s
 import unittest
 import time
 import tracemalloc
+import config
+import sys, os.path
+# adjust the path to find config
+sys.path.append(
+    os.path.join(os.path.dirname(__file__), '../../..', )
+)
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
@@ -15,18 +21,16 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-import sys, os.path
+from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.edge.service import Service as EdgeService
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
 from selenium.webdriver.support.wait import WebDriverWait
-
-# adjust the path to find config
-sys.path.append(
-    os.path.join(os.path.dirname(__file__), '../../..', )
-)
-import config
 from util import iterate, wait
 from util.form import ModuleForm
 from util.table import Table
-
 
 # Tests
 tracemalloc.start()
@@ -36,8 +40,10 @@ class TestEiGxdIndexSearch(unittest.TestCase):
     """
 
     def setUp(self):
-        self.driver = webdriver.Firefox()
-        # self.driver = webdriver.Chrome()
+        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        self.driver.set_window_size(1800, 1000)
         self.form = ModuleForm(self.driver)
         self.form.get_module(config.TEST_PWI_URL + "/edit/gxdindex")
 

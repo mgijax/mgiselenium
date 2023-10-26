@@ -1,11 +1,11 @@
 """
 Helper for working with html forms
 """
+import time
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.common.by import By
 from util import wait
-import time
 
 class ModuleForm(object):
     """

@@ -5,11 +5,12 @@ This is just an example of how to run a suite of tests from one python file.
 '''
 import unittest
 import tracemalloc
+import os
 from jd_HTMLTestRunner import HTMLTestRunner
 from .test_search_tool import TestSearchTool
 from .test_snp_build_numbers import TestSnpBuild
 from .test_private_data import TestPrivateData
-import os
+
 
 tracemalloc.start()
 def main():

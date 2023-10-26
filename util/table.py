@@ -37,6 +37,7 @@ Usage:
     
 """
 from selenium.webdriver.common.by import By
+
 class Table(object):
     """
     Represents a table element

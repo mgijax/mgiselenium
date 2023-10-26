@@ -13,6 +13,11 @@ Verify DO browser display when verifies that when a child term has children it's
 import unittest
 import time
 import tracemalloc
+import sys,os.path
+# adjust the path to find config
+sys.path.append(
+  os.path.join(os.path.dirname(__file__), '../../config',)
+)
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
@@ -20,11 +25,12 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import sys,os.path
-# adjust the path to find config
-sys.path.append(
-  os.path.join(os.path.dirname(__file__), '../../config',)
-)
+from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.edge.service import Service as EdgeService
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
 from config import TEST_URL
 from util import iterate, wait
 from util.form import ModuleForm
@@ -35,8 +41,10 @@ tracemalloc.start()
 class TestDoBrowserTermTab(unittest.TestCase):
 
     def setUp(self):
-        #self.driver = webdriver.Chrome()
-        self.driver = webdriver.Firefox()
+        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        self.driver.set_window_size(1500, 1000)
         self.driver.get(TEST_URL)
         self.driver.implicitly_wait(10)
         

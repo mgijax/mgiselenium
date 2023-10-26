@@ -5,13 +5,10 @@ Functions for dealing with "waiting" in selenium
     or browser state
     before continuing execution.
 """
-
+import time
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-import time
-
-
 
 def forAngular(driver, seconds=35):
 

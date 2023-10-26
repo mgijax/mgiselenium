@@ -10,6 +10,12 @@ Verify a conditional mutant note on the RNA-Seq samples page for samples that re
 import unittest
 import time
 import tracemalloc
+import config
+import sys,os.path
+# adjust the path to find config
+sys.path.append(
+  os.path.join(os.path.dirname(__file__), '../../..',)
+)
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
@@ -18,22 +24,25 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 # from lib import *
-import sys,os.path
-# adjust the path to find config
-sys.path.append(
-  os.path.join(os.path.dirname(__file__), '../../..',)
-)
-import config
+from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.edge.service import Service as EdgeService
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
 from util import iterate, wait
 from util.form import ModuleForm
 from util.table import Table
+
 # Tests
 tracemalloc.start()
 class TestGxdRnaSeqSamples(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Firefox()
-        #self.driver = webdriver.Chrome()
+        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        self.driver.set_window_size(1500, 1000)
         self.driver.get(config.TEST_URL + "/gxd/htexp_index")
         self.driver.implicitly_wait(10)
 

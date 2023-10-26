@@ -6,6 +6,14 @@ Tests the adding and deleting features of the Variant module
 import unittest
 import time
 import tracemalloc
+import jd_HTMLTestRunner
+import json
+import config
+import sys, os.path
+# adjust the path to find config
+sys.path.append(
+    os.path.join(os.path.dirname(__file__), '../../..', )
+)
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -14,21 +22,17 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import Select
-# from.selenium.webdriver.support.color import Color
-import jd_HTMLTestRunner
-import json
-import sys, os.path
+from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.edge.service import Service as EdgeService
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
 from selenium.webdriver.support.color import Color
-
-# adjust the path to find config
-sys.path.append(
-    os.path.join(os.path.dirname(__file__), '../../..', )
-)
-import config
+from selenium.webdriver.support.color import Color
 from util import iterate, wait
 from util.form import ModuleForm
 from util.table import Table
-
 
 # Tests
 tracemalloc.start()
@@ -38,8 +42,10 @@ class TestEiVariantAddDelete(unittest.TestCase):
     """
 
     def setUp(self):
-        # self.driver = webdriver.Firefox()
-        self.driver = webdriver.Chrome()
+        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        self.driver.set_window_size(1800, 1000)
         self.form = ModuleForm(self.driver)
         # self.form.get_module("bhmgipwi02lt:5099/pwi/edit/variant/")
         self.form.get_module(config.TEST_PWI_URL + "/edit/variant/")

@@ -26,6 +26,14 @@ Verify that the filter by assay type option on the assays tab Assays Detail colu
 import unittest
 import time
 import tracemalloc
+import config
+import sys,os.path
+from genericpath import exists
+#from test.test_support import get_attribute
+# adjust the path to find config
+sys.path.append(
+  os.path.join(os.path.dirname(__file__), '../..',)
+)
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
@@ -36,15 +44,13 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 from util.table import Table
 from util.form import ModuleForm
-import sys,os.path
-from genericpath import exists
-#from test.test_support import get_attribute
-# adjust the path to find config
-sys.path.append(
-  os.path.join(os.path.dirname(__file__), '../..',)
-)
+from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.edge.service import Service as EdgeService
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
 from util import wait, iterate
-import config
 from config import TEST_URL
 
 #Test
@@ -53,9 +59,10 @@ class TestGxdResults(unittest.TestCase):
 
 
     def setUp(self):
-    
-        self.driver = webdriver.Firefox()
-        #self.driver = webdriver.Chrome()
+        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        self.driver.set_window_size(1500, 1000)
         self.driver.get(config.TEST_URL + "/gxd/")
         self.driver.implicitly_wait(10)
         self.form = ModuleForm(self.driver)

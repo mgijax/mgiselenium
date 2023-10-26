@@ -12,22 +12,28 @@ HMDC query page
 import unittest
 import time
 import tracemalloc
+import time
+import config
+import sys,os.path
+# adjust the path to find config
+sys.path.append(
+  os.path.join(os.path.dirname(__file__), '../../config',)
+)
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
-import sys,os.path
+from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.edge.service import Service as EdgeService
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
 from util import iterate
 from config.config import PUBLIC_URL
-# adjust the path to find config
-sys.path.append(
-  os.path.join(os.path.dirname(__file__), '../../config',)
-)
-#import time
-import config
-#from util import iterate, wait
+from util import iterate, wait
 
 #Tests
 tracemalloc.start()
@@ -35,9 +41,10 @@ class TestSnpBuildNumbers(unittest.TestCase):
 
 
     def setUp(self):
-        #self.driver = webdriver.Chrome()
-        self.driver = webdriver.Firefox()
-        #self.driver.implicitly_wait(4)
+        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        self.driver.set_window_size(1500, 1000)
         self.driver.get(config.PUBLIC_URL)
         
 

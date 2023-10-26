@@ -7,16 +7,24 @@ example: self.highlight(driver.find_element(By.ID, 'element_name'))
 # filename: highlight_elements.py
 import unittest
 import tracemalloc
+import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-import time
+from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.edge.service import Service as EdgeService
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
 tracemalloc.start()
 class HighlightElements(unittest.TestCase):
 
     def setUp(self):
-        #self.driver = webdriver.Firefox()
-        self.driver = webdriver.Chrome()
+        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        self.driver.set_window_size(1500, 1000)
 
     def tearDown(self):
         self.driver.quit()
