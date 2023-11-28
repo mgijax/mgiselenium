@@ -58,6 +58,7 @@ class TestGxdRnaSeqSamples(unittest.TestCase):
         self.driver.find_element(By.ID, 'arrayExpressID').send_keys('E-MEXP-5')
         #find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
+        time.sleep(2)
         #find the View button of the first result and click it
         self.driver.find_element(By.ID, 'row0button').click()
         #switch focus the the popup samples window
@@ -67,7 +68,7 @@ class TestGxdRnaSeqSamples(unittest.TestCase):
         self.driver.find_element(By.LINK_TEXT, 'E-MEXP-5').click()
         time.sleep(2)
         #switch focus to the next tab
-        self.driver.switch_to.window(self.driver.window_handles[-2])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         #get the URL of the page
         page_url = self.driver.current_url
         print(page_url)
@@ -96,7 +97,7 @@ class TestGxdRnaSeqSamples(unittest.TestCase):
         time.sleep(2)
         print(Atlas_Link)
         #switch focus to the next tab(expression atlas page)
-        self.driver.switch_to.window(self.driver.window_handles[-2])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         #get the URL of the page
         page_url = self.driver.current_url
         print(page_url)
@@ -113,20 +114,22 @@ class TestGxdRnaSeqSamples(unittest.TestCase):
         self.driver.find_element(By.ID, 'strainNameAC').send_keys('C57BL/6J')#finds the age list and select the E4.0 option
         #find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
+        time.sleep(2)
         #find the View button of the second result and click it
         self.driver.find_element(By.ID, 'row1button').click()
+        time.sleep(2)
         #switch focus the the popup samples window
         self.driver.switch_to.window(self.driver.window_handles[-1])
         #find the GEO link GSE868 and click it
-        self.driver.find_element(By.LINK_TEXT, 'GSE868').click()
+        self.driver.find_element(By.LINK_TEXT, 'GSE565').click()
         time.sleep(2)
         #switch focus to the next tab(geo page)
-        self.driver.switch_to.window(self.driver.window_handles[-2])
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         #get the URL of the page
         page_url = self.driver.current_url
         print(page_url)
         #Assert the URL is correct
-        self.assertEqual(page_url, "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE868")
+        self.assertEqual(page_url, "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE565")
                     
     def test_rnaseq_samples_mutant_note(self):
         '''
@@ -138,6 +141,7 @@ class TestGxdRnaSeqSamples(unittest.TestCase):
         self.driver.find_element(By.ID, 'arrayExpressID').send_keys('E-GEOD-37646')#finds the age list and select the E4.0 option
         #find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
+        time.sleep(2)
         #find the View button of the first result and click it
         self.driver.find_element(By.ID, 'row0button').click()
         #switch focus the the popup samples window

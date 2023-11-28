@@ -45,9 +45,9 @@ class TestGxdQF(unittest.TestCase):
 
 
     def setUp(self):
-        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        #self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        #self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
         self.driver.set_window_size(1500, 1000)
         self.driver.get(config.TEST_URL + "/gxd/")
         self.driver.implicitly_wait(10)
@@ -90,7 +90,8 @@ class TestGxdQF(unittest.TestCase):
         if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'yui-dt-data'))):
             print('Data now displayed')
         #finds the Genes tab and clicks it
-        driver.find_element(By.ID, 'genestab').click()
+        ele = driver.find_element(By.ID, 'genestab')
+        driver.execute_script("arguments[0].click()", ele)
         #locates the genes column and lists the genes found
         genelist = driver.find_element(By.ID, 'genesdata').find_element(By.CLASS_NAME, 'yui-dt-data')
         items = genelist.find_elements(By.CLASS_NAME, 'yui-dt-col-symbol')
@@ -122,7 +123,8 @@ class TestGxdQF(unittest.TestCase):
         if WebDriverWait(self.driver, 8).until(EC.presence_of_element_located((By.CLASS_NAME, 'yui-dt-data'))):
             print('data now displayed')
         #finds the Assays tab and clicks it
-        driver.find_element(By.ID, 'assaystab').click()
+        ele = driver.find_element(By.ID, 'assaystab')
+        driver.execute_script("arguments[0].click()", ele)
         #locates the References column and lists the references found
         reflist = driver.find_element(By.ID, 'assaysdata').find_element(By.CLASS_NAME, 'yui-dt-data')
         items = reflist.find_elements(By.CLASS_NAME, 'yui-dt-col-reference')
@@ -148,24 +150,25 @@ class TestGxdQF(unittest.TestCase):
         #find the Whole Genome assays check box and click it
         driver.find_element(By.ID, 'wholeGenomeAll').click()
         #find the search button and click it
-        #find the search button and click it
         driver.find_element(By.ID, 'submit1').click()
         if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'yui-dt-data'))):
             print('data now displayed')
         #finds the Assays tab and clicks it
-        driver.find_element(By.ID, 'assaystab').click()
+        ele = driver.find_element(By.ID, 'assaystab')
+        driver.execute_script("arguments[0].click()", ele)
         #locates the gene column and lists the gene found
         genelist = driver.find_element(By.ID, 'assaysdata').find_element(By.CLASS_NAME, 'yui-dt-data')
         items = genelist.find_elements(By.CLASS_NAME, 'yui-dt-col-gene')
         searchTextItems = iterate.getTextAsList(items)
         print(searchTextItems)
+        time.sleep(2)
         #assert that the Gene column holds the text "Whole Genome"
         assert "Whole Genome" in searchTextItems
         #locates the assay type column and lists the assay types found
         assaylist = driver.find_element(By.ID, 'assaysdata').find_element(By.CLASS_NAME, 'yui-dt-data')
         items = assaylist.find_elements(By.CLASS_NAME, 'yui-dt-col-assayType')
         searchTextItems1 = iterate.getTextAsList(items)
-        print(searchTextItems1)
+        print("the genes are:", searchTextItems1)
         #assert that the Assay Type column holds the text "RNA-Seq"
         assert "RNA-Seq" in searchTextItems1  
                    
@@ -183,7 +186,8 @@ class TestGxdQF(unittest.TestCase):
         if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'yui-dt-data'))):
             print('data now displayed')
         #finds the Genes tab and clicks it
-        driver.find_element(By.ID, 'genestab').click()
+        ele = driver.find_element(By.ID, 'genestab')
+        driver.execute_script("arguments[0].click()", ele)
         #locates the gene column and lists the gene found
         genelist = driver.find_element(By.ID, 'genesdata').find_element(By.CLASS_NAME, 'yui-dt-data')
         items = genelist.find_elements(By.CLASS_NAME, 'yui-dt-col-symbol')
@@ -204,10 +208,12 @@ class TestGxdQF(unittest.TestCase):
         driver.find_element(By.ID, 'locations').send_keys('ChrY')
         #find the search button and click it
         driver.find_element(By.ID, 'submit1').click()
-        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'yui-dt-data'))):
+        if WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'yui-dt-data'))):
             print('data now displayed')
         #finds the Genes tab and clicks it
-        driver.find_element(By.ID, 'genestab').click()
+        ele = driver.find_element(By.ID, 'genestab')
+        driver.execute_script("arguments[0].click()", ele)
+        time.sleep(3)
         #locates the gene column and lists the gene found
         genelist = driver.find_element(By.ID, 'genesdata').find_element(By.CLASS_NAME, 'yui-dt-data')
         items = genelist.find_elements(By.CLASS_NAME, 'yui-dt-col-symbol')
@@ -231,7 +237,8 @@ class TestGxdQF(unittest.TestCase):
         if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.CLASS_NAME, 'yui-dt-data'))):
             print('data now displayed')
         #finds the Genes tab and clicks it
-        driver.find_element(By.ID, 'genestab').click()
+        ele = driver.find_element(By.ID, 'genestab')
+        driver.execute_script("arguments[0].click()", ele)
         #locates the gene column and lists the gene found
         genelist = driver.find_element(By.ID, 'genesdata').find_element(By.CLASS_NAME, 'yui-dt-data')
         items = genelist.find_elements(By.CLASS_NAME, 'yui-dt-col-symbol')
@@ -255,7 +262,8 @@ class TestGxdQF(unittest.TestCase):
         if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'yui-dt-data'))):
             print('data now displayed')
         #finds the Genes tab and clicks it
-        driver.find_element(By.ID, 'genestab').click()
+        ele = driver.find_element(By.ID, 'genestab')
+        driver.execute_script("arguments[0].click()", ele)
         #locates the gene column and lists the gene found
         genelist = driver.find_element(By.ID, 'genesdata').find_element(By.CLASS_NAME, 'yui-dt-data')
         items = genelist.find_elements(By.CLASS_NAME, 'yui-dt-col-symbol')
@@ -281,7 +289,8 @@ class TestGxdQF(unittest.TestCase):
         if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'yui-dt-data'))):
             print('data now displayed')
         #finds the Genes tab and clicks it
-        driver.find_element(By.ID, 'genestab').click()
+        ele = driver.find_element(By.ID, 'genestab')
+        driver.execute_script("arguments[0].click()", ele)
         #locates the gene column and lists the gene found
         genelist = driver.find_element(By.ID, 'genesdata').find_element(By.CLASS_NAME, 'yui-dt-data')
         items = genelist.find_elements(By.CLASS_NAME, 'yui-dt-col-symbol')

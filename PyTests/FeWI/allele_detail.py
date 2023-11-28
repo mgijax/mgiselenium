@@ -579,7 +579,7 @@ class TestAlleleDetail(unittest.TestCase):
         # add all li text to a list for "assertIn" test
         searchTreeItems = iterate.getTextAsList(items)
         print(searchTreeItems)
-        self.assertEqual(['behavior/neurological', '', '', '', '', '', 'cardiovascular system',  '', 'hearing/vestibular/ear', '', 'mortality/aging', '', 'nervous system', '', ''], searchTreeItems)
+        self.assertEqual(['behavior/neurological', 'tremors', 'impaired balance', 'impaired coordination', 'abnormal gait', 'short stride length', 'cardiovascular system',  'cardiovascular system phenotype', 'hearing/vestibular/ear', 'abnormal ear physiology', 'mortality/aging', 'perinatal lethality', 'nervous system', 'abnormal synaptic vesicle recycling', 'abnormal excitatory postsynaptic currents'], searchTreeItems)
         self.driver.get(config.TEST_URL + "/allele/")    
         
         self.driver.find_element(By.NAME, 'nomen').clear()
@@ -680,8 +680,8 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1Pisc').click()
         #verifies that the assays results link exists/is displayed
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'assay results').is_displayed()
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'anatomical structures').click()
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.CLASS_NAME, 'titleBarMainTitleGxd'), 'Mouse Developmental Anatomy Browser'))
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'anatomical structure(s)').click()
+        WebDriverWait(self.driver, 5).until(EC.text_to_be_present_in_element((By.CLASS_NAME, 'titleBarMainTitleGxd'), 'Mouse Developmental Anatomy Browser'))
         #Captures the anatomy search results
         searchList = self.driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
@@ -701,13 +701,13 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1.1Ckjs').click()
         #verifies that the assays results link exists/is displayed
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'assay results').is_displayed()
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'anatomical structures').click()
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.CLASS_NAME, 'titleBarMainTitleGxd'), 'Mouse Developmental Anatomy Browser'))
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'anatomical structure(s)').click()
+        WebDriverWait(self.driver, 5).until(EC.text_to_be_present_in_element((By.CLASS_NAME, 'titleBarMainTitleGxd'), 'Mouse Developmental Anatomy Browser'))
         searchList = self.driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
         print([x.text for x in searchList])
         
-        # There should be 5 structures returned in the anatomy search results
+        # There should be 6 structures returned in the anatomy search results
         self.assertIn('mouse TS1-28\nmuscle organ TS28\nmuscle tissue TS12-28\nspinal cord ventral horn TS20-28\nventral grey horn TS21-26\nvertebral column TS27-28', terms, 'the 5 terms are not listed!')        
         
     def test_allele_detail_exp_sec_struct_link_only_norm(self):
@@ -723,7 +723,7 @@ class TestAlleleDetail(unittest.TestCase):
         bodyText = self.driver.find_element(By.TAG_NAME, 'body').text
         self.assertFalse('assay results' in bodyText)  
         #verifies that the anatomical structures link does exist and clicks it
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'anatomical structures').click()
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'anatomical structure(s)').click()
         searchList = self.driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchList)
         print([x.text for x in searchList])

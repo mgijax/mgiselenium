@@ -369,7 +369,7 @@ class TestEIAlleleSearch(unittest.TestCase):
         symbol1 = iterate.getTextAsList(cell1)
         print(symbol1)
         # Assert the correct allele symbol is returned, this is the first result of over 90
-        self.assertEqual(symbol1, ['Acads<a>'])
+        self.assertEqual(symbol1, ['H2-Ab1<g7-em2Dvs>'])
 
     def testAlleleInheritance2Search(self):
         """

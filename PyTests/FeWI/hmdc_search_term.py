@@ -261,7 +261,7 @@ class TestHmdcSearchTerm(unittest.TestCase):
         
         #Verify that the actual term is displayed in the genotype pop-up
         #phenocell captures the table hearing/vestibular/ear cell on the first row of data
-        phenocell = self.driver.find_element(By.CSS_SELECTOR, "td.middle:nth-child(8) > div:nth-child(1) > div:nth-child(1)")
+        phenocell = self.driver.find_element(By.CSS_SELECTOR, "td.middle:nth-child(9) > div:nth-child(1) > div:nth-child(1)")
         
         phenocell.click() #clicks the cell for hearing/vestibular/ear (new data could break this)
         self.driver.switch_to.window(self.driver.window_handles[1])#switches focus to the genotype popup page

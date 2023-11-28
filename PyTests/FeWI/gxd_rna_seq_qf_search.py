@@ -108,9 +108,10 @@ class TestGxdRnaSeqSearching(unittest.TestCase):
         @see GXD-RNASeq-search-4 
         '''
         print ("BEGIN test_rnaseq_mutant_search")
-        self.driver.find_element(By.ID, 'mutatedIn').send_keys('Tg(Zp3-cre)3mrt')#finds the mutant field and enters the gene symbol
+        self.driver.find_element(By.ID, 'mutatedIn').send_keys('MF1')#finds the mutant field and enters the gene symbol
         #find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
+        time.sleep(2)
         self.driver.find_elements(By.LINK_TEXT, 'View')[0].click()#clicks the first View link of the first sample result
         #switch focus to the new tab for Sample Experiments page
         self.driver.switch_to.window(self.driver.window_handles[-1])
@@ -121,23 +122,19 @@ class TestGxdRnaSeqSearching(unittest.TestCase):
         strn = table.get_column_cells('Mutant Allele(s)')
         slist = iterate.getTextAsList(strn)
         print(slist)
-        #verify the genetic backgrounds of each row
-        self.assertEqual(slist[1], "Hdac1tm1.1Eno/Hdac1tm1.1Eno\nTg(Zp3-cre)3Mrt/0")
-        self.assertEqual(slist[2], "Hdac1tm1.1Eno/Hdac1tm1.1Eno\nTg(Zp3-cre)3Mrt/0")
-        self.assertEqual(slist[3], "Hdac1tm1.1Eno/Hdac1tm1.1Eno\nTg(Zp3-cre)3Mrt/0")
-        self.assertEqual(slist[4], "Hdac1tm1.1Eno/Hdac1tm1.1Eno\nTg(Zp3-cre)3Mrt/0")
-        self.assertEqual(slist[5], "Hdac2tm1.1Eno/Hdac2tm1.1Eno\nTg(Zp3-cre)3Mrt/0")
-        self.assertEqual(slist[6], "Hdac2tm1.1Eno/Hdac2tm1.1Eno\nTg(Zp3-cre)3Mrt/0")
-        self.assertEqual(slist[7], "Hdac2tm1.1Eno/Hdac2tm1.1Eno\nTg(Zp3-cre)3Mrt/0")
-        self.assertEqual(slist[8], "Hdac2tm1.1Eno/Hdac2tm1.1Eno\nTg(Zp3-cre)3Mrt/0")
-        self.assertEqual(slist[9], "Hdac2tm1.1Eno/Hdac2tm1.1Eno\nHdac1tm1.1Eno/Hdac1tm1.1Eno\nTg(Zp3-cre)3Mrt/0")
-        self.assertEqual(slist[10], "Hdac2tm1.1Eno/Hdac2tm1.1Eno\nHdac1tm1.1Eno/Hdac1tm1.1Eno\nTg(Zp3-cre)3Mrt/0")
-        self.assertEqual(slist[11], "Hdac2tm1.1Eno/Hdac2tm1.1Eno\nHdac1tm1.1Eno/Hdac1tm1.1Eno\nTg(Zp3-cre)3Mrt/0")
-        self.assertEqual(slist[12], "Hdac2tm1.1Eno/Hdac2tm1.1Eno\nHdac1tm1.1Eno/Hdac1tm1.1Eno\nTg(Zp3-cre)3Mrt/0")
-        self.assertEqual(slist[13], "Hdac1tm1.1Eno/Hdac1tm1.1Eno\nHdac2tm1.1Eno/Hdac2tm1.1Eno")
-        self.assertEqual(slist[14], "Hdac1tm1.1Eno/Hdac1tm1.1Eno\nHdac2tm1.1Eno/Hdac2tm1.1Eno")
-        self.assertEqual(slist[15], "Hdac1tm1.1Eno/Hdac1tm1.1Eno\nHdac2tm1.1Eno/Hdac2tm1.1Eno")
-        self.assertEqual(slist[16], "Hdac1tm1.1Eno/Hdac1tm1.1Eno\nHdac2tm1.1Eno/Hdac2tm1.1Eno")
+        #verify the Mutant Allele(s) of each row
+        self.assertEqual(slist[1], "Foxc1tm1Blh/Foxc1tm1Blh")
+        self.assertEqual(slist[2], "Foxc1tm1Blh/Foxc1tm1Blh")
+        self.assertEqual(slist[3], "Foxc1tm1Blh/Foxc1tm1Blh")
+        self.assertEqual(slist[4], "Foxc1tm1Blh/Foxc1tm1Blh")
+        self.assertEqual(slist[5], "Foxc1tm1Blh/Foxc1tm1Blh")
+        self.assertEqual(slist[6], "Foxc1tm1Blh/Foxc1tm1Blh")
+        self.assertEqual(slist[7], "")
+        self.assertEqual(slist[8], "")
+        self.assertEqual(slist[9], "")
+        self.assertEqual(slist[10], "")
+        self.assertEqual(slist[11], "")
+        self.assertEqual(slist[12], "")
 
     def test_rnaseq_mutant_search1(self):
         '''
@@ -148,6 +145,7 @@ class TestGxdRnaSeqSearching(unittest.TestCase):
         self.driver.find_element(By.ID, 'mutatedIn').send_keys('Tcf1')#finds the mutant field and enters the Synonym
         #find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
+        time.sleep(2)
         self.driver.find_elements(By.LINK_TEXT, 'View')[1].click()#clicks the second View link of the first sample result
         #switch focus to the new tab for Sample Experiments page
         self.driver.switch_to.window(self.driver.window_handles[-1])
@@ -175,6 +173,7 @@ class TestGxdRnaSeqSearching(unittest.TestCase):
         self.driver.find_element(By.ID, 'mutatedIn').send_keys('MGI:95661')#finds the mutant field and enters the MGI ID
         #find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
+        time.sleep(2)
         self.driver.find_elements(By.LINK_TEXT, 'View')[0].click()#clicks the first View link of the first sample result
         #switch focus to the new tab for Sample Experiments page
         self.driver.switch_to.window(self.driver.window_handles[-1])
@@ -204,6 +203,7 @@ class TestGxdRnaSeqSearching(unittest.TestCase):
         self.driver.find_element(By.ID, 'strainNameAC').send_keys('C57BL/6JRj')#finds the strains field and enters the text
         #find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
+        time.sleep(2)
         self.driver.find_elements(By.LINK_TEXT, 'View')[0].click()#clicks the first View link of the first sample result
         #switch focus to the new tab for Sample Experiments page
         self.driver.switch_to.window(self.driver.window_handles[-1])
@@ -233,7 +233,8 @@ class TestGxdRnaSeqSearching(unittest.TestCase):
         self.driver.find_element(By.ID, 'strainNameAC').send_keys('C57BL/6JR*')#finds the strains field and enters the text
         #find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
-        self.driver.find_elements(By.LINK_TEXT, 'View')[0].click()#clicks the first View link of the first sample result
+        time.sleep(2)
+        self.driver.find_elements(By.LINK_TEXT, 'View')[0].click() #clicks the first View link of the first sample result
         #switch focus to the new tab for Sample Experiments page
         self.driver.switch_to.window(self.driver.window_handles[-1])
         #find the sample table

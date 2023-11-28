@@ -81,7 +81,8 @@ class TestGxdResults(unittest.TestCase):
         self.driver.find_element(By.ID, 'submit1').click()
         if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'yui-dt-data'))):
             print('data now displayed')
-        self.driver.find_element(By.ID, 'doFilter').click()
+        ele = driver.find_element(By.ID, 'doFilter')
+        driver.execute_script("arguments[0].click()", ele)
         #capture the diseases listed in the disease filter popup list
         diseaseElts = self.driver.find_elements(By.NAME, 'doFilter')
         diseases = [e.get_attribute('value') for e in diseaseElts]            
@@ -102,19 +103,22 @@ class TestGxdResults(unittest.TestCase):
         self.driver.find_element(By.ID, 'submit1').click()
         if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'yui-dt-data'))):
             print('data now displayed')
-        self.driver.find_element(By.ID, 'doFilter').click()
+        ele = driver.find_element(By.ID, 'doFilter')
+        driver.execute_script("arguments[0].click()", ele)
         #select the filter option 'benign neoplasm'
         self.driver.find_elements(By.NAME, 'doFilter')[0].click()
         #click the Filter button found on the filter by disease button
         self.driver.find_element(By.ID, 'yui-gen0-button').click()
         #locate the Genes tab and click it
-        self.driver.find_element(By.ID, 'genestab').click()
-        if WebDriverWait(self.driver, 7).until(EC.presence_of_element_located((By.CLASS_NAME, 'yui-dt-data'))):
+        ele1 = driver.find_element(By.ID, 'genestab')
+        driver.execute_script("arguments[0].click()", ele1)
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.CLASS_NAME, 'yui-dt-data'))):
             print('data now displayed')
         #locates the genes column and lists the genes found
         genelist = driver.find_element(By.CLASS_NAME, 'yui-dt-data')
         items = genelist.find_elements(By.CLASS_NAME, 'yui-dt-col-symbol')
         searchTextItems = iterate.getTextAsList(items)
+        time.sleep(4)
         print(searchTextItems)
         #assert that the genes returned are correct, should be 12 genes as of 9/11/2020
         self.assertEqual(searchTextItems, ['Acvrl1', 'Eng', 'Foxo3', 'Kras', 'Men1', 'Pdgfrb', 'Ptpn11', 'Ret', 'Sdhc', 'Sdhd', 'Tsc2', 'Vhl'], 'the list of genes is not correct!')
@@ -122,7 +126,7 @@ class TestGxdResults(unittest.TestCase):
     def test_gene_tab_do_filter_no_genes(self):
         """
         @status: Tests that the Disease filter is correctly return no genes for disease by infectious agent.
-        @note: GXD-do-filter-3
+        @note: GXD-do-filter-3 !!!broken!!!
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")
@@ -130,7 +134,11 @@ class TestGxdResults(unittest.TestCase):
         # Enter your gene in the nomenclature box
         genebox.send_keys("Rn7sk")
         self.driver.find_element(By.ID, 'submit1').click()
-        self.driver.find_element(By.ID, 'doFilter').click()
+        ele = driver.find_element(By.ID, 'doFilter')
+        driver.execute_script("arguments[0].click()", ele)
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'command'))):
+            print('Filter by Biological Process popup displayed')
+        time.sleep(2)
         eventmsg = self.driver.find_element(By.ID, 'command').text
         print(eventmsg)
         #asserts that the event msg for no genes with ontology associations is properly displayed
@@ -148,7 +156,9 @@ class TestGxdResults(unittest.TestCase):
         phenobox.send_keys("cell-cell signaling")
         phenobox.send_keys(Keys.ENTER)
         self.driver.find_element(By.ID, 'submit1').click()
-        self.driver.find_element(By.ID, 'goMfFilter').click()
+        ele = driver.find_element(By.ID, 'goMfFilter')
+        driver.execute_script("arguments[0].click()", ele)
+        #self.driver.find_element(By.ID, 'goMfFilter').click()
         #capture the molecular functions listed in the molecular function filter popup list
         molefuncElts = self.driver.find_elements(By.NAME, 'goMfFilter')
         molecular = [e.get_attribute('value') for e in molefuncElts]            
@@ -169,16 +179,18 @@ class TestGxdResults(unittest.TestCase):
         time.sleep(2)
         phenobox.send_keys(Keys.ENTER)
         self.driver.find_element(By.ID, 'submit1').click()
-        self.driver.find_element(By.ID, 'goMfFilter').click()
+        ele = driver.find_element(By.ID, 'goMfFilter')
+        driver.execute_script("arguments[0].click()", ele)
         #select the filter option 'oxidoreductase'
         self.driver.find_elements(By.NAME, 'goMfFilter')[5].click()
         #click the Filter button found on the filter by Molecular Function button
         self.driver.find_element(By.ID, 'yui-gen0-button').click()
-        if WebDriverWait(self.driver, 7).until(EC.presence_of_element_located((By.CLASS_NAME, 'yui-dt-data'))):
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'yui-dt-data'))):
             print('data now displayed')
         #locate the Genes tab and click it
-        self.driver.find_element(By.ID, 'genestab').click()
-        if WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'yui-dt-data'))):
+        ele1 = driver.find_element(By.ID, 'genestab')
+        driver.execute_script("arguments[0].click()", ele1)
+        if WebDriverWait(self.driver, 7).until(EC.presence_of_element_located((By.CLASS_NAME, 'yui-dt-data'))):
             print('data now displayed')
         #locates the genes column and lists the genes found
         genelist = driver.find_element(By.CLASS_NAME, 'yui-dt-data')
@@ -192,7 +204,7 @@ class TestGxdResults(unittest.TestCase):
     def test_gene_tab_go_molecular_filter_no_genes(self):
         """
         @status: Tests that the Molecular Function filter is correctly returning the right message when there are no Molecular Function filtered results.
-        @note: GXD-go-molec-filter-3
+        @note: GXD-go-molec-filter-3 !!!broken!!!
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")
@@ -201,7 +213,11 @@ class TestGxdResults(unittest.TestCase):
         genebox.send_keys("Mir7-1")
         time.sleep(2)
         self.driver.find_element(By.ID, 'submit1').click()
-        self.driver.find_element(By.ID, 'goMfFilter').click()
+        ele = driver.find_element(By.ID, 'goMfFilter')
+        driver.execute_script("arguments[0].click()", ele)
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'command'))):
+            print('Filter by Biological Process popup displayed')
+        time.sleep(2)
         eventmsg = self.driver.find_element(By.ID, 'command').text
         print(eventmsg)
         #asserts that the event msg for no genes with ontology associations is properly displayed
@@ -230,7 +246,7 @@ class TestGxdResults(unittest.TestCase):
     def test_gene_tab_go_biological_filter_gene_result(self):
         """
         @status: Tests that the GO biological process filter is correctly returning the right genes for biological process ??????.
-        @note: GXD-go-biol-filter-2 
+        @note: GXD-go-biol-filter-2 !!this test is unstable, works sometimes and does not others.
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")
@@ -240,19 +256,23 @@ class TestGxdResults(unittest.TestCase):
         time.sleep(2)
         phenobox.send_keys(Keys.ENTER)
         self.driver.find_element(By.ID, 'submit1').click()
-        self.driver.find_element(By.ID, 'goBpFilter').click()
+        ele = driver.find_element(By.ID, 'goBpFilter')
+        driver.execute_script("arguments[0].click()", ele)
         #select the filter option 'establishment of localization'
         self.driver.find_elements(By.NAME, 'goBpFilter')[5].click()
         #click the Filter button found on the filter by Biological Process button
         self.driver.find_element(By.ID, 'yui-gen0-button').click()
-        #locate the Genes tab and click it
-        self.driver.find_element(By.ID, 'genestab').click()
         time.sleep(2)
+        #locate the Genes tab and click it
+        ele1 = driver.find_element(By.ID, 'genestab')
+        driver.execute_script("arguments[0].click()", ele1)
+        time.sleep(3)
         #locates the genes column and lists the genes found
         genelist = driver.find_element(By.CLASS_NAME, 'yui-dt-data')
         items = genelist.find_elements(By.CLASS_NAME, 'yui-dt-col-symbol')
         searchTextItems = iterate.getTextAsList(items)
         print(searchTextItems)
+        time.sleep(5)
         #assert that the genes returned are correct, should be 7 genes as of 8/29/2019
         self.assertEqual(searchTextItems, ['Bmal1', 'Fkbp1b', 'Ryr2', 'Selenos', 'Slc7a11'], 'the list of genes is not correct!')
         
@@ -268,7 +288,11 @@ class TestGxdResults(unittest.TestCase):
         genebox.send_keys("Ass-ps1")
         time.sleep(2)
         self.driver.find_element(By.ID, 'submit1').click()
-        self.driver.find_element(By.ID, 'goBpFilter').click()
+        ele = driver.find_element(By.ID, 'goBpFilter')
+        driver.execute_script("arguments[0].click()", ele)
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'command'))):
+            print('Filter by Biological Process popup displayed')
+        time.sleep(2)
         eventmsg = self.driver.find_element(By.ID, 'command').text
         print(eventmsg)
         #asserts that the event msg for no genes with ontology associations is properly displayed
@@ -287,7 +311,8 @@ class TestGxdResults(unittest.TestCase):
         time.sleep(2)
         phenobox.send_keys(Keys.ENTER)
         self.driver.find_element(By.ID, 'submit1').click()
-        self.driver.find_element(By.ID, 'goCcFilter').click()
+        ele = driver.find_element(By.ID, 'goCcFilter')
+        driver.execute_script("arguments[0].click()", ele)
         #capture the Cellular Components listed in the cellular component filter popup list
         cellularElts = self.driver.find_elements(By.NAME, 'goCcFilter')
         cellular = [e.get_attribute('value') for e in cellularElts]            
@@ -308,13 +333,15 @@ class TestGxdResults(unittest.TestCase):
         time.sleep(2)
         anatstructurebox.send_keys(Keys.ENTER)
         self.driver.find_element(By.ID, 'submit1').click()
-        self.driver.find_element(By.ID, 'goCcFilter').click()
+        ele = driver.find_element(By.ID, 'goCcFilter')
+        driver.execute_script("arguments[0].click()", ele)
         #select the filter option 'vacuole'
         self.driver.find_elements(By.NAME, 'goCcFilter')[0].click()
         #click the Filter button found on the filter by Cellular Component button
         self.driver.find_element(By.ID, 'yui-gen0-button').click()
         #locate the Genes tab and click it
-        self.driver.find_element(By.ID, 'genestab').click()
+        ele = driver.find_element(By.ID, 'genestab')
+        driver.execute_script("arguments[0].click()", ele)
         time.sleep(2)
         #locates the genes column and lists the genes found
         genelist = driver.find_element(By.CLASS_NAME, 'yui-dt-data')
@@ -337,7 +364,8 @@ class TestGxdResults(unittest.TestCase):
         genebox.send_keys("Ass-ps2")
         time.sleep(2)
         self.driver.find_element(By.ID, 'submit1').click()
-        self.driver.find_element(By.ID, 'goCcFilter').click()
+        ele = driver.find_element(By.ID, 'goCcFilter')
+        driver.execute_script("arguments[0].click()", ele)
         time.sleep(2)
         eventmsg = self.driver.find_element(By.ID, 'command').text
         print(eventmsg)
@@ -347,7 +375,7 @@ class TestGxdResults(unittest.TestCase):
     def test_assay_results_tab_data_link(self):
         """
         @status: Tests that the "data" link in the Results Detail column goes to the correct website and experiment page.
-        @note: GXD-aresults-1, 2 
+        @note: GXD-aresults-1, 2 !!not working, email out to Connie 11/15/23
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")
@@ -358,7 +386,7 @@ class TestGxdResults(unittest.TestCase):
         #find the Mutated in option, check it and use the gene Wt1
         mutate = driver.find_element(By.ID, 'mutatedIn')
         # Enter your gene
-        mutate.send_keys("Wt1")
+        mutate.send_keys("Nrg1")
         #find the InSitu assays and Blot assays check boxes and uncheck them
         driver.find_element(By.CLASS_NAME, 'allInSitu').click()
         driver.find_element(By.ID, 'blotAll').click()
@@ -393,7 +421,7 @@ class TestGxdResults(unittest.TestCase):
         #find the Mutated in option, check it and use the gene Wt1
         mutate = driver.find_element(By.ID, 'mutatedIn')
         # Enter your gene
-        mutate.send_keys("Wt1")
+        mutate.send_keys("Nrg1")
         #find the InSitu assays and Blot assays check boxes and uncheck them
         driver.find_element(By.CLASS_NAME, 'allInSitu').click()
         driver.find_element(By.ID, 'blotAll').click()
@@ -455,7 +483,6 @@ class TestGxdResults(unittest.TestCase):
         genebox = driver.find_element(By.NAME, 'nomenclature')
         # Enter your gene
         genebox.send_keys("shh")
-        time.sleep(2)
         #find the InSitu assays and Blot assays check boxes and uncheck them
         driver.find_element(By.CLASS_NAME, 'allInSitu').click()
         driver.find_element(By.ID, 'blotAll').click()
@@ -463,15 +490,17 @@ class TestGxdResults(unittest.TestCase):
         driver.find_element(By.ID, 'wholeGenomeAll').click()
         #find the search button and click it
         driver.find_element(By.ID, 'submit1').click()
+        time.sleep(2)
         #Defaults to Assays Results Tab so no tab click required
         #click the Show/Hide Additional Sample Data box
         driver.find_element(By.ID, 'showHide').click()
+        time.sleep(2)
         #locates the table column headings and verify the order of the columns
         cols = driver.find_elements(By.XPATH, './/span[@class = "yui-dt-label"]')
         head = iterate.getTextAsList(cols)
         print(head)
         #assert that the columns are in the correct order
-        self.assertEqual(head, ['Gene','Result Details','Assay Type','Age','Structure', 'Cell\nType', 'Detected?','TPM Level\n(RNA-Seq)','Biological Replicates\n(RNA-Seq)','Images','Mutant Allele(s)','Strain','Sex','Notes\n(RNA-Seq)','Reference',''])
+        self.assertEqual(head, ['Gene','Result Details','Assay Type','Age','Structure', 'Cell\nType', 'Detected?', 'TPM Level\n(RNA-Seq)', 'Biological Replicates\n(RNA-Seq)', 'Images', 'Mutant Allele(s)', 'Strain', 'Sex', 'Notes\n(RNA-Seq)', 'Reference',''])
        
     def test_assay_results_tab_column_headings(self):
         """
@@ -521,7 +550,7 @@ class TestGxdResults(unittest.TestCase):
         searchTextItems = iterate.getTextAsList(items)
         print(searchTextItems)
         #assert that the TPM column results are displaying  the 4 different options
-        self.assertEqual(searchTextItems, ['Immunohistochemistry', 'Immunohistochemistry', 'Western blot', 'Western blot', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq']) 
+        self.assertEqual(searchTextItems, ['Immunohistochemistry', 'Immunohistochemistry', 'Western blot', 'Western blot', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq'])
                          
     def test_assay_results_tab_cond_mutant(self):
         """
@@ -590,9 +619,13 @@ class TestGxdResults(unittest.TestCase):
         time.sleep(2)
         #Defaults to Assays Results Tab, so find and click the Assays tab
         #locate the Assays tab and click it
-        self.driver.find_element(By.ID, 'assaystab').click()
+        ele = driver.find_element(By.ID, 'assaystab')
+        driver.execute_script("arguments[0].click()", ele)
+        #self.driver.find_element(By.ID, 'assaystab').click()
         #finds the Filter by Assay Type popup and selects "RNA-Seq".
-        driver.find_element(By.ID, 'assayTypeFilter').click()
+        ele1 = driver.find_element(By.ID, 'assayTypeFilter')
+        driver.execute_script("arguments[0].click()", ele1)
+        #driver.find_element(By.ID, 'assayTypeFilter').click()
         driver.find_element(By.CSS_SELECTOR, '#command > label:nth-child(11) > input:nth-child(1)').click()
         driver.find_element(By.ID, 'yui-gen0-button').click()
         time.sleep(2)
@@ -613,16 +646,17 @@ class TestGxdResults(unittest.TestCase):
         print(searchTextItems[10] + '  line10')
         print(searchTextItems[11] + '  line11')
         print(searchTextItems[12] + '  line12')
+        time.sleep(2)
         #assert that the reference ID E-MTAB-599 exists in each row checked
-        self.assertIn('E-GEOD-33979 Novel roles for Klf1 in regulating the erythroid transcriptome revealed by mRNA-seq', searchTextItems[0]) 
-        self.assertIn('E-GEOD-45684 Transcription profiling by high throughput sequencing of a Diversity Outbred mice population and the eight founder strains: A/J, 129S1/SvImJ, C57BL/6J, NOD/ShiLtJ, NZO/HlLtJ, CAST/EiJ, PWK/PhJ, and WSB/EiJ', searchTextItems[1]) 
-        self.assertIn('E-GEOD-70484 Transcription profiling by high throughput sequencing of different tissues from mouse to detect maternal or paternal allele expression biases at the tissue level', searchTextItems[2]) 
-        self.assertIn('E-GEOD-72491 Transcription profiling by RNA-seq of fetal liver from poly(C) binding protein 2 (Pcbp2) knockout mice', searchTextItems[3]) 
-        self.assertIn('E-GEOD-74747 RNA-seq of 9 tissues from an adult male C57BL/6 mouse', searchTextItems[4]) 
-        self.assertIn('E-MTAB-599 RNA-seq of mouse DBA/2J x C57BL/6J heart, hippocampus, liver, lung, spleen and thymus', searchTextItems[5]) 
-        self.assertIn('E-MTAB-2328 Transcription profiling by high throughput sequencing of liver and brain during mouse organ development', searchTextItems[6]) 
-        self.assertIn('E-MTAB-2801 Strand-specific RNA-seq of nine mouse tissues', searchTextItems[7]) 
-        self.assertIn('E-MTAB-3662 Pilot KOMP knockout mouse strains', searchTextItems[8]) 
+        self.assertIn('E-GEOD-33979 Novel roles for Klf1 in regulating the erythroid transcriptome revealed by mRNA-seq', searchTextItems[0])
+        self.assertIn('E-GEOD-45684 Transcription profiling by high throughput sequencing of a Diversity Outbred mice population and the eight founder strains: A/J, 129S1/SvImJ, C57BL/6J, NOD/ShiLtJ, NZO/HlLtJ, CAST/EiJ, PWK/PhJ, and WSB/EiJ', searchTextItems[1])
+        self.assertIn('E-GEOD-70484 Transcription profiling by high throughput sequencing of different tissues from mouse to detect maternal or paternal allele expression biases at the tissue level', searchTextItems[2])
+        self.assertIn('E-GEOD-72491 Transcription profiling by RNA-seq of fetal liver from poly(C) binding protein 2 (Pcbp2) knockout mice', searchTextItems[3])
+        self.assertIn('E-GEOD-74747 RNA-seq of 9 tissues from an adult male C57BL/6 mouse', searchTextItems[4])
+        self.assertIn('E-MTAB-599 RNA-seq of mouse DBA/2J x C57BL/6J heart, hippocampus, liver, lung, spleen and thymus', searchTextItems[5])
+        self.assertIn('E-MTAB-2328 Transcription profiling by high throughput sequencing of liver and brain during mouse organ development', searchTextItems[6])
+        self.assertIn('E-MTAB-2801 Strand-specific RNA-seq of nine mouse tissues', searchTextItems[7])
+        self.assertIn('E-MTAB-3662 Pilot KOMP knockout mouse strains', searchTextItems[8])
     
     def tearDown(self):
         self.driver.quit()

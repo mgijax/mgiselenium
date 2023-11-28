@@ -174,12 +174,13 @@ class TestEiVariantSearch(unittest.TestCase):
         self.assertEqual(symbols[0], 'Ace2<em1Mccc>', 'symbol0 is wrong')
         self.assertEqual(symbols[1], 'Ace2<em2Mccc>', 'symbol1 is wrong')
         self.assertEqual(symbols[2], 'Ace2<em2Shyy>', 'symbol2 is wrong')
-        self.assertEqual(symbols[3], 'Alg13<em1Mbp>', 'symbol3 is wrong')
-        self.assertEqual(symbols[4], 'Arhgap36<em1Seul>', 'symbol4 is wrong')
-        self.assertEqual(symbols[5], 'Armcx4<C57BL/6N>', 'symbol5 is wrong')
-        self.assertEqual(symbols[6], 'Arx<tm2Kki>', 'symbol6 is wrong')
-        self.assertEqual(symbols[7], 'Arx<tm3Kki>', 'symbol7 is wrong')
-        self.assertEqual(symbols[8], 'Arx<tm4Kki>', 'symbol8 is wrong')
+        self.assertEqual(symbols[3], 'Agtr2<m1Anu>', 'symbol3 is wrong')
+        self.assertEqual(symbols[4], 'Alg13<em1Mbp>', 'symbol4 is wrong')
+        self.assertEqual(symbols[5], 'Arhgap36<em1Seul>', 'symbol5 is wrong')
+        self.assertEqual(symbols[6], 'Armcx4<C57BL/6N>', 'symbol6 is wrong')
+        self.assertEqual(symbols[7], 'Arx<tm2Kki>', 'symbol7 is wrong')
+        self.assertEqual(symbols[8], 'Arx<tm3Kki>', 'symbol8 is wrong')
+        self.assertEqual(symbols[9], 'Arx<tm4Kki>', 'symbol9 is wrong')
 
 
     def testVarStrandSearch(self):
@@ -201,14 +202,16 @@ class TestEiVariantSearch(unittest.TestCase):
         row2 = table.get_row(1)
         row3 = table.get_row(2)
         row4 = table.get_row(3)
+        row5 = table.get_row(4)
         print(row1.text)
         print(row2.text)
         print(row3.text)
         # assert that the first 3 search results are correct
-        self.assertEqual(row1.text, '4930524B15Rik<em1Qsh>')
-        self.assertEqual(row2.text, '4930579G24Rik<em1Qsh>')
-        self.assertEqual(row3.text, 'a<22R>')
-        self.assertEqual(row4.text, 'A530016L24Rik<MSN/GammMmmh>')
+        self.assertEqual(row1.text, '2210408F21Rik<em1Liuq>')
+        self.assertEqual(row2.text, '4930524B15Rik<em1Qsh>')
+        self.assertEqual(row3.text, '4930579G24Rik<em1Qsh>')
+        self.assertEqual(row4.text, 'a<22R>')
+        self.assertEqual(row5.text, 'A530016L24Rik<MSN/GammMmmh>')
 
     def testVarWithHGVSSearch(self):
         """

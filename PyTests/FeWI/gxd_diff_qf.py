@@ -75,7 +75,8 @@ class TestGxdDifferentialQF(unittest.TestCase):
         #time.sleep(40)
         #if WebDriverWait(self.driver, 50).until(EC.presence_of_element_located((By.ID, 'genegriddata'))):
             #print('page loaded')
-        wait.forAngular(driver, 85)
+        #wait.forAngular(driver, 85)
+        time.sleep(25)
         self.driver.find_element(By.ID, 'genegridtab')
         #find the Genes column
         self.driver.find_element(By.ID, 'colGroup')
@@ -114,18 +115,18 @@ class TestGxdDifferentialQF(unittest.TestCase):
         anatStructure = driver.find_element(By.ID, 'difStructure3')
         # Enter your anatomical structure in the box
         anatStructure.send_keys("pul")
-        time.sleep(2)
+        time.sleep(1)
         #select the option pulmonary valve TS21-28
         driver.find_element(By.CSS_SELECTOR, '#difStructureContainer3 > div:nth-child(1) > div:nth-child(2) > ul:nth-child(1) > li:nth-child(5)').click()
-
+        anatStructure.send_keys(Keys.TAB)
         anatStructure2 = driver.find_element(By.ID, 'difStructure4')
         # Enter your anatomical structure in the box
         anatStructure2.send_keys("aorti")
-        time.sleep(2)
+        time.sleep(1)
         #select the option aortic valve TS21-28
-        selectstructure2 = driver.find_element(By.CSS_SELECTOR, '#difStructureContainer4 > div:nth-child(1) > div:nth-child(2) > ul:nth-child(1) > li:nth-child(3)')
-        print(selectstructure2.text)
-        selectstructure2.click()
+        driver.find_element(By.CSS_SELECTOR, '#difStructureContainer4 > div:nth-child(1) > div:nth-child(2) > ul:nth-child(1) > li:nth-child(3)').click()
+        anatStructure2.send_keys(Keys.TAB)
+        time.sleep(1)
         self.driver.find_element(By.ID, 'submit4').click()
         if WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'g.cell:nth-child(12) > rect:nth-child(1)'))):
             print('Tissue x Gene matrix data loaded')
@@ -170,19 +171,23 @@ class TestGxdDifferentialQF(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + '/gxd/differential')
-        anatStructure = driver.find_element(By.ID, 'difStructure3')
+        anat = driver.find_element(By.ID, 'difStructure3')
         # Enter your anatomical structure in the box
-        anatStructure.send_keys("pul")
-        time.sleep(2)
-        selectstructure = driver.find_element(By.CSS_SELECTOR, '#difStructureContainer3 > div:nth-child(1) > div:nth-child(2) > ul:nth-child(1) > li:nth-child(5)').click()
-        print(selectstructure)
-        anatStructure2 = driver.find_element(By.ID, 'difStructure4')
+        anat.send_keys("pul")
+        time.sleep(1)
+        # select the fifth option Pulmonary valve TS21-28
+        anat1 = self.driver.find_element(By.CSS_SELECTOR, '#difStructureContainer3 > div:nth-child(1) > div:nth-child(2) > ul:nth-child(1) > li:nth-child(5)').click()
+        anat.send_keys(Keys.TAB)
+        print(anat1)
+        anat2 = driver.find_element(By.ID, 'difStructure4')
         # Enter your anatomical structure in the box
-        anatStructure2.send_keys("pulmo")
-        time.sleep(2)
-        selectstructure2 = driver.find_element(By.CSS_SELECTOR, '#difStructureContainer4 > div:nth-child(1) > div:nth-child(2) > ul:nth-child(1) > li:nth-child(7)').click()
-        print(selectstructure2)
-        time.sleep(2)
+        anat2.send_keys("pulmo")
+        time.sleep(1)
+        # select the seventh option Pulmonary valve leaflet TS23-26
+        anatstructure2 = driver.find_element(By.CSS_SELECTOR, '#difStructureContainer4 > div:nth-child(1) > div:nth-child(2) > ul:nth-child(1) > li:nth-child(7)').click()
+        anat2.send_keys(Keys.TAB)
+        print(anatstructure2)
+        time.sleep(1)
         self.driver.find_element(By.ID, 'submit4').click()
         if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'g.cell:nth-child(30) > rect:nth-child(1)'))):
             print('Tissue x Gene matrix data loaded')
@@ -248,12 +253,12 @@ class TestGxdDifferentialQF(unittest.TestCase):
         time.sleep(2)
         selectstructure2 = driver.find_element(By.CSS_SELECTOR, '#difStructureContainer4 > div:nth-child(1) > div:nth-child(2) > ul:nth-child(1) > li:nth-child(3)').click()
         print(selectstructure2)
-        time.sleep(5)
+        time.sleep(2)
         self.driver.find_element(By.ID, 'submit4').click()
-        #if WebDriverWait(self.driver, 50).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'g.cell:nth-child(2953) > rect:nth-child(1)'))):
-            #print('Tissue x Gene matrix data loaded')
-        time.sleep(30)
+        if WebDriverWait(self.driver, 16).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'g.cell:nth-child(2953) > rect:nth-child(1)'))):
+            print('Tissue x Gene matrix data loaded')
         self.driver.find_element(By.ID, 'genegridtab')
+        time.sleep(5)
         #find the Genes column
         self.driver.find_element(By.ID, 'colGroup')
         genelist = driver.find_element(By.ID, 'colGroupInner')

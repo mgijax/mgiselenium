@@ -208,10 +208,11 @@ class TestGxdImageSummary(unittest.TestCase):
         specimenheader = driver.find_element(By.ID, 'imagesdata').find_element(By.CSS_SELECTOR, 'th.yui-dt-col-hybridization')
         #click the gene header column to sort
         specimenheader.click()
+        time.sleep(2)
         assaylist = driver.find_element(By.ID, 'imagesdata').find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-hybridization')
         items = assaylist[0].find_elements(By.TAG_NAME, 'li')
         searchTextItems = iterate.getTextAsList(items)
-        self.assertEqual(searchTextItems, ["whole mount"])
+        self.assertEqual(searchTextItems, ['whole mount'])
             
                 
     def tearDown(self):

@@ -207,7 +207,7 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         driver.find_element(By.ID, "historyJnum-0").send_keys('J:2944')
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historyName-0')))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Pax3'))
         # capture the results table rows
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -229,7 +229,7 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         driver.find_element(By.ID, "historyJnum-0").send_keys('2944')
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historyName-0')))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Pax3'))
         # capture the results table rows
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -297,7 +297,7 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         Select(driver.find_element(By.ID, "historyEventReason-0")).select_by_value(
             'string:106563610')  # string:106563610 is option "not specified"
         # waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'historyName-0')))
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.ID, 'historyName-0')))
         # get the data for the Event column, print the row 1 result
         evt_row = driver.find_element(By.ID, 'historyEvent-0').get_attribute('value')
         # Assert the sixth citation returned(row6) is correct
@@ -320,7 +320,7 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         Select(driver.find_element(By.ID, "historyEvent-0")).select_by_value('string:106563608')  # string:5 is 'split'
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Ddx39b'))
+        WebDriverWait(self.driver, 5).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Ddx39b'))
         # get the data for the Event column, print the row 6 result
         evt_row = driver.find_element(By.ID, 'historyEvent-5').get_attribute('value')
         # Assert the sixth citation returned(row6) is correct

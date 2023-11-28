@@ -72,12 +72,18 @@ class TestCreSpecificity(unittest.TestCase):
         print(driver3.text)
         driver4 = self.driver.find_element(By.CSS_SELECTOR, '#yui-rec3 > td:nth-child(1) > div:nth-child(1)')
         print(driver4.text)
+        driver5 = self.driver.find_element(By.CSS_SELECTOR, '#yui-rec4 > td:nth-child(1) > div:nth-child(1)')
+        print(driver5.text)
+        driver6 = self.driver.find_element(By.CSS_SELECTOR, '#yui-rec5 > td:nth-child(1) > div:nth-child(1)')
+        print(driver6.text)
         
         # verifies the returned terms are the correct terms for this search
         self.assertEqual('Foxa2', driver1.text, 'driver1 is not correct' )
-        self.assertEqual('Krt19', driver2.text, 'driver2 is not correct')
-        self.assertEqual('Lhx1', driver3.text, 'driver1 is not correct' )
-        self.assertEqual('Sox17', driver4.text, 'driver2 is not correct')
+        self.assertEqual('Foxa2', driver2.text, 'driver1 is not correct')
+        self.assertEqual('Foxa2', driver3.text, 'driver1 is not correct')
+        self.assertEqual('Krt19', driver4.text, 'driver2 is not correct')
+        self.assertEqual('Lhx1', driver5.text, 'driver1 is not correct' )
+        self.assertEqual('Sox17', driver6.text, 'driver2 is not correct')
 
     def test_2structure_detected(self):
         '''

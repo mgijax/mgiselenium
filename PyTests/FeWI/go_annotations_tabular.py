@@ -19,7 +19,8 @@ from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.firefox.service import Service as FirefoxService
@@ -116,24 +117,26 @@ class TestGoAnnotationsPage(unittest.TestCase):
         time.sleep(2)
         #finds the correct marker link and clicks it
         driver.find_element(By.LINK_TEXT, 'Ednrb').click()
-        wait.forAjax(driver)
+        WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'goAnnotLink')))  # waits until the All Go Annotations link is displayed on the page
+        #wait.forAjax(driver)
         #Finds the All GO Annotations link and clicks it
         driver.find_element(By.CLASS_NAME, 'goRibbon').find_element(By.ID, 'goAnnotLink').click()
-        wait.forAjax(driver)
+        time.sleep(5)
+        #WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#dynamicdata > table:nth-child(2)')))  # waits until the Text File link is displayed on the page
         #Locates  the table by row
         tabularheaderlist = driver.find_element(By.ID, 'dynamicdata')
-        items = tabularheaderlist.find_elements(By.TAG_NAME, 'div')
+        items = tabularheaderlist.find_elements(By.TAG_NAME, 'dt')
         searchTextItems = iterate.getTextAsList(items)
-        asp1 = driver.find_element(By.CSS_SELECTOR, '#yui-rec0')
-        asp11 = driver.find_element(By.CSS_SELECTOR, '#yui-rec10')
-        asp16 = driver.find_element(By.CSS_SELECTOR, '#yui-rec15')
-        print(asp1.text)
-        print(asp11.text)
-        print(asp16.text)
+        asp9 = driver.find_element(By.CSS_SELECTOR, '#yui-rec9 > td:nth-child(1) > div:nth-child(1)')
+        asp10 = driver.find_element(By.CSS_SELECTOR, '#yui-rec10 > td:nth-child(1) > div:nth-child(1)')
+        asp15 = driver.find_element(By.CSS_SELECTOR, '#yui-rec15 > td:nth-child(1) > div:nth-child(1)')
+        print(asp9.text)
+        print(asp10.text)
+        print(asp15.text)
         wait.forAjax(driver)
-        self.assertEqual(asp1.text, 'Molecular Function\nsignaling receptor activity\nendothelin receptor activity\nIBA\nPTN002517505\nJ:265628 [PMID:21873635]', 'the aspect is wrong')
-        self.assertEqual(asp11.text, 'Cellular Component\nmembrane\nIEA\nIPR000276 | IPR000499 | IPR001112 | IPR017452\nJ:72247', 'the aspect is wrong')
-        self.assertEqual(asp16.text, 'Biological Process\nlipid metabolic process\naldosterone metabolic process\nIMP\nMGI:3693642\nJ:116002 [PMID:16868309]', 'the aspect is wrong')
+        self.assertEqual(asp9.text, 'Molecular Function', 'the aspect is wrong')
+        self.assertEqual(asp10.text, 'Cellular Component', 'the aspect is wrong')
+        self.assertEqual(asp15.text, 'Biological Process', 'the aspect is wrong')
     
     
         

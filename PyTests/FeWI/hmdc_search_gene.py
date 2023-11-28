@@ -820,7 +820,7 @@ class TestHmdcGenesSearch(unittest.TestCase):
         time.sleep(2)
         #asserts that the References in MGI column displays a Disease Relevant link since the is a NOT disease
         self.assertEqual(ref1.text, '')
-        self.assertEqual(ref2.text, 'All Mouse: 47\nDisease Relevant: 1')
+        self.assertEqual(ref2.text, 'All Mouse: 48\nDisease Relevant: 1')
         
         #identify the Disease tab and verify the tab's text
         disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")

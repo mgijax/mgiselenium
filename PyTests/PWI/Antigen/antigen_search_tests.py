@@ -40,9 +40,9 @@ class TestEIAntigenSearch(unittest.TestCase):
     """
 
     def setUp(self):
-        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        #self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        #self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
         self.driver.set_window_size(1500, 1000)
         self.form = ModuleForm(self.driver)
         self.form.get_module(config.TEST_PWI_URL + "/edit/antigen")
@@ -59,13 +59,13 @@ class TestEIAntigenSearch(unittest.TestCase):
         driver = self.driver
         # finds the Antigen Name field and enters an antigen name, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "antigenName").send_keys('Ant-1')
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'antigenName')))  # waits until the PWI Antigen name field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-
+        WebDriverWait(driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Ant-1'))  # waits until the results are displayed on the page
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -212,18 +212,24 @@ class TestEIAntigenSearch(unittest.TestCase):
         cell3 = table.get_row_cells(2)
         cell4 = table.get_row_cells(3)
         cell5 = table.get_row_cells(4)
+        cell6 = table.get_row_cells(5)
+        cell7 = table.get_row_cells(6)
         symbol1 = iterate.getTextAsList(cell1)
         symbol2 = iterate.getTextAsList(cell2)
         symbol3 = iterate.getTextAsList(cell3)
         symbol4 = iterate.getTextAsList(cell4)
         symbol5 = iterate.getTextAsList(cell5)
+        symbol6 = iterate.getTextAsList(cell6)
+        symbol7 = iterate.getTextAsList(cell7)
         print(symbol1)
         # Assert the correct antigens are returned(first 5)
-        self.assertEqual(symbol1, ['E-cadherin'])
-        self.assertEqual(symbol2, ['EFTUD2'])
-        self.assertEqual(symbol3, ['Epha4, C-terminus'])
-        self.assertEqual(symbol4, ['FXR2'])
-        self.assertEqual(symbol5, ['HAND2'])
+        self.assertEqual(symbol1, ['Cardiac Troponin T'])
+        self.assertEqual(symbol2, ['CYFIP2'])
+        self.assertEqual(symbol3, ['E-cadherin'])
+        self.assertEqual(symbol4, ['EFTUD2'])
+        self.assertEqual(symbol5, ['Epha4, C-terminus'])
+        self.assertEqual(symbol6, ['FXR2'])
+        self.assertEqual(symbol7, ['HAND2'])
 
     def testAntigenOrganismSearch(self):
 

@@ -72,10 +72,9 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
             print('marker detail page loaded')
         #click the Gene Expression + Phenotype link
         self.driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
-        #if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'phenoGridTarget'))):
-            #print('comparison matrix page loaded')
-        wait.forNewWindow(self.driver, 5)
+        wait.forNewWindow(self.driver, 2)
         self.driver.switch_to.window(self.driver.window_handles[-1])
+        time.sleep(2)
         #find the Anatomical Terms column
         termslist = driver.find_element(By.ID, "rowGroupInner")
         items = termslist.find_elements(By.TAG_NAME, 'text')
@@ -124,6 +123,7 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
         wait.forNewWindow(self.driver, 5)
         self.driver.switch_to.window(self.driver.window_handles[-1])
+        time.sleep(2)
         #find the Anatomical Terms column
         termslist = driver.find_element(By.ID, "rowGroupInner")
         items = termslist.find_elements(By.TAG_NAME, 'text')
@@ -174,6 +174,7 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         self.driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
         wait.forNewWindow(self.driver, 5)
         self.driver.switch_to.window(self.driver.window_handles[-1])
+        time.sleep(2)
         #find the Anatomical Terms column
         termslist = driver.find_element(By.ID, "rowGroupInner")
         items = termslist.find_elements(By.TAG_NAME, 'text')
@@ -216,6 +217,7 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
         wait.forNewWindow(self.driver, 5)
         self.driver.switch_to.window(self.driver.window_handles[-1])
+        time.sleep(2)
         #find the Anatomical Terms column
         termslist = driver.find_element(By.ID, "rowGroupInner")
         items = termslist.find_elements(By.TAG_NAME, 'text')
@@ -259,6 +261,7 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
         wait.forNewWindow(self.driver, 5)
         self.driver.switch_to.window(self.driver.window_handles[-1])
+        time.sleep(2)
         #find the Anatomical Terms column
         termslist = driver.find_element(By.ID, "rowGroupInner")
         items = termslist.find_elements(By.TAG_NAME, 'text')
@@ -301,6 +304,7 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
         wait.forNewWindow(self.driver, 5)
         self.driver.switch_to.window(self.driver.window_handles[-1])
+        time.sleep(2)
         #find the Anatomical Terms column
         termslist = driver.find_element(By.ID, "rowGroupInner")
         items = termslist.find_elements(By.TAG_NAME, 'text')
@@ -381,6 +385,7 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
         wait.forNewWindow(self.driver, 5)
         self.driver.switch_to.window(self.driver.window_handles[-1])
+        time.sleep(2)
         #find the Anatomical Terms column
         termslist = driver.find_element(By.ID, "rowGroupInner")
         items = termslist.find_elements(By.TAG_NAME, 'text')
@@ -469,6 +474,7 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'Gene Expression + Phenotype').click()
         wait.forNewWindow(self.driver, 5)
         self.driver.switch_to.window(self.driver.window_handles[-1])
+        time.sleep(2)
         #find the Anatomical Terms column
         termslist = driver.find_element(By.ID, "rowGroupInner")
         items = termslist.find_elements(By.TAG_NAME, 'text')
@@ -560,12 +566,14 @@ class TestGXDTissuePhenotypeMatrix(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, "Gene Expression + Phenotype").click()
         wait.forNewWindow(self.driver, 5)
         self.driver.switch_to.window(self.driver.window_handles[-1])
+        time.sleep(2)
         #find the Anatomical Terms column
         termslist = driver.find_element(By.ID, "rowGroupInner")
         items = termslist.find_elements(By.TAG_NAME, 'text')
         searchTextItems = iterate.getTextAsList(items)
         print(searchTextItems)
         self.assertIn('mouse', searchTextItems)
+        time.sleep(2)
         #find the Phenotypes Terms column
         termslist = driver.find_element(By.ID, 'colGroupInner')
         items = termslist.find_elements(By.TAG_NAME, "text")

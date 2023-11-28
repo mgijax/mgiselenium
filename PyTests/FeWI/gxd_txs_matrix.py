@@ -94,10 +94,9 @@ class TestGXDTissueStageMatrix(unittest.TestCase):
         # put your marker symbol
         genebox.send_keys("Psmb2")
         genebox.send_keys(Keys.RETURN)
-        #find the Tissue x Stage Matrix tab
-        tissuestagetab = driver.find_element(By.ID, "stagegridtab")
-        #click the Tissue x Matrix tab
-        tissuestagetab.click()
+        #find the Tissue x Stage Matrix tab and click it
+        ele = driver.find_element(By.ID, 'stagegridtab')
+        driver.execute_script("arguments[0].click()", ele)
         if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'rowGroupInner'))):
             print('tissue x stage tab data loaded')
         #find the Anatomical Terms column
@@ -131,13 +130,11 @@ class TestGXDTissueStageMatrix(unittest.TestCase):
         # put your marker symbol
         genebox.send_keys("Tmem100")
         genebox.send_keys(Keys.RETURN)
-        #find the Image tab
-        imagetab = driver.find_element(By.ID, "imagestab")
-        #click the image tab
-        imagetab.click()
-        #wait.forAjax(driver)
-        if WebDriverWait(self.driver, 8).until(EC.presence_of_element_located((By.ID, 'imagesdata'))):
-            print('images tab data loaded')
+        time.sleep(2)
+        #find the Image tab and click it
+        ele = driver.find_element(By.ID, 'imagestab')
+        driver.execute_script("arguments[0].click()", ele)
+        time.sleep(5)
         typelist = driver.find_element(By.ID, "imagesdata").find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-hybridization')
         items = typelist[0].find_elements(By.TAG_NAME, "li")
         searchTextItems = iterate.getTextAsList(items)

@@ -15,6 +15,9 @@ sys.path.append(
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.ui import Select
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.firefox.service import Service as FirefoxService
@@ -228,9 +231,9 @@ class TestEiLitTriageDetail(unittest.TestCase):
         form.click_search()
         # find the Allele Associations button and click it
         self.driver.find_element(By.ID, 'alleleTabButton').click()
+        WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'alleleMarkerSymbol')))#waits until the first allele marker symbol listed is displayed on the page
         # finds the Allele Association table and gets the first row of data
-        type_used = self.driver.find_elements(By.CLASS_NAME, 'alleleAssocType')[0].get_property(
-            'value')  # value will be 1017 which associates to 'Used-FC'
+        type_used = self.driver.find_elements(By.CLASS_NAME, 'alleleAssocType')[0].get_property('value')  # value will be 1017 which associates to 'Used-FC'
         allele_used = self.driver.find_elements(By.CLASS_NAME, "alleleSymbol")[0].get_property('value')
         allele_id = self.driver.find_elements(By.CLASS_NAME, "alleleAccID")[0].get_property('value')
         mrk = self.driver.find_elements(By.CLASS_NAME, 'alleleMarkerSymbol')[0]
@@ -239,8 +242,7 @@ class TestEiLitTriageDetail(unittest.TestCase):
         print(allele_id)
         print(mrk.text)
         # finds the Allele Association table and gets the second row of data
-        type1_used = self.driver.find_elements(By.CLASS_NAME, 'alleleAssocType')[1].get_property(
-            'value')  # value will be 1017 which associates to 'Used-FC'
+        type1_used = self.driver.find_elements(By.CLASS_NAME, 'alleleAssocType')[1].get_property('value')  # value will be 1017 which associates to 'Used-FC'
         allele1_used = self.driver.find_elements(By.CLASS_NAME, "alleleSymbol")[1].get_property('value')
         allele1_id = self.driver.find_elements(By.CLASS_NAME, "alleleAccID")[1].get_property('value')
         mrk1 = self.driver.find_elements(By.CLASS_NAME, 'alleleMarkerSymbol')[1]

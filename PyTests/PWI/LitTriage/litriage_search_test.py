@@ -643,24 +643,23 @@ class TestEiLitTriageSearch(unittest.TestCase):
     def testPubMedSummarySearch(self):
         """
         @Status tests that a basic Pub Med number summary search works
-        @see LitTri-search-sum-1 Broken, can't figure out why it's doing what it is doing.
+        @see LitTri-search-sum-1
         """
         form = self.form
-        form.enter_value('ids', '35656878')
+        form.enter_value('accids', '35656878')
         form.click_searchSummary()
         #time.sleep(8)
-        #wait.forAngular(self.driver)
         #self.driver.switch_to.window(self.driver.window_handles[1])
         #time.sleep(5)
         wait.forAngular(self.driver)
         # find the search results table
-        results_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
-        table = Table(results_table)
+        r_table = self.driver.find_element(By.ID, "resultsTable")
+        table = Table(r_table)
         # find and print the search results for row 1 Pub Med ID field
         name1 = table.get_cell(1, 1)
         print(name1.text)
         # Assert the correct Pub Med ID returned
-        self.assertEqual(name1.text, '27097562')
+        self.assertEqual(name1.text, 'MGI:7466436')
 
     def testMGISummarySearch(self):
         """
@@ -722,13 +721,13 @@ class TestEiLitTriageSearch(unittest.TestCase):
     def testAuthorSummarySearch(self):
         """
         @Status tests that a basic Author summary search works
-        @see LitTri-search-sum-5
+        @see LitTri-search-sum-5 not letting me search by author
         """
         form = self.form
         form.enter_value('authors', 'Recla%')
         form.click_searchSummary()
-        wait.forAngular(self.driver)
         self.driver.switch_to.window(self.driver.window_handles[-1])
+        WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'dataTable')))#waits until the data table is displayed on the page
         # find the search results table
         results_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
         table = Table(results_table)
@@ -736,19 +735,18 @@ class TestEiLitTriageSearch(unittest.TestCase):
         author1 = table.get_cell(1, 4)
         print(author1.text)
         # Assert the correct J: is returned
-        self.assertEqual(author1.text,
-                         'Recla JM; Bubier JA; Gatti DM; Ryan JL; Long KH; Robledo RF; Glidden NC; Hou G; Churchill GA; Maser RS; Zhang ZW; Young EE; Chesler EJ; Bult CJ')
+        self.assertEqual(author1.text,'Recla JM; Bubier JA; Gatti DM; Ryan JL; Long KH; Robledo RF; Glidden NC; Hou G; Churchill GA; Maser RS; Zhang ZW; Young EE; Chesler EJ; Bult CJ')
 
     def testAuthorsSummarySearch(self):
         """
         @Status tests that a basic Authors summary search works
-        @see LitTri-search-sum-6
+        @see LitTri-search-sum-6 not letting me search by authors
         """
         form = self.form
         form.enter_value('authors', 'Recla JM; Bubier JA;%')
         form.click_searchSummary()
-        wait.forAngular(self.driver)
         self.driver.switch_to.window(self.driver.window_handles[-1])
+        WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'dataTable')))#waits until the data table is displayed on the page
         # find the search results table
         results_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
         table = Table(results_table)
@@ -756,8 +754,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
         author1 = table.get_cell(1, 4)
         print(author1.text)
         # Assert the correct J: is returned
-        self.assertEqual(author1.text,
-                         'Recla JM; Bubier JA; Gatti DM; Ryan JL; Long KH; Robledo RF; Glidden NC; Hou G; Churchill GA; Maser RS; Zhang ZW; Young EE; Chesler EJ; Bult CJ')
+        self.assertEqual(author1.text,'Recla JM; Bubier JA; Gatti DM; Ryan JL; Long KH; Robledo RF; Glidden NC; Hou G; Churchill GA; Maser RS; Zhang ZW; Young EE; Chesler EJ; Bult CJ')
 
     def testTitleSummarySearch(self):
         """
@@ -790,14 +787,15 @@ class TestEiLitTriageSearch(unittest.TestCase):
         form.click_searchSummary()
         wait.forAngular(self.driver)
         self.driver.switch_to.window(self.driver.window_handles[-1])
+        WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'dataTable')))#waits until the data table is displayed on the page
         # find the search results table
-        results_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
-        table = Table(results_table)
+        r_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
+        table = Table(r_table)
         # find and print the search results for row 1 Journal field
         title1 = table.get_cell(1, 5)
         print(title1.text)
         # Assert the correct J: is returned
-        self.assertEqual(title1.text, 'Pain\n\n163')
+        self.assertEqual(title1.text, 'Pain\n\n164')
 
     def testYearSummarySearch(self):
         """
@@ -828,6 +826,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
         form.click_searchSummary()
         wait.forAngular(self.driver)
         self.driver.switch_to.window(self.driver.window_handles[-1])
+        WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'dataTable')))#waits until the data table is displayed on the page
         # find the search results table
         results_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
         table = Table(results_table)

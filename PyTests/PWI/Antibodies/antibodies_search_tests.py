@@ -316,27 +316,25 @@ class TestEIAntibodySearch(unittest.TestCase):
         @see pwi-antibody-search-8
         """
         driver = self.driver
-        # finds the antigen notes field and enters text, tabs out of the field then clicks the Search button
-        driver.find_element(By.ID, "antibodyNote").send_keys('Fused to GST')
+        # finds the antibody notes field and enters text, tabs out of the field then clicks the Search button
+        driver.find_element(By.ID, "antibodyNote").send_keys('Antibody was obtained from Labvision.')
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-mHSF1J'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), '1DP06/TFD10 antibody'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         # Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
-        cell2 = table.get_row_cells(1)
         symbol1 = iterate.getTextAsList(cell1)
-        symbol2 = iterate.getTextAsList(cell2)
         print(symbol1)
         # Assert the correct antibodies are returned
-        self.assertEqual(symbol1, ['anti-ATF4'])
-        self.assertEqual(symbol2, ['anti-mHSF1J'])
+        self.assertEqual(symbol1, ['1DP06/TFD10 antibody'])
+
 
     def testAntigenNotes2Search(self):
         """

@@ -270,17 +270,17 @@ class TestEiMpannotSearch(unittest.TestCase):
         create_date = driver.find_elements(By.ID, 'createdDate-0')[0].get_property('value')
         print(create_date)
         # we are asserting the third row of data is correct
-        self.assertEqual(term0, 'MP:0003012')
-        self.assertEqual(voc_term.text, 'no phenotypic analysis')
+        self.assertEqual(term0, 'MP:0003162')
+        self.assertEqual(voc_term.text, 'decreased lateral semicircular canal size')
         self.assertEqual(qualfy, 'string:2181424')
-        self.assertEqual(j_num, 'J:133638')
-        self.assertEqual(cite.text, 'Hitz C, Nucleic Acids Res 2007;35(12):e90')
+        self.assertEqual(j_num, 'J:161387')
+        self.assertEqual(cite.text, 'Price AE, Proc Natl Acad Sci U S A 2010 Jun 22;107(25):11489-94')
         self.assertEqual(evid, 'string:108')
         self.assertEqual(sex_abbrev, 'string:NA')
-        self.assertEqual(mod_by, 'tmeehan')
-        self.assertEqual(mod_date, '2008-05-27')
-        self.assertEqual(create_by, 'tmeehan')
-        self.assertEqual(create_date, '2008-05-27')
+        self.assertEqual(mod_by, 'rbabiuk')
+        self.assertEqual(mod_date, '2010-07-22')
+        self.assertEqual(create_by, 'rbabiuk')
+        self.assertEqual(create_date, '2010-07-22')
 
     def testMPJnumSearch(self):
         """
@@ -467,13 +467,12 @@ class TestEiMpannotSearch(unittest.TestCase):
         print(cell0.text)
         print(cell1.text)
         # Assert the correct genotype has been returned in the results table
-        self.assertEqual(cell0.text, '129P2/OlaHsd-Jmjd6<Gt(RRJ099)Byg> Jmjd6<Gt(RRJ099)Byg>,Jmjd6<Gt(RRJ099)Byg>')
-        self.assertEqual(cell1.text, '129S1.Cg-Mgrn1<md-nc> Mgrn1<md-nc>,Mgrn1<md-nc>')
-        self.assertEqual(cell2.text, '129S1/SvImJ-Ubr3<tm1Ytkw> Ubr3<tm1Ytkw>,Ubr3<tm1Ytkw>')
-        self.assertEqual(cell3.text, '129S4.129P2-Fn1<tm4Hyn> Fn1<tm4Hyn>,Fn1<tm4Hyn>')
-        self.assertEqual(cell4.text, '129S6(B6)-Srebf1<tm1Mbr> Srebf1<tm1Mbr>,Srebf1<tm1Mbr>')
-        self.assertEqual(cell5.text,
-                         '129S6.Cg-Htr2a<tm1Grch> Htr2a<tm2Grch> Emx1<tm1(cre)Ito> Emx1<tm1(cre)Ito>,Emx1<+>,Htr2a<tm1Grch>,Htr2a<tm2Grch>')
+        self.assertEqual(cell0.text, '129S1.Cg-Mgrn1<md-nc> Mgrn1<md-nc>,Mgrn1<md-nc>')
+        self.assertEqual(cell1.text, '129S1/SvImJ-Ubr3<tm1Ytkw> Ubr3<tm1Ytkw>,Ubr3<tm1Ytkw>')
+        self.assertEqual(cell2.text, '129S4.129P2-Fn1<tm4Hyn> Fn1<tm4Hyn>,Fn1<tm4Hyn>')
+        self.assertEqual(cell3.text, '129S6(B6)-Srebf1<tm1Mbr> Srebf1<tm1Mbr>,Srebf1<tm1Mbr>')
+        self.assertEqual(cell4.text, '129S6.Cg-Htr2a<tm1Grch> Htr2a<tm2Grch> Emx1<tm1(cre)Ito> Emx1<tm1(cre)Ito>,Emx1<+>,Htr2a<tm1Grch>,Htr2a<tm2Grch>')
+        self.assertEqual(cell5.text, '129S6/SvEv-Htr2a<tm1Grch> Htr2a<tm2Grch> Htr2a<tm1Grch>,Htr2a<tm2Grch>')
         # Assert the correct Creation Name is returned in the Created By field
         createuser = driver.find_element(By.ID, 'createdBy-0').get_attribute('value')
         self.assertEqual(createuser, 'honda')

@@ -58,11 +58,12 @@ class TestEiHTindexSearch(unittest.TestCase):
         @Status tests that an Array Express ID search works
         @see pwi-htindex-search-1
         """
-        # start the firefox browser and go to the PWI HT Index page
         # finds the ArrayExp field and enter the ID
         self.driver.find_element(By.ID, "arrayexpressid").send_keys("E-BAIR-1");
         # Find the Search button and click it
         self.driver.find_element(By.ID, 'searchButton').click()
+        #waits until the results are displayed on the page
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.CLASS_NAME, 'scrollable-menu'), 'E-BAIR-1 *'))
         # find the search results
         html_list = self.driver.find_element(By.CLASS_NAME, "scrollable-menu")
         items = html_list.find_elements(By.TAG_NAME, "li")
@@ -70,20 +71,8 @@ class TestEiHTindexSearch(unittest.TestCase):
             text = item.text
             print(text)
         # Assert the correct ID  is returned
-        self.assertIn(text[0], 'E-BAIR-1 *')
+        self.assertEqual(text, 'E-BAIR-1 *')
 
-        # find the search results table
-        # results_table = self.driver.find_element(By.ID, "resultsTable")
-        # table = Table(results_table)
-        # Iterate and print the search results headers
-        # cell1 = table.get_row_cells(0)
-        # symbol1 = iterate.getTextAsList(cell1)
-        # print(symbol1)
-        # Assert the correct marker symbol and marker type is returned
-        # self.assertEqual(symbol1, ['03.MMHAP34FRA.seq'])
-        # since we search for a particular marker type verify the correct type is displayed
-        # mrktype = driver.find_element(By.ID, 'markerType').get_attribute('value')
-        # self.assertEqual(mrktype, 'string:2')#2 equals "DNA Segment"
 
     def testArrayExpwildSearch(self):
         """
@@ -94,6 +83,7 @@ class TestEiHTindexSearch(unittest.TestCase):
         # finds the ArrayExp field and enter the ID
         driver.find_element(By.ID, "arrayexpressid").send_keys("E-BAIR-%");
         driver.find_element(By.ID, 'searchButton').click()
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.CLASS_NAME, 'scrollable-menu'), 'E-BAIR-6 *'))
         # find the search results
         html_list = self.driver.find_element(By.CLASS_NAME, "scrollable-menu")
         items = html_list.find_elements(By.TAG_NAME, "li")
@@ -101,7 +91,6 @@ class TestEiHTindexSearch(unittest.TestCase):
             text = item.text
             print(text)
         # Assert the correct ID  is returned
-
         self.assertIn(text[0], 'E-BAIR-1 *')
         self.assertIn(text[1], 'E-BAIR-2 *')
         self.assertIn(text[2], 'E-BAIR-3 *')
@@ -119,6 +108,7 @@ class TestEiHTindexSearch(unittest.TestCase):
         # finds the ArrayExp field and enter the ID
         driver.find_element(By.ID, "geoid").send_keys("GSE1008");
         driver.find_element(By.ID, 'searchButton').click()
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.CLASS_NAME, 'scrollable-menu'), 'E-GEOD-1008 *'))
         # find the search results
         html_list = self.driver.find_element(By.CLASS_NAME, "scrollable-menu")
         items = html_list.find_elements(By.TAG_NAME, "li")
@@ -150,6 +140,7 @@ class TestEiHTindexSearch(unittest.TestCase):
         # finds the ArrayExp field and enter the ID
         driver.find_element(By.ID, "geoid").send_keys("GSE10002");
         driver.find_element(By.ID, 'searchButton').click()
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.CLASS_NAME, 'scrollable-menu'), 'GSE10002'))
         # find the search results
         html_list = self.driver.find_element(By.CLASS_NAME, "scrollable-menu")
         items = html_list.find_elements(By.TAG_NAME, "li")
@@ -159,18 +150,6 @@ class TestEiHTindexSearch(unittest.TestCase):
         # Assert the correct ID  is returned
         self.assertEqual(text, 'GSE10002')
 
-        # find the search results table
-        # results_table = self.driver.find_element(By.ID, "resultsTable")
-        # table = Table(results_table)
-        # Iterate and print the search results headers
-        # cell1 = table.get_row_cells(0)
-        # symbol1 = iterate.getTextAsList(cell1)
-        # print(symbol1)
-        # Assert the correct marker symbol and marker type is returned
-        # self.assertEqual(symbol1, ['03.MMHAP34FRA.seq'])
-        # since we search for a particular marker type verify the correct type is displayed
-        # mrktype = driver.find_element(By.ID, 'markerType').get_attribute('value')
-        # self.assertEqual(mrktype, 'string:2')#2 equals "DNA Segment"
 
     def testGeowildSearch(self):
         """
@@ -181,6 +160,7 @@ class TestEiHTindexSearch(unittest.TestCase):
         # finds the ArrayExp field and enter the ID
         driver.find_element(By.ID, "geoid").send_keys("GSE10005%");
         driver.find_element(By.ID, 'searchButton').click()
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.CLASS_NAME, 'scrollable-menu'), 'GSE10005'))
         # find the search results
         html_list = self.driver.find_element(By.CLASS_NAME, "scrollable-menu")
         items = html_list.find_elements(By.TAG_NAME, "li")

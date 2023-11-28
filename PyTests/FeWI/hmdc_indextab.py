@@ -10,7 +10,7 @@ Verify the correct genes are returned for this query, both human and mouse.  Thi
     returned due to Expressed Component
 Verify the correct genes are returned for this query, The symbol used has several unusual characters
 Verify that the expected annotations are present under the phenotype systems.This includes a system with both mouse
-     and human; a system with only human; and a system withonly mouse.  The check is made using the Title of the phenotype pop-up
+     and human; a system with only human; and a system with only mouse.  The check is made using the Title of the phenotype pop-up
 '''
 import unittest
 import time

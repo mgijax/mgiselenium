@@ -920,7 +920,7 @@ class TestStrainDetail(unittest.TestCase):
         #locate the count and text above the qtl table       
         qtl_count = self.driver.find_elements(By.CLASS_NAME, 'indented')
         print(qtl_count[2].text)
-        self.assertEqual(qtl_count[2].text, '2681 associated QTL', 'associated QTL count/text is wrong')
+        self.assertEqual(qtl_count[2].text, '2705 associated QTL', 'associated QTL count/text is wrong')
         
     def test_strain_det_qtl_showall(self):
         """

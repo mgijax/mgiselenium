@@ -120,6 +120,7 @@ class TestSnpQF(unittest.TestCase):
         #self.assertEqual(['SNP ID\n(GRCm39)', 'rs108198781\nMGI SNP Detail'], rsReturned) # this is all the data returned from the SNP ID column
         self.assertEqual(['SNP ID\n(GRCm38)', 'rs108198781\nMGI SNP Detail'], rsReturned) # this is all the data returned from the SNP ID column
 
+
     def test_search_1_ref_strain_same(self):
         """
         @status: Tests that you can search for snps using a single reference strain and the Allele Agreement filter All reference strains agree and all comparison strains agree with reference 

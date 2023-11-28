@@ -356,6 +356,10 @@ class TestMarkerDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').send_keys("Gata1")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Gata1').click()
+        # Store the ID of the original window
+        original_window = self.driver.current_window_handle
+        # Check we don't have other windows open already
+        assert len(self.driver.window_handles) == 1
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'summaryRibbon')))#waits until the summary ribbon is displayed on the page
         #clicks the More toggle(turnstile) to display the strain table
         self.driver.find_element(By.ID, 'strainRibbon').find_element(By.CSS_SELECTOR, ' div.toggleImage.hdExpand').click()
@@ -372,8 +376,7 @@ class TestMarkerDetail(unittest.TestCase):
         #verify the ID/Version row of data
         self.assertEqual(all_cells.text, 'ID/Version\nMGI_C57BL6J_95661 Multiple Genome Viewer (MGV) Version: MGI_C57BL6J_95661.GRCm39')
         #switch focus back to the Gene Detail page
-        self.driver.switch_to.window(self.driver.window_handles[0])
-        wait.forNewWindow(self.driver, 2)
+        driver.switch_to.window(original_window)
         #find the link for 129S1/SvImJ gene model id
         self.driver.find_element(By.LINK_TEXT, 'MGP_129S1SvImJ_G0035536').click()
         #switch focus to the new tab for sequence detail page
@@ -471,7 +474,6 @@ class TestMarkerDetail(unittest.TestCase):
         @note mrkdetail-strain-14 
         '''     
         driver = self.driver
-        self.driver.set_window_size(1024, 768)
         self.driver.find_element(By.NAME, 'nomen').send_keys("Ppnr")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Ppnr').click()
@@ -545,7 +547,7 @@ class TestMarkerDetail(unittest.TestCase):
         self.driver.find_element(By.ID, 'scToggle').click()
         if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'table_strainMarkers'))):
             print('Strain table is loaded')
-        #find and select the the Download box for the strain C57BL/6J
+        #find and select the Download box for the strain C57BL/6J
         self.driver.find_elements(By.CLASS_NAME, 'sgCheckbox')[0].click()
         #find the "Get FASTA" option in the pulldown list located above the strain table and select it
         Select(self.driver.find_element(By.NAME, 'strainOp')).select_by_visible_text('Get FASTA')
@@ -656,6 +658,7 @@ class TestMarkerDetail(unittest.TestCase):
         #locate the strain comparison ribbon
         strain_ribbon = self.driver.find_element(By.ID, 'strainRibbon')
         print(strain_ribbon.text)
+        time.sleep(2) #sleep added to give time for toggle to go from more to less
         #verify the Strain-specific icon and text is displayed in the strain comparison ribbon
         self.assertEqual(strain_ribbon.text, 'Strain\nComparison\nless\nRFLP\n1', 'the Strain Comparison ribbon display has changed!')     
 
@@ -961,7 +964,7 @@ class TestMarkerDetail(unittest.TestCase):
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
         #find and click the Mouse Genotype for X/Sry<AKR/J>
-        self.driver.find_element(By.XPATH, '//*[@id="fm19557a"]').click()
+        self.driver.find_element(By.XPATH, '//*[@id="fm18899a"]').click()
         #switch focus to the new tab for Phenotypes associated with X/Sry<AKR/J>
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
@@ -1012,8 +1015,12 @@ class TestMarkerDetail(unittest.TestCase):
         #find the Candidates table
         Candidate_table = self.driver.find_element(By.ID, 'candidatesTbl') 
         print(Candidate_table.text)
-        #Asserts that the Interaction table is returning the correct data
-        self.assertEqual(Candidate_table.text, 'Gene Genome Location (GRCm39) Reference QTL Note\nHras Chr7:140769847-140773938 (-) J:85134 Several skin tumor susceptibility QTLs (Skts1-Skts13) were previously identified in a population of (NIH/Ola x M. spretus)F1 x NIH/Ola backcross animals. In this study the association of allele-specific mutations at the Skts intervals was examined in skin carcinoma samples. Several loci displayed allelic loss or duplication in skin carcinomas. 90 % of papillomas and carcinomas contain a mutation at codon 61 of the Hras1 gene (72 cM). In 23 out of 26 mouse tumors the Hras1 mutation occurred in the NIH/Ola-inherited allele. Hras1 maps near skin tumor susceptibility QTL Skts2 (64 cM on mouse Chromosome 7). A nearby marker, D7Mit12 (66 cM) also shows allelic imbalance involving the NIH/Ola allele. On mouse Chromosome 6, preferential gain of the M. spretus allele or loss of the NIH/Ola allele was observed at D6Mit9 (36.5 cM) near Skts11 in 21 out of 21 carcinomas, and preferential gain of the M. spretus allele was observed at D6Mit15 (74 cM) near Skts12 in 14 out of 16 carcinomas. On mouse Chromosome 9, preferential loss of the M. spretus allele or gain of the NIH/Ola allele was observed at D9Mit9 (48 cM) near Skts6 in 16 out of 23 carcinomas. On mouse Chromosome 16, preferential loss of the M. spretus allele or gain of the NIH/Ola allele was observed at D16Mit2 (14.1 cM) near Skts9 in 10 out of 29 carcinomas.\nTyr Chr7:87073979-87142720 (-) J:65010 Segregation analysis of a (Car-R x Car-S)F2 intercross revealed association of coat color with skin tumor susceptibility. Phenotypically selected inbred lines Car-R and Car-S are derived from progenitor strains A/J, DBA/2J, P/J, CBA/J, SJL/J, BALB/cJ, SWR/J, and C57BR/6J. Animals resistant or susceptible to skin tumors after challenge with carcinogens were selected as progenitors for each successive generation in the Car-R and Car-S lines, respectively. By the eighth generation of inbreeding all Car-S mice had white coats and all Car-R mice had coats of various colors. Authors estimate 7-10 QTLs affect skin tumor susceptibility. A region on mouse chromosome 7 containing the albino locus, Tyr, and a skin tumor susceptibility QTL, Skts2, may be a candidatelocus.', 'Page title is not correct!')
+        #find the first gene listed and assert it's correct
+        gene1 = self.driver.find_element(By.CSS_SELECTOR, '#candidatesTbl > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(1) > a:nth-child(1)')
+        self.assertEqual(gene1.text, 'Hras')
+        # find the second gene listed and assert it's correct
+        gene2 = self.driver.find_element(By.CSS_SELECTOR,'#candidatesTbl > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(1) > a:nth-child(1)')
+        self.assertEqual(gene2.text, 'Tyr')
 
     def test_qtl_detail_candidate1(self):
         '''

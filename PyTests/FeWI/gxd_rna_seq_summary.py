@@ -60,8 +60,8 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         self.driver.find_element(By.ID, 'submit1').click()
         #identify the View experiment at cell of the first row of results returned
         result_set = self.driver.find_element(By.ID, "injectedResults").find_elements(By.CLASS_NAME, 'extUrl')
-        print(result_set[3].text)
-        result_set[3].click()
+        print(result_set[5].text)
+        result_set[5].click()
         time.sleep(2)
         #switch focus to the next tab
         self.driver.switch_to.window(self.driver.window_handles[-1])
@@ -81,6 +81,7 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         self.driver.find_element(By.ID, 'strainNameAC').send_keys('C57BL/6J')
         #find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
+        time.sleep(2)
         #identify the View experiment at cell of the first row of results returned
         self.driver.find_element(By.CSS_SELECTOR, "#viewData0 > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(2) > a:nth-child(1)").click()
         time.sleep(2)
@@ -88,6 +89,7 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         self.driver.switch_to.window(self.driver.window_handles[-1])
         #get the URL of the page
         page_url = self.driver.current_url
+
         print(page_url)
         #Assert the URL is correct
         self.assertEqual(page_url, 'https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE30')
@@ -102,8 +104,9 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         self.driver.find_element(By.ID, 'strainNameAC').send_keys('C57BL/6J')
         #find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
+        time.sleep(2)
         #identify the View experiment at cell of the third row of results returned
-        self.driver.find_element(By.CSS_SELECTOR, "#viewData1 > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(2) > a:nth-child(1)").click()
+        self.driver.find_element(By.CSS_SELECTOR, "#viewData2 > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(2) > a:nth-child(1)").click()
         time.sleep(2)
         #switch focus to the next tab
         self.driver.switch_to.window(self.driver.window_handles[-1])
@@ -123,6 +126,7 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         Select(self.driver.find_element(By.ID, 'age')).select_by_value('4')#finds the age list and select the E4.0 option
         #find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
+        time.sleep(2)
         #Find the Variable filter button and click it
         self.driver.find_element(By.ID, "variableFilter").click()
         #Find the Variable filter list of options. then select the option "genotype"
@@ -145,6 +149,7 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         Select(self.driver.find_element(By.ID, 'age')).select_by_value('4.5')#finds the age list and select the E4.5 option
         #find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
+        time.sleep(2)
         #Find the Variable filer button and click it
         self.driver.find_element(By.ID, "variableFilter").click()
         #Find the Variable filter list of options. then select the options "genotype and single cell variation"
@@ -158,7 +163,7 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         #Assert the result has an Experimental variables of 'developmental stage and genotype'
         self.assertEqual(result_set1.text, "developmental stage\ngenotype")        
         #identify the Experimental variable cell of row9 of the results returned
-        result_set8 = self.driver.find_element(By.ID, "variableData8").find_element(By.CLASS_NAME, 'variables')
+        result_set8 = self.driver.find_element(By.ID, "variableData9").find_element(By.CLASS_NAME, 'variables')
         print(result_set8.text)
         #Assert the result has an Experimental variable of 'anatomical structure, developmental stage, genotype, single cell variation'
         self.assertEqual(result_set8.text, "cell type\ndevelopmental stage\ngenotype\nsingle cell variation")
@@ -173,6 +178,7 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         Select(self.driver.find_element(By.ID, 'age')).select_by_value('4')#finds the age list and select the E4.0 option
         #find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
+        time.sleep(2)
         #Find the Variable filter button and click it
         self.driver.find_element(By.ID, "studyTypeFilter").click()
         #Find the Study type filter list of options. then select the option "WT vs. Mutant"
@@ -195,6 +201,7 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         self.driver.find_element(By.ID, 'strainNameAC').send_keys('C57BL/6J')
         #find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
+        time.sleep(2)
         #identify the View experiment at cell of the third row of results returned
         result_set = self.driver.find_element(By.ID, "injectedResults").find_element(By.ID, 'viewData0')
         print(result_set.text)
@@ -213,6 +220,7 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         self.driver.find_element(By.ID, 'arrayExpressID').send_keys('E-ERAD-169')
         #find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
+        time.sleep(2)
         #Find the first E-ERAD--169 found in the first row of the View Experiment at column and click it.
         vea_links = self.driver.find_elements(By.LINK_TEXT, 'E-ERAD-169')
         print(vea_links[0].text)

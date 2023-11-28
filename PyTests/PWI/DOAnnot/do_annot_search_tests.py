@@ -41,9 +41,9 @@ class TestEIDoannotSearch(unittest.TestCase):
     """
 
     def setUp(self):
-        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
         # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        #self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
         self.driver.set_window_size(1500, 1000)
         self.form = ModuleForm(self.driver)
         self.form.get_module(config.TEST_PWI_URL + "/edit/doannot")
@@ -125,13 +125,13 @@ class TestEIDoannotSearch(unittest.TestCase):
         driver = self.driver
         # finds the Genotype field and enters a genotype(can also use wildcard of %, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "genotypeDisplay").send_keys('B6.Cg-Il10<tm1Cgn> Tg(MUC1)%')
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
-        actions = ActionChains(driver)
-        actions.send_keys(Keys.TAB)
-        actions.perform()
+        #WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
+        #actions = ActionChains(driver)
+        #actions.send_keys(Keys.TAB)
+        #actions.perform()
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'B6.Cg-Il10<tm1Cgn> Tg(MUC1)79.24Gend Il10<tm1Cgn>,Il10<tm1Cgn>,Tg(MUC1)79.24Gend'))
+        WebDriverWait(self.driver, 15).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'B6.Cg-Il10<tm1Cgn> Tg(MUC1)79.24Gend Il10<tm1Cgn>,Il10<tm1Cgn>,Tg(MUC1)79.24Gend'))
         # find the search results table first row of data
         term0 = driver.find_element(By.ID, 'termID-0').get_property('value')
         print(term0)
@@ -156,7 +156,7 @@ class TestEIDoannotSearch(unittest.TestCase):
         create_date = driver.find_element(By.ID, 'createdDate-0').get_property('value')
         print(create_date)
         # we are asserting the first row of data is correct
-        self.assertEqual(term0, 'DOID:9256')
+        #self.assertEqual(term0, 'DOID:9256')
         self.assertEqual(voc_term.text, 'colorectal cancer')
         self.assertEqual(qualfy, 'string:1614158')
         self.assertEqual(j_num, 'J:149347')

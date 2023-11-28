@@ -35,6 +35,8 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.select import Select
+from selenium.webdriver.support.relative_locator import locate_with
 #from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
@@ -52,7 +54,7 @@ class TestHmdcSearchID(unittest.TestCase):
 
     def setUp(self):
         # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        #self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
         self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
         self.driver.set_window_size(1500, 1000)
         self.driver.get(config.TEST_URL + "/humanDisease.shtml")
@@ -421,7 +423,7 @@ class TestHmdcSearchID(unittest.TestCase):
     def test_mp_term_altid(self):
         '''
         @status this test verifies the correct MP term is returned for this query using an Alt ID.  
-        @see: HMDC-PQ-18
+        @see: HMDC-PQ-18 Test broken, not finding right option on line 442!!!!
         '''
         print ("BEGIN test_mp_term_altid")
         my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks an option
@@ -429,19 +431,21 @@ class TestHmdcSearchID(unittest.TestCase):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
-        
+
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Fyler:1431")#enter Alt ID for MP:0010472 (abnormal ascending aorta and coronary artery attachment)
         wait.forAngular(self.driver)
-      
-        self.driver.find_element(By.XPATH, "//*[contains(text(), 'Add')]").click()
+        #find and click the Add button
+        self.driver.find_element(By.CSS_SELECTOR, "button.ng-scope > span:nth-child(1)").click()
+        #self.driver.find_element(By.XPATH, "//*[contains(text(), 'Add')]").click()
         my_select1 = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_4')]")#identifies the select field and picks another option
         for option in my_select1.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
 
-        wait.forAngular(self.driver)
-        self.driver.find_element(By.ID, "formly_3_input_input_0").send_keys(Keys.TAB + Keys.TAB + Keys.TAB + "Gja1")
+        self.driver.find_element(By.CSS_SELECTOR, '.formly-field-queryRow > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > ng-form:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)').send_keys("Gja1")
+        #self.driver.find_element(By.ID, "formly_3_input_input_0").send_keys(Keys.TAB + Keys.TAB + Keys.TAB + "Gja1")
+        #wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         
         #identify the Genes tab and verify the tab's text
@@ -483,17 +487,19 @@ class TestHmdcSearchID(unittest.TestCase):
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("HP:0006285")#identifies the input field and enters an HP ID
         wait.forAngular(self.driver)
-        
-        self.driver.find_element(By.XPATH, "//*[contains(text(), 'Add')]").click()
+        #find and click the Add button
+        self.driver.find_element(By.CSS_SELECTOR, "button.ng-scope > span:nth-child(1)").click()
+        #self.driver.find_element(By.XPATH, "//*[contains(text(), 'Add')]").click()
         my_select1 = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_4')]")#identifies the select field and picks another option
         for option in my_select1.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
 
-        wait.forAngular(self.driver)
-        self.driver.find_element(By.ID, "formly_3_input_input_0").send_keys(Keys.TAB + Keys.TAB + Keys.TAB + "ODAPH")
-        
+        #wait.forAngular(self.driver)
+        #self.driver.find_element(By.ID, "formly_3_input_input_0").send_keys(Keys.TAB + Keys.TAB + Keys.TAB + "ODAPH")
+        self.driver.find_element(By.CSS_SELECTOR, '.formly-field-queryRow > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > ng-form:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)').send_keys("ODAPH")
+
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
 
@@ -567,18 +573,17 @@ class TestHmdcSearchID(unittest.TestCase):
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("MP:0011006, MP:0005653, MP:0011905")#identifies the input field and enters gata1
         wait.forAngular(self.driver)
-        
-        self.driver.find_element(By.XPATH, "//*[contains(text(), 'Add')]").click()
+        #find and click the Add button
+        self.driver.find_element(By.CSS_SELECTOR, 'button.ng-scope > span:nth-child(1)').click()
+        #self.driver.find_element(By.XPATH, "//*[contains(text(), 'Add')]").click()
         my_select1 = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_4')]")#identifies the select field and picks another option
         for option in my_select1.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
-
-        self.driver.find_element(By.ID, "formly_3_input_input_0").send_keys(Keys.TAB + Keys.TAB + Keys.TAB + "Abcg2, Lgr4, Pmp22")
+        self.driver.find_element(By.CSS_SELECTOR, '.formly-field-queryRow > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > ng-form:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)').send_keys("Abcg2, Lgr4, Pmp22")
+        #self.driver.find_element(By.ID, "formly_3_input_input_0").send_keys("Abcg2, Lgr4, Pmp22")
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
-
         #identify the Grid tab and click it
         grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         print(grid_tab.text)
@@ -653,15 +658,18 @@ class TestHmdcSearchID(unittest.TestCase):
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("HP:0006279, MP:0009182")#identifies the input field and enters gata1
         wait.forAngular(self.driver)
-        self.driver.find_element(By.XPATH, "//*[contains(text(), 'Add')]").click()
+        #find and click the Add button
+        self.driver.find_element(By.CSS_SELECTOR, "button.ng-scope > span:nth-child(1)").click()
+        #self.driver.find_element(By.XPATH, "//*[contains(text(), 'Add')]").click()
         my_select1 = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_4')]")#identifies the select field and picks another option
         for option in my_select1.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.ID, "formly_3_input_input_0").send_keys(Keys.TAB + Keys.TAB + Keys.TAB + "Pax4")
-        
+        #self.driver.find_element(By.ID, "formly_3_input_input_0").send_keys(Keys.TAB + Keys.TAB + Keys.TAB + "Pax4")
+        self.driver.find_element(By.CSS_SELECTOR, '.formly-field-queryRow > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > ng-form:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)').send_keys("Pax4")
+
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
 
