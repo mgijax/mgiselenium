@@ -126,8 +126,7 @@ class TestEiImagePaneSearch(unittest.TestCase):
         """
         driver = self.driver
         # finds the Image Pane Label field and enters text then clicks the Search button
-        driver.find_element(By.ID, "paneLabelID").send_keys(
-            "C merge (EFGP and choline acetyltransferase immunoreactivity)")
+        driver.find_element(By.ID, "paneLabelID").send_keys("C merge (EFGP and choline acetyltransferase immunoreactivity)")
         driver.find_element(By.ID, 'searchButton').click()
         WebDriverWait(self.driver, 15).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'J:145110; Full Size; 1'))
         # find the Pane Labels results table

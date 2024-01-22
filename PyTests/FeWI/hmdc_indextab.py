@@ -160,11 +160,10 @@ class TestHmdcIndex(unittest.TestCase):
         '''
         @status this test verifies the correct genes are returned for this query, both human and mouse.  This includes 3 transgenes 
                 that are returned due to Expressed Component.  In these cases the transgene has 1 expresses component = mouse gene Gata1.
-                
         @see: HMDC-grid-2 (return row with both human and mouse genes); 
               HMDC-GQ-1, 3, 9 (query that matches mouse symbol, human symbol, expressed component that passes roll-up)
               HMDC-grid-27 (return row with transgene w/ expresses component and rolled up genoclusters)
-        @bug waiting on Sue for why to transgenes no longer in results 6/30/2023
+              Sue states that the 2 Transgenes will no longer return because the rollup rule change does not display complex genotypes now 12/29/2023
         '''
         print ("BEGIN test_index_tab_genes")
         my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")#identifies the select field and picks the gene symbols option
@@ -187,8 +186,8 @@ class TestHmdcIndex(unittest.TestCase):
         
         searchTermItems = iterate.getTextAsList(mgenes)
         self.assertIn("Gata1", searchTermItems) #returned due to gene nomenclature match
-        self.assertIn("Tg(Gata1)#Mym", searchTermItems) #returned due to Expressed Component w/ rolled up genocluster
-        self.assertIn("Tg(Gata1*V205G)1Mym", searchTermItems) #returned due to Expressed Component w/ rolled up genocluster
+        #self.assertIn("Tg(Gata1)#Mym", searchTermItems) #returned due to Expressed Component w/ rolled up genocluster
+        #self.assertIn("Tg(Gata1*V205G)1Mym", searchTermItems) #returned due to Expressed Component w/ rolled up genocluster
         self.assertIn("Tg(HBB-Gata1)G4Phi", searchTermItems) #returned due to Expressed Component w/ rolled up genocluster
         print(searchTermItems)
         
@@ -246,10 +245,11 @@ class TestHmdcIndex(unittest.TestCase):
         parentWindowID = self.driver.current_window_handle
         
         # Grid pop-up for a Phenotype System with both Human and Mouse annotations
-        phenocells[1].click() #clicks the first phenotype data cell to open up the genotype popup page
+        phenocells[0].click() #clicks the first phenotype data cell to open up the genotype popup page
         self.driver.switch_to.window(self.driver.window_handles[1])#switches focus to the genotype popup page
         wait.forNewWindow(self.driver, 5)
         matching_text = "Human and Mouse cardiovascular system abnormalities for GATA1/Gata1"
+        print(matching_text)
         #asserts the heading text is correct in page source
         self.assertIn(matching_text, self.driver.title, 'matching mouse/human text not displayed')
         self.driver.close()
@@ -259,7 +259,7 @@ class TestHmdcIndex(unittest.TestCase):
         print(grid_tab.text)
         
         grid_tab.click()
-        phenocells[3].click() #clicks the first phenotype data cell to open up the craniofacial phenotype popup page
+        phenocells[2].click() #clicks the first phenotype data cell to open up the craniofacial phenotype popup page
         self.driver.switch_to.window(self.driver.window_handles[1])#switches focus to the Phenotype popup page
         wait.forNewWindow(self.driver, 5)
         matching_text = "Human craniofacial abnormalities for GATA1/Gata1"
@@ -274,7 +274,7 @@ class TestHmdcIndex(unittest.TestCase):
         print(grid_tab.text)
         
         grid_tab.click()
-        phenocells[14].click() #clicks the phenotype data cell to open up the Phenotype popup page
+        phenocells[13].click() #clicks the phenotype data cell to open up the Phenotype popup page
         self.driver.switch_to.window(self.driver.window_handles[1])#switches focus to the genotype popup page
         wait.forNewWindow(self.driver, 5)
         matching_text = "Mouse liver/biliary system abnormalities for GATA1/Gata1"

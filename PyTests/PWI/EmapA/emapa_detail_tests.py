@@ -50,6 +50,10 @@ class TestEiEmapaDetail(unittest.TestCase):
         submit.click()  # click the login button
         time.sleep(1)
 
+    def tearDown(self):
+        self.driver.quit()
+        tracemalloc.stop()
+
     def testDefaultDetail(self):
         """
         This test verifies that the initial detail is of the main term
@@ -283,6 +287,7 @@ class TestEiEmapaDetail(unittest.TestCase):
         # find the Search button and click it
         self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
         wait.forAngular(self.driver)
+        time.sleep(2)
         # select specific stage
         activetree = self.driver.find_element(By.CSS_SELECTOR, ".mgitreeview .active")
         self.assertEqual(activetree.text, "thymus/parathyroid primordium")
@@ -307,10 +312,6 @@ class TestEiEmapaDetail(unittest.TestCase):
 
         body = self.driver.find_element(By.TAG_NAME, "body")
         self.assertTrue(("of %d" % annotCount) in body.text, "same annotation count not found on results summary")
-
-    def tearDown(self):
-        self.driver.quit()
-        tracemalloc.stop()
 
 def suite():
     suite = unittest.TestSuite()

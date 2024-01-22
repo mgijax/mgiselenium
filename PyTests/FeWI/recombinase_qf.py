@@ -140,6 +140,7 @@ class TestCreSpecificity(unittest.TestCase):
         time.sleep(2)
         #find and click the Add structure button
         self.driver.find_element(By.CLASS_NAME, 'addButton').click()
+        time.sleep(2)
         #find the new structure field and add a second structure
         self.driver.find_element(By.NAME, 'structure_2').send_keys('pons')
         time.sleep(2)

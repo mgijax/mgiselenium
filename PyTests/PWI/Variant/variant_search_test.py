@@ -110,8 +110,7 @@ class TestEiVariantSearch(unittest.TestCase):
         symbols = iterate.getTextAsList(cells)
         print(symbols)
         # assert all the correct symbols are returned
-        self.assertEqual(symbols,
-                          ['Cntn1<m1J>', 'Cntn1<usl>', 'Cntnap1<M1Btlr>', 'Cntnap1<shm-5J>', 'Cntnap2<em1Cnbc>'])
+        self.assertEqual(symbols,['Cntn1<m1J>', 'Cntn1<usl>', 'Cntnap1<em1Bhat>', 'Cntnap1<em2Bhat>', 'Cntnap1<M1Btlr>', 'Cntnap1<shm-5J>', 'Cntnap2<em1Cnbc>'])
 
     def testVarRefSearch(self):
         """

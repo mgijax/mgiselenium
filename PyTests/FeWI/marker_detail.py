@@ -957,14 +957,14 @@ class TestMarkerDetail(unittest.TestCase):
         if WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'summaryRibbon'))):
             print('Summary ribbon is loaded')
         #locates the phenogrid and click on the cell for reproductive System
-        self.driver.find_element(By.ID, 'mpSlimgrid23Div').click()
+        self.driver.find_element(By.ID, 'mpSlimgrid22Div').click()
         pheno_table = Table(self.driver.find_element(By.ID, "mpSlimgridTable"))
         pheno_table.get_cell(2, 21).click()
         #switch focus to the new tab for Phenotype annotations related to reproductive System
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
         #find and click the Mouse Genotype for X/Sry<AKR/J>
-        self.driver.find_element(By.XPATH, '//*[@id="fm18899a"]').click()
+        self.driver.find_element(By.XPATH, '//*[@id="fm19023a"]').click()
         #switch focus to the new tab for Phenotypes associated with X/Sry<AKR/J>
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)

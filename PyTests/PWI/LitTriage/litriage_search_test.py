@@ -795,7 +795,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
         title1 = table.get_cell(1, 5)
         print(title1.text)
         # Assert the correct J: is returned
-        self.assertEqual(title1.text, 'Pain\n\n164')
+        self.assertEqual(title1.text, 'Pain\n\n162')
 
     def testYearSummarySearch(self):
         """

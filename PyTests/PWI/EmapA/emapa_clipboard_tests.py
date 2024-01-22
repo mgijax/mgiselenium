@@ -468,6 +468,7 @@ class TestEiEmapaClipboard(unittest.TestCase):
         clipdata = self.driver.find_element(By.ID, "emapClipBoardContent")
         items = clipdata.find_elements(By.CSS_SELECTOR, "li")
         searchTreeItems = iterate.getTextAsList(items)
+        time.sleep(2)
         # assert that TS18 tail is displayed in the clipboard
         self.assertEqual(["TS18; tail"], searchTreeItems)
         # clear the clipboard using the shortcut keys

@@ -125,6 +125,7 @@ class TestGxdQF(unittest.TestCase):
         #finds the Assays tab and clicks it
         ele = driver.find_element(By.ID, 'assaystab')
         driver.execute_script("arguments[0].click()", ele)
+        time.sleep(2)
         #locates the References column and lists the references found
         reflist = driver.find_element(By.ID, 'assaysdata').find_element(By.CLASS_NAME, 'yui-dt-data')
         items = reflist.find_elements(By.CLASS_NAME, 'yui-dt-col-reference')
@@ -264,6 +265,7 @@ class TestGxdQF(unittest.TestCase):
         #finds the Genes tab and clicks it
         ele = driver.find_element(By.ID, 'genestab')
         driver.execute_script("arguments[0].click()", ele)
+        time.sleep(2)
         #locates the gene column and lists the gene found
         genelist = driver.find_element(By.ID, 'genesdata').find_element(By.CLASS_NAME, 'yui-dt-data')
         items = genelist.find_elements(By.CLASS_NAME, 'yui-dt-col-symbol')

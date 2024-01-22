@@ -58,17 +58,17 @@ class TestEiGxdIndexAddDelete(unittest.TestCase):
         form = self.form
         time.sleep(2)
         print("BEGIN testAddIndex")
-        form.enter_value('jnumid', '225216')
-        # click the Tab key
-        form.press_tab()
+        form.enter_value('jnumID', '225216')
+        # click the Search key
+        form.click_search()
         # finds the citation field
-        citation = form.get_value('citation')
+        citation = form.get_value('short_citation')
         print(citation)
         self.assertEqual(citation, 'Alvarez-Saavedra M, Nat Commun 2014;5():4181')
         # finds the marker field
-        form.enter_value('marker_symbol', 'Bmp2')
-        marker_symbol = form.get_value('marker_symbol')
-        form.press_tab()
+        form.enter_value('markerSymbol', 'Bmp2')
+        marker_symbol = form.get_value('markerSymbol')
+        form.click_search()
         print(marker_symbol)
         self.assertEqual(marker_symbol, 'Bmp2')
         # find the table field to check
@@ -86,16 +86,16 @@ class TestEiGxdIndexAddDelete(unittest.TestCase):
         driver = self.driver
         form = self.form
 
-        form.enter_value('jnumid', '225216')
+        form.enter_value('jnumID', '225216')
         # click the Tab key
-        form.press_tab()
+        form.click_search()
         # finds the citation field
-        citation = form.get_value('citation')
+        citation = form.get_value('short_citation')
         print(citation)
         self.assertEqual(citation, 'Alvarez-Saavedra M, Nat Commun 2014;5():4181')
         # finds the marker field
-        form.enter_value('marker_symbol', 'Bmp2')
-        marker_symbol = form.get_value('marker_symbol')
+        form.enter_value('markerSymbol', 'Bmp2')
+        marker_symbol = form.get_value('markerSymbol')
         form.press_tab()
         print(marker_symbol)
         self.assertEqual(marker_symbol, 'Bmp2')

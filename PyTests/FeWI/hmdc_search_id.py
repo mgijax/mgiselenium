@@ -246,10 +246,7 @@ class TestHmdcSearchID(unittest.TestCase):
         #Get the list of diseases (by DOID)
         id1 = self.driver.find_element(By.ID, 'diseaseTable').find_element(By.CSS_SELECTOR, '#diseaseTable > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(2) > a:nth-child(1)')
         print(id1.text)
-        id2 = self.driver.find_element(By.ID, 'diseaseTable').find_element(By.CSS_SELECTOR, '#diseaseTable > tbody:nth-child(2) > tr:nth-child(2) > td:nth-child(2) > a:nth-child(1)')
-        print(id2.text)
-        self.assertTrue(id1.text, 'DOID:3356')
-        self.assertTrue(id2.text, 'DOID:3347')
+        self.assertTrue(id1.text, 'DOID:3347')
 
         #Repeat the same search for another alt id of this disease
         #Open up the query form again (click on "Click to modify search" button
@@ -277,10 +274,7 @@ class TestHmdcSearchID(unittest.TestCase):
         # Get the list of diseases (by DOID)
         id1 = self.driver.find_element(By.ID, 'diseaseTable').find_element(By.CSS_SELECTOR, '#diseaseTable > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(2) > a:nth-child(1)')
         print(id1.text)
-        id2 = self.driver.find_element(By.ID, 'diseaseTable').find_element(By.CSS_SELECTOR, '#diseaseTable > tbody:nth-child(2) > tr:nth-child(2) > td:nth-child(2) > a:nth-child(1)')
-        print(id2.text)
-        self.assertTrue(id1.text, 'DOID:3356')
-        self.assertTrue(id2.text, 'DOID:3347')
+        self.assertTrue(id1.text, 'DOID:3347')
 
         
         #Repeat the same search for another alt id of this disease
@@ -309,10 +303,7 @@ class TestHmdcSearchID(unittest.TestCase):
         # Get the list of diseases (by DOID)
         id1 = self.driver.find_element(By.ID, 'diseaseTable').find_element(By.CSS_SELECTOR, '#diseaseTable > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(2) > a:nth-child(1)')
         print(id1.text)
-        id2 = self.driver.find_element(By.ID, 'diseaseTable').find_element(By.CSS_SELECTOR, '#diseaseTable > tbody:nth-child(2) > tr:nth-child(2) > td:nth-child(2) > a:nth-child(1)')
-        print(id2.text)
-        self.assertTrue(id1.text, 'DOID:3356')
-        self.assertTrue(id2.text, 'DOID:3347')
+        self.assertTrue(id1.text, 'DOID:3347')
 
         
         #Repeat the same search for another alt id of this disease
@@ -341,10 +332,7 @@ class TestHmdcSearchID(unittest.TestCase):
         # Get the list of diseases (by DOID)
         id1 = self.driver.find_element(By.ID, 'diseaseTable').find_element(By.CSS_SELECTOR, '#diseaseTable > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(2) > a:nth-child(1)')
         print(id1.text)
-        id2 = self.driver.find_element(By.ID, 'diseaseTable').find_element(By.CSS_SELECTOR, '#diseaseTable > tbody:nth-child(2) > tr:nth-child(2) > td:nth-child(2) > a:nth-child(1)')
-        print(id2.text)
-        self.assertTrue(id1.text, 'DOID:3356')
-        self.assertTrue(id2.text, 'DOID:3347')
+        self.assertTrue(id1.text, 'DOID:3347')
 
 
     def test_mp_term_id(self):

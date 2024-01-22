@@ -148,7 +148,7 @@ class TestEiHTindexSearch(unittest.TestCase):
             text = item.text
             print(text)
         # Assert the correct ID  is returned
-        self.assertEqual(text, 'GSE10002')
+        self.assertEqual(text, 'GSE10002 *')
 
 
     def testGeowildSearch(self):

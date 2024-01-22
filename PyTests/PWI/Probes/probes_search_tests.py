@@ -27,7 +27,6 @@ from selenium.webdriver.firefox.service import Service as FirefoxService
 from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.edge.service import Service as EdgeService
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
-from test.test_base64 import BaseXYTestCase
 from util import iterate, wait
 from util.form import ModuleForm
 from util.table import Table
@@ -60,9 +59,9 @@ class TestEIProbeSearch(unittest.TestCase):
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchSummaryButton').click()
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'ND3 mtDNA1'))
+        WebDriverWait(self.driver, 5).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'ND3 mtDNA1'))
         self.driver.switch_to.window(self.driver.window_handles[1])
-        WebDriverWait(self.driver, 5).until(EC.text_to_be_present_in_element((By.CSS_SELECTOR, '.youSearchedFor > dl:nth-child(2) > dd:nth-child(2)'), '63471'))
+        WebDriverWait(self.driver, 5).until(EC.text_to_be_present_in_element((By.CSS_SELECTOR, 'tr.row1:nth-child(2) > td:nth-child(2)'), 'MO14'))
         # find the search results table
         results_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
         table = Table(results_table)
@@ -99,9 +98,9 @@ class TestEIProbeSearch(unittest.TestCase):
         time.sleep(2)
         driver.find_element(By.ID, 'name').send_keys('mm04%')
         driver.find_element(By.ID, 'searchSummaryButton').click()
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Mm04203788_gl'))
+        WebDriverWait(self.driver, 5).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Mm04203788_gl'))
         self.driver.switch_to.window(self.driver.window_handles[1])
-        WebDriverWait(self.driver, 5).until(EC.text_to_be_present_in_element((By.CSS_SELECTOR, '.youSearchedFor > dl:nth-child(2) > dd:nth-child(4)'), '63473'))
+        WebDriverWait(self.driver, 5).until(EC.text_to_be_present_in_element((By.CSS_SELECTOR, "tr.row1:nth-child(2) > td:nth-child(2)"), "Mm04183367_g1"))
         # find the search results table
         results_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
         table = Table(results_table)

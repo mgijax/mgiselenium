@@ -4,9 +4,9 @@ Created on Jan 24, 2018
 Verify that an MP to EMAPA  maps to a single anatomy system
 Verify the display when an MP term is annotated to multiple genotypes using different J numbers, each counted as 1 annotation
 Verify the display when an MP annotation maps to a child of mouse but has no GXD annotation
-Verify the display when MP term annotated to multiple genotypes with the same J number, each occurance counted as 1 annotation
+Verify the display when MP term annotated to multiple genotypes with the same J number, each occurrence counted as 1 annotation
 Verify the display for multiple MP annotations using different rollup to same EMAPA term with same genocluster.
-       each occurance counted as 1 annotation
+       each occurrence counted as 1 annotation
 Verify the display when a normal MP annotation is the only annotation for a row/cell(7 cells), it also
        verifies that normals have an N in their cells
 Verify the display when you have a normal MP annotation and another annotation that roll up to a higher

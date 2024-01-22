@@ -58,7 +58,6 @@ class TestSnpQF(unittest.TestCase):
         """
         @status: Tests that you can search for snps using a single reference strain
         @note: snp-qf-gene-3
-        Attention: this test will change once SNP's updated to 39 from 38!
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/snp")
@@ -75,14 +74,12 @@ class TestSnpQF(unittest.TestCase):
         driver.find_element(By.ID, 'geneSearch').click()
         #locates the SNP summary table and verify the rs IDs returned are correct
         snp_table = Table(self.driver.find_element(By.ID, "snpSummaryTable"))
-        cells = snp_table.get_column_cells("SNP ID\n(GRCm38)")
-        #cells = snp_table.get_column_cells("SNP ID\n(GRCm39)")
+        #cells = snp_table.get_column_cells("SNP ID\n(GRCm38)")
+        cells = snp_table.get_column_cells("SNP ID\n(GRCm39)")
         print(iterate.getTextAsList(cells))     
         rsReturned = iterate.getTextAsList(cells)        
         #asserts that the following rs IDs are returned
-        #self.assertEqual(['SNP ID\n(GRCm39)', 'rs36693755\nMGI SNP Detail', 'rs45992472\nMGI SNP Detail', 'rs47056606\nMGI SNP Detail', 'rs49586871\nMGI SNP Detail', 'rs108005419\nMGI SNP Detail', 'rs50091221\nMGI SNP Detail', 'rs47608361\nMGI SNP Detail', 'rs47802569\nMGI SNP Detail', 'rs38838986\nMGI SNP Detail', 'rs108810980\nMGI SNP Detail', 'rs36834363\nMGI SNP Detail', 'rs45730245\nMGI SNP Detail', 'rs49987272\nMGI SNP Detail', 'rs50481652\nMGI SNP Detail', 'rs36908712\nMGI SNP Detail', 'rs36250889\nMGI SNP Detail', 'rs107627921\nMGI SNP Detail', 'rs107868583\nMGI SNP Detail', 'rs37209710\nMGI SNP Detail', 'rs37559562\nMGI SNP Detail', 'rs39411786\nMGI SNP Detail', 'rs37808220\nMGI SNP Detail', 'rs45982583\nMGI SNP Detail', 'rs49721050\nMGI SNP Detail', 'rs45852704\nMGI SNP Detail', 'SNP ID\n(GRCm39)', 'rs46309889\nMGI SNP Detail', 'rs50848922\nMGI SNP Detail', 'rs36475093\nMGI SNP Detail', 'rs37617865\nMGI SNP Detail', 'rs37733367\nMGI SNP Detail', 'rs38671463\nMGI SNP Detail', 'rs38006235\nMGI SNP Detail', 'rs49277784\nMGI SNP Detail', 'rs50713983\nMGI SNP Detail', 'rs37770794\nMGI SNP Detail', 'rs36409597\nMGI SNP Detail', 'rs37594020\nMGI SNP Detail', 'rs48569389\nMGI SNP Detail', 'rs47471416\nMGI SNP Detail', 'rs50885594\nMGI SNP Detail', 'rs50068245\nMGI SNP Detail', 'rs50235477\nMGI SNP Detail', 'rs49604342\nMGI SNP Detail', 'rs50048728\nMGI SNP Detail', 'rs50725935\nMGI SNP Detail', 'rs37236717\nMGI SNP Detail', 'rs36256614\nMGI SNP Detail', 'rs50494556\nMGI SNP Detail', 'rs46110206\nMGI SNP Detail', 'rs37008263\nMGI SNP Detail', 'SNP ID\n(GRCm39)', 'rs38679453\nMGI SNP Detail', 'rs37621066\nMGI SNP Detail', 'rs51232661\nMGI SNP Detail', 'rs48161934\nMGI SNP Detail', 'rs107770016\nMGI SNP Detail', 'rs46957181\nMGI SNP Detail', 'rs107969822\nMGI SNP Detail', 'rs46851740\nMGI SNP Detail', 'rs46016689\nMGI SNP Detail', 'rs47024843\nMGI SNP Detail', 'rs48979048\nMGI SNP Detail', 'rs33094456\nMGI SNP Detail', 'rs33484219\nMGI SNP Detail', 'rs33681888\nMGI SNP Detail', 'rs29779268\nMGI SNP Detail', 'rs33264300\nMGI SNP Detail', 'rs50911636\nMGI SNP Detail', 'rs51872819\nMGI SNP Detail', 'rs45901879\nMGI SNP Detail', 'rs46857918\nMGI SNP Detail', 'rs50411707\nMGI SNP Detail', 'rs45865431\nMGI SNP Detail', 'rs33674412\nMGI SNP Detail', 'rs108198781\nMGI SNP Detail', 'rs108778547\nMGI SNP Detail', 'SNP ID\n(GRCm39)', 'rs29729942\nMGI SNP Detail', 'rs33485416\nMGI SNP Detail', 'rs33068028\nMGI SNP Detail', 'rs29682823\nMGI SNP Detail', 'rs33133952\nMGI SNP Detail', 'rs33181672\nMGI SNP Detail', 'rs48089243\nMGI SNP Detail', 'rs33541793\nMGI SNP Detail', 'rs33746193\nMGI SNP Detail', 'rs33214222\nMGI SNP Detail', 'rs33285952\nMGI SNP Detail', 'rs33560337\nMGI SNP Detail', 'rs33259009\nMGI SNP Detail', 'rs29727180\nMGI SNP Detail', 'rs33735948\nMGI SNP Detail', 'rs33682898\nMGI SNP Detail', 'rs51528487\nMGI SNP Detail', 'rs29676307\nMGI SNP Detail', 'rs33455132\nMGI SNP Detail', 'rs29562835\nMGI SNP Detail', 'rs33112153\nMGI SNP Detail', 'rs29530423\nMGI SNP Detail', 'rs29733217\nMGI SNP Detail', 'rs46215891\nMGI SNP Detail', 'rs33079729\nMGI SNP Detail'], rsReturned) # this is all the data returned from the SNP ID column
-
-        self.assertEqual(['SNP ID\n(GRCm38)', 'rs33674412\nMGI SNP Detail', 'rs108198781\nMGI SNP Detail', 'rs108778547\nMGI SNP Detail', 'rs29729942\nMGI SNP Detail', 'rs33485416\nMGI SNP Detail', 'rs33068028\nMGI SNP Detail', 'rs29682823\nMGI SNP Detail', 'rs33133952\nMGI SNP Detail', 'rs33181672\nMGI SNP Detail', 'rs48089243\nMGI SNP Detail', 'rs33541793\nMGI SNP Detail', 'rs33746193\nMGI SNP Detail', 'rs33214222\nMGI SNP Detail', 'rs33285952\nMGI SNP Detail', 'rs33560337\nMGI SNP Detail', 'rs33259009\nMGI SNP Detail', 'rs29727180\nMGI SNP Detail', 'rs33735948\nMGI SNP Detail', 'rs33682898\nMGI SNP Detail', 'rs51528487\nMGI SNP Detail', 'rs29676307\nMGI SNP Detail', 'rs33455132\nMGI SNP Detail', 'rs29562835\nMGI SNP Detail', 'rs33112153\nMGI SNP Detail', 'rs29530423\nMGI SNP Detail', 'SNP ID\n(GRCm38)', 'rs29733217\nMGI SNP Detail'], rsReturned)  # this is all the data returned from the SNP ID column
+        self.assertEqual(['SNP ID\n(GRCm39)', 'rs33674412\nMGI SNP Detail', 'rs108198781\nMGI SNP Detail', 'rs108778547\nMGI SNP Detail', 'rs29729942\nMGI SNP Detail', 'rs33485416\nMGI SNP Detail', 'rs33068028\nMGI SNP Detail', 'rs29682823\nMGI SNP Detail', 'rs33133952\nMGI SNP Detail', 'rs33181672\nMGI SNP Detail', 'rs48089243\nMGI SNP Detail', 'rs33541793\nMGI SNP Detail', 'rs33746193\nMGI SNP Detail', 'rs33214222\nMGI SNP Detail', 'rs33285952\nMGI SNP Detail', 'rs33560337\nMGI SNP Detail', 'rs33259009\nMGI SNP Detail', 'rs29727180\nMGI SNP Detail', 'rs33735948\nMGI SNP Detail', 'rs33682898\nMGI SNP Detail', 'rs51528487\nMGI SNP Detail', 'rs29676307\nMGI SNP Detail', 'rs33455132\nMGI SNP Detail', 'rs29562835\nMGI SNP Detail', 'rs33112153\nMGI SNP Detail', 'rs29530423\nMGI SNP Detail', 'SNP ID\n(GRCm39)', 'rs29733217\nMGI SNP Detail'], rsReturned)  # this is all the data returned from the SNP ID column
 
     def test_search_1_ref_strain_different(self):
         """
@@ -112,13 +109,11 @@ class TestSnpQF(unittest.TestCase):
         driver.find_element(By.ID, 'yui-gen0-button').click()
         #locates the SNP summary table and verify the rs IDs returned are correct
         snp_table = Table(self.driver.find_element(By.ID, "snpSummaryTable"))
-        cells = snp_table.get_column_cells("SNP ID\n(GRCm38)")
-        #cells = snp_table.get_column_cells("SNP ID\n(GRCm39)")
+        cells = snp_table.get_column_cells("SNP ID\n(GRCm39)")
         print(iterate.getTextAsList(cells))     
         rsReturned = iterate.getTextAsList(cells)        
         #asserts that the following rs IDs are returned
-        #self.assertEqual(['SNP ID\n(GRCm39)', 'rs108198781\nMGI SNP Detail'], rsReturned) # this is all the data returned from the SNP ID column
-        self.assertEqual(['SNP ID\n(GRCm38)', 'rs108198781\nMGI SNP Detail'], rsReturned) # this is all the data returned from the SNP ID column
+        self.assertEqual(['SNP ID\n(GRCm39)', 'rs108198781\nMGI SNP Detail'], rsReturned) # this is all the data returned from the SNP ID column
 
 
     def test_search_1_ref_strain_same(self):
@@ -149,14 +144,12 @@ class TestSnpQF(unittest.TestCase):
         driver.find_element(By.ID, 'yui-gen0-button').click()
         #locates the SNP summary table and verify the rs IDs returned are correct
         snp_table = Table(self.driver.find_element(By.ID, "snpSummaryTable"))
-        #cells = snp_table.get_column_cells("SNP ID\n(GRCm39)")
-        cells = snp_table.get_column_cells("SNP ID\n(GRCm38)")
-        print(iterate.getTextAsList(cells))     
+        cells = snp_table.get_column_cells("SNP ID\n(GRCm39)")
+        print(iterate.getTextAsList(cells))
         rsReturned = iterate.getTextAsList(cells)        
         #asserts that the following rs IDs are returned
         
-        #self.assertEqual(['SNP ID\n(GRCm39)', 'rs51528487\nMGI SNP Detail'], rsReturned) # this is all the data returned from the SNP ID column
-        self.assertEqual(['SNP ID\n(GRCm38)', 'rs51528487\nMGI SNP Detail'], rsReturned) # this is all the data returned from the SNP ID column
+        self.assertEqual(['SNP ID\n(GRCm39)', 'rs51528487\nMGI SNP Detail'], rsReturned) # this is all the data returned from the SNP ID column
 
     def test_search_multi_ref_strain(self):
         """
@@ -221,13 +214,13 @@ class TestSnpQF(unittest.TestCase):
         driver.find_element(By.ID, 'yui-gen0-button').click()
         #locates the SNP summary table and verify the rs IDs returned are correct, strains returned are correct
         snp_table = Table(self.driver.find_element(By.ID, "snpSummaryTable"))
-        #cells = snp_table.get_column_cells("SNP ID\n(GRCm39)")
-        cells = snp_table.get_column_cells("SNP ID\n(GRCm38)")
+        cells = snp_table.get_column_cells("SNP ID\n(GRCm39)")
+        #cells = snp_table.get_column_cells("SNP ID\n(GRCm38)")
         print(iterate.getTextAsList(cells))     
         rsReturned = iterate.getTextAsList(cells)        
         #asserts that the following rs IDs are returned
-        #self.assertEqual(['SNP ID\n(GRCm39)', 'rs3021544\nMGI SNP Detail', 'rs3021927\nMGI SNP Detail', 'rs3021928\nMGI SNP Detail', 'rs3021931\nMGI SNP Detail', 'rs3021868\nMGI SNP Detail'], rsReturned) # this is all the data returned from the SNP ID column currently 5 IDs as of 9/1218
-        self.assertEqual(['SNP ID\n(GRCm38)', 'rs3021544\nMGI SNP Detail', 'rs3021927\nMGI SNP Detail', 'rs3021928\nMGI SNP Detail', 'rs3021931\nMGI SNP Detail', 'rs3021868\nMGI SNP Detail'], rsReturned) # this is all the data returned from the SNP ID column currently 5 IDs as of 9/1218
+        self.assertEqual(['SNP ID\n(GRCm39)', 'rs3021544\nMGI SNP Detail', 'rs3021927\nMGI SNP Detail', 'rs3021928\nMGI SNP Detail', 'rs3021931\nMGI SNP Detail', 'rs3021868\nMGI SNP Detail'], rsReturned) # this is all the data returned from the SNP ID column currently 5 IDs as of 9/1218
+        #self.assertEqual(['SNP ID\n(GRCm38)', 'rs3021544\nMGI SNP Detail', 'rs3021927\nMGI SNP Detail', 'rs3021928\nMGI SNP Detail', 'rs3021931\nMGI SNP Detail', 'rs3021868\nMGI SNP Detail'], rsReturned) # this is all the data returned from the SNP ID column currently 5 IDs as of 9/1218
 
         cells1 = snp_table.get_header_cells()
         print(iterate.getTextAsList(cells1))  

@@ -30,7 +30,6 @@ from webdriver_manager.microsoft import EdgeChromiumDriverManager
 from util import iterate, wait
 from util.form import ModuleForm
 from util.table import Table
-from test.test_base64 import BaseXYTestCase
 
 # Tests
 tracemalloc.start()

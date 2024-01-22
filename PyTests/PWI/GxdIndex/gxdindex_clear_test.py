@@ -48,6 +48,11 @@ class TestEiGxdIndexClear(unittest.TestCase):
         submit = self.driver.find_element(By.NAME, "submit")  # Find the Login button
         submit.click()  # click the login button
 
+    def tearDown(self):
+        driver = self.driver
+        driver.quit()
+        tracemalloc.stop()
+
     def testClearFields(self):
         """
         @Status tests that when an index record is cleared the correct fields get cleared
@@ -180,12 +185,6 @@ class TestEiGxdIndexClear(unittest.TestCase):
 
         wait.forAngular(driver)
         self.assertEqual(cell.text, '', "the cell is checked - clear didn't work")
-
-    def tearDown(self):
-        driver = self.driver
-        driver.quit()
-        tracemalloc.stop()
-
 
 '''
 These tests should NEVER!!!! be run against a production system!!'''

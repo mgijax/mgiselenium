@@ -513,8 +513,8 @@ class TestEIAntigenSearch(unittest.TestCase):
         print(symbol1)
         # Assert the correct antigen is returned
         self.assertEqual(symbol1, ['CAII'])
-        self.assertEqual(symbol2, ['glycoprotein'])
-        self.assertEqual(symbol3, ['L1 antigen'])
+        self.assertEqual(symbol2, ['DSD-1-PG'])
+        self.assertEqual(symbol3, ['glycoprotein'])
 
     def testAntigenAgeRangeSearch(self):
         """

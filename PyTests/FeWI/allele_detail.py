@@ -532,17 +532,17 @@ class TestAlleleDetail(unittest.TestCase):
         @status this test verifies these Alleles have the correct Disease models and sorted alphabetically.
         '''
         self.driver.find_element(By.NAME, 'nomen').clear()
-        self.driver.find_element(By.NAME, 'nomen').send_keys('Trp53')
+        self.driver.find_element(By.NAME, 'nomen').send_keys('Trp53<tm1Tyj>')
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1Tyj').click()
 
         actualurl = self.driver.find_element(By.LINK_TEXT, 'breast cancer').get_attribute('href')
         
-        self.assertEqual(actualurl, 'https://mgitest.jax.org/disease/DOID:1612')
+        self.assertEqual(actualurl, 'https://test.informatics.jax.org/disease/DOID:1612')
         self.driver.get(config.TEST_URL + "/allele/")
         
         self.driver.find_element(By.NAME, 'nomen').clear()
-        self.driver.find_element(By.NAME, 'nomen').send_keys('Trp53')
+        self.driver.find_element(By.NAME, 'nomen').send_keys('Trp53<tm1Tyj>')
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1Tyj').click()
         diseasesort = self.driver.find_element(By.ID, 'diseasetable_id')
@@ -559,7 +559,7 @@ class TestAlleleDetail(unittest.TestCase):
         self.assertIn("malignant astrocytoma", searchTreeItems)
         self.assertIn("medulloblastoma", searchTreeItems)
         self.assertIn("myxoid liposarcoma", searchTreeItems)
-        self.assertIn("neurofibromatosis", searchTreeItems)
+        self.assertIn("neurofibromatosis 1", searchTreeItems)
         self.assertIn("pancreatic carcinoma", searchTreeItems)
         self.assertIn("Peutz-Jeghers syndrome", searchTreeItems)
 
@@ -798,7 +798,7 @@ class TestAlleleDetail(unittest.TestCase):
         org_cell = table.get_cell(1, 0)
         print (org_cell.text)
         #verify the organism is Human
-        self.assertEquals(org_cell.text, 'human')
+        self.assertEqual(org_cell.text, 'human')
 
     def test_allele_detail_Relates_to_Rat(self):
         '''

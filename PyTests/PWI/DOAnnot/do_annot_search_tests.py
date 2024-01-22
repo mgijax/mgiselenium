@@ -308,6 +308,7 @@ class TestEIDoannotSearch(unittest.TestCase):
         print(create_by)
         create_date = driver.find_element(By.ID, 'createdDate-0').get_property('value')
         print(create_date)
+        time.sleep(2)
         # we are asserting the seventh row of data is correct
         self.assertEqual(term0, 'DOID:0060041')
         self.assertEqual(voc_term.text, 'autism spectrum disorder')

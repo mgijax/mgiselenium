@@ -241,7 +241,7 @@ class TestGxdResults(unittest.TestCase):
         biologic = [e.get_attribute('value') for e in biologicElts]            
         print(biologic)
         #assert the list returned is correct.
-        self.assertEqual(biologic, ['carbohydrate derivative metabolism', 'cell differentiation', 'cell population proliferation', 'cellular component organization', 'establishment of localization', 'homeostatic process', 'immune system process', 'lipid metabolic process', 'programmed cell death', 'protein metabolic process', 'response to stimulus', 'signaling', 'system development', 'bar'])
+        self.assertEqual(biologic, ['carbohydrate derivative metabolism', 'cell differentiation', 'cell population proliferation', 'cellular component organization', 'DNA-templated transcription', 'establishment of localization', 'homeostatic process', 'immune system process', 'lipid metabolic process', 'programmed cell death', 'protein metabolic process', 'response to stimulus', 'signaling', 'system development', 'bar'])
 
     def test_gene_tab_go_biological_filter_gene_result(self):
         """
@@ -274,7 +274,7 @@ class TestGxdResults(unittest.TestCase):
         print(searchTextItems)
         time.sleep(5)
         #assert that the genes returned are correct, should be 7 genes as of 8/29/2019
-        self.assertEqual(searchTextItems, ['Bmal1', 'Fkbp1b', 'Ryr2', 'Selenos', 'Slc7a11'], 'the list of genes is not correct!')
+        self.assertEqual(searchTextItems, ['Bmal1', 'Clock', 'Fkbp1b', 'Ryr2', 'Selenos', 'Slc7a11', 'Smpd3'], 'the list of genes is not correct!')
         
     def test_gene_tab_go_biological_filter_no_genes(self):
         """
@@ -439,7 +439,7 @@ class TestGxdResults(unittest.TestCase):
         links = self.driver.find_element(By.LINK_TEXT, 'E-MTAB-5772')
         inturl = links.get_attribute('href')
         #assert that the link url is correct
-        self.assertEqual(inturl, 'https://mgitest.jax.org/gxd/htexp_index/summary?arrayExpressID=E-MTAB-5772')           
+        self.assertEqual(inturl, 'https://test.informatics.jax.org/gxd/htexp_index/summary?arrayExpressID=E-MTAB-5772')
    
     def test_assay_results_tab_tpm_column(self):
         """

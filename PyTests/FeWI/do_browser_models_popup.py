@@ -185,12 +185,12 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'genesTabButton'))):
             print('page loaded')
         self.driver.find_element(By.ID, 'genesTabButton').click()#identifies the Genes tab and clicks it.
-        
+        time.sleep(5)
         gene_table = self.driver.find_element(By.ID, 'geneTabTable')
         table = Table(gene_table)
         #cells = table.get_rows()
-        cell = table.get_cell(117, 3)
-        #Identify the data found in the Mouse Models column for the one hundred seventeenth row(for marker PSEN2)
+        cell = table.get_cell(118, 3)
+        #Identify the data found in the Mouse Models column for the one hundred eighteenth row(for marker PSEN2)
         print(cell.text)
         cell.find_element(By.LINK_TEXT, '3 models').click()
         

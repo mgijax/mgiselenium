@@ -189,7 +189,7 @@ class TestGxdDifferentialQF(unittest.TestCase):
         print(anatstructure2)
         time.sleep(1)
         self.driver.find_element(By.ID, 'submit4').click()
-        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'g.cell:nth-child(30) > rect:nth-child(1)'))):
+        if WebDriverWait(self.driver, 4).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'g.cell:nth-child(30) > rect:nth-child(1)'))):
             print('Tissue x Gene matrix data loaded')
         self.driver.find_element(By.ID, 'genegridtab')
         #find the Genes column

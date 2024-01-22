@@ -60,6 +60,8 @@ class TestSequenceSummaryPage(unittest.TestCase):
             print('Summary data is loaded')
         #Finds the All sequences link and clicks it
         driver.find_element(By.ID, 'allSeqLink').click()
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'summaryHeader'))):
+            print('The summary header is loaded')
         #Locates the marker header table and finds the table headings
         markerheaderlist = driver.find_element(By.CLASS_NAME, 'summaryHeaderCat1')
         items = markerheaderlist.find_elements(By.TAG_NAME, 'div')
@@ -117,7 +119,7 @@ class TestSequenceSummaryPage(unittest.TestCase):
         """
         @status: Tests that an MGP sequence has a link to Mouse Genomes Project and the link is correct
         It then goes back to the sequence summary page and verifies the MGI Sequence Detail link for the same sequence is correct
-        @note: seq-summary-3
+        @note: seq-summary-3 !!! not working but not sure why, need to investigate why 12/22/2023
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/marker")
@@ -128,17 +130,23 @@ class TestSequenceSummaryPage(unittest.TestCase):
         time.sleep(3)
         #finds the correct marker link and clicks it
         driver.find_element(By.LINK_TEXT, 'Ppnr').click()
+        time.sleep(3)
         #Finds the All sequences link and clicks it
         driver.find_element(By.ID, 'allSeqLink').click()
-        time.sleep(2)
+        #wait until the summary header is displayed
+        #if WebDriverWait(self.driver, 3).until(EC.presence_of_element_located((By.CLASS_NAME, 'summaryHeader'))):
+            #print('Disease Table loaded')
+        time.sleep(4)
         #finds the link for Ensembl of sequence MGP_CBAJ_G0036567 and clicks it.
         driver.find_element(By.CSS_SELECTOR, '#yui-rec5 > td:nth-child(2) > div:nth-child(1) > a:nth-child(2)').click()
+        #driver.find_element(By.XPATH, '/html/body/div[4]/div[4]/table/tbody[2]/tr[3]/td[2]/div/a[1]').click()
         species_m = driver.find_element(By.CLASS_NAME, 'species')
         #asserts that the link takes you to the correct sequence at ensembl.
         self.assertEqual(species_m.text, 'Mouse CBA/J')
         driver.back()
         #finds the link for MGI Sequence Detail of sequence MGP_CBAJ_G0036567 and clicks it.
-        driver.find_element(By.CSS_SELECTOR, '#yui-rec5 > td:nth-child(2) > div:nth-child(1) > a:nth-child(4)').click()
+        #driver.find_element(By.CSS_SELECTOR, '#yui-rec5 > td:nth-child(2) > div:nth-child(1) > a:nth-child(4)').click()
+        driver.find_element(By.XPATH, '/html/body/div[4]/div[4]/table/tbody[2]/tr[3]/td[2]/div/a[2]').click()
         #find the ID listed in the ID/Version ribbon of the sequence detail page
         seq_id = driver.find_element(By.CSS_SELECTOR, '#seqIdTable > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > b:nth-child(1)')
         #asserts that the link takes you to the correct sequence detail page.
@@ -162,7 +170,8 @@ class TestSequenceSummaryPage(unittest.TestCase):
         driver.find_element(By.ID, 'allSeqLink').click()
         time.sleep(2)
         #finds the link for MGI Sequence Detail of sequence MGI_C57BL6J_1349458 and clicks it.
-        driver.find_element(By.CSS_SELECTOR, '#yui-rec21 > td:nth-child(2) > div:nth-child(1) > a:nth-child(2)').click()
+        driver.find_element(By.XPATH, '/html/body/div[4]/div[4]/table/tbody[2]/tr[19]/td[2]/div/a').click()
+        time.sleep(4)
         #find the ID listed in the ID/Version ribbon of the sequence detail page
         seq_id = driver.find_element(By.CSS_SELECTOR, '#seqIdTable > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > b:nth-child(1)')
         #asserts that the link takes you to the correct sequence detail page.

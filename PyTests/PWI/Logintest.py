@@ -50,7 +50,7 @@ class TestLogintest(unittest.TestCase):
         passwd.send_keys("test") #enters a bogus password
         submit = driver.find_element(By.NAME, "submit") #Find the Login button
         submit.click() #click the login button
-        self.assertIn("user or password is invalid", self.driver.page_source)    
+        self.assertIn("*user or password is invalid", self.driver.page_source)
 
     def testLoginPass(self):#verifies entering a user name and password logs you in to the system
         driver = self.driver

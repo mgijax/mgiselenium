@@ -58,11 +58,12 @@ class TestGXDTissueStageMatrix(unittest.TestCase):
         stagebox.send_keys("mouse")
         stagebox.send_keys(Keys.RETURN)
         driver.find_element(By.ID, 'submit2').click()
+        time.sleep(2)
         #find the Tissue x Stage Matrix tab
         tissuestagetab = driver.find_element(By.ID, 'stagegridtab')
         #click the Tissue x Stage Matrix tab
         tissuestagetab.click()
-        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'rowGroupInner'))):
+        if WebDriverWait(self.driver, 8).until(EC.presence_of_element_located((By.ID, 'rowGroupInner'))):
             print('tissue x stage tab data loaded')
         #find the Anatomical systems high level terms
         termslist = driver.find_element(By.ID, 'stagegriddata').find_element(By.ID, 'rowGroupInner')

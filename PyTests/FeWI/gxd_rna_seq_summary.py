@@ -231,7 +231,7 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         page_url = self.driver.current_url
         print(page_url)
         #Assert the URL is correct
-        self.assertEqual(page_url, "http://scrum.informatics.jax.org/gxd/experiment/E-ERAD-169")
+        self.assertEqual(page_url, "https://test.informatics.jax.org/gxd/experiment/E-ERAD-169")
 
   
     def tearDown(self):

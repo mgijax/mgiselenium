@@ -294,6 +294,7 @@ class TestEmapaBrowser(unittest.TestCase):
         if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'expressionResultCount'))):
             print('Tree view details loaded')
         driver.find_element(By.CLASS_NAME, 'phenotypeAnnotationCount').click()#clicks the phenotype annotations link found in the Treeview section
+        time.sleep(2)
         results_table = self.driver.find_element(By.ID, 'resultsTable')
         table = Table(results_table)
         #gets the 1st-8th rows of the Annotated term column, only 8 rows exist

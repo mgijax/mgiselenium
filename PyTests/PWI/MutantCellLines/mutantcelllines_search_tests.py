@@ -28,7 +28,6 @@ from selenium.webdriver.firefox.service import Service as FirefoxService
 from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.edge.service import Service as EdgeService
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
-from test.test_base64 import BaseXYTestCase
 from util import iterate, wait
 from util.form import ModuleForm
 from util.table import Table
