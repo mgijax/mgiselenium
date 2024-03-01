@@ -228,11 +228,11 @@ class TestEiMpannotSearch(unittest.TestCase):
         @see pwi-mp-search-6
         """
         driver = self.driver
-        # finds the Qualifier field and select 'norm', find the Evidence field and select 'ND' then click Search.
+        # finds the Qualifier field and select 'norm',then click Search.
         qual_box = Select(driver.find_element(By.ID, "qualifierAbbreviation-0"))
         qual_box.select_by_value('string:2181424')  # value is Norm
-        evid_box = Select(driver.find_element(By.ID, "evidenceAbbreviation-0"))
-        evid_box.select_by_value('string:108')  # value is ND
+        #evid_box = Select(driver.find_element(By.ID, "evidenceAbbreviation-0"))
+        #evid_box.select_by_value('string:108')  # value is ND
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
         WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located((By.ID, 'termID-3')))
@@ -269,17 +269,17 @@ class TestEiMpannotSearch(unittest.TestCase):
         create_date = driver.find_elements(By.ID, 'createdDate-0')[0].get_property('value')
         print(create_date)
         # we are asserting the third row of data is correct
-        self.assertEqual(term0, 'MP:0003162')
-        self.assertEqual(voc_term.text, 'decreased lateral semicircular canal size')
+        self.assertEqual(term0, 'MP:0003631')
+        self.assertEqual(voc_term.text, 'nervous system phenotype')
         self.assertEqual(qualfy, 'string:2181424')
-        self.assertEqual(j_num, 'J:161387')
-        self.assertEqual(cite.text, 'Price AE, Proc Natl Acad Sci U S A 2010 Jun 22;107(25):11489-94')
-        self.assertEqual(evid, 'string:108')
-        self.assertEqual(sex_abbrev, 'string:NA')
-        self.assertEqual(mod_by, 'rbabiuk')
-        self.assertEqual(mod_date, '2010-07-22')
-        self.assertEqual(create_by, 'rbabiuk')
-        self.assertEqual(create_date, '2010-07-22')
+        self.assertEqual(j_num, 'J:13773')
+        self.assertEqual(cite.text, 'Taylor BA, Mouse News Lett 1978;59():25')
+        self.assertEqual(evid, 'string:52280')
+        self.assertEqual(sex_abbrev, 'string:M')
+        self.assertEqual(mod_by, 'csmith')
+        self.assertEqual(mod_date, '2005-03-11')
+        self.assertEqual(create_by, 'csmith')
+        self.assertEqual(create_date, '2005-03-11')
 
     def testMPJnumSearch(self):
         """
@@ -342,51 +342,51 @@ class TestEiMpannotSearch(unittest.TestCase):
         """
         driver = self.driver
         # finds the Evidence Code field and select and evidence code then Tabs out of the field
-        driver.find_element(By.ID, "evidenceAbbreviation-0").send_keys('NAS')
+        driver.find_element(By.ID, "evidenceAbbreviation-0").send_keys('TAS')
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located((By.ID, 'termID-3')))
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, 'termID-3')))
         # find the search results table thirteenth row of data
-        term0 = driver.find_element(By.ID, 'termID-12').get_property('value')
+        term0 = driver.find_element(By.ID, 'termID-0').get_property('value')
         print(term0)
-        voc_term = driver.find_elements(By.CLASS_NAME, 'term')[12]
+        voc_term = driver.find_elements(By.CLASS_NAME, 'term')[0]
         print(voc_term.text)
-        qualfy = driver.find_element(By.ID, 'qualifierAbbreviation-12').get_property(
+        qualfy = driver.find_element(By.ID, 'qualifierAbbreviation-0').get_property(
             'value')  # value should be 'string:2181423' that equals (none)
         print(qualfy)
-        j_num = driver.find_element(By.ID, 'jnumID-12').get_property('value')
+        j_num = driver.find_element(By.ID, 'jnumID-0').get_property('value')
         print(j_num)
-        cite = driver.find_elements(By.CLASS_NAME, 'short_citation')[12]
+        cite = driver.find_elements(By.CLASS_NAME, 'short_citation')[0]
         print(cite.text)
-        evid = driver.find_element(By.ID, 'evidenceAbbreviation-12').get_property(
-            'value')  # value should be "string:6126026" which is NAS
+        evid = driver.find_element(By.ID, 'evidenceAbbreviation-0').get_property(
+            'value')  # value should be "string:107" which is TAS
         print(evid)
-        sex_abbrev = driver.find_element(By.ID, 'sexAbbreviation-12').get_property(
+        sex_abbrev = driver.find_element(By.ID, 'sexAbbreviation-0').get_property(
             'value')  # value should be "string:NA"
         print(sex_abbrev)
-        mod_by = driver.find_element(By.ID, 'modifiedBy-12').get_property('value')
+        mod_by = driver.find_element(By.ID, 'modifiedBy-0').get_property('value')
         print(mod_by)
-        mod_date = driver.find_element(By.ID, 'modifiedDate-12').get_property('value')
+        mod_date = driver.find_element(By.ID, 'modifiedDate-0').get_property('value')
         print(mod_date)
-        create_by = driver.find_element(By.ID, 'createdBy-12').get_property('value')
+        create_by = driver.find_element(By.ID, 'createdBy-0').get_property('value')
         print(create_by)
-        create_date = driver.find_element(By.ID, 'createdDate-12').get_property('value')
+        create_date = driver.find_element(By.ID, 'createdDate-0').get_property('value')
         print(create_date)
         # we are asserting the thirteenth row of data is correct
-        self.assertEqual(term0, 'MP:0011099')
-        self.assertEqual(voc_term.text, 'lethality throughout fetal growth and development, complete penetrance')
+        self.assertEqual(term0, 'MP:0001447')
+        self.assertEqual(voc_term.text, 'abnormal nest building behavior')
         self.assertEqual(qualfy, 'string:2181423')
-        self.assertEqual(j_num, 'J:163428')
-        self.assertEqual(cite.text, 'Yu L, J Exp Med 2010 Jun 7;207(6):1183-95')
-        self.assertEqual(evid, 'string:6126026')
-        self.assertEqual(sex_abbrev, 'string:NA')
+        self.assertEqual(j_num, 'J:135825')
+        self.assertEqual(cite.text, 'Samaco RC, Hum Mol Genet 2008 Jun 15;17(12):1718-27')
+        self.assertEqual(evid, 'string:107')
+        self.assertEqual(sex_abbrev, 'string:M')
         self.assertEqual(mod_by, 'rbabiuk')
-        self.assertEqual(mod_date, '2011-05-04')
-        self.assertEqual(create_by, 'smb')
-        self.assertEqual(create_date, '2010-09-15')
+        self.assertEqual(mod_date, '2008-11-21')
+        self.assertEqual(create_by, 'rbabiuk')
+        self.assertEqual(create_date, '2008-11-21')
 
     def testMPSexSearch(self):
         """

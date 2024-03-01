@@ -10,6 +10,19 @@ Verify that you can search for snps using multiple reference strains and selecti
     this example is actually biologically significant.  All of the Reference strains in this example show what is
     called the AH+ phenotype (for Ahr), while all of the comparison strains show the AH- phenotype (for Ahr).
     The SNPs returned are all candidates for the genetic variation that defines the AH+ vs. AH- phenotype.
+Verify search for snps using a region search of Chromosome and genome coordinates.
+Verify search for snps using a region search by Marker Range.
+Verify search for snps using a region search with results that take some time to display the heatmap.
+Verify search for snps using a region search by Marker Range and then filter  by function class.
+Verify search for snps using a region search of Chromosome and genome coordinates and compare to a reference strain,
+    Uses the Select DO/CC Founders option.
+Verify search for snps using a region search of Chromosome and genome coordinates
+    and compare to a reference strain, Uses the Select DO/CC Founders option and selects the Allele Agreement
+    All reference strains agree and all comparison strains differ from reference
+Verify search for snps using a region search of Chromosome and genome coordinates
+    and compare to a reference strain, Uses the Select DO/CC Founders option and selects the Allele Agreement
+    All reference strains agree and all comparison strains agree with reference
+Verify
 '''
 
 import unittest
@@ -39,6 +52,7 @@ from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.edge.service import Service as EdgeService
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
 from util import wait, iterate
+from util.form import ModuleForm
 from config import TEST_URL
 
 #Test
@@ -47,9 +61,9 @@ class TestSnpQF(unittest.TestCase):
 
 
     def setUp(self):
-        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
         # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        #self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
         self.driver.set_window_size(1500, 1000)
         self.driver.get(config.TEST_URL + "/snp")
         self.driver.implicitly_wait(10)
@@ -236,8 +250,322 @@ class TestSnpQF(unittest.TestCase):
         self.assertEqual(cells1[13].text, 'DBA/2J', 'The third comparison strain is not DBA/2J')
         self.assertEqual(cells1[14].text, 'NZB/BlNJ', 'The fourth comparison strain is not NZB/B1NJ')
         self.assertEqual(cells1[15].text, 'NZW/LacJ', 'The fifth comparison strain is not NZW/LacJ')
-           
-        
+
+    def test_search_by_region_chr_coord(self):
+        """
+        @status: Tests that you can search for snps using a region search of Chromosome and genome coordinates.
+        @note: snp-qf-gene-?
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/snp")
+        #find the Region tab and click it
+        driver.find_element(By.ID, 'ui-id-2').click()
+        #select the chromosome
+        Select(driver.find_element(By.ID, 'chromosomeDropList')).select_by_value('10')
+        # Enter your genome coordinates
+        gc = driver.find_element(By.NAME, 'coordinate')
+        gc.send_keys("125.618-125.622")
+        gc.send_keys(Keys.RETURN)
+        Select(driver.find_element(By.ID, 'coordinateUnitDropList')).select_by_value('Mbp')
+        # declares the entire tab as an entire form
+        form2 = driver.find_element(By.ID, 'form2')
+        # find the comparison strains button for "Clear All" and click it
+        form2.find_element(By.ID, 'deselectButton').click()
+        # find the Comparison box for strain A/J and click it
+        form2.find_element(By.XPATH, '//*[@id="form2"]/table/tbody/tr[2]/td[2]/div/div[2]/div[1]/div[11]').click()
+        # find the Comparison box for strain AKR/J and click it
+        form2.find_element(By.XPATH, '//*[@id="form2"]/table/tbody/tr[2]/td[2]/div/div[2]/div[1]/div[13]').click()
+        # find the search button and click it
+        form2.find_element(By.ID, 'locationSearch').click()
+        time.sleep(2)
+        #Locate the heat map info line and verify the text
+        hminfo = driver.find_element(By.XPATH, '//*[@id="heatmapInfoRow"]/td/div/div[1]')
+        self.assertEqual(hminfo.text, 'Chr10 from 125,618,000 bp to 125,622,000 bp', 'The heatmap text is not correct')
+        #locates the SNP summary table
+        snp_table = Table(self.driver.find_element(By.ID, "snpSummaryTable"))
+        #Locate the table header cells and verify the strains are correct
+        cells1 = snp_table.get_header_cells()
+        print(iterate.getTextAsList(cells1))
+        print(cells1[5].text)
+        print(cells1[6].text)
+        self.assertEqual(cells1[5].text, 'A/J', 'The first strain is not correct')
+        self.assertEqual(cells1[6].text, 'AKR/J', 'The second strain is not correct')
+
+    def test_search_by_region_mrk_range(self):
+        """
+        @status: Tests that you can search for snps using a region search by Marker Range.
+        @note: snp-qf-gene-?
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/snp")
+        #find the Region tab and click it
+        driver.find_element(By.CSS_SELECTOR, '#ui-id-2').click()
+        #enter the start marker
+        strtmrkrange = driver.find_element(By.NAME, 'startMarker')
+        strtmrkrange.send_keys('D19Mit32')
+        # Enter the stop marker
+        stopmrkrange = driver.find_element(By.NAME, 'endMarker')
+        stopmrkrange.send_keys("Tbx10")
+        stopmrkrange.send_keys(Keys.TAB)
+        # declares the entire tab as an entire form
+        form2 = driver.find_element(By.ID, 'form2')
+        # find the comparison strains button for "Clear All" and click it
+        form2.find_element(By.ID, 'deselectButton').click()
+        # find the Comparison box for strain A/J and click it
+        form2.find_element(By.XPATH, '//*[@id="form2"]/table/tbody/tr[2]/td[2]/div/div[2]/div[2]/div[7]').click()
+        # find the Comparison box for strain AKR/J and click it
+        form2.find_element(By.XPATH, '//*[@id="form2"]/table/tbody/tr[2]/td[2]/div/div[2]/div[2]/div[22]').click()
+        # find the search button and click it
+        form2.find_element(By.ID, 'locationSearch').click()
+        time.sleep(2)
+        # Locate the heat map info line and verify the text
+        hminfo = driver.find_element(By.XPATH, '//*[@id="heatmapInfoRow"]/td/div/div[1]')
+        self.assertEqual(hminfo.text, 'Chr19 from 3,328,551 bp to 4,049,512 bp', 'The heatmap text is not correct')
+        # locates the SNP summary table
+        snp_table = Table(self.driver.find_element(By.ID, "snpSummaryTable"))
+        # Locate the table header cells and verify the strains are correct
+        cells1 = snp_table.get_header_cells()
+        print(iterate.getTextAsList(cells1))
+        print(cells1[5].text)
+        print(cells1[6].text)
+        self.assertEqual(cells1[5].text, 'C3H/HeJ', 'The first strain is not correct')
+        self.assertEqual(cells1[6].text, 'DBA/2J', 'The second strain is not correct')
+
+    def test_search_by_region_slow_heatmap(self):
+        """
+        @status: Tests that you can search for snps using a region search with results that take some
+        time to display the heatmap.
+        @note: snp-qf-gene-?
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/snp")
+        #find the Region tab and click it
+        driver.find_element(By.CSS_SELECTOR, '#ui-id-2').click()
+        # select the chromosome
+        Select(driver.find_element(By.ID, 'chromosomeDropList')).select_by_value('5')
+        # Enter your genome coordinates
+        gc = driver.find_element(By.NAME, 'coordinate')
+        gc.send_keys("1-125618205")
+        gc.send_keys(Keys.RETURN)
+        # declares the entire tab as an entire form
+        form2 = driver.find_element(By.ID, 'form2')
+        # find the search button and click it
+        form2.find_element(By.ID, 'locationSearch').click()
+        WebDriverWait(driver, 20).until(EC.visibility_of_element_located((By.ID, 'heatmapColorRow')))
+        # Locate the heat map info line and verify the text
+        hminfo = driver.find_element(By.XPATH, '//*[@id="heatmapInfoRow"]/td/div/div[1]')
+        self.assertEqual(hminfo.text, 'Chr5 from 1,000,000 bp to 125,618,205,000,000 bp', 'The heatmap text is not correct')
+        # locates the SNP summary table
+        snp_table = Table(self.driver.find_element(By.ID, "snpSummaryTable"))
+        # Locate the table header cells and verify the strains are correct
+        cells1 = snp_table.get_header_cells()
+        print(iterate.getTextAsList(cells1))
+        print(cells1[5].text)
+        print(cells1[6].text)
+        self.assertEqual(cells1[7].text, '129/Sv', 'The first strain is not correct')
+        self.assertEqual(cells1[8].text, '129X1/Sv', 'The second strain is not correct')
+
+    def test_search_by_region_filter_by_function_class(self):
+        """
+        @status: Tests that you can search for snps using a region search by Marker Range and
+        then filter  by function class.
+        @note: snp-qf-gene-?
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/snp")
+        #find the Region tab and click it
+        driver.find_element(By.CSS_SELECTOR, '#ui-id-2').click()
+        #enter the start marker
+        strtmrkrange = driver.find_element(By.NAME, 'startMarker')
+        strtmrkrange.send_keys('D19Mit32')
+        # Enter the stop marker
+        stopmrkrange = driver.find_element(By.NAME, 'endMarker')
+        stopmrkrange.send_keys("Tbx10")
+        stopmrkrange.send_keys(Keys.TAB)
+        # declares the entire tab as an entire form
+        form2 = driver.find_element(By.ID, 'form2')
+        # find the search button and click it
+        form2.find_element(By.ID, 'locationSearch').click()
+        time.sleep(2)
+        # Locate the page info line and verify the text
+        pginfo = driver.find_element(By.ID, 'yui-pg0-0-page-report')
+        print(pginfo.text)
+        self.assertEqual(pginfo.text, 'Showing SNP(s) 1 - 100 of 2516', 'The page info text is not correct')
+        # locates the SNP summary table
+        snp_table = Table(self.driver.find_element(By.ID, "snpSummaryTable"))
+        # Locate the table header cells and verify the strains are correct
+        cells1 = snp_table.get_header_cells()
+        print(iterate.getTextAsList(cells1))
+        print(cells1[5].text)
+        print(cells1[6].text)
+        self.assertEqual(cells1[5].text, '129S1/SvImJ', 'The first strain is not correct')
+        self.assertEqual(cells1[6].text, '129/Sv', 'The second strain is not correct')
+        driver.find_element(By.ID, 'functionClassFilter').click()
+        time.sleep(1)
+        driver.find_element(By.CSS_SELECTOR, '#command > label:nth-child(1) > input:nth-child(1)').click()
+        time.sleep(1)
+        driver.find_element(By.ID, 'yui-gen0-button').click()
+        time.sleep(1)
+        # Locate the page info line and verify the text
+        pginfo = driver.find_element(By.ID, 'yui-pg0-0-page-report')
+        print(pginfo.text)
+        self.assertEqual(pginfo.text, 'Showing SNP(s) 1 - 100 of 2208', 'The page info text is not correct')
+
+    def test_search_by_region_compare(self):
+        """
+        @status: Tests that you can search for snps using a region search of Chromosome and genome coordinates
+        and compare to a reference strain, Uses the Select DO/CC Founders option.
+        @note: snp-qf-gene-?
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/snp")
+        #find the Region tab and click it
+        driver.find_element(By.ID, 'ui-id-2').click()
+        #select the chromosome
+        Select(driver.find_element(By.ID, 'chromosomeDropList')).select_by_value('1')
+        # Enter your genome coordinates
+        gc = driver.find_element(By.NAME, 'coordinate')
+        gc.send_keys("125.618-125.622")
+        gc.send_keys(Keys.RETURN)
+        Select(driver.find_element(By.ID, 'coordinateUnitDropList')).select_by_value('Mbp')
+        # declares the entire tab as an entire form
+        form2 = driver.find_element(By.ID, 'form2')
+        # Find the Select DO/CC Founders button and click it
+        form2.find_element(By.ID, 'doccSelectButton').click()
+        # find the Compare to one or more Reference strains and click it(Yes)
+        form2.find_element(By.XPATH, '//*[@id="form2"]/table/tbody/tr[2]/td[2]/div/div[1]/div/label[2]').click()
+        #find the reference strain for A/J and click it
+        form2.find_element(By.CSS_SELECTOR, '#form2 > table:nth-child(4) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(11) > label:nth-child(1) > span:nth-child(2)').click()
+        time.sleep(2)
+        #Locate the heat map info line and verify the text
+        hminfo = driver.find_element(By.XPATH, '//*[@id="heatmapInfoRow"]/td/div/div[1]')
+        self.assertEqual(hminfo.text, 'Chr1 from 125,618,000 bp to 125,622,000 bp', 'The heatmap text is not correct')
+        #locates the SNP summary table
+        snp_table = Table(self.driver.find_element(By.ID, "snpSummaryTable"))
+        #Locate the table header cells and verify the strains are correct
+        cells1 = snp_table.get_header_cells()
+        #print(iterate.getTextAsList(cells1))
+        print(cells1[5].text)
+        print(cells1[6].text)
+        self.assertEqual(cells1[5].text, 'A/J', 'The first strain is not correct')
+        self.assertEqual(cells1[6].text, '129S1/SvImJ', 'The second strain is not correct')
+        self.assertEqual(cells1[7].text, 'C57BL/6J', 'The second strain is not correct')
+        self.assertEqual(cells1[8].text, 'CAST/EiJ', 'The second strain is not correct')
+        self.assertEqual(cells1[9].text, 'NOD/ShiLtJ', 'The second strain is not correct')
+        self.assertEqual(cells1[10].text, 'WSB/EiJ', 'The second strain is not correct')
+
+    def test_search_by_region_alleleagree1(self):
+        """
+        @status: Tests that you can search for snps using a region search of Chromosome and genome coordinates
+        and compare to a reference strain, Uses the Select DO/CC Founders option and selects the Allele Agreement
+        All reference strains agree and all comparison strains differ from reference
+        @note: snp-qf-gene-?
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/snp")
+        #find the Region tab and click it
+        driver.find_element(By.ID, 'ui-id-2').click()
+        #select the chromosome
+        Select(driver.find_element(By.ID, 'chromosomeDropList')).select_by_value('1')
+        # Enter your genome coordinates
+        gc = driver.find_element(By.NAME, 'coordinate')
+        gc.send_keys("125.618-125.622")
+        gc.send_keys(Keys.RETURN)
+        Select(driver.find_element(By.ID, 'coordinateUnitDropList')).select_by_value('Mbp')
+        # declares the entire tab as an entire form
+        form2 = driver.find_element(By.ID, 'form2')
+        # Find the Select DO/CC Founders button and click it
+        form2.find_element(By.ID, 'doccSelectButton').click()
+        # find the Compare to one or more Reference strains and click it(Yes)
+        form2.find_element(By.XPATH, '//*[@id="form2"]/table/tbody/tr[2]/td[2]/div/div[1]/div/label[2]').click()
+        #find the reference strain for A/J and click it
+        form2.find_element(By.CSS_SELECTOR, '#form2 > table:nth-child(4) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(11) > label:nth-child(1) > span:nth-child(2)').click()
+        time.sleep(2)
+        #Locate the heat map info line and verify the text
+        hminfo = driver.find_element(By.XPATH, '//*[@id="heatmapInfoRow"]/td/div/div[1]')
+        self.assertEqual(hminfo.text, 'Chr1 from 125,618,000 bp to 125,622,000 bp', 'The heatmap text is not correct')
+        #locates the SNP summary table
+        snp_table = Table(self.driver.find_element(By.ID, "snpSummaryTable"))
+        #Locate the table header cells and verify the strains are correct
+        cells1 = snp_table.get_header_cells()
+        #print(iterate.getTextAsList(cells1))
+        print(cells1[5].text)
+        print(cells1[6].text)
+        self.assertEqual(cells1[5].text, 'A/J', 'The first strain is not correct')
+        self.assertEqual(cells1[6].text, '129S1/SvImJ', 'The second strain is not correct')
+        self.assertEqual(cells1[7].text, 'C57BL/6J', 'The second strain is not correct')
+        self.assertEqual(cells1[8].text, 'CAST/EiJ', 'The second strain is not correct')
+        self.assertEqual(cells1[9].text, 'NOD/ShiLtJ', 'The second strain is not correct')
+        self.assertEqual(cells1[10].text, 'WSB/EiJ', 'The second strain is not correct')
+        driver.find_element(By.ID, 'alleleAgreementFilter').click()
+        driver.find_element(By.CSS_SELECTOR, '#command > label:nth-child(1) > input:nth-child(1)').click()
+        driver.find_element(By.ID, 'yui-gen0-button').click()
+        # locates the SNP summary table
+        snp_table = Table(self.driver.find_element(By.ID, "snpSummaryTable"))
+        # Locate the table header cells and verify the strains are correct
+        cells1 = snp_table.get_header_cells()
+        print(cells1[5].text)
+        print(cells1[6].text)
+        self.assertEqual(cells1[5].text, 'A/J', 'The first strain is not correct')
+        self.assertEqual(cells1[6].text, 'C57BL/6J', 'The second strain is not correct')
+
+    def test_search_by_region_alleleagree2(self):
+        """
+        @status: Tests that you can search for snps using a region search of Chromosome and genome coordinates
+        and compare to a reference strain, Uses the Select DO/CC Founders option and selects the Allele Agreement
+        All reference strains agree and all comparison strains agree with reference
+        @note: snp-qf-gene-?
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/snp")
+        #find the Region tab and click it
+        driver.find_element(By.ID, 'ui-id-2').click()
+        #select the chromosome
+        Select(driver.find_element(By.ID, 'chromosomeDropList')).select_by_value('1')
+        # Enter your genome coordinates
+        gc = driver.find_element(By.NAME, 'coordinate')
+        gc.send_keys("125.618-125.622")
+        gc.send_keys(Keys.RETURN)
+        Select(driver.find_element(By.ID, 'coordinateUnitDropList')).select_by_value('Mbp')
+        # declares the entire tab as an entire form
+        form2 = driver.find_element(By.ID, 'form2')
+        # Find the Select DO/CC Founders button and click it
+        form2.find_element(By.ID, 'doccSelectButton').click()
+        # find the Compare to one or more Reference strains and click it(Yes)
+        form2.find_element(By.XPATH, '//*[@id="form2"]/table/tbody/tr[2]/td[2]/div/div[1]/div/label[2]').click()
+        #find the reference strain for A/J and click it
+        form2.find_element(By.CSS_SELECTOR, '#form2 > table:nth-child(4) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(11) > label:nth-child(1) > span:nth-child(2)').click()
+        time.sleep(2)
+        #Locate the heat map info line and verify the text
+        hminfo = driver.find_element(By.XPATH, '//*[@id="heatmapInfoRow"]/td/div/div[1]')
+        self.assertEqual(hminfo.text, 'Chr1 from 125,618,000 bp to 125,622,000 bp', 'The heatmap text is not correct')
+        #locates the SNP summary table
+        snp_table = Table(self.driver.find_element(By.ID, "snpSummaryTable"))
+        #Locate the table header cells and verify the strains are correct
+        cells1 = snp_table.get_header_cells()
+        #print(iterate.getTextAsList(cells1))
+        print(cells1[5].text)
+        print(cells1[6].text)
+        self.assertEqual(cells1[5].text, 'A/J', 'The first strain is not correct')
+        self.assertEqual(cells1[6].text, '129S1/SvImJ', 'The second strain is not correct')
+        self.assertEqual(cells1[7].text, 'C57BL/6J', 'The second strain is not correct')
+        self.assertEqual(cells1[8].text, 'CAST/EiJ', 'The second strain is not correct')
+        self.assertEqual(cells1[9].text, 'NOD/ShiLtJ', 'The second strain is not correct')
+        self.assertEqual(cells1[10].text, 'WSB/EiJ', 'The second strain is not correct')
+        driver.find_element(By.ID, 'alleleAgreementFilter').click()
+        driver.find_element(By.CSS_SELECTOR, '#command > label:nth-child(3) > input:nth-child(1)').click()
+        driver.find_element(By.ID, 'yui-gen0-button').click()
+        # locates the SNP summary table
+        snp_table = Table(self.driver.find_element(By.ID, "snpSummaryTable"))
+        # Locate the table header cells and verify the strains are correct
+        cells1 = snp_table.get_header_cells()
+        print(cells1[5].text)
+        print(cells1[6].text)
+        self.assertEqual(cells1[5].text, 'A/J', 'The first strain is not correct')
+        self.assertEqual(cells1[6].text, 'CAST/EiJ', 'The second strain is not correct')
+        self.assertEqual(cells1[7].text, 'NOD/ShiLtJ', 'The first strain is not correct')
+        self.assertEqual(cells1[8].text, 'WSB/EiJ', 'The second strain is not correct')
+
     def tearDown(self):
         self.driver.quit()
         tracemalloc.stop()

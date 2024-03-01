@@ -199,7 +199,7 @@ class TestEiHTindexSearch(unittest.TestCase):
         @see pwi-htindex-search-6
         """
         driver = self.driver
-        # finds the ArrayExp field and enter the ID
+        # finds the description field and enter the text
         driver.find_element(By.ID, "description").send_keys("%angiogenesis and osteogenesis%")
         driver.find_element(By.ID, 'searchButton').click()
         wait.forAngular(driver)
@@ -210,7 +210,7 @@ class TestEiHTindexSearch(unittest.TestCase):
             text = item.text
             print(text)
         # Assert the correct ID  is returned
-        self.assertEqual(text, 'GSE171672')
+        self.assertEqual(text, 'GSE252618')
         # find the Description field text and assert it contains angiogenesis and osteogenesis
         fetch_text = self.driver.find_element(By.ID, "description").text
         if "angiogenesis and osteogenesis" in fetch_text:

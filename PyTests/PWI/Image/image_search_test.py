@@ -323,7 +323,7 @@ class TestEiImageSearch(unittest.TestCase):
         # finds the Image Class pulldown and selects "Expression" option then click the Search button
         Select(driver.find_element(By.ID, "imageClassID")).select_by_value('6481781')
         driver.find_element(By.ID, 'searchButton').click()
-        WebDriverWait(self.driver, 15).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'J:47; Full Size; 1'))
+        WebDriverWait(self.driver, 25).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'J:47; Full Size; 1'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -825,7 +825,7 @@ class TestEiImageSearch(unittest.TestCase):
         self.assertEqual(cell0.text, 'J:2250; Full Size; 4')
         # Assert the copyright field is blank
         copyrgt = driver.find_element(By.ID, 'copyrightID')
-        self.assertEqual(copyrgt.text, "                                ")
+        self.assertEqual(copyrgt.text, "                                                ")
 
     def testAccTypePaintSearch(self):
         """

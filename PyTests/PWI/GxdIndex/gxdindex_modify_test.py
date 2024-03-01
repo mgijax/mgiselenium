@@ -53,12 +53,12 @@ class TestEiGxdIndexModify(unittest.TestCase):
     def testModMrk(self):
         """
         @Status tests that an index record Marker symbol can be modified
-
+        @note this test needs work along with all the other tests in this suite!!
         """
         driver = self.driver
         form = self.form
         time.sleep(2)
-        form.enter_value('jnumid', '186289')
+        form.enter_value('jnumID', 'J:186289')
         # click the Tab key
         form.press_tab()
         # finds the citation field

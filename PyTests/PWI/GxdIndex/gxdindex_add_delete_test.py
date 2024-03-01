@@ -52,13 +52,13 @@ class TestEiGxdIndexAddDelete(unittest.TestCase):
     def testAddDeleteIndex(self):
         """
         @Status tests that an index record can be added
-
+        @this test needs work so it is correct
         """
         driver = self.driver
         form = self.form
         time.sleep(2)
         print("BEGIN testAddIndex")
-        form.enter_value('jnumID', '225216')
+        form.enter_value('jnumID', 'J:225216')
         # click the Search key
         form.click_search()
         # finds the citation field
@@ -86,7 +86,7 @@ class TestEiGxdIndexAddDelete(unittest.TestCase):
         driver = self.driver
         form = self.form
 
-        form.enter_value('jnumID', '225216')
+        form.enter_value('jnumID', 'J:225216')
         # click the Tab key
         form.click_search()
         # finds the citation field
@@ -114,12 +114,12 @@ class TestEiGxdIndexAddDelete(unittest.TestCase):
     def testJnumMrkErrMsgs(self):
         """
         @Status tests that the correct error messages are displayed when entering an invalid J number and when entering an invalid Marker
-
+        @test needs work as it is not finding error message.
         """
         driver = self.driver
         form = self.form
         time.sleep(2)
-        form.enter_value('jnumid', '000000')
+        form.enter_value('jnumID', 'J:000000')
         # click the Tab key
         form.press_tab()
         # Get the error message that is displayed
@@ -137,12 +137,12 @@ class TestEiGxdIndexAddDelete(unittest.TestCase):
     def testPriorityErrMsg(self):
         """
         @Status tests that the correct error message is displayed when not selecting a priority
-
+        @note this test needs work!
         """
         driver = self.driver
         form = self.form
         wait.forAngular(driver)
-        form.enter_value('jnumid', '144307')
+        form.enter_value('jnumID', 'J:144307')
         # click the Tab key
         form.press_tab()
         # finds the marker field
@@ -161,12 +161,12 @@ class TestEiGxdIndexAddDelete(unittest.TestCase):
     def testStageErrMsg(self):
         """
         @Status tests that the correct error message is displayed when not selecting any stage
-
+        @this test needs work!
         """
         driver = self.driver
         form = self.form
         wait.forAngular(driver, '5')
-        form.enter_value('jnumid', '225216')
+        form.enter_value('jnumID', 'J:225216')
         # click the Tab key
         form.press_tab()
         # finds the marker field

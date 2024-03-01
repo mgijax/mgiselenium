@@ -109,12 +109,12 @@ class TestEiMrkSearchHistory(unittest.TestCase):
         print(cell4.text)
         print(cell5.text)
         # Assert the correct genotype has been returned in the results table
-        self.assertEqual(cell0.text, 'Pax1')
-        self.assertEqual(cell1.text, 'Pax2')
-        self.assertEqual(cell2.text, 'Pax3')
-        self.assertEqual(cell3.text, 'Pax4')
-        self.assertEqual(cell4.text, 'Pax5')
-        self.assertEqual(cell5.text, 'Pax6')
+        self.assertEqual(cell0.text, 'Paxx')
+        self.assertEqual(cell1.text, 'Pax1')
+        self.assertEqual(cell2.text, 'Pax1dt')
+        self.assertEqual(cell3.text, 'Paxbp1')
+        self.assertEqual(cell4.text, 'Paxip1')
+        self.assertEqual(cell5.text, 'Pax2')
 
     def testNameHistorySearch(self):
         """

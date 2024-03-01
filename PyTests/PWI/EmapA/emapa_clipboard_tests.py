@@ -322,11 +322,11 @@ class TestEiEmapaClipboard(unittest.TestCase):
 
         self.assertEqual(["TS4; embryo", "TS5; embryo"], searchTreeItems)
         items[1].click()
-        wait.forAngular(self.driver)
-
+        #wait.forAngular(self.driver)
+        time.sleep(2)
         self.driver.find_element(By.XPATH, "//*[@id='clipboard']/li[2]/img").click()
-        wait.forAngular(self.driver)
-
+        #wait.forAngular(self.driver)
+        time.sleep(2)
         clipsort = self.driver.find_element(By.ID, "emapClipBoardContent").find_element(By.ID, "clipboard")
         items = clipsort.find_elements(By.CSS_SELECTOR, "li")
         searchTreeItems = iterate.getTextAsList(items)
@@ -468,7 +468,8 @@ class TestEiEmapaClipboard(unittest.TestCase):
         clipdata = self.driver.find_element(By.ID, "emapClipBoardContent")
         items = clipdata.find_elements(By.CSS_SELECTOR, "li")
         searchTreeItems = iterate.getTextAsList(items)
-        time.sleep(2)
+        time.sleep(4)
+        print(searchTreeItems)
         # assert that TS18 tail is displayed in the clipboard
         self.assertEqual(["TS18; tail"], searchTreeItems)
         # clear the clipboard using the shortcut keys

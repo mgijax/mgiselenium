@@ -690,6 +690,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
         form.click_searchSummary()
         wait.forAngular(self.driver)
         self.driver.switch_to.window(self.driver.window_handles[1])
+        time.sleep(2)
         # find the search results table
         results_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
         table = Table(results_table)
@@ -807,6 +808,7 @@ class TestEiLitTriageSearch(unittest.TestCase):
         form.click_searchSummary()
         wait.forAngular(self.driver)
         self.driver.switch_to.window(self.driver.window_handles[-1])
+        time.sleep(2)
         # find the search results table
         results_table = self.driver.find_element(By.CLASS_NAME, "dataTable")
         table = Table(results_table)

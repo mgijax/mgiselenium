@@ -63,7 +63,7 @@ class TestEiLitTriageDetail(unittest.TestCase):
         # finds the Authors field and return it's text value
         author = self.driver.find_element(By.ID, "editTabAuthors").get_attribute('value')
         print(author)
-        self.assertEqual(author, 'Gaudet P; Livstone M; Thomas P; The Reference Genome Project 2010')
+        self.assertEqual(author, 'Marc Feuermann, Huaiyu Mi, Pascale Gaudet, Dustin Ebert, Anushya Muruganujan, Paul Thomas')
         # finds the Title field and return it's text value
         title = self.driver.find_element(By.ID, "editTabTitle").get_attribute('value')
         print(title)

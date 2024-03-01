@@ -60,8 +60,12 @@ class TestEiMrkSearch(unittest.TestCase):
         driver = self.driver
         # finds the Marker Type Field and select the option Gene
         Select(driver.find_element(By.ID, "markerType")).select_by_value('string:1')
+        # finds the Marker Status field, selects the option Official, then clicks search
+        Select(driver.find_element(By.ID, "markerStatus")).select_by_value('string:1')
+        #finds the Chromosome field and enters "MT"
+        driver.find_element(By.ID, 'chromosome').send_keys("MT")
         driver.find_element(By.ID, 'searchButton').click()
-        WebDriverWait(self.driver, 20).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Falz'))
+        WebDriverWait(self.driver, 5).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'mt-Tf'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -70,7 +74,7 @@ class TestEiMrkSearch(unittest.TestCase):
         symbol1 = iterate.getTextAsList(cell1)
         print(symbol1)
         # Assert the correct marker symbol and marker type is returned
-        self.assertEqual(symbol1, ['0610005A07Rik'])
+        self.assertEqual(symbol1, ['mt-Cytb'])
         # since we search for a particular marker type verify the correct type is displayed
         mrktype = driver.find_element(By.ID, 'markerType').get_attribute('value')
         self.assertEqual(mrktype, 'string:1')  # 1 equals "Gene"
@@ -106,7 +110,7 @@ class TestEiMrkSearch(unittest.TestCase):
         @see pwi-mrk-search-3
         """
         driver = self.driver
-        # finds the marker type field and selct the option QTL
+        # finds the marker type field and select the option QTL
         Select(driver.find_element(By.ID, "markerType")).select_by_value('string:6')
         driver.find_element(By.ID, 'searchButton').click()
         WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Acq1'))
@@ -117,7 +121,7 @@ class TestEiMrkSearch(unittest.TestCase):
         cell1 = table.get_row_cells(0)
         symbol1 = iterate.getTextAsList(cell1)
         print(symbol1)
-        self.assertEqual(symbol1, ['Aaaq1'])
+        self.assertEqual(symbol1, ['amd'])
         # since we search for a particular marker type verify the correct type is displayed
         mrktype = driver.find_element(By.ID, 'markerType').get_attribute('value')
         self.assertEqual(mrktype, 'string:6')  # 6 equals "QTL"
@@ -190,7 +194,7 @@ class TestEiMrkSearch(unittest.TestCase):
         cell1 = table.get_row_cells(0)
         symbol1 = iterate.getTextAsList(cell1)
         print(symbol1)
-        self.assertEqual(symbol1, ['Del(10)12H'])
+        self.assertEqual(symbol1, ['Del(Y)Sxrb<Rlll>-d'])
         # since we search for a particular marker type verify the correct type is displayed
         mrktype = driver.find_element(By.ID, 'markerType').get_attribute('value')
         self.assertEqual(mrktype, 'string:3')  # 3 equals "Cytogenetic Marker"
@@ -307,7 +311,7 @@ class TestEiMrkSearch(unittest.TestCase):
         @see pwi-mrk-search-11
         """
         driver = self.driver
-        # finds the Marker Status field, selects the option Official and Chromosome 16, then clicks search
+        # finds the Marker Status field, selects the option Official and Chromosome MT, then clicks search
         Select(driver.find_element(By.ID, "markerStatus")).select_by_value('string:1')
         driver.find_element(By.ID, 'chromosome').send_keys("MT")
         driver.find_element(By.ID, 'searchButton').click()
@@ -320,7 +324,7 @@ class TestEiMrkSearch(unittest.TestCase):
         # print column 1
         print(cells.text)
         # assert the symbol is correct
-        self.assertEqual(cells.text, 'mt-Atp6')
+        self.assertEqual(cells.text, 'mt-Cytb')
         # locate the Marker status field and assert it is correct
         mrkstatus = driver.find_element(By.ID, 'markerStatus').get_attribute('value')
         self.assertEqual(mrkstatus, 'string:1')  # 1 equals "Official"
@@ -331,7 +335,7 @@ class TestEiMrkSearch(unittest.TestCase):
         @see pwi-mrk-search-12
         """
         driver = self.driver
-        # finds the Marker Status field, selects the option Withdrawn, selects chromosome 16 and clicks search
+        # finds the Marker Status field, selects the option Withdrawn, selects chromosome MT and clicks search
         Select(driver.find_element(By.ID, "markerStatus")).select_by_value('string:2')
         driver.find_element(By.ID, 'chromosome').clear()
         driver.find_element(By.ID, 'chromosome').send_keys("MT")
@@ -347,7 +351,7 @@ class TestEiMrkSearch(unittest.TestCase):
         # print column 1
         print(cells.text)
         # assert the symbol is correct
-        self.assertEqual(cells.text, 'AL024059')
+        self.assertEqual(cells.text, 'AU018868')
         # locate the Marker status field and assert it is correct
         mrkstatus = driver.find_element(By.ID, 'markerStatus').get_attribute('value')
         self.assertEqual(mrkstatus, 'string:2')  # 2 equals "Withdrawn"
@@ -370,7 +374,7 @@ class TestEiMrkSearch(unittest.TestCase):
         # print column 1
         print(cells.text)
         # assert the symbol is correct
-        self.assertEqual(cells.text, 'Acadlm')
+        self.assertEqual(cells.text, 'ardw')
         # locate the Marker status field and assert it is correct
         mrkstatus = driver.find_element(By.ID, 'markerStatus').get_attribute('value')
         self.assertEqual(mrkstatus, 'string:3')  # 3 equals "Reserved"
@@ -519,14 +523,14 @@ class TestEiMrkSearch(unittest.TestCase):
         cells = table.get_rows()
         print(cells[0].text)
         # Assert the correct symbols have been returned in the results table(only verifies the first 4 and last 4 results of the table)
-        self.assertEqual(cells[0].text, 'Pax1')
+        self.assertEqual(cells[0].text, 'Paxx')
         self.assertEqual(cells[1].text, 'Pax-1')
-        self.assertEqual(cells[2].text, 'Pax2')
-        self.assertEqual(cells[3].text, 'Pax-2')
-        self.assertEqual(cells[18].text, 'Pax-9')
-        self.assertEqual(cells[19].text, 'Paxbp1')
-        self.assertEqual(cells[20].text, 'Paxip1')
-        self.assertEqual(cells[21].text, 'Paxx')
+        self.assertEqual(cells[2].text, 'Pax1')
+        self.assertEqual(cells[3].text, 'Pax1dt')
+        self.assertEqual(cells[18].text, 'Pax7')
+        self.assertEqual(cells[19].text, 'Pax-8')
+        self.assertEqual(cells[20].text, 'Pax8')
+        self.assertEqual(cells[21].text, 'Pax-9')
 
     def testNameWildSearch(self):
         """
@@ -739,7 +743,7 @@ class TestEiMrkSearch(unittest.TestCase):
         print(cell1.text)
         # Assert the correct symbol has been returned in the results table
         self.assertEqual(cell0.text, '4930500I12Rik')
-        self.assertEqual(cell1.text, 'AI838599')
+        self.assertEqual(cell1.text, 'AY243472')
         # Assert the correct Modification Date is returned in the Modification Date field
         modifydate = driver.find_element(By.ID, 'markerModificationDate').get_attribute('value')
         self.assertEqual(modifydate, '2004-06-22')
@@ -1233,10 +1237,10 @@ class TestEiMrkSearch(unittest.TestCase):
         # waits until the Reference table is displayed on the page
         wait.forAngular(self.driver)
         # find the reference results table type column
-        cite = driver.find_element(By.ID, 'refAssocCitation-3').get_attribute('value')
+        cite = driver.find_element(By.ID, 'refAssocCitation-0').get_attribute('value')
         print(cite)
-        # Assert the citation returned is correct for row4
-        self.assertEqual(cite, 'Funk CD, Biochim Biophys Acta 1996 Nov 11;1304(1):65-84')
+        # Assert the citation returned is correct for row1
+        self.assertEqual(cite, 'Funk CD, Ann N Y Acad Sci 1994 Apr 18;714():253-8')
 
     def testMrkAccIDOtherSortSearch(self):
         """

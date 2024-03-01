@@ -1,6 +1,6 @@
 '''
 Created on Jul 31, 2020
-TESTS HAVE NOT YET BEEN REWRITTEN FOR ANTIBODIES MODULE!!!!!!!
+Tests the search features of the Antibody module
 @author: jeffc
 '''
 import unittest

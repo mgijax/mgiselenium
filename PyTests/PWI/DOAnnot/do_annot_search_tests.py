@@ -242,7 +242,7 @@ class TestEIDoannotSearch(unittest.TestCase):
         qualfy = driver.find_element(By.ID, 'qualifierAbbreviation-0').get_property(
             'value')  # value should be 'string:1614157' that equals NOT
         print(qualfy)
-        j_num = driver.find_element(By.ID, 'jnumID-2').get_property('value')
+        j_num = driver.find_element(By.ID, 'jnumID-0').get_property('value')
         print(j_num)
         cite = driver.find_elements(By.CLASS_NAME, 'short_citation')[0]
         print(cite.text)
@@ -258,16 +258,16 @@ class TestEIDoannotSearch(unittest.TestCase):
         create_date = driver.find_element(By.ID, 'createdDate-0').get_property('value')
         print(create_date)
         # we are asserting the third row of data is correct
-        self.assertEqual(term0, 'DOID:11949')
-        self.assertEqual(voc_term.text, 'Creutzfeldt-Jakob disease')
+        self.assertEqual(term0, 'DOID:0110887')
+        self.assertEqual(voc_term.text, 'inflammatory bowel disease 12')
         self.assertEqual(qualfy, 'string:1614157')
-        self.assertEqual(j_num, 'J:58820')
-        self.assertEqual(cite.text, 'Manson JC, EMBO J 1999 Dec 1;18(23):6855-64')
+        self.assertEqual(j_num, 'J:91100')
+        self.assertEqual(cite.text, 'Bjursten M, Cell Immunol 2004 Apr;228(2):77-80')
         self.assertEqual(evid, 'string:847168')
-        self.assertEqual(mod_by, 'anna')
-        self.assertEqual(mod_date, '2005-06-20')
-        self.assertEqual(create_by, 'anna')
-        self.assertEqual(create_date, '2005-06-20')
+        self.assertEqual(mod_by, 'tmeehan')
+        self.assertEqual(mod_date, '2008-12-08')
+        self.assertEqual(create_by, 'tmeehan')
+        self.assertEqual(create_date, '2008-12-08')
 
     def testDoJnumSearch(self):
         """

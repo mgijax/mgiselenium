@@ -1,7 +1,7 @@
 '''
 Created on Sep 7, 2017
 These tests are to confirm results you get back using various edit requirements
-@author: jeffc
+@author: jeffc all these test need work!!!
 @attention: Do not use these tests against a production system! Since you are editing it will cause  data to be changed
 '''
 import unittest
@@ -69,8 +69,7 @@ class TestEiLitTriageEdit(unittest.TestCase):
         self.driver.find_element(By.ID, 'searchButton').click()
         # time.sleep(5)
         # wait until the Pubmed ID of the first row is visible
-        WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located(
-            (By.CSS_SELECTOR, "#resultsTable > tbody > tr > td:nth-child(4) > div > a")))
+        WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "#resultsTable > tbody > tr > td:nth-child(4) > div > a")))
         # finds the results table and then the first pubmed ID field(text)
         table_element = self.driver.find_element(By.ID, "resultsTable")
         link_element = table_element.find_element(By.CSS_SELECTOR, 'tbody > tr > td:nth-child(4) > div > a')

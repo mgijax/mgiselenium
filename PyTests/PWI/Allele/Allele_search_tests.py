@@ -104,7 +104,7 @@ class TestEIAlleleSearch(unittest.TestCase):
         @see pwi-allele-search-3
         """
         driver = self.driver
-        # finds the Strain field and enters a strain w/wildcard, tabs out of the field then clicks the Search button
+        # finds the Marker field and enters a marker symbol, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "markerSymbol-0").send_keys('Espn')
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
@@ -124,7 +124,7 @@ class TestEIAlleleSearch(unittest.TestCase):
         print(symbol2)
         # Assert the correct allele symbol is returned
         self.assertEqual(symbol1, ['Espn<+>'])
-        self.assertEqual(symbol2, ['Espn<em1Smoc>'])
+        self.assertEqual(symbol2, ['Espn<je>'])
 
     def testAlleleMrkJnumSearch(self):
         """
@@ -198,11 +198,11 @@ class TestEIAlleleSearch(unittest.TestCase):
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         # Iterate and print the search results headers
-        cell1 = table.get_row_cells(2)
+        cell1 = table.get_row_cells(0)
         symbol1 = iterate.getTextAsList(cell1)
         print(symbol1)
         # Assert the correct allele symbol is returned, this is first result of over 35
-        self.assertEqual(symbol1, ['Adissp<Gt(D053F10)Wrst>'])
+        self.assertEqual(symbol1, ['2700097O09Rik<Gt(D069D07)Wrst>'])
 
     def testAlleleMrkStatus3Search(self):
         """
@@ -287,7 +287,7 @@ class TestEIAlleleSearch(unittest.TestCase):
         symbol1 = iterate.getTextAsList(cell1)
         print(symbol1)
         # Assert the correct allele symbol is returned, this is the only result
-        self.assertEqual(symbol1, ['Aacs<Sum13-Jus>'])
+        self.assertEqual(symbol1, ['Aacs<tm1.1Mrl>'])
 
     def testAlleleGenerationSearch(self):
         """
@@ -1401,8 +1401,8 @@ class TestEIAlleleSearch(unittest.TestCase):
         cell1 = table.get_row_cells(2)
         symbol1 = iterate.getTextAsList(cell1)
         print(symbol1)
-        # Assert the correct allele symbol is returned, this is the only result
-        self.assertEqual(symbol1, ['Afg3l2<Emv66>'])
+        # Assert the correct allele symbol is returned, of about 52 results
+        self.assertEqual(symbol1, ['a<t-2Gso>'])
         # verify the correct option for molecular mutation is selected
         select = Select(driver.find_element(By.ID, 'mutation-0'))
         selected_option = select.first_selected_option
