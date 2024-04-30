@@ -1,4 +1,4 @@
-'''
+"""
 Created on Dec 15, 2023
 
 This file contains the tests for Hmdc relationships for MP to HP Related searches looking at synonym to synonym.
@@ -24,33 +24,23 @@ Verify
 Verify
 Verify
 Verify
-'''
-import unittest
-import time
+"""
+import os.path
+import sys
 import tracemalloc
+import unittest
 import config
-import sys, os.path
 
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.edge.service import Service as EdgeService
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from util import wait
+from util.table import Table
 # adjust the path to find config
 sys.path.append(
     os.path.join(os.path.dirname(__file__), '../../..', )
 )
-from HTMLTestRunner import HTMLTestRunner
-from selenium import webdriver
-from selenium.webdriver.support.ui import Select
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.chrome.service import Service as ChromeService
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.firefox.service import Service as FirefoxService
-from webdriver_manager.firefox import GeckoDriverManager
-from selenium.webdriver.edge.service import Service as EdgeService
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
-from util import iterate, wait
-from util.form import ModuleForm
-from util.table import Table
 
 # Tests
 tracemalloc.start()
@@ -67,23 +57,23 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.driver.implicitly_wait(10)
 
     def test_rel_syn_to_syn1(self):
-        '''
+        """
         @status these tests verify a relationship that has a synonym match for Abdominal distention
         @see: HMDC-syn_to_syn-1
-        '''
+        """
         print("BEGIN test_rel_syn_to_syn1")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0003270")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0003270")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -122,23 +112,23 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(termsyn2.text, 'bloating | gastrointestinal bloating | tympania | tympanism | tympanites')
 
     def test_rel_syn_to_syn2(self):
-        '''
+        """
         @status these tests verify a relationship that has a synonym  match for Abnormal situs inversus
         @see: HMDC-syn_to_syn-2
-        '''
+        """
         print("BEGIN test_rel_broad_standard_match1")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0003363")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0003363")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -177,23 +167,23 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(termsyn2.text, '')
 
     def test_rel_syn_to_syn3(self):
-        '''
+        """
         @status these tests verify a relationship that has a synonym match for Abnormal emotion
         @see: HMDC-syn-syn-3
-        '''
+        """
         print("BEGIN test_rel_syn_to_syn3")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0100851")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0100851")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -232,23 +222,23 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(termsyn2.text, 'abnormal emotion/affect behaviour | neurological/behavioral: emotion/affect abnormalities | neurological/behavioural: emotion/affect abnormalities')
 
     def test_rel_syn_to_syn4(self):
-        '''
+        """
         @status these tests verify a relationship that has a synonym match to Abnormal cardiomyocyte morphology
         @see: HMDC-syn-to-syn-4
-        '''
+        """
         print("BEGIN test_rel_syn_to_syn4")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0031331")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0031331")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -270,23 +260,23 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(termsyn1.text, 'abnormal adult cardiomyocyte morphology | abnormal cardiac muscle cell morphology | abnormal myocardial cell morphology | abnormal myocardial fibers | abnormal myocardial fibre morphology | abnormal myocardial fibres | myocardial fiber dysplasia | myocardial fibers abnormalities | myocardial fibre dysplasia | myocardial fibres abnormalities')
 
     def test_rel_syn_to_syn5(self):
-        '''
+        """
         @status these tests verify a relationship that has a synonym match to Abnormal of the forehead
         @see: HMDC-syn-to-syn-5
-        '''
+        """
         print("BEGIN test_rel_syn_to_syn5")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0000290")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0000290")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -307,23 +297,23 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(mterm1.text, '(MP:0030031)\nabnormal forehead morphology')
         self.assertEqual(termsyn1.text, 'abnormality of the frontal region of the face | deformity of the forehead | forehead anomaly | malformation of the forehead')
     def test_rel_syn_to_syn6(self):
-        '''
+        """
         @status these tests verify a relationship that has a synonym match to Abnormal cerebral morphology
         @see: HMDC-syn-to-syn-6
-        '''
+        """
         print("BEGIN test_rel_syn_to_syn6")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0002060")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0002060")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -379,23 +369,23 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(termsyn3.text, 'cerebral lesion')
 
     def test_rel_syn_to_syn7(self):
-        '''
+        """
         @status these tests verify a relationship that has a synonym match to Abnormality of the calcaneus
         @see: HMDC-syn-to-syn-7
-        '''
+        """
         print("BEGIN test_rel_syn_to_syn7")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0008364")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0008364")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -417,23 +407,23 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(termsyn1.text, 'abnormal calcaneal bone morphology | abnormal calcaneus morphology | abnormal fibulare morphology | abnormal fibular tarsal bone | abnormal heel bone | abnormal hock bone | abnormal os calcis')
 
     def test_rel_syn_to_syn8(self):
-        '''
+        """
         @status these tests verify a relationship that has a synonym match to Aplasia of the fingers
         @see: HMDC-syn-to-syn-8
-        '''
+        """
         print("BEGIN test_rel_syn_to_syn8")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0009380")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0009380")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -455,23 +445,23 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(termsyn1.text, 'absence of digits | absent fingers | absent toes')
 
     def test_rel_syn_to_syn9(self):
-        '''
+        """
         @status these tests verify a relationship that has a synonym match for Abnormality of the liver
         @see: HMDC-syn_to_syn-9
-        '''
+        """
         print("BEGIN test_rel_syn_to_syn9")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0001392")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0001392")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -510,23 +500,23 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(termsyn2.text, 'abnormal hepatic morphology | abnormal liver | liver dysplasia')
 
     def test_rel_syn_to_syn10(self):
-        '''
+        """
         @status these tests verify a relationship that has a synonym  match for abnormal circulating albumin concentration
         @see: HMDC-syn_to_syn-10
-        '''
+        """
         print("BEGIN test_rel_broad_standard_match10")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0012116")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0012116")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -548,23 +538,23 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(termsyn1.text, 'abnormal albumin level')
 
     def test_rel_syn_to_syn11(self):
-        '''
+        """
         @status these tests verify a relationship that has a synonym match for Aplasia of the vestibule
         @see: HMDC-syn-syn-11
-        '''
+        """
         print("BEGIN test_rel_syn_to_syn11")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0011377")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0011377")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -586,23 +576,23 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(termsyn1.text, 'absent vestibule')
 
     def test_rel_syn_to_syn12(self):
-        '''
+        """
         @status these tests verify a relationship that has a synonym match to Cerebral calcification
         @see: HMDC-syn-to-syn-12
-        '''
+        """
         print("BEGIN test_rel_syn_to_syn12")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0002514")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0002514")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -624,23 +614,23 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(termsyn1.text, 'brain calcification')
 
     def test_rel_syn_to_syn13(self):
-        '''
+        """
         @status these tests verify a relationship that has a synonym match to Sparse hair
         @see: HMDC-syn-to-syn-13
-        '''
+        """
         print("BEGIN test_rel_syn_to_syn13")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0008070")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0008070")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -679,23 +669,23 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(termsyn2.text,'absent hair | bald | hypotrichosis | naked | nude')
 
     def test_rel_syn_to_syn14(self):
-        '''
+        """
         @status these tests verify a relationship that has a synonym match to Recurrent infections
         @see: HMDC-syn-to-syn-14
-        '''
+        """
         print("BEGIN test_rel_syn_to_syn14")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0002719")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0002719")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -717,23 +707,23 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(termsyn1.text, 'decreased resistance to infection | susceptibility to infection')
 
     def test_rel_syn_to_syn15(self):
-        '''
+        """
         @status these tests verify a relationship that has a synonym match to Stillbirth
         @see: HMDC-syn-to-syn-15
-        '''
+        """
         print("BEGIN test_rel_syn_to_syn15")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0003826")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0003826")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -755,23 +745,23 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(termsyn1.text, 'perinatal death | stillborn | survival: perinatal lethality')
 
     def test_rel_syn_to_syn16(self):
-        '''
+        """
         @status these tests verify a relationship that has a synonym match to Subcutaneous calcification
         @see: HMDC-syn-to-syn-16
-        '''
+        """
         print("BEGIN test_rel_syn_to_syn16")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0007618")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0007618")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -793,23 +783,23 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(termsyn1.text, 'skin calcification')
 
     def test_rel_syn_to_syn17(self):
-        '''
+        """
         @status these tests verify a relationship that has a synonym match to Abnormal circulating free fatty acid concentration
         @see: HMDC-syn-to-syn-17
-        '''
+        """
         print("BEGIN test_rel_syn_to_syn17")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0040300")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0040300")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -831,23 +821,23 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(termsyn1.text, 'abnormal circulating free fatty acid level | abnormal circulating non-esterified fatty acids level | abnormal FFA level | abnormal NEFA level | abnormal UFA level | abnormal unesterified fatty acids level')
 
     def test_rel_syn_to_syn18(self):
-        '''
+        """
         @status these tests verify a relationship that has a synonym match to Aortic valve stenosis
         @see: HMDC-syn-to-syn-18
-        '''
+        """
         print("BEGIN test_rel_syn_to_syn18")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0001650")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0001650")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -885,23 +875,23 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(termsyn2.text, 'aortic stenosis')
 
     def test_rel_syn_to_syn19(self):
-        '''
+        """
         @status these tests verify a relationship that has a synonym match to Broad skull
         @see: HMDC-syn-to-syn-19
-        '''
+        """
         print("BEGIN test_rel_syn_to_syn19")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0002682")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0002682")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -923,23 +913,23 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(termsyn1.text, 'increased skull width | wide skull')
 
     def test_rel_syn_to_syn20(self):
-        '''
+        """
         @status these tests verify a relationship that has a synonym match to Hyperhistidinemia
         @see: HMDC-syn-to-syn-20
-        '''
+        """
         print("BEGIN test_rel_syn_to_syn20")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0010906")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0010906")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -961,23 +951,23 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(termsyn1.text, 'histidinaemia | histidinemia')
 
     def test_rel_syn_to_syn21(self):
-        '''
+        """
         @status these tests verify a relationship that has a synonym match to Loss of consciousness
         @see: HMDC-syn-to-syn-21
-        '''
+        """
         print("BEGIN test_rel_syn_to_syn21")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0007185")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0007185")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -999,23 +989,23 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(termsyn1.text, 'fainting | fainting spell')
 
     def test_rel_syn_to_syn22(self):
-        '''
+        """
         @status these tests verify a relationship that has a synonym match to Pulmonic stenosis
         @see: HMDC-syn-to-syn-22
-        '''
+        """
         print("BEGIN test_rel_syn_to_syn22")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0001642")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0001642")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -1071,23 +1061,23 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(termsyn3.text, 'pulmonary arterial stenosis | pulmonary stenosis')
 
     def test_rel_syn_to_syn23(self):
-        '''
+        """
         @status these tests verify a relationship that has a synonym match to Transposition of the great arteries
         @see: HMDC-syn-to-syn-23
-        '''
+        """
         print("BEGIN test_rel_syn_to_syn23")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0001669")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0001669")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -1109,23 +1099,23 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(termsyn1.text, 'discordant VA connections | TGA | transposition of great vessels')
 
     def test_rel_syn_to_syn24(self):
-        '''
+        """
         @status these tests verify a relationship that has a synonym match to Glomerular sclerosis
         @see: HMDC-syn-to-syn-24
-        '''
+        """
         print("BEGIN test_rel_syn_to_syn24")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0000096")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0000096")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -1164,23 +1154,23 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(termsyn2.text, 'fibrotic glomerular capillaries | fibrotic glomeruli | kidney glomerular fibrosis | kidney glomerulus fibrosis | renal glomerular fibrosis')
 
     def test_rel_syn_to_syn25(self):
-        '''
+        """
         @status these tests verify a relationship that has a synonym match to Neoplasm of the pancreas
         @see: HMDC-syn-to-syn-25
-        '''
+        """
         print("BEGIN test_rel_syn_to_syn25")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0002894")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0002894")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -1202,23 +1192,23 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(termsyn1.text, 'increased pancreas tumour incidence | pancreas cancer | pancreas neoplasms | pancreatic cancer | pancreatic neoplasms | pancreatic tumor | pancreatic tumour')
 
     def test_rel_syn_to_syn26(self):
-        '''
+        """
         @status these tests verify a relationship that has a synonym match to Atrophy of alveolar ridges
         @see: HMDC-syn-to-syn-26
-        '''
+        """
         print("BEGIN test_rel_syn_to_syn26")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0006308")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0006308")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -1240,23 +1230,23 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(termsyn1.text, 'alveolar bone atrophy | alveolar bone loss | alveolar bone resorption | alveolar ridge atrophy')
 
     def test_rel_syn_to_syn27(self):
-        '''
+        """
         @status these tests verify a relationship that has a synonym match to Agenesis of incisor
         @see: HMDC-syn-to-syn-27
-        '''
+        """
         print("BEGIN test_rel_syn_to_syn27")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0006485")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0006485")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -1278,23 +1268,23 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(termsyn1.text, 'absence of incisors')
 
     def test_rel_syn_to_syn28(self):
-        '''
+        """
         @status these tests verify a relationship that has a synonym match to Enamel hypoplasia
         @see: HMDC-syn-to-syn-28
-        '''
+        """
         print("BEGIN test_rel_syn_to_syn28")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0006297")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0006297")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -1316,23 +1306,23 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(termsyn1.text, 'enamel dysplasia')
 
     def test_rel_syn_to_syn29(self):
-        '''
+        """
         @status these tests verify a relationship that has a synonym match to Hypertension
         @see: HMDC-syn-to-syn-29
-        '''
+        """
         print("BEGIN test_rel_syn_to_syn29")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0000822")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0000822")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -1371,23 +1361,23 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(termsyn2.text, 'high blood pressure')
 
     def test_rel_syn_to_syn30(self):
-        '''
+        """
         @status these tests verify a relationship that has a synonym match to Hypoplasia of the fallopian tube
         @see: HMDC-syn-to-syn-30
-        '''
+        """
         print("BEGIN test_rel_syn_to_syn30")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0008697")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0008697")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -1409,23 +1399,23 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(termsyn1.text, 'fallopian tube hypoplasia | hypoplastic oviduct | rudimentary fallopian tubes | rudimentary oviduct | rudimentary salpinges | rudimentary salpinx | rudimentary salpinx uterina | rudimentary tuba fallopiana | rudimentary tuba fallopii | rudimentary tuba uterina | rudimentary uterine tube | salpinges hypoplasia | salpinx hypoplasia | salpinx uterina hypoplasia | tuba fallopiana hypoplasia | tuba fallopii hypoplasia | tuba uterina hypoplasia | uterine tube hypoplasia')
 
     def test_rel_syn_to_syn31(self):
-        '''
+        """
         @status these tests verify a relationship that has a synonym match to Hypoplasia of the ovary
         @see: HMDC-syn-to-syn-31
-        '''
+        """
         print("BEGIN test_rel_syn_to_syn31")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0008724")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0008724")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -1481,23 +1471,23 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(termsyn3.text, 'hypoplastic ovaries | hypoplastic ovary | ovarian hypoplasia | rudimentary ovary')
 
     def test_rel_syn_to_syn32(self):
-        '''
+        """
         @status these tests verify a relationship that has a synonym match to Hypoplasia of the vagina
         @see: HMDC-syn-to-syn-32
-        '''
+        """
         print("BEGIN test_rel_syn_to_syn32")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0008726")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0008726")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -1519,23 +1509,23 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(termsyn1.text, 'hypoplastic vagina | rudimentary vagina | vaginal hypoplasia')
 
     def test_rel_syn_to_syn33(self):
-        '''
+        """
         @status these tests verify a relationship that has a synonym match to Intestinal polyp
         @see: HMDC-syn-to-syn-33
-        '''
+        """
         print("BEGIN test_rel_syn_to_syn33")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0005266")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0005266")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -1557,23 +1547,23 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(termsyn1.text, 'intestinal polyposis | intestinal polyps')
 
     def test_rel_syn_to_syn34(self):
-        '''
+        """
         @status these tests verify a relationship that has a synonym match to Lower limb muscle weakness
         @see: HMDC-syn-to-syn-34
-        '''
+        """
         print("BEGIN test_rel_syn_to_syn34")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0007340")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0007340")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -1595,23 +1585,23 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(termsyn1.text, 'hind limb paresis | hind limb weakness | hindlimb weakness | lameness | leg weakness')
 
     def test_rel_syn_to_syn35(self):
-        '''
+        """
         @status these tests verify a relationship that has a synonym match to Absent toe
         @see: HMDC-syn-to-syn-35
-        '''
+        """
         print("BEGIN test_rel_syn_to_syn35")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0010760")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0010760")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -1633,23 +1623,23 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(termsyn1.text, 'absence of digits | absent fingers | absent toes')
 
     def test_rel_syn_to_syn36(self):
-        '''
+        """
         @status these tests verify a relationship that has a synonym match to Abnormal vertebral morphology
         @see: HMDC-syn-to-syn-36
-        '''
+        """
         print("BEGIN test_rel_syn_to_syn36")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0003468")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0003468")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -1904,23 +1894,23 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(termsyn1.text, 'Aneurysm | Aneurysmal dilatation | Aneurysmal disease | Aneurysms | Wider than typical opening or gap')
 '''
     def test_rel_syn_to_syn41(self):
-        '''
+        """
         @status these tests verify a relationship that has a synonym match to Retrognathia
         @see: HMDC-syn-to-syn-41
-        '''
+        """
         print("BEGIN test_rel_syn_to_syn41")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0000278")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0000278")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1

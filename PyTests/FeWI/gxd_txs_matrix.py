@@ -1,6 +1,5 @@
-'''
+"""
 Created on Nov 2, 2017
-
 @author: jeffc
 @attention: Beginning  test for Tissue X Stage Matrix. Only the first test is valid, all others are copied tests from images tab!!!!
 Verify that the high level anatomy terms are displayed in the correct order
@@ -9,35 +8,35 @@ Verify the sort order for specimen type using default sort
 Verify that the Gene column sort works correctly
 Verify that the assay type column sort works correctly
 Verify that the specimen type column sort works correctly
-'''
+"""
 
-import unittest
+import os.path
+import sys
 import time
 import tracemalloc
-import config
-import sys,os.path
-# adjust the path to find config
-sys.path.append(
-  os.path.join(os.path.dirname(__file__), '../..',)
-)
+import unittest
+
+from config import config
+from util import wait, iterate
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.chrome.service import Service as ChromeService
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.firefox.service import Service as FirefoxService
-from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.edge.service import Service as EdgeService
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
-from util import wait, iterate
 
-#Tests
+# adjust the path to find config
+sys.path.append(
+    os.path.join(os.path.dirname(__file__), '../..', )
+)
+
+# Tests
 tracemalloc.start()
-class TestGXDTissueStageMatrix(unittest.TestCase):
 
+
+class TestGXDTissueStageMatrix(unittest.TestCase):
 
     def setUp(self):
         # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
@@ -52,37 +51,37 @@ class TestGXDTissueStageMatrix(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")
-        #driver.get(config.PUBLIC_URL + "/gxd")
+        # driver.get(config.PUBLIC_URL + "/gxd")
         stagebox = driver.find_element(By.NAME, 'vocabTerm')
         # put your structure term to search in the box
         stagebox.send_keys("mouse")
         stagebox.send_keys(Keys.RETURN)
         driver.find_element(By.ID, 'submit2').click()
         time.sleep(2)
-        #find the Tissue x Stage Matrix tab
+        # find the Tissue x Stage Matrix tab
         tissuestagetab = driver.find_element(By.ID, 'stagegridtab')
-        #click the Tissue x Stage Matrix tab
+        # click the Tissue x Stage Matrix tab
         tissuestagetab.click()
         if WebDriverWait(self.driver, 8).until(EC.presence_of_element_located((By.ID, 'rowGroupInner'))):
             print('tissue x stage tab data loaded')
-        #find the Anatomical systems high level terms
+        # find the Anatomical systems high level terms
         termslist = driver.find_element(By.ID, 'stagegriddata').find_element(By.ID, 'rowGroupInner')
         items = termslist.find_elements(By.TAG_NAME, 'text')
-        searchTextItems = iterate.getTextAsList(items)
-        print(searchTextItems)
-        self.assertIn('extraembryonic component', searchTextItems)
-        self.assertIn('body fluid or substance', searchTextItems)
-        self.assertIn('body region', searchTextItems)
-        self.assertIn('cavity or lining', searchTextItems)
-        self.assertIn('conceptus', searchTextItems)
-        self.assertIn('early embryo', searchTextItems)
-        self.assertIn('embryo', searchTextItems)
-        self.assertIn('germ layer', searchTextItems)
-        self.assertIn('organ', searchTextItems)
-        self.assertIn('organ system', searchTextItems)
-        self.assertIn('tissue', searchTextItems)
-        self.assertIn('umbilical or vitelline vessel', searchTextItems)
-        
+        searchtextitems = iterate.getTextAsList(items)
+        print(searchtextitems)
+        self.assertIn('extraembryonic component', searchtextitems)
+        self.assertIn('body fluid or substance', searchtextitems)
+        self.assertIn('body region', searchtextitems)
+        self.assertIn('cavity or lining', searchtextitems)
+        self.assertIn('conceptus', searchtextitems)
+        self.assertIn('early embryo', searchtextitems)
+        self.assertIn('embryo', searchtextitems)
+        self.assertIn('germ layer', searchtextitems)
+        self.assertIn('organ', searchtextitems)
+        self.assertIn('organ system', searchtextitems)
+        self.assertIn('tissue', searchtextitems)
+        self.assertIn('umbilical or vitelline vessel', searchtextitems)
+
     def test_anat_terms_results(self):
         """
         @status: Tests the correct anatomy terms and Theiler stages are returned for a simple gene search
@@ -90,35 +89,34 @@ class TestGXDTissueStageMatrix(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")
-        #driver.get(config.PUBLIC_URL + "/gxd")
+        # driver.get(config.PUBLIC_URL + "/gxd")
         genebox = driver.find_element(By.NAME, 'nomenclature')
         # put your marker symbol
         genebox.send_keys("Psmb2")
         genebox.send_keys(Keys.RETURN)
-        #find the Tissue x Stage Matrix tab and click it
+        # find the Tissue x Stage Matrix tab and click it
         ele = driver.find_element(By.ID, 'stagegridtab')
         driver.execute_script("arguments[0].click()", ele)
         if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'rowGroupInner'))):
             print('tissue x stage tab data loaded')
-        #find the Anatomical Terms column
+        # find the Anatomical Terms column
         termslist = driver.find_element(By.ID, "stagegriddata").find_element(By.ID, 'rowGroupInner')
         items = termslist.find_elements(By.TAG_NAME, "text")
-        searchTextItems = iterate.getTextAsList(items)
-        print(searchTextItems)
-        self.assertIn('mouse', searchTextItems)
-        self.assertIn('embryo', searchTextItems)
-        self.assertIn('extraembryonic component', searchTextItems)
-        self.assertIn('organ system', searchTextItems)
-        self.assertIn('musculoskeletal system', searchTextItems)
-        #find the Anatomical Terms column
+        searchtextitems = iterate.getTextAsList(items)
+        print(searchtextitems)
+        self.assertIn('mouse', searchtextitems)
+        self.assertIn('embryo', searchtextitems)
+        self.assertIn('extraembryonic component', searchtextitems)
+        self.assertIn('organ system', searchtextitems)
+        self.assertIn('musculoskeletal system', searchtextitems)
+        # find the Anatomical Terms column
         termslist = driver.find_element(By.ID, "stagegriddata").find_element(By.ID, 'colGroupInner')
         items = termslist.find_elements(By.TAG_NAME, "text")
-        searchTextItems = iterate.getTextAsList(items)
-        print(searchTextItems)
-        self.assertIn('TS11', searchTextItems)
-        self.assertIn('TS23', searchTextItems)
-        
-        
+        searchtextitems = iterate.getTextAsList(items)
+        print(searchtextitems)
+        self.assertIn('TS11', searchtextitems)
+        self.assertIn('TS23', searchtextitems)
+
     def test_default_sort_specimentype(self):
         """
         @status: Tests the sort order for specimen type using default sort
@@ -126,22 +124,23 @@ class TestGXDTissueStageMatrix(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")
-        #driver.get(config.PUBLIC_URL + "/gxd")
+        # driver.get(config.PUBLIC_URL + "/gxd")
         genebox = driver.find_element(By.NAME, 'nomenclature')
         # put your marker symbol
         genebox.send_keys("Tmem100")
         genebox.send_keys(Keys.RETURN)
         time.sleep(2)
-        #find the Image tab and click it
+        # find the Image tab and click it
         ele = driver.find_element(By.ID, 'imagestab')
         driver.execute_script("arguments[0].click()", ele)
         time.sleep(5)
-        typelist = driver.find_element(By.ID, "imagesdata").find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-hybridization')
+        typelist = driver.find_element(By.ID, "imagesdata").find_elements(By.CSS_SELECTOR,
+                                                                          'td.yui-dt-col-hybridization')
         items = typelist[0].find_elements(By.TAG_NAME, "li")
-        searchTextItems = iterate.getTextAsList(items)
-        #time.sleep(1)
-        self.assertEqual(searchTextItems, ["section", "section from whole mount"])
-                
+        searchtextitems = iterate.getTextAsList(items)
+        # time.sleep(1)
+        self.assertEqual(searchtextitems, ["section", "section from whole mount"])
+
     def test_gene_column_sort(self):
         """
         @status: Tests that the Gene column sort works correctly
@@ -150,35 +149,35 @@ class TestGXDTissueStageMatrix(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")
-        #driver.get(config.PUBLIC_URL + "/gxd")
+        # driver.get(config.PUBLIC_URL + "/gxd")
         genebox = driver.find_element(By.NAME, 'nomenclature')
         # put your marker symbol
         genebox.send_keys("shh")
         genebox.send_keys(Keys.RETURN)
-        #find the Image tab
+        # find the Image tab
         imagetab = driver.find_element(By.ID, "imagestab")
         time.sleep(1)
-        #click the image tab
+        # click the image tab
         imagetab.click()
         wait.forAjax(driver)
         time.sleep(1)
-        
+
         imagesdata = driver.find_element(By.ID, "imagesdata")
         genelist = imagesdata.find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-gene')
         items = genelist[0].find_elements(By.TAG_NAME, "li")
-        searchTextItems = iterate.getTextAsList(items)
-        self.assertEqual(searchTextItems, ["Arx", "Olig2", "Shh"])
+        searchtextitems = iterate.getTextAsList(items)
+        self.assertEqual(searchtextitems, ["Arx", "Olig2", "Shh"])
         geneheader = imagesdata.find_element(By.CSS_SELECTOR, 'th.yui-dt-col-gene')
-        #click the gene header column to sort
+        # click the gene header column to sort
         geneheader.click()
-        #wait.forAjax(driver)
+        # wait.forAjax(driver)
         time.sleep(2)
         genelist = driver.find_element(By.ID, "imagesdata").find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-gene')
         time.sleep(2)
         items = genelist[0].find_elements(By.TAG_NAME, "li")
-        searchTextItems = iterate.getTextAsList(items)
-        self.assertEqual(searchTextItems, ["Ano1", "Cftr", "Shh"])
-        
+        searchtextitems = iterate.getTextAsList(items)
+        self.assertEqual(searchtextitems, ["Ano1", "Cftr", "Shh"])
+
     def test_assaytype_column_sort(self):
         """
         @status: Tests that the assay type column sort works correctly
@@ -190,32 +189,32 @@ class TestGXDTissueStageMatrix(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")
-        #driver.get(config.PUBLIC_URL + "/gxd")
+        # driver.get(config.PUBLIC_URL + "/gxd")
         genebox = driver.find_element(By.NAME, 'nomenclature')
         # put your marker symbol
         genebox.send_keys("pax6")
         genebox.send_keys(Keys.RETURN)
-        #find the Image tab
+        # find the Image tab
         imagetab = driver.find_element(By.ID, "imagestab")
         time.sleep(1)
-        #click the image tab
+        # click the image tab
         imagetab.click()
         wait.forAjax(driver)
         time.sleep(1)
         assaylist = driver.find_element(By.ID, "imagesdata").find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-assayType')
         items = assaylist[0].find_elements(By.TAG_NAME, "li")
-        searchTextItems = iterate.getTextAsList(items)
-        self.assertEqual(searchTextItems, ["Immunohistochemistry", "Immunohistochemistry"])
+        searchtextitems = iterate.getTextAsList(items)
+        self.assertEqual(searchtextitems, ["Immunohistochemistry", "Immunohistochemistry"])
         assayheader = driver.find_element(By.ID, "imagesdata").find_element(By.CSS_SELECTOR, 'th.yui-dt-col-assayType')
-        #click the gene header column to sort
+        # click the gene header column to sort
         assayheader.click()
         wait.forAjax(driver)
         time.sleep(2)
         assaylist = driver.find_element(By.ID, "imagesdata").find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-assayType')
         items = assaylist[2].find_elements(By.TAG_NAME, "li")
-        searchTextItems = iterate.getTextAsList(items)
-        self.assertEqual(searchTextItems, ["RT-PCR"])
-    
+        searchtextitems = iterate.getTextAsList(items)
+        self.assertEqual(searchtextitems, ["RT-PCR"])
+
     def test_specimentype_column_sort(self):
         """
         @status: Tests that the specimen type column sort works correctly
@@ -237,42 +236,45 @@ class TestGXDTissueStageMatrix(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")
-        #driver.get(config.PUBLIC_URL + "/gxd")
+        # driver.get(config.PUBLIC_URL + "/gxd")
         genebox = driver.find_element(By.NAME, 'nomenclature')
         # put your marker symbol
         genebox.send_keys("hoxa13")
         genebox.send_keys(Keys.RETURN)
-        #find the Image tab
+        # find the Image tab
         imagetab = driver.find_element(By.ID, "imagestab")
         time.sleep(3)
-        #click the image tab
+        # click the image tab
         imagetab.click()
         wait.forAjax(driver)
         time.sleep(3)
-        typelist = driver.find_element(By.ID, "imagesdata").find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-hybridization')
+        typelist = driver.find_element(By.ID, "imagesdata").find_elements(By.CSS_SELECTOR,
+                                                                          'td.yui-dt-col-hybridization')
         items = typelist[0].find_elements(By.TAG_NAME, "li")
-        searchTextItems = iterate.getTextAsList(items)
-        self.assertEqual(searchTextItems, ["section", "section"])
-        specimenheader = driver.find_element(By.ID, "imagesdata").find_element(By.CSS_SELECTOR, 'th.yui-dt-col-hybridization')
-        #click the gene header column to sort
+        searchtextitems = iterate.getTextAsList(items)
+        self.assertEqual(searchtextitems, ["section", "section"])
+        specimenheader = driver.find_element(By.ID, "imagesdata").find_element(By.CSS_SELECTOR,
+                                                                               'th.yui-dt-col-hybridization')
+        # click the gene header column to sort
         specimenheader.click()
         wait.forAjax(driver)
         time.sleep(2)
-        assaylist = driver.find_element(By.ID, "imagesdata").find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-hybridization')
+        assaylist = driver.find_element(By.ID, "imagesdata").find_elements(By.CSS_SELECTOR,
+                                                                           'td.yui-dt-col-hybridization')
         items = assaylist[0].find_elements(By.TAG_NAME, "li")
-        searchTextItems = iterate.getTextAsList(items)
-        self.assertEqual(searchTextItems, ["whole mount"])
-            
-                
+        searchtextitems = iterate.getTextAsList(items)
+        self.assertEqual(searchtextitems, ["whole mount"])
+
     def tearDown(self):
         self.driver.quit()
         tracemalloc.stop()
+
 
 def suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(TestGXDTissueStageMatrix))
     return suite
-        
+
+
 if __name__ == '__main__':
     unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))
-    

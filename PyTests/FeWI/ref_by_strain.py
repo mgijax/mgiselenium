@@ -1,39 +1,33 @@
-'''
+"""
 Created on Apr 30, 2018
 This set of tests verifies the Reference by strain page results
 @author: jeffc
 Verify that the Reference by strain page has the correct header items
 Verify that the Reference by strain page has the sort of descending year, secondary sort of assending J number
-'''
-import unittest
-import time
+"""
+import os.path
+import sys
 import tracemalloc
+import unittest
 import config
-import sys,os.path
-# adjust the path to find config
-sys.path.append(
-  os.path.join(os.path.dirname(__file__), '../..',)
-)
+
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as ec
-from util import wait, iterate
-from selenium.webdriver.chrome.service import Service as ChromeService
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.firefox.service import Service as FirefoxService
-from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.edge.service import Service as EdgeService
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
-from genericpath import exists
-from util import wait, iterate
-from config import TEST_URL
 
-#Tests
+# adjust the path to find config
+sys.path.append(
+    os.path.join(os.path.dirname(__file__), '../..', )
+)
+
+# Tests
 tracemalloc.start()
-class TestRefByStrain(unittest.TestCase):
 
+
+class TestRefByStrain(unittest.TestCase):
 
     def setUp(self):
         # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
@@ -42,7 +36,7 @@ class TestRefByStrain(unittest.TestCase):
         self.driver.set_window_size(1500, 1000)
         self.driver.get(config.TEST_URL + "/strains_SNPs.shtml")
         self.driver.implicitly_wait(10)
-        
+
     def test_ref_by_strain_header(self):
         """
         @status: Tests that the Reference by strain page has the correct header items
@@ -54,18 +48,19 @@ class TestRefByStrain(unittest.TestCase):
         # Enter your strain name
         strainsearchbox.send_keys("C57BL/6J")
         strainsearchbox.send_keys(Keys.RETURN)
-        #locates the reference link in row 1 and clicks it
+        # locates the reference link in row 1 and clicks it
         driver.find_element(By.CLASS_NAME, 'referenceLink').click()
-        #switch focus to the new tab for strain detail page
+        # switch focus to the new tab for strain detail page
         driver.switch_to.window(self.driver.window_handles[-1])
-        #verify the strain name is correct for this page
+        # verify the strain name is correct for this page
         strname = driver.find_element(By.CLASS_NAME, 'symbolLink')
         print(strname.text)
-        self.assertEqual(strname.text, 'C57BL/6J')   
-        #verify the MGI ID is correct for this page
-        mginum = driver.find_element(By.CSS_SELECTOR, "#templateBodyInsert > table.summaryHeader > tbody > tr > td.summaryHeaderData1 > span")
+        self.assertEqual(strname.text, 'C57BL/6J')
+        # verify the MGI ID is correct for this page
+        mginum = driver.find_element(By.CSS_SELECTOR,
+                                     "#templateBodyInsert > table.summaryHeader > tbody > tr > td.summaryHeaderData1 > span")
         print(mginum.text)
-        self.assertEqual(mginum.text, 'MGI:3028467')       
+        self.assertEqual(mginum.text, 'MGI:3028467')
 
     def test_ref_by_strain_sort(self):
         """
@@ -78,13 +73,13 @@ class TestRefByStrain(unittest.TestCase):
         # Enter your strain name
         strainsearchbox.send_keys("C57BL/6J")
         strainsearchbox.send_keys(Keys.RETURN)
-        #locate the link for C57BL/6J and click it
+        # locate the link for C57BL/6J and click it
         driver.find_element(By.LINK_TEXT, 'C57BL/6J').click()
-        #switch focus to the new tab for strain detail page
+        # switch focus to the new tab for strain detail page
         driver.switch_to.window(self.driver.window_handles[-1])
-        #locates the All reference link and clicks it
+        # locates the All reference link and clicks it
         driver.find_element(By.ID, 'allRefs').click()
-        #rows of data for this page and verify sort by asserting correct results
+        # rows of data for this page and verify sort by asserting correct results
         row1 = driver.find_element(By.XPATH, "//*[@id='dynamicdata']/table/tbody/tr[1]/td[6]/div")
         print(row1.text)
         row2a = driver.find_element(By.XPATH, "//*[@id='dynamicdata']/table/tbody/tr[2]/td[1]/div")
@@ -115,15 +110,17 @@ class TestRefByStrain(unittest.TestCase):
         self.assertEqual(row5.text, '2023')
         self.assertEqual(row6.text, '2023')
         self.assertEqual(row7.text, '2023')
-        
+
     def tearDown(self):
         self.driver.quit()
         tracemalloc.stop()
+
 
 def suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(TestRefByStrain))
     return suite
+
 
 if __name__ == '__main__':
     unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

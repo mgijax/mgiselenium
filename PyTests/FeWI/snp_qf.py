@@ -1,4 +1,4 @@
-'''
+"""
 Created on Sep 7, 2018
 This set of tests verifies the SNP query form
 @author: jeffc
@@ -13,7 +13,7 @@ Verify that you can search for snps using multiple reference strains and selecti
 Verify search for snps using a region search of Chromosome and genome coordinates.
 Verify search for snps using a region search by Marker Range.
 Verify search for snps using a region search with results that take some time to display the heatmap.
-Verify search for snps using a region search by Marker Range and then filter  by function class.
+Verify search for snps using a region search by Marker Range and then filter by Function Class.
 Verify search for snps using a region search of Chromosome and genome coordinates and compare to a reference strain,
     Uses the Select DO/CC Founders option.
 Verify search for snps using a region search of Chromosome and genome coordinates
@@ -23,47 +23,42 @@ Verify search for snps using a region search of Chromosome and genome coordinate
     and compare to a reference strain, Uses the Select DO/CC Founders option and selects the Allele Agreement
     All reference strains agree and all comparison strains agree with reference
 Verify
-'''
+"""
 
-import unittest
+import os.path
+import sys
 import time
 import tracemalloc
+import unittest
 import config
-import sys,os.path
-from genericpath import exists
-# adjust the path to find config
-sys.path.append(
-  os.path.join(os.path.dirname(__file__), '../..',)
-)
+
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.common.by import By
-from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
-from selenium.webdriver.remote.webelement import WebElement
-from util.table import Table
-from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.firefox.service import Service as FirefoxService
-from webdriver_manager.firefox import GeckoDriverManager
-from selenium.webdriver.edge.service import Service as EdgeService
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
-from util import wait, iterate
-from util.form import ModuleForm
-from config import TEST_URL
+from util import iterate
+from util.table import Table
 
-#Test
+# adjust the path to find config
+sys.path.append(
+    os.path.join(os.path.dirname(__file__), '../..', )
+)
+
+# Test
 tracemalloc.start()
-class TestSnpQF(unittest.TestCase):
 
+
+class TestSnpQF(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
         # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-        #self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        # self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
         self.driver.set_window_size(1500, 1000)
         self.driver.get(config.TEST_URL + "/snp")
         self.driver.implicitly_wait(10)
@@ -79,21 +74,31 @@ class TestSnpQF(unittest.TestCase):
         # Enter your Gene symbol
         genesearchbox.send_keys("shh")
         time.sleep(2)
-        #find the Yes button for comparing to one or more Reference strains and click it
+        # find the Yes button for comparing to one or more Reference strains and click it
         self.driver.find_element(By.XPATH, ".//input[@name='referenceMode' and @value='yes']").click()
-        #find the Reference box for strain A/J and click it
-        elem = driver.find_element(By.XPATH, (".//input[@name='referenceStrains' and @value='A/J']"));
+        # find the Reference box for strain A/J and click it
+        elem = driver.find_element(By.XPATH, (".//input[@name='referenceStrains' and @value='A/J']"))
         driver.execute_script("arguments[0].click();", elem)
-        #find the search button and click it
+        # find the search button and click it
         driver.find_element(By.ID, 'geneSearch').click()
-        #locates the SNP summary table and verify the rs IDs returned are correct
+        # locates the SNP summary table and verify the rs IDs returned are correct
         snp_table = Table(self.driver.find_element(By.ID, "snpSummaryTable"))
-        #cells = snp_table.get_column_cells("SNP ID\n(GRCm38)")
+        # cells = snp_table.get_column_cells("SNP ID\n(GRCm38)")
         cells = snp_table.get_column_cells("SNP ID\n(GRCm39)")
-        print(iterate.getTextAsList(cells))     
-        rsReturned = iterate.getTextAsList(cells)        
-        #asserts that the following rs IDs are returned
-        self.assertEqual(['SNP ID\n(GRCm39)', 'rs33674412\nMGI SNP Detail', 'rs108198781\nMGI SNP Detail', 'rs108778547\nMGI SNP Detail', 'rs29729942\nMGI SNP Detail', 'rs33485416\nMGI SNP Detail', 'rs33068028\nMGI SNP Detail', 'rs29682823\nMGI SNP Detail', 'rs33133952\nMGI SNP Detail', 'rs33181672\nMGI SNP Detail', 'rs48089243\nMGI SNP Detail', 'rs33541793\nMGI SNP Detail', 'rs33746193\nMGI SNP Detail', 'rs33214222\nMGI SNP Detail', 'rs33285952\nMGI SNP Detail', 'rs33560337\nMGI SNP Detail', 'rs33259009\nMGI SNP Detail', 'rs29727180\nMGI SNP Detail', 'rs33735948\nMGI SNP Detail', 'rs33682898\nMGI SNP Detail', 'rs51528487\nMGI SNP Detail', 'rs29676307\nMGI SNP Detail', 'rs33455132\nMGI SNP Detail', 'rs29562835\nMGI SNP Detail', 'rs33112153\nMGI SNP Detail', 'rs29530423\nMGI SNP Detail', 'SNP ID\n(GRCm39)', 'rs29733217\nMGI SNP Detail'], rsReturned)  # this is all the data returned from the SNP ID column
+        print(iterate.getTextAsList(cells))
+        rsreturned = iterate.getTextAsList(cells)
+        # asserts that the following rs IDs are returned
+        self.assertEqual(['SNP ID\n(GRCm39)', 'rs33674412\nMGI SNP Detail', 'rs108198781\nMGI SNP Detail',
+                          'rs108778547\nMGI SNP Detail', 'rs29729942\nMGI SNP Detail', 'rs33485416\nMGI SNP Detail',
+                          'rs33068028\nMGI SNP Detail', 'rs29682823\nMGI SNP Detail', 'rs33133952\nMGI SNP Detail',
+                          'rs33181672\nMGI SNP Detail', 'rs48089243\nMGI SNP Detail', 'rs33541793\nMGI SNP Detail',
+                          'rs33746193\nMGI SNP Detail', 'rs33214222\nMGI SNP Detail', 'rs33285952\nMGI SNP Detail',
+                          'rs33560337\nMGI SNP Detail', 'rs33259009\nMGI SNP Detail', 'rs29727180\nMGI SNP Detail',
+                          'rs33735948\nMGI SNP Detail', 'rs33682898\nMGI SNP Detail', 'rs51528487\nMGI SNP Detail',
+                          'rs29676307\nMGI SNP Detail', 'rs33455132\nMGI SNP Detail', 'rs29562835\nMGI SNP Detail',
+                          'rs33112153\nMGI SNP Detail', 'rs29530423\nMGI SNP Detail', 'SNP ID\n(GRCm39)',
+                          'rs29733217\nMGI SNP Detail'],
+                         rsreturned)  # this is all the data returned from the SNP ID column
 
     def test_search_1_ref_strain_different(self):
         """
@@ -106,29 +111,30 @@ class TestSnpQF(unittest.TestCase):
         # Enter your Gene symbol
         genesearchbox.send_keys("shh")
         time.sleep(2)
-        #find the Yes button for comparing to one or more Reference strains and click it
+        # find the Yes button for comparing to one or more Reference strains and click it
         self.driver.find_element(By.XPATH, ".//input[@name='referenceMode' and @value='yes']").click()
-        #find the Reference box for strain A/J and click it
+        # find the Reference box for strain A/J and click it
         elem = driver.find_element(By.XPATH, (".//input[@name='referenceStrains' and @value='A/J']"))
         driver.execute_script("arguments[0].click();", elem)
-        #find the search button and click it
+        # find the search button and click it
         driver.find_element(By.ID, 'geneSearch').click()
         if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'alleleAgreementFilter'))):
             print('Allele Agreement loaded')
         driver.find_element(By.ID, 'alleleAgreementFilter').click()
-        #find the allele agreement filter for "All reference strains agree and all comparison strains differ with reference" and select it
-        alleleFil = self.driver.find_element(By.XPATH, (".//input[@name='alleleAgreementFilter' and @value='All reference strains agree and all comparison strains differ from reference']"));
-        driver.execute_script("arguments[0].click();", alleleFil)
-        #find and click the Filter button
+        # find the allele agreement filter for "All reference strains agree and all comparison strains differ with reference" and select it
+        allelefil = self.driver.find_element(By.XPATH, (
+            ".//input[@name='alleleAgreementFilter' and @value='All reference strains agree and all comparison strains differ from reference']"))
+        driver.execute_script("arguments[0].click();", allelefil)
+        # find and click the Filter button
         driver.find_element(By.ID, 'yui-gen0-button').click()
-        #locates the SNP summary table and verify the rs IDs returned are correct
+        # locates the SNP summary table and verify the rs IDs returned are correct
         snp_table = Table(self.driver.find_element(By.ID, "snpSummaryTable"))
         cells = snp_table.get_column_cells("SNP ID\n(GRCm39)")
-        print(iterate.getTextAsList(cells))     
-        rsReturned = iterate.getTextAsList(cells)        
-        #asserts that the following rs IDs are returned
-        self.assertEqual(['SNP ID\n(GRCm39)', 'rs108198781\nMGI SNP Detail'], rsReturned) # this is all the data returned from the SNP ID column
-
+        print(iterate.getTextAsList(cells))
+        rsreturned = iterate.getTextAsList(cells)
+        # asserts that the following rs IDs are returned
+        self.assertEqual(['SNP ID\n(GRCm39)', 'rs108198781\nMGI SNP Detail'],
+                         rsreturned)  # this is all the data returned from the SNP ID column
 
     def test_search_1_ref_strain_same(self):
         """
@@ -141,29 +147,31 @@ class TestSnpQF(unittest.TestCase):
         # Enter your Gene symbol
         genesearchbox.send_keys("shh")
         time.sleep(2)
-        #find the Yes button for comparing to one or more Reference strains and click it
+        # find the Yes button for comparing to one or more Reference strains and click it
         self.driver.find_element(By.XPATH, ".//input[@name='referenceMode' and @value='yes']").click()
-        #find the Reference box for strain A/J and click it
-        elem = driver.find_element(By.XPATH, (".//input[@name='referenceStrains' and @value='A/J']"));
+        # find the Reference box for strain A/J and click it
+        elem = driver.find_element(By.XPATH, (".//input[@name='referenceStrains' and @value='A/J']"))
         driver.execute_script("arguments[0].click();", elem)
-        #find the search button and click it
+        # find the search button and click it
         driver.find_element(By.ID, 'geneSearch').click()
         if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'alleleAgreementFilter'))):
             print('Allele Agreement loaded')
-        #find the allele agreement filter for "All reference strains agree and all comparison strains agree with reference" and select it
+        # find the allele agreement filter for "All reference strains agree and all comparison strains agree with reference" and select it
         driver.find_element(By.ID, 'alleleAgreementFilter').click()
-        alleleFil = driver.find_element(By.XPATH, (".//input[@name='alleleAgreementFilter' and @value='All reference strains agree and all comparison strains agree with reference']"));
-        driver.execute_script("arguments[0].click();", alleleFil)
-        #find and click the Filter button
+        allelefil = driver.find_element(By.XPATH, (
+            ".//input[@name='alleleAgreementFilter' and @value='All reference strains agree and all comparison strains agree with reference']"))
+        driver.execute_script("arguments[0].click();", allelefil)
+        # find and click the Filter button
         driver.find_element(By.ID, 'yui-gen0-button').click()
-        #locates the SNP summary table and verify the rs IDs returned are correct
+        # locates the SNP summary table and verify the rs IDs returned are correct
         snp_table = Table(self.driver.find_element(By.ID, "snpSummaryTable"))
         cells = snp_table.get_column_cells("SNP ID\n(GRCm39)")
         print(iterate.getTextAsList(cells))
-        rsReturned = iterate.getTextAsList(cells)        
-        #asserts that the following rs IDs are returned
-        
-        self.assertEqual(['SNP ID\n(GRCm39)', 'rs51528487\nMGI SNP Detail'], rsReturned) # this is all the data returned from the SNP ID column
+        rsreturned = iterate.getTextAsList(cells)
+        # asserts that the following rs IDs are returned
+
+        self.assertEqual(['SNP ID\n(GRCm39)', 'rs51528487\nMGI SNP Detail'],
+                         rsreturned)  # this is all the data returned from the SNP ID column
 
     def test_search_multi_ref_strain(self):
         """
@@ -179,69 +187,75 @@ class TestSnpQF(unittest.TestCase):
         # Enter your Gene symbol
         genesearchbox.send_keys("Ahr")
         time.sleep(2)
-        #find the Yes button for comparing to one or more Reference strains and click it
-        self.driver.find_element(By.XPATH, ".//input[@name='referenceMode' and @value='yes']").click()        
-        #find the comparison strains button for "Clear All" and click it
+        # find the Yes button for comparing to one or more Reference strains and click it
+        self.driver.find_element(By.XPATH, ".//input[@name='referenceMode' and @value='yes']").click()
+        # find the comparison strains button for "Clear All" and click it
         driver.find_element(By.ID, 'deselectButton').click()
-        #find the Comparison box for strain 129S1/SvImJ and click it
-        comelem = driver.find_element(By.XPATH, (".//input[@name='selectedStrains' and @value='129S1/SvImJ']"));
+        # find the Comparison box for strain 129S1/SvImJ and click it
+        comelem = driver.find_element(By.XPATH, (".//input[@name='selectedStrains' and @value='129S1/SvImJ']"))
         driver.execute_script("arguments[0].click();", comelem)
-        #find the Comparison box for strain AKR/J and click it
-        comelem1 = driver.find_element(By.XPATH, (".//input[@name='selectedStrains' and @value='AKR/J']"));
+        # find the Comparison box for strain AKR/J and click it
+        comelem1 = driver.find_element(By.XPATH, (".//input[@name='selectedStrains' and @value='AKR/J']"))
         driver.execute_script("arguments[0].click();", comelem1)
-        #find the Comparison box for strain DBA/2J and click it
-        comelem2 = driver.find_element(By.XPATH, (".//input[@name='selectedStrains' and @value='DBA/2J']"));
+        # find the Comparison box for strain DBA/2J and click it
+        comelem2 = driver.find_element(By.XPATH, (".//input[@name='selectedStrains' and @value='DBA/2J']"))
         driver.execute_script("arguments[0].click();", comelem2)
-        #find the Comparison box for strain NZB/B1NJ and click it
-        comelem3 = driver.find_element(By.XPATH, (".//input[@name='selectedStrains' and @value='NZB/BlNJ']"));
+        # find the Comparison box for strain NZB/B1NJ and click it
+        comelem3 = driver.find_element(By.XPATH, (".//input[@name='selectedStrains' and @value='NZB/BlNJ']"))
         driver.execute_script("arguments[0].click();", comelem3)
-        #find the Comparison box for strain NZW/LacJ and click it
-        comelem4 = driver.find_element(By.XPATH, (".//input[@name='selectedStrains' and @value='NZW/LacJ']"));
+        # find the Comparison box for strain NZW/LacJ and click it
+        comelem4 = driver.find_element(By.XPATH, (".//input[@name='selectedStrains' and @value='NZW/LacJ']"))
         driver.execute_script("arguments[0].click();", comelem4)
-              
-        #find the Reference box for strain A/Hej and click it
-        refelem = driver.find_element(By.XPATH, (".//input[@name='referenceStrains' and @value='A/HeJ']"));
+
+        # find the Reference box for strain A/Hej and click it
+        refelem = driver.find_element(By.XPATH, (".//input[@name='referenceStrains' and @value='A/HeJ']"))
         driver.execute_script("arguments[0].click();", refelem)
-        #find the Reference box for strain A/J and click it
-        refelem1 = driver.find_element(By.XPATH, (".//input[@name='referenceStrains' and @value='A/J']"));
+        # find the Reference box for strain A/J and click it
+        refelem1 = driver.find_element(By.XPATH, (".//input[@name='referenceStrains' and @value='A/J']"))
         driver.execute_script("arguments[0].click();", refelem1)
-        #find the Reference box for strain B10.D2-Hc<0> H2<d> H2-T18<c>/oSnJ and click it
-        refelem2 = driver.find_element(By.XPATH, (".//input[@name='referenceStrains' and @value='B10.D2-Hc<0> H2<d> H2-T18<c>/oSnJ']"));
+        # find the Reference box for strain B10.D2-Hc<0> H2<d> H2-T18<c>/oSnJ and click it
+        refelem2 = driver.find_element(By.XPATH, (
+            ".//input[@name='referenceStrains' and @value='B10.D2-Hc<0> H2<d> H2-T18<c>/oSnJ']"))
         driver.execute_script("arguments[0].click();", refelem2)
-        #find the Reference box for strain BALB/cJ and click it
-        refelem3 = driver.find_element(By.XPATH, (".//input[@name='referenceStrains' and @value='BALB/cJ']"));
+        # find the Reference box for strain BALB/cJ and click it
+        refelem3 = driver.find_element(By.XPATH, (".//input[@name='referenceStrains' and @value='BALB/cJ']"))
         driver.execute_script("arguments[0].click();", refelem3)
-        #find the Reference box for strain C3H/HeJ and click it
-        refelem4 = driver.find_element(By.XPATH, (".//input[@name='referenceStrains' and @value='C3H/HeJ']"));
+        # find the Reference box for strain C3H/HeJ and click it
+        refelem4 = driver.find_element(By.XPATH, (".//input[@name='referenceStrains' and @value='C3H/HeJ']"))
         driver.execute_script("arguments[0].click();", refelem4)
-        #find the Reference box for strain C57BL/6J and click it
-        refelem5 = driver.find_element(By.XPATH, (".//input[@name='referenceStrains' and @value='C57BL/6J']"));
+        # find the Reference box for strain C57BL/6J and click it
+        refelem5 = driver.find_element(By.XPATH, (".//input[@name='referenceStrains' and @value='C57BL/6J']"))
         driver.execute_script("arguments[0].click();", refelem5)
-        
-        #find the search button and click it
+
+        # find the search button and click it
         driver.find_element(By.ID, 'geneSearch').click()
         time.sleep(2)
         driver.find_element(By.ID, 'alleleAgreementFilter').click()
-        #find the Allele Agreement filter, select it and choose the option "All reference strains agree and all comparison strains differ from reference".
-        alleleFil = driver.find_element(By.XPATH, (".//input[@name='alleleAgreementFilter' and @value='All reference strains agree and all comparison strains differ from reference']"));
-        driver.execute_script("arguments[0].click();", alleleFil)
+        # find the Allele Agreement filter, select it and choose the option "All reference strains agree and all comparison strains differ from reference".
+        allelefil = driver.find_element(By.XPATH, (
+            ".//input[@name='alleleAgreementFilter' and @value='All reference strains agree and all comparison strains differ from reference']"))
+        driver.execute_script("arguments[0].click();", allelefil)
         driver.find_element(By.ID, 'yui-gen0-button').click()
-        #locates the SNP summary table and verify the rs IDs returned are correct, strains returned are correct
+        # locates the SNP summary table and verify the rs IDs returned are correct, strains returned are correct
         snp_table = Table(self.driver.find_element(By.ID, "snpSummaryTable"))
         cells = snp_table.get_column_cells("SNP ID\n(GRCm39)")
-        #cells = snp_table.get_column_cells("SNP ID\n(GRCm38)")
-        print(iterate.getTextAsList(cells))     
-        rsReturned = iterate.getTextAsList(cells)        
-        #asserts that the following rs IDs are returned
-        self.assertEqual(['SNP ID\n(GRCm39)', 'rs3021544\nMGI SNP Detail', 'rs3021927\nMGI SNP Detail', 'rs3021928\nMGI SNP Detail', 'rs3021931\nMGI SNP Detail', 'rs3021868\nMGI SNP Detail'], rsReturned) # this is all the data returned from the SNP ID column currently 5 IDs as of 9/1218
-        #self.assertEqual(['SNP ID\n(GRCm38)', 'rs3021544\nMGI SNP Detail', 'rs3021927\nMGI SNP Detail', 'rs3021928\nMGI SNP Detail', 'rs3021931\nMGI SNP Detail', 'rs3021868\nMGI SNP Detail'], rsReturned) # this is all the data returned from the SNP ID column currently 5 IDs as of 9/1218
+        # cells = snp_table.get_column_cells("SNP ID\n(GRCm38)")
+        print(iterate.getTextAsList(cells))
+        rsreturned = iterate.getTextAsList(cells)
+        # asserts that the following rs IDs are returned
+        self.assertEqual(
+            ['SNP ID\n(GRCm39)', 'rs3021544\nMGI SNP Detail', 'rs3021927\nMGI SNP Detail', 'rs3021928\nMGI SNP Detail',
+             'rs3021931\nMGI SNP Detail', 'rs3021868\nMGI SNP Detail'],
+            rsreturned)  # this is all the data returned from the SNP ID column currently 5 IDs as of 9/1218
+        # self.assertEqual(['SNP ID\n(GRCm38)', 'rs3021544\nMGI SNP Detail', 'rs3021927\nMGI SNP Detail', 'rs3021928\nMGI SNP Detail', 'rs3021931\nMGI SNP Detail', 'rs3021868\nMGI SNP Detail'], rsReturned) # this is all the data returned from the SNP ID column currently 5 IDs as of 9/1218
 
         cells1 = snp_table.get_header_cells()
-        print(iterate.getTextAsList(cells1))  
-        #print cells1[14].text   
+        print(iterate.getTextAsList(cells1))
+        # print cells1[14].text
         self.assertEqual(cells1[5].text, 'A/HeJ', 'The first ref strain is not A/HeJ')
         self.assertEqual(cells1[6].text, 'A/J', 'The second ref strain is not A/J')
-        self.assertEqual(cells1[7].text, 'B10.D2-Hc<0> H2<d> H2-T18<c>/oSnJ', 'The third ref strain is not B10.D2-Hc<0> H2<d> H2-T18<c>/oSnJ')
+        self.assertEqual(cells1[7].text, 'B10.D2-Hc<0> H2<d> H2-T18<c>/oSnJ',
+                         'The third ref strain is not B10.D2-Hc<0> H2<d> H2-T18<c>/oSnJ')
         self.assertEqual(cells1[8].text, 'BALB/cJ', 'The fourth ref strain is not BALB/cJ')
         self.assertEqual(cells1[9].text, 'C3H/HeJ', 'The fifth ref strain is not C3H/HeJ')
         self.assertEqual(cells1[10].text, 'C57BL/6J', 'The sixth ref strain is not C57BL/6J')
@@ -258,9 +272,9 @@ class TestSnpQF(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/snp")
-        #find the Region tab and click it
+        # find the Region tab and click it
         driver.find_element(By.ID, 'ui-id-2').click()
-        #select the chromosome
+        # select the chromosome
         Select(driver.find_element(By.ID, 'chromosomeDropList')).select_by_value('10')
         # Enter your genome coordinates
         gc = driver.find_element(By.NAME, 'coordinate')
@@ -278,12 +292,12 @@ class TestSnpQF(unittest.TestCase):
         # find the search button and click it
         form2.find_element(By.ID, 'locationSearch').click()
         time.sleep(2)
-        #Locate the heat map info line and verify the text
+        # Locate the heat map info line and verify the text
         hminfo = driver.find_element(By.XPATH, '//*[@id="heatmapInfoRow"]/td/div/div[1]')
         self.assertEqual(hminfo.text, 'Chr10 from 125,618,000 bp to 125,622,000 bp', 'The heatmap text is not correct')
-        #locates the SNP summary table
+        # locates the SNP summary table
         snp_table = Table(self.driver.find_element(By.ID, "snpSummaryTable"))
-        #Locate the table header cells and verify the strains are correct
+        # Locate the table header cells and verify the strains are correct
         cells1 = snp_table.get_header_cells()
         print(iterate.getTextAsList(cells1))
         print(cells1[5].text)
@@ -298,9 +312,9 @@ class TestSnpQF(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/snp")
-        #find the Region tab and click it
+        # find the Region tab and click it
         driver.find_element(By.CSS_SELECTOR, '#ui-id-2').click()
-        #enter the start marker
+        # enter the start marker
         strtmrkrange = driver.find_element(By.NAME, 'startMarker')
         strtmrkrange.send_keys('D19Mit32')
         # Enter the stop marker
@@ -339,7 +353,7 @@ class TestSnpQF(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/snp")
-        #find the Region tab and click it
+        # find the Region tab and click it
         driver.find_element(By.CSS_SELECTOR, '#ui-id-2').click()
         # select the chromosome
         Select(driver.find_element(By.ID, 'chromosomeDropList')).select_by_value('5')
@@ -354,7 +368,8 @@ class TestSnpQF(unittest.TestCase):
         WebDriverWait(driver, 20).until(EC.visibility_of_element_located((By.ID, 'heatmapColorRow')))
         # Locate the heat map info line and verify the text
         hminfo = driver.find_element(By.XPATH, '//*[@id="heatmapInfoRow"]/td/div/div[1]')
-        self.assertEqual(hminfo.text, 'Chr5 from 1,000,000 bp to 125,618,205,000,000 bp', 'The heatmap text is not correct')
+        self.assertEqual(hminfo.text, 'Chr5 from 1,000,000 bp to 125,618,205,000,000 bp',
+                         'The heatmap text is not correct')
         # locates the SNP summary table
         snp_table = Table(self.driver.find_element(By.ID, "snpSummaryTable"))
         # Locate the table header cells and verify the strains are correct
@@ -373,9 +388,9 @@ class TestSnpQF(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/snp")
-        #find the Region tab and click it
+        # find the Region tab and click it
         driver.find_element(By.CSS_SELECTOR, '#ui-id-2').click()
-        #enter the start marker
+        # enter the start marker
         strtmrkrange = driver.find_element(By.NAME, 'startMarker')
         strtmrkrange.send_keys('D19Mit32')
         # Enter the stop marker
@@ -419,9 +434,9 @@ class TestSnpQF(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/snp")
-        #find the Region tab and click it
+        # find the Region tab and click it
         driver.find_element(By.ID, 'ui-id-2').click()
-        #select the chromosome
+        # select the chromosome
         Select(driver.find_element(By.ID, 'chromosomeDropList')).select_by_value('1')
         # Enter your genome coordinates
         gc = driver.find_element(By.NAME, 'coordinate')
@@ -434,17 +449,18 @@ class TestSnpQF(unittest.TestCase):
         form2.find_element(By.ID, 'doccSelectButton').click()
         # find the Compare to one or more Reference strains and click it(Yes)
         form2.find_element(By.XPATH, '//*[@id="form2"]/table/tbody/tr[2]/td[2]/div/div[1]/div/label[2]').click()
-        #find the reference strain for A/J and click it
-        form2.find_element(By.CSS_SELECTOR, '#form2 > table:nth-child(4) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(11) > label:nth-child(1) > span:nth-child(2)').click()
+        # find the reference strain for A/J and click it
+        form2.find_element(By.CSS_SELECTOR,
+                           '#form2 > table:nth-child(4) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(11) > label:nth-child(1) > span:nth-child(2)').click()
         time.sleep(2)
-        #Locate the heat map info line and verify the text
+        # Locate the heat map info line and verify the text
         hminfo = driver.find_element(By.XPATH, '//*[@id="heatmapInfoRow"]/td/div/div[1]')
         self.assertEqual(hminfo.text, 'Chr1 from 125,618,000 bp to 125,622,000 bp', 'The heatmap text is not correct')
-        #locates the SNP summary table
+        # locates the SNP summary table
         snp_table = Table(self.driver.find_element(By.ID, "snpSummaryTable"))
-        #Locate the table header cells and verify the strains are correct
+        # Locate the table header cells and verify the strains are correct
         cells1 = snp_table.get_header_cells()
-        #print(iterate.getTextAsList(cells1))
+        # print(iterate.getTextAsList(cells1))
         print(cells1[5].text)
         print(cells1[6].text)
         self.assertEqual(cells1[5].text, 'A/J', 'The first strain is not correct')
@@ -463,9 +479,9 @@ class TestSnpQF(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/snp")
-        #find the Region tab and click it
+        # find the Region tab and click it
         driver.find_element(By.ID, 'ui-id-2').click()
-        #select the chromosome
+        # select the chromosome
         Select(driver.find_element(By.ID, 'chromosomeDropList')).select_by_value('1')
         # Enter your genome coordinates
         gc = driver.find_element(By.NAME, 'coordinate')
@@ -478,17 +494,18 @@ class TestSnpQF(unittest.TestCase):
         form2.find_element(By.ID, 'doccSelectButton').click()
         # find the Compare to one or more Reference strains and click it(Yes)
         form2.find_element(By.XPATH, '//*[@id="form2"]/table/tbody/tr[2]/td[2]/div/div[1]/div/label[2]').click()
-        #find the reference strain for A/J and click it
-        form2.find_element(By.CSS_SELECTOR, '#form2 > table:nth-child(4) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(11) > label:nth-child(1) > span:nth-child(2)').click()
+        # find the reference strain for A/J and click it
+        form2.find_element(By.CSS_SELECTOR,
+                           '#form2 > table:nth-child(4) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(11) > label:nth-child(1) > span:nth-child(2)').click()
         time.sleep(2)
-        #Locate the heat map info line and verify the text
+        # Locate the heat map info line and verify the text
         hminfo = driver.find_element(By.XPATH, '//*[@id="heatmapInfoRow"]/td/div/div[1]')
         self.assertEqual(hminfo.text, 'Chr1 from 125,618,000 bp to 125,622,000 bp', 'The heatmap text is not correct')
-        #locates the SNP summary table
+        # locates the SNP summary table
         snp_table = Table(self.driver.find_element(By.ID, "snpSummaryTable"))
-        #Locate the table header cells and verify the strains are correct
+        # Locate the table header cells and verify the strains are correct
         cells1 = snp_table.get_header_cells()
-        #print(iterate.getTextAsList(cells1))
+        # print(iterate.getTextAsList(cells1))
         print(cells1[5].text)
         print(cells1[6].text)
         self.assertEqual(cells1[5].text, 'A/J', 'The first strain is not correct')
@@ -518,9 +535,9 @@ class TestSnpQF(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/snp")
-        #find the Region tab and click it
+        # find the Region tab and click it
         driver.find_element(By.ID, 'ui-id-2').click()
-        #select the chromosome
+        # select the chromosome
         Select(driver.find_element(By.ID, 'chromosomeDropList')).select_by_value('1')
         # Enter your genome coordinates
         gc = driver.find_element(By.NAME, 'coordinate')
@@ -533,17 +550,18 @@ class TestSnpQF(unittest.TestCase):
         form2.find_element(By.ID, 'doccSelectButton').click()
         # find the Compare to one or more Reference strains and click it(Yes)
         form2.find_element(By.XPATH, '//*[@id="form2"]/table/tbody/tr[2]/td[2]/div/div[1]/div/label[2]').click()
-        #find the reference strain for A/J and click it
-        form2.find_element(By.CSS_SELECTOR, '#form2 > table:nth-child(4) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(11) > label:nth-child(1) > span:nth-child(2)').click()
+        # find the reference strain for A/J and click it
+        form2.find_element(By.CSS_SELECTOR,
+                           '#form2 > table:nth-child(4) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(11) > label:nth-child(1) > span:nth-child(2)').click()
         time.sleep(2)
-        #Locate the heat map info line and verify the text
+        # Locate the heat map info line and verify the text
         hminfo = driver.find_element(By.XPATH, '//*[@id="heatmapInfoRow"]/td/div/div[1]')
         self.assertEqual(hminfo.text, 'Chr1 from 125,618,000 bp to 125,622,000 bp', 'The heatmap text is not correct')
-        #locates the SNP summary table
+        # locates the SNP summary table
         snp_table = Table(self.driver.find_element(By.ID, "snpSummaryTable"))
-        #Locate the table header cells and verify the strains are correct
+        # Locate the table header cells and verify the strains are correct
         cells1 = snp_table.get_header_cells()
-        #print(iterate.getTextAsList(cells1))
+        # print(iterate.getTextAsList(cells1))
         print(cells1[5].text)
         print(cells1[6].text)
         self.assertEqual(cells1[5].text, 'A/J', 'The first strain is not correct')
@@ -570,10 +588,12 @@ class TestSnpQF(unittest.TestCase):
         self.driver.quit()
         tracemalloc.stop()
 
+
 def suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(TestSnpQF))
     return suite
+
 
 if __name__ == '__main__':
     unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))

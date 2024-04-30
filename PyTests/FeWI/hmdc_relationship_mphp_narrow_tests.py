@@ -1,4 +1,4 @@
-'''
+"""
 Created on Dec 11, 2023
 
 This file contains the tests for Hmdc relationships for MP to HP Narrow searches that are entered via the Hmdc search form.
@@ -24,33 +24,23 @@ Verify
 Verify
 Verify
 Verify
-'''
-import unittest
-import time
+"""
+import os.path
+import sys
 import tracemalloc
+import unittest
 import config
-import sys, os.path
 
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.edge.service import Service as EdgeService
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from util import wait
+from util.table import Table
 # adjust the path to find config
 sys.path.append(
     os.path.join(os.path.dirname(__file__), '../../..', )
 )
-from HTMLTestRunner import HTMLTestRunner
-from selenium import webdriver
-from selenium.webdriver.support.ui import Select
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.chrome.service import Service as ChromeService
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.firefox.service import Service as FirefoxService
-from webdriver_manager.firefox import GeckoDriverManager
-from selenium.webdriver.edge.service import Service as EdgeService
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
-from util import iterate, wait
-from util.form import ModuleForm
-from util.table import Table
 
 # Tests
 tracemalloc.start()
@@ -67,23 +57,23 @@ class TestHmdcRelationshipMPNarrowSearch(unittest.TestCase):
         self.driver.implicitly_wait(10)
 
     def test_rel_2lex_narrow_2dif_terms(self):
-        '''
+        """
         @status these tests verify a relationship that 2 lexical narrow matches to different MP terms
         @see: HMDC-nar-mphp-1
-        '''
+        """
         print("BEGIN test_rel_2lex_narrow_2dif_terms")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("MP:0010479")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("MP:0010479")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns row 1
@@ -105,23 +95,23 @@ class TestHmdcRelationshipMPNarrowSearch(unittest.TestCase):
         self.assertEqual(termsyn.text, 'Brain aneurysm | Cerebral aneurysm | Cerebral artery aneurysm | Intracranial aneurysm')
 
     def test_rel_narrow_override_man_match(self):
-        '''
+        """
         @status these tests verify a relationship that overridden by manual narrow match
         @see: HMDC-nar-mphp-2
-        '''
+        """
         print("BEGIN test_rel_narrow_override_man_match")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("MP:0003605")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("MP:0003605")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns rows 1 & 2
@@ -158,23 +148,23 @@ class TestHmdcRelationshipMPNarrowSearch(unittest.TestCase):
         self.assertEqual(termsyn2.text, 'Type D cross fused renal ectopia')
 
     def test_rel_lex_narrow_basic(self):
-        '''
+        """
         @status these tests verify a relationship that has a basic result(narrow)(standard result)
         @see: HMDC-nar-mphp-3
-        '''
+        """
         print("BEGIN test_rel_lex_narrow_basic")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("MP:0004554")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("MP:0004554")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -197,23 +187,23 @@ class TestHmdcRelationshipMPNarrowSearch(unittest.TestCase):
 
 
     def test_rel_override_man_narrow_match(self):
-        '''
+        """
         @status these tests verify a relationship that overridden by manual narrow match
         @see: HMDC-nar-mphp-4
-        '''
+        """
         print("BEGIN test_rel_override_man_narrow_match")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("MP:0012174")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("MP:0012174")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -235,23 +225,23 @@ class TestHmdcRelationshipMPNarrowSearch(unittest.TestCase):
         self.assertEqual(termsyn1.text, 'Asymmetry of the posterior cranium | Asymmetry of the posterior head | Asymmetry of the posterior skull | Deformational plagiocephaly | Flat head | Flat head syndrome | Flattening of cranial vault | Flattening of cranium | Flattening of head | Flattening of skull | Positional plagiocephaly | Rhomboid shaped cranium | Rhomboid shaped head | Rhomboid shaped skull')
 
     def test_rel_2lex_narrow_dif_terms(self):
-        '''
+        """
         @status these tests verify a relationship that 2 lexical narrow matches to different MP terms
         @see: HMDC-nar-mphp-5
-        '''
+        """
         print("BEGIN test_rel_2lex_narrow_dif_terms")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("MP:0010478")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("MP:0010478")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -273,23 +263,23 @@ class TestHmdcRelationshipMPNarrowSearch(unittest.TestCase):
         self.assertEqual(termsyn1.text, 'Brain aneurysm | Cerebral aneurysm | Cerebral artery aneurysm | Intracranial aneurysm')
 
     def test_rel_over_man_narrow_match(self):
-        '''
+        """
         @status these tests verify a relationship that overridden by manual narrow match
         @see: HMDC-nar-mphp-6
-        '''
+        """
         print("BEGIN test_rel_over_man_narrow_match")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("MP:0003623")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("MP:0003623")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for rows 1
@@ -311,23 +301,23 @@ class TestHmdcRelationshipMPNarrowSearch(unittest.TestCase):
         self.assertEqual(termsyn1.text, 'Hydrocele | Testicular hydrocele')
 
     def test_rel_lex_exact_narrow_match_diff_terms(self):
-        '''
+        """
         @status these tests verify a relationship that lexical exact and narrow matches to 2 different MP terms
         @see: HMDC-nar-mphp-7
-        '''
+        """
         print("BEGIN test_rel_lex_exact_narrow_match_diff_terms")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("MP:0004470")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("MP:0004470")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -349,23 +339,23 @@ class TestHmdcRelationshipMPNarrowSearch(unittest.TestCase):
         self.assertEqual(termsyn1.text, 'Decreased size of nasal bone | Deficiency of nasal bone | Hypotrophic nasal bone | Nasal bone hypoplasia | Small nasal bone | Underdevelopment of nasal bone')
 
     def test_over_man_close_match(self):
-        '''
+        """
         @status these tests verify a relationship that overridden by manual close match, HP has 3 manual matches
         @see: HMDC-nar-mphp-8
-        '''
+        """
         print("BEGIN test_rel_over_man_close_match")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("MP:0009890")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("MP:0009890")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -387,23 +377,23 @@ class TestHmdcRelationshipMPNarrowSearch(unittest.TestCase):
         self.assertEqual(termsyn1.text, 'Cleft hard and soft palate | Cleft of hard and soft palate | Cleft of palate | Cleft palate | Cleft roof of mouth | Cleft secondary palate | Palatoschisis | Uranostaphyloschisis')
 
     def test_rel_lex_exact_narrow_match_2term(self):
-        '''
+        """
         @status these tests verify a relationship that lexical exact and narrow matches to 2 different MP terms
         @see: HMDC-nar-mphp-9
-        '''
+        """
         print("BEGIN test_lex_exact_narrow_match_2term")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("MP:0030268")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("MP:0030268")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1
@@ -425,23 +415,23 @@ class TestHmdcRelationshipMPNarrowSearch(unittest.TestCase):
         self.assertEqual(termsyn1.text, 'Absence of lower jaw | Absence of lower jaw bone | Absence of lower jaw bones | Absence of mandible | Absent mandible | Agenesis of the mandible | Agnathia | Aplasia of the lower jaw bone | Failure of development of lower jaw | Failure of development of mandible | Missing lower jaw')
 
     def test_rel_over_manual_narrow_match(self):
-        '''
+        """
         @status these tests verify a relationship that overridden by manual narrow match
         @see: HMDC-nar-mphp-10
-        '''
+        """
         print("BEGIN test_over_manual_narrow_match")
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  #identifies the select field and picks the gene symbols option
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click() #find and click the 'Add related phenotype terms by ID' button
+        self.driver.find_element(By.CSS_SELECTOR, ".btn-mybtn").click()  # find and click the 'Add related phenotype terms by ID' button
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("MP:0005291")  #identifies the input field and enters an MP ID
-        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click() #find the Search  for related terms button and click it
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("MP:0005291")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
         # Iterate the table columns for row 1

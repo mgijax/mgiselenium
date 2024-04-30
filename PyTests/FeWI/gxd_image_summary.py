@@ -1,4 +1,4 @@
-'''
+"""
 Created on Dec 12, 2016
 @author: jeffc
 Tests the GXD Image summary page.
@@ -8,31 +8,29 @@ Verify the sort order for specimen type using default sort
 Verify that the Gene column sort works correctly
 Verify that the assay type column sort works correctly
 Verify that the specimen type column sort works correctly
-'''
-import unittest
+"""
+import os.path
+import sys
 import time
 import tracemalloc
+import unittest
 import config
-import sys,os.path
+
+from util import iterate
+from HTMLTestRunner import HTMLTestRunner
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.edge.service import Service as EdgeService
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
 # adjust the path to find config
 sys.path.append(
   os.path.join(os.path.dirname(__file__), '../..',)
 )
-from HTMLTestRunner import HTMLTestRunner
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.chrome.service import Service as ChromeService
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.firefox.service import Service as FirefoxService
-from webdriver_manager.firefox import GeckoDriverManager
-from selenium.webdriver.edge.service import Service as EdgeService
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
-from util import wait, iterate
 
-#Test
+# Test
 tracemalloc.start()
 class TestGxdImageSummary(unittest.TestCase):
 
@@ -55,15 +53,15 @@ class TestGxdImageSummary(unittest.TestCase):
         genebox.send_keys("pax6")
         genebox.send_keys(Keys.RETURN)
         time.sleep(2)
-        #finds the Images tab and clicks it
+        # finds the Images tab and clicks it
         driver.find_element(By.ID, 'imagestab').click()
-        #locates the genes column and lists the genes found
+        # locates the genes column and lists the genes found
         genelist = driver.find_element(By.ID, 'imagesdata').find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-gene')
         items = genelist[15].find_elements(By.TAG_NAME, 'li')
         print(items[0].text)
         print(items[1].text)
-        searchTextItems = iterate.getTextAsList(items)
-        self.assertEqual(searchTextItems, ["Auts2", "Pax6"])
+        searchtextitems = iterate.getTextAsList(items)
+        self.assertEqual(searchtextitems, ["Auts2", "Pax6"])
         
     def test_default_sort_assaytype(self):
         """
@@ -77,13 +75,13 @@ class TestGxdImageSummary(unittest.TestCase):
         genebox.send_keys("Igfbpl1")
         genebox.send_keys(Keys.RETURN)
         time.sleep(2)
-        #finds the Images tab and clicks it
+        # finds the Images tab and clicks it
         driver.find_element(By.ID, 'imagestab').click()
-        #finds the first row of data and verifies the Assay Type data
+        # finds the first row of data and verifies the Assay Type data
         assaylist = driver.find_element(By.ID, 'imagesdata').find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-assayType')
         items = assaylist[0].find_elements(By.TAG_NAME, 'li')
-        searchTextItems = iterate.getTextAsList(items)
-        self.assertEqual(searchTextItems, ["RNA in situ", "Immunohistochemistry", "Immunohistochemistry"])
+        searchtextitems = iterate.getTextAsList(items)
+        self.assertEqual(searchtextitems, ["RNA in situ", "Immunohistochemistry", "Immunohistochemistry"])
         
     def test_default_sort_specimentype(self):
         """
@@ -97,14 +95,14 @@ class TestGxdImageSummary(unittest.TestCase):
         genebox.send_keys("Tmem100")
         genebox.send_keys(Keys.RETURN)
         time.sleep(1)
-        #finds the Images tab and clicks it
+        # finds the Images tab and clicks it
         driver.find_element(By.ID, "imagestab").click()
-        #finds the first row of data and verifies the Specimen Type data
+        # finds the first row of data and verifies the Specimen Type data
         typelist = driver.find_element(By.ID, 'imagesdata').find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-hybridization')
         items = typelist[0].find_elements(By.TAG_NAME, 'li')
-        searchTextItems = iterate.getTextAsList(items)
+        searchtextitems = iterate.getTextAsList(items)
         time.sleep(1)
-        self.assertEqual(searchTextItems, ["section", "section from whole mount"])
+        self.assertEqual(searchtextitems, ["section", "section from whole mount"])
                 
     def test_gene_column_sort(self):
         """
@@ -119,22 +117,22 @@ class TestGxdImageSummary(unittest.TestCase):
         genebox.send_keys("shh")
         genebox.send_keys(Keys.RETURN)
         time.sleep(1)
-        #find the Images tab and clicks it
+        # find the Images tab and clicks it
         driver.find_element(By.ID, 'imagestab').click()
-        #finds the first row of data and verifies the genes column sort
+        # finds the first row of data and verifies the genes column sort
         imagesdata = driver.find_element(By.ID, 'imagesdata')
         genelist = imagesdata.find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-gene')
         items = genelist[0].find_elements(By.TAG_NAME, 'li')
-        searchTextItems = iterate.getTextAsList(items)
-        self.assertEqual(searchTextItems, ["Arx", "Olig2", "Shh"])
-        #find the genes header
+        searchtextitems = iterate.getTextAsList(items)
+        self.assertEqual(searchtextitems, ["Arx", "Olig2", "Shh"])
+        # find the genes header
         geneheader = imagesdata.find_element(By.CSS_SELECTOR, 'th.yui-dt-col-gene')
-        #click the gene header column to re-sort
+        # click the gene header column to re-sort
         geneheader.click()
         genelist = driver.find_element(By.ID, 'imagesdata').find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-gene')
         items = genelist[0].find_elements(By.TAG_NAME, 'li')
-        searchTextItems = iterate.getTextAsList(items)
-        self.assertEqual(searchTextItems, ["Ano1", "Cftr", "Shh"])
+        searchtextitems = iterate.getTextAsList(items)
+        self.assertEqual(searchtextitems, ["Ano1", "Cftr", "Shh"])
         
     def test_assaytype_column_sort(self):
         """
@@ -152,23 +150,23 @@ class TestGxdImageSummary(unittest.TestCase):
         genebox.send_keys("pax6")
         genebox.send_keys(Keys.RETURN)
         time.sleep(2)
-        #find the Image tab and click it
+        # find the Image tab and click it
         driver.find_element(By.ID, 'imagestab').click()
         if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'imagesdata'))):
             print('Images Tab details loaded')
         assaylist = driver.find_element(By.ID, 'imagesdata').find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-assayType')
         items = assaylist[0].find_elements(By.TAG_NAME, 'li')
-        searchTextItems = iterate.getTextAsList(items)
-        self.assertEqual(searchTextItems, ["Immunohistochemistry", "Immunohistochemistry"])
+        searchtextitems = iterate.getTextAsList(items)
+        self.assertEqual(searchtextitems, ["Immunohistochemistry", "Immunohistochemistry"])
         assayheader = driver.find_element(By.ID, 'imagesdata').find_element(By.CSS_SELECTOR, 'th.yui-dt-col-assayType')
-        #click the gene header column to re-sort
+        # click the gene header column to re-sort
         assayheader.click()
-        #time.sleep(1)
-        #find the second row of data and verify the assay type
+        # time.sleep(1)
+        # find the second row of data and verify the assay type
         assaylist = driver.find_element(By.ID, 'imagesdata').find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-assayType')
         items = assaylist[2].find_elements(By.TAG_NAME, 'li')
-        searchTextItems = iterate.getTextAsList(items)
-        self.assertEqual(searchTextItems, ["RT-PCR"])
+        searchtextitems = iterate.getTextAsList(items)
+        self.assertEqual(searchtextitems, ["RT-PCR"])
     
     def test_specimentype_column_sort(self):
         """
@@ -196,23 +194,23 @@ class TestGxdImageSummary(unittest.TestCase):
         genebox.send_keys("hoxa13")
         genebox.send_keys(Keys.RETURN)
         time.sleep(2)
-        #find the Image tab and click it
+        # find the Image tab and click it
         driver.find_element(By.ID, 'imagestab').click()
         if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'imagesdata'))):
             print('Images Tab details loaded')
-        #Find the first row of data and verify the specimen type
+        # Find the first row of data and verify the specimen type
         typelist = driver.find_element(By.ID, 'imagesdata').find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-hybridization')
         items = typelist[0].find_elements(By.TAG_NAME, 'li')
-        searchTextItems = iterate.getTextAsList(items)
-        self.assertEqual(searchTextItems, ["section", "section"])
+        searchtextitems = iterate.getTextAsList(items)
+        self.assertEqual(searchtextitems, ["section", "section"])
         specimenheader = driver.find_element(By.ID, 'imagesdata').find_element(By.CSS_SELECTOR, 'th.yui-dt-col-hybridization')
-        #click the gene header column to sort
+        # click the gene header column to sort
         specimenheader.click()
         time.sleep(2)
         assaylist = driver.find_element(By.ID, 'imagesdata').find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-hybridization')
         items = assaylist[0].find_elements(By.TAG_NAME, 'li')
-        searchTextItems = iterate.getTextAsList(items)
-        self.assertEqual(searchTextItems, ['whole mount'])
+        searchtextitems = iterate.getTextAsList(items)
+        self.assertEqual(searchtextitems, ['whole mount'])
             
                 
     def tearDown(self):

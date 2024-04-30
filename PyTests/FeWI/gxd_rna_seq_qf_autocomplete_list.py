@@ -1,19 +1,16 @@
-'''
+"""
 Created on Apr 25, 2019
 This set of tests is for the Anatomical structure autocomplete list of the RNA Seq and Microarray Experiments query form
 @author: jeffc
 Verify the auto complete list is displaying the correct anatomical structures associated to the text you entered
 Verify
-'''
+"""
 import unittest
 import time
 import tracemalloc
 import config
 import sys,os.path
-# adjust the path to find config
-sys.path.append(
-  os.path.join(os.path.dirname(__file__), '../../..',)
-)
+
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
@@ -29,6 +26,10 @@ from webdriver_manager.microsoft import EdgeChromiumDriverManager
 from util import iterate, wait
 from util.form import ModuleForm
 from util.table import Table
+# adjust the path to find config
+sys.path.append(
+  os.path.join(os.path.dirname(__file__), '../../..',)
+)
 
 # Tests
 tracemalloc.start()
@@ -43,14 +44,14 @@ class TestGxdRnaSeqAutocomplete(unittest.TestCase):
         self.driver.implicitly_wait(10)
         
     def test_index_structureAC_headers(self):
-        '''
+        """
         @status this test verifies the auto complete list is displaying the correct anatomical structures associated to the text you entered.
         @see GXD-RNASeq-search-1
-        '''
+        """
         print ("BEGIN test_structureAC_headers")
         self.driver.find_element(By.ID, 'structureAC').send_keys('heart')#identifies the anatomical structure field and enters text
-        #wait.forAngular(self.driver)
-        #identify the autocomplete dropdown list
+        # wait.forAngular(self.driver)
+        # identify the autocomplete dropdown list
         auto_list = self.driver.find_element(By.ID, "ui-id-1")
         items = auto_list.find_elements(By.TAG_NAME, "li")
         for item in items:

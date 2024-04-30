@@ -1,16 +1,16 @@
-'''
+"""
 Created on Jun 8, 2018
 
 @author: jeffc
-'''
+"""
 import unittest
-from unittest import TestLoader, TestSuite
+from unittest import TestLoader
 from HTMLTestRunner import HTMLTestRunner
-from strain_qf import TestStrainQF
-from strain_detail import TestStrainDetail
-from strain_summary import TestStrainSummary
 from ref_by_strain import TestRefByStrain
 from reference_summary_bystrain import TestReferenceSummaryStrain
+from strain_detail import TestStrainDetail
+from strain_qf import TestStrainQF
+from strain_summary import TestStrainSummary
 
 print('Begin Strain testing')
 test1 = TestLoader().loadTestsFromTestCase(TestStrainQF)
@@ -26,4 +26,4 @@ runner.run(suite)
 
 if __name__=="__main__":
     unittest.main(testRunner=HTMLTestRunner())
-#reports generated Users/jeffc/git/mgiselenium/PyTests/PWI/reports  
+# reports generated Users/jeffc/git/mgiselenium/PyTests/PWI/reports
