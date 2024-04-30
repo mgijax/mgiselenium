@@ -1,37 +1,33 @@
-'''
+"""
 Created on Jun 6, 2016
 Verify column headings
 Verify DOIDs by allele
 Verify DOIDs by marker
 Note: uses highlight feature in these tests.
 @author: jeffc
-'''
+"""
 
-import unittest
-import tracemalloc
+import os.path
+import sys
 import time
+import tracemalloc
+import unittest
+
+from HTMLTestRunner import HTMLTestRunner
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.edge.service import Service as EdgeService
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+
 import config
-import sys,os.path
+from util import iterate
+from util.table import Table
+
 # adjust the path to find config
 sys.path.append(
   os.path.join(os.path.dirname(__file__), '../..',)
 )
-from HTMLTestRunner import HTMLTestRunner
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service as ChromeService
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.firefox.service import Service as FirefoxService
-from webdriver_manager.firefox import GeckoDriverManager
-from selenium.webdriver.edge.service import Service as EdgeService
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
-from genericpath import exists
-from util import wait, iterate
-from util.table import Table
-from config import TEST_URL
-
-#Tests
+# Tests
 tracemalloc.start()
 class TestAlleleSummary(unittest.TestCase):
 
@@ -42,7 +38,7 @@ class TestAlleleSummary(unittest.TestCase):
         self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
         self.driver.set_window_size(1500, 1000)
         self.driver.get(config.TEST_URL + "/allele/")
-        #self.driver.get("http://scrumdogdev.informatics.jax.org/allele/")
+        # self.driver.get("http://scrumdogdev.informatics.jax.org/allele/")
         self.driver.implicitly_wait(10)
 
 # ...
@@ -70,9 +66,9 @@ class TestAlleleSummary(unittest.TestCase):
 
        
     def test_column_headings(self):
-        '''
+        """
         @status This test verifies the correct column headings are being displayed in the correct order on the page.
-        '''
+        """
         self.driver.find_element(By.NAME, "nomen").clear()
         self.driver.find_element(By.NAME, "nomen").send_keys("Pkd1")
         self.driver.find_element(By.CLASS_NAME, "buttonLabel").click()
@@ -83,16 +79,16 @@ class TestAlleleSummary(unittest.TestCase):
         self.highlight(self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle'))  
         
     def test_disease_doids_byallele(self):
-        '''
+        """
         @status this test verifies In the Disease models section, that after each disease in the disease table is it's corresponding DO ID.
-        '''
+        """
         self.driver.find_element(By.NAME, "nomen").clear()
         self.driver.find_element(By.NAME, "nomen").send_keys("Gata1")
         self.driver.find_element(By.CLASS_NAME, "buttonLabel").click()
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm2Sho').click()
         disease_table = self.driver.find_element(By.ID, 'diseasetable_id')
         table = Table(disease_table)
-        #Iterate and print the search results headers
+        # Iterate and print the search results headers
         header_cells = table.get_header_cells()
         print(iterate.getTextAsList(header_cells))
         
@@ -103,19 +99,19 @@ class TestAlleleSummary(unittest.TestCase):
         self.assertEqual(disease_cells[1], 'myelofibrosis\nIDs')
         
     def test_disease_doids_bymarker(self):
-        '''
+        """
         @status this test verifies on the Phenotypes, Alleles & Disease Models Search summary page, that after each disease in the Human Disease Models column is it's corresponding DO ID.
-        '''
+        """
         self.driver.find_element(By.NAME, "nomen").clear()
         self.driver.find_element(By.NAME, "nomen").send_keys("shh")
         self.driver.find_element(By.CLASS_NAME, "buttonLabel").click()
         data_table = self.driver.find_element(By.CSS_SELECTOR, "#dynamicdata").find_element(By.CSS_SELECTOR, "table > tbody.yui-dt-data")
-        #this is finding all the cells in every row so you need to count cells to find the item you want
+        # this is finding all the cells in every row so you need to count cells to find the item you want
         cells = data_table.find_elements(By.TAG_NAME, "td")
-        searchTextItems = iterate.getTextAsList(cells)
-        print(searchTextItems)
-        #this is the 167th cell which corresponds to the Human Disease model result for the seventh allele 
-        self.assertEqual(searchTextItems[167], 'brachydactyly type A1 (IDs)')
+        searchtextitems = iterate.getTextAsList(cells)
+        print(searchtextitems)
+        # this is the 167th cell which corresponds to the Human Disease model result for the seventh allele
+        self.assertEqual(searchtextitems[167], 'brachydactyly type A1 (IDs)')
         
         
     def tearDown(self):

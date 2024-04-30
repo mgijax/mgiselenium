@@ -1,4 +1,4 @@
-'''
+"""
 Created on Feb 7, 2017
 These tests are for verifying information found on the Models tab of the Disease Ontology Browser
 @author: jeffc
@@ -8,33 +8,30 @@ Verify multiple results for various result combinations
 Verify results for same genes with multiple subtypes
 Verify results that has only NOT models
 Verify genetic background strain link
-'''
-import unittest
+"""
+import os.path
+import sys
 import time
 import tracemalloc
+import unittest
+
+from HTMLTestRunner import HTMLTestRunner
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.edge.service import Service as EdgeService
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+
 import config
-import sys,os.path
+from util import iterate
+from util.table import Table
+
 # adjust the path to find config
 sys.path.append(
   os.path.join(os.path.dirname(__file__), '../../..',)
 )
-from HTMLTestRunner import HTMLTestRunner
-from selenium import webdriver
-from selenium.webdriver.support.ui import Select
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.chrome.service import Service as ChromeService
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.firefox.service import Service as FirefoxService
-from webdriver_manager.firefox import GeckoDriverManager
-from selenium.webdriver.edge.service import Service as EdgeService
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
-from util import iterate, wait
-from util.form import ModuleForm
-from util.table import Table
-
 
 
 # Tests
@@ -50,19 +47,19 @@ class TestDoBrowserModelTab(unittest.TestCase):
         self.driver.implicitly_wait(10)
         
     def test_dobrowser_header(self):
-        '''
+        """
         @status this test verifies the term line in the header section on the DO browser page is correct.
-        '''
-        print ("BEGIN test_dobrowser_header")
+        """
+        print("BEGIN test_dobrowser_header")
         searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene ID in the quick search box
         searchbox.send_keys("DOID:1324")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
-        #find the Vocabulary Term tab and click it
+        # find the Vocabulary Term tab and click it
         self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'lung cancer').click()
-        #switch to the new window
+        # switch to the new window
         self.driver.switch_to.window(self.driver.window_handles[1])
         header = self.driver.find_element(By.ID, 'diseaseNameID')#identifies the header section of the DO Browser page
         print(header.text)
@@ -76,24 +73,24 @@ class TestDoBrowserModelTab(unittest.TestCase):
         print(alt_id.text)
         
         self.assertEqual(alt_id.text, "OMIM:211980, OMIM:608935, OMIM:612571, OMIM:612593, OMIM:614210, DOID:13075, DOID:1322, DOID:9881, ICD10CM:C34.1, ICD10CM:C34.2, ICD10CM:C34.3, ICD9CM:162.3, ICD9CM:162.4, ICD9CM:162.5, ICD9CM:162.8, UMLS_CUI:C0024624, UMLS_CUI:C0153491, UMLS_CUI:C0153492, UMLS_CUI:C0153493")
-        #locates and verifies the definition
+        # locates and verifies the definition
         definition = self.driver.find_element(By.ID, 'diseaseDefinition')#identifies the Definition line of the header section of the DO Browser page
         print(definition.text)
         
         self.assertEqual(definition.text, "A respiratory system cancer that is located_in the lung.")
         
     def test_dobrowser_modeltab_mh_m_not(self):
-        '''
+        """
         @status this test verifies the correct genes, models and source are returned. This test example displays a disease that returns
         results for associations to mouse/human(6), just mouse(1), and 3 NOT models
-        '''
-        print ("BEGIN test_dobrowser_modeltab_mh_m_not")
+        """
+        print("BEGIN test_dobrowser_modeltab_mh_m_not")
         searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene ID in the quick search box
         searchbox.send_keys("DOID:0050646")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
-        #find the Vocabulary Term tab and click it
+        # find the Vocabulary Term tab and click it
         self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'distal arthrogryposis').click()
         self.driver.switch_to.window(self.driver.window_handles[1])
@@ -102,7 +99,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         table = Table(model_table)
         cells = table.get_rows()
         print(iterate.getTextAsList(cells))
-        #displays each row of disease model data
+        # displays each row of disease model data
         row1 = cells[2]
         row2 = cells[3]
         row3 = cells[4]
@@ -127,7 +124,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         table = Table(notmodel_table)
         cells = table.get_rows()
         print(iterate.getTextAsList(cells))
-        #displays each row of NOT models data
+        # displays each row of NOT models data
         row1 = cells[2]
         row2 = cells[3]
         row3 = cells[4]
@@ -137,21 +134,21 @@ class TestDoBrowserModelTab(unittest.TestCase):
         self.assertEqual(row3.text, 'distal arthrogryposis sy/sy B6C3Fe-a/a J:68881 View')
                 
     def test_dobrowser_modelstab_trans_not(self):
-        '''
+        """
         @status this test verifies the correct genes, models and source are returned. This test example displays a disease that returns
         results for associations to Transgenes and other mutations model(1) and 1 NOT model
         @note: this test no longer has a Transgene result, need to find a new example !!!!!!
-        '''
-        print ("BEGIN test_dobrowser_modeltab_trans_not")
+        """
+        print("BEGIN test_dobrowser_modeltab_trans_not")
         searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:14748")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
-        #find the Vocabulary Term tab and click it
+        # find the Vocabulary Term tab and click it
         self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'Sotos syndrome').click()
-        #switch to the new window
+        # switch to the new window
         self.driver.switch_to.window(self.driver.window_handles[1])
         self.driver.find_element(By.ID, 'modelsTabButton').click()#identifies the Models tab and clicks it.
         
@@ -159,7 +156,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         table = Table(model_table)
         cells = table.get_rows()
         print(iterate.getTextAsList(cells))
-        #displays each row of disease model data
+        # displays each row of disease model data
         row1 = cells[2]
         row2 = cells[3]
         print(row1)
@@ -170,25 +167,25 @@ class TestDoBrowserModelTab(unittest.TestCase):
         table = Table(notmodel_table)
         cells = table.get_rows()
         print(iterate.getTextAsList(cells))
-        #displays each row of NOT models data
+        # displays each row of NOT models data
         row1 = cells[2]
         self.assertEqual(row1.text, 'NOT Models         Sotos syndrome Nsd1tm1.1Pcn/Nsd1tm1.1Pcn involves: 129/Sv * C57BL/6 J:83923 View')
                 
     def test_dobrowser_modelstab_mh_nots(self):
-        '''
+        """
         @status this test verifies the correct genes, models and source are returned. This test example displays a disease that returns
         results for associations to mouse/human(8) and NOTs(4)
-        '''
-        print ("BEGIN test_dobrowser_modeltab_mh_nots")
+        """
+        print("BEGIN test_dobrowser_modeltab_mh_nots")
         searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:11949")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
-        #find the Vocabulary Term tab and click it
+        # find the Vocabulary Term tab and click it
         self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'Creutzfeldt-Jakob disease').click()
-        #switch to the new window
+        # switch to the new window
         self.driver.switch_to.window(self.driver.window_handles[1])
         if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'termTabButton'))):
             print('page loaded')
@@ -197,7 +194,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         table = Table(model_table)
         cells = table.get_rows()
         print(iterate.getTextAsList(cells))
-        #displays each row of disease model data
+        # displays each row of disease model data
         row1 = cells[2]
         row2 = cells[3]
         row3 = cells[4]
@@ -220,7 +217,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         table = Table(notmodel_table)
         cells = table.get_rows()
         print(iterate.getTextAsList(cells))
-        #displays each row of NOT models data
+        # displays each row of NOT models data
         row1 = cells[2]
         row2 = cells[3]
         row3 = cells[4]
@@ -233,21 +230,21 @@ class TestDoBrowserModelTab(unittest.TestCase):
         
                 
     def test_dobrowser_modelstab_mh_m_h_nots(self):
-        '''
+        """
         @status this test verifies the correct genes, models and source are returned. This test example displays a disease that returns
         results for associations to mouse/human, mouse and human. Also has NOTS
         @bug currently not displaying human associations
-        '''
-        print ("BEGIN test_dobrowser_modeltab_mh_m_h_nots")
+        """
+        print("BEGIN test_dobrowser_modeltab_mh_m_h_nots")
         searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:5572")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
-        #find the Vocabulary Term tab and click it
+        # find the Vocabulary Term tab and click it
         self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'Beckwith-Wiedemann syndrome').click()
-        #switch to the new window
+        # switch to the new window
         self.driver.switch_to.window(self.driver.window_handles[1])
         if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'termTabButton'))):
             print('page loaded')
@@ -257,7 +254,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         table = Table(model_table)
         cells = table.get_rows()
         print(iterate.getTextAsList(cells))
-        #displays each row of disease model data
+        # displays each row of disease model data
         row1 = cells[2]
         row2 = cells[3]
         row3 = cells[4]
@@ -270,7 +267,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         table = Table(notmodel_table)
         cells = table.get_rows()
         print(iterate.getTextAsList(cells))
-        #displays each row of NOT models data
+        # displays each row of NOT models data
         row1 = cells[2]
         row2 = cells[3]
         row3 = cells[4]
@@ -279,20 +276,20 @@ class TestDoBrowserModelTab(unittest.TestCase):
         self.assertEqual(row3.text, 'Beckwith-Wiedemann syndrome Kcnq1tm1Apf/Kcnq1tm1Apf involves: 129P2/OlaHsd * C57BL/6 J:66428 View')
                 
     def test_dobrowser_modelstab_mh_h_not(self):
-        '''
+        """
         @status this test verifies the correct genes, models and source are returned. This test example displays a disease that returns
         results for associations to mouse/human, human and 4 NOT
-        '''
-        print ("BEGIN test_dobrowser_modeltab_mh_h_not")
+        """
+        print("BEGIN test_dobrowser_modeltab_mh_h_not")
         searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:0050771")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
-        #find the Vocabulary Term tab and click it
+        # find the Vocabulary Term tab and click it
         self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'pheochromocytoma').click()
-        #switch to the new window
+        # switch to the new window
         self.driver.switch_to.window(self.driver.window_handles[1])
         if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'termTabButton'))):
             print('page loaded')
@@ -302,7 +299,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         table = Table(model_table)
         cells = table.get_rows()
         print(iterate.getTextAsList(cells))
-        #displays each row of disease model data
+        # displays each row of disease model data
         row1 = cells[2]
         row2 = cells[3]
         
@@ -313,7 +310,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         table = Table(notmodel_table)
         cells = table.get_rows()
         print(iterate.getTextAsList(cells))
-        #displays rows of NOT models data
+        # displays rows of NOT models data
         row1 = cells[2]
         row2 = cells[3]
         row3 = cells[4]
@@ -327,20 +324,20 @@ class TestDoBrowserModelTab(unittest.TestCase):
         self.assertEqual(row5.text, 'pheochromocytoma Rettm1Cos/Rettm2.1Cos involves: 129S/SvEv * 129S1/Sv * C57BL/6J * FVB/N * MF1 J:60659 View')
                 
     def test_dobrowser_modelstab_m_trans_complex_not(self):
-        '''
+        """
         @status this test verifies the correct genes, models and source are returned. This test example displays a disease that returns
         results for associations to mouse, transgenes, and complex, also has 1 NOT
-        '''
-        print ("BEGIN test_dobrowser_modeltab_m_trans_complex_not")
+        """
+        print("BEGIN test_dobrowser_modeltab_m_trans_complex_not")
         searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:7148")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
-        #find the Vocabulary Term tab and click it
+        # find the Vocabulary Term tab and click it
         self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'rheumatoid arthritis').click()
-        #switch to the new window
+        # switch to the new window
         self.driver.switch_to.window(self.driver.window_handles[1])
         if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'termTabButton'))):
             print('page loaded')
@@ -350,7 +347,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         table = Table(model_table)
         cells = table.get_rows()
         print(iterate.getTextAsList(cells))
-        #displays each row of disease model data
+        # displays each row of disease model data
         row1 = cells[2]
         row2 = cells[3]
         row3 = cells[4]
@@ -396,26 +393,26 @@ class TestDoBrowserModelTab(unittest.TestCase):
         table = Table(notmodel_table)
         cells = table.get_rows()
         print(iterate.getTextAsList(cells))
-        #displays each row of NOT models data
+        # displays each row of NOT models data
         row1 = cells[2]
         self.assertEqual(row1.text, 'NOT Models         rheumatoid arthritis Ighmtm1Cgn/Ighmtm1Cgn\nTg(TcraR28,TcrbR28)KRNDim/0 involves: 129S2/SvPas * C57BL/6 * NOD * SJL J:36815 View')
                 
         
     def test_dobrowser_modelstab_m_h_trans(self):
-        '''
+        """
         @status this test verifies the correct genes, models and source are returned. This test example displays a disease that returns
         results for associations to mouse, human and transgene, can be better used as a Genes Tab test.
-        '''
-        print ("BEGIN test_dobrowser_modeltab_m_h_trans")
+        """
+        print("BEGIN test_dobrowser_modeltab_m_h_trans")
         searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:633")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
-        #find the Vocabulary Term tab and click it
+        # find the Vocabulary Term tab and click it
         self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'myositis').click()
-        #switch to the new window
+        # switch to the new window
         self.driver.switch_to.window(self.driver.window_handles[1])
         if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'termTabButton'))):
             print('page loaded')
@@ -424,7 +421,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         table = Table(model_table)
         cells = table.get_rows()
         print(iterate.getTextAsList(cells))
-        #displays each row of gene data
+        # displays each row of gene data
         row1 = cells[2]
         row2 = cells[3]
         row3 = cells[4]
@@ -438,20 +435,20 @@ class TestDoBrowserModelTab(unittest.TestCase):
         self.assertEqual(row5.text, 'Additional\nComplex\nModels        inclusion body myositis Gnetm1Sngi/Gnetm1Sngi\nTg(ACTB-GNE*D176V)9Sngi/0 involves: C57BL/6 J:117854 View')
         
     def test_dobrowser_modelstab_h(self):
-        '''
+        """
         @status this test verifies the correct genes, models and source are returned. This test example displays a disease that returns
         results for associations to just human
-        '''
-        print ("BEGIN test_dobrowser_modeltab_h")
+        """
+        print("BEGIN test_dobrowser_modeltab_h")
         searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:3132")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
-        #find the Vocabulary Term tab and click it
+        # find the Vocabulary Term tab and click it
         self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'porphyria cutanea tarda').click()
-        #switch to the new window
+        # switch to the new window
         self.driver.switch_to.window(self.driver.window_handles[1])
         if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'termTabButton'))):
             print('page loaded')
@@ -460,25 +457,25 @@ class TestDoBrowserModelTab(unittest.TestCase):
         table = Table(model_table)
         cells = table.get_rows()
         print(iterate.getTextAsList(cells))
-        #displays each row of disease model data
+        # displays each row of disease model data
         row1 = cells[2]
         self.assertEqual(row1.text, '         porphyria cutanea tarda Hfetm2Nca/Hfetm2Nca\nUrodtm1Kush/Urod+ involves: C57BL/6J J:66704 View')
 
     def test_dobrowser_modelstab_same_gene_mult_subtypes(self):
-        '''
+        """
         @status this test verifies the correct genes, models and source are returned. This test example displays a disease that returns
         results for associations to mouse/human and mouse. Genes COL1A1 and COL1A2 are attached multiple times
-        '''
-        print ("BEGIN test_dobrowser_modeltab_same_gene_mult_subtypes")
+        """
+        print("BEGIN test_dobrowser_modeltab_same_gene_mult_subtypes")
         searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:12347")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
-        #find the Vocabulary Term tab and click it
+        # find the Vocabulary Term tab and click it
         self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'osteogenesis imperfecta').click()
-        #switch to the new window
+        # switch to the new window
         self.driver.switch_to.window(self.driver.window_handles[1])
         if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'termTabButton'))):
             print('page loaded')
@@ -488,7 +485,7 @@ class TestDoBrowserModelTab(unittest.TestCase):
         table = Table(model_table)
         cells = table.get_rows()
         print(iterate.getTextAsList(cells))
-        #displays each row of disease model data
+        # displays each row of disease model data
         row1 = cells[2]
         row2 = cells[3]
         row3 = cells[4]
@@ -549,20 +546,20 @@ class TestDoBrowserModelTab(unittest.TestCase):
         self.assertEqual(row29.text, 'Additional\nComplex\nModels        osteogenesis imperfecta Bmp1tm1.1Dgr/Bmp1tm1.1Dgr\nTll1tm2.1Dgr/Tll1tm2.1Dgr\nNdor1Tg(UBC-cre/ERT2)1Ejb/0 involves: 129S/SvEv * 129S6/SvEvTac * C57BL/6 * SJL J:210366 View')
 
     def test_dobrowser_modelstab_not_only(self):
-        '''
+        """
         @status this test verifies the correct genes, models and source are returned. This test example displays a disease that returns
         results for associations to only a NOT
-        '''
-        print ("BEGIN test_dobrowser_modeltab_not_only")
+        """
+        print("BEGIN test_dobrowser_modeltab_not_only")
         searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:10126")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
-        #find the Vocabulary Term tab and click it
+        # find the Vocabulary Term tab and click it
         self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, 'keratoconus').click()
-        #switch to the new window
+        # switch to the new window
         self.driver.switch_to.window(self.driver.window_handles[1])
         if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'termTabButton'))):
             print('page loaded')
@@ -572,37 +569,37 @@ class TestDoBrowserModelTab(unittest.TestCase):
         table = Table(notmodel_table)
         cells = table.get_rows()
         print(iterate.getTextAsList(cells))
-        #displays each row of NOT models data
+        # displays each row of NOT models data
         row1 = cells[2]
         row2 = cells[3]
         self.assertEqual(row1.text, 'NOT Models         keratoconus Vsx1tm1Mci/Vsx1tm1Mci either: (involves: 129S1/Sv * 129S1/SvImJ * 129X1/SvJ) or (involves: 129S1/Sv * 129X1/SvJ * Black Swiss) J:88182 View')
         self.assertEqual(row2.text, 'keratoconus Vsx1tm2Mci/Vsx1tm2Mci either: (involves: 129S1/Sv * 129S1/SvImJ * 129X1/SvJ) or (involves: 129S1/Sv * 129X1/SvJ * Black Swiss) J:88182 View')
 
     def test_dobrowser_modelstab_strain_link(self):
-        '''
+        """
         @status this test verifies that strains listed in the Genetic Background column link to their strain detail page
         @note do-results-model-1
-        '''
-        print ("BEGIN test_dobrowser_modeltab_strain_link")
+        """
+        print("BEGIN test_dobrowser_modeltab_strain_link")
         searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
         # put your DO ID in the quick search box
         searchbox.send_keys("DOID:14330")
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
-        #find the Vocabulary Term tab and click it
+        # find the Vocabulary Term tab and click it
         self.driver.find_element(By.ID, 'vLink').click()
         self.driver.find_element(By.LINK_TEXT, "Parkinson's disease").click()
-        #switch to the new window
+        # switch to the new window
         self.driver.switch_to.window(self.driver.window_handles[1])
         if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'termTabButton'))):
             print('page loaded')
         self.driver.find_element(By.ID, 'modelsTabButton').click()#identifies the Models tab and clicks it.
-        #Find the link in the Genetic Background column C57BL/6J-Tg(SNCA)ARyot and click it
+        # Find the link in the Genetic Background column C57BL/6J-Tg(SNCA)ARyot and click it
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'C57BL/6J-Tg').click()
         time.sleep(2)
-        #switch focus to the new tab for strain detail page
+        # switch focus to the new tab for strain detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        #Asserts that the strain page is for the correct strain
+        # Asserts that the strain page is for the correct strain
         assert "C57BL/6J-Tg(SNCA)ARyot" in self.driver.page_source  
         
     def tearDown(self):

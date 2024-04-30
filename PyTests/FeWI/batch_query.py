@@ -1,4 +1,4 @@
-'''
+"""
 Created on May 31, 2018
 @author: jeffc
 Verify searching by an MGP ID
@@ -7,34 +7,25 @@ Verify searching by MGP ID and other IDs
 Verify searching by MGP ID with B6 coordinates
 Verify searching by MGP ID with no B6 coordinates
 Verify searching by MGI gene model ID with B6 coordinates
-'''
-import unittest
-import time
+"""
+import os.path
+import sys
 import tracemalloc
+import unittest
+
+from HTMLTestRunner import HTMLTestRunner
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.edge.service import Service as EdgeService
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+
 import config
-import sys,os.path
+
 # adjust the path to find config
 sys.path.append(
   os.path.join(os.path.dirname(__file__), '../..',)
 )
-from HTMLTestRunner import HTMLTestRunner
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as ec
-from selenium.webdriver.support.ui import Select
-from util.table import Table
-from selenium.webdriver.chrome.service import Service as ChromeService
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.firefox.service import Service as FirefoxService
-from webdriver_manager.firefox import GeckoDriverManager
-from selenium.webdriver.edge.service import Service as EdgeService
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
-from genericpath import exists
-from util import wait, iterate
-from config import TEST_URL
-
-#Tests
+# Tests
 tracemalloc.start()
 class TestBatchQuery(unittest.TestCase):
 
@@ -58,15 +49,15 @@ class TestBatchQuery(unittest.TestCase):
         # Enter an MGP ID into the ID/Symbols field
         idsearchbox.send_keys("MGP_CBAJ_G0024006")
         idsearchbox.submit()
-        #locates the Input Type column, find all the rows of data and print it to the console
+        # locates the Input Type column, find all the rows of data and print it to the console
         type_header = self.driver.find_element(By.ID, 'yui-dt0-th-type')
         print(type_header.text)        
-        #asserts that the Input Type header is correct
+        # asserts that the Input Type header is correct
         self.assertEqual('Input\nType', type_header.text) 
-        #Find the Input Type field in the first row of data
+        # Find the Input Type field in the first row of data
         row1_type = self.driver.find_element(By.XPATH, '/html/body/div[2]/div[6]/table/tbody[2]/tr/td[2]/div')
         print(row1_type.text)
-        #Assert that the row1 Input Type is Mouse Genome Project
+        # Assert that the row1 Input Type is Mouse Genome Project
         self.assertEqual(row1_type.text, 'Mouse Genome Project')
 
     def test_bq_multi_mgp_ids(self):
@@ -80,12 +71,12 @@ class TestBatchQuery(unittest.TestCase):
         # Enter an MGP ID into the ID/Symbols field
         idsearchbox.send_keys("MGP_CBAJ_G0024006, MGP_NZOHlLtJ_G0024761, MGP_AJ_G0024271, MGP_WSBEiJ_G0023575")
         idsearchbox.submit()
-        #locates the Input column, find all the rows of data and print it to the console
+        # locates the Input column, find all the rows of data and print it to the console
         input_header = self.driver.find_element(By.ID, 'yui-dt0-th-term-liner')
         print(input_header.text)        
-        #asserts that the Input header is correct
+        # asserts that the Input header is correct
         self.assertEqual('Input', input_header.text) 
-        #Find the input field in each row of data
+        # Find the input field in each row of data
         row1_input = self.driver.find_element(By.XPATH, '//*[@id="yui-rec0"]/td[1]/div')
         row2_input = self.driver.find_element(By.XPATH, '//*[@id="yui-rec1"]/td[1]/div')
         row3_input = self.driver.find_element(By.XPATH, '//*[@id="yui-rec2"]/td[1]/div')
@@ -95,7 +86,7 @@ class TestBatchQuery(unittest.TestCase):
         print(row3_input.text)
         print(row4_input.text)
         
-        #Assert that the input field is correct for each row
+        # Assert that the input field is correct for each row
         self.assertEqual(row1_input.text, 'MGP_CBAJ_G0024006')
         self.assertEqual(row2_input.text, 'MGP_NZOHlLtJ_G0024761')
         self.assertEqual(row3_input.text, 'MGP_AJ_G0024271')
@@ -112,22 +103,22 @@ class TestBatchQuery(unittest.TestCase):
         # Enter an MGP ID into the ID/Symbols field
         idsearchbox.send_keys("MGP_CBAJ_G0024006, NM_008089, MGP_AJ_G0024271, MGI:95661")
         idsearchbox.submit()
-        #locates the Input column, find all the rows of data and print it to the console
+        # locates the Input column, find all the rows of data and print it to the console
         input_header = self.driver.find_element(By.ID, 'yui-dt0-th-term-liner')
         print(input_header.text)        
-        #asserts that the Input header is correct
+        # asserts that the Input header is correct
         self.assertEqual('Input', input_header.text) 
-        #capture the data for all 6 row results
+        # capture the data for all 6 row results
         row1_data = self.driver.find_element(By.ID, 'yui-rec0')
         row2_data = self.driver.find_element(By.ID, 'yui-rec1')
         row3_data = self.driver.find_element(By.ID, 'yui-rec2')
         row4_data = self.driver.find_element(By.ID, 'yui-rec3')
-        #print each row of data to the console
+        # print each row of data to the console
         print(row1_data.text)
         print(row2_data.text)
         print(row3_data.text)
         print(row4_data.text)
-        #Assert each row of data is correct
+        # Assert each row of data is correct
         self.assertEqual(row1_data.text, 'MGP_CBAJ_G0024006\nMouse Genome Project\nMGI:2447322\nPcdha9\nprotocadherin alpha 9\nprotein coding gene', 'Row1 data is not correct!')
         self.assertEqual(row2_data.text, 'NM_008089\nRefSeq\nMGI:95661\nGata1\nGATA binding protein 1\nprotein coding gene', 'Row2 data is not correct!')
         self.assertEqual(row3_data.text, 'MGP_AJ_G0024271\nMouse Genome Project\nMGI:2447322\nPcdha9\nprotocadherin alpha 9\nprotein coding gene', 'Row3 data is not correct!')
@@ -140,22 +131,22 @@ class TestBatchQuery(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/batch")
-        #locate the C57BL/6J Genome Location checkbox in the Gene Attributes output section and click it.
+        # locate the C57BL/6J Genome Location checkbox in the Gene Attributes output section and click it.
         driver.find_element(By.ID, 'attributes2').click()
         idsearchbox = driver.find_element(By.ID, 'ids')
         # Enter an MGP ID into the ID/Symbols field
         idsearchbox.send_keys("MGP_CBAJ_G0024006")
         idsearchbox.submit()
-        #locates the Input column, find all the rows of data and print it to the console
+        # locates the Input column, find all the rows of data and print it to the console
         input_header = self.driver.find_element(By.ID, 'yui-dt0-th-term-liner')
         print(input_header.text)        
-        #asserts that the Input header is correct
+        # asserts that the Input header is correct
         self.assertEqual('Input', input_header.text) 
-        #capture the data for all 6 row results
+        # capture the data for all 6 row results
         row1_data = self.driver.find_element(By.ID, 'yui-rec0')        
-        #print each row of data to the console
+        # print each row of data to the console
         print(row1_data.text)        
-        #Assert each row of data is correct
+        # Assert each row of data is correct
         self.assertEqual(row1_data.text, 'MGP_CBAJ_G0024006\nMouse Genome Project\nMGI:2447322\nPcdha9\nprotocadherin alpha 9\nprotein coding gene\n18\n+\n37130933\n37320710', 'Row1 data is not correct!')
        
     def test_bq_mgp_ids_has_no_b6coord(self):
@@ -165,21 +156,21 @@ class TestBatchQuery(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/batch")
-        #locate the Genome Location checkbox in the Gene Attributes output section and click it.
+        # locate the Genome Location checkbox in the Gene Attributes output section and click it.
         driver.find_element(By.ID, 'attributes2').click()
         idsearchbox = driver.find_element(By.ID, 'ids')
         # Enter an MGP ID into the ID/Symbols field
         idsearchbox.send_keys("MGP_DBA2J*")
         idsearchbox.submit()
-        #locates the Input column row1
+        # locates the Input column row1
         input_1 = self.driver.find_element(By.CSS_SELECTOR, 'td.yui-dt0-col-term > div:nth-child(1)')
         print(input_1.text)        
-        #asserts that the Input row1 data is correct
+        # asserts that the Input row1 data is correct
         self.assertEqual(input_1.text, 'MGP_DBA2J') 
-        #locates the MGI Gene/Marker ID row1
+        # locates the MGI Gene/Marker ID row1
         input_3 = self.driver.find_element(By.CSS_SELECTOR, 'td.yui-dt0-col-markerId > div:nth-child(1)')
         print(input_3.text)
-        #Assert that the MGI Gene/Marker ID row1 data is correct
+        # Assert that the MGI Gene/Marker ID row1 data is correct
         self.assertEqual(input_3.text, 'No associated gene', 'Row1 data is not correct!')
 
     def test_bq_mgi_gm_ids_has_b6coord(self):
@@ -189,27 +180,27 @@ class TestBatchQuery(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/batch")
-        #locate the C57BL/6J Genome Location checkbox in the Gene Attributes output section and click it.
+        # locate the C57BL/6J Genome Location checkbox in the Gene Attributes output section and click it.
         driver.find_element(By.ID, 'attributes2').click()
         idsearchbox = driver.find_element(By.ID, 'ids')
         # Enter an MGP ID into the ID/Symbols field
         idsearchbox.send_keys("MGI_C57BL6J_98660")
         idsearchbox.submit()
-        #locates the Input column, find all the rows of data and print it to the console
+        # locates the Input column, find all the rows of data and print it to the console
         input_header = self.driver.find_element(By.ID, 'yui-dt0-th-term-liner')
         print(input_header.text)        
-        #asserts that the Input header is correct
+        # asserts that the Input header is correct
         self.assertEqual('Input', input_header.text) 
-        #capture the data for all 6 row results
+        # capture the data for all 6 row results
         row1_data = self.driver.find_element(By.ID, 'yui-rec0')   
-        #print each row of data to the console
+        # print each row of data to the console
         print(row1_data.text) 
-        #Assert each row of data is correct
+        # Assert each row of data is correct
         self.assertEqual(row1_data.text, 'MGI_C57BL6J_98660\nMGI Strain Gene\nMGI:98660\nSry\nsex determining region of Chr Y\nprotein coding gene\nY\n-\n2662471\n2663658', 'Row1 data is not correct!')
 
         
     def tearDown(self):
-        #self.driver.close()
+        # self.driver.close()
         self.driver.quit()
         tracemalloc.stop()
 def suite():
