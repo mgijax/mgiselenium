@@ -54,8 +54,8 @@ class TestPrivateData(unittest.TestCase):
         brcalink.click()
         self.driver.switch_to.window(self.driver.window_handles[1])
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'phenoMutationLink')))  # waits until the All Mutations and Alleles link is displayed on the page
-        allallelelink = driver.find_element(By.LINK_TEXT, '92')# Find the all alleles and mutations link and click it
-        #allallelelink = driver.find_element(By.ID, 'phenoMutationLink')# Find the all alleles and mutations link and click it
+        #allallelelink = driver.find_element(By.LINK_TEXT, '93')# Find the all alleles and mutations link and click it
+        allallelelink = driver.find_element(By.ID, 'phenoMutationLink')# Find the all alleles and mutations link and click it
         allallelelink.click()
         # assert that there is no link for Brca1<test1>
         bodytext = self.driver.find_element(By.TAG_NAME, 'body').text

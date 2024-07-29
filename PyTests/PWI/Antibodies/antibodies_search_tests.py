@@ -1103,7 +1103,7 @@ class TestEIAntibodySearch(unittest.TestCase):
         mod_date = driver.find_element(By.ID, 'modificationDate').get_attribute('value')
         print(mod_date)
         # Assert the Modification Date field returned is correct
-        self.assertEqual(mod_date, '2020-06-18')
+        self.assertEqual(mod_date, '2024-04-11')
 
     def testAntibodyCreateDateSearch(self):
         """

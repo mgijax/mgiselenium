@@ -47,7 +47,8 @@ class TestGenotypeDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys("Pax6")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, '132-14Neu').click()
+        plnk = self.driver.find_element(By.PARTIAL_LINK_TEXT, '132-14Neu')
+        self.driver.execute_script("arguments[0].click();", plnk)
         self.driver.find_element(By.LINK_TEXT, 'hm1').click()
         # switch to the new window
         self.driver.switch_to.window(self.driver.window_handles[1])
@@ -76,7 +77,8 @@ class TestGenotypeDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys("Pax6")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, '132-14Neu').click()
+        plnk = self.driver.find_element(By.PARTIAL_LINK_TEXT, '132-14Neu')
+        self.driver.execute_script("arguments[0].click();", plnk)
         self.driver.find_element(By.LINK_TEXT, 'hm1').click()
         # switch to the new window
         self.driver.switch_to.window(self.driver.window_handles[1])

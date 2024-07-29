@@ -68,23 +68,36 @@ class TestHmdcDiseaseTab(unittest.TestCase):
         self.driver.find_element(By.ID, "searchButton").click()
 
         # identify the Disease Tab and click on it
-        disease_tab = self.driver.find_element(By.CSS_SELECTOR,
-                                               "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
+        disease_tab = self.driver.find_element(By.CSS_SELECTOR, "li.uib-tab:nth-child(3) > a:nth-child(1)")
         print(disease_tab.text)
         disease_tab.click()
-        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located(
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located(
                 (By.ID, 'diseaseTable'))):
             print('HMDC disease tab data loaded')
-        disease_table_headers = self.driver.find_element(By.ID, "diseaseTable").find_element(By.CSS_SELECTOR, "tr")
-        items = disease_table_headers.find_elements(By.TAG_NAME, "th")
-        searchtermitems = iterate.getTextAsList(items)
-        self.assertEqual(searchtermitems[0], "Disease")
-        self.assertEqual(searchtermitems[1], "DO ID")
-        self.assertEqual(searchtermitems[2], "OMIM ID(s)")
-        self.assertEqual(searchtermitems[3], "Mouse Models")
-        self.assertEqual(searchtermitems[4], "Associated Genes from Mouse Models")
-        self.assertEqual(searchtermitems[5], "Associated Human Genes (Source)")
-        self.assertEqual(searchtermitems[6], "References using\nMouse Models")
+        time.sleep(3)
+        #capture, print and assert the disease tab headers are correct
+        head1 = self.driver.find_element(By.XPATH, "//th[contains(@st-sort,'term')]")
+        print(head1.text)
+        self.assertEqual(head1.text, "Disease")
+        head2 = self.driver.find_element(By.XPATH, "//th[contains(@st-sort,'primaryId')]")
+        print(head2.text)
+        self.assertEqual(head2.text, "DO ID")
+        head3 = self.driver.find_element(By.XPATH, "//th[contains(@st-sort,'omimIds')]")
+        print(head3.text)
+        self.assertEqual(head3.text, "OMIM ID(s)")
+        head4 = self.driver.find_element(By.XPATH, "//th[contains(@st-sort,'diseaseModelCount')]")
+        print(head4.text)
+        self.assertEqual(head4.text, "Mouse Models")
+        head5 = self.driver.find_element(By.XPATH, "//th[contains(@st-sort,'diseaseMouseMarkers')]")
+        print(head5.text)
+        self.assertEqual(head5.text, "Associated Genes from Mouse Models")
+        head6 = self.driver.find_element(By.XPATH, "//th[contains(@st-sort,'diseaseHumanMarkers')]")
+        print(head6.text)
+        self.assertEqual(head6.text, "Associated Human Genes (Source)")
+        head7 = self.driver.find_element(By.XPATH, "//th[contains(@st-sort,'diseaseRefCount')]")
+        print(head7.text)
+        self.assertEqual(head7.text, "References using\nMouse Models")
+
 
     def test_diseases_tab_diseases(self):
         """

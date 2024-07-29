@@ -59,6 +59,8 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.edge.service import Service as EdgeService
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 from util import iterate, wait
 # from util.form import ModuleForm
 from util.table import Table
@@ -143,7 +145,7 @@ class TestHmdcSearchTerm(unittest.TestCase):
 
         # cells captures every field from Human Gene heading to the last disease angled, this test is only testing the disease.
         cells = self.driver.find_elements(By.CSS_SELECTOR, "div.ngc.cell-content.ngc-custom-html.ng-binding.ng-scope")
-        # print iterate.getTextAsList(cells) #if you want to see what it captures uncomment this
+        #print(iterate.getTextAsList(cells)) #if you want to see what it captures uncomment this
         # displays each angled column of disease heading, note that there is 1 blank field between pheno headings and disease headings.
         disease1 = cells[22]
         print(disease1.text)
@@ -151,8 +153,7 @@ class TestHmdcSearchTerm(unittest.TestCase):
         self.assertEqual(disease1.text, 'inherited metabolic disorder')
 
         # phenocells captures the inherited metabolic disorder cell on the first row of data
-        phenocells = self.driver.find_element(By.CSS_SELECTOR,
-                                              "td.middle:nth-child(23) > div:nth-child(1) > div:nth-child(1)")
+        phenocells = self.driver.find_element(By.CSS_SELECTOR,"td.middle:nth-child(23) > div:nth-child(1) > div:nth-child(1)")
         phenocells.click()  # clicks the disease cell (last one in list) to open up the genotype popup page
         self.driver.switch_to.window(self.driver.window_handles[1])  # switches focus to the genotype popup page
         wait.forNewWindow(self.driver, 5)
@@ -936,8 +937,9 @@ class TestHmdcSearchTerm(unittest.TestCase):
                                             "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
         grid_tab.click()
-        wait.forAngular(self.driver)
-
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located(
+                (By.CLASS_NAME, 'ngc'))):
+            print('Grid tab data loaded')
         # Get the list of mouse genes returned
         mgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.last")
         searchtermitems = iterate.getTextAsList(mgenes)

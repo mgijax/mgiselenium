@@ -55,8 +55,8 @@ class TestGXDTissueStageMatrix(unittest.TestCase):
         stagebox = driver.find_element(By.NAME, 'vocabTerm')
         # put your structure term to search in the box
         stagebox.send_keys("mouse")
-        stagebox.send_keys(Keys.RETURN)
-        driver.find_element(By.ID, 'submit2').click()
+        sub = driver.find_element(By.ID, 'submit2')
+        driver.execute_script("arguments[0].click();", sub)
         time.sleep(2)
         # find the Tissue x Stage Matrix tab
         tissuestagetab = driver.find_element(By.ID, 'stagegridtab')

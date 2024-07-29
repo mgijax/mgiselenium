@@ -100,7 +100,8 @@ class TestCreSpecificity(unittest.TestCase):
         # switch to the Counts popup
         self.driver.switch_to.window(self.driver.window_handles[-1])
         # click the link "View All result Details and Images" link
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'View All Result').click()
+        plnk = self.driver.find_element(By.PARTIAL_LINK_TEXT, 'View All Result')
+        self.driver.execute_script("arguments[0].click();", plnk)
         # verify the cre image is displayed in the Images section
         self.driver.find_element(By.ID, 'creImg429235').is_displayed()
 

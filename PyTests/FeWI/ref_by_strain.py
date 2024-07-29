@@ -7,6 +7,7 @@ Verify that the Reference by strain page has the sort of descending year, second
 """
 import os.path
 import sys
+import time
 import tracemalloc
 import unittest
 import config
@@ -15,6 +16,8 @@ from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.edge.service import Service as EdgeService
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
@@ -77,8 +80,14 @@ class TestRefByStrain(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'C57BL/6J').click()
         # switch focus to the new tab for strain detail page
         driver.switch_to.window(self.driver.window_handles[-1])
+        if WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'allRefs'))):
+            print('The all references link is displayed')
+        #locate the cookies popup close button and click it
+        driver.find_element(By.CSS_SELECTOR, '.ccb-tag > svg:nth-child(2)').click()
         # locates the All reference link and clicks it
-        driver.find_element(By.ID, 'allRefs').click()
+        allrefs =driver.find_element(By.ID, 'allRefs')
+        driver.execute_script("arguments[0].click();", allrefs)
+        time.sleep(5)
         # rows of data for this page and verify sort by asserting correct results
         row1 = driver.find_element(By.XPATH, "//*[@id='dynamicdata']/table/tbody/tr[1]/td[6]/div")
         print(row1.text)
@@ -100,16 +109,16 @@ class TestRefByStrain(unittest.TestCase):
         print(row6.text)
         row7 = driver.find_element(By.XPATH, "//*[@id='dynamicdata']/table/tbody/tr[7]/td[6]/div")
         print(row7.text)
-        self.assertEqual(row1.text, '2023')
-        self.assertEqual(row2a.text, '36571761\nJ:333885\nJournal Link')
-        self.assertEqual(row3a.text, '36599953\nJ:336218\nJournal Link')
-        self.assertEqual(row4a.text, '36596806\nJ:332372\nJournal Link')
-        self.assertEqual(row2.text, '2023')
-        self.assertEqual(row3.text, '2023')
-        self.assertEqual(row4.text, '2023')
-        self.assertEqual(row5.text, '2023')
-        self.assertEqual(row6.text, '2023')
-        self.assertEqual(row7.text, '2023')
+        self.assertEqual(row1.text, '2024')
+        self.assertEqual(row2a.text, '38167864\nJ:344362\nJournal Link')
+        self.assertEqual(row3a.text, '38171546\nJ:344180\nJournal Link')
+        self.assertEqual(row4a.text, '38167979\nJ:344291\nJournal Link')
+        self.assertEqual(row2.text, '2024')
+        self.assertEqual(row3.text, '2024')
+        self.assertEqual(row4.text, '2024')
+        self.assertEqual(row5.text, '2024')
+        self.assertEqual(row6.text, '2024')
+        self.assertEqual(row7.text, '2024')
 
     def tearDown(self):
         self.driver.quit()

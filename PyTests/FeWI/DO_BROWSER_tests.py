@@ -19,11 +19,6 @@ test3 = TestLoader().loadTestsFromTestCase(TestDoBrowserGeneTab)
 test4 = TestLoader().loadTestsFromTestCase(TestDoBrowserModelTab)
 test5 = TestLoader().loadTestsFromTestCase(TestDoBrowserModelsPopup)
 
-test1 = TestLoader().loadTestsFromTestCase(TestDoBrowserGeneral)
-test2 = TestLoader().loadTestsFromTestCase(TestDoBrowserTermTab)
-test3 = TestLoader().loadTestsFromTestCase(TestDoBrowserGeneTab)
-test4 = TestLoader().loadTestsFromTestCase(TestDoBrowserModelTab)
-test5 = TestLoader().loadTestsFromTestCase(TestDoBrowserModelsPopup)
 suite = unittest.TestSuite([test1, test2, test3, test4, test5])
 runner = HTMLTestRunner(log=True, verbosity=2, output='report', title='fewi Do Browser Test report', report_name='fewidobrowserreport',
                           open_in_browser=True, description="HTMLTestReport")

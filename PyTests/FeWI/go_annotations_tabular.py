@@ -55,7 +55,8 @@ class TestGoAnnotationsPage(unittest.TestCase):
         # finds the correct marker link and clicks it
         driver.find_element(By.LINK_TEXT, 'Ccr3').click()
         # Finds the All GO Annotations link and clicks it
-        driver.find_element(By.CLASS_NAME, 'goRibbon').find_element(By.ID, 'goAnnotLink').click()
+        galnk = driver.find_element(By.CLASS_NAME, 'goRibbon').find_element(By.ID, 'goAnnotLink')
+        driver.execute_script("arguments[0].click();", galnk)
         wait.forAjax(driver)
         # Locates the marker header table and finds the table headings
         tabularheaderlist = driver.find_element(By.ID, 'dynamicdata')
@@ -84,7 +85,8 @@ class TestGoAnnotationsPage(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'Cxcl17').click()
         wait.forAjax(driver)
         # Finds the All GO Annotations link and clicks it
-        driver.find_element(By.CLASS_NAME, 'goRibbon').find_element(By.ID, 'goAnnotLink').click()
+        galnk = driver.find_element(By.CLASS_NAME, 'goRibbon').find_element(By.ID, 'goAnnotLink')
+        driver.execute_script("arguments[0].click();", galnk)
         wait.forAjax(driver)
         # finds the Type column and then iterates through all items
         context = driver.find_elements(By.CLASS_NAME, 'goProperties')
@@ -122,7 +124,8 @@ class TestGoAnnotationsPage(unittest.TestCase):
             (By.ID, 'goAnnotLink')))  # waits until the All Go Annotations link is displayed on the page
         # wait.forAjax(driver)
         # Finds the All GO Annotations link and clicks it
-        driver.find_element(By.CLASS_NAME, 'goRibbon').find_element(By.ID, 'goAnnotLink').click()
+        galnk = driver.find_element(By.CLASS_NAME, 'goRibbon').find_element(By.ID, 'goAnnotLink')
+        driver.execute_script("arguments[0].click();", galnk)
         time.sleep(5)
         # WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#dynamicdata > table:nth-child(2)')))  # waits until the Text File link is displayed on the page
         # Locates  the table by row

@@ -438,7 +438,7 @@ class TestHmdcGenesSearch(unittest.TestCase):
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("leptin")  # enter a single token gene name
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
+        #wait.forAngular(self.driver)
         # identify the Genes tab and click on it
         grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
@@ -738,7 +738,7 @@ class TestHmdcGenesSearch(unittest.TestCase):
         
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("p19<ARF>")  # identifies the input field and enter the synonym with a superscript
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
+        #wait.forAngular(self.driver)
         
         # identify the Grid tab and click on it
         grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")

@@ -437,12 +437,29 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         print(mterm1.text)
         termsyn1 = table.get_cell(1, 5)
         print(termsyn1.text)
+        # Iterate the table columns for row 2
+        sterm2 = table.get_cell(2, 0)
+        print(sterm2.text)
+        mmethod2 = table.get_cell(2, 2)
+        print(mmethod2.text)
+        mtype2 = table.get_cell(2, 3)
+        print(mtype2.text)
+        mterm2 = table.get_cell(2, 4)
+        print(mterm2.text)
+        termsyn2 = table.get_cell(2, 5)
+        print(termsyn2.text)
         # Verify the Search table columns(row 1)
-        self.assertEqual(sterm1.text, '(HP:0009380)\nAplasia of the fingers')
-        self.assertEqual(mmethod1.text, 'lexical')
+        self.assertEqual(sterm1.text, '(HP:0009380)\nFinger aplasia')
+        self.assertEqual(mmethod1.text, 'manual')
         self.assertEqual(mtype1.text, 'narrow')
-        self.assertEqual(mterm1.text, '(MP:0000561)\nadactyly')
-        self.assertEqual(termsyn1.text, 'absence of digits | absent fingers | absent toes')
+        self.assertEqual(mterm1.text, '(MP:0000565)\noligodactyly')
+        self.assertEqual(termsyn1.text, 'hypodactyly')
+        # Verify the Search table columns(row 1)
+        self.assertEqual(sterm2.text, '(HP:0009380)\nFinger aplasia')
+        self.assertEqual(mmethod2.text, 'lexical')
+        self.assertEqual(mtype2.text, 'narrow')
+        self.assertEqual(mterm2.text, '(MP:0000561)\nadactyly')
+        self.assertEqual(termsyn2.text, 'absence of digits | absent fingers | absent toes')
 
     def test_rel_syn_to_syn9(self):
         """
@@ -577,8 +594,8 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
 
     def test_rel_syn_to_syn12(self):
         """
-        @status these tests verify a relationship that has a synonym match to Cerebral calcification
-        @see: HMDC-syn-to-syn-12
+        @status these tests verify a relationship that has a synonym match to abnormal albumin level
+        @see: HMDC-syn-to-syn-12 BROKEN (maybe not valid now both HP/MP is exact)
         """
         print("BEGIN test_rel_syn_to_syn12")
         my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
@@ -591,7 +608,7 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0002514")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0012116")  # identifies the input field and enters an MP ID
         self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
@@ -607,11 +624,11 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         termsyn1 = table.get_cell(1, 5)
         print(termsyn1.text)
         # Verify the Search table columns(row 1)
-        self.assertEqual(sterm1.text, '(HP:0002514)\nCerebral calcification')
+        self.assertEqual(sterm1.text, '(HP:0012116)\nAbnormal circulating albumin concentration')
         self.assertEqual(mmethod1.text, 'lexical')
         self.assertEqual(mtype1.text, 'broad')
-        self.assertEqual(mterm1.text, '(MP:0030014)\ncalcified brain')
-        self.assertEqual(termsyn1.text, 'brain calcification')
+        self.assertEqual(mterm1.text, '(MP:0000199)\nabnormal circulating serum albumin level')
+        self.assertEqual(termsyn1.text, 'abnormal albumin level')
 
     def test_rel_syn_to_syn13(self):
         """
@@ -866,7 +883,7 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(mmethod1.text, 'lexical')
         self.assertEqual(mtype1.text, 'exact')
         self.assertEqual(mterm1.text, '(MP:0006117)\naortic valve stenosis')
-        self.assertEqual(termsyn1.text, 'aortic stenosis | aortic valvar stenosis')
+        self.assertEqual(termsyn1.text, 'aortic semi-lunar valve stenosis | aortic semilunar valve stenosis | aortic stenosis | aortic valvar stenosis | left arterial valve stenosis | left semi-lunar valve stenosis | left semilunar valve stenosis | left ventriculoarterial junction stenosis')
         # Verify the Search table columns(row 2)
         self.assertEqual(sterm2.text, '(HP:0001650)\nAortic valve stenosis')
         self.assertEqual(mmethod2.text, 'lexical')
@@ -914,8 +931,8 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
 
     def test_rel_syn_to_syn20(self):
         """
-        @status these tests verify a relationship that has a synonym match to Hyperhistidinemia
-        @see: HMDC-syn-to-syn-20
+        @status these tests verify a relationship that has a synonym match to fine hair
+        @see: HMDC-syn-to-syn-20 BROKEN (maybe no longer valid as both HP/MP now exact)
         """
         print("BEGIN test_rel_syn_to_syn20")
         my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
@@ -928,7 +945,7 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0010906")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0002213")  # identifies the input field and enters an MP ID
         self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
@@ -944,11 +961,11 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         termsyn1 = table.get_cell(1, 5)
         print(termsyn1.text)
         # Verify the Search table columns(row 1)
-        self.assertEqual(sterm1.text, '(HP:0010906)\nHyperhistidinemia')
+        self.assertEqual(sterm1.text, '(HP:0002213)\nFine hair')
         self.assertEqual(mmethod1.text, 'lexical')
-        self.assertEqual(mtype1.text, 'related')
-        self.assertEqual(mterm1.text, '(MP:0011652)\nincreased circulating histidine level')
-        self.assertEqual(termsyn1.text, 'histidinaemia | histidinemia')
+        self.assertEqual(mtype1.text, 'exact')
+        self.assertEqual(mterm1.text, '(MP:0009930)\nfuzzy hair')
+        self.assertEqual(termsyn1.text, 'fine hair')
 
     def test_rel_syn_to_syn21(self):
         """
@@ -1052,7 +1069,7 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         self.assertEqual(mmethod2.text, 'manual')
         self.assertEqual(mtype2.text, 'broad')
         self.assertEqual(mterm2.text, '(MP:0006128)\npulmonary valve stenosis')
-        self.assertEqual(termsyn2.text, 'pulmonary stenosis | pulmonary stenosis, valvar | pulmonary valvar stenosis | pulmonic valve stenosis')
+        self.assertEqual(termsyn2.text, 'pulmonary stenosis | pulmonary stenosis, valvar | pulmonary valvar stenosis | pulmonic valve stenosis | right arterial valve stenosis | right semi-lunar valve stenosis | right semilunar valve stenosis')
         # Verify the Search table columns(row 3)
         self.assertEqual(sterm3.text, '(HP:0001642)\nPulmonic stenosis')
         self.assertEqual(mmethod3.text, 'lexical')
@@ -1093,8 +1110,8 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         print(termsyn1.text)
         # Verify the Search table columns(row 1)
         self.assertEqual(sterm1.text, '(HP:0001669)\nTransposition of the great arteries')
-        self.assertEqual(mmethod1.text, 'lexical')
-        self.assertEqual(mtype1.text, 'broad')
+        self.assertEqual(mmethod1.text, 'manual')
+        self.assertEqual(mtype1.text, 'exact')
         self.assertEqual(mterm1.text, '(MP:0004110)\ntransposition of great arteries')
         self.assertEqual(termsyn1.text, 'discordant VA connections | TGA | transposition of great vessels')
 
@@ -1394,7 +1411,7 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         # Verify the Search table columns(row 1)
         self.assertEqual(sterm1.text, '(HP:0008697)\nHypoplasia of the fallopian tube')
         self.assertEqual(mmethod1.text, 'lexical')
-        self.assertEqual(mtype1.text, 'related')
+        self.assertEqual(mtype1.text, 'exact')
         self.assertEqual(mterm1.text, '(MP:0003576)\noviduct hypoplasia')
         self.assertEqual(termsyn1.text, 'fallopian tube hypoplasia | hypoplastic oviduct | rudimentary fallopian tubes | rudimentary oviduct | rudimentary salpinges | rudimentary salpinx | rudimentary salpinx uterina | rudimentary tuba fallopiana | rudimentary tuba fallopii | rudimentary tuba uterina | rudimentary uterine tube | salpinges hypoplasia | salpinx hypoplasia | salpinx uterina hypoplasia | tuba fallopiana hypoplasia | tuba fallopii hypoplasia | tuba uterina hypoplasia | uterine tube hypoplasia')
 
@@ -1466,7 +1483,7 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         # Verify the Search table columns(row 3)
         self.assertEqual(sterm3.text, '(HP:0008724)\nHypoplasia of the ovary')
         self.assertEqual(mmethod3.text, 'lexical')
-        self.assertEqual(mtype3.text, 'related')
+        self.assertEqual(mtype3.text, 'exact')
         self.assertEqual(mterm3.text, '(MP:0005158)\novary hypoplasia')
         self.assertEqual(termsyn3.text, 'hypoplastic ovaries | hypoplastic ovary | ovarian hypoplasia | rudimentary ovary')
 
@@ -1542,7 +1559,7 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         # Verify the Search table columns(row 1)
         self.assertEqual(sterm1.text, '(HP:0005266)\nIntestinal polyp')
         self.assertEqual(mmethod1.text, 'lexical')
-        self.assertEqual(mtype1.text, 'related')
+        self.assertEqual(mtype1.text, 'exact')
         self.assertEqual(mterm1.text, '(MP:0008011)\nintestine polyps')
         self.assertEqual(termsyn1.text, 'intestinal polyposis | intestinal polyps')
 
@@ -1580,7 +1597,7 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         # Verify the Search table columns(row 1)
         self.assertEqual(sterm1.text, '(HP:0007340)\nLower limb muscle weakness')
         self.assertEqual(mmethod1.text, 'lexical')
-        self.assertEqual(mtype1.text, 'related')
+        self.assertEqual(mtype1.text, 'exact')
         self.assertEqual(mterm1.text, '(MP:0031204)\nhindlimb paresis')
         self.assertEqual(termsyn1.text, 'hind limb paresis | hind limb weakness | hindlimb weakness | lameness | leg weakness')
 
@@ -1618,13 +1635,13 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         # Verify the Search table columns(row 1)
         self.assertEqual(sterm1.text, '(HP:0010760)\nAbsent toe')
         self.assertEqual(mmethod1.text, 'lexical')
-        self.assertEqual(mtype1.text, 'related')
+        self.assertEqual(mtype1.text, 'narrow')
         self.assertEqual(mterm1.text, '(MP:0000561)\nadactyly')
         self.assertEqual(termsyn1.text, 'absence of digits | absent fingers | absent toes')
 
     def test_rel_syn_to_syn36(self):
         """
-        @status these tests verify a relationship that has a synonym match to Abnormal vertebral morphology
+        @status these tests verify a relationship that has a synonym match to short nose
         @see: HMDC-syn-to-syn-36
         """
         print("BEGIN test_rel_syn_to_syn36")
@@ -1638,7 +1655,7 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         # switch focus to the new tab for HP-MP Search
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0003468")  # identifies the input field and enters an MP ID
+        self.driver.find_element(By.ID, "hpmpInput").send_keys("HP:0003196")  # identifies the input field and enters an MP ID
         self.driver.find_element(By.XPATH, '/html/body/form/div[4]/input[1]').click()  # find the Search  for related terms button and click it
         mphp_table = self.driver.find_element(By.ID, 'hmdcTermSearchTable')
         table = Table(mphp_table)
@@ -1664,120 +1681,18 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         print(mterm2.text)
         termsyn2 = table.get_cell(2, 5)
         print(termsyn2.text)
-        # Iterate the table columns for row 3
-        sterm3 = table.get_cell(3, 0)
-        print(sterm3.text)
-        mmethod3 = table.get_cell(3, 2)
-        print(mmethod3.text)
-        mtype3 = table.get_cell(3, 3)
-        print(mtype3.text)
-        mterm3 = table.get_cell(3, 4)
-        print(mterm3.text)
-        termsyn3 = table.get_cell(3, 5)
-        print(termsyn3.text)
-        # Iterate the table columns for row 4
-        sterm4 = table.get_cell(4, 0)
-        print(sterm4.text)
-        mmethod4 = table.get_cell(4, 2)
-        print(mmethod4.text)
-        mtype4 = table.get_cell(4, 3)
-        print(mtype4.text)
-        mterm4 = table.get_cell(4, 4)
-        print(mterm4.text)
-        termsyn4 = table.get_cell(4, 5)
-        print(termsyn4.text)
-        # Iterate the table columns for row 5
-        sterm5 = table.get_cell(5, 0)
-        print(sterm5.text)
-        mmethod5 = table.get_cell(5, 2)
-        print(mmethod5.text)
-        mtype5 = table.get_cell(5, 3)
-        print(mtype5.text)
-        mterm5 = table.get_cell(5, 4)
-        print(mterm5.text)
-        termsyn5 = table.get_cell(5, 5)
-        print(termsyn5.text)
-        # Iterate the table columns for row 6
-        sterm6 = table.get_cell(6, 0)
-        print(sterm6.text)
-        mmethod6 = table.get_cell(6, 2)
-        print(mmethod6.text)
-        mtype6 = table.get_cell(6, 3)
-        print(mtype6.text)
-        mterm6 = table.get_cell(6, 4)
-        print(mterm6.text)
-        termsyn6 = table.get_cell(6, 5)
-        print(termsyn6.text)
-        # Iterate the table columns for row 7
-        sterm7 = table.get_cell(7, 0)
-        print(sterm7.text)
-        mmethod7 = table.get_cell(7, 2)
-        print(mmethod7.text)
-        mtype7 = table.get_cell(7, 3)
-        print(mtype7.text)
-        mterm7 = table.get_cell(7, 4)
-        print(mterm7.text)
-        termsyn7 = table.get_cell(7, 5)
-        print(termsyn7.text)
-        # Iterate the table columns for row 8
-        sterm8 = table.get_cell(8, 0)
-        print(sterm8.text)
-        mmethod8 = table.get_cell(8, 2)
-        print(mmethod8.text)
-        mtype8 = table.get_cell(8, 3)
-        print(mtype8.text)
-        mterm8 = table.get_cell(8, 4)
-        print(mterm8.text)
-        termsyn8 = table.get_cell(8, 5)
-        print(termsyn8.text)
         # Verify the Search table columns(row 1)
-        self.assertEqual(sterm1.text, '(HP:0003468)\nAbnormal vertebral morphology')
+        self.assertEqual(sterm1.text, '(HP:0003196)\nShort nose')
         self.assertEqual(mmethod1.text, 'manual')
-        self.assertEqual(mtype1.text, 'exact')
-        self.assertEqual(mterm1.text, '(MP:0000137)\nabnormal vertebrae morphology')
-        self.assertEqual(termsyn1.text, 'abnormal vertebra | vertebra defect | vertebra dysplasia | vertebral anomaly')
+        self.assertEqual(mtype1.text, 'related')
+        self.assertEqual(mterm1.text, '(MP:0000445)\nshort snout')
+        self.assertEqual(termsyn1.text, 'decreased snout length | short nasal dorsum | short nasal ridge | short nose | short nose ridge')
         # Verify the Search table columns(row 2)
-        self.assertEqual(sterm2.text, '(HP:0003468)\nAbnormal vertebral morphology')
-        self.assertEqual(mmethod2.text, 'manual')
-        self.assertEqual(mtype2.text, 'broad')
-        self.assertEqual(mterm2.text, '(MP:0006394)\nabnormal vertebral epiphyseal plate morphology')
-        self.assertEqual(termsyn2.text, 'abnormal vertebral epiphysial plate | abnormal vertebral growth plate')
-        # Verify the Search table columns(row 3)
-        self.assertEqual(sterm3.text, '(HP:0003468)\nAbnormal vertebral morphology')
-        self.assertEqual(mmethod3.text, 'manual')
-        self.assertEqual(mtype3.text, 'broad')
-        self.assertEqual(mterm3.text, '(MP:0004610)\nsmall vertebrae')
-        self.assertEqual(termsyn3.text, 'decreased vertebrae size | reduced vertebrae size')
-        # Verify the Search table columns(row 4)
-        self.assertEqual(sterm4.text, '(HP:0003468)\nAbnormal vertebral morphology')
-        self.assertEqual(mmethod4.text, 'manual')
-        self.assertEqual(mtype4.text, 'broad')
-        self.assertEqual(mterm4.text, '(MP:0003049)\nabnormal lumbar vertebrae morphology')
-        self.assertEqual(termsyn4.text, '')
-        # Verify the Search table columns(row 5)
-        self.assertEqual(sterm5.text, '(HP:0003468)\nAbnormal vertebral morphology')
-        self.assertEqual(mmethod5.text, 'logical')
-        self.assertEqual(mtype5.text, 'close')
-        self.assertEqual(mterm5.text, '(MP:0003036)\nvertebral transformation')
-        self.assertEqual(termsyn5.text, 'transformation of C7 to T1 | transformation of L6 to S1 | transformation of T7 to T8 | transformation of TX to L1 | transitional vertebrae | vertebral homeotic transformation')
-        # Verify the Search table columns(row 6)
-        self.assertEqual(sterm6.text, '(HP:0003468)\nAbnormal vertebral morphology')
-        self.assertEqual(mmethod6.text, 'lexical')
-        self.assertEqual(mtype6.text, 'close')
-        self.assertEqual(mterm6.text, '(MP:0002759)\nabnormal caudal vertebrae morphology')
-        self.assertEqual(termsyn6.text, 'abnormal coccygeal vertebrae morphology | abnormal tail vertebrae morphology')
-        # Verify the Search table columns(row 7)
-        self.assertEqual(sterm7.text, '(HP:0003468)\nAbnormal vertebral morphology')
-        self.assertEqual(mmethod7.text, 'lexical')
-        self.assertEqual(mtype7.text, 'close')
-        self.assertEqual(mterm7.text, '(MP:0003048)\nabnormal cervical vertebrae morphology')
-        self.assertEqual(termsyn7.text, '')
-        # Verify the Search table columns(row 8)
-        self.assertEqual(sterm8.text, '(HP:0003468)\nAbnormal vertebral morphology')
-        self.assertEqual(mmethod8.text, 'lexical')
-        self.assertEqual(mtype8.text, 'close')
-        self.assertEqual(mterm8.text, '(MP:0003047)\nabnormal thoracic vertebrae morphology')
-        self.assertEqual(termsyn8.text, '')
+        self.assertEqual(sterm2.text, '(HP:0003196)\nShort nose')
+        self.assertEqual(mmethod2.text, 'lexical')
+        self.assertEqual(mtype2.text, 'related')
+        self.assertEqual(mterm2.text, '(MP:0030190)\nsmall snout')
+        self.assertEqual(termsyn2.text, 'decreased muzzle size | decreased nose size | decreased snout size | reduced muzzle size | reduced nose size | reduced snout size | small muzzle | small nose')
 
     '''def test_rel_syn_to_syn38(self):
         

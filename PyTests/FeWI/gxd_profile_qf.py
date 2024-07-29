@@ -74,8 +74,8 @@ class TestGxdProfileQF(unittest.TestCase):
         @attention: the time sleeps need to be replaced by expected conditions code
         """
         driver = self.driver
-        # driver.get(config.TEST_URL + '/gxd/profile')
-        driver.get(config.TEST_URL + '/gxd')
+        driver.get(config.TEST_URL + '/gxd/profile')
+        #driver.get(config.TEST_URL + '/gxd')
         self.driver.find_element(By.CSS_SELECTOR,
                                  '#expressionSearch > ul:nth-child(1) > li:nth-child(3) > a:nth-child(1) > em:nth-child(1)').click()
         struct1 = self.driver.find_element(By.ID, 'profileStructure1')
@@ -88,7 +88,7 @@ class TestGxdProfileQF(unittest.TestCase):
         struct2 = self.driver.find_element(By.ID, 'profileStructure2')
         # Enter your structure
         struct2.send_keys("molar root")
-        time.sleep(2)
+        #time.sleep(2)
         self.driver.find_element(By.ID, 'profileDetected2').click()
         struct2.send_keys(Keys.RETURN)
         time.sleep(2)
@@ -133,7 +133,7 @@ class TestGxdProfileQF(unittest.TestCase):
         """
         @status: Tests that query for detected in "A", Not detected in "B", where "A" and "B" are in different anatomical systems
         @note: GXD-Profile-4 CRM-82
-        @attention: the time sleeps need to be replaced by expected conditions code!! broken!!! needs toi be fixed 3/20/2024
+        @attention: the time sleeps need to be replaced by expected conditions code!! broken!!! needs to be fixed 3/20/2024 or need new example with less results!
         """
         driver = self.driver
         # driver.get(config.TEST_URL + '/gxd/profile')
@@ -145,19 +145,13 @@ class TestGxdProfileQF(unittest.TestCase):
         struct1.send_keys("tongue anterior part")
         time.sleep(2)
         self.driver.find_element(By.ID, 'profileDetected1').is_selected()
-        # struct1.send_keys(Keys.RETURN)
-        # time.sleep(2)
+        time.sleep(2)
+        self.driver.find_element(By.ID, 'profileNotDetected2').click()
         struct2 = self.driver.find_element(By.ID, 'profileStructure2')
         # Enter your structure
         struct2.send_keys("tongue extrinsic muscle")
-        time.sleep(2)
         struct2.send_keys(Keys.RETURN)
-        self.driver.find_element(By.ID, 'profileNotDetected2').click()
-
-        time.sleep(2)
-        # find the submit button and click it
-        self.driver.find_element(By.ID, 'submit4').click()
-        # time.sleep(2)
+        time.sleep(5)
         # locates the structure column and lists the structures found
         structurelist = self.driver.find_element(By.ID, 'resultsdata').find_element(By.CLASS_NAME, 'yui-dt-data')
         items = structurelist.find_elements(By.CLASS_NAME, 'yui-dt-col-structure')

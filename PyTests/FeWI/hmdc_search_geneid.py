@@ -289,7 +289,7 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys(
             "ENSMUST00000022693")  # enter Ensembl transcript ID
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
+        #wait.forAngular(self.driver)
 
         # identify the Genes Tab and click on it
         gene_tab = self.driver.find_element(By.CSS_SELECTOR,
@@ -443,7 +443,7 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("1MJE")  # enter PDB ID for Brca2
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
+        #wait.forAngular(self.driver)
 
         # identify the Genes Tab and click on it
         gene_tab = self.driver.find_element(By.CSS_SELECTOR,

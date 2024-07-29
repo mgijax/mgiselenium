@@ -204,7 +204,7 @@ class TestHmdcGenesSearch(unittest.TestCase):
         print(termsyn1.text)
         # Verify the table columns row1
         self.assertEqual(sterm1.text, '(HP:0001760)\nAbnormal foot morphology')
-        self.assertEqual(mmethod1.text, 'lexical')
+        self.assertEqual(mmethod1.text, 'manual')
         self.assertEqual(mtype1.text, 'narrow')
         self.assertEqual(mterm1.text, '(MP:0000572)\nabnormal autopod morphology')
         self.assertEqual(termsyn1.text, 'abnormal foot morphology | abnormal hand morphology | abnormal paw/hand/foot morphology | abnormal paw morphology | abnormal paws | hand and/or foot anomaly | paw abnormalities | paw/hand/foot dysplasia')

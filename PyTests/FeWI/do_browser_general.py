@@ -99,7 +99,7 @@ class TestDoBrowserGeneral(unittest.TestCase):
         self.driver.find_element(By.LINK_TEXT, "Parkinson's disease").click()
         # switch to the new window
         self.driver.switch_to.window(self.driver.window_handles[1])
-        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.CLASS_NAME, 'titleBarMainTitle'))):
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'diseaseHeader'))):
             print('page loaded')
         header = self.driver.find_element(By.CSS_SELECTOR,
                                           '#diseaseNameID')  # identifies the header section of the DO Browser page
@@ -117,7 +117,7 @@ class TestDoBrowserGeneral(unittest.TestCase):
 
         self.driver.find_element(By.LINK_TEXT, 'OMIM:PS168600').click()
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'mimHeader'))):
+        if WebDriverWait(self.driver, 8).until(EC.presence_of_element_located((By.ID, 'mimBody'))):
             print('OMIM page loaded')
         print(self.driver.current_url)
         self.assertEqual(self.driver.current_url, 'https://www.omim.org/phenotypicSeries/PS168600',

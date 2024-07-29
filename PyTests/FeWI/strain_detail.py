@@ -51,6 +51,7 @@ Verify that the All reference link is correct and the link goes to the correct p
 """
 import os.path
 import sys
+import time
 import tracemalloc
 import unittest
 import config
@@ -421,7 +422,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.switch_to.window(self.driver.window_handles[-1])
         fam_mem = driver.find_element(By.ID, 'relatedStrains')  # find the Strain Family Member link
         print(fam_mem.text)  # print the strain family member to the console screen
-        self.assertEqual(fam_mem.text, '94')  # assert the strain family member link is correct
+        self.assertEqual(fam_mem.text, '95')  # assert the strain family member link is correct
 
     def test_strain_desc_small(self):
         """
@@ -506,7 +507,7 @@ class TestStrainDetail(unittest.TestCase):
         driver.switch_to.window(self.driver.window_handles[-1])
         comp_count = driver.find_element(By.ID, 'comparisonStrainCount')  # find the Comparison Strains count field
         print(comp_count.text)  # print the description field to the console screen
-        self.assertEqual(comp_count.text, '86')  # asserts the Comparison Strains count is correct
+        self.assertEqual(comp_count.text, '99')  # asserts the Comparison Strains count is correct
         # clicks the More toggle(turnstile) to display the snps table
         self.driver.find_element(By.ID, 'snpToggle').click()
         WebDriverWait(driver, 10).until(EC.presence_of_element_located(
@@ -533,17 +534,7 @@ class TestStrainDetail(unittest.TestCase):
         print(strain_cells)
         # verifies that the right strains appear and in the correct order
         self.assertEqual(strain_cells,
-                         ['129/Sv', '129S1/SvImJ', '129S4/SvJae', '129S6/SvEvTac', '129X1/Sv', '129X1/SvJ', 'A', 'A/He',
-                          'A/HeJ', 'A/J', 'AKR', 'AVZ/Ms', 'B10.D2-H2d', 'B10.D2-Hc0 H2d H2-T18c/oSnJ', 'BALB/c',
-                          'BALB/cA', 'BALB/cBy', 'BALB/cByJ', 'BALB/cJ', 'BALB/cUcsd', 'BFM/2Ms', 'BLG2/Ms',
-                          'BTBR T+ Itpr3tf/J', 'BUB', 'BUB/BnJ', 'C3H/He', 'C3H/HeJ', 'C57BL/6', 'C57BL/6J',
-                          'C57BL/10J', 'C57BLKS/J', 'C57BR/cdJ', 'C57L/J', 'C58/J', 'CAST/EiJ', 'CBA/J', 'CE/J',
-                          'CHD/Ms', 'CZECHII/EiJ', 'DBA/1J', 'DBA/2', 'DBA/2J', 'DDK/Pas', 'FVB', 'FVB/NJ', 'HMI/Ms',
-                          'I/LnJ', 'JF1/Ms', 'KJR/Ms', 'KK/HlJ', 'LG/J', 'LP/J', 'MA/MyJ', 'MAI/Pas', 'MOLF',
-                          'MOLF/EiJ', 'MRL/Mp', 'MRL/MpJ', 'MSM', 'MSM/Ms', 'NJL/Ms', 'NOD/ShiLtJ', 'NON/ShiLtJ',
-                          'NZB/BlN', 'NZB/BlNJ', 'NZW/Lac', 'NZW/LacJ', 'PERA', 'PERA/EiJ', 'PGN2/Ms', 'PL/J',
-                          'PWD/PhJ', 'RIIIS/J', 'SAMP1', 'SAMP8', 'SEA/GnJ', 'SEG/Pas', 'SJL/J', 'SM/J', 'SPRET/EiJ',
-                          'ST/bJ', 'SWN/Ms', 'SWR/J', 'TSOD', 'WSB/EiJ', 'ZALENDE/EiJ'])
+                         ['129/Sv', '129P2/OlaHsd', '129S1/SvImJ', '129S4/SvJae', '129S5/SvEvBrd', '129S6/SvEvTac', '129X1/Sv', '129X1/SvJ', 'A', 'A/He', 'A/HeJ', 'A/J', 'AKR', 'AVZ/Ms', 'B10.D2-H2d', 'B10.D2-Hc0 H2d H2-T18c/oSnJ', 'B10.RIII-H2r H2-T18b/(71NS)SnJ', 'BALB/c', 'BALB/cA', 'BALB/cBy', 'BALB/cByJ', 'BALB/cJ', 'BALB/cUcsd', 'BFM/2Ms', 'BLG2/Ms', 'BTBR T+ Itpr3tf/J', 'BUB', 'BUB/BnJ', 'C3H/He', 'C3H/HeH', 'C3H/HeJ', 'C57BL/6', 'C57BL/6J', 'C57BL/6NJ', 'C57BL/10J', 'C57BL/10SnJ', 'C57BLKS/J', 'C57BR/cdJ', 'C57L/J', 'C58/J', 'CAST/EiJ', 'CBA/J', 'CE/J', 'CHD/Ms', 'CZECHII/EiJ', 'DBA/1J', 'DBA/2', 'DBA/2J', 'DDK/Pas', 'FVB', 'FVB/NJ', 'HMI/Ms', 'I/LnJ', 'JF1/Ms', 'JF1/MsJ', 'KJR/Ms', 'KK/HlJ', 'LEWES/EiJ', 'LG/J', 'LP/J', 'MA/MyJ', 'MAI/Pas', 'MOLF', 'MOLF/EiJ', 'MRL/Mp', 'MRL/MpJ', 'MSM', 'MSM/Ms', 'NJL/Ms', 'NOD/ShiLtJ', 'NON/ShiLtJ', 'NZB/BlN', 'NZB/BlNJ', 'NZO/HlLtJ', 'NZW/Lac', 'NZW/LacJ', 'PERA', 'PERA/EiJ', 'PGN2/Ms', 'PL/J', 'PWD/PhJ', 'PWK/PhJ', 'QSi3/Ianm', 'QSi5/Ianm', 'RF/J', 'RIIIS/J', 'SAMP1', 'SAMP8', 'SEA/GnJ', 'SEG/Pas', 'SJL/J', 'SM/J', 'SPRET/EiJ', 'ST/bJ', 'SWN/Ms', 'SWR/J', 'TSOD', 'WSB/EiJ', 'ZALENDE/EiJ'])
 
     def test_strain_snp_no_snps(self):
         """
@@ -589,8 +580,7 @@ class TestStrainDetail(unittest.TestCase):
                                         '#snpTable > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(2)')
         tooltiptext = myelement.get_attribute('title')  # Get the title text
         print(tooltiptext)  # print the title text to the console
-        self.assertEqual(tooltiptext, '590,378 SNPs',
-                         'The hover text for strain 129S1/SvImJ Chromosome 1 is not correct')
+        self.assertEqual(tooltiptext, '3,705,695 SNPs','The hover text for strain 129S1/SvImJ Chromosome 1 is not correct')
         # locate the cell for strain 129S1/SvImJ Chromosome 1 and click it
         driver.find_element(By.CSS_SELECTOR,
                             '#snpTable > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(2)').click()
@@ -598,10 +588,12 @@ class TestStrainDetail(unittest.TestCase):
         driver.switch_to.window(self.driver.window_handles[-1])
         # locate the page title
         self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
-        WebDriverWait(driver, 20).until(EC.presence_of_element_located(
-            (By.ID, 'snpSummaryTable')))  # waits until the snp summary table is displayed on the page
+        WebDriverWait(driver, 5).until(EC.presence_of_element_located(
+            (By.ID, 'yui-pg0-0-page-report')))  # waits until the snp summary page showing snp(s) 1 - 100 of 3705695 is displayed on the page
         # assert the number of SNPs is correct as found in the upper right corner under pagination
-        assert "Showing SNP(s) 1 - 100 of 590392" in self.driver.page_source
+        snps = driver.find_element(By.ID, 'yui-pg0-0-page-report')
+        time.sleep(2)
+        self.assertEqual(snps.text, 'Showing SNP(s) 1 - 100 of 3705695')
 
     def test_strain_snp_strain_superscript(self):
         """
@@ -623,7 +615,7 @@ class TestStrainDetail(unittest.TestCase):
         # locate the involving strain text in the SNP ribbon
         involvedtext = driver.find_element(By.CLASS_NAME, 'rightLabelSnp')
         print(involvedtext.text)  # print the title text to the console
-        self.assertEqual(involvedtext.text, 'SNPs Involving BTBR T+ Itpr3tf/J',
+        self.assertEqual(involvedtext.text, 'SNP Calls Involving BTBR T+ Itpr3tf/J',
                          'The Involving strain text is not displaying superscipt properly')
 
     def test_strain_det_mut_multi_assoc(self):
@@ -1029,7 +1021,8 @@ class TestStrainDetail(unittest.TestCase):
         # switch focus to the new tab for strain detail page
         driver.switch_to.window(self.driver.window_handles[-1])
         # Click the IMSR link
-        driver.find_element(By.LINK_TEXT, 'JAX:000664').click()
+        jax = driver.find_element(By.LINK_TEXT, 'JAX:000664')
+        driver.execute_script("arguments[0].click();", jax)
         # switch focus to the new tab for the IMSR page
         driver.switch_to.window(self.driver.window_handles[-1])
         # Identify the strain name
@@ -1351,7 +1344,8 @@ class TestStrainDetail(unittest.TestCase):
         # switch focus to the new tab for strain detail page
         driver.switch_to.window(self.driver.window_handles[-1])
         # locates the earliest reference link and clicks it
-        driver.find_element(By.LINK_TEXT, 'J:309').click()
+        jnum = driver.find_element(By.LINK_TEXT, 'J:309')
+        driver.execute_script("arguments[0].click();", jnum)
         # verify the J number J:309 exists on this page
         assert "J:309" in self.driver.page_source
 
@@ -1372,7 +1366,8 @@ class TestStrainDetail(unittest.TestCase):
         # switch focus to the new tab for strain detail page
         driver.switch_to.window(self.driver.window_handles[-1])
         # locates the earliest reference link and clicks it
-        driver.find_element(By.ID, 'allRefs').click()
+        allrf = driver.find_element(By.ID, 'allRefs')
+        driver.execute_script("arguments[0].click();", allrf)
         # verify the MGI number is correct for this page
         mginum = driver.find_element(By.CSS_SELECTOR,
                                      "#templateBodyInsert > table.summaryHeader > tbody > tr > td.summaryHeaderData1 > span")

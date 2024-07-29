@@ -269,6 +269,7 @@ class TestEmapaBrowser(unittest.TestCase):
         driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:37850")
         if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'ygtvchildren'))):
             print('Tree view details loaded')
+        time.sleep(2)
         # verifies the returned results are zero for this search
         assert '(0 expression results; 0 phenotype annotations)' in driver.page_source
 

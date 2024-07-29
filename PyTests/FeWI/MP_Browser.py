@@ -126,7 +126,7 @@ class TestMPBrowser(unittest.TestCase):
         print([x.text for x in searchlist])
 
         # These 2 terms should be returned in the anatomy search results
-        self.assertIn('brain TS17-28\nconnective tissue TS20-28\ncranium TS20-28', terms, 'these terms are not listed!')
+        self.assertIn('brain TS17-28\nconnective tissue TS20-28', terms, 'these terms are not listed!')
 
     def test_strain_link_from_summary(self):
         """

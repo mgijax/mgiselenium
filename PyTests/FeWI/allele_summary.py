@@ -72,7 +72,8 @@ class TestAlleleSummary(unittest.TestCase):
         self.driver.find_element(By.NAME, "nomen").clear()
         self.driver.find_element(By.NAME, "nomen").send_keys("Pkd1")
         self.driver.find_element(By.CLASS_NAME, "buttonLabel").click()
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, "tm2Jzh").click()
+        plink = self.driver.find_element(By.PARTIAL_LINK_TEXT, "tm2Jzh")
+        self.driver.execute_script("arguments[0].click();", plink)
         assert "Pkd1<sup>tm2Jzh</sup>" in self.driver.page_source
         assert 'id="summaryHeader"' in self.driver.page_source
         assert 'id="originHeader"' in self.driver.page_source  
@@ -85,7 +86,8 @@ class TestAlleleSummary(unittest.TestCase):
         self.driver.find_element(By.NAME, "nomen").clear()
         self.driver.find_element(By.NAME, "nomen").send_keys("Gata1")
         self.driver.find_element(By.CLASS_NAME, "buttonLabel").click()
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm2Sho').click()
+        plnk = self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm2Sho')
+        self.driver.execute_script("arguments[0].click();", plnk)
         disease_table = self.driver.find_element(By.ID, 'diseasetable_id')
         table = Table(disease_table)
         # Iterate and print the search results headers

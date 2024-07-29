@@ -1215,8 +1215,8 @@ class TestEiMrkSearch(unittest.TestCase):
         # waits until the Reference table is displayed on the page
         wait.forAngular(self.driver)
         # find the reference results table type column
-        ref_type1 = driver.find_elements(By.ID, 'refAssocType')[10].get_attribute('value')
-        ref_type2 = driver.find_elements(By.ID, 'refAssocType')[11].get_attribute('value')
+        ref_type1 = driver.find_elements(By.ID, 'refAssocType')[12].get_attribute('value')
+        ref_type2 = driver.find_elements(By.ID, 'refAssocType')[13].get_attribute('value')
         print(ref_type1)
         # Assert the  synonym types returned are in the correct order
         self.assertEqual(ref_type1, 'string:1018')  # string:1028  equals reference type general

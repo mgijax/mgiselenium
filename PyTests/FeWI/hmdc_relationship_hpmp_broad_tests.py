@@ -358,7 +358,7 @@ class TestHmdcGenesSearch(unittest.TestCase):
         # Verify the table row 1
         self.assertEqual(sterm1.text, '(HP:0000045)\nAbnormal scrotum morphology')
         self.assertEqual(mmethod1.text, 'lexical')
-        self.assertEqual(mtype1.text, 'broad')
+        self.assertEqual(mtype1.text, 'exact')
         self.assertEqual(mterm1.text, '(MP:0002669)\nabnormal scrotum morphology')
         self.assertEqual(termsyn1.text, 'abnormality of the scrotum | scrotum dysplasia')
 

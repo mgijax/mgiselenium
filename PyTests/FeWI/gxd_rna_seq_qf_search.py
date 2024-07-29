@@ -116,8 +116,8 @@ class TestGxdRnaSeqSearching(unittest.TestCase):
         # find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
-        self.driver.find_elements(By.LINK_TEXT, 'View')[
-            0].click()  # clicks the first View link of the first sample result
+        viewl = self.driver.find_elements(By.LINK_TEXT, 'View')[2]  # clicks the first View link of the third sample result
+        self.driver.execute_script("arguments[0].click();", viewl)
         # switch focus to the new tab for Sample Experiments page
         self.driver.switch_to.window(self.driver.window_handles[-1])
         # find the sample table

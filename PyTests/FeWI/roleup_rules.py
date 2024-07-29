@@ -148,29 +148,36 @@ class TestRollupRules(unittest.TestCase):
         if WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'summaryRibbon'))):
             print('The Summary Ribbon is displayed')
         # find the Phenotype slim grid and click the Cellular box
-        self.driver.find_element(By.ID, 'mpSlimgrid4Div').click()
+        mpsgrid = self.driver.find_element(By.ID, 'mpSlimgrid4Div')
+        driver.execute_script("arguments[0].click();", mpsgrid)
         time.sleep(2)
         # switch focus to the new tab for Phenotype annotations related to cellular
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
         # find the Mouse Phenotypes table and assert all 7 results for the Mouse Phenotype column
-        row1 = self.driver.find_element(By.ID, 'fm16290a')
-        row2 = self.driver.find_element(By.ID, 'fm44756a')
-        row3 = self.driver.find_element(By.ID, 'fm43404a')
-        row4 = self.driver.find_element(By.ID, 'fm22801a')
-        row5 = self.driver.find_element(By.ID, 'fm45461a')
-        row6 = self.driver.find_element(By.ID, 'fm20074a')
-        row7 = self.driver.find_element(By.ID, 'fm14880a')
-        print(row1.text)
-
+        mp_table = Table(self.driver.find_element(By.XPATH, "/html/body/div[2]/table[2]"))
+        cell1 = mp_table.get_cell(2, 1)
+        print(cell1.text)
+        cell2 = mp_table.get_cell(3, 1)
+        print(cell2.text)
+        cell3 = mp_table.get_cell(4, 1)
+        print(cell3.text)
+        cell4 = mp_table.get_cell(5, 1)
+        print(cell4.text)
+        cell5 = mp_table.get_cell(6, 1)
+        print(cell5.text)
+        cell6 = mp_table.get_cell(7, 1)
+        print(cell6.text)
+        cell7 = mp_table.get_cell(8, 1)
+        print(cell7.text)
         # verify the Mouse Phenotypes for each row
-        self.assertEqual(row1.text, "Apptm1.1Cep/Apptm1.1Cep")
-        self.assertEqual(row2.text, "Apptm1Cep/Apptm1Cep")
-        self.assertEqual(row3.text, "Apptm1.1Cep/App+")
-        self.assertEqual(row4.text, "Apptm1Cep/App+")
-        self.assertEqual(row5.text, "Tg(APP-App*R609D*K612E)7Vln/0")
-        self.assertEqual(row6.text, "Tg(Thy1-App*R609D*K612E)2Vln/0")
-        self.assertEqual(row7.text, "Tg(Thy1-App*R609D*K612E)4Vln/0")
+        self.assertEqual(cell1.text, "Apptm1.1Cep/Apptm1.1Cep")
+        self.assertEqual(cell2.text, "Apptm1Cep/Apptm1Cep")
+        self.assertEqual(cell3.text, "Apptm1.1Cep/App+")
+        self.assertEqual(cell4.text, "Apptm1Cep/App+")
+        self.assertEqual(cell5.text, "Tg(APP-App*R609D*K612E)7Vln/0")
+        self.assertEqual(cell6.text, "Tg(Thy1-App*R609D*K612E)2Vln/0")
+        self.assertEqual(cell7.text, "Tg(Thy1-App*R609D*K612E)4Vln/0")
 
     def test_rollup_rule1_hmdc(self):
         """
@@ -199,16 +206,18 @@ class TestRollupRules(unittest.TestCase):
                                             "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         print(grid_tab.text)
         time.sleep(2)
+        #click on the Cellular field for App
         self.driver.find_element(By.CSS_SELECTOR, "tr.ngc:nth-child(3) > td:nth-child(5) > div:nth-child(1) > div:nth-child(1)").click()
-        # switch focus to the popup for Mouse cellular abnormalities fpr APP/App
+        # switch focus to the popup for Mouse cellular abnormalities for APP/App
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
         # find the Mouse Phenotypes table and assert row 4 results for the Mouse Phenotype column
-        row4 = self.driver.find_element(By.ID, 'fm22801a')
-        print(row4.text)
+        mp_table = Table(self.driver.find_element(By.XPATH, "/html/body/p/table"))
+        cell4 = mp_table.get_cell(5, 1)
+        print(cell4.text)
         # verify the Mouse Phenotypes for row 4, then click it
-        self.assertEqual(row4.text, "Apptm1Cep/App+")
-        row4.click()
+        self.assertEqual(cell4.text, "Apptm1Cep/App+")
+        cell4.click()
         # switch focus to the new tab for Phenotype associated with App<tm1Cep>/App<+>
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
@@ -319,16 +328,18 @@ class TestRollupRules(unittest.TestCase):
         if WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'summaryRibbon'))):
             print('The Summary Ribbon is displayed')
         # find the Phenotype slim grid and click the Cardiovascular system box
-        self.driver.find_element(By.ID, 'mpSlimgrid3Div').click()
+        mpsgrid = self.driver.find_element(By.ID, 'mpSlimgrid3Div')
+        driver.execute_script("arguments[0].click();", mpsgrid)
         time.sleep(2)
         # switch focus to the new tab for Phenotype annotations related to cellular
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
         # find the Mouse Phenotypes table and assert row 4 results for the Mouse Phenotype column
-        row4 = self.driver.find_element(By.ID, 'fm65654a')
-        print(row4.text)
+        mp_table = Table(self.driver.find_element(By.XPATH, "/html/body/div[2]/table[3]"))
+        cell4 = mp_table.get_cell(5, 1)
+        print(cell4.text)
         # verify the Mouse Phenotypes for row 4
-        self.assertEqual(row4.text, "Juptm1Ruiz/Jup+\nTg(Myh6-Jup*)1Ajm/0")
+        self.assertEqual(cell4.text, "Juptm1Ruiz/Jup+\nTg(Myh6-Jup*)1Ajm/0")
 
     def test_rollup_rule2_hmdc(self):
         """
@@ -365,11 +376,12 @@ class TestRollupRules(unittest.TestCase):
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
         # find the Mouse Phenotypes table and assert all row 4 results for the Mouse Phenotype column
-        row4 = self.driver.find_element(By.ID, 'fm65654a')
-        print(row4.text)
+        mp_table = Table(self.driver.find_element(By.XPATH, "/html/body/p/table"))
+        cell4 = mp_table.get_cell(5, 1)
+        print(cell4.text)
         # verify the Mouse Phenotypes for row 4, then click it
-        self.assertEqual(row4.text, "Juptm1Ruiz/Jup+\nTg(Myh6-Jup*)1Ajm/0")
-        row4.click()
+        self.assertEqual(cell4.text, "Juptm1Ruiz/Jup+\nTg(Myh6-Jup*)1Ajm/0")
+        cell4.click()
         # switch focus to the new tab for Phenotypes associated with Juptm1Ruiz/Jup+ Tg(Myh6-Jup*)1Ajm/0
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
@@ -449,18 +461,18 @@ class TestRollupRules(unittest.TestCase):
         self.driver.find_element(By.LINK_TEXT, 'Del(5Letm1-D5Mit81)3Jcs').click()
         if WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'summaryRibbon'))):
             print('The Summary Ribbon is displayed')
-        # find the Phenotype slim grid and click the Cellular box
+        # find the Phenotype slim grid and click the Craniofacial box
         self.driver.find_element(By.ID, 'mpSlimgrid5Div').click()
         time.sleep(2)
         # switch focus to the new tab for Phenotype annotations related to craniofacial
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
         # find the Mouse Phenotypes table and assert the result for the Mouse Phenotype column
-        row1 = self.driver.find_element(By.ID, 'fm17957a')
-        print(row1.text)
-
+        mp_table = Table(self.driver.find_element(By.XPATH, "/html/body/div[2]/table[2]"))
+        cell1 = mp_table.get_cell(2, 1)
+        print(cell1.text)
         # verify the Mouse Phenotypes for each row
-        self.assertEqual(row1.text, "Del(5Letm1-D5Mit81)3Jcs/+")
+        self.assertEqual(cell1.text, "Del(5Letm1-D5Mit81)3Jcs/+")
 
 
     def test_rollup_rule3_1_hmdc(self):
@@ -495,11 +507,12 @@ class TestRollupRules(unittest.TestCase):
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
         # find the Mouse Phenotypes table and assert row 1 result for the Mouse Phenotype column
-        row1 = self.driver.find_element(By.ID, 'fm17957a')
-        print(row1.text)
+        mp_table = Table(self.driver.find_element(By.XPATH, "/html/body/p/table"))
+        cell1 = mp_table.get_cell(2, 1)
+        print(cell1.text)
         # verify the Mouse Phenotypes for row 1, then click it
-        self.assertEqual(row1.text, "Del(5Letm1-D5Mit81)3Jcs/+")
-        row1.click()
+        self.assertEqual(cell1.text, "Del(5Letm1-D5Mit81)3Jcs/+")
+        cell1.click()
         # switch focus to the new tab for Phenotypes associated with Del(5Letm1-D5Mit81)3Jcs/+
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
@@ -635,17 +648,18 @@ class TestRollupRules(unittest.TestCase):
         if WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'summaryRibbon'))):
             print('The Summary Ribbon is displayed')
         # find the Phenotype slim grid and click the Muscle box
-        self.driver.find_element(By.ID, 'mpSlimgrid18Div').click()
+        mpsgrid = self.driver.find_element(By.ID, 'mpSlimgrid18Div')
+        driver.execute_script("arguments[0].click();", mpsgrid)
         time.sleep(2)
         # switch focus to the new tab for Phenotype annotations related to Muscle
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
         # find the Mouse Phenotypes table and assert the row 2 result for the Mouse Phenotype column
-        row2 = self.driver.find_element(By.ID, 'fm29750a')
-        print(row2.text)
-
+        mp_table = Table(self.driver.find_element(By.XPATH, "/html/body/div[2]/table[2]"))
+        cell1 = mp_table.get_cell(3, 1)
+        print(cell1.text)
         # verify the Mouse Phenotypes for this row
-        self.assertEqual(row2.text, "Gt(ROSA)26Sortm37(H1/tetO-RNAi:Tafazzin)Arte/?")
+        self.assertEqual(cell1.text, "Gt(ROSA)26Sortm37(H1/tetO-RNAi:Tafazzin)Arte/?")
 
     def test_rollup_rule3_3_hmdc(self):
         """
@@ -673,16 +687,17 @@ class TestRollupRules(unittest.TestCase):
         print(grid_tab.text)
         time.sleep(2)
         # Find the muscle box for Tafazzin and click it.
-        self.driver.find_element(By.CSS_SELECTOR, "td.middle:nth-child(16) > div:nth-child(1) > div:nth-child(1)").click()
+        self.driver.find_element(By.CSS_SELECTOR, "td.middle:nth-child(9) > div:nth-child(1) > div:nth-child(1)").click()
         # switch focus to the popup for Human and Mouse muscle abnormalities for TAFAZZIN/Tafazzin
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
-        # find the Mouse Phenotypes table and assert row 1 result for the Mouse Phenotype column
-        row1 = self.driver.find_element(By.ID, 'fm29750a')
-        print(row1.text)
+        # find the Mouse Phenotypes table and assert row 2 result for the Mouse Phenotype column
+        mp_table = Table(self.driver.find_element(By.XPATH, "/html/body/p/table"))
+        cell1 = mp_table.get_cell(3, 1)
+        print(cell1.text)
         # verify the Mouse Phenotypes for row 1, then click it
-        self.assertEqual(row1.text, "Gt(ROSA)26Sortm37(H1/tetO-RNAi:Tafazzin)Arte/?")
-        row1.click()
+        self.assertEqual(cell1.text, "Gt(ROSA)26Sortm37(H1/tetO-RNAi:Tafazzin)Arte/?")
+        cell1.click()
         # switch focus to the new tab for Phenotypes associated with Gt(ROSA)26Sortm37(H1/tetO-RNAi:Tafazzin)Arte/?
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
@@ -741,7 +756,8 @@ class TestRollupRules(unittest.TestCase):
         if WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'summaryHeader'))):
             print('The Summary Ribbon is displayed')
         # find the Phenotype table and click the tg14 box for mortality/aging
-        self.driver.find_element(By.CSS_SELECTOR, '#mortality_aging_id_row > td:nth-child(16) > a:nth-child(1)').click()
+        tg14 = self.driver.find_element(By.CSS_SELECTOR, '#mortality_aging_id_row > td:nth-child(16) > a:nth-child(1)')
+        driver.execute_script("arguments[0].click();", tg14)
         time.sleep(2)
         # switch focus to the new tab for Phenotypes Associated with this Genotype
         self.driver.switch_to.window(self.driver.window_handles[-1])
@@ -799,20 +815,24 @@ class TestRollupRules(unittest.TestCase):
         if WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'summaryRibbon'))):
             print('The Summary Ribbon is displayed')
         # find the Phenotype slim grid and click the homeostasis/metabolism box
-        self.driver.find_element(By.ID, 'mpSlimgrid12Div').click()
+        mpsgrid = self.driver.find_element(By.ID, 'mpSlimgrid12Div')
+        driver.execute_script("arguments[0].click();", mpsgrid)
         time.sleep(2)
         # switch focus to the new tab for Phenotype annotations related to cellular
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
         # find the Mouse Phenotypes table and assert all 3 results for the Mouse Phenotype column
-        row1 = self.driver.find_element(By.ID, 'fm19011a')
-        row2 = self.driver.find_element(By.ID, 'fm45990a')
-        row3 = self.driver.find_element(By.ID, 'fm31521a')
-        print(row3.text)
+        mp_table = Table(self.driver.find_element(By.XPATH, "/html/body/div[2]/table[2]"))
+        cell1 = mp_table.get_cell(2, 1)
+        print(cell1.text)
+        cell2 = mp_table.get_cell(3, 1)
+        print(cell2.text)
+        cell3 = mp_table.get_cell(4, 1)
+        print(cell3.text)
         # verify the Mouse Phenotypes for row 4
-        self.assertEqual(row1.text, "Pnkdtm1Ljp/Pnkdtm1Ljp")
-        self.assertEqual(row2.text, "Tg(Pnkd*A7V*A9V,-DsRed)671Ljp/0")
-        self.assertEqual(row3.text, "Tg(Pnkd*A7V*A9V,-DsRed)704Ljp/0")
+        self.assertEqual(cell1.text, "Pnkdtm1Ljp/Pnkdtm1Ljp")
+        self.assertEqual(cell2.text, "Tg(Pnkd*A7V*A9V,-DsRed)671Ljp/0")
+        self.assertEqual(cell3.text, "Tg(Pnkd*A7V*A9V,-DsRed)704Ljp/0")
 
     def test_rollup_rule5_hmdc(self):
         """
@@ -839,17 +859,18 @@ class TestRollupRules(unittest.TestCase):
         print(grid_tab.text)
         time.sleep(2)
         # Find the homeostasis/metabolism box for Tg(Pnkd*A7V*A9V,-DsRed)704Ljp and click it.
-        self.driver.find_element(By.CSS_SELECTOR, "tr.ngc:nth-child(5) > td:nth-child(7) > div:nth-child(1) > div:nth-child(1)").click()
+        self.driver.find_element(By.CSS_SELECTOR, "tr.ngc:nth-child(5) > td:nth-child(4) > div:nth-child(1) > div:nth-child(1)").click()
         # switch focus to the popup for Mouse homeostasis/metabolism abnormalities for Tg(Pnkd*A7V*A9V,-DsRed)704Ljp
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
         # find the Mouse Phenotypes table and assert row 1 result for the Mouse Phenotype column
-        row1 = self.driver.find_element(By.ID, 'fm31521a')
-        print(row1.text)
+        mp_table = Table(self.driver.find_element(By.XPATH, "/html/body/p/table"))
+        cell = mp_table.get_cell(2, 1)
+        print(cell.text)
         # verify the Mouse Phenotypes for row 1, then click it
-        self.assertEqual(row1.text, "Tg(Pnkd*A7V*A9V,-DsRed)704Ljp/0")
-        row1.click()
-        # switch focus to the new tab for Phenotypes associated with  ???????????????????????
+        self.assertEqual(cell.text, "Tg(Pnkd*A7V*A9V,-DsRed)704Ljp/0")
+        cell.click()
+        # switch focus to the new tab for Phenotypes associated with Mouse homeostasis/metabolism abnormalities
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
         geno = self.driver.find_element(By.CLASS_NAME, 'genoID')
@@ -929,16 +950,18 @@ class TestRollupRules(unittest.TestCase):
         if WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'summaryRibbon'))):
             print('The Summary Ribbon is displayed')
         # find the Phenotype slim grid and click the nervous system box
-        self.driver.find_element(By.ID, 'mpSlimgrid19Div').click()
+        mpsgrid = self.driver.find_element(By.ID, 'mpSlimgrid19Div')
+        driver.execute_script("arguments[0].click();", mpsgrid)
         time.sleep(2)
         # switch focus to the new tab for Phenotype annotations related to cellular
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
         # find the Mouse Phenotypes table and assert the 12th result for the Mouse Phenotype column
-        row12 = self.driver.find_element(By.ID, 'fm64286a')
-        print(row12.text)
+        mp_table = Table(self.driver.find_element(By.XPATH, "/html/body/div[2]/table[3]"))
+        cell = mp_table.get_cell(13, 1)
+        print(cell.text)
         # verify the Mouse Phenotypes for row 12
-        self.assertEqual(row12.text, "Gt(ROSA)26Sortm1(Smo/EYFP)Amc/Gt(ROSA)26Sortm1(Smo/EYFP)Amc\nTg(Atoh1-cre/Esr1*)14Fsh/0  (conditional)")
+        self.assertEqual(cell.text, "Gt(ROSA)26Sortm1(Smo/EYFP)Amc/Gt(ROSA)26Sortm1(Smo/EYFP)Amc\nTg(Atoh1-cre/Esr1*)14Fsh/0  (conditional)")
 
     def test_rollup_rule6_hmdc(self):
         """
@@ -971,11 +994,12 @@ class TestRollupRules(unittest.TestCase):
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
         # find the Mouse Phenotypes table and assert row 11 result for the Mouse Phenotype column
-        row11 = self.driver.find_element(By.ID, 'fm64286a')
-        print(row11.text)
+        mp_table = Table(self.driver.find_element(By.XPATH, "/html/body/p/table"))
+        cell = mp_table.get_cell(13, 1)
+        print(cell.text)
         # verify the Mouse Phenotypes for row 11, then click it
-        self.assertEqual(row11.text, "Gt(ROSA)26Sortm1(Smo/EYFP)Amc/Gt(ROSA)26Sortm1(Smo/EYFP)Amc\nTg(Atoh1-cre/Esr1*)14Fsh/0  (conditional)")
-        row11.click()
+        self.assertEqual(cell.text, "Gt(ROSA)26Sortm1(Smo/EYFP)Amc/Gt(ROSA)26Sortm1(Smo/EYFP)Amc\nTg(Atoh1-cre/Esr1*)14Fsh/0  (conditional)")
+        cell.click()
         # switch focus to the new tab for Phenotypes associated with Gt(ROSA)26Sortm1(Smo/EYFP)Amc/Gt(ROSA)26Sortm1(Smo/EYFP)Amc Tg(Atoh1-cre/Esr1*)14Fsh/0
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
@@ -1054,16 +1078,18 @@ class TestRollupRules(unittest.TestCase):
         if WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'summaryRibbon'))):
             print('The Summary Ribbon is displayed')
         # find the Phenotype slim grid and click the nervous system box
-        self.driver.find_element(By.ID, 'mpSlimgrid19Div').click()
+        mpsgrid = self.driver.find_element(By.ID, 'mpSlimgrid19Div')
+        driver.execute_script("arguments[0].click();", mpsgrid)
         time.sleep(2)
         # switch focus to the new tab for Phenotype annotations related to nervous system
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
         # find the Mouse Phenotypes table and assert the 3rd result for the Mouse Phenotype column
-        row3 = self.driver.find_element(By.ID, 'fm56881a')
-        print(row3.text)
+        mp_table = Table(self.driver.find_element(By.XPATH, "/html/body/div[2]/table[2]"))
+        cell = mp_table.get_cell(4, 1)
+        print(cell.text)
         # verify the Mouse Phenotypes for row 3
-        self.assertEqual(row3.text, "Btbd9tm1c(EUCOMM)Wtsi/Btbd9tm1c(EUCOMM)Wtsi\nEmx1tm1(cre)Yql/Emx1+  (conditional)")
+        self.assertEqual(cell.text, "Btbd9tm1c(EUCOMM)Wtsi/Btbd9tm1c(EUCOMM)Wtsi\nEmx1tm1(cre)Yql/Emx1+  (conditional)")
 
     def test_rollup_rule7_hmdc(self):
         """
@@ -1095,11 +1121,12 @@ class TestRollupRules(unittest.TestCase):
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
         # find the Mouse Phenotypes table and assert row 3 result for the Mouse Phenotype column
-        row3 = self.driver.find_element(By.ID, 'fm56881a')
-        print(row3.text)
+        mp_table = Table(self.driver.find_element(By.XPATH, "/html/body/p/table"))
+        cell = mp_table.get_cell(4, 1)
+        print(cell.text)
         # verify the Mouse Phenotypes for row 3, then click it
-        self.assertEqual(row3.text, "Btbd9tm1c(EUCOMM)Wtsi/Btbd9tm1c(EUCOMM)Wtsi\nEmx1tm1(cre)Yql/Emx1+  (conditional)")
-        row3.click()
+        self.assertEqual(cell.text, "Btbd9tm1c(EUCOMM)Wtsi/Btbd9tm1c(EUCOMM)Wtsi\nEmx1tm1(cre)Yql/Emx1+  (conditional)")
+        cell.click()
         # switch focus to the new tab for Phenotypes associated with Btbd9tm1c(EUCOMM)Wtsi/Btbd9tm1c(EUCOMM)Wtsi Emx1tm1(cre)Yql/Emx1+
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
@@ -1144,16 +1171,18 @@ class TestRollupRules(unittest.TestCase):
         if WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'summaryRibbon'))):
             print('The Summary Ribbon is displayed')
         # find the Phenotype slim grid and click the mortality/aging system box
-        self.driver.find_element(By.ID, 'mpSlimgrid17Div').click()
+        mpsgrid = self.driver.find_element(By.ID, 'mpSlimgrid17Div')
+        driver.execute_script("arguments[0].click();", mpsgrid)
         time.sleep(2)
         # switch focus to the new tab for Phenotype annotations related to nervous system
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
         # find the Mouse Phenotypes table and assert the 8th result for the Mouse Phenotype column
-        row8 = self.driver.find_element(By.ID, 'fm25335a')
-        print(row8.text)
+        mp_table = Table(self.driver.find_element(By.XPATH, "/html/body/div[2]/table[2]"))
+        cell = mp_table.get_cell(9, 1)
+        print(cell.text)
         # verify the Mouse Phenotypes for row 8
-        self.assertEqual(row8.text, "Erbb2tm8(Erbb2)Mul/Erbb2tm8(Erbb2)Mul")
+        self.assertEqual(cell.text, "Erbb2tm8(Erbb2)Mul/Erbb2tm8(Erbb2)Mul")
 
     def test_rollup_rule8_hmdc(self):
         """
@@ -1185,17 +1214,18 @@ class TestRollupRules(unittest.TestCase):
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
         # find the Mouse Phenotypes table and assert row 8 result for the Mouse Phenotype column
-        row8 = self.driver.find_element(By.ID, 'fm25335a')
-        print(row8.text)
-        # verify the Mouse Phenotypes for row 8, then click it
-        self.assertEqual(row8.text, "Erbb2tm8(Erbb2)Mul/Erbb2tm8(Erbb2)Mul")
-        row8.click()
-        # switch focus to the new tab for Phenotypes associated with Erbb2tm8(Erbb2)Mul/Erbb2tm8(Erbb2)Mul
+        mp_table = Table(self.driver.find_element(By.XPATH, "/html/body/p/table"))
+        cell = mp_table.get_cell(7, 1)
+        print(cell.text)
+        # verify the Mouse Phenotypes for row 9, then click it
+        self.assertEqual(cell.text, "Erbb2tm8.1(Erbb2)Mul/Erbb2tm8.1(Erbb2)Mul")
+        cell.click()
+        # switch focus to the new tab for Phenotypes associated with Erbb2tm8.1(Erbb2)Mul/Erbb2tm8.1(Erbb2)Mul
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
         geno = self.driver.find_element(By.CLASS_NAME, 'genoID')
         # assert the Genotype ID is correct for Gt(ROSA)26Sortm1(Smo/EYFP)Amc/Gt(ROSA)26Sortm1(Smo/EYFP)Amc Tg(Atoh1-cre/Esr1*)14Fsh/0
-        self.assertEqual(geno.text, 'MGI:3842750')
+        self.assertEqual(geno.text, 'MGI:3805580')
 
     def test_rollup_rule9_do(self):
         """
@@ -1257,16 +1287,18 @@ class TestRollupRules(unittest.TestCase):
         if WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'summaryRibbon'))):
             print('The Summary Ribbon is displayed')
         # find the Phenotype slim grid and click the nervous system box
-        self.driver.find_element(By.ID, 'mpSlimgrid19Div').click()
+        mpsgrid =self.driver.find_element(By.ID, 'mpSlimgrid19Div')
+        driver.execute_script("arguments[0].click();", mpsgrid)
         time.sleep(2)
         # switch focus to the new tab for Phenotype annotations related to nervous system
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
         # find the Mouse Phenotypes table and assert the 2nd result for the Mouse Phenotype column
-        row2 = self.driver.find_element(By.ID, 'fm26422a')
-        print(row2.text)
+        mp_table = Table(self.driver.find_element(By.XPATH, "/html/body/div[2]/table[3]"))
+        cell = mp_table.get_cell(3,1)
+        print(cell.text)
         # verify the Mouse Phenotypes for row 2
-        self.assertEqual(row2.text, "Col1a1Aga2/Col1a1+")
+        self.assertEqual(cell.text, "Col1a1Aga2/Col1a1+")
 
     def test_rollup_rule9_hmdc(self):
         """
@@ -1298,11 +1330,12 @@ class TestRollupRules(unittest.TestCase):
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
         # find the Mouse Phenotypes table and assert row 2 result for the Mouse Phenotype column
-        row2 = self.driver.find_element(By.ID, 'fm26422a')
-        print(row2.text)
+        mp_table = Table(self.driver.find_element(By.XPATH, "/html/body/p/table"))
+        cell = mp_table.get_cell(3, 1)
+        print(cell.text)
         # verify the Mouse Phenotypes for row 3, then click it
-        self.assertEqual(row2.text, "Col1a1Aga2/Col1a1+")
-        row2.click()
+        self.assertEqual(cell.text, "Col1a1Aga2/Col1a1+")
+        cell.click()
         # switch focus to the new tab for Phenotypes associated with Col1a1Aga2/Col1a1+
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)

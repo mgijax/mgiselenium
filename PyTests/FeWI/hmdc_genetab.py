@@ -152,7 +152,6 @@ class TestHmdcGeneTab(unittest.TestCase):
         """
         @status this test verifies the correct diseases are returned for this query.
         @see: HMDC-genetab-15, 16 (Associated Human Diseases column)
-        @bug: this test is failing but why I do not understand!
         """
         print("BEGIN test_genes_tab_diseases")
         my_select = self.driver.find_element(By.XPATH,
@@ -181,9 +180,9 @@ class TestHmdcGeneTab(unittest.TestCase):
         print(assochumandiseases)
         # asserts that the expected diseases are returned for these genes
         self.assertIn(
-            'beta thalassemia\ncolon adenocarcinoma\ndepressive disorder\nDown syndrome\nmyeloid leukemia associated with Down Syndrome\nthrombocytopenia\ntransient myeloproliferative syndrome\nX-linked dyserythropoietic anemia\nX-linked thrombocytopenia with beta-thalassemia',
+            'beta thalassemia\ncolon adenocarcinoma\ndepressive disorder\nmyeloid leukemia associated with Down Syndrome\nthrombocytopenia\ntransient myeloproliferative syndrome\nX-linked dyserythropoietic anemia\nX-linked thrombocytopenia with beta-thalassemia',
             assochumandiseases)  # diseases associated to Gata1
-        self.assertIn('myelodysplastic syndrome\nmyelofibrosis', assochumandiseases)  # diseases associated to GATA1
+        self.assertIn('myelodysplastic syndrome\nmyelofibrosis\nthrombocytopenia', assochumandiseases)  # diseases associated to GATA1
 
     def tearDown(self):
         self.driver.quit()

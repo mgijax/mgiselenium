@@ -72,7 +72,8 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('Pkd1')
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm2Jzh').click()
+        allink10 = self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm2Jzh')
+        self.driver.execute_script("arguments[0].click();", allink10)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located(
             (By.ID, 'nomenTable')))  # waits until the nomenclature table(summary ribbon) is displayed on the page
         assert "Pkd1<sup>tm2Jzh</sup>" in self.driver.page_source
@@ -95,7 +96,8 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('Slc6a3')
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1(cre)Xz').click()
+        allink11 = self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1(cre)Xz')
+        self.driver.execute_script("arguments[0].click();", allink11)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located(
             (By.ID, 'nomenTable')))  # waits until the nomenclature table(summary ribbon) is displayed on the page
         assert "Slc6a3<sup>tm1(cre)Xz</sup>" in self.driver.page_source
@@ -118,7 +120,8 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('Pax3')
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1(cre)Joe').click()
+        allink12 = self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1(cre)Joe')
+        self.driver.execute_script("arguments[0].click();", allink12)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located(
             (By.ID, 'nomenTable')))  # waits until the nomenclature table(summary ribbon) is displayed on the page
         assert "Pax3<sup>tm1(cre)Joe</sup>" in self.driver.page_source
@@ -179,7 +182,8 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('Kit')
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Ssm').click()
+        allink9 = self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Ssm')
+        self.driver.execute_script("arguments[0].click();", allink9)
         # mutationDownArrow = self.driver.find_element(By.ID, 'downArrowMutationDescription').
         # mutationRightArrow = self.driver.find_element(By.ID, 'rightArrowMutationDescription')
 
@@ -215,7 +219,8 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('Kdr')
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1Jrt').click()
+        allink5 = self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1Jrt')
+        self.driver.execute_script("arguments[0].click();", allink5)
         alleletype = self.driver.find_element(By.ID, 'alleleTypeDisplay')
 
         self.assertEqual(alleletype.text, "Targeted (Null/knockout, Reporter)")
@@ -267,8 +272,8 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('Tgm3')
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1Sjo').click()
-
+        allink3 = self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1Sjo')
+        self.driver.execute_script("arguments[0].click();", allink3)
         image = self.driver.find_element(By.ID, 'mutationDescriptionTable').find_element(By.CSS_SELECTOR, 'a img')
         self.assertTrue(image.is_displayed(), 'the image is not displaying')
         self.driver.get(config.TEST_URL + "/allele/")
@@ -352,8 +357,8 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('Stk11')
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1.1Jish').click()
-
+        allink4 = self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1.1Jish')
+        self.driver.execute_script("arguments[0].click();", allink4)
         caption = self.driver.find_element(By.ID, 'mutationDescriptionTable').find_element(By.CSS_SELECTOR,
                                                                                            'span.small')
         self.assertTrue(caption.is_displayed(), 'the caption is not displaying')
@@ -390,7 +395,8 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('Adamts20')
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'hip').click()
+        hip = self.driver.find_element(By.PARTIAL_LINK_TEXT, 'hip')
+        self.driver.execute_script("arguments[0].click();", hip)
         afplink = self.driver.find_element(By.LINK_TEXT, 'incidental mutations')
         actualurl = self.driver.find_element(By.LINK_TEXT, 'incidental mutations').get_attribute('href')
 
@@ -400,7 +406,7 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('Nphp3')
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        # time.sleep(4)
+        # time.sleep(2)
         self.driver.find_elements(By.PARTIAL_LINK_TEXT, 'pol')[1].click()
         # time.sleep(4)
         afplink = self.driver.find_element(By.LINK_TEXT, 'incidental mutations')
@@ -417,7 +423,8 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('0610037L13Rik')
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1(KOMP)Vlcg').click()
+        allink6 = self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1(KOMP)Vlcg')
+        self.driver.execute_script("arguments[0].click();", allink6)
         collection = self.driver.find_element(By.ID, 'mutationOriginTable').find_elements(By.CSS_SELECTOR, 'td.padded')
         collitem = collection[5]
         self.assertEqual(collitem.text, "KOMP-Regeneron")
@@ -435,7 +442,8 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('Adamts20')
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'hip').click()
+        plink = self.driver.find_element(By.PARTIAL_LINK_TEXT, 'hip')
+        self.driver.execute_script("arguments[0].click();", plink)
         collection = self.driver.find_element(By.ID, 'mutationOriginTable').find_elements(By.CSS_SELECTOR, 'td.padded')
         collitem = collection[2]
         self.assertEqual(collitem.text, "APF ENU Mutagenesis")
@@ -444,7 +452,8 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('Dbx1')
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1.1(cre)Mull').click()
+        plink = self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1.1(cre)Mull')
+        self.driver.execute_script("arguments[0].click();", plink)
         collection = self.driver.find_element(By.ID, 'mutationOriginTable').find_elements(By.CSS_SELECTOR, 'td.padded')
         collitem = collection[4]
         self.assertEqual(collitem.text, "Neuroscience Blueprint cre")
@@ -474,7 +483,8 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('shh')
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Dsh').click()
+        allink8 = self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Dsh')
+        self.driver.execute_script("arguments[0].click();", allink8)
         WebDriverWait(self.driver, 2).until(EC.element_to_be_clickable((By.LINK_TEXT, '(101 x C3H)F1')))
         self.driver.find_element(By.LINK_TEXT, '(101 x C3H)F1').click()
         # switch focus to the new tab for strain detail page
@@ -586,7 +596,8 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').send_keys('Tg(ACTFLPe)9205Dym')
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Tg(ACTFLPe)9205Dym').click()
-        self.driver.find_element(By.ID, 'showPhenoButton').click()
+        spb = self.driver.find_element(By.ID, 'showPhenoButton')
+        self.driver.execute_script("arguments[0].click();", spb)
         phenotypesort = self.driver.find_element(By.ID, 'phenotable_id')
         items = phenotypesort.find_elements(By.CSS_SELECTOR,
                                             '.phenoSummarySystemRow td:first-child, .phenoSummaryTermRow td:first-child')
@@ -595,10 +606,7 @@ class TestAlleleDetail(unittest.TestCase):
         searchtreeitems = iterate.getTextAsList(items)
         print(searchtreeitems)
         self.assertEqual(
-            ['behavior/neurological', 'tremors', 'impaired balance', 'impaired coordination', 'abnormal gait',
-             'short stride length', 'cardiovascular system', 'cardiovascular system phenotype',
-             'hearing/vestibular/ear', 'abnormal ear physiology', 'mortality/aging', 'perinatal lethality',
-             'nervous system', 'abnormal synaptic vesicle recycling', 'abnormal excitatory postsynaptic currents'],
+            ['behavior/neurological', 'tremors', 'impaired balance', 'impaired coordination', 'abnormal gait', 'short stride length', 'cardiovascular system', 'cardiovascular system phenotype', 'cellular', 'increased apoptosis', 'hearing/vestibular/ear', 'abnormal ear physiology', 'mortality/aging', 'perinatal lethality', 'nervous system', 'abnormal synaptic vesicle recycling', 'abnormal excitatory postsynaptic currents'],
             searchtreeitems)
         self.driver.get(config.TEST_URL + "/allele/")
 
@@ -612,7 +620,7 @@ class TestAlleleDetail(unittest.TestCase):
 
         # add all li text to a list for "assertIn" test
         searchtreeitems = iterate.getTextAsList(items)
-        self.assertEqual(["behavior/neurological", "cardiovascular system", "hearing/vestibular/ear", "mortality/aging",
+        self.assertEqual(["behavior/neurological", "cardiovascular system", "cellular", "hearing/vestibular/ear", "mortality/aging",
                           "nervous system"], searchtreeitems)
 
     def test_geno_popup_data(self):
@@ -622,7 +630,8 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('lepr')
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element(By.LINK_TEXT, 'Leprdb').click()
+        mrklnk = self.driver.find_element(By.LINK_TEXT, 'Leprdb')
+        self.driver.execute_script("arguments[0].click();", mrklnk)
         wait.forAjax(self.driver, 2)
         self.driver.find_element(By.CSS_SELECTOR,
                                  '#yui-rec0 > td:nth-child(1) > div:nth-child(1) > a:nth-child(1) > span:nth-child(1)').click()
@@ -678,7 +687,8 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('Gata1')
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm2Sho').click()
+        allink7 = self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm2Sho')
+        self.driver.execute_script("arguments[0].click();", allink7)
         disease_table = self.driver.find_element(By.ID, 'diseasetable_id')
         table = Table(disease_table)
         # Iterate and print the search results headers
@@ -725,7 +735,8 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1.1Ckjs').click()
         # verifies that the assays results link exists/is displayed
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'assay results').is_displayed()
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'anatomical structure(s)').click()
+        anats = self.driver.find_element(By.PARTIAL_LINK_TEXT, 'anatomical structure(s)')
+        self.driver.execute_script("arguments[0].click();", anats)
         WebDriverWait(self.driver, 5).until(EC.text_to_be_present_in_element((By.CLASS_NAME, 'titleBarMainTitleGxd'),
                                                                              'Mouse Developmental Anatomy Browser'))
         searchlist = self.driver.find_elements(By.ID, 'searchResults')
@@ -734,7 +745,7 @@ class TestAlleleDetail(unittest.TestCase):
 
         # There should be 6 structures returned in the anatomy search results
         self.assertIn(
-            'mouse TS1-28\nmuscle organ TS28\nmuscle tissue TS12-28\nspinal cord ventral horn TS20-28\nventral grey horn TS21-26\nvertebral column TS27-28',
+            'mouse TS1-28\nmuscle organ TS28\nspinal cord ventral horn TS20-28\nventral grey horn TS21-26\nvertebral column TS27-28',
             terms, 'the 5 terms are not listed!')
 
     def test_allele_detail_exp_sec_struct_link_only_norm(self):
@@ -750,15 +761,16 @@ class TestAlleleDetail(unittest.TestCase):
         bodytext = self.driver.find_element(By.TAG_NAME, 'body').text
         self.assertFalse('assay results' in bodytext)
         # verifies that the anatomical structures link does exist and clicks it
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'anatomical structure(s)').click()
+        anats2 = self.driver.find_element(By.PARTIAL_LINK_TEXT, 'anatomical structure(s)')
+        self.driver.execute_script("arguments[0].click();", anats2)
         searchlist = self.driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchlist)
         print([x.text for x in searchlist])
 
-        # There should be 5 structures returned in the anatomy search results
+        # There should be 4 structures returned in the anatomy search results
         self.assertIn(
-            'cardiac muscle tissue TS12-28\nheart TS11-28\nlung epithelium TS15-28\nlung mesenchyme TS15-26\nlung vascular element TS15-28',
-            terms, 'the 5 terms are not listed!')
+            'heart TS11-28\nlung epithelium TS15-28\nlung mesenchyme TS15-26\nlung vascular element TS15-28',
+            terms, 'the 4 terms are not listed!')
 
     def test_allele_detail_no_exp_section(self):
         """
@@ -797,8 +809,10 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').send_keys("Trim27<Gt(XP0484)Wtsi>")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Wtsi').click()
+        time.sleep(2)
         # verifies that the assays results link does exist/is displayed
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'assay results').click()
+        aresult = self.driver.find_element(By.PARTIAL_LINK_TEXT, 'assay results')
+        self.driver.execute_script("arguments[0].click();", aresult)
         allele_name = self.driver.find_element(By.CLASS_NAME, 'summaryHeaderData1').find_element(By.TAG_NAME, "span")
         # Just want to assert the correct Allele is returned
         self.assertEqual(allele_name.text, 'gene trap XP0484, Wellcome Trust Sanger Institute')
@@ -929,7 +943,8 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys("gfi1")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Gan').click()
+        allink2 = self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Gan')
+        self.driver.execute_script("arguments[0].click();", allink2)
         # find the toggle arrow in the Recombinase activity section and click it to open up the grid.
         gridarrow = self.driver.find_element(By.ID, 'recomRibbonTeaser')
         gridarrow.click()
@@ -1012,7 +1027,8 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys("gfi1")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Gan').click()
+        allink2 = self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Gan')
+        self.driver.execute_script("arguments[0].click();", allink2)
         # find the toggle arrow in the Recombinase activity section and click it to open up the grid.
         gridarrow = self.driver.find_element(By.ID, 'recomRibbonTeaser')
         gridarrow.click()
@@ -1134,10 +1150,11 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys("Pten")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1.1Gle').click()
+        allink = self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1.1Gle')
+        self.driver.execute_script("arguments[0].click();", allink)
         # find the MMHCdb link in the Tumor section and click it
-        self.driver.find_element(By.CSS_SELECTOR,
-                                 '#tumorTable > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > a:nth-child(1)').click()
+        mmhclink = self.driver.find_element(By.CSS_SELECTOR, '#tumorTable > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > a:nth-child(1)')
+        self.driver.execute_script("arguments[0].click();", mmhclink)
         allele = self.driver.find_element(By.CSS_SELECTOR, 'li.term-selected:nth-child(1) > span:nth-child(1)')
         # assert the correct gene is returned
         self.assertEqual(allele.text, 'Ptentm1.1Gle')

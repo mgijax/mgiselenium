@@ -56,10 +56,11 @@ class TestSequenceSummaryPage(unittest.TestCase):
         time.sleep(2)
         # finds the correct marker link and clicks it
         driver.find_element(By.LINK_TEXT, 'Bloc1s2').click()
-        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'summaryRibbon'))):
-            print('Summary data is loaded')
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'allSeqLink'))):
+            print('Sequence link is loaded')
         # Finds the All sequences link and clicks it
-        driver.find_element(By.ID, 'allSeqLink').click()
+        allsqlnk = driver.find_element(By.ID, 'allSeqLink')
+        driver.execute_script("arguments[0].click();", allsqlnk)
         if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'summaryHeader'))):
             print('The summary header is loaded')
         # Locates the marker header table and finds the table headings
@@ -94,7 +95,8 @@ class TestSequenceSummaryPage(unittest.TestCase):
         # finds the correct marker link and clicks it
         driver.find_element(By.LINK_TEXT, 'Gabarap').click()
         # Finds the All sequences link and clicks it
-        driver.find_element(By.ID, 'allSeqLink').click()
+        allsqlnk = driver.find_element(By.ID, 'allSeqLink')
+        driver.execute_script("arguments[0].click();", allsqlnk)
         time.sleep(2)
         # finds the Type column and then iterates through all items
         seqtypelist = driver.find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-seqType .yui-dt-liner')
@@ -162,14 +164,13 @@ class TestSequenceSummaryPage(unittest.TestCase):
         driver.find_element(By.LINK_TEXT, 'Ppnr').click()
         time.sleep(3)
         # Finds the All sequences link and clicks it
-        driver.find_element(By.ID, 'allSeqLink').click()
-        # wait until the summary header is displayed
-        # if WebDriverWait(self.driver, 3).until(EC.presence_of_element_located((By.CLASS_NAME, 'summaryHeader'))):
+        allsqlnk = driver.find_element(By.ID, 'allSeqLink')
+        driver.execute_script("arguments[0].click();", allsqlnk)
         # print('Disease Table loaded')
         time.sleep(4)
         # finds the link for Ensembl of sequence MGP_CBAJ_G0036567 and clicks it.
-        # driver.find_element(By.CSS_SELECTOR, '#yui-rec5 > td:nth-child(2) > div:nth-child(1) > a:nth-child(2)').click()
-        driver.find_element(By.XPATH, '/html/body/div[4]/div[4]/table/tbody[2]/tr[6]/td[2]/div/a[1]').click()
+        sqlnk = driver.find_element(By.XPATH, '/html/body/div[4]/div[4]/table/tbody[2]/tr[6]/td[2]/div/a[1]')
+        driver.execute_script("arguments[0].click();", sqlnk)
         species_m = driver.find_element(By.CLASS_NAME, 'species')
         # asserts that the link takes you to the correct sequence at ensembl.
         self.assertEqual(species_m.text, 'Mouse CBA/J')
@@ -178,8 +179,8 @@ class TestSequenceSummaryPage(unittest.TestCase):
         driver.back()
         time.sleep(2)
         # finds the link for MGI Sequence Detail of sequence MGP_CBAJ_G0036567 and clicks it.
-        # driver.find_element(By.CSS_SELECTOR, '#yui-rec5 > td:nth-child(2) > div:nth-child(1) > a:nth-child(4)').click()
-        driver.find_element(By.XPATH, '/html/body/div[4]/div[4]/table/tbody[2]/tr[6]/td[2]/div/a[2]').click()
+        sq2lnk = driver.find_element(By.XPATH, '/html/body/div[4]/div[4]/table/tbody[2]/tr[6]/td[2]/div/a[2]')
+        driver.execute_script("arguments[0].click();", sq2lnk)
         # find the ID listed in the ID/Version ribbon of the sequence detail page
         seq_id = driver.find_element(By.CSS_SELECTOR,
                                      '#seqIdTable > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > b:nth-child(1)')
@@ -201,10 +202,12 @@ class TestSequenceSummaryPage(unittest.TestCase):
         # finds the correct marker link and clicks it
         driver.find_element(By.LINK_TEXT, 'Ppnr').click()
         # Finds the All sequences link and clicks it
-        driver.find_element(By.ID, 'allSeqLink').click()
+        allsqlnk = driver.find_element(By.ID, 'allSeqLink')
+        driver.execute_script("arguments[0].click();", allsqlnk)
         time.sleep(2)
         # finds the link for MGI Sequence Detail of sequence MGI_C57BL6J_1349458 and clicks it.
-        driver.find_element(By.XPATH, '/html/body/div[4]/div[4]/table/tbody[2]/tr[22]/td[2]/div/a').click()
+        sqlnk = driver.find_element(By.XPATH, '/html/body/div[4]/div[4]/table/tbody[2]/tr[22]/td[2]/div/a')
+        driver.execute_script("arguments[0].click();", sqlnk)
         time.sleep(4)
         # find the ID listed in the ID/Version ribbon of the sequence detail page
         seq_id = driver.find_element(By.CSS_SELECTOR,

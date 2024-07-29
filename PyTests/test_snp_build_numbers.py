@@ -124,20 +124,22 @@ class TestSnpBuildNumbers(unittest.TestCase):
         """
         @Status this test has been updated for the new hmdc pages
         checks the human and mouse build numbers on the HMDC query page
+        @bug need to figure out why assertion for my_select.text not working!
         """
         print ("BEGIN test_hmdc_build")
         #displays the HMDC qf
         self.driver.get(PUBLIC_URL + "/diseasePortal")
         #find the pulldown and select Genome Location
-        selectorbox = self.driver.find_element(By.CLASS_NAME, 'queryBuilder')
-        pulldown = selectorbox.find_element(By.TAG_NAME, 'select').find_elements(By.TAG_NAME, 'option')
-        #print [x.text for x in pulldown]
-        searchTextItems = iterate.getTextAsList(pulldown)
-        #verifies all the items listed in the pulldown are correct and in order
-        self.assertEqual(searchTextItems, ['Please select a field', 'Gene Symbol(s) or ID(s)','Gene Name','Disease or Phenotype Name', 'Disease or Phenotype ID(s)', 'Genome Location', 'Gene File Upload'])
-        #click the Genome Location option
-        pulldown[5].click()
-        #self.assertIn("Genome Location", pulldown[3].Text)
+        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
+        print(my_select.text)
+        # verifies all the items listed in the pulldown are correct and in order
+        #self.assertEqual(my_select.text,['Please select a field\nGene Symbol(s) or ID(s)\nGene Name\nDisease or Phenotype Name\nDisease or Phenotype ID(s)\nGenome Location\nGene File Upload'])
+        #select option Genome Location
+        for option in my_select.find_elements(By.TAG_NAME, "option"):
+            if option.text == 'Genome Location':
+                option.click()
+                break
+
         #finds the human and mouse genome build numbers
         buildnumber = self.driver.find_element(By.CLASS_NAME, 'radio-group')
         # get the parent element

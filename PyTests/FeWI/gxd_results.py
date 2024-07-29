@@ -112,29 +112,31 @@ class TestGxdResults(unittest.TestCase):
         ele = driver.find_element(By.ID, 'doFilter')
         driver.execute_script("arguments[0].click()", ele)
         # select the filter option 'benign neoplasm'
-        self.driver.find_elements(By.NAME, 'doFilter')[0].click()
+        dfil = self.driver.find_elements(By.NAME, 'doFilter')[0]
+        driver.execute_script("arguments[0].click();", dfil)
         # click the Filter button found on the filter by disease button
-        self.driver.find_element(By.ID, 'yui-gen0-button').click()
+        filter = self.driver.find_element(By.ID, 'yui-gen0-button')
+        driver.execute_script("arguments[0].click();", filter)
         # locate the Genes tab and click it
         ele1 = driver.find_element(By.ID, 'genestab')
         driver.execute_script("arguments[0].click()", ele1)
-        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.CLASS_NAME, 'yui-dt-data'))):
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'yui-dt-data'))):
             print('data now displayed')
         # locates the genes column and lists the genes found
-        genelist = driver.find_element(By.CLASS_NAME, 'yui-dt-data')
+        genelist = driver.find_element(By.ID, 'genesdata')
+        time.sleep(2)
         items = genelist.find_elements(By.CLASS_NAME, 'yui-dt-col-symbol')
         searchTextItems = iterate.getTextAsList(items)
-        time.sleep(4)
         print(searchTextItems)
         # assert that the genes returned are correct, should be 12 genes as of 9/11/2020
         self.assertEqual(searchTextItems,
-                         ['Acvrl1', 'Eng', 'Foxo3', 'Kras', 'Men1', 'Pdgfrb', 'Ptpn11', 'Ret', 'Sdhc', 'Sdhd', 'Tsc2',
+                         ['Gene', 'Acvrl1', 'Eng', 'Foxo3', 'Kras', 'Men1', 'Notch4', 'Pdgfrb', 'Ptpn11', 'Ret', 'Sdhc', 'Sdhd', 'Tsc2',
                           'Vhl'], 'the list of genes is not correct!')
 
     def test_gene_tab_do_filter_no_genes(self):
         """
         @status: Tests that the Disease filter is correctly return no genes for disease by infectious agent.
-        @note: GXD-do-filter-3 !!!broken!!!
+        @note: GXD-do-filter-3
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")
@@ -181,7 +183,7 @@ class TestGxdResults(unittest.TestCase):
     def test_gene_tab_go_molecular_filter_gene_result(self):
         """
         @status: Tests that the GO molecular filter is correctly returning the right genes for molecular function ligase.
-        @note: GXD-go-molec-filter-2 
+        @note: GXD-go-molec-filter-2
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")
@@ -194,10 +196,12 @@ class TestGxdResults(unittest.TestCase):
         ele = driver.find_element(By.ID, 'goMfFilter')
         driver.execute_script("arguments[0].click()", ele)
         # select the filter option 'cytoskeletal protein binding'
-        self.driver.find_elements(By.NAME, 'goMfFilter')[1].click()
+        mffilter = self.driver.find_elements(By.NAME, 'goMfFilter')[1]
+        driver.execute_script("arguments[0].click();", mffilter)
         # click the Filter button found on the filter by Molecular Function button
-        self.driver.find_element(By.ID, 'yui-gen0-button').click()
-        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'yui-dt-data'))):
+        filter = self.driver.find_element(By.ID, 'yui-gen0-button')
+        driver.execute_script("arguments[0].click();", filter)
+        if WebDriverWait(self.driver, 7).until(EC.presence_of_element_located((By.CLASS_NAME, 'yui-dt-data'))):
             print('data now displayed')
         # locate the Genes tab and click it
         ele1 = driver.find_element(By.ID, 'genestab')
@@ -205,18 +209,19 @@ class TestGxdResults(unittest.TestCase):
         if WebDriverWait(self.driver, 7).until(EC.presence_of_element_located((By.CLASS_NAME, 'yui-dt-data'))):
             print('data now displayed')
         # locates the genes column and lists the genes found
-        genelist = driver.find_element(By.CLASS_NAME, 'yui-dt-data')
+        genelist = driver.find_element(By.ID, 'genesdata')
+        time.sleep(2)
         items = genelist.find_elements(By.CLASS_NAME, 'yui-dt-col-symbol')
         searchtextitems = iterate.getTextAsList(items)
         print(searchtextitems)
-        time.sleep(2)
+        time.sleep(4)
         # assert that the genes returned are correct, should be 3 genes as of 8/29/2019
-        self.assertEqual(searchtextitems, ['Anln'], 'the list of genes is not correct!')
+        self.assertEqual(searchtextitems, ['Gene', 'Anln'], 'the list of genes is not correct!')
 
     def test_gene_tab_go_molecular_filter_no_genes(self):
         """
         @status: Tests that the Molecular Function filter is correctly returning the right message when there are no Molecular Function filtered results.
-        @note: GXD-go-molec-filter-3 !!!broken!!!
+        @note: GXD-go-molec-filter-3
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")
@@ -277,9 +282,11 @@ class TestGxdResults(unittest.TestCase):
         ele = driver.find_element(By.ID, 'goBpFilter')
         driver.execute_script("arguments[0].click()", ele)
         # select the filter option 'establishment of localization'
-        self.driver.find_elements(By.NAME, 'goBpFilter')[5].click()
+        bpfilter = self.driver.find_elements(By.NAME, 'goBpFilter')[5]
+        driver.execute_script("arguments[0].click();", bpfilter)
         # click the Filter button found on the filter by Biological Process button
-        self.driver.find_element(By.ID, 'yui-gen0-button').click()
+        filter = self.driver.find_element(By.ID, 'yui-gen0-button')
+        driver.execute_script("arguments[0].click();", filter)
         time.sleep(2)
         # locate the Genes tab and click it
         ele1 = driver.find_element(By.ID, 'genestab')
@@ -360,9 +367,11 @@ class TestGxdResults(unittest.TestCase):
         ele = driver.find_element(By.ID, 'goCcFilter')
         driver.execute_script("arguments[0].click()", ele)
         # select the filter option 'vacuole'
-        self.driver.find_elements(By.NAME, 'goCcFilter')[0].click()
+        ccfilter = self.driver.find_elements(By.NAME, 'goCcFilter')[0]
+        driver.execute_script("arguments[0].click();", ccfilter)
         # click the Filter button found on the filter by Cellular Component button
-        self.driver.find_element(By.ID, 'yui-gen0-button').click()
+        filter = self.driver.find_element(By.ID, 'yui-gen0-button')
+        driver.execute_script("arguments[0].click();", filter)
         # locate the Genes tab and click it
         ele = driver.find_element(By.ID, 'genestab')
         driver.execute_script("arguments[0].click()", ele)
@@ -400,7 +409,7 @@ class TestGxdResults(unittest.TestCase):
     def test_assay_results_tab_data_link(self):
         """
         @status: Tests that the "data" link in the Results Detail column goes to the correct website and experiment page.
-        @note: GXD-aresults-1, 2 !!not working, email out to Connie 11/15/23
+        @note: GXD-aresults-1, 2
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")
@@ -413,10 +422,13 @@ class TestGxdResults(unittest.TestCase):
         # Enter your gene
         mutate.send_keys("Nrg1")
         # find the InSitu assays and Blot assays check boxes and uncheck them
-        driver.find_element(By.CLASS_NAME, 'allInSitu').click()
-        driver.find_element(By.ID, 'blotAll').click()
+        allin = driver.find_element(By.CLASS_NAME, 'allInSitu')
+        driver.execute_script("arguments[0].click();", allin)
+        ball = driver.find_element(By.ID, 'blotAll')
+        driver.execute_script("arguments[0].click();", ball)
         # find the Whole Genome assays check box and click it
-        driver.find_element(By.ID, 'wholeGenomeAll').click()
+        wgenall = driver.find_element(By.ID, 'wholeGenomeAll')
+        driver.execute_script("arguments[0].click();", wgenall)
         # find the search button and click it
         driver.find_element(By.ID, 'submit1').click()
         # Defaults to Assays Tab so no tab click required
@@ -448,10 +460,13 @@ class TestGxdResults(unittest.TestCase):
         # Enter your gene
         mutate.send_keys("Nrg1")
         # find the InSitu assays and Blot assays check boxes and uncheck them
-        driver.find_element(By.CLASS_NAME, 'allInSitu').click()
-        driver.find_element(By.ID, 'blotAll').click()
+        allin = driver.find_element(By.CLASS_NAME, 'allInSitu')
+        driver.execute_script("arguments[0].click();", allin)
+        ball = driver.find_element(By.ID, 'blotAll')
+        driver.execute_script("arguments[0].click();", ball)
         # find the Whole Genome assays check box and click it
-        driver.find_element(By.ID, 'wholeGenomeAll').click()
+        wgenall = driver.find_element(By.ID, 'wholeGenomeAll')
+        driver.execute_script("arguments[0].click();", wgenall)
         # find the search button and click it
         driver.find_element(By.ID, 'submit1').click()
         # Defaults to Assays Tab so no tab click required
@@ -481,10 +496,13 @@ class TestGxdResults(unittest.TestCase):
         Select(self.driver.find_element(By.ID, 'theilerStage')).select_by_value(
             '28')  # finds the theiler stage list and select the TS 28 option
         # find the InSitu assays and Blot assays check boxes and uncheck them
-        driver.find_element(By.CLASS_NAME, 'allInSitu').click()
-        driver.find_element(By.ID, 'blotAll').click()
+        allin = driver.find_element(By.CLASS_NAME, 'allInSitu')
+        driver.execute_script("arguments[0].click();", allin)
+        ball = driver.find_element(By.ID, 'blotAll')
+        driver.execute_script("arguments[0].click();", ball)
         # find the Whole Genome assays check box and click it
-        driver.find_element(By.ID, 'wholeGenomeAll').click()
+        wgenall = driver.find_element(By.ID, 'wholeGenomeAll')
+        driver.execute_script("arguments[0].click();", wgenall)
         # find the search button and click it
         driver.find_element(By.ID, 'submit1').click()
         # Defaults to Assays Results Tab so no tab click required
@@ -510,10 +528,13 @@ class TestGxdResults(unittest.TestCase):
         # Enter your gene
         genebox.send_keys("shh")
         # find the InSitu assays and Blot assays check boxes and uncheck them
-        driver.find_element(By.CLASS_NAME, 'allInSitu').click()
-        driver.find_element(By.ID, 'blotAll').click()
+        allin = driver.find_element(By.CLASS_NAME, 'allInSitu')
+        driver.execute_script("arguments[0].click();", allin)
+        ball = driver.find_element(By.ID, 'blotAll')
+        driver.execute_script("arguments[0].click();", ball)
         # find the Whole Genome assays check box and click it
-        driver.find_element(By.ID, 'wholeGenomeAll').click()
+        wgenall = driver.find_element(By.ID, 'wholeGenomeAll')
+        driver.execute_script("arguments[0].click();", wgenall)
         # find the search button and click it
         driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
@@ -568,9 +589,11 @@ class TestGxdResults(unittest.TestCase):
         Select(self.driver.find_element(By.ID, 'theilerStage')).select_by_value(
             '25')  # finds the theiler stage list and select the TS 28 option
         # find the Wild Type specimens only button and click it
-        self.driver.find_element(By.ID, 'isWildType').click()
+        iwild = self.driver.find_element(By.ID, 'isWildType')
+        driver.execute_script("arguments[0].click();", iwild)
         # find the Whole Genome assays check box and click it
-        driver.find_element(By.ID, 'wholeGenomeAll').click()
+        wgenall = driver.find_element(By.ID, 'wholeGenomeAll')
+        driver.execute_script("arguments[0].click();", wgenall)
         # find the search button and click it
         driver.find_element(By.ID, 'submit1').click()
         # Defaults to Assays Results Tab so no tab click required
@@ -600,11 +623,14 @@ class TestGxdResults(unittest.TestCase):
         Select(self.driver.find_element(By.ID, 'theilerStage')).select_by_value(
             '28')  # finds the theiler stage list and select the TS 28 option
         # find the In Situ Assays check box and unchecks it
-        self.driver.find_element(By.ID, 'inSituAll').click()
+        isall = self.driver.find_element(By.ID, 'inSituAll')
+        driver.execute_script("arguments[0].click();", isall)
         # find the Blot Assays check box and unchecks it
-        self.driver.find_element(By.ID, 'blotAll').click()
+        ball = self.driver.find_element(By.ID, 'blotAll')
+        driver.execute_script("arguments[0].click();", ball)
         # find the Whole Genome assays check box and click it
-        driver.find_element(By.ID, 'wholeGenomeAll').click()
+        wgenall = driver.find_element(By.ID, 'wholeGenomeAll')
+        driver.execute_script("arguments[0].click();", wgenall)
         # find the search button and click it
         driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
@@ -637,7 +663,7 @@ class TestGxdResults(unittest.TestCase):
     def test_assay_results_filter_by_assay_type(self):
         """
         @status: Tests that the filter by assay type option on the assays tab Assays Detail column works as expected.
-        @note: GXD-aresults-11 !!broken, can't click filter open 'RNA-Seq", maybe focus on popup needed?
+        @note: GXD-aresults-11
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")
@@ -647,7 +673,8 @@ class TestGxdResults(unittest.TestCase):
         time.sleep(2)
         anat_struct.send_keys(Keys.TAB)
         # find the Whole Genome assays check box and check it
-        driver.find_element(By.ID, 'wholeGenomeAll').click()
+        wgenall = driver.find_element(By.ID, 'wholeGenomeAll')
+        driver.execute_script("arguments[0].click();", wgenall)
         # find the search button and click it
         driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)

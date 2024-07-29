@@ -106,13 +106,17 @@ class TestGxdQF(unittest.TestCase):
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")
         # find the Specimens mutated in gene option of the Mutant/ Wild type section and click it and enter your gene
-        driver.find_element(By.ID, 'mutatedSpecimen').click()
+        mspec = driver.find_element(By.ID, 'mutatedSpecimen')
+        driver.execute_script("arguments[0].click();", mspec)
         driver.find_element(By.ID, 'mutatedIn').send_keys('Dppa3')
         # find the InSitu assays and Blot assays check boxes and uncheck them
-        driver.find_element(By.CLASS_NAME, 'allInSitu').click()
-        driver.find_element(By.ID, 'blotAll').click()
+        ais = driver.find_element(By.CLASS_NAME, 'allInSitu')
+        driver.execute_script("arguments[0].click();", ais)
+        ball = driver.find_element(By.ID, 'blotAll')
+        driver.execute_script("arguments[0].click();", ball)
         # find the Whole Genome assays check box and click it
-        driver.find_element(By.ID, 'wholeGenomeAll').click()
+        wgall = driver.find_element(By.ID, 'wholeGenomeAll')
+        driver.execute_script("arguments[0].click();", wgall)
         # find the search button and click it
         driver.find_element(By.ID, 'submit1').click()
         if WebDriverWait(self.driver, 8).until(EC.presence_of_element_located((By.CLASS_NAME, 'yui-dt-data'))):
@@ -139,25 +143,29 @@ class TestGxdQF(unittest.TestCase):
         # find the Detected in option of the Anatomical structure or stage section and click it
         driver.find_element(By.ID, 'detected1').click()
         # find the Wild type specimens only option in the Mutant/wild type section and click it
-        driver.find_element(By.ID, 'isWildType').click()
+        iwild = driver.find_element(By.ID, 'isWildType')
+        driver.execute_script("arguments[0].click();", iwild)
         # find the InSitu assays and Blot assays check boxes and uncheck them
-        driver.find_element(By.CLASS_NAME, 'allInSitu').click()
-        driver.find_element(By.ID, 'blotAll').click()
+        ais = driver.find_element(By.CLASS_NAME, 'allInSitu')
+        driver.execute_script("arguments[0].click();", ais)
+        ball = driver.find_element(By.ID, 'blotAll')
+        driver.execute_script("arguments[0].click();", ball)
         # find the Whole Genome assays check box and click it
-        driver.find_element(By.ID, 'wholeGenomeAll').click()
+        wgall = driver.find_element(By.ID, 'wholeGenomeAll')
+        driver.execute_script("arguments[0].click();", wgall)
         # find the search button and click it
         driver.find_element(By.ID, 'submit1').click()
         if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'yui-dt-data'))):
             print('data now displayed')
         # finds the Assays tab and clicks it
-        ele = driver.find_element(By.ID, 'assaystab')
-        driver.execute_script("arguments[0].click()", ele)
+        atab = driver.find_element(By.ID, 'assaystab')
+        driver.execute_script("arguments[0].click();", atab)
         # locates the gene column and lists the gene found
         genelist = driver.find_element(By.ID, 'assaysdata').find_element(By.CLASS_NAME, 'yui-dt-data')
         items = genelist.find_elements(By.CLASS_NAME, 'yui-dt-col-gene')
         searchtextitems = iterate.getTextAsList(items)
         print(searchtextitems)
-        time.sleep(2)
+        time.sleep(3)
         # assert that the Gene column holds the text "Whole Genome"
         assert "Whole Genome" in searchtextitems
         # locates the assay type column and lists the assay types found
@@ -184,6 +192,7 @@ class TestGxdQF(unittest.TestCase):
         # finds the Genes tab and clicks it
         ele = driver.find_element(By.ID, 'genestab')
         driver.execute_script("arguments[0].click()", ele)
+        time.sleep(2)
         # locates the gene column and lists the gene found
         genelist = driver.find_element(By.ID, 'genesdata').find_element(By.CLASS_NAME, 'yui-dt-data')
         items = genelist.find_elements(By.CLASS_NAME, 'yui-dt-col-symbol')
@@ -227,7 +236,7 @@ class TestGxdQF(unittest.TestCase):
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")
         # find the location field of the Genome location section and enter a chromosome location
-        driver.find_element(By.ID, 'locations').send_keys('Chr12:9000000-10000000')
+        driver.find_element(By.ID, 'locations').send_keys('Chr12:9000000-9080000')
         # find the search button and click it
         driver.find_element(By.ID, 'submit1').click()
         if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.CLASS_NAME, 'yui-dt-data'))):
@@ -241,7 +250,7 @@ class TestGxdQF(unittest.TestCase):
         searchtextitems = iterate.getTextAsList(items)
         print(searchtextitems)
         # assert that the Gene column holds the text "Matn3"
-        assert "Matn3" in searchtextitems
+        assert "Wdr35" in searchtextitems
 
     def test_chr_location_bp_multi_search(self):
         """

@@ -595,8 +595,8 @@ class TestDoBrowserModelTab(unittest.TestCase):
             print('page loaded')
         self.driver.find_element(By.ID, 'modelsTabButton').click()#identifies the Models tab and clicks it.
         # Find the link in the Genetic Background column C57BL/6J-Tg(SNCA)ARyot and click it
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'C57BL/6J-Tg').click()
-        time.sleep(2)
+        strainlink = self.driver.find_element(By.PARTIAL_LINK_TEXT, 'C57BL/6J-Tg')
+        self.driver.execute_script("arguments[0].click();", strainlink)
         # switch focus to the new tab for strain detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
         # Asserts that the strain page is for the correct strain
