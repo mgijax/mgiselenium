@@ -168,9 +168,9 @@ class TestEIAlleleRelationshipsSearch(unittest.TestCase):
         result3 = iterate.getTextAsList(cell3)
         print(result1)
         # Assert the correct relationships are returned
-        self.assertEqual(result1, ['Gpc5<C57BL/6J>'])
-        self.assertEqual(result2, ['Gpc5<DBA/2J>'])
-        self.assertEqual(result3, ['Grm7<rs3723352-G>'])
+        self.assertEqual(result1, ['Foxe3<em1Goph>'])
+        self.assertEqual(result2, ['Gpc5<C57BL/6J>'])
+        self.assertEqual(result3, ['Gpc5<DBA/2J>'])
 
     def testEIAlleleRelationshipsMIJnumSearch(self):
         """

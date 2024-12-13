@@ -40,9 +40,9 @@ class TestEIAntigenSearch(unittest.TestCase):
     """
 
     def setUp(self):
-        self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        #self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
         #self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-        #self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
         self.driver.set_window_size(1500, 1000)
         self.form = ModuleForm(self.driver)
         self.form.get_module(config.TEST_PWI_URL + "/edit/antigen")
@@ -227,9 +227,9 @@ class TestEIAntigenSearch(unittest.TestCase):
         self.assertEqual(symbol2, ['CYFIP2'])
         self.assertEqual(symbol3, ['E-cadherin'])
         self.assertEqual(symbol4, ['EFTUD2'])
-        self.assertEqual(symbol5, ['Epha4, C-terminus'])
-        self.assertEqual(symbol6, ['FXR2'])
-        self.assertEqual(symbol7, ['HAND2'])
+        self.assertEqual(symbol5, ['eIF2alpha'])
+        self.assertEqual(symbol6, ['Epha4, C-terminus'])
+        self.assertEqual(symbol7, ['FXR2'])
 
     def testAntigenOrganismSearch(self):
 

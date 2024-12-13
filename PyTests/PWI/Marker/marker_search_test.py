@@ -41,9 +41,9 @@ class TestEiMrkSearch(unittest.TestCase):
     """
 
     def setUp(self):
-        self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        #self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
         #self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-        #self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
         self.driver.set_window_size(1800, 1000)
         self.form = ModuleForm(self.driver)
         self.form.get_module(config.TEST_PWI_URL + "/edit/marker")

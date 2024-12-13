@@ -178,12 +178,15 @@ class TestEIAntibodySearch(unittest.TestCase):
         # Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
         cell2 = table.get_row_cells(1)
+        cell3 = table.get_row_cells(2)
         symbol1 = iterate.getTextAsList(cell1)
         symbol2 = iterate.getTextAsList(cell2)
+        symbol3 = iterate.getTextAsList(cell3)
         print(symbol1)
         # Assert the correct antibodies are returned
-        self.assertEqual(symbol1, ['anti-GH'])
-        self.assertEqual(symbol2, ['Anti-GH'])
+        self.assertEqual(symbol1, ['anti-CD146 (ab24577)'])
+        self.assertEqual(symbol2, ['anti-GH'])
+        self.assertEqual(symbol3, ['Anti-GH'])
 
     def testAntigenAccIDSearch(self):
         """

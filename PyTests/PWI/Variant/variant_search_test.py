@@ -155,7 +155,7 @@ class TestEiVariantSearch(unittest.TestCase):
     def testVarChromosomeSearch(self):
         """
         @Status tests that a basic Chromosome search works
-        @see pwi-var-search-6
+        @see pwi-var-search-6 !!!NOTE: sorting issue that we will just wait to see if it gets fixed instead of changing test!!!
         """
         driver = self.driver
         # finds the chromosome field and enters a chromosome

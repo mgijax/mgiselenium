@@ -180,8 +180,8 @@ class TestGxdDifferentialQF(unittest.TestCase):
         time.sleep(1)
         # select the fifth option Pulmonary valve TS21-28
         #anat1 = driver.find_element(By.CSS_SELECTOR,'#difStructureContainer3 > div:nth-child(1) > div:nth-child(2) > ul:nth-child(1) > li:nth-child(5)').click()
-        anatstructure = driver.find_element(By.CSS_SELECTOR,'#difStructureContainer3 > div > div.yui-ac-bd > ul > li:nth-child(5)').click()
-        anatstructure.send_keys(Keys.TAB)
+        anatstructure = driver.find_element(By.CSS_SELECTOR,'#difStructureContainer3 > div:nth-child(1) > div:nth-child(2) > ul:nth-child(1) > li:nth-child(1)').click()
+        anat.send_keys(Keys.TAB)
         print(anatstructure)
         anat2 = driver.find_element(By.ID, 'difStructure4')
         # Enter your anatomical structure in the box

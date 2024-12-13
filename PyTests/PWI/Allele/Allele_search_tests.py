@@ -124,7 +124,7 @@ class TestEIAlleleSearch(unittest.TestCase):
         print(symbol2)
         # Assert the correct allele symbol is returned
         self.assertEqual(symbol1, ['Espn<+>'])
-        self.assertEqual(symbol2, ['Espn<je>'])
+        self.assertEqual(symbol2, ['Espn<em1Smoc>'])
 
     def testAlleleMrkJnumSearch(self):
         """
@@ -284,10 +284,14 @@ class TestEIAlleleSearch(unittest.TestCase):
         table = Table(results_table)
         # Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
+        cell2 = table.get_row_cells(1)
         symbol1 = iterate.getTextAsList(cell1)
+        symbol2 = iterate.getTextAsList(cell2)
         print(symbol1)
+        print(symbol2)
         # Assert the correct allele symbol is returned, this is the only result
-        self.assertEqual(symbol1, ['Aacs<tm1.1Mrl>'])
+        self.assertEqual(symbol1, ['Aacs<Sum13-Jus>'])
+        self.assertEqual(symbol2, ['Aacs<tm1.1Mrl>'])
 
     def testAlleleGenerationSearch(self):
         """
@@ -817,6 +821,8 @@ class TestEIAlleleSearch(unittest.TestCase):
         driver.find_element(By.ID, "hideShowInducibleNoteButton").click()
         # finds the Allele Inducible Note and enters a text string, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "inducibleNote").send_keys('tamoxifen')
+        # finds the Status field and select the option 'Reserved'value=string:847113, tabs out of the field then clicks the Search button
+        Select(driver.find_element(By.ID, "alleleStatus")).select_by_value('string:847113')
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
@@ -824,7 +830,7 @@ class TestEIAlleleSearch(unittest.TestCase):
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
         # waits until the element is located or 10 seconds
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Gt(ROSA)26Sor<tm1(cre/Esr1)Tkp>-deleted'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Gt(ROSA)26Sor<tm1.1(cre/ERT2)Alj>'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -833,7 +839,7 @@ class TestEIAlleleSearch(unittest.TestCase):
         symbol1 = iterate.getTextAsList(cell1)
         print(symbol1)
         # Assert the correct allele symbol is returned, this is the first result of over 1000
-        self.assertEqual(symbol1, ['Col1a1<tm1.1(CAG-cre/ERT2)Dgk>'])
+        self.assertEqual(symbol1, ['Axin2<em1(foxCreER)Smoc>'])
 
     def testAlleleUserCreNoteSearch(self):
         """
@@ -1398,11 +1404,11 @@ class TestEIAlleleSearch(unittest.TestCase):
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
         # Iterate and print the search results headers
-        cell1 = table.get_row_cells(2)
-        symbol1 = iterate.getTextAsList(cell1)
-        print(symbol1)
+        cell5 = table.get_row_cells(4)
+        symbol5 = iterate.getTextAsList(cell5)
+        print(symbol5)
         # Assert the correct allele symbol is returned, of about 52 results
-        self.assertEqual(symbol1, ['a<t-2Gso>'])
+        self.assertEqual(symbol5, ['a<t-2Gso>'])
         # verify the correct option for molecular mutation is selected
         select = Select(driver.find_element(By.ID, 'mutation-0'))
         selected_option = select.first_selected_option

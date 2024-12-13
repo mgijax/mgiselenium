@@ -260,7 +260,8 @@ class TestEiEmapaDetail(unittest.TestCase):
         self.driver.find_element(By.ID, "stageSearch").send_keys('26')
         # find the Search button and click it
         self.driver.find_element(By.CSS_SELECTOR, '#termSearchForm > input:nth-child(1)').click()
-        wait.forAngular(self.driver)
+        #wait.forAngular(self.driver)
+        time.sleep(2)
         # verify tree is highlighting correct term
         activetree = self.driver.find_element(By.CSS_SELECTOR, ".mgitreeview .active")
         self.assertEqual(activetree.text, "Bowman's capsule of mature renal corpuscle")

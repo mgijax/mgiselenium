@@ -138,40 +138,40 @@ class TestEiLitTriageShortSearch(unittest.TestCase):
         print(iterate.getTextAsList(data))
         # finds the MGI field
         mgiid = data[1].text
-        self.assertEqual(mgiid, 'MGI:7443488')
+        self.assertEqual(mgiid, 'MGI:7664762')
         # finds the J number field
         Jnumber = data[2].text
-        self.assertEqual(Jnumber, 'J:343716')
+        self.assertEqual(Jnumber, 'J:350975')
         # finds the pmid by field
         PubMedID = data[3].text
-        self.assertEqual(PubMedID, '36891292')
+        self.assertEqual(PubMedID, '38982043')
         # finds the DOI field
         doi = data[4].text
-        self.assertEqual(doi, '10.3389/fimmu.2023.1124140')
+        self.assertEqual(doi, '10.1038/s41419-024-06887-0')
         # finds the short citation field
         ShortCite = data[5].text
-        self.assertEqual(ShortCite, 'Povroznik JM, Front Immunol 2023;14():1124140')
+        self.assertEqual(ShortCite, 'Zhang M, Cell Death Dis 2024 Jul 9;15(7):491')
         # finds the title field
         Title = data[6].text
-        self.assertEqual(Title, 'Interleukin-27-dependent transcriptome signatures during neonatal sepsis.')
+        self.assertEqual(Title, 'IL-27 disturbs lipid metabolism and restrains mitochondrial activity to inhibit gammadelta T17 cell-mediated skin inflammation.')
         # finds the MGI field(line2)
         mgiid1 = data[14].text
-        self.assertEqual(mgiid1, 'MGI:7519867')
+        self.assertEqual(mgiid1, 'MGI:7608826')
         # finds the J number field(line2)
         Jnumber1 = data[15].text
-        self.assertEqual(Jnumber1, 'J:340872')
+        self.assertEqual(Jnumber1, 'J:350746')
         # finds the pmid by field(line2)
         PubMedID1 = data[16].text
-        self.assertEqual(PubMedID1, '37588169')
+        self.assertEqual(PubMedID1, '38390338')
         # finds the Journal field(line2)
         doi1 = data[17].text
-        self.assertEqual(doi1, '10.1016/j.isci.2023.107464')
+        self.assertEqual(doi1, '10.3389/fimmu.2024.1217098')
         # finds the short citation field(line2)
         ShortCite1 = data[18].text
-        self.assertEqual(ShortCite1, 'Zhang Y, iScience 2023 Aug 18;26(8):107464')
+        self.assertEqual(ShortCite1, 'Bradford SD, Front Immunol 2024;15():1217098')
         # finds the title field(line2)
         Title1 = data[19].text
-        self.assertEqual(Title1, 'IL-27 mediates immune response of pneumococcal vaccine SPY1 through Th17 and memory CD4(+)T cells.')
+        self.assertEqual(Title1, 'IL-27 alters inflammatory cytokine expression and limits protective immunity against Mycobacterium tuberculosis in a neonatal BCG vaccination model.')
 
     def testStrainSymbolSearch(self):
         """

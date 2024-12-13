@@ -19,9 +19,14 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.edge.service import Service as EdgeService
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
+from webdriver_manager.chrome import ChromeDriverManager
+
 
 import config
 
@@ -117,7 +122,8 @@ class TestDoBrowserGeneral(unittest.TestCase):
 
         self.driver.find_element(By.LINK_TEXT, 'OMIM:PS168600').click()
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        if WebDriverWait(self.driver, 8).until(EC.presence_of_element_located((By.ID, 'mimBody'))):
+        time.sleep(3)
+        if WebDriverWait(self.driver, 8).until(EC.presence_of_element_located((By.ID, 'mimContent'))):
             print('OMIM page loaded')
         print(self.driver.current_url)
         self.assertEqual(self.driver.current_url, 'https://www.omim.org/phenotypicSeries/PS168600',
