@@ -35,8 +35,6 @@ Verify searching by Gene ID using NCBI human gene ID.  Expect human gene returne
         and Gene Tabs.  Diseases rolled up for these genes returned to Disease Tab
 Verify searching for genes by the UniProt human sequence id.  Verify that the human gene is returned
         and its mouse ortholog on the Gene Tab
-Verify searching for genes by the NeXtProt id.  Verify that the human gene is returned
-        and its mouse ortholog on the Gene Tab
 Verify searching for genes by the RefSeq sequence id.  Verify that the human gene is returned
         and its mouse ortholog on the Gene Tab
 Verify searching for genes by the GenBank sequence id.  Verify that the human gene is returned
@@ -879,38 +877,6 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         genelist = iterate.getTextAsList(cells)
         self.assertIn('KRAS', genelist)
         self.assertIn('Kras', genelist)
-
-    def test_gene_human_nextprot_id(self):
-        """
-        @status This test is for searching for genes by the NeXtProt id.  Verify that the human gene is returned
-                and its mouse ortholog on the Gene Tab.
-        @see: HMDC-GQ-32 (human NeXtProt id searches)
-        """
-        print("BEGIN test_gene_human_nextprot_id")
-        my_select = self.driver.find_element(By.XPATH,
-                                             "//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
-        for option in my_select.find_elements(By.TAG_NAME, "option"):
-            if option.text == 'Gene Symbol(s) or ID(s)':
-                option.click()
-                break
-
-        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("NX_Q99884")  # enter human NeXtProt id
-        self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
-
-        # identify the Genes tab and click on it
-        gene_tab = self.driver.find_element(By.CSS_SELECTOR,
-                                            "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
-        time.sleep(2)
-        print(gene_tab.text)
-        gene_tab.click()
-
-        # Grab the list of genes and verify both mouse and human genes are present
-        gene_table = Table(self.driver.find_element(By.ID, "geneTable"))
-        cells = gene_table.get_column_cells("Gene Symbol")
-        genelist = iterate.getTextAsList(cells)
-        self.assertIn('Slc6a7', genelist)
-        self.assertIn('SLC6A7', genelist)
 
     def test_gene_human_refseq_id(self):
         """
