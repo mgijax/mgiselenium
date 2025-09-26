@@ -3,7 +3,7 @@ Created on Apr 30, 2018
 This set of tests verifies the Reference by strain page results
 @author: jeffc
 Verify that the Reference by strain page has the correct header items
-Verify that the Reference by strain page has the sort of descending year, secondary sort of assending J number
+Verify that the Reference by strain page has the sort of descending year, secondary sort of ascending J number
 """
 import os.path
 import sys
@@ -14,12 +14,16 @@ import config
 
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.edge.service import Service as EdgeService
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.edge.service import Service as EdgeService
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
 # adjust the path to find config
 sys.path.append(
@@ -33,9 +37,15 @@ tracemalloc.start()
 class TestRefByStrain(unittest.TestCase):
 
     def setUp(self):
-        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        browser = getattr(config, "BROWSER", "chrome").lower()
+        if browser == "chrome":
+            self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        elif browser == "firefox":
+            self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        elif browser == "edge":
+            self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        else:
+            raise ValueError(f"Unsupported browser: {browser}")
         self.driver.set_window_size(1500, 1000)
         self.driver.get(config.TEST_URL + "/strains_SNPs.shtml")
         self.driver.implicitly_wait(10)
@@ -109,16 +119,16 @@ class TestRefByStrain(unittest.TestCase):
         print(row6.text)
         row7 = driver.find_element(By.XPATH, "//*[@id='dynamicdata']/table/tbody/tr[7]/td[6]/div")
         print(row7.text)
-        self.assertEqual(row1.text, '2024')
-        self.assertEqual(row2a.text, '38167864\nJ:344362\nJournal Link')
-        self.assertEqual(row3a.text, '38171546\nJ:344180\nJournal Link')
-        self.assertEqual(row4a.text, '38167979\nJ:344291\nJournal Link')
-        self.assertEqual(row2.text, '2024')
-        self.assertEqual(row3.text, '2024')
-        self.assertEqual(row4.text, '2024')
-        self.assertEqual(row5.text, '2024')
-        self.assertEqual(row6.text, '2024')
-        self.assertEqual(row7.text, '2024')
+        self.assertEqual(row1.text, '2025')
+        self.assertEqual(row2a.text, '39424203\nJ:359217\nJournal Link')
+        self.assertEqual(row3a.text, '39744942\nJ:360336\nJournal Link')
+        self.assertEqual(row4a.text, '39448026\nJ:360699\nJournal Link')
+        self.assertEqual(row2.text, '2025')
+        self.assertEqual(row3.text, '2025')
+        self.assertEqual(row4.text, '2025')
+        self.assertEqual(row5.text, '2025')
+        self.assertEqual(row6.text, '2025')
+        self.assertEqual(row7.text, '2025')
 
     def tearDown(self):
         self.driver.quit()
@@ -132,4 +142,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\\WebdriverTests'))

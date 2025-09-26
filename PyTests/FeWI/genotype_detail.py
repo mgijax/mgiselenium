@@ -8,17 +8,22 @@ Verify the Genetic Background strain is not a link when it has 'involves'
 """
 import os.path
 import sys
+import time
 import tracemalloc
 import unittest
 import config
 
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
-from selenium.webdriver.common.by import By
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.edge.service import Service as EdgeService
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
 # adjust the path to find config
 sys.path.append(
@@ -32,9 +37,15 @@ tracemalloc.start()
 class TestGenotypeDetail(unittest.TestCase):
 
     def setUp(self):
-        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        browser = getattr(config, "BROWSER", "chrome").lower()
+        if browser == "chrome":
+            self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        elif browser == "firefox":
+            self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        elif browser == "edge":
+            self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        else:
+            raise ValueError(f"Unsupported browser: {browser}")
         self.driver.set_window_size(1500, 1000)
         self.driver.get(config.TEST_URL + "/allele/")
         self.driver.implicitly_wait(10)
@@ -82,10 +93,11 @@ class TestGenotypeDetail(unittest.TestCase):
         self.driver.find_element(By.LINK_TEXT, 'hm1').click()
         # switch to the new window
         self.driver.switch_to.window(self.driver.window_handles[1])
-        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'genoID'))):
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.CLASS_NAME, 'genoID'))):
             print('Phenotypes Associated with This Genotype page loaded')
         # click the Genetic Background link
         self.driver.find_element(By.LINK_TEXT, 'C3.Cg-Pax6132-14Neu').click()
+        time.sleep(2)
         self.driver.switch_to.window(self.driver.window_handles[2])
         ptitle = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
         # Assert the page title is for the correct strain name
@@ -126,4 +138,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\\WebdriverTests'))

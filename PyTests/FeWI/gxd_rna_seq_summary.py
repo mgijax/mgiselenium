@@ -20,11 +20,15 @@ import config
 
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.edge.service import Service as EdgeService
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.common.by import By
 # from lib import *
-from selenium.webdriver.edge.service import Service as EdgeService
 from selenium.webdriver.support.ui import Select
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
 # adjust the path to find config
 sys.path.append(
@@ -38,9 +42,15 @@ tracemalloc.start()
 class TestGxdRnaSeqSummary(unittest.TestCase):
 
     def setUp(self):
-        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        browser = getattr(config, "BROWSER", "chrome").lower()
+        if browser == "chrome":
+            self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        elif browser == "firefox":
+            self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        elif browser == "edge":
+            self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        else:
+            raise ValueError(f"Unsupported browser: {browser}")
         self.driver.set_window_size(1500, 1000)
         self.driver.get(config.TEST_URL + "/gxd/htexp_index")
         self.driver.implicitly_wait(10)
@@ -121,6 +131,8 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         @see GXD-RNASeq-summary-8
         """
         print("BEGIN test_rnaseq_summary_single_var_filter")
+        self.driver.find_element(By.ID, 'agesTab').click()
+        time.sleep(2)
         Select(self.driver.find_element(By.ID, 'age')).deselect_by_value('ANY')  # deselect the default option
         Select(self.driver.find_element(By.ID, 'age')).select_by_value(
             '4')  # finds the age list and select the E4.0 option
@@ -162,12 +174,12 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         result_set1 = self.driver.find_element(By.ID, "variableData1").find_element(By.CLASS_NAME, 'variables')
         print(result_set1.text)
         # Assert the result has an Experimental variables of 'developmental stage and genotype'
-        self.assertEqual(result_set1.text, "developmental stage\ngenotype")
-        # identify the Experimental variable cell of row9 of the results returned
-        result_set8 = self.driver.find_element(By.ID, "variableData9").find_element(By.CLASS_NAME, 'variables')
+        self.assertEqual(result_set1.text, "developmental stage\ngenotype\nbulk RNA-seq")
+        # identify the Experimental variable cell of row4 of the results returned
+        result_set8 = self.driver.find_element(By.ID, "variableData4").find_element(By.CLASS_NAME, 'variables')
         print(result_set8.text)
         # Assert the result has an Experimental variable of 'anatomical structure, developmental stage, genotype, single cell variation'
-        self.assertEqual(result_set8.text, "cell type\ndevelopmental stage\ngenotype\nsingle cell variation")
+        self.assertEqual(result_set8.text, "cell type\ndevelopmental stage\ngenotype\nsingle cell RNA-seq")
 
     def test_rnaseq_summary_study_filter(self):
         """
@@ -192,6 +204,8 @@ class TestGxdRnaSeqSummary(unittest.TestCase):
         print(result_set.text)
         # Assert the lone result has a study type of 'WT vs. Mutant'
         self.assertEqual(result_set.text, "WT vs. Mutant")
+
+    # test_rnaseq_summary_cell_type_filter(self):
 
     def test_rnaseq_summary_vea_sort_order(self):
         """
@@ -247,4 +261,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\\WebdriverTests'))

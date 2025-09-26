@@ -40,12 +40,17 @@ class TestEiHTindexSearch(unittest.TestCase):
     """
     @status Test GXD HT Index search
     """
-
     def setUp(self):
-        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
-        self.driver.set_window_size(1800, 1000)
+        browser = getattr(config, "BROWSER", "chrome").lower()
+        if browser == "chrome":
+            self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        elif browser == "firefox":
+            self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        elif browser == "edge":
+            self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        else:
+            raise ValueError(f"Unsupported browser: {browser}")
+        self.driver.set_window_size(1500, 1000)
         self.form = ModuleForm(self.driver)
         self.form.get_module(config.TEST_PWI_URL + "/edit/gxdHTEval")
 
@@ -106,7 +111,7 @@ class TestEiHTindexSearch(unittest.TestCase):
         """
         driver = self.driver
         # finds the ArrayExp field and enter the ID
-        driver.find_element(By.ID, "geoid").send_keys("GSE1008");
+        driver.find_element(By.ID, "geoid").send_keys("GSE1008")
         driver.find_element(By.ID, 'searchButton').click()
         WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.CLASS_NAME, 'scrollable-menu'), 'E-GEOD-1008 *'))
         # find the search results
@@ -246,4 +251,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\\WebdriverTests'))

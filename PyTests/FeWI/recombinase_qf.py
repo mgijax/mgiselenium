@@ -9,6 +9,8 @@ Verify that searching by 2 structures, 1 detected and 1 not detected return the 
 Verify that searching by 2 structures, 1 detected and 1 not detected and driven by Ltf return the correct results
 Verify that the sorting order for alleles is correct on Gene Expression + Recombinase Activity Comparison Matrix
 Verify that the alleles popup displays correct species data on Gene Expression + Recombinase Activity Comparison Matrix
+verify the link to cell type for the recombinase activity detail page
+Verify the link to structure for the recombinase activity detail page
 """
 import os.path
 import sys
@@ -19,12 +21,16 @@ import config
 
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.edge.service import Service as EdgeService
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
-from selenium.webdriver.edge.service import Service as EdgeService
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
 # adjust the path to find config
 sys.path.append(
@@ -38,9 +44,15 @@ tracemalloc.start()
 class TestCreSpecificity(unittest.TestCase):
 
     def setUp(self):
-        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        browser = getattr(config, "BROWSER", "chrome").lower()
+        if browser == "chrome":
+            self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        elif browser == "firefox":
+            self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        elif browser == "edge":
+            self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        else:
+            raise ValueError(f"Unsupported browser: {browser}")
         self.driver.set_window_size(1500, 1000)
         self.driver.get(config.TEST_URL + "/home/recombinase")
         self.driver.implicitly_wait(10)
@@ -397,6 +409,80 @@ class TestCreSpecificity(unittest.TestCase):
         self.assertEqual('Tg(Krt1-5-cre/ERT)1Ipc\nnot specified driver species', tooltip9,
                          'the tooltip9 species is wrong')
 
+    def test_link_cell_type(self):
+        """
+        @status This test verifies the link to cell type for the recombinase activity detail page.
+        @note: Recomb-test-5
+        """
+        # find the Anatomical Structure field and enter text
+        self.driver.find_element(By.NAME, 'structure_1').send_keys('nervous system')
+        time.sleep(2)
+        # set the recombinase driven by field to Plp1
+        self.driver.find_element(By.ID, 'creDriverAC').send_keys('Plp1')
+        self.driver.find_element(By.CLASS_NAME, 'goButton').click()
+        self.driver.switch_to.window(self.driver.window_handles[-1])
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.CLASS_NAME, 'titleBarMainTitle'),
+                                                                              'Recombinase Alleles - Tissue Summary'))
+        # find all the results in the Driver column so they can be verified
+        driver1 = self.driver.find_element(By.CSS_SELECTOR, '#yui-rec0 > td:nth-child(1) > div:nth-child(1)')
+        print(driver1.text)
+        # find the link for Tg(Plp1-Ccre)RFKi and click it
+        self.driver.find_element(By.CSS_SELECTOR, '#yui-rec0 > td:nth-child(3) > div:nth-child(1) > a:nth-child(1)').click()
+        time.sleep(2)
+        self.driver.switch_to.window(self.driver.window_handles[-1])
+        WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'recombinaseHeader')))
+        # close the preferences popup
+        self.driver.find_element(By.CSS_SELECTOR, 'a.ccb-button:nth-child(2)').click()
+        # find the table box for nervous system for Embryonic (E14-21) in the recombinase activity section and click it
+        self.driver.find_element(By.CSS_SELECTOR, 'tr.pgg-row:nth-child(15) > td:nth-child(4)').click()
+        self.driver.switch_to.window(self.driver.window_handles[-1])
+        time.sleep(2)
+        # find the link 'View All Result Details and Images" in the popup Cell Counts and click it
+        self.driver.find_element(By.CSS_SELECTOR, ".view-results-button").click()
+        self.driver.switch_to.window(self.driver.window_handles[-1])
+        # find the link for glial cell found on row 1 Cell Type column and click it.
+        self.driver.find_element(By.CSS_SELECTOR, '#yui-rec0 > td:nth-child(2) > div:nth-child(1) > span:nth-child(1) > a:nth-child(1)').click()
+        cell = self.driver.find_element(By.CSS_SELECTOR, '.highlight > b:nth-child(1)')
+        # verifies the correct cell type is displayed
+        self.assertEqual('glial cell', cell.text, 'cell type is not correct')
+
+    def test_link_structure(self):
+        """
+        @status This test verifies the link to structure for the recombinase activity detail page.
+        @note: Recomb-test-5
+        """
+        # find the Anatomical Structure field and enter text
+        self.driver.find_element(By.NAME, 'structure_1').send_keys('nervous system')
+        time.sleep(2)
+        # set the recombinase driven by field to Plp1
+        self.driver.find_element(By.ID, 'creDriverAC').send_keys('Plp1')
+        self.driver.find_element(By.CLASS_NAME, 'goButton').click()
+        self.driver.switch_to.window(self.driver.window_handles[-1])
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.CLASS_NAME, 'titleBarMainTitle'),
+                                                                              'Recombinase Alleles - Tissue Summary'))
+        # find all the results in the Driver column so they can be verified
+        driver1 = self.driver.find_element(By.CSS_SELECTOR, '#yui-rec0 > td:nth-child(1) > div:nth-child(1)')
+        print(driver1.text)
+        # find the link for Tg(Plp1-Ccre)RFKi and click it
+        self.driver.find_element(By.CSS_SELECTOR, '#yui-rec0 > td:nth-child(3) > div:nth-child(1) > a:nth-child(1)').click()
+        time.sleep(2)
+        self.driver.switch_to.window(self.driver.window_handles[-1])
+        WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'recombinaseHeader')))
+        # close the preferences popup
+        self.driver.find_element(By.CSS_SELECTOR, 'a.ccb-button:nth-child(2)').click()
+        # find the table box for nervous system for Embryonic (E14-21) in the recombinase activity section and click it
+        self.driver.find_element(By.CSS_SELECTOR, 'tr.pgg-row:nth-child(15) > td:nth-child(4)').click()
+        self.driver.switch_to.window(self.driver.window_handles[-1])
+        time.sleep(2)
+        # find the link 'View All Result Details and Images" in the popup Cell Counts and click it
+        self.driver.find_element(By.CSS_SELECTOR, ".view-results-button").click()
+        self.driver.switch_to.window(self.driver.window_handles[-1])
+        # find the link for 3rd ventricle found on row 1 Structure column and click it.
+        self.driver.find_element(By.CSS_SELECTOR, '#yui-rec0 > td:nth-child(1) > div:nth-child(1) > span:nth-child(1) > a:nth-child(1)').click()
+        struct = self.driver.find_element(By.CSS_SELECTOR, '#termPaneDetails > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(2) > span:nth-child(1) > b:nth-child(1)')
+        # verifies the correct structure is displayed
+        self.assertEqual('3rd ventricle', struct.text, 'structure is not correct')
+
     def tearDown(self):
         self.driver.quit()
         tracemalloc.stop()
@@ -409,4 +495,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\\WebdriverTests'))

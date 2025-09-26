@@ -16,17 +16,16 @@ import unittest
 
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.edge.service import Service as EdgeService
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.firefox.service import Service as FirefoxService
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
-from webdriver_manager.firefox import GeckoDriverManager
-from webdriver_manager.chrome import ChromeDriverManager
-
 
 import config
 
@@ -41,9 +40,15 @@ tracemalloc.start()
 class TestDoBrowserGeneral(unittest.TestCase):
 
     def setUp(self):
-        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        browser = getattr(config, "BROWSER", "chrome").lower()
+        if browser == "chrome":
+            self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        elif browser == "firefox":
+            self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        elif browser == "edge":
+            self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        else:
+            raise ValueError(f"Unsupported browser: {browser}")
         self.driver.set_window_size(1500, 1000)
         self.driver.get(config.TEST_URL)
         # self.driver.get("http://scrumdogdev.informatics.jax.org")
@@ -123,8 +128,8 @@ class TestDoBrowserGeneral(unittest.TestCase):
         self.driver.find_element(By.LINK_TEXT, 'OMIM:PS168600').click()
         self.driver.switch_to.window(self.driver.window_handles[-1])
         time.sleep(3)
-        if WebDriverWait(self.driver, 8).until(EC.presence_of_element_located((By.ID, 'mimContent'))):
-            print('OMIM page loaded')
+        #if WebDriverWait(self.driver, 8).until(EC.presence_of_element_located((By.ID, 'mimContent'))):
+            #print('OMIM page loaded')
         print(self.driver.current_url)
         self.assertEqual(self.driver.current_url, 'https://www.omim.org/phenotypicSeries/PS168600',
                          'The OMIM link is broken!')

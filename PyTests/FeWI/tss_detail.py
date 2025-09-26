@@ -13,8 +13,11 @@ from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 # from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.edge.service import Service as EdgeService
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from webdriver_manager.chrome import ChromeDriverManager
 from util.table import Table
 
 # from genericpath import exists
@@ -22,7 +25,9 @@ from util.table import Table
 sys.path.append(
     os.path.join(os.path.dirname(__file__), '../../..', )
 )
-
+chrome_options = webdriver.ChromeOptions()
+chrome_options.set_capability("browserVersion", "latest")
+chrome_options.set_capability("platformName", "win11")
 # Test
 tracemalloc.start()
 
@@ -30,9 +35,16 @@ tracemalloc.start()
 class TestTssDetail(unittest.TestCase):
 
     def setUp(self):
-        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        browser = os.getenv("BROWSER", "chrome").lower()
+
+        if browser == "chrome":
+            self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        elif browser == "firefox":
+            self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        elif browser == "edge":
+            self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        else:
+            raise ValueError(f"Unsupported browser: {browser}")
         self.driver.set_window_size(1500, 1000)
         self.driver.get(config.TEST_URL + "/marker/")
         self.driver.implicitly_wait(10)
@@ -77,4 +89,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\\WebdriverTests'))

@@ -16,16 +16,20 @@ import time
 import tracemalloc
 import unittest
 
-from config import config
-from util import wait, iterate
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.edge.service import Service as EdgeService
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.edge.service import Service as EdgeService
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from config import config
+from util import wait, iterate
 
 # adjust the path to find config
 sys.path.append(
@@ -39,9 +43,15 @@ tracemalloc.start()
 class TestGXDTissueStageMatrix(unittest.TestCase):
 
     def setUp(self):
-        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        browser = getattr(config, "BROWSER", "chrome").lower()
+        if browser == "chrome":
+            self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        elif browser == "firefox":
+            self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        elif browser == "edge":
+            self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        else:
+            raise ValueError(f"Unsupported browser: {browser}")
         self.driver.set_window_size(1500, 1000)
 
     def test_structure_names_sort(self):
@@ -62,7 +72,7 @@ class TestGXDTissueStageMatrix(unittest.TestCase):
         tissuestagetab = driver.find_element(By.ID, 'stagegridtab')
         # click the Tissue x Stage Matrix tab
         tissuestagetab.click()
-        if WebDriverWait(self.driver, 8).until(EC.presence_of_element_located((By.ID, 'rowGroupInner'))):
+        if WebDriverWait(self.driver, 20).until(EC.presence_of_element_located((By.ID, 'rowGroupInner'))):
             print('tissue x stage tab data loaded')
         # find the Anatomical systems high level terms
         termslist = driver.find_element(By.ID, 'stagegriddata').find_element(By.ID, 'rowGroupInner')
@@ -277,4 +287,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\\WebdriverTests'))

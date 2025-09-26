@@ -32,9 +32,13 @@ import unittest
 import config
 
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.edge.service import Service as EdgeService
+from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.edge.service import Service as EdgeService
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from selenium.webdriver.common.by import By
 from util import wait
 from util.table import Table
 # adjust the path to find config
@@ -49,9 +53,15 @@ tracemalloc.start()
 class TestHmdcSynToSynSearch(unittest.TestCase):
 
     def setUp(self):
-        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        browser = getattr(config, "BROWSER", "chrome").lower()
+        if browser == "chrome":
+            self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        elif browser == "firefox":
+            self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        elif browser == "edge":
+            self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        else:
+            raise ValueError(f"Unsupported browser: {browser}")
         self.driver.set_window_size(1500, 1000)
         self.driver.get(config.TEST_URL + "/humanDisease.shtml")
         self.driver.implicitly_wait(10)
@@ -107,7 +117,7 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         # Verify the Search table columns row 2
         self.assertEqual(sterm2.text, '(HP:0003270)\nAbdominal distention')
         self.assertEqual(mmethod2.text, 'lexical')
-        self.assertEqual(mtype2.text, 'exact')
+        self.assertEqual(mtype2.text, 'broad')
         self.assertEqual(mterm2.text, '(MP:0009247)\nmeteorism')
         self.assertEqual(termsyn2.text, 'bloating | gastrointestinal bloating | tympania | tympanism | tympanites')
 
@@ -209,13 +219,13 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         termsyn2 = table.get_cell(2, 5)
         print(termsyn2.text)
         # Verify the Search Term table columns(row 1)
-        self.assertEqual(sterm1.text, '(HP:0100851)\nAbnormal emotion')
+        self.assertEqual(sterm1.text, '(HP:0100851)\nAbnormal emotional state')
         self.assertEqual(mmethod1.text, 'manual')
         self.assertEqual(mtype1.text, 'broad')
         self.assertEqual(mterm1.text, '(MP:0003461)\nabnormal response to novel object')
         self.assertEqual(termsyn1.text, '')
         # Verify the Search Term table columns(row 2)
-        self.assertEqual(sterm2.text, '(HP:0100851)\nAbnormal emotion')
+        self.assertEqual(sterm2.text, '(HP:0100851)\nAbnormal emotional state')
         self.assertEqual(mmethod2.text, 'lexical')
         self.assertEqual(mtype2.text, 'exact')
         self.assertEqual(mterm2.text, '(MP:0002572)\nabnormal emotion/affect behavior')
@@ -291,9 +301,9 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         termsyn1 = table.get_cell(1, 5)
         print(termsyn1.text)
         # Verify the Search table columns(row 1)
-        self.assertEqual(sterm1.text, '(HP:0000290)\nAbnormality of the forehead')
+        self.assertEqual(sterm1.text, '(HP:0000290)\nAbnormal forehead morphology')
         self.assertEqual(mmethod1.text, 'lexical')
-        self.assertEqual(mtype1.text, 'broad')
+        self.assertEqual(mtype1.text, 'exact')
         self.assertEqual(mterm1.text, '(MP:0030031)\nabnormal forehead morphology')
         self.assertEqual(termsyn1.text, 'abnormality of the frontal region of the face | deformity of the forehead | forehead anomaly | malformation of the forehead')
     def test_rel_syn_to_syn6(self):
@@ -1001,7 +1011,7 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         # Verify the Search table columns(row 1)
         self.assertEqual(sterm1.text, '(HP:0007185)\nLoss of consciousness')
         self.assertEqual(mmethod1.text, 'lexical')
-        self.assertEqual(mtype1.text, 'exact')
+        self.assertEqual(mtype1.text, 'broad')
         self.assertEqual(mterm1.text, '(MP:0031302)\nsyncope')
         self.assertEqual(termsyn1.text, 'fainting | fainting spell')
 

@@ -31,13 +31,17 @@ import config
 
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.edge.service import Service as EdgeService
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.edge.service import Service as EdgeService
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
 # from config.config import TEST_URL
 from config import TEST_URL
 from util.form import ModuleForm
@@ -55,12 +59,17 @@ tracemalloc.start()
 class TestSequenceDetail(unittest.TestCase):
 
     def setUp(self):
-        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        browser = os.getenv("BROWSER", "chrome").lower()
+
+        if browser == "chrome":
+            self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        elif browser == "firefox":
+            self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        elif browser == "edge":
+            self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        else:
+            raise ValueError(f"Unsupported browser: {browser}")
         self.driver.set_window_size(1500, 1000)
-        # self.driver.get("http://www.informatics.jax.org")
-        # self.driver.get("http://bluebob.informatics.jax.org")
         self.form = ModuleForm(self.driver)
         self.driver.get(TEST_URL)
 
@@ -361,7 +370,7 @@ class TestSequenceDetail(unittest.TestCase):
     def test_mgi_gm_fasta(self):
         """
         @status: Tests that an MGI gene model sequence can be downloaded for FASTA
-        @note: seqdetail-seq-3
+        @note: seqdetail-seq-3 !!!I believe this GO link is no longer on the page so this test is void????
         """
         driver = self.driver
         driver.get(config.TEST_URL)
@@ -719,7 +728,7 @@ class TestSequenceDetail(unittest.TestCase):
     def test_mgi_assoc_gene(self):
         """
         @status: Tests that an MGI sequence detail displays the correct associated genes and markers data
-        @note: seqdetail-cassoc-gene-2
+        @note: seqdetail-assoc-gene-2
         """
         driver = self.driver
         driver.get(config.TEST_URL)
@@ -758,15 +767,15 @@ class TestSequenceDetail(unittest.TestCase):
         # find the GO Terms cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 3)
         print(cell1.text)
-        self.assertIn('41', cell1.text)
+        self.assertIn('48', cell1.text)
         # find the Expression Assays cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 4)
         print(cell1.text)
-        self.assertIn('202', cell1.text)
+        self.assertIn('203', cell1.text)
         # find the Orthologs cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 5)
         print(cell1.text)
-        self.assertIn('3', cell1.text)
+        self.assertIn('4', cell1.text)
         # find the Phenotypic Alleles cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 6)
         print(cell1.text)
@@ -784,4 +793,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\\WebdriverTests'))

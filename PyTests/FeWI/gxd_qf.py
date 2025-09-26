@@ -22,13 +22,17 @@ import config
 from util import iterate
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.edge.service import Service as EdgeService
 from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
-from webdriver_manager.chrome import ChromeDriverManager
 # adjust the path to find config
 sys.path.append(
   os.path.join(os.path.dirname(__file__), '../..',)
@@ -40,9 +44,15 @@ class TestGxdQF(unittest.TestCase):
 
 
     def setUp(self):
-        self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-        # self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        browser = getattr(config, "BROWSER", "chrome").lower()
+        if browser == "chrome":
+            self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        elif browser == "firefox":
+            self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        elif browser == "edge":
+            self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        else:
+            raise ValueError(f"Unsupported browser: {browser}")
         self.driver.set_window_size(1500, 1000)
         self.driver.get(config.TEST_URL + "/gxd/")
         self.driver.implicitly_wait(10)
@@ -136,12 +146,15 @@ class TestGxdQF(unittest.TestCase):
     def test_specimen_wild_type_only(self):
         """
         @status: Tests that the option "Wild type specimens only" option of the GXD query form works as expected
-        @note GXD-assay-5
+        @note GXD-assay-5 passed 6/6/2025
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")
         # find the Detected in option of the Anatomical structure or stage section and click it
         driver.find_element(By.ID, 'detected1').click()
+        # find the theiler stage and select TS19
+        Select(self.driver.find_element(By.ID, 'theilerStage')).deselect_by_value('0')  # deselect the default option
+        Select(self.driver.find_element(By.ID, 'theilerStage')).select_by_value('19')  # finds the theiler stage list and select the TS 28 option
         # find the Wild type specimens only option in the Mutant/wild type section and click it
         iwild = driver.find_element(By.ID, 'isWildType')
         driver.execute_script("arguments[0].click();", iwild)
@@ -315,4 +328,4 @@ def suite():
     return suite
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\\WebdriverTests'))

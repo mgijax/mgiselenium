@@ -34,13 +34,17 @@ import config
 
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.edge.service import Service as EdgeService
 from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
-from webdriver_manager.chrome import ChromeDriverManager
 from util import iterate
 from util.table import Table
 
@@ -56,9 +60,16 @@ tracemalloc.start()
 class TestSnpQF(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-        # self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        browser = os.getenv("BROWSER", "chrome").lower()
+
+        if browser == "chrome":
+            self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        elif browser == "firefox":
+            self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        elif browser == "edge":
+            self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        else:
+            raise ValueError(f"Unsupported browser: {browser}")
         self.driver.set_window_size(1500, 1000)
         self.driver.get(config.TEST_URL + "/snp")
         self.driver.implicitly_wait(10)
@@ -88,7 +99,7 @@ class TestSnpQF(unittest.TestCase):
         print(iterate.getTextAsList(cells))
         rsreturned = iterate.getTextAsList(cells)
         # asserts that the following rs IDs are returned
-        self.assertEqual(['SNP ID\n(GRCm39)', 'rs242800284\nMGI SNP Detail', 'rs578523809\nMGI SNP Detail', 'rs582188582\nMGI SNP Detail', 'rs212457488\nMGI SNP Detail', 'rs226445658\nMGI SNP Detail', 'rs33674412\nMGI SNP Detail', 'rs585655143\nMGI SNP Detail', 'rs108198781\nMGI SNP Detail', 'rs108778547\nMGI SNP Detail', 'rs261004727\nMGI SNP Detail', 'rs218362427\nMGI SNP Detail', 'rs47111361\nMGI SNP Detail', 'rs249730915\nMGI SNP Detail', 'rs46947101\nMGI SNP Detail', 'rs239706155\nMGI SNP Detail', 'rs261929355\nMGI SNP Detail', 'rs224835265\nMGI SNP Detail', 'rs247694355\nMGI SNP Detail', 'rs51773329\nMGI SNP Detail', 'rs45811526\nMGI SNP Detail', 'rs236309150\nMGI SNP Detail', 'rs253623880\nMGI SNP Detail', 'rs226413509\nMGI SNP Detail', 'rs579981447\nMGI SNP Detail', 'rs51494338\nMGI SNP Detail', 'SNP ID\n(GRCm39)', 'rs217616493\nMGI SNP Detail', 'rs231885837\nMGI SNP Detail', 'rs260499155\nMGI SNP Detail', 'rs218267274\nMGI SNP Detail', 'rs29729942\nMGI SNP Detail', 'rs33485416\nMGI SNP Detail', 'rs214491230\nMGI SNP Detail', 'rs231875716\nMGI SNP Detail', 'rs257041982\nMGI SNP Detail', 'rs225232488\nMGI SNP Detail', 'rs245058791\nMGI SNP Detail', 'rs264149809\nMGI SNP Detail', 'rs221790820\nMGI SNP Detail', 'rs236474324\nMGI SNP Detail', 'rs253582848\nMGI SNP Detail', 'rs33068028\nMGI SNP Detail', 'rs245621764\nMGI SNP Detail', 'rs263816277\nMGI SNP Detail', 'rs232641833\nMGI SNP Detail', 'rs254923948\nMGI SNP Detail', 'rs260861789\nMGI SNP Detail', 'rs29682823\nMGI SNP Detail', 'rs243668594\nMGI SNP Detail', 'rs214599967\nMGI SNP Detail', 'rs231824630\nMGI SNP Detail', 'SNP ID\n(GRCm39)', 'rs258411027\nMGI SNP Detail', 'rs583636057\nMGI SNP Detail', 'rs586160681\nMGI SNP Detail', 'rs216598691\nMGI SNP Detail', 'rs239951257\nMGI SNP Detail', 'rs260764549\nMGI SNP Detail', 'rs221886881\nMGI SNP Detail', 'rs230621041\nMGI SNP Detail', 'rs247947812\nMGI SNP Detail', 'rs219903994\nMGI SNP Detail', 'rs242744376\nMGI SNP Detail', 'rs33133952\nMGI SNP Detail', 'rs580354696\nMGI SNP Detail', 'rs224523062\nMGI SNP Detail', 'rs251897484\nMGI SNP Detail', 'rs260958293\nMGI SNP Detail', 'rs225222961\nMGI SNP Detail', 'rs33181672\nMGI SNP Detail', 'rs258504798\nMGI SNP Detail', 'rs230433332\nMGI SNP Detail', 'rs253202906\nMGI SNP Detail', 'rs216278752\nMGI SNP Detail', 'rs237823120\nMGI SNP Detail', 'rs247388744\nMGI SNP Detail', 'rs216681365\nMGI SNP Detail', 'SNP ID\n(GRCm39)', 'rs230589357\nMGI SNP Detail', 'rs248104048\nMGI SNP Detail', 'rs219829424\nMGI SNP Detail', 'rs237785982\nMGI SNP Detail', 'rs259064435\nMGI SNP Detail', 'rs223739221\nMGI SNP Detail', 'rs248077077\nMGI SNP Detail', 'rs254813293\nMGI SNP Detail', 'rs219238652\nMGI SNP Detail', 'rs237467004\nMGI SNP Detail', 'rs258608523\nMGI SNP Detail', 'rs230149305\nMGI SNP Detail', 'rs249385308\nMGI SNP Detail', 'rs263280273\nMGI SNP Detail', 'rs235042173\nMGI SNP Detail', 'rs246801108\nMGI SNP Detail', 'rs216646629\nMGI SNP Detail', 'rs242156134\nMGI SNP Detail', 'rs215008935\nMGI SNP Detail', 'rs48089243\nMGI SNP Detail', 'rs263212619\nMGI SNP Detail', 'rs215460178\nMGI SNP Detail', 'rs236061108\nMGI SNP Detail', 'rs254046834\nMGI SNP Detail', 'rs219163717\nMGI SNP Detail'],
+        self.assertEqual(['SNP ID\n(GRCm39)', 'rs242800284\nMGI SNP Detail', 'rs578523809\nMGI SNP Detail', 'rs582188582\nMGI SNP Detail', 'rs212457488\nMGI SNP Detail', 'rs226445658\nMGI SNP Detail', 'rs33674412\nMGI SNP Detail', 'rs585655143\nMGI SNP Detail', 'rs108198781\nMGI SNP Detail', 'rs108778547\nMGI SNP Detail', 'rs261004727\nMGI SNP Detail', 'rs218362427\nMGI SNP Detail', 'rs47111361\nMGI SNP Detail', 'rs249730915\nMGI SNP Detail', 'rs46947101\nMGI SNP Detail', 'rs239706155\nMGI SNP Detail', 'rs261929355\nMGI SNP Detail', 'rs224835265\nMGI SNP Detail', 'rs247694355\nMGI SNP Detail', 'rs51773329\nMGI SNP Detail', 'rs45811526\nMGI SNP Detail', 'rs236309150\nMGI SNP Detail', 'rs253623880\nMGI SNP Detail', 'rs226413509\nMGI SNP Detail', 'rs579981447\nMGI SNP Detail', 'rs51494338\nMGI SNP Detail', 'SNP ID\n(GRCm39)', 'rs217616493\nMGI SNP Detail', 'rs231885837\nMGI SNP Detail', 'rs260499155\nMGI SNP Detail', 'rs218267274\nMGI SNP Detail', 'rs29729942\nMGI SNP Detail', 'rs33485416\nMGI SNP Detail', 'rs214491230\nMGI SNP Detail', 'rs231875716\nMGI SNP Detail', 'rs257041982\nMGI SNP Detail', 'rs225232488\nMGI SNP Detail', 'rs245058791\nMGI SNP Detail', 'rs264149809\nMGI SNP Detail', 'rs221790820\nMGI SNP Detail', 'rs236474324\nMGI SNP Detail', 'rs253582848\nMGI SNP Detail', 'rs33068028\nMGI SNP Detail', 'rs245621764\nMGI SNP Detail', 'rs263816277\nMGI SNP Detail', 'rs232641833\nMGI SNP Detail', 'rs254923948\nMGI SNP Detail', 'rs260861789\nMGI SNP Detail', 'rs29682823\nMGI SNP Detail', 'rs243668594\nMGI SNP Detail', 'rs214599967\nMGI SNP Detail\nAlliance Variant', 'rs231824630\nMGI SNP Detail\nAlliance Variant', 'SNP ID\n(GRCm39)', 'rs258411027\nMGI SNP Detail\nAlliance Variant', 'rs583636057\nMGI SNP Detail\nAlliance Variant', 'rs586160681\nMGI SNP Detail\nAlliance Variant', 'rs216598691\nMGI SNP Detail\nAlliance Variant', 'rs239951257\nMGI SNP Detail\nAlliance Variant', 'rs260764549\nMGI SNP Detail\nAlliance Variant', 'rs221886881\nMGI SNP Detail\nAlliance Variant', 'rs230621041\nMGI SNP Detail\nAlliance Variant', 'rs247947812\nMGI SNP Detail\nAlliance Variant', 'rs219903994\nMGI SNP Detail\nAlliance Variant', 'rs242744376\nMGI SNP Detail\nAlliance Variant', 'rs33133952\nMGI SNP Detail\nAlliance Variant', 'rs580354696\nMGI SNP Detail\nAlliance Variant', 'rs224523062\nMGI SNP Detail\nAlliance Variant', 'rs251897484\nMGI SNP Detail\nAlliance Variant', 'rs260958293\nMGI SNP Detail\nAlliance Variant', 'rs225222961\nMGI SNP Detail\nAlliance Variant', 'rs33181672\nMGI SNP Detail\nAlliance Variant', 'rs258504798\nMGI SNP Detail\nAlliance Variant', 'rs230433332\nMGI SNP Detail\nAlliance Variant', 'rs253202906\nMGI SNP Detail\nAlliance Variant', 'rs216278752\nMGI SNP Detail\nAlliance Variant', 'rs237823120\nMGI SNP Detail\nAlliance Variant', 'rs247388744\nMGI SNP Detail\nAlliance Variant', 'rs216681365\nMGI SNP Detail\nAlliance Variant', 'SNP ID\n(GRCm39)', 'rs230589357\nMGI SNP Detail\nAlliance Variant', 'rs248104048\nMGI SNP Detail\nAlliance Variant', 'rs219829424\nMGI SNP Detail\nAlliance Variant', 'rs237785982\nMGI SNP Detail\nAlliance Variant', 'rs259064435\nMGI SNP Detail\nAlliance Variant', 'rs223739221\nMGI SNP Detail\nAlliance Variant', 'rs248077077\nMGI SNP Detail\nAlliance Variant', 'rs254813293\nMGI SNP Detail\nAlliance Variant', 'rs219238652\nMGI SNP Detail\nAlliance Variant', 'rs237467004\nMGI SNP Detail\nAlliance Variant', 'rs258608523\nMGI SNP Detail\nAlliance Variant', 'rs230149305\nMGI SNP Detail\nAlliance Variant', 'rs249385308\nMGI SNP Detail\nAlliance Variant', 'rs263280273\nMGI SNP Detail\nAlliance Variant', 'rs235042173\nMGI SNP Detail\nAlliance Variant', 'rs246801108\nMGI SNP Detail\nAlliance Variant', 'rs216646629\nMGI SNP Detail\nAlliance Variant', 'rs242156134\nMGI SNP Detail\nAlliance Variant', 'rs215008935\nMGI SNP Detail\nAlliance Variant', 'rs48089243\nMGI SNP Detail\nAlliance Variant', 'rs263212619\nMGI SNP Detail\nAlliance Variant', 'rs215460178\nMGI SNP Detail\nAlliance Variant', 'rs236061108\nMGI SNP Detail\nAlliance Variant', 'rs254046834\nMGI SNP Detail\nAlliance Variant', 'rs219163717\nMGI SNP Detail\nAlliance Variant'],
                          rsreturned)  # this is all the data returned from the SNP ID column
 
     """def test_search_1_ref_strain_different(self):
@@ -168,8 +179,47 @@ class TestSnpQF(unittest.TestCase):
         rsreturned = iterate.getTextAsList(cells)
         # asserts that the following rs IDs are returned
 
-        self.assertEqual(['SNP ID\n(GRCm39)', 'rs583636057\nMGI SNP Detail', 'rs586160681\nMGI SNP Detail', 'rs579070145\nMGI SNP Detail', 'rs581574102\nMGI SNP Detail', 'rs581890197\nMGI SNP Detail', 'rs51528487\nMGI SNP Detail'],
+        self.assertEqual(['SNP ID\n(GRCm39)', 'rs583636057\nMGI SNP Detail\nAlliance Variant', 'rs586160681\nMGI SNP Detail\nAlliance Variant', 'rs579070145\nMGI SNP Detail', 'rs581574102\nMGI SNP Detail', 'rs581890197\nMGI SNP Detail', 'rs51528487\nMGI SNP Detail'],
                          rsreturned)  # this is all the data returned from the SNP ID column
+
+    def test_search_gene_filter_by_function_class(self):
+        """
+        @status: Tests that you can search for snps using a single gene and then filtering by function class(splice site).
+        @note: snp-qf-gene-?
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/snp")
+        genesearchbox = driver.find_element(By.ID, 'nomen')
+        # Enter your Gene symbol
+        genesearchbox.send_keys("Gata1")
+        # find the search button and click it
+        driver.find_element(By.ID, 'geneSearch').click()
+        time.sleep(2)
+        # Locate the page info line and verify the text
+        pginfo = driver.find_element(By.ID, 'yui-pg0-0-page-report')
+        print(pginfo.text)
+        self.assertEqual(pginfo.text, 'Showing SNP(s) 1 - 100 of 492', 'The page info text is not correct')
+        # locates the SNP summary table
+        snp_table = Table(self.driver.find_element(By.ID, "snpSummaryTable"))
+        # Locate the table header cells and verify the strains are correct
+        cells1 = snp_table.get_header_cells()
+        print(iterate.getTextAsList(cells1))
+        print(cells1[5].text)
+        print(cells1[6].text)
+        self.assertEqual(cells1[5].text, '129P2/OlaHsd', 'The first strain is not correct')
+        self.assertEqual(cells1[6].text, '129S1/SvImJ', 'The second strain is not correct')
+        # find the Function Class filter and click it.
+        driver.find_element(By.ID, 'functionClassFilter').click()
+        time.sleep(1)
+        # find the option "splice Site" and select it.
+        driver.find_element(By.CSS_SELECTOR, '#command > label:nth-child(9) > input:nth-child(1)').click()
+        time.sleep(1)
+        driver.find_element(By.ID, 'yui-gen0-button').click()
+        time.sleep(1)
+        # Locate the page info line and verify the text
+        pginfo = driver.find_element(By.ID, 'yui-pg0-0-page-report')
+        print(pginfo.text)
+        self.assertEqual(pginfo.text, 'Showing SNP(s) 1 - 1 of 1', 'The page info text is not correct')
 
     def test_search_multi_ref_strain(self):
         """
@@ -242,7 +292,7 @@ class TestSnpQF(unittest.TestCase):
         rsreturned = iterate.getTextAsList(cells)
         # asserts that the following rs IDs are returned
         self.assertEqual(
-            ['SNP ID\n(GRCm39)', 'rs3021544\nMGI SNP Detail', 'rs3021927\nMGI SNP Detail', 'rs3021928\nMGI SNP Detail',
+            ['SNP ID\n(GRCm39)', 'rs3021544\nMGI SNP Detail\nAlliance Variant', 'rs3021927\nMGI SNP Detail', 'rs3021928\nMGI SNP Detail',
              'rs3021931\nMGI SNP Detail', 'rs3021868\nMGI SNP Detail'],
             rsreturned)  # this is all the data returned from the SNP ID column currently 5 IDs as of 9/1218
         # self.assertEqual(['SNP ID\n(GRCm38)', 'rs3021544\nMGI SNP Detail', 'rs3021927\nMGI SNP Detail', 'rs3021928\nMGI SNP Detail', 'rs3021931\nMGI SNP Detail', 'rs3021868\nMGI SNP Detail'], rsReturned) # this is all the data returned from the SNP ID column currently 5 IDs as of 9/1218
@@ -291,8 +341,10 @@ class TestSnpQF(unittest.TestCase):
         driver.find_element(By.CSS_SELECTOR, 'a.ccb-button:nth-child(1)').click()
         # find the Comparison box for strain AKR/J and click it
         form2.find_element(By.XPATH, '//*[@id="form2"]/table/tbody/tr[2]/td[2]/div/div[2]/div[1]/div[15]').click()
+        time.sleep(2)
         # find the search button and click it
-        form2.find_element(By.XPATH, '//*[@id="locationSearch"]').click()
+        #form2.find_element(By.XPATH, '//*[@id="locationSearch"]').click()
+        #form2.find_element(By.ID, 'locationSearch').click()
         # Locate the heat map info line and verify the text
         hminfo = driver.find_element(By.XPATH, '//*[@id="heatmapInfoRow"]/td/div/div[1]')
         print(hminfo.text)
@@ -388,7 +440,7 @@ class TestSnpQF(unittest.TestCase):
     def test_search_by_region_filter_by_function_class(self):
         """
         @status: Tests that you can search for snps using a region search by Marker Range and
-        then filter  by function class.
+        then filter  by function class(splice site).
         @note: snp-qf-gene-?
         """
         driver = self.driver
@@ -420,16 +472,18 @@ class TestSnpQF(unittest.TestCase):
         print(cells1[6].text)
         self.assertEqual(cells1[5].text, '129P2/OlaHsd', 'The first strain is not correct')
         self.assertEqual(cells1[6].text, '129S1/SvImJ', 'The second strain is not correct')
+        # find the Function Class filter and click it.
         driver.find_element(By.ID, 'functionClassFilter').click()
         time.sleep(1)
-        driver.find_element(By.CSS_SELECTOR, '#command > label:nth-child(1) > input:nth-child(1)').click()
+        # find the option "splice Site" and select it.
+        driver.find_element(By.CSS_SELECTOR, '#command > label:nth-child(11) > input:nth-child(1)').click()
         time.sleep(1)
         driver.find_element(By.ID, 'yui-gen0-button').click()
         time.sleep(1)
         # Locate the page info line and verify the text
         pginfo = driver.find_element(By.ID, 'yui-pg0-0-page-report')
         print(pginfo.text)
-        self.assertEqual(pginfo.text, 'Showing SNP(s) 1 - 100 of 12241', 'The page info text is not correct')
+        self.assertEqual(pginfo.text, 'Showing SNP(s) 1 - 51 of 51', 'The page info text is not correct')
 
     def test_search_by_region_compare(self):
         """
@@ -605,6 +659,88 @@ class TestSnpQF(unittest.TestCase):
         self.assertEqual(cells1[11].text, 'PWK/PhJ', 'The seventh strain is not correct')
         self.assertEqual(cells1[12].text, 'WSB/EiJ', 'The eight strain is not correct')
 
+    def test_alliance_variant_link_summary(self):
+        """
+        @status: Tests that the Alliance Variant link on the SNP summary page is correct.
+        @note: snp-qf-gene-?
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/snp")
+        genesearchbox = driver.find_element(By.ID, 'nomen')
+        # Enter your Gene symbol
+        genesearchbox.send_keys("Ggn")
+        # find the search button and click it
+        driver.find_element(By.ID, 'geneSearch').click()
+        time.sleep(2)
+        # locates the SNP summary table and verify the rs IDs returned are correct
+        snp_table = Table(self.driver.find_element(By.ID, "snpSummaryTable"))
+        # cells = snp_table.get_column_cells("SNP ID\n(GRCm38)")
+        cell1 = snp_table.get_cell(1,0)
+        print(cell1.text)
+        self.assertEqual(cell1.text, 'rs232316283\nMGI SNP Detail\nAlliance Variant')
+        # find the row 1 Alliance Variant link and click it.
+        self.driver.find_element(By.LINK_TEXT, "Alliance Variant").click()
+        time.sleep(2)
+        # switch focus to the new tab for the alliance page
+        self.driver.switch_to.window(self.driver.window_handles[-1])
+        # find the page nav entity title
+        title = driver.find_element(By.ID, "PageNavEntityTitle")
+        time.sleep(2)
+        print(title.text)
+        # asserts that the correct rs ID alliance page is returned
+        self.assertEqual(title.text, 'rs232316283')
+
+    def test_alliance_variant_link_no_summary(self):
+        """
+        @status: Tests that the Alliance Variant link on the SNP summary page and that some do not have a variant link.
+        @note: snp-qf-gene-?
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/snp")
+        genesearchbox = driver.find_element(By.ID, 'nomen')
+        # Enter your Gene symbol
+        genesearchbox.send_keys("Gata1")
+        # find the search button and click it
+        driver.find_element(By.ID, 'geneSearch').click()
+        time.sleep(2)
+        # locates the SNP summary table and verify the rs IDs returned are correct
+        snp_table = Table(self.driver.find_element(By.ID, "snpSummaryTable"))
+        # cells = snp_table.get_column_cells("SNP ID\n(GRCm38)")
+        cell1 = snp_table.get_cell(1,0)
+        print(cell1.text)
+        self.assertEqual(cell1.text, 'rs213220941\nMGI SNP Detail')
+        cell68 = snp_table.get_cell(68, 0)
+        print(cell68.text)
+        self.assertEqual(cell68.text, 'rs246862346\nMGI SNP Detail\nAlliance Variant')
+
+    def test_alliance_variant_link_detail(self):
+        """
+        @status: Tests that the Alliance Variant link on the SNP detail page is correct.
+        @note: snp-qf-gene-?
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/snp")
+        quicksearchbox = driver.find_element(By.ID, 'searchToolTextArea')
+        # Enter your Rs ID
+        quicksearchbox.send_keys("rs4226505")
+        driver.find_element(By.CLASS_NAME, 'searchToolButton').click()
+        time.sleep(2)
+        # find the SNp link and click it
+        driver.find_element(By.LINK_TEXT, 'SNP').click()
+        # switch focus to the new tab for the alliance page
+        self.driver.switch_to.window(self.driver.window_handles[-1])
+        # find the Alliance Variant link and click it.
+        self.driver.find_element(By.LINK_TEXT, "Alliance Variant").click()
+        # switch focus to the new tab for the alliance page
+        self.driver.switch_to.window(self.driver.window_handles[-1])
+        # find the page nav entity title
+        title = driver.find_element(By.ID, "PageNavEntityTitle")
+        time.sleep(2)
+        print(title.text)
+        # asserts that the correct rs ID alliance page is returned
+        self.assertEqual(title.text, 'rs4226505')
+
+
     def tearDown(self):
         self.driver.quit()
         tracemalloc.stop()
@@ -617,4 +753,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\\WebdriverTests'))

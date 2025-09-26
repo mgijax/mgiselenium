@@ -13,15 +13,18 @@ import sys
 import time
 import tracemalloc
 import unittest
-
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.edge.service import Service as EdgeService
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.edge.service import Service as EdgeService
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
 import config
 from util import wait
@@ -39,9 +42,15 @@ tracemalloc.start()
 class TestDoBrowserModelsPopup(unittest.TestCase):
 
     def setUp(self):
-        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        browser = getattr(config, "BROWSER", "chrome").lower()
+        if browser == "chrome":
+            self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        elif browser == "firefox":
+            self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        elif browser == "edge":
+            self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        else:
+            raise ValueError(f"Unsupported browser: {browser}")
         self.driver.set_window_size(1500, 1000)
         self.driver.get(config.TEST_URL)
         self.driver.implicitly_wait(10)
@@ -71,7 +80,7 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         gene_table = self.driver.find_element(By.ID, 'geneTabTable')
         table = Table(gene_table)
         # cells = table.get_rows()
-        cell = table.get_cell(3, 3)
+        cell = table.get_cell(5, 3)
         # Identify the data found in the Mouse Models column for the fifth row(for marker Robo1)
         print(cell.text)
         cell.find_element(By.LINK_TEXT, '1 model').click()
@@ -113,8 +122,8 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         gene_table = self.driver.find_element(By.ID, 'geneTabTable')
         table = Table(gene_table)
         # cells = table.get_rows()
-        cell = table.get_cell(6, 3)
-        # Identify the data found in the Mouse Models column for the second row(for marker Fgfp)
+        cell = table.get_cell(8, 3)
+        # Identify the data found in the Mouse Models column for the seventh row(for marker Yy1)
         print(cell.text)
         cell.find_element(By.LINK_TEXT, '1 model').click()
 
@@ -154,7 +163,7 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         gene_table = self.driver.find_element(By.ID, 'geneTabTable')
         table = Table(gene_table)
         cell = table.get_cell(13, 3)
-        # Identify the data found in the Mouse Models column for the ninth row(for marker ROR2)
+        # Identify the data found in the Mouse Models column for the fourteenth row(for marker ROR2)
         print(cell.text)
         cell.find_element(By.LINK_TEXT, '1 "NOT" model').click()
 
@@ -171,6 +180,7 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
     def test_dobrowser_modelspopup_onlyhuman(self):
         """
         @status this test verifies the display of disease model popup when only human data is returned.
+        @attention this test is currently broken because need to example as this has more than human data only now.
         """
         print("BEGIN test_dobrowser_modelspopup_onlyhuman")
         searchbox = self.driver.find_element(By.ID, 'searchToolTextArea')
@@ -186,15 +196,15 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'genesTabButton'))):
             print('page loaded')
         self.driver.find_element(By.ID, 'genesTabButton').click()  # identifies the Genes tab and clicks it.
-        time.sleep(5)
+        time.sleep(2)
         gene_table = self.driver.find_element(By.ID, 'geneTabTable')
         table = Table(gene_table)
-        # cells = table.get_rows()
-        cell = table.get_cell(118, 3)
-        # Identify the data found in the Mouse Models column for the one hundred eighteenth row(for marker PSEN2)
+        cells = table.get_rows()
+        cell = table.get_cell(120, 3)
+        # Identify the data found in the Mouse Models column for the one hundred twentyth row(for marker PSEN2)
         print(cell.text)
+        time.sleep(2)
         cell.find_element(By.LINK_TEXT, '3 models').click()
-
         self.driver.switch_to.window(self.driver.window_handles[-1])
         model_table = self.driver.find_element(By.ID, 'diseaseBrowserModelPopupTable')
         table1 = Table(model_table)
@@ -227,8 +237,8 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
 
         gene_table = self.driver.find_element(By.ID, 'geneTabTable')
         table = Table(gene_table)
-        cell = table.get_cell(11, 3)
-        # Identify the data found in the Mouse Models column for the tenth row(for marker Ighm)
+        cell = table.get_cell(13, 3)
+        # Identify the data found in the Mouse Models column for the twelvth row(12+1)(for marker Ighm)
         print(cell.text)
         cell.find_element(By.LINK_TEXT, '5 models').click()
 
@@ -324,4 +334,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\\WebdriverTests'))

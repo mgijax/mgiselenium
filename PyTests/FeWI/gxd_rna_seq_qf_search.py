@@ -25,11 +25,15 @@ import unittest
 import config
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-# from lib import *
-from selenium.webdriver.edge.service import Service as EdgeService
-from selenium.webdriver.support.ui import Select
+from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.edge.service import Service as EdgeService
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.firefox.service import Service as FirefoxService
+# from lib import *
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
 from util import iterate
 from util.table import Table
 
@@ -45,9 +49,15 @@ tracemalloc.start()
 class TestGxdRnaSeqSearching(unittest.TestCase):
 
     def setUp(self):
-        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        browser = getattr(config, "BROWSER", "chrome").lower()
+        if browser == "chrome":
+            self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        elif browser == "firefox":
+            self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        elif browser == "edge":
+            self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        else:
+            raise ValueError(f"Unsupported browser: {browser}")
         self.driver.set_window_size(1500, 1000)
         self.driver.get(config.TEST_URL + "/gxd/htexp_index")
         self.driver.implicitly_wait(10)
@@ -116,7 +126,7 @@ class TestGxdRnaSeqSearching(unittest.TestCase):
         # find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
-        viewl = self.driver.find_elements(By.LINK_TEXT, 'View')[2]  # clicks the first View link of the third sample result
+        viewl = self.driver.find_elements(By.LINK_TEXT, 'View')[4]  # clicks the first View link of the fourth sample result
         self.driver.execute_script("arguments[0].click();", viewl)
         # switch focus to the new tab for Sample Experiments page
         self.driver.switch_to.window(self.driver.window_handles[-1])
@@ -306,7 +316,8 @@ class TestGxdRnaSeqSearching(unittest.TestCase):
         @see GXD-RNASeq-search-8
         """
         print("BEGIN test_rnaseq_method_search")
-        self.driver.find_element(By.ID, 'method1').click()  # finds the method RNA-Seq and clicks it
+        self.driver.find_element(By.ID, 'mcb_1').click()  # finds the method All and clicks it, to unselect it
+        self.driver.find_element(By.ID, 'mcb_1_2').click()  # finds the method RNA-Seq and clicks it
         # find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
         # find all the Method data for the first 8 results
@@ -320,14 +331,47 @@ class TestGxdRnaSeqSearching(unittest.TestCase):
         meth7 = self.driver.find_element(By.ID, 'methodData7')
         print(meth0.text)
         # Assert the Method is RNA-Seq for the first 8 results, all results should be RNA-Seq but we only check the first 8
-        self.assertEqual(meth0.text, "RNA-Seq")
-        self.assertEqual(meth1.text, "RNA-Seq")
-        self.assertEqual(meth2.text, "RNA-Seq")
-        self.assertEqual(meth3.text, "RNA-Seq")
-        self.assertEqual(meth4.text, "RNA-Seq")
-        self.assertEqual(meth5.text, "RNA-Seq")
-        self.assertEqual(meth6.text, "RNA-Seq")
-        self.assertEqual(meth7.text, "RNA-Seq")  # there are another 600+ results and they should all be method RNA-Seq
+        self.assertEqual(meth0.text, "bulk RNA-seq")
+        self.assertEqual(meth1.text, "bulk RNA-seq")
+        self.assertEqual(meth2.text, "bulk RNA-seq")
+        self.assertEqual(meth3.text, "bulk RNA-seq")
+        self.assertEqual(meth4.text, "single cell RNA-seq")
+        self.assertEqual(meth5.text, "bulk RNA-seq")
+        self.assertEqual(meth6.text, "bulk RNA-seq")
+        self.assertEqual(meth7.text, "bulk RNA-seq")  # there are another 6000+ results and they should all be method RNA-Seq(3 different flavors)
+
+    def test_rnaseq_variable_search(self):
+        """
+        @status this test verifies the searching by multiple methods on the rna seq query form works.
+        @see GXD-RNASeq-search-8
+        """
+        print("BEGIN test_rnaseq_method_search1")
+        self.driver.find_element(By.ID, 'mcb_1').click()  # finds the method All and clicks it, to unselect it
+        self.driver.find_element(By.ID, 'mcb_1_2_2').click()  # finds the method RNA-Seq single cell RNA-seq and clicks it
+        self.driver.find_element(By.ID, 'mcb_1_2_3').click()  # finds the method RNA-Seq spatial RNA-seq and clicks it
+        # find the Search button and click it
+        self.driver.find_element(By.ID, 'submit1').click()
+        # find all the Variable data for the first 8 results
+        meth0 = self.driver.find_element(By.ID, 'methodData0')
+        meth1 = self.driver.find_element(By.ID, 'methodData1')
+        meth2 = self.driver.find_element(By.ID, 'methodData2')
+        meth3 = self.driver.find_element(By.ID, 'methodData3')
+        meth4 = self.driver.find_element(By.ID, 'methodData4')
+        meth5 = self.driver.find_element(By.ID, 'methodData5')
+        meth6 = self.driver.find_element(By.ID, 'methodData6')
+        meth7 = self.driver.find_element(By.ID, 'methodData7')
+        meth22 = self.driver.find_element(By.ID, 'methodData22')
+        print(meth0.text)
+        # Assert the Method is RNA-Seq for the first 8 results, all results should be RNA-Seq but we only check the first 8
+        self.assertEqual(meth0.text, "single cell RNA-seq")
+        self.assertEqual(meth1.text, "single cell RNA-seq")
+        self.assertEqual(meth2.text, "single cell RNA-seq")
+        self.assertEqual(meth3.text, "single cell RNA-seq")
+        self.assertEqual(meth4.text, "single cell RNA-seq")
+        self.assertEqual(meth5.text, "bulk RNA-seq\nsingle cell RNA-seq")
+        self.assertEqual(meth6.text, "single cell RNA-seq")
+        self.assertEqual(meth7.text, "single cell RNA-seq")
+        self.assertEqual(meth22.text, "single cell RNA-seq\nspatial RNA-seq")  # This should have both single cell and spatial
 
     def test_rnaseq_text_search(self):
         """
@@ -412,4 +456,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\\WebdriverTests'))

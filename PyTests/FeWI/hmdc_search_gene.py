@@ -64,9 +64,13 @@ import config
 
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.edge.service import Service as EdgeService
+from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.edge.service import Service as EdgeService
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from selenium.webdriver.common.by import By
 from util import iterate, wait
 from util.table import Table
 # adjust the path to find config
@@ -79,9 +83,16 @@ tracemalloc.start()
 class TestHmdcGenesSearch(unittest.TestCase):
 
     def setUp(self):
-        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        browser = getattr(config, "BROWSER", "chrome").lower()
+        if browser == "chrome":
+            self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        elif browser == "firefox":
+            self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        elif browser == "edge":
+            self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        else:
+            raise ValueError(f"Unsupported browser: {browser}")
+
         self.driver.set_window_size(1500, 1000)
         self.driver.get(config.TEST_URL + "/humanDisease.shtml")
         self.driver.implicitly_wait(10)
@@ -813,7 +824,7 @@ class TestHmdcGenesSearch(unittest.TestCase):
         time.sleep(2)
         # asserts that the References in MGI column displays a Disease Relevant link since the is a NOT disease
         self.assertEqual(ref1.text, '')
-        self.assertEqual(ref2.text, 'All Mouse: 50\nDisease Relevant: 1')
+        self.assertEqual(ref2.text, 'All Mouse: 51\nDisease Relevant: 1')
         
         # identify the Disease tab and verify the tab's text
         disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
@@ -902,7 +913,7 @@ class TestHmdcGenesSearch(unittest.TestCase):
         """
         @status this test verifies the correct genes are returned for this query, both human and mouse.
         This test is for searching by gene name when grid returns synonym to a mouse in a multi-gene
-        homology class(C4A, C4B)
+        homology class(C4A, C4B) ***NOTE this test now does not use a synonym, need to find a different example?*****
         @see: HMDC-GQ-4 (mouse synonym); HMDC-grid-3,4 (row w/ multiple mouse/human genes);
               HMDC-genetab-2 (orthologs and homologs returned)
         """
@@ -1282,4 +1293,4 @@ def suite():
     return suite
        
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\\WebdriverTests'))

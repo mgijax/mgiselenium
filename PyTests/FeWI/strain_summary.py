@@ -11,18 +11,25 @@ Verify that you can filter results by an attribute
 """
 import os.path
 import sys
+import time
 import tracemalloc
 import unittest
 import config
 
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.edge.service import Service as EdgeService
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.edge.service import Service as EdgeService
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from selenium.webdriver.support.ui import WebDriverWait
 from util import iterate
 from util.table import Table
 
@@ -38,9 +45,16 @@ tracemalloc.start()
 class TestStrainSummary(unittest.TestCase):
 
     def setUp(self):
-        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        browser = os.getenv("BROWSER", "chrome").lower()
+
+        if browser == "chrome":
+            self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        elif browser == "firefox":
+            self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        elif browser == "edge":
+            self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        else:
+            raise ValueError(f"Unsupported browser: {browser}")
         self.driver.set_window_size(1500, 1000)
         self.driver.get(config.TEST_URL + "/strains_SNPs.shtml")
         self.driver.implicitly_wait(10)
@@ -119,8 +133,11 @@ class TestStrainSummary(unittest.TestCase):
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         # locates the link for the official strain name
         driver.find_element(By.PARTIAL_LINK_TEXT, '129').click()
+        time.sleep(2)
         # switch focus to the new tab for strain detail page
         driver.switch_to.window(self.driver.window_handles[-1])
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'titleBarWrapper'))):
+            print('page title now displayed')
         tpage = driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
         print(tpage.text)
         # asserts that the correct page is returned or not
@@ -217,4 +234,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\\WebdriverTests'))

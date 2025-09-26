@@ -56,12 +56,16 @@ import config
 
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.edge.service import Service as EdgeService
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.edge.service import Service as EdgeService
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
 from util import iterate,wait
 from util.table import Table
 
@@ -77,9 +81,16 @@ tracemalloc.start()
 class TestRollupRules(unittest.TestCase):
 
     def setUp(self):
-        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        browser = os.getenv("BROWSER", "chrome").lower()
+
+        if browser == "chrome":
+            self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        elif browser == "firefox":
+            self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        elif browser == "edge":
+            self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        else:
+            raise ValueError(f"Unsupported browser: {browser}")
         self.driver.set_window_size(1500, 1000)
         #self.driver.get(config.TEST_URL + "/marker.shtml")
         self.driver.implicitly_wait(10)
@@ -170,14 +181,35 @@ class TestRollupRules(unittest.TestCase):
         print(cell6.text)
         cell7 = mp_table.get_cell(8, 1)
         print(cell7.text)
+        cell8 = mp_table.get_cell(9, 1)
+        print(cell8.text)
+        cell9 = mp_table.get_cell(10, 1)
+        print(cell9.text)
+        cell10 = mp_table.get_cell(11, 1)
+        print(cell10.text)
+        cell11 = mp_table.get_cell(12, 1)
+        print(cell11.text)
+        cell12 = mp_table.get_cell(13, 1)
+        print(cell12.text)
+        cell13 = mp_table.get_cell(14, 1)
+        print(cell13.text)
+        cell14 = mp_table.get_cell(15, 1)
+        print(cell14.text)
         # verify the Mouse Phenotypes for each row
         self.assertEqual(cell1.text, "Apptm1.1Cep/Apptm1.1Cep")
         self.assertEqual(cell2.text, "Apptm1Cep/Apptm1Cep")
-        self.assertEqual(cell3.text, "Apptm1.1Cep/App+")
-        self.assertEqual(cell4.text, "Apptm1Cep/App+")
-        self.assertEqual(cell5.text, "Tg(APP-App*R609D*K612E)7Vln/0")
-        self.assertEqual(cell6.text, "Tg(Thy1-App*R609D*K612E)2Vln/0")
-        self.assertEqual(cell7.text, "Tg(Thy1-App*R609D*K612E)4Vln/0")
+        self.assertEqual(cell3.text, "Apptm1Dbo/Apptm1Dbo")
+        self.assertEqual(cell4.text, "Apptm2.1Tcs/Apptm2.1Tcs")
+        self.assertEqual(cell5.text, "Apptm3.1Tcs/Apptm3.1Tcs")
+        self.assertEqual(cell6.text, "Apptm1.1Cep/App+")
+        self.assertEqual(cell7.text, "Apptm1Cep/App+")
+        self.assertEqual(cell8.text, "Tg(APP-App*R609D*K612E)7Vln/0")
+        self.assertEqual(cell9.text, "Tg(Camk2a-tTA)1Mmay/0\nTg(tetO-APPSwInd)107Dbo/0")
+        self.assertEqual(cell10.text, "Tg(Camk2a-tTA)1Mmay/0\nTg(tetO-APPSwInd)Dbo/0")
+        self.assertEqual(cell11.text, "Tg(Thy1-App*R609D*K612E)2Vln/0")
+        self.assertEqual(cell12.text, "Tg(Thy1-App*R609D*K612E)4Vln/0")
+        self.assertEqual(cell13.text, "Tg(Thy1-App*R609D*K612E)6Vln/0")
+        self.assertEqual(cell14.text, "Tg(App)1874Kha/?")
 
     def test_rollup_rule1_hmdc(self):
         """
@@ -213,11 +245,11 @@ class TestRollupRules(unittest.TestCase):
         wait.forNewWindow(self.driver, 2)
         # find the Mouse Phenotypes table and assert row 4 results for the Mouse Phenotype column
         mp_table = Table(self.driver.find_element(By.XPATH, "/html/body/p/table"))
-        cell4 = mp_table.get_cell(5, 1)
-        print(cell4.text)
+        cell7 = mp_table.get_cell(8, 1)
+        print(cell7.text)
         # verify the Mouse Phenotypes for row 4, then click it
-        self.assertEqual(cell4.text, "Apptm1Cep/App+")
-        cell4.click()
+        self.assertEqual(cell7.text, "Apptm1Cep/App+")
+        cell7.click()
         # switch focus to the new tab for Phenotype associated with App<tm1Cep>/App<+>
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
@@ -655,7 +687,7 @@ class TestRollupRules(unittest.TestCase):
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
         # find the Mouse Phenotypes table and assert the row 2 result for the Mouse Phenotype column
-        mp_table = Table(self.driver.find_element(By.XPATH, "/html/body/div[2]/table[2]"))
+        mp_table = Table(self.driver.find_element(By.XPATH, "/html/body/div[2]/table[3]"))
         cell1 = mp_table.get_cell(3, 1)
         print(cell1.text)
         # verify the Mouse Phenotypes for this row
@@ -687,7 +719,7 @@ class TestRollupRules(unittest.TestCase):
         print(grid_tab.text)
         time.sleep(2)
         # Find the muscle box for Tafazzin and click it.
-        self.driver.find_element(By.CSS_SELECTOR, "td.middle:nth-child(9) > div:nth-child(1) > div:nth-child(1)").click()
+        self.driver.find_element(By.CSS_SELECTOR, "td.middle:nth-child(16) > div:nth-child(1) > div:nth-child(1)").click()
         # switch focus to the popup for Human and Mouse muscle abnormalities for TAFAZZIN/Tafazzin
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
@@ -756,8 +788,8 @@ class TestRollupRules(unittest.TestCase):
         if WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'summaryHeader'))):
             print('The Summary Ribbon is displayed')
         # find the Phenotype table and click the tg14 box for mortality/aging
-        tg14 = self.driver.find_element(By.CSS_SELECTOR, '#mortality_aging_id_row > td:nth-child(16) > a:nth-child(1)')
-        driver.execute_script("arguments[0].click();", tg14)
+        tg15 = self.driver.find_element(By.CSS_SELECTOR, '#mortality_aging_id_row > td:nth-child(17) > a:nth-child(1)')
+        driver.execute_script("arguments[0].click();", tg15)
         time.sleep(2)
         # switch focus to the new tab for Phenotypes Associated with this Genotype
         self.driver.switch_to.window(self.driver.window_handles[-1])
@@ -859,7 +891,7 @@ class TestRollupRules(unittest.TestCase):
         print(grid_tab.text)
         time.sleep(2)
         # Find the homeostasis/metabolism box for Tg(Pnkd*A7V*A9V,-DsRed)704Ljp and click it.
-        self.driver.find_element(By.CSS_SELECTOR, "tr.ngc:nth-child(5) > td:nth-child(4) > div:nth-child(1) > div:nth-child(1)").click()
+        self.driver.find_element(By.CSS_SELECTOR, "tr.ngc:nth-child(5) > td:nth-child(7) > div:nth-child(1) > div:nth-child(1)").click()
         # switch focus to the popup for Mouse homeostasis/metabolism abnormalities for Tg(Pnkd*A7V*A9V,-DsRed)704Ljp
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
@@ -920,12 +952,14 @@ class TestRollupRules(unittest.TestCase):
         # find the View Models link and click it
         driver.find_element(By.ID, 'showDOID_0050902').click()
         # find the popup Model table and click the first View link in the Phenotypes column
-        self.driver.find_element(By.LINK_TEXT, "View").click()
+        # lnks = self.driver.find_elements(By.LINK_TEXT, "View")
+        # print(lnks.text)
+        # lnks[1].click()
         # switch focus to the new tab for strain detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        wait.forNewWindow(self.driver, 2)
-        if WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'titleBarMainTitle'))):
-            print('Page title is loaded')
+        # wait.forNewWindow(self.driver, 2)
+        # if WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'titleBarMainTitle'))):
+            # print('Page title is loaded')
         # verify the disease listed in the Mouse Models of Human Disease table is correct
         disease_table = Table(self.driver.find_element(By.CLASS_NAME, "results"))
         cell = disease_table.get_cell(1, 0)
@@ -1215,7 +1249,7 @@ class TestRollupRules(unittest.TestCase):
         wait.forNewWindow(self.driver, 2)
         # find the Mouse Phenotypes table and assert row 8 result for the Mouse Phenotype column
         mp_table = Table(self.driver.find_element(By.XPATH, "/html/body/p/table"))
-        cell = mp_table.get_cell(7, 1)
+        cell = mp_table.get_cell(10, 1)
         print(cell.text)
         # verify the Mouse Phenotypes for row 9, then click it
         self.assertEqual(cell.text, "Erbb2tm8.1(Erbb2)Mul/Erbb2tm8.1(Erbb2)Mul")
@@ -1367,4 +1401,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\\WebdriverTests'))

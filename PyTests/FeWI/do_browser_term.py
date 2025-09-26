@@ -18,12 +18,16 @@ import unittest
 
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.edge.service import Service as EdgeService
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.edge.service import Service as EdgeService
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
 from config import TEST_URL
 from util import iterate
@@ -38,9 +42,15 @@ tracemalloc.start()
 class TestDoBrowserTermTab(unittest.TestCase):
 
     def setUp(self):
-        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        browser = getattr(config, "BROWSER", "chrome").lower()
+        if browser == "chrome":
+            self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        elif browser == "firefox":
+            self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        elif browser == "edge":
+            self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        else:
+            raise ValueError(f"Unsupported browser: {browser}")
         self.driver.set_window_size(1500, 1000)
         self.driver.get(TEST_URL)
         self.driver.implicitly_wait(10)
@@ -257,7 +267,7 @@ class TestDoBrowserTermTab(unittest.TestCase):
         # locate the siblings terms box
         siblings = self.driver.find_elements(By.ID, 'termTabTermWrapper')
         searchtermitems = iterate.getTextAsList(siblings)
-        self.assertIn(searchtermitems[0], "tauopathy +\n\nagenesis of the corpus callosum with peripheral neuropathy\namyotrophic lateral sclerosis-parkinsonism/dementia complex 1\nchildhood-onset neurodegeneration with brain atrophy\nfamilial encephalopathy with neuroserpin inclusion bodies\nhereditary ataxia +\nHuntington's disease\nHuntington's disease-like 2\ninfantile cerebellar-retinal degeneration\nmotor neuron disease +\nmyoclonic cerebellar dyssynergia\nneuroacanthocytosis +\nneurodegeneration with ataxia, dystonia, and gaze palsy, childhood-onset\nneurodegeneration with brain iron accumulation +\nneurodevelopmental disorder with regression, abnormal movements, loss of speech, and seizures\nneuronal intranuclear inclusion disease\nolivopontocerebellar atrophy\nPick's disease\nplexopathy\npontocerebellar hypoplasia +\nprimary cerebellar degeneration\nsecondary Parkinson disease +\nSPOAN syndrome\nstress-induced childhood-onset neurodegeneration with variable ataxia and seizures\nsynucleinopathy +")
+        self.assertIn(searchtermitems[0], "tauopathy +\n\nagenesis of the corpus callosum with peripheral neuropathy\namyotrophic lateral sclerosis-parkinsonism/dementia complex 1\nchildhood-onset neurodegeneration with brain atrophy\nfamilial encephalopathy with neuroserpin inclusion bodies\nhereditary ataxia +\nHuntington's disease\nHuntington's disease-like 2\ninfantile cerebellar-retinal degeneration\nmotor neuron disease +\nmyoclonic cerebellar dyssynergia\nneuroacanthocytosis +\nneurodegeneration with ataxia, dystonia, and gaze palsy, childhood-onset\nneurodegeneration with brain iron accumulation +\nneurodevelopmental disorder with regression, abnormal movements, loss of speech, and seizures\nneuronal intranuclear inclusion disease\nolivopontocerebellar atrophy\nplexopathy\npontocerebellar hypoplasia +\nprimary cerebellar degeneration\nsecondary Parkinson disease +\nSPOAN syndrome\nstress-induced childhood-onset neurodegeneration with variable ataxia and seizures\nsynucleinopathy +")
         print(searchtermitems)
         # locate the children terms box
         children = self.driver.find_elements(By.ID, 'termTabChildWrapper')
@@ -275,4 +285,4 @@ def suite():
     return suite
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\\WebdriverTests'))

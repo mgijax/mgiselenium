@@ -14,12 +14,16 @@ import unittest
 
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.edge.service import Service as EdgeService
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.edge.service import Service as EdgeService
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
 import config
 from util import iterate
@@ -36,9 +40,15 @@ tracemalloc.start()
 class TestDoBrowserGeneTab(unittest.TestCase):
 
     def setUp(self):
-        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        browser = getattr(config, "BROWSER", "chrome").lower()
+        if browser == "chrome":
+            self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        elif browser == "firefox":
+            self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        elif browser == "edge":
+            self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        else:
+            raise ValueError(f"Unsupported browser: {browser}")
         self.driver.set_window_size(1500, 1000)
         self.driver.get(config.TEST_URL)
         self.driver.implicitly_wait(10)
@@ -98,9 +108,9 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         gene_tab = self.driver.find_element(By.LINK_TEXT, 'Genes (24)')  # identifies the Genes tab.
         print(gene_tab.text)
         self.assertEqual(gene_tab.text, "Genes (24)", "The Genes Tab number is not correct")
-        model_tab = self.driver.find_element(By.LINK_TEXT, 'Models (44)')  # identifies the Genes tab.
+        model_tab = self.driver.find_element(By.LINK_TEXT, 'Models (45)')  # identifies the Genes tab.
         print(model_tab.text)
-        self.assertEqual(model_tab.text, "Models (44)", "The Models Tab number is not correct")
+        self.assertEqual(model_tab.text, "Models (45)", "The Models Tab number is not correct")
 
     def test_dobrowser_genestab_m_hmht(self):
         """
@@ -148,7 +158,7 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         row21 = cells[22]
         row22 = cells[23]
 
-        self.assertEqual(row1.text, '       DiGeorge syndrome TBX1* Tbx1* 23 models Alliance of Genome Resources')
+        self.assertEqual(row1.text, '       DiGeorge syndrome TBX1* Tbx1* 24 models Alliance of Genome Resources')
         self.assertEqual(row2.text, '       DiGeorge syndrome ALDH1A2 Aldh1a2* 1 model Alliance of Genome Resources')
         self.assertEqual(row3.text, 'DiGeorge syndrome b2b954Clo* 1 model')
         self.assertEqual(row4.text, 'DiGeorge syndrome b2b1941Clo* 1 model')
@@ -461,23 +471,26 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         row14 = cells[15]
         row15 = cells[16]
         row16 = cells[17]
-        self.assertEqual(row1.text, '       dermatomyositis PMS1* Pms1   Alliance of Genome Resources')
-        self.assertEqual(row2.text, 'dermatomyositis STAT4* Stat4   Alliance of Genome Resources')
-        self.assertEqual(row3.text, 'dermatomyositis MBL2* Mbl2   Alliance of Genome Resources')
-        self.assertEqual(row4.text, 'inclusion body myositis SOD2* Sod2   Alliance of Genome Resources')
-        self.assertEqual(row5.text, 'inclusion body myositis TUBG1* Tubg1   Alliance of Genome Resources')
-        self.assertEqual(row6.text, 'inclusion body myositis VCP* Vcp   Alliance of Genome Resources')
-        self.assertEqual(row7.text, 'inclusion body myositis CLU* Clu   Alliance of Genome Resources')
-        self.assertEqual(row8.text, 'inclusion body myositis DAG1* Dag1   Alliance of Genome Resources')
-        self.assertEqual(row9.text, 'inclusion body myositis MYH2* Myh2   Alliance of Genome Resources')
-        self.assertEqual(row10.text,
-                         'myositis HLA-DRB1*, HLA-DRB3, HLA-DRB4, HLA-DRB5 H2-Eb1, H2-Eb2   Alliance of Genome Resources')
-        self.assertEqual(row11.text, 'myositis FCGR3A*, FCGR3B Fcgr4   Alliance of Genome Resources')
+        row17 = cells[18]
+        row18 = cells[19]
+        self.assertEqual(row1.text, '       dermatomyositis ANGPTL2 Angptl2* 1 model Alliance of Genome Resources')
+        self.assertEqual(row2.text, 'myositis HLA-A, HLA-B, HLA-C, HLA-E, HLA-F, HLA-G, HLA-H H2-K1*, H2-D1, H2-L, H2-M2, H2-M3, H2-M10.1, H2-M10.2, H2-M10.4, H2-Q1, H2-Q2, H2-Q4, H2-Q6, H2-Q7, H2-Q8, H2-Q10, H2-T23 1 model Alliance of Genome Resources')
+        self.assertEqual(row3.text, '       dermatomyositis PMS1* Pms1   Alliance of Genome Resources')
+        self.assertEqual(row4.text, 'dermatomyositis STAT4* Stat4   Alliance of Genome Resources')
+        self.assertEqual(row5.text, 'dermatomyositis MBL2* Mbl2   Alliance of Genome Resources')
+        self.assertEqual(row6.text, 'inclusion body myositis TUBG1* Tubg1   Alliance of Genome Resources')
+        self.assertEqual(row7.text, 'inclusion body myositis VCP* Vcp   Alliance of Genome Resources')
+        self.assertEqual(row8.text, 'inclusion body myositis CLU* Clu   Alliance of Genome Resources')
+        self.assertEqual(row9.text, 'inclusion body myositis DAG1* Dag1   Alliance of Genome Resources')
+        self.assertEqual(row10.text, 'inclusion body myositis MYH2* Myh2   Alliance of Genome Resources')
+        self.assertEqual(row11.text, 'inclusion body myositis SOD2* Sod2   Alliance of Genome Resources')
         self.assertEqual(row12.text, 'myositis HLA-DQB1*, HLA-DQB2 H2-Ab1   Alliance of Genome Resources')
         self.assertEqual(row13.text, 'myositis HLA-DQA1*, HLA-DQA2 H2-Aa   Alliance of Genome Resources')
-        self.assertEqual(row14.text, 'polymyositis ELN* Eln   Alliance of Genome Resources')
-        self.assertEqual(row15.text, 'polymyositis STAT4* Stat4   Alliance of Genome Resources')
-        self.assertEqual(row16.text, 'polymyositis PMS1* Pms1   Alliance of Genome Resources')
+        self.assertEqual(row14.text, 'myositis HLA-DRB1*, HLA-DRB3, HLA-DRB4, HLA-DRB5 H2-Eb1, H2-Eb2   Alliance of Genome Resources')
+        self.assertEqual(row15.text, 'myositis FCGR3A*, FCGR3B Fcgr4   Alliance of Genome Resources')
+        self.assertEqual(row16.text, 'polymyositis ELN* Eln   Alliance of Genome Resources')
+        self.assertEqual(row17.text, 'polymyositis PMS1* Pms1   Alliance of Genome Resources')
+        self.assertEqual(row18.text, 'polymyositis STAT4* Stat4   Alliance of Genome Resources')
 
         transgene_table = self.driver.find_element(By.ID, "transgeneTable")
         table = Table(transgene_table)
@@ -550,50 +563,52 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         row32 = cells[33]
         row33 = cells[34]
         row34 = cells[35]
+        row35 = cells[36]
         self.assertEqual(row1.text,
                          '       osteogenesis imperfecta COL1A1* Col1a1* 1 model Alliance of Genome Resources')
         self.assertEqual(row2.text, 'osteogenesis imperfecta COL1A2* Col1a2* 5 models Alliance of Genome Resources')
         self.assertEqual(row3.text,
-                         'osteogenesis imperfecta type 1 COL1A1* Col1a1* 1 model Alliance of Genome Resources')
+                         'osteogenesis imperfecta type 1 COL1A1* Col1a1* 2 models Alliance of Genome Resources')
         self.assertEqual(row4.text,
                          'osteogenesis imperfecta type 10 SERPINH1* Serpinh1* 1 model Alliance of Genome Resources')
         self.assertEqual(row5.text,
                          'osteogenesis imperfecta type 2 COL1A1* Col1a1* 2 models Alliance of Genome Resources')
         self.assertEqual(row6.text,
-                         'osteogenesis imperfecta type 3 COL1A2* Col1a2* 2 models Alliance of Genome Resources')
-        self.assertEqual(row7.text,
                          'osteogenesis imperfecta type 3 COL1A1* Col1a1* 1 model Alliance of Genome Resources')
+        self.assertEqual(row7.text,
+                         'osteogenesis imperfecta type 3 COL1A2* Col1a2* 2 models Alliance of Genome Resources')
         self.assertEqual(row8.text,
                          'osteogenesis imperfecta type 4 COL1A1* Col1a1* 3 models Alliance of Genome Resources')
         self.assertEqual(row9.text,
-                         'osteogenesis imperfecta type 6 SERPINF1* Serpinf1* 1 model Alliance of Genome Resources')
+                         'osteogenesis imperfecta type 5 IFITM5* Ifitm5* 1 model Alliance of Genome Resources')
         self.assertEqual(row10.text,
+                         'osteogenesis imperfecta type 6 SERPINF1* Serpinf1* 1 model Alliance of Genome Resources')
+        self.assertEqual(row11.text,
                          'osteogenesis imperfecta type 7 CRTAP* Crtap* 1 model Alliance of Genome Resources')
-        self.assertEqual(row11.text, 'osteogenesis imperfecta type 8 P3H1* P3h1* 1 model Alliance of Genome Resources')
-        self.assertEqual(row12.text, 'osteogenesis imperfecta type 9 PPIB* Ppib* 2 models Alliance of Genome Resources')
-        self.assertEqual(row13.text, '       osteogenesis imperfecta SMAD4 Smad4* 1 model Alliance of Genome Resources')
-        self.assertEqual(row14.text, 'osteogenesis imperfecta SMPD3 Smpd3* 1 model Alliance of Genome Resources')
-        self.assertEqual(row15.text, 'osteogenesis imperfecta type 2 SMPD3 Smpd3* 1 model Alliance of Genome Resources')
-        self.assertEqual(row16.text, 'osteogenesis imperfecta type 3 SMPD3 Smpd3* 1 model Alliance of Genome Resources')
-        self.assertEqual(row17.text, 'osteogenesis imperfecta type 5 SUCO Suco* 1 model Alliance of Genome Resources')
-        self.assertEqual(row18.text, '       Cole-Carpenter syndrome P4HB* P4hb   Alliance of Genome Resources')
-        self.assertEqual(row19.text, 'Cole-Carpenter syndrome SEC24D* Sec24d   Alliance of Genome Resources')
-        self.assertEqual(row20.text, 'osteogenesis imperfecta CCDC134* Ccdc134   Alliance of Genome Resources')
-        self.assertEqual(row21.text, 'osteogenesis imperfecta type 11 FKBP10* Fkbp10   Alliance of Genome Resources')
-        self.assertEqual(row22.text, 'osteogenesis imperfecta type 12 SP7* Sp7   Alliance of Genome Resources')
-        self.assertEqual(row23.text, 'osteogenesis imperfecta type 13 BMP1* Bmp1   Alliance of Genome Resources')
-        self.assertEqual(row24.text, 'osteogenesis imperfecta type 14 TMEM38B* Tmem38b   Alliance of Genome Resources')
-        self.assertEqual(row25.text, 'osteogenesis imperfecta type 15 WNT1* Wnt1   Alliance of Genome Resources')
-        self.assertEqual(row26.text, 'osteogenesis imperfecta type 16 CREB3L1* Creb3l1   Alliance of Genome Resources')
-        self.assertEqual(row27.text, 'osteogenesis imperfecta type 17 SPARC* Sparc   Alliance of Genome Resources')
-        self.assertEqual(row28.text, 'osteogenesis imperfecta type 18 TENT5A* Tent5a   Alliance of Genome Resources')
-        self.assertEqual(row29.text, 'osteogenesis imperfecta type 19 MBTPS2* Mbtps2   Alliance of Genome Resources')
-        self.assertEqual(row30.text, 'osteogenesis imperfecta type 2 COL1A2* Col1a2   Alliance of Genome Resources')
-        self.assertEqual(row31.text, 'osteogenesis imperfecta type 20 MESD* Mesd   Alliance of Genome Resources')
-        self.assertEqual(row32.text, 'osteogenesis imperfecta type 21 KDELR2* Kdelr2   Alliance of Genome Resources')
-        self.assertEqual(row33.text, 'osteogenesis imperfecta type 4 COL1A2* Col1a2   Alliance of Genome Resources')
-        self.assertEqual(row34.text,
-                         'osteogenesis imperfecta type 5 IFITM5* Ifitm5 1 model Alliance of Genome Resources')
+        self.assertEqual(row12.text, 'osteogenesis imperfecta type 8 P3H1* P3h1* 1 model Alliance of Genome Resources')
+        self.assertEqual(row13.text, 'osteogenesis imperfecta type 9 PPIB* Ppib* 2 models Alliance of Genome Resources')
+        self.assertEqual(row14.text, '       osteogenesis imperfecta SMAD4 Smad4* 1 model Alliance of Genome Resources')
+        self.assertEqual(row15.text, 'osteogenesis imperfecta SMPD3 Smpd3* 1 model Alliance of Genome Resources')
+        self.assertEqual(row16.text, 'osteogenesis imperfecta type 2 SMPD3 Smpd3* 1 model Alliance of Genome Resources')
+        self.assertEqual(row17.text, 'osteogenesis imperfecta type 3 SMPD3 Smpd3* 1 model Alliance of Genome Resources')
+        self.assertEqual(row18.text, 'osteogenesis imperfecta type 5 SUCO Suco* 1 model Alliance of Genome Resources')
+        self.assertEqual(row19.text, '       Cole-Carpenter syndrome P4HB* P4hb   Alliance of Genome Resources')
+        self.assertEqual(row20.text, 'Cole-Carpenter syndrome SEC24D* Sec24d   Alliance of Genome Resources')
+        self.assertEqual(row21.text, 'osteogenesis imperfecta CCDC134* Ccdc134   Alliance of Genome Resources')
+        self.assertEqual(row22.text, 'osteogenesis imperfecta PHLDB1* Phldb1   Alliance of Genome Resources')
+        self.assertEqual(row23.text, 'osteogenesis imperfecta type 11 FKBP10* Fkbp10   Alliance of Genome Resources')
+        self.assertEqual(row24.text, 'osteogenesis imperfecta type 12 SP7* Sp7   Alliance of Genome Resources')
+        self.assertEqual(row25.text, 'osteogenesis imperfecta type 13 BMP1* Bmp1   Alliance of Genome Resources')
+        self.assertEqual(row26.text, 'osteogenesis imperfecta type 14 TMEM38B* Tmem38b   Alliance of Genome Resources')
+        self.assertEqual(row27.text, 'osteogenesis imperfecta type 15 WNT1* Wnt1   Alliance of Genome Resources')
+        self.assertEqual(row28.text, 'osteogenesis imperfecta type 16 CREB3L1* Creb3l1   Alliance of Genome Resources')
+        self.assertEqual(row29.text, 'osteogenesis imperfecta type 17 SPARC* Sparc   Alliance of Genome Resources')
+        self.assertEqual(row30.text, 'osteogenesis imperfecta type 18 TENT5A* Tent5a   Alliance of Genome Resources')
+        self.assertEqual(row31.text, 'osteogenesis imperfecta type 19 MBTPS2* Mbtps2   Alliance of Genome Resources')
+        self.assertEqual(row32.text, 'osteogenesis imperfecta type 2 COL1A2* Col1a2   Alliance of Genome Resources')
+        self.assertEqual(row33.text, 'osteogenesis imperfecta type 20 MESD* Mesd   Alliance of Genome Resources')
+        self.assertEqual(row34.text, 'osteogenesis imperfecta type 21 KDELR2* Kdelr2   Alliance of Genome Resources')
+        self.assertEqual(row35.text, 'osteogenesis imperfecta type 4 COL1A2* Col1a2   Alliance of Genome Resources')
         transgene_table = self.driver.find_element(By.ID, "transgeneTable")
         table = Table(transgene_table)
         cells = table.get_rows()
@@ -616,4 +631,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\\WebdriverTests'))

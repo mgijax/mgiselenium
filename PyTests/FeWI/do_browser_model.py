@@ -14,15 +14,18 @@ import sys
 import time
 import tracemalloc
 import unittest
-
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.edge.service import Service as EdgeService
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.edge.service import Service as EdgeService
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
 import config
 from util import iterate
@@ -39,9 +42,15 @@ tracemalloc.start()
 class TestDoBrowserModelTab(unittest.TestCase):
 
     def setUp(self):
-        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        browser = getattr(config, "BROWSER", "chrome").lower()
+        if browser == "chrome":
+            self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        elif browser == "firefox":
+            self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        elif browser == "edge":
+            self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        else:
+            raise ValueError(f"Unsupported browser: {browser}")
         self.driver.set_window_size(1500, 1000)
         self.driver.get(config.TEST_URL)
         self.driver.implicitly_wait(10)
@@ -428,10 +437,10 @@ class TestDoBrowserModelTab(unittest.TestCase):
         row4 = cells[5]
         row5 = cells[6]
         
-        self.assertEqual(row1.text, 'Transgenes and\nOther Mutations        dermatomyositis Tg(Krt14-Angptl2)1Yo/0 C.Cg-Tg(Krt14-Angptl2)1Yo J:181261 View')
-        self.assertEqual(row2.text, 'inclusion body myositis Tg(Ckm-APPSw)A2Lfa/0 involves: C57BL/6 * SJL J:76338 View')
-        self.assertEqual(row3.text, 'inclusion body myositis Tg(Ckm-APPSw)A6Lfa/0 involves: C57BL/6 * SJL J:76338 View')
-        self.assertEqual(row4.text, 'myositis Tg(CKMM-tTA)A3Rhvh/0\nTg(tetO-H2-K1)#Papl/0 B6.Cg-Tg(CKMM-tTA)A3Rhvh Tg(tetO-H2-K1)#Papl J:205907 View')
+        self.assertEqual(row1.text, '         dermatomyositis Tg(Krt14-Angptl2)1Yo/0 C.Cg-Tg(Krt14-Angptl2)1Yo J:181261 View')
+        self.assertEqual(row2.text, 'myositis Tg(CKMM-tTA)A3Rhvh/0\nTg(tetO-H2-K1)#Papl/0 B6.Cg-Tg(CKMM-tTA)A3Rhvh Tg(tetO-H2-K1)#Papl J:205907 View')
+        self.assertEqual(row3.text, 'Transgenes and\nOther Mutations        inclusion body myositis Tg(Ckm-APPSw)A2Lfa/0 involves: C57BL/6 * SJL J:76338 View')
+        self.assertEqual(row4.text, 'inclusion body myositis Tg(Ckm-APPSw)A6Lfa/0 involves: C57BL/6 * SJL J:76338 View')
         self.assertEqual(row5.text, 'Additional\nComplex\nModels        inclusion body myositis Gnetm1Sngi/Gnetm1Sngi\nTg(ACTB-GNE*D176V)9Sngi/0 involves: C57BL/6 J:117854 View')
         
     def test_dobrowser_modelstab_h(self):
@@ -515,35 +524,37 @@ class TestDoBrowserModelTab(unittest.TestCase):
         row27 = cells[28]
         row28 = cells[29]
         row29 = cells[30]
+        row30 = cells[31]
         self.assertEqual(row1.text, '         osteogenesis imperfecta Col1a1m1Btlr/Col1a1m1Btlr C57BL/6J-Col1a1m1Btlr J:253622 View')
         self.assertEqual(row2.text, 'osteogenesis imperfecta Col1a2oim/Col1a2+ B6C3Fe a/a-Col1a2oim/J J:38013 View')
         self.assertEqual(row3.text, 'osteogenesis imperfecta Col1a2tm1.1Mcbr/Col1a2+ (A/J x B6.129-Col1a2tm1.1Mcbr)F1 J:178743 View')
         self.assertEqual(row4.text, 'osteogenesis imperfecta Col1a2tm1.1Mcbr/Col1a2+ (BALB/cByJ x B6.129-Col1a2tm1.1Mcbr)F1 J:178743 View')
         self.assertEqual(row5.text, 'osteogenesis imperfecta Col1a2tm1.1Mcbr/Col1a2+ (C3H/HeJ x B6.129-Col1a2tm1.1Mcbr)F1 J:178743 View')
         self.assertEqual(row6.text, 'osteogenesis imperfecta Col1a2tm1.1Mcbr/Col1a2+ (FVB/NJ x B6.129-Col1a2tm1.1Mcbr)F1 J:178743 View')
-        self.assertEqual(row7.text, 'osteogenesis imperfecta type 1 Col1a1Mov13/Col1a1+ involves: C57BL/6 J:107045 View')
-        self.assertEqual(row8.text, 'osteogenesis imperfecta type 2 Col1a1Aga2/Col1a1+ involves: C3HeB/FeJ * C57BL/6J J:129569 View')
-        self.assertEqual(row9.text, 'osteogenesis imperfecta type 2 Col1a1tm1Jcm/Col1a1+ either: (involves: 129X1/SvJ * C3H/HeJ) or (involves: 129X1/SvJ * CD-1) J:59168 View')
-        self.assertEqual(row10.text, 'osteogenesis imperfecta type 3 Col1a1Aga2/Col1a1+ C3HeB/FeJ-Col1a1Aga2 J:185988 View')
-        self.assertEqual(row11.text, 'osteogenesis imperfecta type 3 Col1a2oim/Col1a2oim B6C3Fe a/a-Col1a2oim/J J:38013 View')
-        self.assertEqual(row12.text, 'osteogenesis imperfecta type 3 Col1a2oim/Col1a2oim involves: C3H/HeJ * C57BL/6JLe J:4348 View')
-        self.assertEqual(row13.text, 'osteogenesis imperfecta type 4 Col1a1M1Jrt/Col1a1+ involves: C3H/HeJ * C57BL/6J * FVB/NJ J:216423 View')
-        self.assertEqual(row14.text, 'osteogenesis imperfecta type 4 Col1a1M1Jrt/Col1a1+ involves: C57BL/6 * FVB/N J:228439 View')
-        self.assertEqual(row15.text, 'osteogenesis imperfecta type 4 Col1a1tm1.1Jcm/Col1a1+ either: (involves: 129X1/SvJ * C3H/HeJ) or (involves: 129X1/SvJ * CD-1) J:59168 View')
-        self.assertEqual(row16.text, 'osteogenesis imperfecta type 6 Serpinf1tm1Craw/Serpinf1tm1Craw Not Specified J:230409 View')
-        self.assertEqual(row17.text, 'osteogenesis imperfecta type 7 Crtaptm1Brle/Crtaptm1Brle involves: 129S7/SvEvBrd J:116096 View')
-        self.assertEqual(row18.text, 'osteogenesis imperfecta type 8 P3h1tm1Dgen/P3h1tm1Dgen involves: C57BL/6 J:163884 View')
-        self.assertEqual(row19.text, 'osteogenesis imperfecta type 9 PpibGt(RST139)Byg/PpibGt(RST139)Byg involves: 129P2/OlaHsd * C57BL/6 J:226318 View')
-        self.assertEqual(row20.text, 'osteogenesis imperfecta type 9 Ppibtm1.1Rjb/Ppibtm1.1Rjb Not Specified J:161748 View')
-        self.assertEqual(row21.text, 'osteogenesis imperfecta type 10 Serpinh1tm2Kzn/Serpinh1tm2Kzn\nTg(Col2a1-cre)1Bhr/0 involves: 129S6/SvEvTac * C57BL/6 * C57BL/6J * SJL J:197791 View')
-        self.assertEqual(row22.text, '         osteogenesis imperfecta Smad4tm2.1Cxd/Smad4tm2.1Cxd\nTg(Sp7-tTA,tetO-EGFP/cre)1Amc/0 involves: 129S6/SvEvTac * C57BL/6J * CD-1 J:211171 View')
-        self.assertEqual(row23.text, 'osteogenesis imperfecta Smpd3fro/Smpd3fro Not Specified J:100158 View')
-        self.assertEqual(row24.text, 'osteogenesis imperfecta type 2 Smpd3fro/Smpd3fro Not Specified J:3906 View')
-        self.assertEqual(row25.text, 'osteogenesis imperfecta type 3 Smpd3fro/Smpd3fro Not Specified J:3906 View')
-        self.assertEqual(row26.text, 'osteogenesis imperfecta type 5 SucoGt(KST050)Byg/SucoGt(KST050)Byg involves: 129P2/OlaHsd * C57BL/6 * CD-1 J:159823 View')
-        self.assertEqual(row27.text, '         osteogenesis imperfecta type 5 Tg(Col1a1-Ifitm5*)1Brle/0 involves: FVB/N J:233366 View')
-        self.assertEqual(row28.text, 'Transgenes and\nOther Mutations        osteogenesis imperfecta type 1 Tg(COL1A1)73Prc/0 involves: FVB/N J:146429 View')
-        self.assertEqual(row29.text, 'Additional\nComplex\nModels        osteogenesis imperfecta Bmp1tm1.1Dgr/Bmp1tm1.1Dgr\nTll1tm2.1Dgr/Tll1tm2.1Dgr\nNdor1Tg(UBC-cre/ERT2)1Ejb/0 involves: 129S/SvEv * 129S6/SvEvTac * C57BL/6 * SJL J:210366 View')
+        self.assertEqual(row7.text, 'osteogenesis imperfecta type 1 Col1a1em1Nju/Col1a1+ C57BL/6-Col1a1em1Nju J:358220 View')
+        self.assertEqual(row8.text, 'osteogenesis imperfecta type 1 Col1a1Mov13/Col1a1+ involves: C57BL/6 J:107045 View')
+        self.assertEqual(row9.text, 'osteogenesis imperfecta type 2 Col1a1Aga2/Col1a1+ involves: C3HeB/FeJ * C57BL/6J J:129569 View')
+        self.assertEqual(row10.text, 'osteogenesis imperfecta type 2 Col1a1tm1Jcm/Col1a1+ either: (involves: 129X1/SvJ * C3H/HeJ) or (involves: 129X1/SvJ * CD-1) J:59168 View')
+        self.assertEqual(row11.text, 'osteogenesis imperfecta type 3 Col1a1Aga2/Col1a1+ C3HeB/FeJ-Col1a1Aga2 J:185988 View')
+        self.assertEqual(row12.text, 'osteogenesis imperfecta type 3 Col1a2oim/Col1a2oim B6C3Fe a/a-Col1a2oim/J J:38013 View')
+        self.assertEqual(row13.text, 'osteogenesis imperfecta type 3 Col1a2oim/Col1a2oim involves: C3H/HeJ * C57BL/6JLe J:4348 View')
+        self.assertEqual(row14.text, 'osteogenesis imperfecta type 4 Col1a1M1Jrt/Col1a1+ involves: C3H/HeJ * C57BL/6J * FVB/NJ J:216423 View')
+        self.assertEqual(row15.text, 'osteogenesis imperfecta type 4 Col1a1M1Jrt/Col1a1+ involves: C57BL/6 * FVB/N J:228439 View')
+        self.assertEqual(row16.text, 'osteogenesis imperfecta type 4 Col1a1tm1.1Jcm/Col1a1+ either: (involves: 129X1/SvJ * C3H/HeJ) or (involves: 129X1/SvJ * CD-1) J:59168 View')
+        self.assertEqual(row17.text, 'osteogenesis imperfecta type 5 Tg(Col1a1-Ifitm5*)1Brle/0 involves: FVB/N J:233366 View')
+        self.assertEqual(row18.text, 'osteogenesis imperfecta type 6 Serpinf1tm1Craw/Serpinf1tm1Craw Not Specified J:230409 View')
+        self.assertEqual(row19.text, 'osteogenesis imperfecta type 7 Crtaptm1Brle/Crtaptm1Brle involves: 129S7/SvEvBrd J:116096 View')
+        self.assertEqual(row20.text, 'osteogenesis imperfecta type 8 P3h1tm1Dgen/P3h1tm1Dgen involves: C57BL/6 J:163884 View')
+        self.assertEqual(row21.text, 'osteogenesis imperfecta type 9 PpibGt(RST139)Byg/PpibGt(RST139)Byg involves: 129P2/OlaHsd * C57BL/6 J:226318 View')
+        self.assertEqual(row22.text, 'osteogenesis imperfecta type 9 Ppibtm1.1Rjb/Ppibtm1.1Rjb Not Specified J:161748 View')
+        self.assertEqual(row23.text, 'osteogenesis imperfecta type 10 Serpinh1tm2Kzn/Serpinh1tm2Kzn\nTg(Col2a1-cre)1Bhr/0 involves: 129S6/SvEvTac * C57BL/6 * C57BL/6J * SJL J:197791 View')
+        self.assertEqual(row24.text, '         osteogenesis imperfecta Smad4tm2.1Cxd/Smad4tm2.1Cxd\nTg(Sp7-tTA,tetO-EGFP/cre)1Amc/0 involves: 129S6/SvEvTac * C57BL/6J * CD-1 J:211171 View')
+        self.assertEqual(row25.text, 'osteogenesis imperfecta Smpd3fro/Smpd3fro Not Specified J:100158 View')
+        self.assertEqual(row26.text, 'osteogenesis imperfecta type 2 Smpd3fro/Smpd3fro Not Specified J:3906 View')
+        self.assertEqual(row27.text, 'osteogenesis imperfecta type 3 Smpd3fro/Smpd3fro Not Specified J:3906 View')
+        self.assertEqual(row28.text, 'osteogenesis imperfecta type 5 SucoGt(KST050)Byg/SucoGt(KST050)Byg involves: 129P2/OlaHsd * C57BL/6 * CD-1 J:159823 View')
+        self.assertEqual(row29.text, 'Transgenes and\nOther Mutations        osteogenesis imperfecta type 1 Tg(COL1A1)73Prc/0 involves: FVB/N J:146429 View')
+        self.assertEqual(row30.text, 'Additional\nComplex\nModels        osteogenesis imperfecta Bmp1tm1.1Dgr/Bmp1tm1.1Dgr\nTll1tm2.1Dgr/Tll1tm2.1Dgr\nNdor1Tg(UBC-cre/ERT2)1Ejb/0 involves: 129S/SvEv * 129S6/SvEvTac * C57BL/6 * SJL J:210366 View')
 
     def test_dobrowser_modelstab_not_only(self):
         """
@@ -595,12 +606,13 @@ class TestDoBrowserModelTab(unittest.TestCase):
             print('page loaded')
         self.driver.find_element(By.ID, 'modelsTabButton').click()#identifies the Models tab and clicks it.
         # Find the link in the Genetic Background column C57BL/6J-Tg(SNCA)ARyot and click it
-        strainlink = self.driver.find_element(By.PARTIAL_LINK_TEXT, 'C57BL/6J-Tg')
+        strainlink = self.driver.find_element(By.PARTIAL_LINK_TEXT, 'ARyot')
         self.driver.execute_script("arguments[0].click();", strainlink)
         # switch focus to the new tab for strain detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
+        t = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')  # identifies the heading title.
         # Asserts that the strain page is for the correct strain
-        assert "C57BL/6J-Tg(SNCA)ARyot" in self.driver.page_source  
+        self.assertEqual(t.text, "Tg(SNCA)ARyot")
         
     def tearDown(self):
         self.driver.quit()
@@ -612,4 +624,4 @@ def suite():
         return suite
         
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\\WebdriverTests'))

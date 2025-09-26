@@ -12,9 +12,13 @@ import config
 
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.edge.service import Service as EdgeService
+from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.edge.service import Service as EdgeService
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from selenium.webdriver.common.by import By
 from util import iterate
 from util.table import Table
 
@@ -30,9 +34,15 @@ tracemalloc.start()
 class TestReferenceSummaryStrain(unittest.TestCase):
 
     def setUp(self):
-        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        browser = getattr(config, "BROWSER", "chrome").lower()
+        if browser == "chrome":
+            self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        elif browser == "firefox":
+            self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        elif browser == "edge":
+            self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        else:
+            raise ValueError(f"Unsupported browser: {browser}")
         self.driver.set_window_size(1500, 1000)
         self.driver.get(config.TEST_URL + "/reference")
         self.driver.implicitly_wait(10)
@@ -57,7 +67,7 @@ class TestReferenceSummaryStrain(unittest.TestCase):
         idsreturned = iterate.getTextAsList(straindata)
         # asserts that the 2 rows of data are correct
         self.assertEqual(['Strain/Stock Name Synonyms Attributes IDs References',
-                          'BUB/BnJ BUB/BnJ-Pde6brd1\ninbred strain\nMGI:2159907\nJAX:000653\nMPD:24\n120',
+                          'BUB/BnJ BUB/BnJ-Pde6brd1\ninbred strain\nMGI:2159907\nJAX:000653\nMPD:24\n121',
                           'SF/CamEiJ San Franciscan\ninbred strain\nwild-derived\nMGI:2159978\nJAX:000280\nMPD:159\n22'],
                          idsreturned)
         # The reason we brought back all the rows of data is because we needed to make sure the reference counts were correct and it did not bring back duplicate J numbers
@@ -76,4 +86,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\\WebdriverTests'))

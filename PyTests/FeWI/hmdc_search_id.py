@@ -28,13 +28,17 @@ import config
 
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.edge.service import Service as EdgeService
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.firefox.service import Service as FirefoxService
 # from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
-# from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.edge.service import Service as EdgeService
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
 from util import iterate, wait
 # from util.form import ModuleForm
 from util.table import Table
@@ -50,9 +54,15 @@ tracemalloc.start()
 class TestHmdcSearchID(unittest.TestCase):
 
     def setUp(self):
-        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        browser = getattr(config, "BROWSER", "chrome").lower()
+        if browser == "chrome":
+            self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        elif browser == "firefox":
+            self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        elif browser == "edge":
+            self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        else:
+            raise ValueError(f"Unsupported browser: {browser}")
         self.driver.set_window_size(1500, 1000)
         self.driver.get(config.TEST_URL + "/humanDisease.shtml")
         self.driver.implicitly_wait(10)
@@ -460,18 +470,15 @@ class TestHmdcSearchID(unittest.TestCase):
         # find and click the Add button
         self.driver.find_element(By.CSS_SELECTOR, "button.ng-scope > span:nth-child(1)").click()
         # self.driver.find_element(By.XPATH, "//*[contains(text(), 'Add')]").click()
-        my_select1 = self.driver.find_element(By.XPATH,
-                                              "//select[starts-with(@id, 'field_0_4')]")  # identifies the select field and picks another option
+        my_select1 = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_4')]")  # identifies the select field and picks another option
         for option in my_select1.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Gene Symbol(s) or ID(s)':
                 option.click()
                 break
 
-        self.driver.find_element(By.CSS_SELECTOR,
-                                 '.formly-field-queryRow > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > ng-form:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)').send_keys(
-            "Gja1")
+        self.driver.find_element(By.CSS_SELECTOR, '.formly-field-queryRow > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > ng-form:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)').send_keys( "Gja1")
         # self.driver.find_element(By.ID, "formly_3_input_input_0").send_keys(Keys.TAB + Keys.TAB + Keys.TAB + "Gja1")
-        # wait.forAngular(self.driver)
+        wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
 
         # identify the Genes tab and verify the tab's text
@@ -482,19 +489,19 @@ class TestHmdcSearchID(unittest.TestCase):
             print('Grid Table loaded')
         mgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.last")
         searchtermitems = iterate.getTextAsList(mgenes)
-        self.assertIn("Gja1, Gja6", searchtermitems, "expected gene not returned")
+        self.assertIn("Gja1", searchtermitems, "expected gene not returned")
 
         # Verify that the correct MP term is displayed in the genotype pop-up
 
-        # phenocells captures all the table data cells on the first row of data
-        phenocells = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.center.cell.middle")
+        # phenocell captures all the table data cells on the first row of data
+        phenocell = self.driver.find_element(By.CSS_SELECTOR, "td.middle:nth-child(3) > div:nth-child(1) > div:nth-child(1)")
 
-        phenocells[0].click()  # clicks the cell for cardiovascular system (new data could break this)
+        phenocell.click()  # clicks the cell for cardiovascular system (new data could break this)
         self.driver.switch_to.window(self.driver.window_handles[1])  # switches focus to the genotype popup page
         wait.forNewWindow(self.driver, 5)
-        matching_text = "Mouse cardiovascular system abnormalities for GJA1, GJA6P/Gja1, Gja6"
+        title1 = self.driver.find_element(By.ID, "title")
         # asserts the heading text is correct in page source
-        self.assertIn(matching_text, self.driver.page_source, 'expected pop-up box heading not displayed')
+        self.assertEqual(title1.text, "Mouse cardiovascular system abnormalities for GJA1/Gja1", 'expected pop-up box heading not displayed')
 
         # asserts that the MP term queried for by Alt ID has been returned
         self.assertIn("abnormal ascending aorta and coronary artery attachment", self.driver.page_source,
@@ -825,4 +832,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\\WebdriverTests'))

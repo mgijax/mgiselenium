@@ -51,15 +51,18 @@ import time
 import tracemalloc
 import unittest
 import config
-
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
-from selenium.webdriver.common.by import By
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.edge.service import Service as EdgeService
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
 # from genericpath import exists
 from util import iterate, wait
 from util.table import Table
@@ -74,11 +77,16 @@ tracemalloc.start()
 
 
 class TestMarkerDetail(unittest.TestCase):
-
     def setUp(self):
-        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        browser = getattr(config, "BROWSER", "chrome").lower()
+        if browser == "chrome":
+            self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        elif browser == "firefox":
+            self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        elif browser == "edge":
+            self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        else:
+            raise ValueError(f"Unsupported browser: {browser}")
         self.driver.set_window_size(1500, 1000)
         self.driver.get(config.TEST_URL + "/marker/")
         self.driver.implicitly_wait(10)
@@ -899,7 +907,7 @@ class TestMarkerDetail(unittest.TestCase):
         self.assertEqual(disease2.text, 'type 1 diabetes mellitus')
         self.assertEqual(disease3.text, 'type 2 diabetes mellitus')
         self.assertEqual(disease4.text, 'maturity-onset diabetes of the young')
-        self.assertEqual(disease5.text, 'neonatal diabetes')
+        self.assertEqual(disease5.text, 'neonatal diabetes mellitus')
         self.assertEqual(disease6.text, 'diabetes mellitus')
 
     def test_mouse_model_strain_links(self):
@@ -1005,11 +1013,11 @@ class TestMarkerDetail(unittest.TestCase):
         mpheno_table = Table(self.driver.find_element(By.XPATH, "/html/body/div[2]/table[2]"))
         cell = mpheno_table.get_cell(2, 1)
         print(cell.text)
-        driver.execute_script("arguments[0].click();", cell)
-        #self.driver.find_element(By.CSS_SELECTOR, "fm19084a").click()
+        #driver.execute_script("arguments[0].click();", cell)
+        self.driver.find_element(By.XPATH, '//*[@id="fm19608a"]').click()
         # switch focus to the new tab for Phenotypes associated with X/Sry<AKR/J>
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        wait.forNewWindow(self.driver, 2)
+        wait.forNewWindow(self.driver, 4)
         # Locate the Genetic Background column and click the link found there(Summary ribbon)
         self.driver.find_element(By.LINK_TEXT, 'AKR/J').click()
         # switch focus to the new tab for strain detail page
@@ -1118,4 +1126,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\\WebdriverTests'))

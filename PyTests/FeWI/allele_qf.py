@@ -12,15 +12,17 @@ import config
 import sys, os.path
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.firefox.service import Service as FirefoxService
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.edge.service import Service as EdgeService
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from genericpath import exists
 from util import wait, iterate
 from util.table import Table
@@ -34,12 +36,12 @@ tracemalloc.start()
 class TestAlleleQueryForm(unittest.TestCase):
 
     def setUp(self):
-        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
         # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
-        self.driver.set_window_size(1500, 1000)
+        # self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        self.driver.maximize_window()
         self.driver.get(config.TEST_URL + "/allele/")
-        self.driver.implicitly_wait(10)
+        WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.NAME, "phenotype")))
 
     def test_ribbon_locations(self):
         """
@@ -64,7 +66,7 @@ class TestAlleleQueryForm(unittest.TestCase):
         self.driver.find_element(By.NAME, "phenotype").clear()
         self.driver.find_element(By.NAME, "phenotype").send_keys("DOID:5737")
         self.driver.find_element(By.CLASS_NAME, "buttonLabel").click()
-        self.assertTrue(self.driver.page_source, 'Phenotypes/Diseases: including text DOID:5737')       
+        self.assertIn('Phenotypes/Diseases: including text DOID:5737', self.driver.page_source)
         # disease_table = self.driver.find_element(By.ID, '')
         # table = Table(disease_table)
         # Iterate and print the search results headers
@@ -91,4 +93,4 @@ def suite():
     # import sys;sys.argv = ['', 'Test.testName']
     #unittest.main()                
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\\WebdriverTests'))

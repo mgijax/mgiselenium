@@ -12,10 +12,14 @@ import config
 
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.edge.service import Service as EdgeService
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.common.by import By
 # from lib import *
-from selenium.webdriver.edge.service import Service as EdgeService
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
 from util import wait
 
 # adjust the path to find config
@@ -30,9 +34,15 @@ tracemalloc.start()
 class TestHmdcAutocomplete(unittest.TestCase):
 
     def setUp(self):
-        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        browser = getattr(config, "BROWSER", "chrome").lower()
+        if browser == "chrome":
+            self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        elif browser == "firefox":
+            self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        elif browser == "edge":
+            self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        else:
+            raise ValueError(f"Unsupported browser: {browser}")
         self.driver.set_window_size(1500, 1000)
         self.driver.get(config.TEST_URL + "/humanDisease.shtml")
         self.driver.implicitly_wait(10)
@@ -44,7 +54,7 @@ class TestHmdcAutocomplete(unittest.TestCase):
         """
         print("BEGIN test_index_tab_headers")
         my_select = self.driver.find_element(By.XPATH,
-                                             "//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
+                                             "//select[starts-with(@id, 'field_0')]")  # identifies the select field and picks the Disease or Phenotype Name option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
             if option.text == 'Disease or Phenotype Name':
                 option.click()
@@ -63,15 +73,17 @@ class TestHmdcAutocomplete(unittest.TestCase):
         self.assertEqual(items[1].text, "systemic lupus erythematosus", "Term 1 is not visible!")
         self.assertEqual(items[2].text, "Lupus Erythematosus, systemic", "Term 2 is not visible!")
         self.assertEqual(items[3].text, "SLE - Lupus Erythematosus, systemic", "Term 3 is not visible!")
-        self.assertEqual(items[4].text, "increased susceptibility to systemic lupus erythematosus",
+        self.assertEqual(items[4].text, "decreased susceptibility to systemic lupus erythematosus",
                          "Term 4 is not visible!")
-        self.assertEqual(items[5].text, "decreased susceptibility to systemic lupus erythematosus",
+        self.assertEqual(items[5].text, "increased susceptibility to systemic lupus erythematosus",
                          "Term 5 is not visible!")
-        self.assertEqual(items[6].text, "decreased resistance to systemic lupus erythematosus",
+        self.assertEqual(items[6].text, "reduced susceptibility to systemic lupus erythematosus",
                          "Term 6 is not visible!")
-        self.assertEqual(items[7].text, "reduced susceptibility to systemic lupus erythematosus",
+        self.assertEqual(items[7].text, "increased resistance to systemic lupus erythematosus",
                          "Term 7 is not visible!")
-        self.assertEqual(items[8].text, "increased resistance to systemic lupus erythematosus",
+        self.assertEqual(items[8].text, "decreased resistance to systemic lupus erythematosus",
+                         "Term 8 is not visible!")
+        self.assertEqual(items[9].text, "Libmann Sachs, Endocarditis in systemic lupus erythematosus",
                          "Term 8 is not visible!")
 
     def tearDown(self):
@@ -86,4 +98,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\\WebdriverTests'))

@@ -28,11 +28,15 @@ import config
 
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
-from selenium.webdriver.common.by import By
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.edge.service import Service as EdgeService
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
 from util import wait, iterate
 from util.table import Table
 
@@ -48,9 +52,15 @@ tracemalloc.start()
 class TestEmapaBrowser(unittest.TestCase):
 
     def setUp(self):
-        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        browser = getattr(config, "BROWSER", "chrome").lower()
+        if browser == "chrome":
+            self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        elif browser == "firefox":
+            self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        elif browser == "edge":
+            self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        else:
+            raise ValueError(f"Unsupported browser: {browser}")
         self.driver.set_window_size(1500, 1000)
 
     def test_parent_data(self):
@@ -93,7 +103,7 @@ class TestEmapaBrowser(unittest.TestCase):
         term16 = driver.find_element(By.ID, 'ygtvlabelel9')
         print(term1.text)
         print(term16.text)
-        if WebDriverWait(self.driver, 4).until(EC.presence_of_element_located((By.CLASS_NAME, 'ygtvchildren'))):
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.CLASS_NAME, 'ygtvchildren'))):
             print('Tree view details loaded')
         # extra embryonic component should not be 2nd item in list
         self.assertEqual(term1.text, 'body fluid or substance')
@@ -177,6 +187,7 @@ class TestEmapaBrowser(unittest.TestCase):
             print('Tree view details loaded')
         driver.find_element(By.CLASS_NAME,
                             'phenotypeAnnotationCount').click()  # clicks the phenotype annotations link found in the Treeview section
+        time.sleep(2)
         results_table = self.driver.find_element(By.ID, 'resultsTable')
         table = Table(results_table)
         # gets the 1st,6th,13th,16th rows of the Annotated term column
@@ -230,8 +241,8 @@ class TestEmapaBrowser(unittest.TestCase):
         if WebDriverWait(self.driver, 5).until(
                 EC.presence_of_element_located((By.CLASS_NAME, 'phenotypeAnnotationCount'))):
             print('Tree view details loaded')
-        driver.find_element(By.CLASS_NAME,
-                            'phenotypeAnnotationCount').click()  # clicks the phenotype annotations link found in the Treeview section
+        driver.find_element(By.CLASS_NAME,'phenotypeAnnotationCount').click()  # clicks the phenotype annotations link found in the Treeview section
+        time.sleep(2)
         results_table = self.driver.find_element(By.ID, 'resultsTable')
         table = Table(results_table)
         # gets the 1st,2nd rows of the Annotated term column, only 2 rows exist
@@ -281,7 +292,7 @@ class TestEmapaBrowser(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:16824")
-        if WebDriverWait(self.driver, 5).until(
+        if WebDriverWait(self.driver, 2).until(
                 EC.presence_of_element_located((By.CLASS_NAME, 'expressionResultCount'))):
             print('Tree view details loaded')
         linke = driver.find_element(By.CLASS_NAME,
@@ -303,8 +314,7 @@ class TestEmapaBrowser(unittest.TestCase):
         if WebDriverWait(self.driver, 5).until(
                 EC.presence_of_element_located((By.CLASS_NAME, 'expressionResultCount'))):
             print('Tree view details loaded')
-        driver.find_element(By.CLASS_NAME,
-                            'phenotypeAnnotationCount').click()  # clicks the phenotype annotations link found in the Treeview section
+        driver.find_element(By.CLASS_NAME,'phenotypeAnnotationCount').click()  # clicks the phenotype annotations link found in the Treeview section
         time.sleep(2)
         results_table = self.driver.find_element(By.ID, 'resultsTable')
         table = Table(results_table)
@@ -348,22 +358,23 @@ class TestEmapaBrowser(unittest.TestCase):
             print('Tree view details loaded')
         driver.find_element(By.CLASS_NAME,
                             'phenotypeAnnotationCount').click()  # clicks the phenotype annotations link found in the Treeview section
+        time.sleep(2)
         results_table = self.driver.find_element(By.ID, 'resultsTable')
         table = Table(results_table)
         # gets the 1st, 2nd, 7th, 8th, and 9th rows of the Annotated term column
         term1 = table.get_cell(3, 1)
         term2 = table.get_cell(4, 1)
-        term3 = table.get_cell(9, 1)
-        term4 = table.get_cell(10, 1)
-        term5 = table.get_cell(11, 1)
+        term3 = table.get_cell(10, 1)
+        term4 = table.get_cell(11, 1)
+        term5 = table.get_cell(12, 1)
         print(term1.text)
         print(term2.text)
         print(term3.text)
         print(term4.text)
         print(term5.text)
         # verifies the returned terms are the correct terms for this search
-        self.assertEqual('absent embryonic cilia', term1.text, 'Term1 is not returning')
-        self.assertEqual('absent primitive node', term2.text, 'Term2 is not returning')
+        self.assertEqual('absent primitive node', term1.text, 'Term1 is not returning')
+        self.assertEqual('absent embryonic cilia', term2.text, 'Term2 is not returning')
         self.assertEqual('abnormal primitive node morphology', term3.text, 'Term3 is not returning')
         self.assertEqual('abnormal motile primary cilium morphology', term4.text, 'Term4 is not returning')
         self.assertEqual('decreased embryonic cilium length', term5.text, 'Term5 is not returning')
@@ -393,10 +404,9 @@ class TestEmapaBrowser(unittest.TestCase):
         if WebDriverWait(self.driver, 5).until(
                 EC.presence_of_element_located((By.CLASS_NAME, 'expressionResultCount'))):
             print('Tree view details loaded')
-        linke = driver.find_element(By.CLASS_NAME,
-                                    'expressionResultCount')  # the expression annotations link found in the Treeview section
+        linke = driver.find_element(By.CLASS_NAME, 'expressionResultCount')  # the expression annotations link found in the Treeview section
         bodytext = driver.find_element(By.TAG_NAME, 'body').text
-        print(linke.text)
+        #print(linke.text)
         # asserts the expression results link exist and phenotype annotations link does not exist
         self.assertTrue('expression results' in bodytext)
         self.assertFalse('phenotype annotations' in bodytext)
@@ -449,4 +459,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\\WebdriverTests'))

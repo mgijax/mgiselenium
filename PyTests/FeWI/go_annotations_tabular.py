@@ -16,12 +16,16 @@ from util import wait, iterate
 
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.edge.service import Service as EdgeService
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.edge.service import Service as EdgeService
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
 # adjust the path to find config
 sys.path.append(
@@ -35,9 +39,15 @@ tracemalloc.start()
 class TestGoAnnotationsPage(unittest.TestCase):
 
     def setUp(self):
-        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        browser = getattr(config, "BROWSER", "chrome").lower()
+        if browser == "chrome":
+            self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        elif browser == "firefox":
+            self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        elif browser == "edge":
+            self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        else:
+            raise ValueError(f"Unsupported browser: {browser}")
         self.driver.set_window_size(1500, 1000)
 
     def test_table_headers(self):
@@ -132,16 +142,16 @@ class TestGoAnnotationsPage(unittest.TestCase):
         tabularheaderlist = driver.find_element(By.ID, 'dynamicdata')
         items = tabularheaderlist.find_elements(By.TAG_NAME, 'dt')
         searchtextitems = iterate.getTextAsList(items)
+        asp8 = driver.find_element(By.CSS_SELECTOR, '#yui-rec8 > td:nth-child(1) > div:nth-child(1)')
         asp9 = driver.find_element(By.CSS_SELECTOR, '#yui-rec9 > td:nth-child(1) > div:nth-child(1)')
-        asp10 = driver.find_element(By.CSS_SELECTOR, '#yui-rec12 > td:nth-child(1) > div:nth-child(1)')
-        asp15 = driver.find_element(By.CSS_SELECTOR, '#yui-rec17 > td:nth-child(1) > div:nth-child(1)')
+        asp12 = driver.find_element(By.CSS_SELECTOR, '#yui-rec12 > td:nth-child(1) > div:nth-child(1)')
+        print(asp8.text)
         print(asp9.text)
-        print(asp10.text)
-        print(asp15.text)
+        print(asp12.text)
         wait.forAjax(driver)
-        self.assertEqual(asp9.text, 'Molecular Function', 'the aspect is wrong')
-        self.assertEqual(asp10.text, 'Cellular Component', 'the aspect is wrong')
-        self.assertEqual(asp15.text, 'Biological Process', 'the aspect is wrong')
+        self.assertEqual(asp8.text, 'Molecular Function', 'the aspect is wrong')
+        self.assertEqual(asp9.text, 'Cellular Component', 'the aspect is wrong')
+        self.assertEqual(asp12.text, 'Biological Process', 'the aspect is wrong')
 
     def tearDown(self):
         self.driver.quit()
@@ -155,4 +165,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\\WebdriverTests'))

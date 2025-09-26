@@ -29,17 +29,17 @@ import time
 import sys, os.path
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.edge.service import Service as EdgeService
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
-from selenium.webdriver.chrome.service import Service as ChromeService
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.firefox.service import Service as FirefoxService
-from webdriver_manager.firefox import GeckoDriverManager
-from selenium.webdriver.edge.service import Service as EdgeService
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
 from selenium.webdriver.remote import webelement
 from genericpath import exists
 from util import wait, iterate
@@ -57,10 +57,10 @@ tracemalloc.start()
 class TestAlleleDetail(unittest.TestCase):
 
     def setUp(self):
-        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
         # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
-        self.driver.set_window_size(1500, 1000)
+        # self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        self.driver.maximize_window()
         self.driver.get(config.TEST_URL + "/allele/")
         # self.driver.get('http://scrumdogdev.informatics.jax.org/allele')
         self.driver.implicitly_wait(10)
@@ -198,7 +198,9 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys('Car12')
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, '4563.1Dla').click()
+        time.sleep(2)
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, "Tn(sb-T2/GT2/tTA)4563.1Dla").click()
+        time.sleep(2)
         mutationdownarrow = self.driver.find_element(By.ID, 'downArrowMutationDescription')
         mutationrightarrow = self.driver.find_element(By.ID, 'rightArrowMutationDescription')
 
@@ -489,6 +491,7 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.LINK_TEXT, '(101 x C3H)F1').click()
         # switch focus to the new tab for strain detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
+        time.sleep(2)
         ptitle = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
         # Assert the page title is for the correct strain name
         self.assertEqual(ptitle.text, "(101 x C3H)F1")
@@ -510,6 +513,7 @@ class TestAlleleDetail(unittest.TestCase):
                                  '#yui-rec0 > td:nth-child(3) > div:nth-child(1) > span:nth-child(1) > a:nth-child(1)').click()
         # switch focus to the new tab for Strain detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
+        time.sleep(2)
         page_title = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
         print(page_title.text)
         # Asserts that the strain page is for the correct strain
@@ -533,11 +537,13 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.LINK_TEXT, 'View').click()
         # switch focus to the new tab for Phenotypes associated with this allele page
         self.driver.switch_to.window(self.driver.window_handles[-1])
+        time.sleep(2)
         # find the first link for C57BL/6J-Shh<Dz> in the Genetic Background column of the Summary ribbon and click it.
         self.driver.find_element(By.XPATH,
                                  '/html/body/div[2]/table/tbody/tr[2]/td[2]/div/table/tbody/tr[2]/td[3]/a').click()
         # switch focus to the new tab for Strain detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
+        time.sleep(2)
         ptitle = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
         # Assert the page title is for the correct strain name
         self.assertEqual(ptitle.text, "C57BL/6J-Rr29Dz", 'Page title is not correct!')
@@ -548,6 +554,7 @@ class TestAlleleDetail(unittest.TestCase):
                                  '/html/body/div[2]/div[2]/div[1]/div/div[2]/table/tbody/tr/td[1]/table/tbody/tr[2]/td[2]/a').click()
         # switch focus to the new tab for Strain detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
+        time.sleep(2)
         ptitle = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
         # Assert the page title is for the correct strain name
         self.assertEqual(ptitle.text, "C57BL/6J-Rr29Dz", 'Page title is not correct!')
@@ -637,6 +644,7 @@ class TestAlleleDetail(unittest.TestCase):
                                  '#yui-rec0 > td:nth-child(1) > div:nth-child(1) > a:nth-child(1) > span:nth-child(1)').click()
         # switch focus to the new tab for Phenotypes Associated with this Genotype page
         self.driver.switch_to.window(self.driver.window_handles[-1])
+        time.sleep(2)
         page_title = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
         self.assertEqual(page_title.text, "Phenotypes Associated with This Genotype")
         mgi_id = self.driver.find_element(By.CLASS_NAME, 'genoID')
@@ -704,7 +712,7 @@ class TestAlleleDetail(unittest.TestCase):
     def test_allele_detail_exp_sec_both_links_simple_geno(self):
         """
         @status this test verifies in the expression section that both the assay results & anatomical structures links
-        exist when Allele w/ MP terms annotated to simple genotypes that roll-up.
+        exist when Allele w/ MP terms annotated to simple genotypes that roll-up. These links now go to the Alluiance so not sure what to do with this test!
         @note: test #1
         """
         self.driver.find_element(By.NAME, 'nomen').clear()
@@ -713,16 +721,10 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1Pisc').click()
         # verifies that the assays results link exists/is displayed
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'assay results').is_displayed()
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'anatomical structure(s)').click()
-        WebDriverWait(self.driver, 5).until(EC.text_to_be_present_in_element((By.CLASS_NAME, 'titleBarMainTitleGxd'),
-                                                                             'Mouse Developmental Anatomy Browser'))
-        # Captures the anatomy search results
-        searchlist = self.driver.find_elements(By.ID, 'searchResults')
-        terms = iterate.getTextAsList(searchlist)
-        print([x.text for x in searchlist])
+        #self.driver.find_element(By.CSS_SELECTOR, '#nomenTable > tbody:nth-child(1) > tr:nth-child(6) > td:nth-child(2) > a:nth-child(1)').click()
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, "anatomical structure(s)").is_displayed()
 
-        # The term 'thymus' should be returned in the anatomy search results
-        self.assertIn('thymus TS24-28', terms, 'the term thymus is not listed!')
+
 
     def test_allele_detail_exp_sec_both_links_cond_geno(self):
         """
@@ -1138,9 +1140,9 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.CSS_SELECTOR,
                                  '#nomenTable > tbody:nth-child(1) > tr:nth-child(6) > td:nth-child(2) > a:nth-child(1)').click()
         # time.sleep(2)
-        gene = self.driver.find_element(By.CSS_SELECTOR, '.h1 > b:nth-child(1)')
+        gene = self.driver.find_element(By.CSS_SELECTOR, 'h1.mt-2 > strong:nth-child(1) > i:nth-child(1)')
         # assert the correct gene is returned
-        self.assertEqual(gene.text, 'Gene: Aak1')
+        self.assertEqual(gene.text, 'Aak1')
 
     def test_allele_detail_MMHCdb_link(self):
         """
@@ -1171,4 +1173,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\\WebdriverTests'))

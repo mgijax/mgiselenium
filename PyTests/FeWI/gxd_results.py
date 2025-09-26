@@ -32,13 +32,17 @@ import config
 
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.edge.service import Service as EdgeService
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.edge.service import Service as EdgeService
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
 from util import iterate
 from util.form import ModuleForm
 
@@ -55,9 +59,15 @@ tracemalloc.start()
 class TestGxdResults(unittest.TestCase):
 
     def setUp(self):
-        # self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-        # self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-        self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        browser = getattr(config, "BROWSER", "chrome").lower()
+        if browser == "chrome":
+            self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        elif browser == "firefox":
+            self.driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+        elif browser == "edge":
+            self.driver = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()))
+        else:
+            raise ValueError(f"Unsupported browser: {browser}")
         self.driver.set_window_size(1500, 1000)
         self.driver.get(config.TEST_URL + "/gxd/")
         self.driver.implicitly_wait(10)
@@ -250,7 +260,7 @@ class TestGxdResults(unittest.TestCase):
         driver.get(config.TEST_URL + "/gxd")
         phenobox = driver.find_element(By.ID, 'vocabTerm')
         # Enter your molecular function in the pheno box, (cell-cell signaling)
-        phenobox.send_keys("cell-cell signaling")
+        phenobox.send_keys("cell-cell signalling [cell-cell signaling] - Function")
         phenobox.send_keys(Keys.ENTER)
         self.driver.find_element(By.ID, 'submit1').click()
         self.driver.find_element(By.ID, 'goBpFilter').click()
@@ -347,8 +357,7 @@ class TestGxdResults(unittest.TestCase):
         # assert the list returned is correct.
         self.assertEqual(cellular,
                          ['cell projection', 'cytoplasmic vesicle', 'cytoskeleton', 'cytosol', 'endoplasmic reticulum',
-                          'endosome', 'extracellular region', 'Golgi apparatus', 'mitochondrion',
-                          'non-membrane-bounded organelle', 'nucleus', 'organelle envelope', 'organelle lumen',
+                          'endosome', 'extracellular region', 'Golgi apparatus', 'membraneless organelle', 'mitochondrion', 'nucleus', 'organelle envelope', 'organelle lumen',
                           'plasma membrane', 'protein-containing complex', 'synapse', 'vacuole', 'bar'])
 
     def test_gene_tab_go_cellular_filter_gene_result(self):
@@ -405,6 +414,89 @@ class TestGxdResults(unittest.TestCase):
         # asserts that the event msg for no genes with ontology associations is properly displayed
         self.assertEqual(eventmsg, 'No genes found with ontology associations.',
                          'the no genes found text is not displaying')
+
+    def test_gene_tab_cell_type_filter_list(self):
+        """
+        @status: Tests that the GO cellular component list used on the GXD results page Cellular Component filter is correct.
+        @note: GXD-go-cellular-filter-1
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/gxd")
+        phenobox = driver.find_element(By.ID, 'vocabTerm')
+        # Enter your cellular component in the pheno box, (cell-cell signaling)
+        phenobox.send_keys("cell-cell signaling")
+        time.sleep(2)
+        phenobox.send_keys(Keys.ENTER)
+        self.driver.find_element(By.ID, 'submit1').click()
+        ele = driver.find_element(By.ID, 'goCcFilter')
+        driver.execute_script("arguments[0].click()", ele)
+        # capture the Cellular Components listed in the cellular component filter popup list
+        cellularelts = self.driver.find_elements(By.NAME, 'goCcFilter')
+        cellular = [e.get_attribute('value') for e in cellularelts]
+        print(cellular)
+        # assert the list returned is correct.
+        self.assertEqual(cellular,
+                         ['cell projection', 'cytoplasmic vesicle', 'cytoskeleton', 'cytosol', 'endoplasmic reticulum',
+                          'endosome', 'extracellular region', 'Golgi apparatus', 'membraneless organelle',
+                          'mitochondrion', 'nucleus', 'organelle envelope', 'organelle lumen',
+                          'plasma membrane', 'protein-containing complex', 'synapse', 'vacuole', 'bar'])
+
+    def test_gene_tab_cell_type_filter_gene_result(self):
+        """
+        @status: Tests that the Cell Type filter is correctly returning the right genes for cell types.
+        @note: GXD-celltype-filter-?
+        """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/gxd")
+        vocabbox = driver.find_element(By.ID, 'vocabTerm')
+        # Enter your anatomical structure in the anatomical structure box, (trophectodermal cell proliferation)
+        vocabbox.send_keys("trophectodermal cell proliferation")
+        time.sleep(2)
+        vocabbox.send_keys(Keys.ENTER)
+        self.driver.find_element(By.ID, 'submit1').click()
+        time.sleep(2)
+        ele = driver.find_element(By.ID, 'coFilter')
+        driver.execute_script("arguments[0].click()", ele)
+        # select the filter option 'establishment of localization'
+        cofilter = self.driver.find_elements(By.NAME, 'coFilter')[5]
+        driver.execute_script("arguments[0].click();", cofilter)
+        # click the Filter button found on the filter by Cell Type button
+        filter = self.driver.find_element(By.ID, 'yui-gen0-button')
+        driver.execute_script("arguments[0].click();", filter)
+        time.sleep(2)
+        # locate the Genes tab and click it
+        ele = driver.find_element(By.ID, 'genestab')
+        driver.execute_script("arguments[0].click()", ele)
+        time.sleep(2)
+        # locates the genes column and lists the genes found
+        genelist = driver.find_element(By.CLASS_NAME, 'yui-dt-data')
+        items = genelist.find_elements(By.CLASS_NAME, 'yui-dt-col-symbol')
+        searchtextitems = iterate.getTextAsList(items)
+        print(searchtextitems)
+        time.sleep(2)
+        # assert that the genes returned are correct, should be 1 gene as of 6/10/2025
+        self.assertEqual(searchtextitems, ['Grn', 'Igf1'], 'the list of genes is not correct!')
+
+    def test_gene_tab_cell_type_filter_no_genes(self):
+        """
+                @status: Tests that the Cell type filter is correctly returning the right message when there are no Cell type filtered results.
+                @note: GXD-go-cell-type-filter-?
+                """
+        driver = self.driver
+        driver.get(config.TEST_URL + "/gxd")
+        genebox = driver.find_element(By.ID, 'nomenclature')
+        # Enter your gene in the nomenclature box
+        genebox.send_keys("Ass-ps2")
+        time.sleep(2)
+        self.driver.find_element(By.ID, 'submit1').click()
+        ele = driver.find_element(By.ID, 'coFilter')
+        driver.execute_script("arguments[0].click()", ele)
+        time.sleep(2)
+        eventmsg = self.driver.find_element(By.ID, 'command').text
+        print(eventmsg)
+        # asserts that the event msg for No values in results to filter. is properly displayed
+        self.assertEqual(eventmsg, 'No values in results to filter.',
+                         'the No values in results to filter text is not displaying')
 
     def test_assay_results_tab_data_link(self):
         """
@@ -743,4 +835,4 @@ def suite():
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=HTMLTestRunner(output='C:\WebdriverTests'))
+    unittest.main(testRunner=HTMLTestRunner(output='C:\\WebdriverTests'))
