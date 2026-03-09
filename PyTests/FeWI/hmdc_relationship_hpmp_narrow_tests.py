@@ -103,7 +103,7 @@ class TestHmdcGenesSearch(unittest.TestCase):
         self.assertEqual(mmethod1.text, 'lexical')
         self.assertEqual(mtype1.text, 'narrow')
         self.assertEqual(mterm1.text, '(MP:0003633)\nabnormal nervous system physiology')
-        self.assertEqual(termsyn1.text, 'abnormal brain function | abnormal central nervous system physiology | abnormal peripheral nervous system physiology | central nervous system functional abnormalities | central nervous system: other functional anomalies | peripheral nervous system: functional anomalies')
+        self.assertEqual(termsyn1.text, 'abnormal central nervous system physiology | abnormal peripheral nervous system physiology | central nervous system functional abnormalities | central nervous system: other functional anomalies | peripheral nervous system: functional anomalies')
 
     def test_rel_narrow_hp_over_man_exact(self):
         """

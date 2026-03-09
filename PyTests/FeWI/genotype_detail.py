@@ -111,7 +111,8 @@ class TestGenotypeDetail(unittest.TestCase):
         self.driver.find_element(By.NAME, 'nomen').clear()
         self.driver.find_element(By.NAME, 'nomen').send_keys("Pax6")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element(By.PARTIAL_LINK_TEXT, 'Pax62Neu').click()
+        time.sleep(1)
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, '2Neu').click()
         # self.driver.find_element(By.CSS_SELECTOR, '#yui-rec0 > td:nth-child(1) > div:nth-child(1) > a:nth-child(1)').click()
         self.driver.find_element(By.LINK_TEXT, 'hm1').click()
         # switch to the new window

@@ -20,6 +20,8 @@ from selenium.webdriver.edge.service import Service as EdgeService
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 # from ddt import ddt, data, unpack
 # from csv import reader
 from config import PUBLIC_URL
@@ -35,7 +37,6 @@ SEQUENCE_URL = PUBLIC_URL + "/sequence/"
 # Tests
 tracemalloc.start()
 
-
 class TestEmbossData(unittest.TestCase):
 
     def get_data(self, fileName):
@@ -43,13 +44,8 @@ class TestEmbossData(unittest.TestCase):
     	opens single column file at fileName
     	returns all lines as a list
     	"""
-        f = open(fileName, 'r')
-        lines = []
-        for line in f.readlines():
-            line = line.strip()
-            lines.append(line)
-
-        return lines
+        with open(fileName, 'r') as f:
+            return [line.strip() for line in f if line.strip()]
 
     def setUp(self):
         browser = os.getenv("BROWSER", "chrome").lower()
@@ -67,38 +63,40 @@ class TestEmbossData(unittest.TestCase):
         self.driver.implicitly_wait(10)
 
     def test_search(self):
-
-        embossIds = self.get_data(
-            os.path.join(os.path.dirname(__file__),
-                         '..', '..', 'data', 'embossdata.txt')
+        emboss_ids = self.get_data(
+            os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'embossdata.txt')
         )
-        print(embossIds)
 
-        for embossId in embossIds:
-            chrLine = None
-            parts = embossId.split(',')
-            if len(parts) > 1:
-                embossId = parts[0]
-                chrLine = parts[1]
+        wait = WebDriverWait(self.driver, 10)
 
-            self.driver.get(SEQUENCE_URL + embossId)
-            time.sleep(2)
-            gobutton = self.driver.find_element(By.CSS_SELECTOR, "form[name=\"seqPullDownForm\"] input")
-            gobutton.click()
-            time.sleep(2)
-            if chrLine:
-                self.assertIn(chrLine, self.driver.page_source)
-            else:
-                try:
-                    self.assertNotIn("An error occurred", self.driver.page_source)
-                except:
-                    print(embossId + ' ID has an error.')
-                    pass
-                self.assertIn(embossId, self.driver.page_source)
+        for entry in emboss_ids:
+            with self.subTest(entry=entry):
+                parts = entry.split(',')
+                emboss_id = parts[0]
+                chr_line = parts[1] if len(parts) > 1 else None
 
-    def tearDown(self):
-        self.driver.quit()
-        tracemalloc.stop()
+                self.driver.get(SEQUENCE_URL + emboss_id)
+
+                go_button = wait.until(
+                    EC.element_to_be_clickable(
+                        (By.CSS_SELECTOR, 'form[name="seqPullDownForm"] input')
+                    )
+                )
+                go_button.click()
+
+                wait.until(EC.presence_of_element_located((By.TAG_NAME, "body")))
+                page = self.driver.page_source
+
+                if chr_line:
+                    self.assertIn(chr_line, page)
+                else:
+                    self.assertIn(emboss_id, page)
+                    self.assertNotIn("An error occurred", page)
+
+
+def tearDown(self):
+    self.driver.quit()
+    tracemalloc.stop()
 
 
 def suite():

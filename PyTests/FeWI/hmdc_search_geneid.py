@@ -999,7 +999,7 @@ class TestHmdcSearchGeneid(unittest.TestCase):
                 break
 
         self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
-        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("OMIM:222100")  # OMIM disease ID
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("OMIM:220100")  # OMIM disease ID
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
 

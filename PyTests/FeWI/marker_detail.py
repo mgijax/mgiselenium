@@ -291,7 +291,7 @@ class TestMarkerDetail(unittest.TestCase):
         self.assertEqual(strain_annot.text, '16')
         # verify the SNP URL
         snp_s = self.driver.find_element(By.ID, 'snpLink')
-        self.assertEquals(snp_s.text, '295')
+        self.assertEqual(snp_s.text, '295')
 
     def test_strain_turnstile_nostrain_snp_data(self):
         """
@@ -355,7 +355,6 @@ class TestMarkerDetail(unittest.TestCase):
     def test_strain_table_genemodelid_links(self):
         """
         @status this test verifies that the Gene Model IDs in the strains table link to their MGI gene model sequence, found in the Strain Comparison ribbon. (only verifying 1 link of 18)
-        @bug: broken, can't find row data.
         @note mrkdetail-strain-9
         """
         driver = self.driver
@@ -466,16 +465,16 @@ class TestMarkerDetail(unittest.TestCase):
         @note mrkdetail-strain-11A
         """
         driver = self.driver
-        self.driver.find_element(By.NAME, 'nomen').send_keys("Igh-8")
+        self.driver.find_element(By.NAME, 'nomen').send_keys("Lair1")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element(By.LINK_TEXT, 'Igh-8').click()
+        self.driver.find_element(By.LINK_TEXT, 'Lair1').click()
         WebDriverWait(driver, 10).until(EC.presence_of_element_located(
             (By.ID, 'summaryRibbon')))  # waits until the summary ribbon is displayed on the page
         # locate the Sequence Map coordinates
-        seq_map = self.driver.find_element(By.XPATH, '//*[@id="locationRibbon"]/div[2]/section[1]/ul/li[1]/div[2]')
+        seq_map = self.driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div[2]/div[2]/section[1]/ul/li[1]/div[2]/div')
         print(seq_map.text)
         # verify the coordinates data for the sequence map
-        self.assertEqual(seq_map.text, 'Chr12:113329416-113330847 bp\nFrom MGI annotation of GRCm39',
+        self.assertEqual(seq_map.text, 'Chr7:4006401-4066178 bp, - strand',
                          'sequence map coordinates have changed!')
         # clicks the More toggle(turnstile) to display the strain table
         self.driver.find_element(By.ID, 'strainRibbon').find_element(By.CSS_SELECTOR,
@@ -487,7 +486,7 @@ class TestMarkerDetail(unittest.TestCase):
         all_cells = table.get_column_cells('Coordinates')
         print(all_cells[1].text)
         # verify the ID/Version row of data
-        self.assertEqual(all_cells[1].text, 'Chr12:113329416-113330847 (.)')
+        self.assertEqual(all_cells[1].text, 'Chr7:4006401-4076566 (-)')
 
     def test_strain_table_single_fasta(self):
         """
@@ -563,7 +562,7 @@ class TestMarkerDetail(unittest.TestCase):
         @note mrkdetail-strain-16
         """
         driver = self.driver
-        self.driver.set_window_size(1200, 900)
+        #self.driver.set_window_size(1200, 900)
         self.driver.find_element(By.NAME, 'nomen').send_keys("Gata1")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Gata1').click()
@@ -572,7 +571,7 @@ class TestMarkerDetail(unittest.TestCase):
             print('Summary ribbon is loaded')
         # clicks the More toggle(turnstile) to display the strain table
         self.driver.find_element(By.ID, 'scToggle').click()
-        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.ID, 'table_strainMarkers'))):
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'table_strainMarkers'))):
             print('Strain table is loaded')
         # find and select the Download box for the strain C57BL/6J
         self.driver.find_elements(By.CLASS_NAME, 'sgCheckbox')[0].click()
@@ -617,7 +616,7 @@ class TestMarkerDetail(unittest.TestCase):
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
         # verify the correct sequences are being returned
-        assert 'MGI_C57BL6J_2151058 7:6958684-6980419' in self.driver.page_source
+        assert 'MGI_C57BL6J_2151058 7:6958684-6979661' in self.driver.page_source
         assert 'MGP_129S1SvImJ_G0004408 7:4064690-4089229' in self.driver.page_source
         assert 'MGP_AJ_G0004385 7:3946706-3968051' in self.driver.page_source
         assert 'MGP_AKRJ_G0004367 7:4199441-4224713' in self.driver.page_source
@@ -659,9 +658,9 @@ class TestMarkerDetail(unittest.TestCase):
         @note mrkdetail-strain-19
         """
         driver = self.driver
-        self.driver.find_element(By.NAME, 'nomen').send_keys("Ifna")
+        self.driver.find_element(By.NAME, 'nomen').send_keys("Igh")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element(By.LINK_TEXT, 'Ifna').click()
+        self.driver.find_element(By.LINK_TEXT, 'Igh').click()
         # waits until the summary ribbon is displayed on the page
         if WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'summaryRibbon'))):
             print('Summary ribbon is loaded')
@@ -669,7 +668,7 @@ class TestMarkerDetail(unittest.TestCase):
         strain_ribbon = self.driver.find_element(By.ID, 'strainRibbon')
         print(strain_ribbon.text)
         # verify the Strain-specific icon and text is displayed in the strain comparison ribbon
-        self.assertEqual(strain_ribbon.text, 'Strain\nComparison\nmore\nSNPs within 2kb\n155 from dbSNP Build 142',
+        self.assertEqual(strain_ribbon.text, 'Strain\nComparison\nmore\nSNPs within 2kb\n91840 from dbSNP Build 142',
                          'the Strain Comparison ribbon display has changed!')
 
     def test_strain_only_poly(self):
@@ -842,10 +841,10 @@ class TestMarkerDetail(unittest.TestCase):
         self.assertEqual(model_cells[2].text, 'MGP_129S1SvImJ_G0005544')
         self.assertEqual(model_cells[3].text, 'MGP_AJ_G0036786')
         self.assertEqual(model_cells[4].text, 'MGP_AJ_G0006976')
-        self.assertEqual(model_cells[5].text, 'MGP_AKRJ_G0036736')
-        self.assertEqual(model_cells[6].text, 'MGP_AKRJ_G0007264')
-        self.assertEqual(model_cells[7].text, 'MGP_BALBcJ_G0006952')
-        self.assertEqual(model_cells[8].text, 'MGP_BALBcJ_G0036776')
+        self.assertEqual(model_cells[5].text, 'MGP_AKRJ_G0007264')
+        self.assertEqual(model_cells[6].text, 'MGP_AKRJ_G0036736')
+        self.assertEqual(model_cells[7].text, 'MGP_BALBcJ_G0036776')
+        self.assertEqual(model_cells[8].text, 'MGP_BALBcJ_G0006952')
         self.assertEqual(model_cells[9].text, 'no annotation')
 
     def test_turnstile_behavior(self):
@@ -991,6 +990,7 @@ class TestMarkerDetail(unittest.TestCase):
         """
         @status this test verifies when you click one of the blue cells in the phenoslim grid from the Mutations, Alleles, and Phenotypes ribbon
         to open the Phenotype annotations related to page, then click a Mouse Genotype to find strains in the genetic background column link to their strain detail page(for Summary ribbon and for Genotype ribbon.
+        @BUG this test is failing trying to click locate a link!!
         @note mrkdetail-allele-7
         """
         driver = self.driver
@@ -1007,22 +1007,27 @@ class TestMarkerDetail(unittest.TestCase):
         reporg = pheno_table.get_cell(2, 21)
         driver.execute_script("arguments[0].click();", reporg)
         # switch focus to the new tab for Phenotype annotations related to reproductive System
-        self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         # find and click the Mouse Genotype for X/Sry<AKR/J>
-        mpheno_table = Table(self.driver.find_element(By.XPATH, "/html/body/div[2]/table[2]"))
+        WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.CLASS_NAME, 'popupTable'))
+        )
+        mpheno_table = Table(self.driver.find_element(By.XPATH, "/html/body/div[2]/table[3]"))
         cell = mpheno_table.get_cell(2, 1)
         print(cell.text)
-        #driver.execute_script("arguments[0].click();", cell)
-        self.driver.find_element(By.XPATH, '//*[@id="fm19608a"]').click()
+        driver.execute_script("arguments[1].click();", cell)
+        #WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.LINK_TEXT, 'X/Sry<AKR/J>'))).click()
         # switch focus to the new tab for Phenotypes associated with X/Sry<AKR/J>
-        self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 4)
-        # Locate the Genetic Background column and click the link found there(Summary ribbon)
-        self.driver.find_element(By.LINK_TEXT, 'AKR/J').click()
-        # switch focus to the new tab for strain detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
+        # Locate the Genetic Background column and click the link found there(Summary ribbon)
+        WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.LINK_TEXT, "AKR/J"))
+        ).click()
+        # switch focus to the new tab for strain detail page
         wait.forNewWindow(self.driver, 5)
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         page_title = self.driver.find_element(By.CLASS_NAME, 'titleBarMainTitle')
         print(page_title.text)
         # Asserts that the strain page is for the correct strain detail

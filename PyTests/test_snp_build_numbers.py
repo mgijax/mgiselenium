@@ -22,9 +22,10 @@ sys.path.append(
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.firefox.service import Service as FirefoxService
@@ -73,7 +74,7 @@ class TestSnpBuildNumbers(unittest.TestCase):
         genebox.send_keys("pax6")
         genebox.send_keys(Keys.RETURN)
         #Does a webdriver wait until the export buttons are present so we know the page is loaded
-        if WebDriverWait(self.driver, 8).until(ec.presence_of_element_located((By.ID, 'exportButtons'))):
+        if WebDriverWait(self.driver, 8).until(EC.presence_of_element_located((By.ID, 'exportButtons'))):
             print('page loaded')
         #finds the snp build number in the heading of SNP ID column
         snpidLabel = self.driver.find_element(By.ID, 'snpSummaryTable').find_element(By.ID, 'snp_id')
@@ -135,15 +136,26 @@ class TestSnpBuildNumbers(unittest.TestCase):
         #displays the HMDC qf
         self.driver.get(PUBLIC_URL + "/diseasePortal")
         #find the pulldown and select Genome Location
-        my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
-        print(my_select.text)
+
+        # Wait until the dropdown is present and clickable
+        WebDriverWait(self.driver, 10).until(EC.element_located_to_be_selected((By.ID, "field_0_27289")))
+        dropdown = self.driver.find_element(By.ID, "field_0_27289")
+        dropdown.click()
+        # Convert to a Select object
+        select = Select(dropdown)
+        # Select by value
+        select.select_by_value("string:location")
+        #my_select = self.driver.find_element(By.XPATH,
+        #                                     "//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the location option
+        #my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
+        #print(my_select.text)
         # verifies all the items listed in the pulldown are correct and in order
         #self.assertEqual(my_select.text,['Please select a field\nGene Symbol(s) or ID(s)\nGene Name\nDisease or Phenotype Name\nDisease or Phenotype ID(s)\nGenome Location\nGene File Upload'])
         #select option Genome Location
-        for option in my_select.find_elements(By.TAG_NAME, "option"):
-            if option.text == 'Genome Location':
-                option.click()
-                break
+        #for option in my_select.find_elements(By.TAG_NAME, "option"):
+            #if option.text == 'Genome Location':
+                #option.click()
+                #break
 
         #finds the human and mouse genome build numbers
         buildnumber = self.driver.find_element(By.CLASS_NAME, 'radio-group')

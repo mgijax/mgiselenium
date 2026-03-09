@@ -115,25 +115,25 @@ class TestGxdProfileQF(unittest.TestCase):
         time.sleep(2)
         # find the ts grid box for TS26 for heart ventricle
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
-        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row0.col0 > rect.blue3')
+        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row0.col0 > rect.blue5')
         rightclass = item.get_attribute('class')
         # rightclass finds the class name of the gridbox
         # now we assert the class name of the gridbox matches the class name of blue1
-        self.assertEqual(rightclass, 'blue3')
+        self.assertEqual(rightclass, 'blue5')
         # find the ts grid box for TS27 for heart ventricle
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
-        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row0.col1 > rect.blue3')
+        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row0.col1 > rect.blue5')
         rightclass = item.get_attribute('class')
         # rightclass finds the class name of the gridbox
         # now we assert the class name of the gridbox matches the class name of blue1
-        self.assertEqual(rightclass, 'blue3')
+        self.assertEqual(rightclass, 'blue5')
         # find the ts grid box for TS28 for heart ventricle
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
-        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row0.col2 > rect.blue3')
+        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row0.col2 > rect.blue5')
         rightclass = item.get_attribute('class')
         # rightclass finds the class name of the gridbox
         # now we assert the class name of the gridbox matches the class name of blue1
-        self.assertEqual(rightclass, 'blue3')
+        self.assertEqual(rightclass, 'blue5')
 
 
     def test_prof_double_results(self):
@@ -207,18 +207,18 @@ class TestGxdProfileQF(unittest.TestCase):
         time.sleep(2)
         # find the ts grid box for TS28 for femur diaphysis
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
-        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row0.col0 > rect.blue3')
+        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row0.col0 > rect.blue5')
         rightclass = item.get_attribute('class')
         # rightclass finds the class name of the gridbox
         # now we assert the class name of the gridbox matches the class name of blue3
-        self.assertEqual(rightclass, 'blue3')
+        self.assertEqual(rightclass, 'blue5')
         # find the ts grid box for TS28 for femur metaphysis
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
-        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row1.col0 > rect.blue3')
+        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row1.col0 > rect.blue5')
         rightclass = item.get_attribute('class')
         # rightclass finds the class name of the gridbox
         # now we assert the class name of the gridbox matches the class name of blue3
-        self.assertEqual(rightclass, 'blue3')
+        self.assertEqual(rightclass, 'blue5')
 
     def test_profile_nowhereelse(self):
         """
@@ -367,7 +367,7 @@ class TestGxdProfileQF(unittest.TestCase):
         self.assertIn('Acaa2', searchtextitems)
         # find the tissue grid box for bladder for marker Abcc6
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
-        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row0.col18 > rect.blue2')
+        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row0.col17 > rect.blue2')
         rightclass = item.get_attribute('class')
         # now we assert the class name of the gridbox matches the class name of blue2
         self.assertEqual(rightclass, 'blue2')
@@ -545,18 +545,18 @@ class TestGxdProfileQF(unittest.TestCase):
         time.sleep(2)
         # find the ts grid box for TS28 for femur diaphysis
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
-        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row0.col0 > rect.blue3')
+        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row0.col0 > rect.blue4')
         rightclass = item.get_attribute('class')
         # rightclass finds the class name of the gridbox
-        # now we assert the class name of the gridbox matches the class name of blue3
-        self.assertEqual(rightclass, 'blue3')
+        # now we assert the class name of the gridbox matches the class name of blue4
+        self.assertEqual(rightclass, 'blue4')
         # find the ts grid box for TS28 for femur metaphysis
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
-        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row1.col0 > rect.red3')
+        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row1.col0 > rect.red4')
         rightclass = item.get_attribute('class')
         # rightclass finds the class name of the gridbox
-        # now we assert the class name of the gridbox matches the class name of blue3
-        self.assertEqual(rightclass, 'red3')
+        # now we assert the class name of the gridbox matches the class name of red4
+        self.assertEqual(rightclass, 'red4')
 
 
     def test_multi_nots(self):

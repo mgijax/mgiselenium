@@ -475,7 +475,7 @@ class TestGxdResults(unittest.TestCase):
         print(searchtextitems)
         time.sleep(2)
         # assert that the genes returned are correct, should be 1 gene as of 6/10/2025
-        self.assertEqual(searchtextitems, ['Grn', 'Igf1'], 'the list of genes is not correct!')
+        self.assertEqual(searchtextitems, ['Igf1'], 'the list of genes is not correct!')
 
     def test_gene_tab_cell_type_filter_no_genes(self):
         """
@@ -612,7 +612,7 @@ class TestGxdResults(unittest.TestCase):
     def test_assay_results_tab_add_sample_data_on(self):
         """
         @status: Tests that the columns display in correct order when Additional Sample Data is displayed.
-        @note: GXD-aresults-6,7
+        @note: GXD-results-6,7
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")
@@ -639,9 +639,9 @@ class TestGxdResults(unittest.TestCase):
         head = iterate.getTextAsList(cols)
         print(head)
         # assert that the columns are in the correct order
-        self.assertEqual(head, ['Gene', 'Result Details', 'Assay Type', 'Age', 'Structure', 'Cell\nType', 'Detected?',
+        self.assertEqual(head, ['Gene', 'Result Details', 'Assay Type', 'Age', 'Structure', 'Cell\nType', 'Sex', 'Detected?',
                                 'TPM Level\n(RNA-Seq)', 'Biological Replicates\n(RNA-Seq)', 'Images',
-                                'Mutant Allele(s)', 'Strain', 'Sex', 'Notes\n(RNA-Seq)', 'Reference', ''])
+                                'Mutant Allele(s)', 'Strain', 'Notes\n(RNA-Seq)', 'Reference', ''])
 
     def test_assay_results_tab_column_headings(self):
         """
@@ -662,8 +662,8 @@ class TestGxdResults(unittest.TestCase):
         head = iterate.getTextAsList(cols)
         print(head)
         # assert that the columns are in the correct order
-        self.assertEqual(head, ['Gene', 'Result Details', 'Assay Type', 'Age', 'Structure', 'Cell\nType', 'Detected?',
-                                'TPM Level\n(RNA-Seq)', '', 'Images', 'Mutant Allele(s)', '', '', '', 'Reference', ''])
+        self.assertEqual(head, ['Gene', 'Result Details', 'Assay Type', 'Age', 'Structure', 'Cell\nType', 'Sex', 'Detected?',
+                                'TPM Level\n(RNA-Seq)', '', 'Images', 'Mutant Allele(s)', '', '', 'Reference', ''])
 
     def test_assay_results_tab_assay_type_col_sort(self):
         """

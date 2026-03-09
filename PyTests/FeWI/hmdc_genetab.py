@@ -172,8 +172,7 @@ class TestHmdcGeneTab(unittest.TestCase):
                 option.click()
                 break
 
-        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys(
-            "Gata1")  # identifies the input field and enters gata1
+        self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("Gata1")  # identifies the input field and enters gata1
         # wait.forAngular(self.driver)
         self.driver.find_element(By.ID, "searchButton").click()
         wait.forAngular(self.driver)
@@ -190,10 +189,19 @@ class TestHmdcGeneTab(unittest.TestCase):
         assochumandiseases = iterate.getTextAsList(cells)
         print(assochumandiseases)
         # asserts that the expected diseases are returned for these genes
-        self.assertIn(
-            'beta thalassemia\ncolon adenocarcinoma\ndepressive disorder\nmyeloid leukemia associated with Down Syndrome\nthrombocytopenia\ntransient myeloproliferative syndrome\nX-linked dyserythropoietic anemia\nX-linked thrombocytopenia with beta-thalassemia',
-            assochumandiseases)  # diseases associated to Gata1
-        self.assertIn('myelodysplastic syndrome\nmyelofibrosis\nthrombocytopenia', assochumandiseases)  # diseases associated to GATA1
+        self.assertIn("beta thalassemia", assochumandiseases[1])
+        self.assertIn("colon adenocarcinoma", assochumandiseases[1])
+        self.assertIn("congenital nonspherocytic hemolytic anemia 9", assochumandiseases[1])
+        self.assertIn("depressive disorder", assochumandiseases[1])
+        self.assertIn("myeloid leukemia associated with Down Syndrome", assochumandiseases[1])
+        self.assertIn("thrombocytopenia", assochumandiseases[1])
+        self.assertIn("transient myeloproliferative syndrome", assochumandiseases[1])
+        self.assertIn("X-linked dyserythropoietic anemia", assochumandiseases[1])
+        self.assertIn("X-linked thrombocytopenia with beta-thalassemia", assochumandiseases[1])
+        self.assertIn("myelodysplastic syndrome", assochumandiseases[2])
+        self.assertIn("myelofibrosis", assochumandiseases[2])
+        self.assertIn("thrombocytopenia", assochumandiseases[2])
+        self.assertIn("thrombocytopenia", assochumandiseases[4])
 
     def tearDown(self):
         self.driver.quit()

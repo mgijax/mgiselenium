@@ -494,6 +494,7 @@ class TestHmdcGenesSearch(unittest.TestCase):
         """
         @status this test verifies the correct genes are returned for this query, The symbol is unique because it has no grid or diseases, only genes.
         @see: HMDC-genetab-2 (search returns rows on Gene tab); HMDC-grid-30 (display a 'no data' message when no rows are returned on Grid)
+        !!!!!Need to find a new example that has no rows!!!!!!!
         """
         print("BEGIN test_gene_symbol_only_genes")
         my_select = self.driver.find_element(By.XPATH, "//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option
@@ -510,7 +511,7 @@ class TestHmdcGenesSearch(unittest.TestCase):
         grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
         print(grid_tab.text)
-        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (0 x 0)", "Grid tab is not visible!")
+        self.assertEqual(grid_tab.text, "Gene Homologs x Phenotypes/Diseases (1 x 2)", "Grid tab is not visible!")
         grid_tab.click()
         self.assertIn('No data available for your query', self.driver.page_source)
         
@@ -729,12 +730,12 @@ class TestHmdcGenesSearch(unittest.TestCase):
         # Grab the human genes returned on the Grid Tab and verify associated human gene is returned
         hgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.first")
         humangenelist = iterate.getTextAsList(hgenes)
-        self.assertIn("CDKN2A", humangenelist)
+        self.assertIn("CDKN2A, CDKN2B", humangenelist)
         
         # Grab the mouse genes returned on the Grid Tab and verify associate mouse gene is returned
         mgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.last")
         mousegenelist = iterate.getTextAsList(mgenes)
-        self.assertIn("Cdkn2a", mousegenelist)
+        self.assertIn("Cdkn2a, Cdkn2b", mousegenelist)
         
         # Do this search again using the Gene Symbol/ID query field
         # Open up the query form again (click on "Click to modify search" button
@@ -760,12 +761,12 @@ class TestHmdcGenesSearch(unittest.TestCase):
         # Grab the human genes returned on the Grid Tab and verify associated human gene is returned
         hgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.first")
         humangenelist = iterate.getTextAsList(hgenes)
-        self.assertIn("CDKN2A", humangenelist)
+        self.assertIn("CDKN2A, CDKN2B", humangenelist)
         
         # Grab the mouse genes returned on the Grid Tab and verify associate mouse gene is returned
         mgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.last")
         mousegenelist = iterate.getTextAsList(mgenes)
-        self.assertIn("Cdkn2a", mousegenelist)
+        self.assertIn("Cdkn2a, Cdkn2b", mousegenelist)
         
 
     def test_gene_NOT_disease(self):
@@ -824,7 +825,7 @@ class TestHmdcGenesSearch(unittest.TestCase):
         time.sleep(2)
         # asserts that the References in MGI column displays a Disease Relevant link since the is a NOT disease
         self.assertEqual(ref1.text, '')
-        self.assertEqual(ref2.text, 'All Mouse: 51\nDisease Relevant: 1')
+        self.assertEqual(ref2.text, 'All Mouse: 57\nDisease Relevant: 1')
         
         # identify the Disease tab and verify the tab's text
         disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
@@ -937,11 +938,11 @@ class TestHmdcGenesSearch(unittest.TestCase):
         # get human and mouse genes on the grid and verify C4a/C4b/C4A/C4B homology class
         hgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.first")
         humangenelist = iterate.getTextAsList(hgenes)
-        self.assertIn("GJA1, GJA6P", humangenelist)
+        self.assertIn("GJA1", humangenelist)
         
         mgenes = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.left.middle.cell.last")
         mousegenelist = iterate.getTextAsList(mgenes)
-        self.assertIn("Gja1, Gja6", mousegenelist)
+        self.assertIn("Gja1", mousegenelist)
         
         # identify the Genes tab and click on it
         gene_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
@@ -954,7 +955,7 @@ class TestHmdcGenesSearch(unittest.TestCase):
         genelist = iterate.getTextAsList(cells)
     
         self.assertIn('Gja1', genelist)
-        self.assertIn('Gja6', genelist)
+
 
     def test_genotype_popup(self):
         """

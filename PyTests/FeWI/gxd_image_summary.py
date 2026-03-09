@@ -152,12 +152,13 @@ class TestGxdImageSummary(unittest.TestCase):
         * sort order should be type (with not specified last), followed by assay type and gene
         * reverse order should still leave not specified last
         * blot assays are last by default
+        ***currently broken!!!!!!!!!!!!****
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")
         genebox = driver.find_element(By.NAME, 'nomenclature')
         # put your marker symbol
-        genebox.send_keys("pax6")
+        genebox.send_keys("Eeig1")
         genebox.send_keys(Keys.RETURN)
         time.sleep(2)
         # find the Image tab and click it
@@ -167,14 +168,14 @@ class TestGxdImageSummary(unittest.TestCase):
         assaylist = driver.find_element(By.ID, 'imagesdata').find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-assayType')
         items = assaylist[0].find_elements(By.TAG_NAME, 'li')
         searchtextitems = iterate.getTextAsList(items)
-        self.assertEqual(searchtextitems, ["Immunohistochemistry", "Immunohistochemistry"])
+        self.assertEqual(searchtextitems, ["RNA in situ"])
         assayheader = driver.find_element(By.ID, 'imagesdata').find_element(By.CSS_SELECTOR, 'th.yui-dt-col-assayType')
         # click the gene header column to re-sort
         assayheader.click()
         # time.sleep(1)
-        # find the second row of data and verify the assay type
+        # find the fifteenth row of data and verify the assay type
         assaylist = driver.find_element(By.ID, 'imagesdata').find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-assayType')
-        items = assaylist[2].find_elements(By.TAG_NAME, 'li')
+        items = assaylist[19].find_elements(By.TAG_NAME, 'li')
         searchtextitems = iterate.getTextAsList(items)
         self.assertEqual(searchtextitems, ["RT-PCR"])
     

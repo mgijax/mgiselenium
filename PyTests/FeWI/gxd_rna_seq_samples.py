@@ -80,7 +80,7 @@ class TestGxdRnaSeqSamples(unittest.TestCase):
         page_url = self.driver.current_url
         print(page_url)
         # Assert the URL is correct
-        self.assertEqual(page_url, "https://www.ebi.ac.uk/biostudies/arrayexpress/studies/E-MEXP-5")
+        self.assertEqual(page_url, "https://www.ebi.ac.uk/biostudies/ArrayExpress/studies/E-MEXP-5")
 
     def test_rnaseq_samples_expression_atlas_link(self):
         """
@@ -99,10 +99,10 @@ class TestGxdRnaSeqSamples(unittest.TestCase):
         self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
         # find the View button of the first result and click it
-        self.driver.find_element(By.ID, 'row0button').click()
+        self.driver.find_element(By.ID, 'row2button').click()
         # switch focus the the popup samples window
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        # find the Expression Atlas ID E-GEOD-1294 link and click it
+        # find the Expression Atlas ID E_GEOD-1294 link and click it
         Atlas_Link = self.driver.find_element(By.LINK_TEXT, 'E-GEOD-1294').click()
         time.sleep(2)
         print(Atlas_Link)

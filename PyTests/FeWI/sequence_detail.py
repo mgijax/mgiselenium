@@ -141,7 +141,7 @@ class TestSequenceDetail(unittest.TestCase):
     def test_mgp_ensembl_link(self):
         """
         @status: Tests that an MGP sequence detail has a link to Ensembl in the ID ribbon and this link goes to the correct page.
-        @note: seqdetail-id-3
+        @note: seqdetail-id-3 !!!currently not finding this at ensembl but might work in time!!!!!
         """
         driver = self.driver
         driver.get(config.TEST_URL)
@@ -370,7 +370,7 @@ class TestSequenceDetail(unittest.TestCase):
     def test_mgi_gm_fasta(self):
         """
         @status: Tests that an MGI gene model sequence can be downloaded for FASTA
-        @note: seqdetail-seq-3 !!!I believe this GO link is no longer on the page so this test is void????
+        @note: seqdetail-seq-3 worked 1/20/2026
         """
         driver = self.driver
         driver.get(config.TEST_URL)
@@ -771,7 +771,7 @@ class TestSequenceDetail(unittest.TestCase):
         # find the Expression Assays cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 4)
         print(cell1.text)
-        self.assertIn('203', cell1.text)
+        self.assertIn('205', cell1.text)
         # find the Orthologs cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 5)
         print(cell1.text)

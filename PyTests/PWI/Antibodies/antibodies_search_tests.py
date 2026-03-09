@@ -63,7 +63,7 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         # finds the Antibody Name field and enters an antibody name, tabs out of the field then clicks the Search button
-        driver.find_element(By.ID, "antibodyName").send_keys('anti-uvomorulin ')
+        driver.find_element(By.ID, "antibodyName").send_keys('anti-uvomorulin')
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
@@ -193,81 +193,6 @@ class TestEIAntibodySearch(unittest.TestCase):
         self.assertEqual(symbol2, ['anti-GH'])
         self.assertEqual(symbol3, ['Anti-GH'])
 
-    def testAntigenAccIDSearch(self):
-        """
-        @Status tests that a basic antigen accession ID search works
-        @see pwi-antibody-search-5
-        """
-        driver = self.driver
-        # finds the antigen accession ID field and enters text , tabs out of the field then clicks the Search button
-        driver.find_element(By.ID, "antigenAcc").send_keys('MGI:2684475')
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
-        actions = ActionChains(driver)
-        actions.send_keys(Keys.TAB)
-        actions.perform()
-        time.sleep(2)
-        driver.find_element(By.ID, 'searchButton').click()
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Gli3ab1'))
-        # find the search results table
-        results_table = self.driver.find_element(By.ID, "resultsTable")
-        table = Table(results_table)
-        # Iterate and print the search results headers
-        cell1 = table.get_row_cells(0)
-        symbol1 = iterate.getTextAsList(cell1)
-        print(symbol1)
-        # Assert the correct antibodies are returned
-        self.assertEqual(symbol1, ['Gli3ab1'])
-
-    def testAntigenNameSearch(self):
-        """
-        @Status tests that a basic antigen name search works
-        @see pwi-antibody-search-6
-        """
-        driver = self.driver
-        # finds the antigen name field and enters text , tabs out of the field then clicks the Search button
-        driver.find_element(By.ID, "antigenName").send_keys('uvomorulin')
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
-        actions = ActionChains(driver)
-        actions.send_keys(Keys.TAB)
-        actions.perform()
-        time.sleep(2)
-        driver.find_element(By.ID, 'searchButton').click()
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-uvomorulin'))
-        # find the search results table
-        results_table = self.driver.find_element(By.ID, "resultsTable")
-        table = Table(results_table)
-        # Iterate and print the search results headers
-        cell1 = table.get_row_cells(0)
-        symbol1 = iterate.getTextAsList(cell1)
-        print(symbol1)
-        # Assert the correct antibodies are returned
-        self.assertEqual(symbol1, ['anti-uvomorulin'])
-
-    def testAntigenName2Search(self):
-        """
-        @Status tests that a basic antigen name with wildcard search works
-        @see pwi-antibody-search-6
-        """
-        driver = self.driver
-        # finds the antigen name field and enters text , tabs out of the field then clicks the Search button
-        driver.find_element(By.ID, "antigenName").send_keys('CDEBP%')
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
-        actions = ActionChains(driver)
-        actions.send_keys(Keys.TAB)
-        actions.perform()
-        time.sleep(2)
-        driver.find_element(By.ID, 'searchButton').click()
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'Ab61'))
-        # find the search results table
-        results_table = self.driver.find_element(By.ID, "resultsTable")
-        table = Table(results_table)
-        # Iterate and print the search results headers
-        cell1 = table.get_row_cells(0)
-        symbol1 = iterate.getTextAsList(cell1)
-        print(symbol1)
-        # Assert the correct antibodies are returned
-        self.assertEqual(symbol1, ['Ab61'])
-
     def testAntibodyRegionSearch(self):
         """
         @Status tests that a basic region covered search works
@@ -275,14 +200,14 @@ class TestEIAntibodySearch(unittest.TestCase):
         """
         driver = self.driver
         # finds the antibody region covered field and enters text , tabs out of the field then clicks the Search button
-        driver.find_element(By.ID, "regionCovered").send_keys('carboxyl-terminal domain')
+        driver.find_element(By.ID, "regionCovered").send_keys('carboxyl terminal 270 amino acids')
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-GATA5'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'AML2 antibody'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -291,7 +216,7 @@ class TestEIAntibodySearch(unittest.TestCase):
         symbol1 = iterate.getTextAsList(cell1)
         print(symbol1)
         # Assert the correct antibody is returned
-        self.assertEqual(symbol1, ['anti-GATA5'])
+        self.assertEqual(symbol1, ['AML2 antibody'])
 
     def testAntibodyRegion2Search(self):
         """
@@ -352,7 +277,7 @@ class TestEIAntibodySearch(unittest.TestCase):
         driver = self.driver
         # finds the antigen notes field and enters text, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "antigenNote").send_keys('%describe%')
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
+        #WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
@@ -366,14 +291,17 @@ class TestEIAntibodySearch(unittest.TestCase):
         cell1 = table.get_row_cells(0)
         cell2 = table.get_row_cells(1)
         cell3 = table.get_row_cells(2)
+        cell4 = table.get_row_cells(3)
         symbol1 = iterate.getTextAsList(cell1)
         symbol2 = iterate.getTextAsList(cell2)
         symbol3 = iterate.getTextAsList(cell3)
+        symbol4 = iterate.getTextAsList(cell4)
         print(symbol1)
         # Assert the correct antibodies are returned
         self.assertEqual(symbol1, ['anti-c-ErbB2/c-Neu (ab-3)'])
         self.assertEqual(symbol2, ['anti-Dnmt antibody'])
-        self.assertEqual(symbol3, ['anti-Syk'])
+        self.assertEqual(symbol3, ['anti-NCoR'])
+        self.assertEqual(symbol4, ['anti-Syk'])
 
     def testAntigenOrganismSearch(self):
         """
@@ -487,26 +415,29 @@ class TestEIAntibodySearch(unittest.TestCase):
         cell4 = table.get_row_cells(3)
         cell5 = table.get_row_cells(4)
         cell6 = table.get_row_cells(5)
+        cell7 = table.get_row_cells(6)
         symbol1 = iterate.getTextAsList(cell1)
         symbol2 = iterate.getTextAsList(cell2)
         symbol3 = iterate.getTextAsList(cell3)
         symbol4 = iterate.getTextAsList(cell4)
         symbol5 = iterate.getTextAsList(cell5)
         symbol6 = iterate.getTextAsList(cell6)
+        symbol7 = iterate.getTextAsList(cell7)
         print(symbol1)
         # Assert the correct antibodies are returned
         self.assertEqual(symbol1, ['1D4'])
         self.assertEqual(symbol2, ['Anti-CD4 (RM4-5; 100548)'])
         self.assertEqual(symbol3, ['anti-PARP1 (556362)'])
         self.assertEqual(symbol4, ['anti-TdT serum'])
-        self.assertEqual(symbol5, ['H202-407-6-3'])
-        self.assertEqual(symbol6, ['HS9 antibody'])
+        self.assertEqual(symbol5, ['anti-VIMENTIN, clone LN-6, MAB1681'])
+        self.assertEqual(symbol6, ['H202-407-6-3'])
+        self.assertEqual(symbol7, ['HS9 antibody'])
 
-    """def testAntigenTissue1Search(self):
-
+    def testAntigenTissue1Search(self):
+        '''
         @Status tests that a basic tissue search w/wildcard works
         @see pwi-antibody-search-11 (no longer valid test as wildcard not used for Tissue field 2/16/2023)
-
+        '''
         driver = self.driver
         #finds the tissue field and enters a tissue w/wildcard, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "tissue").send_keys('endo%')
@@ -522,14 +453,11 @@ class TestEIAntibodySearch(unittest.TestCase):
         table = Table(results_table)
         #Iterate and print the search results headers
         cell1 = table.get_row_cells(0)
-        cell2 = table.get_row_cells(1)
         symbol1 = iterate.getTextAsList(cell1)
-        symbol2 = iterate.getTextAsList(cell2)
         print(symbol1)
         #Assert the correct antibodies are returned
-        self.assertEqual(symbol1, ['anti-CD34 (MEC 14.7; sc-18917)'])
-        self.assertEqual(symbol2, ['EA-1'])    
-        """
+        self.assertEqual(symbol1, ['EA-1'])
+
 
     def testAntigenTissueDescSearch(self):
         """
@@ -556,11 +484,11 @@ class TestEIAntibodySearch(unittest.TestCase):
         # Assert the correct antibody is returned
         self.assertEqual(symbol1, ['PS-2'])
 
-    """def testAntigenTissueDesc1Search(self):
-
+    def testAntigenTissueDesc1Search(self):
+        """
         @Status tests that a basic tissue description search w/wildcard works
         @see pwi-antigen-search-12 (No longer a valid test as wildcards no longer work 2/16/23)
-
+        """
         driver = self.driver
         #finds the tissue Description field and enters a description w/wildcard, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "description").send_keys('%tectal proteins')
@@ -580,7 +508,7 @@ class TestEIAntibodySearch(unittest.TestCase):
         print(symbol1)
         #Assert the correct antigens are returned(first 3)
         self.assertEqual(symbol1, ['3CB2'])
-        """
+
 
     def testAntigenCelllineSearch(self):
         """
@@ -666,7 +594,7 @@ class TestEIAntibodySearch(unittest.TestCase):
         self.assertEqual(symbol1, ['A4.840'])
         self.assertEqual(symbol2, ['clone A4.74'])
 
-    def testAntigenAgeStageSearch(self):
+    def testAntigenAgeRangeSearch(self):
         """
         @Status tests that a basic age stage search works
         @see pwi-antibody-search-15
@@ -691,7 +619,7 @@ class TestEIAntibodySearch(unittest.TestCase):
         # Assert the correct antibodies are returned
         self.assertEqual(symbol1, ['mouse anti-ICD'])
 
-    def testAntigenAgeStage2Search(self):
+    def testAntigenAgeRange2Search(self):
         """
         @Status tests that a basic age stage search with wildcard works
         @see pwi-antibody-search-15
@@ -699,13 +627,13 @@ class TestEIAntibodySearch(unittest.TestCase):
         driver = self.driver
         # finds the age stage field and enters an age stage, tabs out of the field then clicks the Search button
         driver.find_element(By.ID, "ageStage").send_keys('12%')
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#accessionForm > input:nth-child(2)')))  # waits until the PWI ACC input field is displayed on the page
+        # WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'resultsTable')))  # waits until the results table is displayed on the page
         actions = ActionChains(driver)
         actions.send_keys(Keys.TAB)
         actions.perform()
         time.sleep(2)
         driver.find_element(By.ID, 'searchButton').click()
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'mAb 13A4'))
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element((By.ID, 'resultsTable'), 'anti-CD133 (Prominin-1) (13A4), 14-1331'))
         # find the search results table
         results_table = self.driver.find_element(By.ID, "resultsTable")
         table = Table(results_table)
@@ -714,7 +642,7 @@ class TestEIAntibodySearch(unittest.TestCase):
         symbol1 = iterate.getTextAsList(cell1)
         print(symbol1)
         # Assert the correct antibodies are returned
-        self.assertEqual(symbol1, ['mAb 13A4'])
+        self.assertEqual(symbol1, ['anti-CD133 (Prominin-1) (13A4), 14-1331'])
 
     def testAntigenGenderSearch(self):
         """

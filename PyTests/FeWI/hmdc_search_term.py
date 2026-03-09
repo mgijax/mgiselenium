@@ -492,9 +492,10 @@ class TestHmdcSearchTerm(unittest.TestCase):
         # phenocells captures all the table data cells on the first row of data
         phenocells = self.driver.find_elements(By.CSS_SELECTOR, "td.ngc.center.cell.middle")
 
-        phenocells[3].click()  # clicks the cell for muscle (new data could break this)
+        phenocells[4].click()  # clicks the cell for muscle (new data could break this)
         self.driver.switch_to.window(self.driver.window_handles[1])  # switches focus to the genotype popup page
         wait.forNewWindow(self.driver, 2)
+        time.sleep(3)
         matching_text = "Human muscle abnormalities for ALG2/Alg2"
         # asserts the heading text is correct in page source
         self.assertIn(matching_text, self.driver.page_source, 'expected pop-up box heading not displayed')

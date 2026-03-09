@@ -371,10 +371,10 @@ class TestSnpQF(unittest.TestCase):
         driver.find_element(By.CSS_SELECTOR, '#ui-id-2').click()
         # enter the start marker
         strtmrkrange = driver.find_element(By.NAME, 'startMarker')
-        strtmrkrange.send_keys('D19Mit32')
+        strtmrkrange.send_keys('Apoa2')
         # Enter the stop marker
         stopmrkrange = driver.find_element(By.NAME, 'endMarker')
-        stopmrkrange.send_keys("Tbx10")
+        stopmrkrange.send_keys("Cq2")
         stopmrkrange.send_keys(Keys.TAB)
         # declares the entire tab as an entire form
         form2 = driver.find_element(By.ID, 'form2')
@@ -391,7 +391,7 @@ class TestSnpQF(unittest.TestCase):
         time.sleep(2)
         # Locate the heat map info line and verify the text
         hminfo = driver.find_element(By.XPATH, '//*[@id="heatmapInfoRow"]/td/div/div[1]')
-        self.assertEqual(hminfo.text, 'Chr19 from 3,328,551 bp to 4,049,512 bp', 'The heatmap text is not correct')
+        self.assertEqual(hminfo.text, 'Chr1 from 171,052,623 bp to 174,456,436 bp', 'The heatmap text is not correct')
         # locates the SNP summary table
         snp_table = Table(self.driver.find_element(By.ID, "snpSummaryTable"))
         # Locate the table header cells and verify the strains are correct
@@ -449,10 +449,10 @@ class TestSnpQF(unittest.TestCase):
         driver.find_element(By.CSS_SELECTOR, '#ui-id-2').click()
         # enter the start marker
         strtmrkrange = driver.find_element(By.NAME, 'startMarker')
-        strtmrkrange.send_keys('D19Mit32')
+        strtmrkrange.send_keys('Apoa2')
         # Enter the stop marker
         stopmrkrange = driver.find_element(By.NAME, 'endMarker')
-        stopmrkrange.send_keys("Tbx10")
+        stopmrkrange.send_keys("Cq2")
         stopmrkrange.send_keys(Keys.TAB)
         # declares the entire tab as an entire form
         form2 = driver.find_element(By.ID, 'form2')
@@ -462,7 +462,7 @@ class TestSnpQF(unittest.TestCase):
         # Locate the page info line and verify the text
         pginfo = driver.find_element(By.ID, 'yui-pg0-0-page-report')
         print(pginfo.text)
-        self.assertEqual(pginfo.text, 'Showing SNP(s) 1 - 100 of 14640', 'The page info text is not correct')
+        self.assertEqual(pginfo.text, 'Showing SNP(s) 1 - 100 of 86902', 'The page info text is not correct')
         # locates the SNP summary table
         snp_table = Table(self.driver.find_element(By.ID, "snpSummaryTable"))
         # Locate the table header cells and verify the strains are correct
@@ -483,7 +483,7 @@ class TestSnpQF(unittest.TestCase):
         # Locate the page info line and verify the text
         pginfo = driver.find_element(By.ID, 'yui-pg0-0-page-report')
         print(pginfo.text)
-        self.assertEqual(pginfo.text, 'Showing SNP(s) 1 - 51 of 51', 'The page info text is not correct')
+        self.assertEqual(pginfo.text, 'Showing SNP(s) 1 - 100 of 12401', 'The page info text is not correct')
 
     def test_search_by_region_compare(self):
         """

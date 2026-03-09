@@ -220,12 +220,15 @@ class TestDoBrowserGeneTab(unittest.TestCase):
         row1 = cells[2]
         row2 = cells[3]
         row3 = cells[4]
+        row4 = cells[5]
         self.assertEqual(row1.text,
                          '       Beckwith-Wiedemann syndrome CDKN1C* Cdkn1c* 2 models Alliance of Genome Resources')
         self.assertEqual(row2.text,
                          '       Beckwith-Wiedemann syndrome SPTBN1 Sptbn1* 1 model Alliance of Genome Resources')
         self.assertEqual(row3.text,
-                         '       Beckwith-Wiedemann syndrome KCNQ1OT1* Kcnq1ot1   Alliance of Genome Resources')
+                         '       Beckwith-Wiedemann syndrome H19* H19   Alliance of Genome Resources')
+        self.assertEqual(row4.text,
+                         'Beckwith-Wiedemann syndrome KCNQ1OT1* Kcnq1ot1   Alliance of Genome Resources')
         time.sleep(2)
         transgene_table = self.driver.find_element(By.ID, "transgeneTable")
         table = Table(transgene_table)

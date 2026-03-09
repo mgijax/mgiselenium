@@ -114,25 +114,31 @@ class TestCellTypeBrowser(unittest.TestCase):
         self.assertEqual(term[18].text, 'motile cell')
         self.assertEqual(term[19].text, 'nitrogen fixing cell')
         self.assertEqual(term[20].text, 'nucleate cell')
-        self.assertEqual(term[21].text, 'oxygen accumulating cell')
-        self.assertEqual(term[22].text, 'perivascular cell')
-        self.assertEqual(term[23].text, 'photosynthetic cell')
-        self.assertEqual(term[24].text, 'polyploid cell')
-        self.assertEqual(term[25].text, 'precursor cell')
-        self.assertEqual(term[26].text, 'prokaryotic cell')
-        self.assertEqual(term[27].text, 'secretory cell')
-        self.assertEqual(term[28].text, 'skeletogenic cell')
-        self.assertEqual(term[29].text, 'structural cell')
-        self.assertEqual(term[30].text, 'stuff accumulating cell')
-        self.assertEqual(term[31].text, 'supporting cell')
-        self.assertEqual(term[32].text, 'zygote')
+        self.assertEqual(term[21].text, 'OB FRMD7 GABA GABAergic neuron (Primate)')
+        self.assertEqual(term[22].text, 'oxygen accumulating cell')
+        self.assertEqual(term[23].text, 'perivascular cell')
+        self.assertEqual(term[24].text, 'photosynthetic cell')
+        self.assertEqual(term[25].text, 'polyploid cell')
+        self.assertEqual(term[26].text, 'precursor cell')
+        self.assertEqual(term[27].text, 'prokaryotic cell')
+        self.assertEqual(term[28].text, 'secretory cell')
+        self.assertEqual(term[29].text, 'skeletogenic cell')
+        self.assertEqual(term[30].text, 'SN GATA3-PVALB GABA GABAergic neuron (Primate)')
+        self.assertEqual(term[31].text, 'SN SOX6 Dopa substantia nigra dopaminergic neuron (Primate)')
+        self.assertEqual(term[32].text, 'SN-VTR CALB1 Dopa substantia nigra dopaminergic neuron (Primate)')
+        self.assertEqual(term[33].text, 'SN-VTR GAD2 Dopa dopaminergic neuron (Primate)')
+        self.assertEqual(term[34].text, 'STRd D1/D2-hybrid medium spiny neuron (Primate)')
+        self.assertEqual(term[35].text, 'STRd D2 Striomat hybrid medium spiny neuron (Primate)')
+        self.assertEqual(term[36].text, 'stuff accumulating cell')
+        self.assertEqual(term[37].text, 'supporting cell')
+        self.assertEqual(term[38].text, 'zygote')
 
 
     def test_parents_multi(self):
         """
         @status: Tests that searching by a cell ontology term that is associated with multiple parents return the
         correct results
-        @note: CT-Search-?
+        @note: CT-Search-? I'm not sure there is an example of this so maybe this test is not needed?
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/cell_ontology/CL:0000136")
@@ -169,122 +175,130 @@ class TestCellTypeBrowser(unittest.TestCase):
 
     def test_pheno_link_noexpression(self):
         """
-        @status: Tests that searching by an Emapa term that is associated to a phenotype but has no expression
-        annotations  !!!under construction, waiting for implementation!!!!!!
+        @status: Tests that searching by an cell ontology term that is associated to a phenotype but has no expression
+        annotations  passed 01/22/2026
         @note: CL_Search-
         """
         driver = self.driver
-        driver.get(config.TEST_URL + "/vocab/cell_ontology")
-        driver.find_element(By.LINK_TEXT, 'phenotype terms').click()
-        searchlist = driver.find_elements(By.ID, 'searchResults')
-        terms = iterate.getTextAsList(searchlist)
-        print([x.text for x in searchlist])
-        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'searchResults'))):
-            print('MP Annotation summary loaded')
-        # These 2 terms should be returned in the phenotype search results
-        self.assertIn('abnormal blastocoele morphology\nabsent blastocoele', terms, 'these terms are not listed!')
+        driver.get(config.TEST_URL + "/vocab/cell_ontology/CL:2000078")
+        recomLink = WebDriverWait(driver, 2).until(EC.element_to_be_clickable((By.ID, "recomLink_CL2000078")))
+        print('Tree view details loaded')
+        driver.execute_script("arguments[0].scrollIntoView(true);", recomLink)
+        recomLink.click()
+        # switch focus to the new tab for Recombinase Alleles - Tissue summary
+        self.driver.switch_to.window(self.driver.window_handles[-1])
+
+        WebDriverWait(driver, 2).until(
+            EC.presence_of_element_located((By.ID, 'dynamicdata'))
+        )
+
+        results_table = driver.find_element(By.ID, 'dynamicdata')
+        table = Table(results_table)
+
+        term1 = table.get_cell(2, 2)
+        print(term1.text)
+
+        self.assertEqual(
+            'Tg(Ntrk3-cre/ERT2)#Phep\ntransgene insertion, Paul A Heppenstall',
+            term1.text,
+            'Term1 is not returning'
+        )
+
 
     def test_pheno_link_treeview(self):
         """
         @status: Tests that the phenotype annotations link in the Treeview section when clicked returns correct results.
-        @note:  !!!under construction, waiting for implementation!!!!!!
+        @note:  passed 02/09/2026
         """
         driver = self.driver
-        driver.get(config.TEST_URL + "/vocab/cell_ontology")
-        if WebDriverWait(self.driver, 5).until(
-                EC.presence_of_element_located((By.CLASS_NAME, 'phenotypeAnnotationCount'))):
-            print('Tree view details loaded')
-        driver.find_element(By.CLASS_NAME,
-                            'phenotypeAnnotationCount').click()  # clicks the phenotype annotations link found in the Treeview section
-        time.sleep(2)
-        results_table = self.driver.find_element(By.ID, 'resultsTable')
+        driver.get(config.TEST_URL + "/vocab/cell_ontology/CL:1001607")
+        recomLink = WebDriverWait(driver, 4).until(EC.element_to_be_clickable((By.ID, 'recomLink_CL1001607')))
+        print('Tree view details loaded')
+        driver.execute_script("arguments[0].scrollIntoView(true);", recomLink)
+        recomLink.click()
+        # switch focus to the new tab for Recombinase Alleles - Tissue summary
+        self.driver.switch_to.window(self.driver.window_handles[-1])
+
+        WebDriverWait(driver, 2).until(
+            EC.presence_of_element_located((By.ID, 'dynamicdata'))
+        )
+
+        results_table = driver.find_element(By.ID, 'dynamicdata')
         table = Table(results_table)
-        # gets the 1st,6th,13th,16th rows of the Annotated term column
-        term1 = table.get_cell(3, 1)
-        term2 = table.get_cell(8, 1)
-        term3 = table.get_cell(16, 1)
-        term4 = table.get_cell(19, 1)
+
+        term1 = table.get_cell(2, 2)
+        term2 = table.get_cell(3, 2)
         print(term1.text)
         print(term2.text)
-        print(term3.text)
-        print(term4.text)
-        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'resultsTable'))):
-            print('MP Annotation summary loaded')
-        # verifies the returned terms are the correct terms for this search
-        self.assertEqual('abnormal cerebellum deep nucleus morphology', term1.text, 'Term1 is not returning')
-        self.assertEqual('abnormal cerebellum fastigial nucleus morphology', term2.text, 'Term2 is not returning')
-        self.assertEqual('abnormal cerebellum dentate nucleus morphology', term3.text, 'Term3 is not returning')
-        self.assertEqual('abnormal cerebellum interpositus nucleus morphology', term4.text, 'Term4 is not returning')
+
+        self.assertEqual(
+            'Tg(Rr162136-cre/ERT2)#Bpou\ntransgene insertion, Blandine Poulet',
+            term1.text,
+            'Term1 is not returning'
+        )
+        self.assertEqual(
+            'Tg(Prg4-cre/ERT2)#Ndy\ntransgene insertion, Nathaniel A Dyment',
+            term2.text,
+            'Term2 is not returning'
+        )
+
 
     def test_pheno_link_nochild_treeview(self):
         """
         @status: Tests that when you have a 1to1 mapping with no child terms associated(gxd&pheno),the phenotype
         annotations link in the Treeview section when clicked returns correct results.
-        @note: CL-search-?  !!!under construction, waiting for implementation!!!!!!
+        @note: CL-search-?  passed 01/23/2026
         """
         driver = self.driver
-        driver.get(config.TEST_URL + "/vocab/cell_ontology")
-        if WebDriverWait(self.driver, 5).until(
-                EC.presence_of_element_located((By.CLASS_NAME, 'phenotypeAnnotationCount'))):
-            print('Tree view details loaded')
-        driver.find_element(By.CLASS_NAME,
-                            'phenotypeAnnotationCount').click()  # clicks the phenotype annotations link found in the Treeview section
-        results_table = self.driver.find_element(By.ID, 'resultsTable')
-        table = Table(results_table)
-        # gets the 1st and only row of the Annotated term column
-        term1 = table.get_cell(3, 1)
-        print(term1.text)
-        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'resultsTable'))):
-            print('MP Annotation summary loaded')
-        # verifies the returned terms are the correct terms for this search
-        self.assertEqual("abnormal Peyer's patch epithelium morphology", term1.text, 'Term1 is not returning')
+        driver.get(config.TEST_URL + "/vocab/cell_ontology/CL:0000225")
+        recom_link = WebDriverWait(driver, 4).until(EC.element_to_be_clickable((By.ID, 'recomLink_CL0000225')))
+        print('Tree view details loaded')
+        recom_link.click()
+        #time.sleep(2)
+        original_window = driver.current_window_handle
+        WebDriverWait(driver, 5).until(lambda d: len(d.window_handles) > 1)
+        driver.switch_to.window(
+            [w for w in driver.window_handles if w != original_window][0]
+        )
 
-    def test_pheno_link_withchildboth_treeview(self):
-        """
-        @status: Tests that when you have a 1to1 mapping with child terms associated(gxd&pheno),the phenotype
-        annotations link in the Treeview section when clicked returns correct results.
-        @note: CL-search-?  !!!under construction, waiting for implementation!!!!!!
-        """
-        driver = self.driver
-        driver.get(config.TEST_URL + "/vocab/cell_ontology")
-        if WebDriverWait(self.driver, 5).until(
-                EC.presence_of_element_located((By.CLASS_NAME, 'phenotypeAnnotationCount'))):
-            print('Tree view details loaded')
-        driver.find_element(By.CLASS_NAME,
-                            'phenotypeAnnotationCount').click()  # clicks the phenotype annotations link found in the Treeview section
-        time.sleep(2)
-        results_table = self.driver.find_element(By.ID, 'resultsTable')
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.ID, 'dynamicdata'))
+        )
+
+        results_table = driver.find_element(By.ID, 'dynamicdata')
         table = Table(results_table)
-        # gets the 1st,2nd rows of the Annotated term column, only 2 rows exist
-        term1 = table.get_cell(3, 1)
-        term2 = table.get_cell(4, 1)
+
+        term1 = table.get_cell(2, 2)
         print(term1.text)
-        print(term2.text)
-        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'resultsTable'))):
-            print('MP Annotation summary loaded')
-        # verifies the returned terms are the correct terms for this search
-        self.assertEqual('abnormal bulbus cordis morphology', term1.text, 'Term1 is not returning')
-        self.assertEqual('abnormal bulbus cordis morphology', term2.text, 'Term2 is not returning')
+
+        self.assertEqual(
+            'Tg(Nrp2-cre,-EGFP)#Qsch\ntransgene insertion, Quenten Schwarz',
+            term1.text,
+            'Term1 is not returning'
+        )
+
 
     def test_no_pheno_link_exp_link(self):
         """
         @status: Tests that when you have a 1to1 mapping with NO Pheno mapping/has GXD mapping,the GXD link has data
         the phenotype annotations link in the Treeview section has zero results.
-        @note: CL-search-?  !!!under construction, waiting for implementation!!!!!!
+        @note: CL-search-?  passed 01/22/2026
         """
         driver = self.driver
-        driver.get(config.TEST_URL + "/vocab/cell_ontology")
-        if WebDriverWait(self.driver, 5).until(
-                EC.presence_of_element_located((By.CLASS_NAME, 'expressionResultCount'))):
-            print('Tree view details loaded')
+        driver.get(config.TEST_URL + "/vocab/cell_ontology/CL:0000566")
+
+        WebDriverWait(driver, 2).until(EC.element_to_be_clickable((By.ID, "resultLink_CL0000566")))
+        print('Tree view details loaded')
+
+        bodytext = driver.find_element(By.TAG_NAME, 'body').text
         # the phenotype annotations link found in the Treeview section should be zero
-        assert '0 phenotype annotations' in driver.page_source
+        self.assertFalse('phenotype annotations' in bodytext)
 
     def test_zero_pheno_link_zero_exp_link(self):
         """
         @status: Tests that when you have a 1to1 NO mapping for expression or pheno, NO child terms, the phenotype
         annotations is zero and expression results links in the Treeview section is normal.
-        @note: CL-search-?  !!!under construction, waiting for implementation!!!!!!
+        @note: CL-search-?  needs to be converted to using cell otology browser
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:37850")
@@ -294,174 +308,127 @@ class TestCellTypeBrowser(unittest.TestCase):
         # verifies the returned results are zero for this search
         assert '(0 expression results; 0 phenotype annotations)' in driver.page_source
 
-    def test_zero_pheno_link_zero_exp_link_MP_child(self):
-        """
-        @status: Tests that when you have a 1to1  NO mapping for expression or pheno, has child terms,the phenotype
-        annotations is zero and expression results links in the Treeview section is normal.
-        @note: CL-search-?  !!!under construction, waiting for implementation!!!!!!
-        """
-        driver = self.driver
-        driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:16824")
-        if WebDriverWait(self.driver, 5).until(
-                EC.presence_of_element_located((By.CLASS_NAME, 'expressionResultCount'))):
-            print('Tree view details loaded')
-        linke = driver.find_element(By.CLASS_NAME,
-                                    'expressionResultCount')  # the expression annotations link found in the Treeview section
-        print(linke.text)
-        # verifies the returned terms are the correct terms for this search
-        self.assertEqual('3', linke.text, 'The 0 expression results link is wrong')
-        self.assertIn('0 phenotype annotations', driver.page_source,
-                      'The 0 phenotypes annotation link is missing')  # confirms that o phenotype annitations text is displayed when no results
-
-    def test_pheno_link_withparent3child_treeview(self):
-        """
-        @status: Tests that when you have a 1toN mapping with parent and 3 child terms associated(pheno)
-        has child terms,the phenotype annotations link in the Treeview section when clicked returns correct results.
-        @note: CL-search-?  !!!under construction, waiting for implementation!!!!!!
-        """
-        driver = self.driver
-        driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:28373")
-        if WebDriverWait(self.driver, 5).until(
-                EC.presence_of_element_located((By.CLASS_NAME, 'expressionResultCount'))):
-            print('Tree view details loaded')
-        driver.find_element(By.CLASS_NAME,
-                            'phenotypeAnnotationCount').click()  # clicks the phenotype annotations link found in the Treeview section
-        time.sleep(2)
-        results_table = self.driver.find_element(By.ID, 'resultsTable')
-        table = Table(results_table)
-        # gets the 1st-8th rows of the Annotated term column, only 8 rows exist
-        term1 = table.get_cell(3, 1)
-        term2 = table.get_cell(4, 1)
-        term3 = table.get_cell(5, 1)
-        term4 = table.get_cell(6, 1)
-        term5 = table.get_cell(7, 1)
-        term6 = table.get_cell(8, 1)
-        term7 = table.get_cell(9, 1)
-        term8 = table.get_cell(10, 1)
-        print(term1.text)
-        print(term2.text)
-        print(term3.text)
-        print(term4.text)
-        print(term5.text)
-        print(term6.text)
-        print(term7.text)
-        print(term8.text)
-        # verifies the returned terms are the correct terms for this search
-        self.assertEqual('abnormal renal artery morphology', term1.text, 'Term1 is not returning')
-        self.assertEqual('abnormal renal artery morphology', term2.text, 'Term2 is not returning')
-        self.assertEqual('abnormal right renal artery morphology', term3.text, 'Term3 is not returning')
-        self.assertEqual('abnormal right renal artery morphology', term4.text, 'Term4 is not returning')
-        self.assertEqual('abnormal right renal artery morphology', term5.text, 'Term5 is not returning')
-        self.assertEqual('abnormal right renal artery morphology', term6.text, 'Term6 is not returning')
-        self.assertEqual('abnormal renal artery morphology', term7.text, 'Term7 is not returning')
-        self.assertEqual('abnormal right renal artery morphology', term8.text, 'Term8 is not returning')
-
     def test_pheno_link_with_parent_and_child_treeview(self):
         """
         @status: Tests that when you have a 1toN mapping for pheno and expression, child terms for expression,
         the phenotype annotations link in the Treeview section when clicked returns correct results.
-        @note: CL-search-?  !!!under construction, waiting for implementation!!!!!!
+        @note: CL-search-?  passed 01/28/2026
         """
         driver = self.driver
-        driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:16075")
-        if WebDriverWait(self.driver, 5).until(
-                EC.presence_of_element_located((By.CLASS_NAME, 'expressionResultCount'))):
-            print('Tree view details loaded')
-        driver.find_element(By.CLASS_NAME,
-                            'phenotypeAnnotationCount').click()  # clicks the phenotype annotations link found in the Treeview section
+        driver.get(config.TEST_URL + "/vocab/cell_ontology/CL:0000388")
+        recomLink =  WebDriverWait(self.driver, 5).until(
+                EC.element_to_be_clickable((By.ID, 'recomLink_CL0000388')))
+        print('Tree view details loaded')
+        driver.execute_script("arguments[0].scrollIntoView(true);", recomLink)
+        recomLink.click()
         time.sleep(2)
-        results_table = self.driver.find_element(By.ID, 'resultsTable')
+        original_window = driver.current_window_handle
+        WebDriverWait(driver, 5).until(lambda d: len(d.window_handles) > 1)
+        driver.switch_to.window(
+            [w for w in driver.window_handles if w != original_window][0]
+        )
+
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.ID, 'dynamicdata'))
+        )
+
+        results_table = driver.find_element(By.ID, 'dynamicdata')
         table = Table(results_table)
-        # gets the 1st, 2nd, 7th, 8th, and 9th rows of the Annotated term column
-        term1 = table.get_cell(3, 1)
-        term2 = table.get_cell(4, 1)
-        term3 = table.get_cell(10, 1)
-        term4 = table.get_cell(11, 1)
-        term5 = table.get_cell(12, 1)
+
+        term1 = table.get_cell(2, 2)
         print(term1.text)
-        print(term2.text)
-        print(term3.text)
-        print(term4.text)
-        print(term5.text)
-        # verifies the returned terms are the correct terms for this search
-        self.assertEqual('absent primitive node', term1.text, 'Term1 is not returning')
-        self.assertEqual('absent embryonic cilia', term2.text, 'Term2 is not returning')
-        self.assertEqual('abnormal primitive node morphology', term3.text, 'Term3 is not returning')
-        self.assertEqual('abnormal motile primary cilium morphology', term4.text, 'Term4 is not returning')
-        self.assertEqual('decreased embryonic cilium length', term5.text, 'Term5 is not returning')
+
+        self.assertEqual(
+            'Tg(Prg4-cre/ERT2)#Ndy\ntransgene insertion, Nathaniel A Dyment',
+            term1.text,
+            'Term1 is not returning'
+        )
+
 
     def test_no_pheno_mapping_zero_exp_link(self):
         """
-        @status: Tests that when you have no phenotype mapping but zero Expression mapping, NO child terms,
-        the phenotype annotations link in the Treeview section does not display, the expression results link is zero.
-        @note: CL-search-?  !!!under construction, waiting for implementation!!!!!!
+        @status: Tests that when you have no phenotype mapping and no Expression mapping, NO child terms,
+        the phenotype annotations link and expression results link in the Treeview section does not display, the RNA-Seq results link is visible.
+        @note: CL-search-?  passed 1/23/2026
         """
         driver = self.driver
-        driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:37425")
+        driver.get(config.TEST_URL + "/vocab/cell_ontology/CL:0002554")
         wait.forAjax(driver)
         bodytext = driver.find_element(By.TAG_NAME, 'body').text
         # verifies the returned terms are the correct terms for this search
-        self.assertTrue('0 expression results', 'The 0 expression results link is wrong')
-        self.assertFalse('phenotype annotations' in bodytext)
+        self.assertTrue('1 RNA-seq or microarray experiments', 'The RNA-seq link is not displaying')
+        self.assertFalse('expression results' in bodytext)
+        self.assertFalse('recombinase alleles' in bodytext)
 
-    def test_no_pheno_mapping_has_exp_link(self):
+    def test_no_pheno_mapping_has_rna_link(self):
         """
-        @status: Tests that when you have no phenotype mapping but Expression mapping, NO child terms,the phenotype
-        annotations link in the Treeview section does not display, the expression results link has normal display.
-        @note: CL-search-?  !!!under construction, waiting for implementation!!!!!!
+        @status: Tests that when you have no phenotype mapping but rna mapping, NO child terms,the phenotype
+        annotations link in the Treeview section does not display, the rna results link has normal display.
+        @note: CL-search-?  passed 01/28/2026
         """
         driver = self.driver
-        driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:36473")
+        driver.get(config.TEST_URL + "/vocab/cell_ontology/CL:0010017")
         if WebDriverWait(self.driver, 5).until(
-                EC.presence_of_element_located((By.CLASS_NAME, 'expressionResultCount'))):
+                EC.element_to_be_clickable((By.CLASS_NAME, 'annotationLink'))):
             print('Tree view details loaded')
-        linke = driver.find_element(By.CLASS_NAME,
-                                    'expressionResultCount')  # the expression annotations link found in the Treeview section
+        linkr = driver.find_element(By.ID,
+                                    'htLink_CL0010017')  # the rna-seq link found in the Treeview section
         bodytext = driver.find_element(By.TAG_NAME, 'body').text
-        print(linke.text)
-        # asserts the expression results link exist and phenotype annotations link does not exist
-        self.assertTrue('expression results' in bodytext)
-        self.assertFalse('phenotype annotations' in bodytext)
-
-    def test_no_pheno_mapping_zero_exp_link2(self):
-        """
-        @status: Tests that when you have no phenotype mapping no Expression mapping, NO child terms,the phenotype
-        annotations link in the Treeview section does not display, the expression results link has zero results.
-        @note: CL-search-?  !!!under construction, waiting for implementation!!!!!!
-        """
-        driver = self.driver
-        driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:19101")
-        wait.forAjax(driver)
-        bodytext = driver.find_element(By.TAG_NAME, 'body').text
-        # verifies the returned terms are the correct terms for this search
-        self.assertTrue('0 expression results', 'The 0 expression results link is wrong')
-        self.assertFalse('phenotype annotations' in bodytext)
+        #print(linkr.text)
+        # asserts the rna-seq results link exist and phenotype annotations link does not exist
+        self.assertTrue('RNA-seq or microarray experiments' in bodytext)
+        self.assertFalse('recombinase alleles' in bodytext)
 
     def test_pheno_link_results_sort(self):
         """
-        @status: Tests that when you click the phenotypes term link in the detail section the results returned are
-        in alphanumeric sort
-        @note: CL-Search-?  !!!under construction, waiting for implementation!!!!!!
+                @status: Tests that when you click the phenotypes term link in the detail section the results returned are
+                in alphanumeric sort of driver column
+                @note: CL-Search-? passed 2/12/2026
         """
         driver = self.driver
-        driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:16117")
-        if WebDriverWait(self.driver, 5).until(
-                EC.presence_of_element_located((By.CLASS_NAME, 'expressionResultCount'))):
-            print('Tree view details loaded')
-        driver.find_element(By.LINK_TEXT, 'phenotype terms').click()
-        searchlist = driver.find_elements(By.ID, 'searchResults')
-        terms = iterate.getTextAsList(searchlist)
-        print([x.text for x in searchlist])
-        print(terms)
-        # These terms should be returned in the phenotype search results with the order given
-        self.assertIn(
-            'abnormal pharyngeal arch morphology\nabsent pharyngeal arches\nectopic pharyngeal arch\nenlarged pharyngeal arch\nfused pharyngeal arches\npharyngeal arch hypoplasia\nsmall pharyngeal arch',
-            terms, 'The sort order is not correct')
+        driver.get(config.TEST_URL + "/vocab/cell_ontology/CL:0000327")
+
+        # Wait until the phenotype link is clickable and click it
+        recomLink = WebDriverWait(driver, 5).until(
+            EC.element_to_be_clickable((By.ID, 'recomLink_CL0000327'))
+        )
+        recomLink.click()
+
+        # Switch to the newly opened window
+        original_window = driver.current_window_handle
+        WebDriverWait(driver, 10).until(lambda d: len(d.window_handles) > 1)
+        driver.switch_to.window(
+            next(w for w in driver.window_handles if w != original_window)
+        )
+
+        # Wait until Driver column cells are present
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_all_elements_located(
+                (By.CLASS_NAME, 'yui-dt0-col-driver')
+            )
+        )
+
+        # Collect driver column values
+        driver_cells = driver.find_elements(By.CLASS_NAME, 'yui-dt0-col-driver')
+        driver_texts = [cell.text.strip() for cell in driver_cells if cell.text.strip() and cell.text.strip().lower() != 'driver']
+
+        # Debug output (optional)
+        print("Driver column values:", driver_texts)
+
+        # Verify alphanumeric sort
+        self.assertEqual(
+            driver_texts, [
+    'Acan', 'Acan', 'Clec11a', 'Col2a1', 'Col10a1',
+    'Col10a1', 'Ihh', 'Islr', 'Lepr', 'Mobp',
+    'Pdgfrb', 'Prg4', 'Prg4'
+],
+            "Driver column is not sorted alphanumerically"
+        )
 
     def test_ht_link_noexpression(self):
         """
         @status: Tests that searching by an CL term that is associated to a ht expression but has no regular expression
-        annotations  tested 9/8/2025
+        annotations  passed 1/28/2026
         @note: CL_Search-
         """
         driver = self.driver
@@ -471,7 +438,7 @@ class TestCellTypeBrowser(unittest.TestCase):
                 EC.presence_of_element_located((By.ID, 'searchResults'))):
             print('Tree view details loaded')
         time.sleep(1)
-        driver.find_element(By.ID,'htLink_CL:0000809').click()  # clicks the HT results link found in the Treeview section
+        driver.find_element(By.ID,'htLink_CL0000809').click()  # clicks the HT results link found in the Treeview section
         #time.sleep(2)
         # switch focus to the new tab for RNA-Seq and Microarray Experiment page
         self.driver.switch_to.window(self.driver.window_handles[-1])
@@ -484,7 +451,7 @@ class TestCellTypeBrowser(unittest.TestCase):
     def test_ht_link_treeview(self):
         """
         @status: Tests that the ht annotations link in the Treeview section when clicked returns correct results.
-        @note:  tested 9/8/2025
+        @note:  tested 1/23/2026
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/cell_ontology/CL:2000053")
@@ -492,85 +459,81 @@ class TestCellTypeBrowser(unittest.TestCase):
                 EC.presence_of_element_located((By.ID, 'searchResults'))):
             print('Tree view details loaded')
         time.sleep(1)
-        driver.find_element(By.ID,'htLink_CL:2000053').click()  # clicks the HT results link found in the Treeview section
+        driver.find_element(By.ID,'htLink_CL2000053').click()  # clicks the HT results link found in the Treeview section
         #time.sleep(2)
         # switch focus to the new tab for RNA-Seq and Microarray Experiment page
         self.driver.switch_to.window(self.driver.window_handles[-1])
         time.sleep(2)
         items = self.driver.find_element(By.ID, 'pageReportTop')
         # verifies the number of results found is correct
-        self.assertEqual('Showing experiments 1 - 2 of 2', items.text, 'number of results returned is not correct')
+        self.assertEqual('Showing experiments 1 - 3 of 3', items.text, 'number of results returned is not correct')
 
 
     def test_ht_link_nochild_treeview(self):
         """
         @status: Tests that when you have a 1to1 mapping with no child terms associated(gxd&ht&pheno),the phenotype
         annotations link in the Treeview section when clicked returns correct results.
-        @note: CL-search-?  !!!under construction, waiting for implementation!!!!!!
+        @note: CL-search-?  passed 2/12/2026
         """
         driver = self.driver
-        driver.get(config.TEST_URL + "/vocab/cell_ontology")
-        if WebDriverWait(self.driver, 5).until(
-                EC.presence_of_element_located((By.CLASS_NAME, 'phenotypeAnnotationCount'))):
-            print('Tree view details loaded')
-        driver.find_element(By.CLASS_NAME,
-                            'phenotypeAnnotationCount').click()  # clicks the phenotype annotations link found in the Treeview section
-        results_table = self.driver.find_element(By.ID, 'resultsTable')
-        table = Table(results_table)
-        # gets the 1st and only row of the Annotated term column
-        term1 = table.get_cell(3, 1)
-        print(term1.text)
-        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'resultsTable'))):
-            print('MP Annotation summary loaded')
-        # verifies the returned terms are the correct terms for this search
-        self.assertEqual("abnormal Peyer's patch epithelium morphology", term1.text, 'Term1 is not returning')
+        driver.get(config.TEST_URL + "/vocab/cell_ontology/CL:0000058")
+        htLink = WebDriverWait(self.driver, 3).until(
+                EC.element_to_be_clickable((By.ID, 'recomLink_CL0000058')))
+        print('rna-seq link found')
+        driver.execute_script("arguments[0].scrollIntoView(true);", htLink)
+        htLink.click()
+        # switch focus to the new tab for RNA-Seq and Microarray Experiment page
+        self.driver.switch_to.window(self.driver.window_handles[-1])
+        time.sleep(2)
+        # verify the correct cell type is displayed in the "You searched for..." section
+        ctname = self.driver.find_element(By.CSS_SELECTOR, '#querySummary > div:nth-child(1) > b:nth-child(4)')
+        print(ctname.text)
+        # verifies the returned results are for the correct cell type for this search
+        self.assertIn("chondroblast", ctname.text, 'Term1 is not returning')
 
     def test_ht_link_withchildboth_treeview(self):
         """
         @status: Tests that when you have a 1to1 mapping with child terms associated(gxd&ht&pheno),the ht
         annotations link in the Treeview section when clicked returns correct results.
-        @note: CL-search-?  !!!under construction, waiting for implementation!!!!!!
+        @note: CL-search-?  passed 1/23/2026
         """
         driver = self.driver
-        driver.get(config.TEST_URL + "/vocab/cell_ontology")
+        driver.get(config.TEST_URL + "/vocab/cell_ontology/CL:0000346")
         if WebDriverWait(self.driver, 5).until(
-                EC.presence_of_element_located((By.CLASS_NAME, 'phenotypeAnnotationCount'))):
-            print('Tree view details loaded')
-        driver.find_element(By.CLASS_NAME,
-                            'phenotypeAnnotationCount').click()  # clicks the phenotype annotations link found in the Treeview section
-        time.sleep(2)
-        results_table = self.driver.find_element(By.ID, 'resultsTable')
-        table = Table(results_table)
-        # gets the 1st,2nd rows of the Annotated term column, only 2 rows exist
-        term1 = table.get_cell(3, 1)
-        term2 = table.get_cell(4, 1)
-        print(term1.text)
-        print(term2.text)
-        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'resultsTable'))):
-            print('MP Annotation summary loaded')
-        # verifies the returned terms are the correct terms for this search
-        self.assertEqual('abnormal bulbus cordis morphology', term1.text, 'Term1 is not returning')
-        self.assertEqual('abnormal bulbus cordis morphology', term2.text, 'Term2 is not returning')
+                EC.element_to_be_clickable((By.ID, 'recomLink_CL0000346'))):
+            print('expression link not found')
+        htLink = driver.find_element(By.ID,'htLink_CL0000346')  # clicks the RNA-Seq link found in the Treeview section
+        htLink.click()
+        # switch to the new window
+        wait.forNewWindow(self.driver, 2)
+        self.driver.switch_to.window(self.driver.window_handles[1])
+
+        # verify the correct cell type is displayed in the "You searched for..." section
+        ctname = self.driver.find_element(By.ID, 'searchSummary')
+
+        # verifies the returned results are for the correct cell type for this search
+        self.assertIn("hair follicle dermal papilla cell", ctname.text, 'cell type is not correct')
+
 
     def test_no_ht_link_exp_link(self):
         """
         @status: Tests that when you have a 1to1 mapping with NO ht annotations/has GXD mapping,the GXD link has data
         the ht annotations link in the Treeview section has zero results.
-        @note: CL-search-?  tested 9/09/2025
+        @note: CL-search-?  tested 1/23/2026
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/cell_ontology/CL:0000175")
-        if WebDriverWait(self.driver, 5).until(
-                EC.presence_of_element_located((By.ID, 'searchResults'))):
-            print('Tree view details loaded')
+        if WebDriverWait(self.driver, 2).until(
+                EC.presence_of_element_located((By.ID, 'resultLink_CL0000175'))):
+            print('expression link found')
         time.sleep(1)
         # verify that there is no HT results link
-        ht_link = driver.find_elements(By.ID, "htLink_CL:0000175")
+        ht_link = driver.find_elements(By.ID, "htLink_CL0000175")
         if len(ht_link) > 0:
             print(f"HT link exists!")
         else:
             print("HT link does not exist.")
-        driver.find_element(By.PARTIAL_LINK_TEXT,'expression results').click()  # clicks the expression results link found in the Treeview section
+        driver.find_element(By.ID,'resultLink_CL0000175').click()  # clicks the expression results link found in the Treeview section
         # switch focus to the new tab for gene expression page
         self.driver.switch_to.window(self.driver.window_handles[-1])
         time.sleep(2)
@@ -582,22 +545,22 @@ class TestCellTypeBrowser(unittest.TestCase):
         """
         @status: Tests that when you have a 1to1 NO mapping for expression or ht or pheno, NO child terms, the phenotype
         annotations is zero, ht annotations, and expression results links in the Treeview section is normal.
-        @note: CL-search-?  !!!under construction, still needs the Phenotype link!!!!!!
+        @note: CL-search-?  passed 1/23/2026
         """
         driver = self.driver
-        driver.get(config.TEST_URL + "/vocab/cell_ontology/CL:0009014")
+        driver.get(config.TEST_URL + "/vocab/cell_ontology/CL:0001087")
         if WebDriverWait(self.driver, 5).until(
-                EC.presence_of_element_located((By.ID, 'searchResults'))):
-            print('Tree view details loaded')
+                EC.presence_of_element_located((By.ID, 'recomLink_CL0001087'))):
+            print('recombinase link found')
         time.sleep(1)
         # verify that there is no expression results link
-        exp_link = driver.find_elements(By.PARTIAL_LINK_TEXT, "expression results")
+        exp_link = driver.find_elements(By.ID, "recomLink_CL0001087")
         if len(exp_link) > 0:
             print(f"Expression link exists!")
         else:
             print("Expression link does not exist.")
         # verify that there is no HT results link
-        ht_link = driver.find_elements(By.ID, "htLink_CL:0009014")
+        ht_link = driver.find_elements(By.ID, "htLink_CL0009014")
         if len(ht_link) > 0:
             print(f"HT link exists!")
         else:
@@ -611,71 +574,66 @@ class TestCellTypeBrowser(unittest.TestCase):
 
     def test_zero_ht_link_zero_exp_link_MP_child(self):
         """
-        @status: Tests that when you have a 1to1  NO mapping for expression or pheno, has child terms,the phenotype
-        annotations is zero, the ht annotations is zero and expression results links in the Treeview section is normal.
-        @note: CL-search-?  !!!under construction, waiting for implementation!!!!!!
+        @status: Tests that when you have a 1to1  NO mapping for expression or ht, has child terms,the expression
+        annotations is zero, the ht annotations is zero and phenotype results links in the Treeview section is normal.
+        @note: CL-search-?  passed 01/23/2026
         """
         driver = self.driver
-        driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:16824")
+        driver.get(config.TEST_URL + "/vocab/cell_ontology/CL:4030025")
         if WebDriverWait(self.driver, 5).until(
-                EC.presence_of_element_located((By.CLASS_NAME, 'expressionResultCount'))):
+                EC.presence_of_element_located((By.ID, 'recomLink_CL4030025'))):
             print('Tree view details loaded')
-        linke = driver.find_element(By.CLASS_NAME,
-                                    'expressionResultCount')  # the expression annotations link found in the Treeview section
+        linke = driver.find_element(By.ID,
+                                    'recomLink_CL4030025')  # the expression annotations link found in the Treeview section
         print(linke.text)
-        # verifies the returned terms are the correct terms for this search
-        self.assertEqual('3', linke.text, 'The 0 expression results link is wrong')
-        self.assertIn('0 phenotype annotations', driver.page_source,
-                      'The 0 phenotypes annotation link is missing')  # confirms that o phenotype annitations text is displayed when no results
+        bodytext = driver.find_element(By.TAG_NAME, 'body').text
+        # verifies that there is a recombinase link but no expression or RNA-seq links
+        self.assertTrue('recombinase alleles' in bodytext)
+        self.assertFalse('expression results' in bodytext)
+        self.assertFalse('RNA-seq or microarray experiments' in bodytext)
 
     def test_ht_link_withparent3child_treeview(self):
         """
         @status: Tests that when you have a 1toN mapping with parent and 3 child terms associated(ht)
         has child terms,the ht annotations link in the Treeview section when clicked returns correct results.
-        @note: CL-search-?  !!!under construction, waiting for implementation!!!!!!
+        @note: CL-search-?  passed 1/28/2026
         """
         driver = self.driver
-        driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:28373")
-        if WebDriverWait(self.driver, 5).until(
-                EC.presence_of_element_located((By.CLASS_NAME, 'expressionResultCount'))):
-            print('Tree view details loaded')
-        driver.find_element(By.CLASS_NAME,
-                            'phenotypeAnnotationCount').click()  # clicks the phenotype annotations link found in the Treeview section
+        driver.get(config.TEST_URL + "/vocab/cell_ontology/CL:0000449")
+        htLink = WebDriverWait(self.driver, 10).until(
+                EC.element_to_be_clickable((By.ID, 'htLink_CL0000449')))
+        print('Tree view details loaded')
+        driver.execute_script("arguments[0].scrollIntoView(true);", htLink)
+        htLink.click()
+        # switch focus to the new tab for gene expression page
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         time.sleep(2)
-        results_table = self.driver.find_element(By.ID, 'resultsTable')
+        results_table = self.driver.find_element(By.ID, 'resultSummary')
         table = Table(results_table)
-        # gets the 1st-8th rows of the Annotated term column, only 8 rows exist
-        term1 = table.get_cell(3, 1)
-        term2 = table.get_cell(4, 1)
-        term3 = table.get_cell(5, 1)
-        term4 = table.get_cell(6, 1)
-        term5 = table.get_cell(7, 1)
-        term6 = table.get_cell(8, 1)
-        term7 = table.get_cell(9, 1)
-        term8 = table.get_cell(10, 1)
-        print(term1.text)
-        print(term2.text)
-        print(term3.text)
-        print(term4.text)
-        print(term5.text)
-        print(term6.text)
-        print(term7.text)
-        print(term8.text)
-        # verifies the returned terms are the correct terms for this search
-        self.assertEqual('abnormal renal artery morphology', term1.text, 'Term1 is not returning')
-        self.assertEqual('abnormal renal artery morphology', term2.text, 'Term2 is not returning')
-        self.assertEqual('abnormal right renal artery morphology', term3.text, 'Term3 is not returning')
-        self.assertEqual('abnormal right renal artery morphology', term4.text, 'Term4 is not returning')
-        self.assertEqual('abnormal right renal artery morphology', term5.text, 'Term5 is not returning')
-        self.assertEqual('abnormal right renal artery morphology', term6.text, 'Term6 is not returning')
-        self.assertEqual('abnormal renal artery morphology', term7.text, 'Term7 is not returning')
-        self.assertEqual('abnormal right renal artery morphology', term8.text, 'Term8 is not returning')
+        title1 = self.driver.find_element(By.ID, 'title0')
+        print(title1.text)
+        title2 = self.driver.find_element(By.ID, 'title1')
+        print(title2.text)
+        title3 = self.driver.find_element(By.ID, 'title2')
+        print(title3.text)
+        title4 = self.driver.find_element(By.ID, 'title3')
+        print(title4.text)
+        title5 = self.driver.find_element(By.ID, 'title4')
+        print(title5.text)
+
+        # verifies the returned results are the correct for this search
+        self.assertEqual('RNA-seq Analysis of Gs-linked GPCRs expressed in mouse inguinal white adipocytes (iWAT), epididymal white adipocytes (eWAT) and brown adipose tissues (BAT)', title1.text, 'Title1 is not correct')
+        self.assertEqual('RNA-seq Analysis of GPCRs expressed in mouse inguinal white adipocytes (iWAT), epididymal white adipocytes (eWAT) and brown adipose tissues (BAT) after high fat diet treatment.', title2.text, 'Title2 is not correct')
+        self.assertEqual('MED1 is a lipogenesis co-activator required for postnatal adipose expansion', title3.text, 'Title3 is not correct')
+        self.assertEqual('Aging Induced Syntaxin 4 Deficiency Mediates Brown Adipose Tissue Pyroptosis and Thermogenic Dysfunction', title4.text, 'Title4 is not correct')
+        self.assertEqual('Mouse brown adipocyte single nucleus RNAseq with Smartseq2', title5.text, 'Title5 is not correct')
+
 
     def test_ht_link_with_parent_and_child_treeview(self):
         """
         @status: Tests that when you have a 1toN mapping for pheno, ht, and expression, child terms for expression,
         the ht annotations link in the Treeview section when clicked returns correct results.
-        @note: CL-search-?  tested 9/09/2025
+        @note: CL-search-?  tested 1/23/2026
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/cell_ontology/CL:0001069")
@@ -683,76 +641,60 @@ class TestCellTypeBrowser(unittest.TestCase):
                 EC.presence_of_element_located((By.ID, 'searchResults'))):
             print('Tree view details loaded')
         time.sleep(1)
-        driver.find_element(By.ID,'htLink_CL:0001069').click()  # clicks the HT results link found in the Treeview section
+        driver.find_element(By.ID,'htLink_CL0001069').click()  # clicks the HT results link found in the Treeview section
         #time.sleep(2)
         # switch focus to the new tab for RNA-Seq and Microarray Experiment page
         self.driver.switch_to.window(self.driver.window_handles[-1])
         time.sleep(2)
         items = self.driver.find_element(By.ID, 'pageReportTop')
         # verifies the number of results found is correct
-        self.assertEqual('Showing experiments 1 - 9 of 9', items.text, 'number of results returned is not correct')
+        self.assertEqual('Showing experiments 1 - 11 of 11', items.text, 'number of results returned is not correct')
 
 
-    def test_no_ht_mapping_zero_exp_link(self):
+    def test_no_ht_no_recom_exp_link(self):
         """
-        @status: Tests that when you have no ht annotations but zero Expression mapping, NO child terms,
-        the ht annotations link in the Treeview section does not display, the expression results link is zero.
-        @note: CL-search-?  !!!under construction, maybe change this test to where only expression link?!!!!!!
+        @status: Tests that when you have no ht annotations, no recombinase annotation, just an expression link
+        @note: CL-search-?  passed 1/23/2026
         """
         driver = self.driver
-        driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:37425")
+        driver.get(config.TEST_URL + "/vocab/cell_ontology/CL:4052001")
         wait.forAjax(driver)
         bodytext = driver.find_element(By.TAG_NAME, 'body').text
         # verifies the returned terms are the correct terms for this search
-        self.assertTrue('0 expression results', 'The 0 expression results link is wrong')
-        self.assertFalse('phenotype annotations' in bodytext)
+        self.assertTrue('expression results', 'The expression results link is missing')
+        self.assertFalse('RNA-seq or microarray experiments' in bodytext)
+        self.assertFalse('recombinase alleles' in bodytext)
 
-    def test_no_ht_mapping_has_exp_link(self):
+    def test_no_ht_has_recom_has_exp_link(self):
         """
-        @status: Tests that when you have no ht mapping but Expression mapping, NO child terms,the ht
-        annotations link in the Treeview section does not display, the expression results link has normal display.
-        @note: CL-search-?  !!!under construction, waiting for implementation!!!!!!
+        @status: Tests that when you have no ht but has recombinase and Expression mapping, the ht
+        annotations link in the Treeview section does not display, the recombinase alleles link and the expression results link has normal display.
+        @note: CL-search-?  passed 1/23/2026
         """
         driver = self.driver
-        driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:36473")
+        driver.get(config.TEST_URL + "/vocab/cell_ontology/CL:2000057")
         if WebDriverWait(self.driver, 5).until(
-                EC.presence_of_element_located((By.CLASS_NAME, 'expressionResultCount'))):
+                EC.presence_of_element_located((By.ID, 'resultLink_CL2000057'))):
             print('Tree view details loaded')
-        linke = driver.find_element(By.CLASS_NAME,
-                                    'expressionResultCount')  # the expression annotations link found in the Treeview section
         bodytext = driver.find_element(By.TAG_NAME, 'body').text
-        print(linke.text)
-        # asserts the expression results link exist and phenotype annotations link does not exist
+        # asserts the expression results link exists and phenotype annotations exists, but no RNA-seq link
         self.assertTrue('expression results' in bodytext)
-        self.assertFalse('phenotype annotations' in bodytext)
-
-    def test_no_ht_mapping_zero_exp_link2(self):
-        """
-        @status: Tests that when you have no ht mapping no Expression mapping, NO child terms,the ht
-        annotations link in the Treeview section does not display, the expression results link has zero results.
-        @note: CL-search-?  !!!under construction, waiting for implementation!!!!!!
-        """
-        driver = self.driver
-        driver.get(config.TEST_URL + "/vocab/gxd/anatomy/EMAPA:19101")
-        wait.forAjax(driver)
-        bodytext = driver.find_element(By.TAG_NAME, 'body').text
-        # verifies the returned terms are the correct terms for this search
-        self.assertTrue('0 expression results', 'The 0 expression results link is wrong')
-        self.assertFalse('phenotype annotations' in bodytext)
+        self.assertTrue('recombinase alleles' in bodytext)
+        self.assertFalse('RNA-seq or microarray experiments' in bodytext)
 
     def test_ht_link_results_sort(self):
         """
         @status: Tests that when you click the ht term link in the detail section the results returned are
         in alphanumeric sort
-        @note: CL-Search-?  tested 9/09/2025
+        @note: CL-Search-?  tested 1/23/2026
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/cell_ontology/CL:0001069")
-        if WebDriverWait(self.driver, 5).until(
+        if WebDriverWait(self.driver, 3).until(
                 EC.presence_of_element_located((By.ID, 'searchResults'))):
             print('Tree view details loaded')
         time.sleep(1)
-        driver.find_element(By.ID,'htLink_CL:0001069').click()  # clicks the HT results link found in the Treeview section
+        driver.find_element(By.ID,'htLink_CL0001069').click()  # clicks the HT results link found in the Treeview section
         # switch focus to the new tab for RNA-Seq and Microarray Experiment page
         self.driver.switch_to.window(self.driver.window_handles[-1])
         time.sleep(2)

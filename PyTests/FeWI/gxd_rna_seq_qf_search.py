@@ -33,6 +33,7 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.firefox.service import Service as FirefoxService
 # from lib import *
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from util import iterate
 from util.table import Table
@@ -77,7 +78,7 @@ class TestGxdRnaSeqSearching(unittest.TestCase):
         print(result_set[0].text)
         self.assertEqual(result_set[0].text,
                          "Evolutionary dynamics of gene and isoform regulation in mammalian tissues")
-        self.assertEqual(result_set[1].text, "Strand-specific RNA-seq of nine mouse tissues")
+        self.assertEqual(result_set[2].text, "Strand-specific RNA-seq of nine mouse tissues")
 
     def test_rnaseq_theiler_search(self):
         """
@@ -85,7 +86,7 @@ class TestGxdRnaSeqSearching(unittest.TestCase):
         @see GXD-RNASeq-search-2
         """
         print("BEGIN test_rnaseq_theiler_search")
-        self.driver.find_element(By.ID, 'stagesTab').click()  # Clicks the "Use Thieler Stages" tab
+        self.driver.find_element(By.ID, 'stagesTab').click()  # Clicks the "Use Theiler Stages" tab
         Select(self.driver.find_element(By.ID, 'theilerStage')).deselect_by_value('0')  # deselect the default option
         Select(self.driver.find_element(By.ID, 'theilerStage')).select_by_value(
             '5')  # finds the theiler stage list and select the TS 5 option
@@ -104,11 +105,13 @@ class TestGxdRnaSeqSearching(unittest.TestCase):
         @see GXD-RNASeq-search-3
         """
         print("BEGIN test_rnaseq_age_search")
-        Select(self.driver.find_element(By.ID, 'age')).deselect_by_value('ANY')  # deselect the default option
-        Select(self.driver.find_element(By.ID, 'age')).select_by_value(
-            '1.5')  # finds the age list and select the E1.5 option
+        Select(self.driver.find_element(By.ID, 'ageUnit')).select_by_value('Ed')  # select the option Embryonic day
+        Searchbox = self.driver.find_element(By.ID, 'ageRange')  # finds the range box and enter 1.5
+        Searchbox.send_keys('1.5')
+        Searchbox.send_keys(Keys.RETURN)
         # find the Search button and click it
-        self.driver.find_element(By.ID, 'submit1').click()
+        #self.driver.find_element(By.ID, 'submit1').click()
+        time.sleep(2)
         # identify the titles of the results returned
         result_set = self.driver.find_element(By.ID, "injectedResults").find_elements(By.CLASS_NAME, 'title')
         print(result_set[0].text)

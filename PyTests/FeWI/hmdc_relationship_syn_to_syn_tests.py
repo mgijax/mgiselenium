@@ -180,6 +180,7 @@ class TestHmdcSynToSynSearch(unittest.TestCase):
         """
         @status these tests verify a relationship that has a synonym match for Abnormal emotion
         @see: HMDC-syn-syn-3
+        @attention this test no longer has a result. maybe not needed now?
         """
         print("BEGIN test_rel_syn_to_syn3")
         my_select = self.driver.find_element(By.XPATH,"//select[starts-with(@id, 'field_0_')]")  # identifies the select field and picks the gene symbols option

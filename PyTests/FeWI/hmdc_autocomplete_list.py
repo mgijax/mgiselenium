@@ -47,12 +47,12 @@ class TestHmdcAutocomplete(unittest.TestCase):
         self.driver.get(config.TEST_URL + "/humanDisease.shtml")
         self.driver.implicitly_wait(10)
 
-    def test_index_tab_headers(self):
+    def test_hmdc_list(self):
         """
         @status this test verifies the auto complete list is displaying the terms associated to the text you entered.
         @see HMDC-DQ-?? passed 4-15-2020
         """
-        print("BEGIN test_index_tab_headers")
+        print("BEGIN test_hmdc_list")
         my_select = self.driver.find_element(By.XPATH,
                                              "//select[starts-with(@id, 'field_0')]")  # identifies the select field and picks the Disease or Phenotype Name option
         for option in my_select.find_elements(By.TAG_NAME, "option"):
@@ -73,9 +73,9 @@ class TestHmdcAutocomplete(unittest.TestCase):
         self.assertEqual(items[1].text, "systemic lupus erythematosus", "Term 1 is not visible!")
         self.assertEqual(items[2].text, "Lupus Erythematosus, systemic", "Term 2 is not visible!")
         self.assertEqual(items[3].text, "SLE - Lupus Erythematosus, systemic", "Term 3 is not visible!")
-        self.assertEqual(items[4].text, "decreased susceptibility to systemic lupus erythematosus",
+        self.assertEqual(items[4].text, "increased susceptibility to systemic lupus erythematosus",
                          "Term 4 is not visible!")
-        self.assertEqual(items[5].text, "increased susceptibility to systemic lupus erythematosus",
+        self.assertEqual(items[5].text, "decreased susceptibility to systemic lupus erythematosus",
                          "Term 5 is not visible!")
         self.assertEqual(items[6].text, "reduced susceptibility to systemic lupus erythematosus",
                          "Term 6 is not visible!")

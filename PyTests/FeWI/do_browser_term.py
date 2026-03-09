@@ -15,6 +15,7 @@ import sys
 import time
 import tracemalloc
 import unittest
+import config
 
 from HTMLTestRunner import HTMLTestRunner
 from selenium import webdriver

@@ -8,7 +8,7 @@ from HTMLTestRunner import HTMLTestRunner
 from unittest import TestLoader, TestSuite
 from allele_detail import TestAlleleDetail
 from allele_summary import TestAlleleSummary
-from allele_qf import TestAlleleQueryForm
+from allele_qf_old import TestAlleleQueryForm
 from private_allele import TestPrivateAllele
 
 print('Begin allele testing')

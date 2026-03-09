@@ -163,6 +163,7 @@ class TestSequenceSummaryPage(unittest.TestCase):
         @status: Tests that an MGP sequence has a link to Mouse Genomes Project and the link is correct
         It then goes back to the sequence summary page and verifies the MGI Sequence Detail link for the same sequence is correct
         @note: seq-summary-3
+        ****TEST FAILS. I believe MGP ids no longer exist*************
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/marker")

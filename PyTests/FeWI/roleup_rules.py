@@ -777,7 +777,7 @@ class TestRollupRules(unittest.TestCase):
         """
         @status: Tests Transgene.
         If the marker in (M) is a transgene; roll-up the genotype to that marker.
-        @note: rollup-rule-4
+        @note: rollup-rule-4 passed 1/27/2026
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/marker/")
@@ -788,8 +788,8 @@ class TestRollupRules(unittest.TestCase):
         if WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'summaryHeader'))):
             print('The Summary Ribbon is displayed')
         # find the Phenotype table and click the tg14 box for mortality/aging
-        tg15 = self.driver.find_element(By.CSS_SELECTOR, '#mortality_aging_id_row > td:nth-child(17) > a:nth-child(1)')
-        driver.execute_script("arguments[0].click();", tg15)
+        tg16 = self.driver.find_element(By.CSS_SELECTOR, '#mortality_aging_id_row > td:nth-child(18) > a:nth-child(1)')
+        driver.execute_script("arguments[0].click();", tg16)
         time.sleep(2)
         # switch focus to the new tab for Phenotypes Associated with this Genotype
         self.driver.switch_to.window(self.driver.window_handles[-1])
@@ -927,7 +927,7 @@ class TestRollupRules(unittest.TestCase):
         If the marker in (M) is a docking site AND there is exactly one marker for the genotype in (EC) and it is a
         mouse component, then roll-up the genotype to the EC marker.
             Current docking sites are: Col1a1, Gt(ROSA)26Sor, Hprt
-        @note: rollup-rule-6
+        @note: rollup-rule-6 passed 1/27/2026
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/marker/")
@@ -960,12 +960,12 @@ class TestRollupRules(unittest.TestCase):
         # wait.forNewWindow(self.driver, 2)
         # if WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'titleBarMainTitle'))):
             # print('Page title is loaded')
-        # verify the disease listed in the Mouse Models of Human Disease table is correct
-        disease_table = Table(self.driver.find_element(By.CLASS_NAME, "results"))
-        cell = disease_table.get_cell(1, 0)
-        print(cell.text)
+        # verify the disease listed in the Mouse Models of Human Disease table heading is correct
+        mm_title = self.driver.find_element(By.CSS_SELECTOR, "#modelsDOID_0050902 > div:nth-child(2) > p:nth-child(2)")
+        #cell = disease_table.get_cell(1, 0)
+        print(mm_title.text)
         # Asserts that the right Human disease is displayed
-        self.assertEqual(cell.text, 'medulloblastoma')
+        self.assertIn(mm_title.text, 'Human Disease Modeled: medulloblastoma')
 
     def test_rollup_rule6_mp(self):
         """
@@ -991,7 +991,7 @@ class TestRollupRules(unittest.TestCase):
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
         # find the Mouse Phenotypes table and assert the 12th result for the Mouse Phenotype column
-        mp_table = Table(self.driver.find_element(By.XPATH, "/html/body/div[2]/table[3]"))
+        mp_table = Table(self.driver.find_element(By.XPATH, "/html/body/div[2]/table[2]"))
         cell = mp_table.get_cell(13, 1)
         print(cell.text)
         # verify the Mouse Phenotypes for row 12

@@ -115,7 +115,7 @@ class TestMPBrowser(unittest.TestCase):
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/mp_ontology/MP:0030355")
         driver.find_element(By.LINK_TEXT, 'tissues').click()
-        wait.forAjax(self.driver, 2)
+        wait.forAjax(self.driver, 5)
         searchlist = driver.find_elements(By.ID, 'searchResults')
         terms = iterate.getTextAsList(searchlist)
         print([x.text for x in searchlist])
