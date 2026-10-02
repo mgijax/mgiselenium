@@ -371,8 +371,8 @@ class TestHmdcGenesSearch(unittest.TestCase):
         self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("tumor protein p53")  # mouse gene name for Trp53
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
-        
+        # wait.forAngular(self.driver)
+        time.sleep(5)
         # identify the Genes tab and click on it
         grid_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         time.sleep(2)
@@ -825,7 +825,7 @@ class TestHmdcGenesSearch(unittest.TestCase):
         time.sleep(2)
         # asserts that the References in MGI column displays a Disease Relevant link since the is a NOT disease
         self.assertEqual(ref1.text, '')
-        self.assertEqual(ref2.text, 'All Mouse: 57\nDisease Relevant: 1')
+        self.assertEqual(ref2.text, 'All Mouse: 59\nDisease Relevant: 1')
         
         # identify the Disease tab and verify the tab's text
         disease_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(3) > a.nav-link.ng-binding")
@@ -1051,8 +1051,8 @@ class TestHmdcGenesSearch(unittest.TestCase):
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("RTF1, Paf1/RNA polymerase II complex component")#enter a gene name
 
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
-        
+        #wait.forAngular(self.driver)
+        time.sleep(5)
         # identify the Genes tab and click on it
         gene_tab = self.driver.find_element(By.CSS_SELECTOR, "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
         time.sleep(2)

@@ -193,7 +193,7 @@ class TestGxdResults(unittest.TestCase):
     def test_gene_tab_go_molecular_filter_gene_result(self):
         """
         @status: Tests that the GO molecular filter is correctly returning the right genes for molecular function ligase.
-        @note: GXD-go-molec-filter-2
+        @note: GXD-go-molec-filter-2 passed 9/29/2026
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")
@@ -226,18 +226,18 @@ class TestGxdResults(unittest.TestCase):
         print(searchtextitems)
         time.sleep(4)
         # assert that the genes returned are correct, should be 3 genes as of 8/29/2019
-        self.assertEqual(searchtextitems, ['Gene', 'Anln'], 'the list of genes is not correct!')
+        self.assertEqual(searchtextitems, ['Gene', 'Anln', 'P2rx7'], 'the list of genes is not correct!')
 
     def test_gene_tab_go_molecular_filter_no_genes(self):
         """
         @status: Tests that the Molecular Function filter is correctly returning the right message when there are no Molecular Function filtered results.
-        @note: GXD-go-molec-filter-3
+        @note: GXD-go-molec-filter-3 passed 9/28/2026
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")
         genebox = driver.find_element(By.ID, 'nomenclature')
         # Enter your gene in the nomenclature box
-        genebox.send_keys("Mir7-1")
+        genebox.send_keys("Mir7b")
         time.sleep(2)
         self.driver.find_element(By.ID, 'submit1').click()
         ele = driver.find_element(By.ID, 'goMfFilter')
@@ -363,7 +363,7 @@ class TestGxdResults(unittest.TestCase):
     def test_gene_tab_go_cellular_filter_gene_result(self):
         """
         @status: Tests that the GO cellular component filter is correctly returning the right genes for cellular component ??????.
-        @note: GXD-go-cellular-filter-2 
+        @note: GXD-go-cellular-filter-2 passed 9/29/2026
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/gxd")
@@ -376,11 +376,12 @@ class TestGxdResults(unittest.TestCase):
         ele = driver.find_element(By.ID, 'goCcFilter')
         driver.execute_script("arguments[0].click()", ele)
         # select the filter option 'vacuole'
-        ccfilter = self.driver.find_elements(By.NAME, 'goCcFilter')[0]
+        ccfilter = self.driver.find_elements(By.NAME, 'goCcFilter')[1]
         driver.execute_script("arguments[0].click();", ccfilter)
         # click the Filter button found on the filter by Cellular Component button
         filter = self.driver.find_element(By.ID, 'yui-gen0-button')
         driver.execute_script("arguments[0].click();", filter)
+        time.sleep(5)
         # locate the Genes tab and click it
         ele = driver.find_element(By.ID, 'genestab')
         driver.execute_script("arguments[0].click()", ele)
@@ -698,7 +699,7 @@ class TestGxdResults(unittest.TestCase):
         self.assertEqual(searchtextitems,
                          ['Immunohistochemistry', 'Immunohistochemistry', 'Western blot', 'Western blot', 'RT-PCR',
                           'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RT-PCR', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq',
-                          'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq', 'RNA-Seq'])
+                          'RNA-Seq', 'RNA-Seq', 'RNA-Seq'])
 
     def test_assay_results_tab_cond_mutant(self):
         """

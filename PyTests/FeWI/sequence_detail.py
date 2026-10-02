@@ -82,12 +82,12 @@ class TestSequenceDetail(unittest.TestCase):
         driver.get(config.TEST_URL)
         searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene ID in the quick search box
-        searchbox.send_keys('MGP_AKRJ_G0023142')
+        searchbox.send_keys('MGP_CAROLIEiJ_G0032909')
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
         driver.find_element(By.ID, 'oLink').click()
         # waits until the results are displayed on the page
-        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence'))):
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence'))):
             print('Sequence link loaded')
         # finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
@@ -102,9 +102,7 @@ class TestSequenceDetail(unittest.TestCase):
         cells = seq_table.get_row(0)
         print(cells.text)
         # asserts the ID ribbon data is correct
-        self.assertEqual(
-            "ID/Version\nMGP_AKRJ_G0023142 (Ensembl) Multiple Genome Viewer (MGV) Version: MGP_AKRJ_G0023142.Ensembl Release 92",
-            cells.text)
+        self.assertEqual("ID/Version\nMGP_CAROLIEiJ_G0032909 Multiple Genome Viewer (MGV) Version: MGP_CAROLIEiJ_G0032909.Ensembl Release 116",cells.text)
 
     def test_mgi_b6_id(self):
         """
@@ -138,7 +136,7 @@ class TestSequenceDetail(unittest.TestCase):
         self.assertEqual('MGI_C57BL6J_5804994 Multiple Genome Viewer (MGV) Version: MGI_C57BL6J_5804994.GRCm39',
                          cells.text)
 
-    def test_mgp_ensembl_link(self):
+    '''def test_mgp_ensembl_link(self):
         """
         @status: Tests that an MGP sequence detail has a link to Ensembl in the ID ribbon and this link goes to the correct page.
         @note: seqdetail-id-3 !!!currently not finding this at ensembl but might work in time!!!!!
@@ -152,7 +150,7 @@ class TestSequenceDetail(unittest.TestCase):
         time.sleep(2)
         driver.find_element(By.ID, 'oLink').click()
         # waits until the results are displayed on the page
-        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence'))):
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence'))):
             print('Sequence link loaded')
         # finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
@@ -169,7 +167,7 @@ class TestSequenceDetail(unittest.TestCase):
         sum_head = self.driver.find_element(By.CLASS_NAME, 'summary-heading')
         print(sum_head.text)
         self.assertEqual('Gene: Vmn2r106 MGP_AKRJ_G0023142', sum_head.text)
-
+'''
     def test_mgp_seq_desc(self):
         """
         @status: Tests that an MGP sequence detail displays the correct sequence description
@@ -200,7 +198,7 @@ class TestSequenceDetail(unittest.TestCase):
         print(cells.text)
         # asserts the sequence description ribbon data is correct
         self.assertEqual(
-            "chr18:34262022-34436126, + strand. Annotation of mouse strain CAROLI/EiJ genome assembly provided by the University of California Santa Cruz (UCSC) Genome Browser Group and the Wellcome Sanger Institute's Mouse Genomes Project (MGP). Distributed via Ensembl Release 103. Gene type: protein coding gene; Gene Name: Pcdha9.",
+            "chr18:34262022-34436126, + strand. Annotation of mouse strain CAROLI/EiJ genome assembly provided by the GENCODE consortium and distributed via Ensembl Release 116. Gene type: protein coding gene; Gene Symbol: Pcdha9.",
             cells.text)
 
     def test_mgi_seq_desc(self):
@@ -265,7 +263,7 @@ class TestSequenceDetail(unittest.TestCase):
         cells = seq_table.get_cell(3, 1)
         print(cells.text)
         # asserts the provider ribbon data is correct
-        self.assertEqual("Wellcome Sanger Institute's Mouse Genomes Project (MGP) Strain Gene Model", cells.text)
+        self.assertEqual("Ensembl Strain Gene Model", cells.text)
 
     def test_mgi_seq_provider(self):
         """
@@ -307,12 +305,12 @@ class TestSequenceDetail(unittest.TestCase):
         driver.get(config.TEST_URL)
         searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene ID in the quick search box
-        searchbox.send_keys('MGP_AKRJ_G0020754')
+        searchbox.send_keys('MGP_CAROLIEiJ_G0022803')
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
         driver.find_element(By.ID, 'oLink').click()
         # waits until the results are displayed on the page
-        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence'))):
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence'))):
             print('Sequence link loaded')
         # finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
@@ -324,7 +322,7 @@ class TestSequenceDetail(unittest.TestCase):
         # find the GO button beside FASTA download and click it
         driver.find_element(By.XPATH, "//input[@value='Go']").click()
         # asserts that the correct sequence data is returned from FASTA
-        assert "MGP_AKRJ_G0020754 13:94228187-94249372" in self.driver.page_source
+        assert "CAROLI/EiJ:MGP_CAROLIEiJ_G0022803 19:15897860-15951993 (+)" in self.driver.page_source
 
     def test_mgp_ncbi_blast(self):
         """
@@ -335,12 +333,12 @@ class TestSequenceDetail(unittest.TestCase):
         driver.get(config.TEST_URL)
         searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene ID in the quick search box
-        searchbox.send_keys('MGP_AKRJ_G0020754')
+        searchbox.send_keys('MGP_CAROLIEiJ_G0032909')
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
         driver.find_element(By.ID, 'oLink').click()
         # waits until the results are displayed on the page
-        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence'))):
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence'))):
             print('Sequence link loaded')
         # finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
@@ -409,20 +407,20 @@ class TestSequenceDetail(unittest.TestCase):
         time.sleep(2)
         driver.find_element(By.ID, 'oLink').click()
         # waits until the results are displayed on the page
-        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence'))):
+        if WebDriverWait(self.driver, 4).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence'))):
             print('Sequence link loaded')
         # finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
         # switch focus to the new tab for sequence detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
         # waits until the sequence pulldown form is displayed on the page
-        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.NAME, 'seqPullDown'))):
+        if WebDriverWait(self.driver, 4).until(EC.presence_of_element_located((By.NAME, 'seqPullDown'))):
             print('Sequence pull down form loaded')
         # find the sequence list and select the "forward to NCBI Blast" option
         self.driver.find_element(By.NAME, 'seqPullDownForm')
         Select(driver.find_element(By.NAME, 'seqPullDown')).select_by_visible_text('forward to NCBI BLAST')
         # waits until the GO button for forward to NCBI Blast is displayed on the page
-        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.XPATH, "//input[@value='Go']"))):
+        if WebDriverWait(self.driver, 4).until(EC.presence_of_element_located((By.XPATH, "//input[@value='Go']"))):
             print('forward to NCBI Blast GO button loaded')
         # find the GO button beside FASTA download and click it
         driver.find_element(By.XPATH, "//input[@value='Go']").click()
@@ -501,13 +499,13 @@ class TestSequenceDetail(unittest.TestCase):
     def test_mgp_source_data(self):
         """
         @status: Tests that an MGP sequence detail displays the correct sequence base pair
-        @note: seqdetail-source-1
+        @note: seqdetail-source-1 !!!broken, needs to be fixed!!
         """
         driver = self.driver
         driver.get(config.TEST_URL)
         searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene ID in the quick search box
-        searchbox.send_keys('MGP_CASTEiJ_G0006926')
+        searchbox.send_keys('MGP_CAROLIEiJ_G0003621')
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
         driver.find_element(By.ID, 'oLink').click()
@@ -520,8 +518,8 @@ class TestSequenceDetail(unittest.TestCase):
         # switch focus to the new tab for sequence detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
         # waits until the source table is displayed on the page
-        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.ID, 'sourceTable'))):
-            print('Source Table loaded')
+        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.CLASS_NAME, 'detailStructureTable'))):
+            print('Structure Table loaded')
         # find the source data in the Source ribbon
         # locates the Source table
         src_table = Table(self.driver.find_element(By.ID, 'sourceTable'))
@@ -622,12 +620,12 @@ class TestSequenceDetail(unittest.TestCase):
         driver.get(config.TEST_URL)
         searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene ID in the quick search box
-        searchbox.send_keys('MGP_CASTEiJ_G0006926')
+        searchbox.send_keys('MGP_CAROLIEiJ_G0003621')
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
         driver.find_element(By.ID, 'oLink').click()
         # waits until the results are displayed on the page
-        if WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence'))):
+        if WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.LINK_TEXT, 'Sequence'))):
             print('Sequence link loaded')
         # finds the sequence link and clicks it
         driver.find_element(By.LINK_TEXT, 'Sequence').click()
@@ -640,7 +638,7 @@ class TestSequenceDetail(unittest.TestCase):
         chromo = self.driver.find_element(By.CSS_SELECTOR,
                                           '.detailStructureTable > tbody:nth-child(1) > tr:nth-child(6) > td:nth-child(2)')
         print(chromo.text)
-        self.assertEqual('6', chromo.text)
+        self.assertEqual('4', chromo.text)
 
     def test_mgi_chr_data(self):
         """
@@ -680,7 +678,7 @@ class TestSequenceDetail(unittest.TestCase):
         driver.get(config.TEST_URL)
         searchbox = driver.find_element(By.ID, 'searchToolTextArea')
         # put your Gene ID in the quick search box
-        searchbox.send_keys('MGP_CASTEiJ_G0006926')
+        searchbox.send_keys('MGP_CAROLIEiJ_G0003621')
         searchbox.send_keys(Keys.RETURN)
         time.sleep(2)
         driver.find_element(By.ID, 'oLink').click()
@@ -703,11 +701,11 @@ class TestSequenceDetail(unittest.TestCase):
         # find the Symbol cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 1)
         print(cell1.text)
-        self.assertIn('Gm17216', cell1.text)
+        self.assertIn('Gm16008', cell1.text)
         # find the Name cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 2)
         print(cell1.text)
-        self.assertIn('predicted gene 17216', cell1.text)
+        self.assertIn('predicted gene 16008', cell1.text)
         # find the GO Terms cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 3)
         print(cell1.text)
@@ -723,7 +721,7 @@ class TestSequenceDetail(unittest.TestCase):
         # find the Phenotypic Alleles cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 6)
         print(cell1.text)
-        self.assertIn('0', cell1.text)
+        self.assertIn('4', cell1.text)
 
     def test_mgi_assoc_gene(self):
         """
@@ -767,11 +765,11 @@ class TestSequenceDetail(unittest.TestCase):
         # find the GO Terms cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 3)
         print(cell1.text)
-        self.assertIn('48', cell1.text)
+        self.assertIn('45', cell1.text)
         # find the Expression Assays cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 4)
         print(cell1.text)
-        self.assertIn('205', cell1.text)
+        self.assertIn('207', cell1.text)
         # find the Orthologs cell, print it and assert it to be correct
         cell1 = mrk_table.get_cell(1, 5)
         print(cell1.text)

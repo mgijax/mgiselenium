@@ -17,7 +17,7 @@ import private_allele
 import Emapa_Browser
 import QTL_allele_detail
 import gxd_image_summary
-import test_emboss_data
+import test_emboss_data_old
 from HTMLTestRunner import HTMLTestRunner
 # add the test suites
 def master_suite():
@@ -27,7 +27,7 @@ def master_suite():
     suites.append(private_allele.suite())
     suites.append(QTL_allele_detail.suite())
     suites.append(gxd_image_summary.suite())
-    suites.append(test_emboss_data.suite())
+    suites.append(test_emboss_data_old.suite())
 
     master_suite = unittest.TestSuite(suites)
     return master_suite

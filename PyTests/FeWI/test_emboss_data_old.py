@@ -1,10 +1,11 @@
-"""
+'''
 Created on Feb 22, 2016
 
 @author: jeffc
 This test verifies EMBOSS data is being returned from the EMBOSS server.
 @attention: need to update data between file and  wiki page. Need to find how to close file once data is inputted.
-"""
+'''
+
 import os.path
 import sys
 import time

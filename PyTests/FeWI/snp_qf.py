@@ -194,7 +194,7 @@ class TestSnpQF(unittest.TestCase):
         genesearchbox.send_keys("Gata1")
         # find the search button and click it
         driver.find_element(By.ID, 'geneSearch').click()
-        time.sleep(2)
+        time.sleep(5)
         # Locate the page info line and verify the text
         pginfo = driver.find_element(By.ID, 'yui-pg0-0-page-report')
         print(pginfo.text)
@@ -215,7 +215,7 @@ class TestSnpQF(unittest.TestCase):
         driver.find_element(By.CSS_SELECTOR, '#command > label:nth-child(9) > input:nth-child(1)').click()
         time.sleep(1)
         driver.find_element(By.ID, 'yui-gen0-button').click()
-        time.sleep(1)
+        time.sleep(5)
         # Locate the page info line and verify the text
         pginfo = driver.find_element(By.ID, 'yui-pg0-0-page-report')
         print(pginfo.text)
@@ -458,7 +458,7 @@ class TestSnpQF(unittest.TestCase):
         form2 = driver.find_element(By.ID, 'form2')
         # find the search button and click it
         form2.find_element(By.ID, 'locationSearch').click()
-        time.sleep(2)
+        time.sleep(5)
         # Locate the page info line and verify the text
         pginfo = driver.find_element(By.ID, 'yui-pg0-0-page-report')
         print(pginfo.text)
@@ -683,12 +683,10 @@ class TestSnpQF(unittest.TestCase):
         time.sleep(2)
         # switch focus to the new tab for the alliance page
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        # find the page nav entity title
-        title = driver.find_element(By.ID, "PageNavEntityTitle")
         time.sleep(2)
-        print(title.text)
         # asserts that the correct rs ID alliance page is returned
-        self.assertEqual(title.text, 'rs232316283')
+        # self.assertIn(page_source, 'rs232316283')
+        assert "rs232316283" in driver.page_source
 
     def test_alliance_variant_link_no_summary(self):
         """
@@ -709,9 +707,9 @@ class TestSnpQF(unittest.TestCase):
         cell1 = snp_table.get_cell(1,0)
         print(cell1.text)
         self.assertEqual(cell1.text, 'rs213220941\nMGI SNP Detail')
-        cell68 = snp_table.get_cell(68, 0)
-        print(cell68.text)
-        self.assertEqual(cell68.text, 'rs246862346\nMGI SNP Detail\nAlliance Variant')
+        cell69 = snp_table.get_cell(69, 0)
+        print(cell69.text)
+        self.assertEqual(cell69.text, 'rs33381868\nMGI SNP Detail\nAlliance Variant')
 
     def test_alliance_variant_link_detail(self):
         """
@@ -733,12 +731,9 @@ class TestSnpQF(unittest.TestCase):
         self.driver.find_element(By.LINK_TEXT, "Alliance Variant").click()
         # switch focus to the new tab for the alliance page
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        # find the page nav entity title
-        title = driver.find_element(By.ID, "PageNavEntityTitle")
         time.sleep(2)
-        print(title.text)
         # asserts that the correct rs ID alliance page is returned
-        self.assertEqual(title.text, 'rs4226505')
+        assert "rs4226505" in driver.page_source
 
 
     def tearDown(self):

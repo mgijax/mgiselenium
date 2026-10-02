@@ -78,7 +78,7 @@ class TestGxdRnaSeqSearching(unittest.TestCase):
         print(result_set[0].text)
         self.assertEqual(result_set[0].text,
                          "Evolutionary dynamics of gene and isoform regulation in mammalian tissues")
-        self.assertEqual(result_set[2].text, "Strand-specific RNA-seq of nine mouse tissues")
+        self.assertEqual(result_set[3].text, "Strand-specific RNA-seq of nine mouse tissues")
 
     def test_rnaseq_theiler_search(self):
         """
@@ -129,7 +129,7 @@ class TestGxdRnaSeqSearching(unittest.TestCase):
         # find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
         time.sleep(2)
-        viewl = self.driver.find_elements(By.LINK_TEXT, 'View')[4]  # clicks the first View link of the fourth sample result
+        viewl = self.driver.find_elements(By.LINK_TEXT, 'View')[5]  # clicks the first View link of the fourth sample result
         self.driver.execute_script("arguments[0].click();", viewl)
         # switch focus to the new tab for Sample Experiments page
         self.driver.switch_to.window(self.driver.window_handles[-1])
@@ -338,8 +338,8 @@ class TestGxdRnaSeqSearching(unittest.TestCase):
         self.assertEqual(meth1.text, "bulk RNA-seq")
         self.assertEqual(meth2.text, "bulk RNA-seq")
         self.assertEqual(meth3.text, "bulk RNA-seq")
-        self.assertEqual(meth4.text, "single cell RNA-seq")
-        self.assertEqual(meth5.text, "bulk RNA-seq")
+        self.assertEqual(meth4.text, "bulk RNA-seq")
+        self.assertEqual(meth5.text, "single cell RNA-seq")
         self.assertEqual(meth6.text, "bulk RNA-seq")
         self.assertEqual(meth7.text, "bulk RNA-seq")  # there are another 6000+ results and they should all be method RNA-Seq(3 different flavors)
 
@@ -354,7 +354,7 @@ class TestGxdRnaSeqSearching(unittest.TestCase):
         self.driver.find_element(By.ID, 'mcb_1_2_3').click()  # finds the method RNA-Seq spatial RNA-seq and clicks it
         # find the Search button and click it
         self.driver.find_element(By.ID, 'submit1').click()
-        # find all the Variable data for the first 8 results
+        # find all the Variable data for the first 15 results
         meth0 = self.driver.find_element(By.ID, 'methodData0')
         meth1 = self.driver.find_element(By.ID, 'methodData1')
         meth2 = self.driver.find_element(By.ID, 'methodData2')
@@ -363,7 +363,15 @@ class TestGxdRnaSeqSearching(unittest.TestCase):
         meth5 = self.driver.find_element(By.ID, 'methodData5')
         meth6 = self.driver.find_element(By.ID, 'methodData6')
         meth7 = self.driver.find_element(By.ID, 'methodData7')
-        meth22 = self.driver.find_element(By.ID, 'methodData22')
+        meth8 = self.driver.find_element(By.ID, 'methodData8')
+        meth9 = self.driver.find_element(By.ID, 'methodData9')
+        meth10 = self.driver.find_element(By.ID, 'methodData10')
+        meth11 = self.driver.find_element(By.ID, 'methodData11')
+        meth12 = self.driver.find_element(By.ID, 'methodData12')
+        meth13 = self.driver.find_element(By.ID, 'methodData13')
+        meth14 = self.driver.find_element(By.ID, 'methodData14')
+        meth15 = self.driver.find_element(By.ID, 'methodData15')
+        meth24 = self.driver.find_element(By.ID, 'methodData25')
         print(meth0.text)
         # Assert the Method is RNA-Seq for the first 8 results, all results should be RNA-Seq but we only check the first 8
         self.assertEqual(meth0.text, "single cell RNA-seq")
@@ -374,7 +382,15 @@ class TestGxdRnaSeqSearching(unittest.TestCase):
         self.assertEqual(meth5.text, "bulk RNA-seq\nsingle cell RNA-seq")
         self.assertEqual(meth6.text, "single cell RNA-seq")
         self.assertEqual(meth7.text, "single cell RNA-seq")
-        self.assertEqual(meth22.text, "single cell RNA-seq\nspatial RNA-seq")  # This should have both single cell and spatial
+        self.assertEqual(meth8.text, "single cell RNA-seq")
+        self.assertEqual(meth9.text, "single cell RNA-seq")
+        self.assertEqual(meth10.text, "single cell RNA-seq")
+        self.assertEqual(meth11.text, "single cell RNA-seq")
+        self.assertEqual(meth12.text, "single cell RNA-seq")
+        self.assertEqual(meth13.text, "single cell RNA-seq")
+        self.assertEqual(meth14.text, "spatial RNA-seq")
+        self.assertEqual(meth15.text, "single cell RNA-seq")
+        self.assertEqual(meth24.text, "single cell RNA-seq\nspatial RNA-seq")
 
     def test_rnaseq_text_search(self):
         """

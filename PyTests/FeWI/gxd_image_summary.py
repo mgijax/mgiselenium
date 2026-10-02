@@ -132,7 +132,7 @@ class TestGxdImageSummary(unittest.TestCase):
         # finds the first row of data and verifies the genes column sort
         imagesdata = driver.find_element(By.ID, 'imagesdata')
         genelist = imagesdata.find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-gene')
-        items = genelist[0].find_elements(By.TAG_NAME, 'li')
+        items = genelist[2].find_elements(By.TAG_NAME, 'li')
         searchtextitems = iterate.getTextAsList(items)
         self.assertEqual(searchtextitems, ["Arx", "Olig2", "Shh"])
         # find the genes header
@@ -177,7 +177,7 @@ class TestGxdImageSummary(unittest.TestCase):
         assaylist = driver.find_element(By.ID, 'imagesdata').find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-assayType')
         items = assaylist[19].find_elements(By.TAG_NAME, 'li')
         searchtextitems = iterate.getTextAsList(items)
-        self.assertEqual(searchtextitems, ["RT-PCR"])
+        self.assertEqual(searchtextitems, ["RNA in situ"])
     
     def test_specimentype_column_sort(self):
         """

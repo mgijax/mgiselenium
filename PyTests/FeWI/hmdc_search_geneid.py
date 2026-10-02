@@ -111,8 +111,7 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys(
             "MGI:96677")  # identifies the input field and enters an MGI ID
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
-
+        time.sleep(5)
         # identify the Grid tab and click on it
         grid_tab = self.driver.find_element(By.CSS_SELECTOR,
                                             "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
@@ -143,7 +142,7 @@ class TestHmdcSearchGeneid(unittest.TestCase):
 
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("MGI:96677")
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
+        time.sleep(5)
         # identify the Genes tab and verify the tab's text
         grid_tab = self.driver.find_element(By.CSS_SELECTOR,
                                             "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
@@ -171,7 +170,7 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys(
             "105763")  # identifies the input field and enters an NCBI ID
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
+        time.sleep(5)
 
         # identify the Genes tab and click on it
         gene_tab = self.driver.find_element(By.CSS_SELECTOR,
@@ -204,7 +203,7 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys(
             "14460")  # identifies the input field and enters ID for Gata1
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
+        time.sleep(5)
 
         # identify the Grid Tab and click on it
         grid_tab = self.driver.find_element(By.CSS_SELECTOR,
@@ -267,8 +266,7 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys(
             "ENSMUSG00000022098")  # enter Ensembl gene model ID
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
-
+        time.sleep(5)
         # identify the Genes Tab and click on it
         gene_tab = self.driver.find_element(By.CSS_SELECTOR,
                                             "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
@@ -298,8 +296,7 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys(
             "ENSMUST00000022693")  # enter Ensembl transcript ID
         self.driver.find_element(By.ID, "searchButton").click()
-        #wait.forAngular(self.driver)
-
+        time.sleep(5)
         # identify the Genes Tab and click on it
         gene_tab = self.driver.find_element(By.CSS_SELECTOR,
                                             "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
@@ -328,8 +325,7 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys(
             "ENSMUSP00000022693")  # enter VEGA protein ID
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
-
+        time.sleep(5)
         # identify the Genes Tab and click on it
         gene_tab = self.driver.find_element(By.CSS_SELECTOR,
                                             "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
@@ -361,8 +357,7 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys(
             "P32115")  # enter the SWISS-PROT ID for Pax4
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
-
+        time.sleep(5)
         # identify the Genes tab and click on it
         gene_tab = self.driver.find_element(By.CSS_SELECTOR,
                                             "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
@@ -390,8 +385,7 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("G3UZE8")  # enter VEGA protein ID
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
-
+        time.sleep(5)
         # identify the Genes Tab and click on it
         gene_tab = self.driver.find_element(By.CSS_SELECTOR,
                                             "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
@@ -423,7 +417,7 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys(
             "PR:000004804")  # enter the Protein Ontology ID for Brca2
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
+        time.sleep(5)
 
         # identify the Genes tab and click on it
         gene_tab = self.driver.find_element(By.CSS_SELECTOR,
@@ -452,7 +446,6 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("1MJE")  # enter PDB ID for Brca2
         self.driver.find_element(By.ID, "searchButton").click()
-        #wait.forAngular(self.driver)
 
         # identify the Genes Tab and click on it
         gene_tab = self.driver.find_element(By.CSS_SELECTOR,
@@ -485,8 +478,7 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys(
             "BC111528")  # enter a GenBank RNA sequence ID for Sry
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
-
+        time.sleep(5)
         # identify the Genes tab and click on it
         gene_tab = self.driver.find_element(By.CSS_SELECTOR,
                                             "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
@@ -515,8 +507,7 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys(
             "AF068054")  # enter GenBank DNA sequence for Sry
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
-
+        time.sleep(5)
         # identify the Genes Tab and click on it
         gene_tab = self.driver.find_element(By.CSS_SELECTOR,
                                             "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
@@ -547,8 +538,7 @@ class TestHmdcSearchGeneid(unittest.TestCase):
 
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("10565422")  # enter a Affy 1.0 ST id
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
-
+        time.sleep(5)
         # identify the Genes tab and click on it
         gene_tab = self.driver.find_element(By.CSS_SELECTOR,
                                             "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
@@ -576,8 +566,8 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("1417717_a_at")  # enter Affy 430 2.0 id
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
-
+        # wait.forAngular(self.driver)
+        time.sleep(5)
         # identify the Genes Tab and click on it
         gene_tab = self.driver.find_element(By.CSS_SELECTOR,
                                             "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
@@ -605,8 +595,7 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("102666_at")  # enter Affy U74 id
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
-
+        time.sleep(5)
         # identify the Genes Tab and click on it
         gene_tab = self.driver.find_element(By.CSS_SELECTOR,
                                             "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
@@ -637,7 +626,7 @@ class TestHmdcSearchGeneid(unittest.TestCase):
 
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("1.11.1.6")  # enter EC id for Cat
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
+        time.sleep(5)
 
         # identify the Genes tab and click on it
         gene_tab = self.driver.find_element(By.CSS_SELECTOR,
@@ -671,7 +660,7 @@ class TestHmdcSearchGeneid(unittest.TestCase):
 
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("MI0000570")  # enter miRBase ID for Mir22
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
+        time.sleep(5)
 
         # identify the Genes tab and click on it
         gene_tab = self.driver.find_element(By.CSS_SELECTOR,
@@ -703,7 +692,7 @@ class TestHmdcSearchGeneid(unittest.TestCase):
 
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("CCDS36046.1")  # enter CCDS id for Kitl
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
+        time.sleep(5)
 
         # identify the Genes tab and click on it
         gene_tab = self.driver.find_element(By.CSS_SELECTOR,
@@ -739,7 +728,7 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys(
             "MGI:104735")  # identifies the input field and enters Gt(ROSA)26Sor MGI id
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
+        time.sleep(5)
 
         # identify the Grid tab and click on it.
         grid_tab = self.driver.find_element(By.CSS_SELECTOR,
@@ -781,7 +770,7 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys(
             "MGI:1856798")  # enter allele MGI ID for A<y>; should return 0 results
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
+        time.sleep(5)
 
         # identify the Genes tab and click on it
         gene_tab = self.driver.find_element(By.CSS_SELECTOR,
@@ -813,7 +802,7 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys(
             "5083")  # identifies the input field: enter NCBI ID for human PAX9
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
+        time.sleep(2)
 
         # identify the Grid Tab and click on it
         grid_tab = self.driver.find_element(By.CSS_SELECTOR,
@@ -873,7 +862,7 @@ class TestHmdcSearchGeneid(unittest.TestCase):
 
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("P01116")  # enter human uniprot id
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
+        time.sleep(5)
 
         # identify the Genes tab and click on it
         gene_tab = self.driver.find_element(By.CSS_SELECTOR,
@@ -907,7 +896,7 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys(
             "NM_001672")  # enter human RefSeq sequence id
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
+        time.sleep(5)
 
         # identify the Genes tab and click on it
         gene_tab = self.driver.find_element(By.CSS_SELECTOR,
@@ -940,7 +929,7 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys(
             "AK131274")  # enter human GenBank sequence id
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
+        time.sleep(5)
 
         # identify the Genes tab and click on it
         gene_tab = self.driver.find_element(By.CSS_SELECTOR,
@@ -972,8 +961,7 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys(
             "OMIM:191170")  # identifies the input field and enters an OMIM gene ID
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
-
+        time.sleep(5)
         # identify the Genes Tab and click on it
         gene_tab = self.driver.find_element(By.CSS_SELECTOR,
                                             "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
@@ -1001,7 +989,7 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         self.driver.find_element(By.NAME, "formly_3_input_input_0").clear()
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("OMIM:220100")  # OMIM disease ID
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
+        time.sleep(5)
 
         # identify the Genes Tab and click on it
         gene_tab = self.driver.find_element(By.CSS_SELECTOR,
@@ -1029,7 +1017,7 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys(
             "HGNC:6554")  # identifies the input field and enters an HGNC ID for LEPR
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
+        time.sleep(5)
 
         # identify the Genes Tab and click on it
         gene_tab = self.driver.find_element(By.CSS_SELECTOR,
@@ -1061,7 +1049,7 @@ class TestHmdcSearchGeneid(unittest.TestCase):
 
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys("RGD:2466")
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
+        time.sleep(5)
 
         # identify the Genes tab and click on it
         gene_tab = self.driver.find_element(By.CSS_SELECTOR,
@@ -1095,8 +1083,7 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys(
             'MGI:1347487, HGNC:6553, MGI:96573')  # IDs for Foxm1, LEP, Ins2
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
-
+        time.sleep(5)
         # identify the Genes Tab and click on it
         gene_tab = self.driver.find_element(By.CSS_SELECTOR,
                                             "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")
@@ -1130,8 +1117,7 @@ class TestHmdcSearchGeneid(unittest.TestCase):
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys(
             'MGI:1347487 HGNC:6553 MGI:96573')  # IDs for Foxm1, LEP, Ins2
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
-
+        time.sleep(5)
         # identify the Genes Tab and click on it
         gene_tab = self.driver.find_element(By.CSS_SELECTOR,
                                             "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(2) > a.nav-link.ng-binding")

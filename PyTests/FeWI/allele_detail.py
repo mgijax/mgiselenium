@@ -586,7 +586,7 @@ class TestAlleleDetail(unittest.TestCase):
         self.assertIn("breast cancer", searchtreeitems)
         self.assertIn("diffuse large B-cell lymphoma", searchtreeitems)
         self.assertIn("glioblastoma", searchtreeitems)
-        self.assertIn("Li-Fraumeni syndrome", searchtreeitems)
+        self.assertIn("Li-Fraumeni syndrome 1", searchtreeitems)
         self.assertIn("lymphoma", searchtreeitems)
         self.assertIn("malignant astrocytoma", searchtreeitems)
         self.assertIn("medulloblastoma", searchtreeitems)
@@ -1122,9 +1122,9 @@ class TestAlleleDetail(unittest.TestCase):
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1b(EUCOMM)Hmgu').click()
         # find the Alliance link in the Summary section and click it
         self.driver.find_element(By.PARTIAL_LINK_TEXT, 'tm1b(EUCOMM)Hmgu').click()
-        allele_var = self.driver.find_element(By.CSS_SELECTOR, '.d-none > h1:nth-child(1) > span:nth-child(1)')
+        allele_var = self.driver.find_element(By.XPATH, '//*[@id="app"]/div/div[2]/div/div[2]/div/div[2]/div[2]/h1/span/sup')
         # assert the correct allele is returned
-        self.assertEqual(allele_var.text, 'Aak1tm1b(EUCOMM)Hmgu')
+        self.assertEqual(allele_var.text, 'tm1b(EUCOMM)Hmgu')
 
     def test_allele_detail_impc_link(self):
         """

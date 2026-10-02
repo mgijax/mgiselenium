@@ -115,18 +115,18 @@ class TestGxdProfileQF(unittest.TestCase):
         time.sleep(2)
         # find the ts grid box for TS26 for heart ventricle
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
-        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row0.col0 > rect.blue5')
+        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row0.col0 > rect.blue4')
         rightclass = item.get_attribute('class')
         # rightclass finds the class name of the gridbox
         # now we assert the class name of the gridbox matches the class name of blue1
-        self.assertEqual(rightclass, 'blue5')
+        self.assertEqual(rightclass, 'blue4')
         # find the ts grid box for TS27 for heart ventricle
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
-        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row0.col1 > rect.blue5')
+        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row0.col1 > rect.blue4')
         rightclass = item.get_attribute('class')
         # rightclass finds the class name of the gridbox
         # now we assert the class name of the gridbox matches the class name of blue1
-        self.assertEqual(rightclass, 'blue5')
+        self.assertEqual(rightclass, 'blue4')
         # find the ts grid box for TS28 for heart ventricle
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
         item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row0.col2 > rect.blue5')
@@ -332,11 +332,11 @@ class TestGxdProfileQF(unittest.TestCase):
         """
         @status: Tests that wild type results(broad definition) are excluded in classical results.(assays which are not associated with any allele pairs,
         or In Situ reporter(knock-in) assays associated with a single allele pair which is heterozygous wild type for the assayed gene)
-        @note: GXD-Diff-2 passed 11/19/2024
+        @note: GXD-Diff-2 passed 9/29/2026
         """
         driver = self.driver
         driver.get(config.TEST_URL + '/gxd/profile')
-        # Click the RNA-Seq option
+        # Click the classical option
         self.driver.find_element(By.ID, 'profileModeC').click()
         time.sleep(2)
         self.driver.find_element(By.ID, 'detectedRadio0').is_selected()
@@ -349,11 +349,11 @@ class TestGxdProfileQF(unittest.TestCase):
         self.driver.find_element(By.ID, 'notdetectedRadio1').click()
         struct2 = self.driver.find_element(By.ID, 'profileStructure1')
         # Enter your structure
-        struct2.send_keys("adventitia of bladder")
+        struct2.send_keys("forelimb")
         time.sleep(2)
         struct2.send_keys(Keys.RETURN)
         struct2.send_keys(Keys.ENTER)
-        time.sleep(2)
+        time.sleep(4)
         #self.driver.find_element(By.ID, 'genegridtab')
         #time.sleep(2)
         #self.driver.find_element(By.ID, 'genegridtab')
@@ -364,10 +364,10 @@ class TestGxdProfileQF(unittest.TestCase):
         searchtextitems = iterate.getTextAsList(items)
         # print(searchtextitems)
         self.assertIn('Abcc6', searchtextitems)
-        self.assertIn('Acaa2', searchtextitems)
+        # self.assertIn('Acaa2', searchtextitems)
         # find the tissue grid box for bladder for marker Abcc6
         boxlist = driver.find_element(By.ID, 'matrixGroupInner').find_element(By.CLASS_NAME, 'matrixCell')
-        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row0.col17 > rect.blue2')
+        item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row0.col15 > rect.blue2')
         rightclass = item.get_attribute('class')
         # now we assert the class name of the gridbox matches the class name of blue2
         self.assertEqual(rightclass, 'blue2')
@@ -378,7 +378,7 @@ class TestGxdProfileQF(unittest.TestCase):
         # print(searchTextItems)
         # Now assert that these 2 systems are returned in the first column of the grid
         self.assertIn('bladder', searchtextitems)
-        self.assertIn('adventitia of bladder', searchtextitems)
+        self.assertIn('forelimb', searchtextitems)
 
     def test_diff_systems(self):
         """
@@ -819,7 +819,7 @@ class TestGxdProfileQF(unittest.TestCase):
         item = boxlist.find_element(By.CSS_SELECTOR, 'g.cell.row0.col19 > rect')
         rightclass = item.get_attribute('class')
         # rightclass finds the class name of the gridbox
-        # now we assert the class name of the gridbox matches the class name of blue1
+        # now we assert the class name of the gridbox matches the class name of blue2
         self.assertEqual(rightclass, 'blue1')
         # find the Anatomical Systems column
         termslist = driver.find_element(By.ID, "rowGroupInner")

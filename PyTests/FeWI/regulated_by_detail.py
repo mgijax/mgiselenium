@@ -122,7 +122,7 @@ class TestTssDetail(unittest.TestCase):
         # find the second section of the Summary section
         reg = self.driver.find_element(By.CSS_SELECTOR, 'section.summarySec2:nth-child(2) > ul:nth-child(1) > li:nth-child(6)')
         print(reg.text)
-        self.assertEqual(reg.text, 'Regulated by\nRr6, Rr5, Rr577 ... (4 regulatory regions)')
+        self.assertEqual(reg.text, 'Regulated by\nRr577, Rr6, Rr578 ... (4 regulatory regions)')
 
 
     def tearDown(self):

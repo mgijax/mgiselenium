@@ -1143,17 +1143,18 @@ class TestRollupRules(unittest.TestCase):
         self.driver.find_element(By.NAME, "formly_3_input_input_0").send_keys(
             "Btbd9")  # identifies the input field and a marker symbol
         self.driver.find_element(By.ID, "searchButton").click()
-        wait.forAngular(self.driver)
+        #wait.forAngular(self.driver)
         # identify the Grid tab and click on it
         grid_tab = self.driver.find_element(By.CSS_SELECTOR,
                                             "ul.nav.nav-tabs > li.uib-tab.nav-item.ng-scope.ng-isolate-scope:nth-child(1) > a.nav-link.ng-binding")
         print(grid_tab.text)
         time.sleep(2)
         # Find the nervous system box for Btbd9 and click it.
-        self.driver.find_element(By.CSS_SELECTOR, "td.middle:nth-child(6) > div:nth-child(1) > div:nth-child(1)").click()
+        self.driver.find_element(By.CSS_SELECTOR, "td.middle:nth-child(7) > div:nth-child(1) > div:nth-child(1)").click()
+        time.sleep(5)
         # switch focus to the popup for Human and Mouse nervous system abnormalities for BTBD9/Btbd9
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        wait.forNewWindow(self.driver, 2)
+        wait.forNewWindow(self.driver, 5)
         # find the Mouse Phenotypes table and assert row 3 result for the Mouse Phenotype column
         mp_table = Table(self.driver.find_element(By.XPATH, "/html/body/p/table"))
         cell = mp_table.get_cell(4, 1)
@@ -1291,6 +1292,9 @@ class TestRollupRules(unittest.TestCase):
         self.assertEqual(dlist[1], "osteogenesis imperfecta\nIDs")
         # find the View Models link for osteogenesis imperfecta type 2 and click it
         driver.find_element(By.ID, 'showDOID_0110341').click()
+        time.sleep(2)
+        # find the cookie close button and click it
+        self.driver.find_element(By.CLASS_NAME, 'ccb-button').click()
         # find the popup Model table and click the first View link in the Phenotypes column
         self.driver.find_element(By.LINK_TEXT, "View").click()
         # switch focus to the new tab for strain detail page

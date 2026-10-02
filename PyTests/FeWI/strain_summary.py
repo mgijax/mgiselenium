@@ -132,7 +132,7 @@ class TestStrainSummary(unittest.TestCase):
         # find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         # locates the link for the official strain name
-        driver.find_element(By.PARTIAL_LINK_TEXT, '129').click()
+        driver.find_element(By.PARTIAL_LINK_TEXT, 'B6;129S4-Elf5').click()
         time.sleep(2)
         # switch focus to the new tab for strain detail page
         driver.switch_to.window(self.driver.window_handles[-1])

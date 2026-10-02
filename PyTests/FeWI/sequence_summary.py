@@ -123,31 +123,7 @@ class TestSequenceSummaryPage(unittest.TestCase):
         searchtextitems = iterate.getTextAsList(seqlist)
         print(searchtextitems)
         # asserts that the rows of length data are in correct order
-        self.assertEqual(searchtextitems, ['ENSMUST00000018711\n  Ensembl\n  MGI Sequence Detail',
-                                           'ENSMUST00000144443\n  Ensembl\n  MGI Sequence Detail',
-                                           'ENSMUST00000108592\n  Ensembl\n  MGI Sequence Detail',
-                                           'ENSMUST00000139007\n  Ensembl\n  MGI Sequence Detail',
-                                           'NM_019749\n  RefSeq\n  MGI Sequence Detail',
-                                           'BC030350\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail',
-                                           'BC002126\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail',
-                                           'BC024621\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail',
-                                           'AV029091\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail',
-                                           'BC029329\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail',
-                                           'AK002879\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail',
-                                           'AK011731\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail',
-                                           'AF161587\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail',
-                                           'KY499680\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail',
-                                           'AW124839\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail',
-                                           'ENSMUSG00000018567\n  Ensembl Gene Model\n  MGI Sequence Detail',
-                                           '56486\n  NCBI Gene Model\n  MGI Sequence Detail',
-                                           'MGP_129S1SvImJ_G0018575\n  Ensembl\n  MGI Sequence Detail',
-                                           'MGP_WSBEiJ_G0017937\n  Ensembl\n  MGI Sequence Detail',
-                                           'MGP_NODShiLtJ_G0018423\n  Ensembl\n  MGI Sequence Detail',
-                                           'MGP_PWKPhJ_G0017657\n  Ensembl\n  MGI Sequence Detail',
-                                           'MGP_NZOHlLtJ_G0019008\n  Ensembl\n  MGI Sequence Detail',
-                                           'MGP_C3HHeJ_G0018328\n  Ensembl\n  MGI Sequence Detail',
-                                           'MGP_BALBcJ_G0018515\n  Ensembl\n  MGI Sequence Detail',
-                                           'MGP_C57BL6NJ_G0018966\n  Ensembl\n  MGI Sequence Detail'])
+        self.assertEqual(searchtextitems, ['ENSMUST00000018711\n  Ensembl\n  MGI Sequence Detail', 'ENSMUST00000144443\n  Ensembl\n  MGI Sequence Detail', 'ENSMUST00000108592\n  Ensembl\n  MGI Sequence Detail', 'ENSMUST00000139007\n  Ensembl\n  MGI Sequence Detail', 'NM_019749\n  RefSeq\n  MGI Sequence Detail', 'BC030350\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail', 'BC002126\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail', 'BC024621\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail', 'AV029091\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail', 'BC029329\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail', 'AK002879\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail', 'AK011731\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail', 'AF161587\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail', 'KY499680\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail', 'AW124839\n  GenBank | ENA | DDBJ\n  MGI Sequence Detail', 'ENSMUSG00000018567\n  Ensembl Gene Model\n  MGI Sequence Detail', '56486\n  NCBI Gene Model\n  MGI Sequence Detail', 'MGI_C57BL6J_1861742\n  MGI Sequence Detail', 'ENSTCUG00005053258\n  MGI Sequence Detail', 'ENSMUSG00180036225\n  MGI Sequence Detail', 'ENSMUSG00175053827\n  MGI Sequence Detail', 'ENSMUSG00215052077\n  MGI Sequence Detail', 'ENSMUSG00220054082\n  MGI Sequence Detail', 'ENSMUSG00210054284\n  MGI Sequence Detail', 'ENSMUSG00195040942\n  MGI Sequence Detail'])
 
         # finds the Length column and then iterates through all items
         lengthlist = driver.find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-length .yui-dt-liner')
@@ -155,15 +131,13 @@ class TestSequenceSummaryPage(unittest.TestCase):
         print(searchtextitems)
         # asserts that the rows of length data are in correct order,sort is large to small
         self.assertEqual(searchtextitems,
-                         ['1351', '932', '750', '454', '1122', '1152', '924', '899', '893', '879', '872', '776', '565',
-                          '492', '465', '3809', '3580', '6111', '5983', '5196', '4974', '4641', '4400', '3763', '3731'])
+                         ['1351', '932', '750', '454', '1122', '1152', '924', '899', '893', '879', '872', '776', '565', '492', '465', '3809', '3580', '3809', '3825', '3816', '3814', '3812', '3812', '3811', '3810'])
 
     def test_mgp_links(self):
         """
-        @status: Tests that an MGP sequence has a link to Mouse Genomes Project and the link is correct
+        @status: Tests that an Ensembl sequence has the provider Ensembl Strain Gene Model and the strain/species link is correct
         It then goes back to the sequence summary page and verifies the MGI Sequence Detail link for the same sequence is correct
         @note: seq-summary-3
-        ****TEST FAILS. I believe MGP ids no longer exist*************
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/marker")
@@ -179,25 +153,22 @@ class TestSequenceSummaryPage(unittest.TestCase):
         allsqlnk = driver.find_element(By.ID, 'allSeqLink')
         driver.execute_script("arguments[0].click();", allsqlnk)
         # print('Disease Table loaded')
+        # find and close the Analytics popup
+        driver.find_element(By.CLASS_NAME, 'ccb-button').click()
         time.sleep(4)
-        # finds the link for Ensembl of sequence MGP_CBAJ_G0036567 and clicks it.
-        sqlnk = driver.find_element(By.XPATH, '/html/body/div[4]/div[4]/table/tbody[2]/tr[6]/td[2]/div/a[1]')
+        # Scroll down by 500 pixels relative to current position
+        driver.execute_script("window.scrollBy(0, 500);")
+        # finds the link for Ensembl of sequence ENSMUSG00210021336 and clicks it.
+        sqlnk = driver.find_element(By.XPATH, '/html/body/div[4]/div[4]/table/tbody[2]/tr[8]/td[2]/div/a')
         driver.execute_script("arguments[0].click();", sqlnk)
-        species_m = driver.find_element(By.CLASS_NAME, 'species')
-        # asserts that the link takes you to the correct sequence at ensembl.
-        self.assertEqual(species_m.text, 'Mouse CBA/J')
-        time.sleep(2)
-        # make the browser go back to the previous sequence summary page
-        driver.back()
-        time.sleep(2)
-        # finds the link for MGI Sequence Detail of sequence MGP_CBAJ_G0036567 and clicks it.
-        sq2lnk = driver.find_element(By.XPATH, '/html/body/div[4]/div[4]/table/tbody[2]/tr[6]/td[2]/div/a[2]')
-        driver.execute_script("arguments[0].click();", sq2lnk)
-        # find the ID listed in the ID/Version ribbon of the sequence detail page
-        seq_id = driver.find_element(By.CSS_SELECTOR,
-                                     '#seqIdTable > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > b:nth-child(1)')
-        # asserts that the link takes you to the correct sequence detail page.
-        self.assertEqual(seq_id.text, 'MGP_CBAJ_G0036567')
+        # find the provider and verify it is Ensembl Strain Gene Model
+        prov = driver.find_element(By.XPATH, '/html/body/div[2]/table/tbody/tr[3]/td[2]')
+        self.assertEqual(prov.text, 'Ensembl Strain Gene Model')
+        # find the strain/species link in the Sources section
+        driver.find_element(By.LINK_TEXT, 'CBA/J').click()
+        # verify the link takes you to the correct strain detail page
+        self.assertIn(driver.title, 'CBA/J Strain Detail MGI Mouse MGI:2159756')
+
 
     def test_mgi_b6_links(self):
         """
@@ -225,7 +196,7 @@ class TestSequenceSummaryPage(unittest.TestCase):
         seq_id = driver.find_element(By.CSS_SELECTOR,
                                      '#seqIdTable > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > b:nth-child(1)')
         # asserts that the link takes you to the correct sequence detail page.
-        self.assertEqual(seq_id.text, 'MGI_C57BL6J_1349458')
+        self.assertEqual(seq_id.text, 'ENSLUMG00010019004')
 
     def tearDown(self):
         self.driver.quit()

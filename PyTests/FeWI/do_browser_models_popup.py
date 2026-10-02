@@ -306,7 +306,7 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         gene_table = self.driver.find_element(By.ID, 'geneTabTable')
         table = Table(gene_table)
         # cells = table.get_rows()
-        cell = table.get_cell(8, 3)
+        cell = table.get_cell(9, 3)
         # Identify the data found in the Mouse Models column for the first row(for marker Snca)
         print(cell.text)
         cell.find_element(By.LINK_TEXT, '6 models').click()
@@ -317,7 +317,7 @@ class TestDoBrowserModelsPopup(unittest.TestCase):
         self.driver.close()
         # switch focus to the strain detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        WebDriverWait(self.driver, 5).until(EC.text_to_be_present_in_element((By.ID, 'strainPrimaryID'), 'MGI:5543942'))
+        WebDriverWait(self.driver, 8).until(EC.text_to_be_present_in_element((By.ID, 'strainPrimaryID'), 'MGI:5543942'))
         # switch focus to the new tab for strain detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
         # Asserts that the strain page is for the correct strain

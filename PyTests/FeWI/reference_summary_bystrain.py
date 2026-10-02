@@ -67,7 +67,7 @@ class TestReferenceSummaryStrain(unittest.TestCase):
         idsreturned = iterate.getTextAsList(straindata)
         # asserts that the 2 rows of data are correct
         self.assertEqual(['Strain/Stock Name Synonyms Attributes IDs References',
-                          'BUB/BnJ BUB/BnJ-Pde6brd1\ninbred strain\nMGI:2159907\nJAX:000653\nMPD:24\n122',
+                          'BUB/BnJ BUB/BnJ-Pde6brd1\ninbred strain\nMGI:2159907\nJAX:000653\nMPD:24\n123',
                           'SF/CamEiJ San Franciscan\ninbred strain\nwild-derived\nMGI:2159978\nJAX:000280\nMPD:159\n23'],
                          idsreturned)
         # The reason we brought back all the rows of data is because we needed to make sure the reference counts were correct and it did not bring back duplicate J numbers

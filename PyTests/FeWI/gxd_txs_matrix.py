@@ -174,7 +174,7 @@ class TestGXDTissueStageMatrix(unittest.TestCase):
 
         imagesdata = driver.find_element(By.ID, "imagesdata")
         genelist = imagesdata.find_elements(By.CSS_SELECTOR, 'td.yui-dt-col-gene')
-        items = genelist[0].find_elements(By.TAG_NAME, "li")
+        items = genelist[2].find_elements(By.TAG_NAME, "li")
         searchtextitems = iterate.getTextAsList(items)
         self.assertEqual(searchtextitems, ["Arx", "Olig2", "Shh"])
         geneheader = imagesdata.find_element(By.CSS_SELECTOR, 'th.yui-dt-col-gene')

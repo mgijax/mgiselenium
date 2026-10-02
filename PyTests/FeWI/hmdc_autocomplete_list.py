@@ -6,6 +6,7 @@ Verify the auto complete list is displaying the terms associated to the text you
 """
 import os.path
 import sys
+import time
 import tracemalloc
 import unittest
 import config
@@ -62,29 +63,30 @@ class TestHmdcAutocomplete(unittest.TestCase):
 
         self.driver.find_element(By.ID, "formly_3_autocomplete_input_0").send_keys(
             "systemic lupus")  # identifies the input field and enters systemic lupus
-        wait.forAngular(self.driver)
+        time.sleep(5)
+        #wait.forAngular(self.driver)
         # identify the autocomplete dropdown list
         auto_list = self.driver.find_element(By.CLASS_NAME, "dropdown-menu")
         items = auto_list.find_elements(By.TAG_NAME, "li")
         for item in items:
             text = item.text
             print(text)
-        self.assertEqual(items[0].text, "systemic lupus", "Term 0 is not visible!")
-        self.assertEqual(items[1].text, "systemic lupus erythematosus", "Term 1 is not visible!")
-        self.assertEqual(items[2].text, "Lupus Erythematosus, systemic", "Term 2 is not visible!")
-        self.assertEqual(items[3].text, "SLE - Lupus Erythematosus, systemic", "Term 3 is not visible!")
-        self.assertEqual(items[4].text, "increased susceptibility to systemic lupus erythematosus",
-                         "Term 4 is not visible!")
-        self.assertEqual(items[5].text, "decreased susceptibility to systemic lupus erythematosus",
+        self.assertEqual(items[1].text, "Systemic lupus", "Term 1 is not visible!")
+        self.assertEqual(items[2].text, "Systemic lupus erythematosus", "Term 2 is not visible!")
+        self.assertEqual(items[3].text, "Lupus Erythematosus, systemic", "Term 3 is not visible!")
+        self.assertEqual(items[4].text, "SLE - Lupus Erythematosus, systemic", "Term 4 is not visible!")
+        self.assertEqual(items[5].text, "increased susceptibility to systemic lupus erythematosus",
                          "Term 5 is not visible!")
-        self.assertEqual(items[6].text, "reduced susceptibility to systemic lupus erythematosus",
+        self.assertEqual(items[6].text, "decreased susceptibility to systemic lupus erythematosus",
                          "Term 6 is not visible!")
-        self.assertEqual(items[7].text, "increased resistance to systemic lupus erythematosus",
+        self.assertEqual(items[7].text, "reduced susceptibility to systemic lupus erythematosus",
                          "Term 7 is not visible!")
-        self.assertEqual(items[8].text, "decreased resistance to systemic lupus erythematosus",
+        self.assertEqual(items[8].text, "increased resistance to systemic lupus erythematosus",
                          "Term 8 is not visible!")
-        self.assertEqual(items[9].text, "Libmann Sachs, Endocarditis in systemic lupus erythematosus",
-                         "Term 8 is not visible!")
+        self.assertEqual(items[9].text, "decreased resistance to systemic lupus erythematosus",
+                         "Term 9 is not visible!")
+        self.assertEqual(items[10].text, "Libmann Sachs, Endocarditis in systemic lupus erythematosus",
+                         "Term 10 is not visible!")
 
     def tearDown(self):
         self.driver.quit()

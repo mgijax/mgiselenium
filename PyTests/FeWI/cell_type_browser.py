@@ -114,24 +114,18 @@ class TestCellTypeBrowser(unittest.TestCase):
         self.assertEqual(term[18].text, 'motile cell')
         self.assertEqual(term[19].text, 'nitrogen fixing cell')
         self.assertEqual(term[20].text, 'nucleate cell')
-        self.assertEqual(term[21].text, 'OB FRMD7 GABA GABAergic neuron (Primate)')
-        self.assertEqual(term[22].text, 'oxygen accumulating cell')
-        self.assertEqual(term[23].text, 'perivascular cell')
-        self.assertEqual(term[24].text, 'photosynthetic cell')
-        self.assertEqual(term[25].text, 'polyploid cell')
-        self.assertEqual(term[26].text, 'precursor cell')
-        self.assertEqual(term[27].text, 'prokaryotic cell')
-        self.assertEqual(term[28].text, 'secretory cell')
-        self.assertEqual(term[29].text, 'skeletogenic cell')
-        self.assertEqual(term[30].text, 'SN GATA3-PVALB GABA GABAergic neuron (Primate)')
-        self.assertEqual(term[31].text, 'SN SOX6 Dopa substantia nigra dopaminergic neuron (Primate)')
-        self.assertEqual(term[32].text, 'SN-VTR CALB1 Dopa substantia nigra dopaminergic neuron (Primate)')
-        self.assertEqual(term[33].text, 'SN-VTR GAD2 Dopa dopaminergic neuron (Primate)')
-        self.assertEqual(term[34].text, 'STRd D1/D2-hybrid medium spiny neuron (Primate)')
-        self.assertEqual(term[35].text, 'STRd D2 Striomat hybrid medium spiny neuron (Primate)')
-        self.assertEqual(term[36].text, 'stuff accumulating cell')
-        self.assertEqual(term[37].text, 'supporting cell')
-        self.assertEqual(term[38].text, 'zygote')
+        self.assertEqual(term[21].text, 'oxygen accumulating cell')
+        self.assertEqual(term[22].text, 'perivascular cell')
+        self.assertEqual(term[23].text, 'photosynthetic cell')
+        self.assertEqual(term[24].text, 'polyploid cell')
+        self.assertEqual(term[25].text, 'precursor cell')
+        self.assertEqual(term[26].text, 'prokaryotic cell')
+        self.assertEqual(term[27].text, 'secretory cell')
+        self.assertEqual(term[28].text, 'skeletogenic cell')
+        self.assertEqual(term[29].text, 'stuff accumulating cell')
+        self.assertEqual(term[30].text, 'supporting cell')
+        self.assertEqual(term[31].text, 'transit amplifying cell')
+        self.assertEqual(term[32].text, 'zygote')
 
 
     def test_parents_multi(self):
@@ -159,7 +153,7 @@ class TestCellTypeBrowser(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/cell_ontology/CL:0000448")
-        time.sleep(2)
+        time.sleep(4)
         term = driver.find_element(By.ID, 'treeViewContainer').find_elements(By.CLASS_NAME, 'jstree-anchor')
         print(term[0].text)
         print(term[9].text)
@@ -180,8 +174,8 @@ class TestCellTypeBrowser(unittest.TestCase):
         @note: CL_Search-
         """
         driver = self.driver
-        driver.get(config.TEST_URL + "/vocab/cell_ontology/CL:2000078")
-        recomLink = WebDriverWait(driver, 2).until(EC.element_to_be_clickable((By.ID, "recomLink_CL2000078")))
+        driver.get(config.TEST_URL + "/vocab/cell_ontology/CL:1000692")
+        recomLink = WebDriverWait(driver, 2).until(EC.element_to_be_clickable((By.ID, "recomLink_CL1000692")))
         print('Tree view details loaded')
         driver.execute_script("arguments[0].scrollIntoView(true);", recomLink)
         recomLink.click()
@@ -199,7 +193,7 @@ class TestCellTypeBrowser(unittest.TestCase):
         print(term1.text)
 
         self.assertEqual(
-            'Tg(Ntrk3-cre/ERT2)#Phep\ntransgene insertion, Paul A Heppenstall',
+            'Tg(Epo-cre)44Mym\ntransgene insertion 44, Masayuki Yamamoto',
             term1.text,
             'Term1 is not returning'
         )
@@ -433,19 +427,19 @@ class TestCellTypeBrowser(unittest.TestCase):
         """
         driver = self.driver
         # search for: double-positive, alpha-beta thymocyte
-        driver.get(config.TEST_URL + "/vocab/cell_ontology/CL:0000809")
+        driver.get(config.TEST_URL + "/vocab/cell_ontology/CL:0009101")
         if WebDriverWait(self.driver, 5).until(
                 EC.presence_of_element_located((By.ID, 'searchResults'))):
             print('Tree view details loaded')
         time.sleep(1)
-        driver.find_element(By.ID,'htLink_CL0000809').click()  # clicks the HT results link found in the Treeview section
+        driver.find_element(By.ID,'htLink_CL0009101').click()  # clicks the HT results link found in the Treeview section
         #time.sleep(2)
         # switch focus to the new tab for RNA-Seq and Microarray Experiment page
         self.driver.switch_to.window(self.driver.window_handles[-1])
         time.sleep(2)
         items = self.driver.find_element(By.ID, 'pageReportTop')
         # verifies the number of results found is correct
-        self.assertEqual('Showing experiments 1 - 18 of 18', items.text, 'number of results returned is not correct')
+        self.assertEqual('Showing experiments 1 - 6 of 6', items.text, 'number of results returned is not correct')
 
 
     def test_ht_link_treeview(self):
@@ -523,7 +517,7 @@ class TestCellTypeBrowser(unittest.TestCase):
         """
         driver = self.driver
         driver.get(config.TEST_URL + "/vocab/cell_ontology/CL:0000175")
-        if WebDriverWait(self.driver, 2).until(
+        if WebDriverWait(self.driver, 6).until(
                 EC.presence_of_element_located((By.ID, 'resultLink_CL0000175'))):
             print('expression link found')
         time.sleep(1)
@@ -620,13 +614,16 @@ class TestCellTypeBrowser(unittest.TestCase):
         print(title4.text)
         title5 = self.driver.find_element(By.ID, 'title4')
         print(title5.text)
+        title6 = self.driver.find_element(By.ID, 'title5')
+        print(title6.text)
 
         # verifies the returned results are the correct for this search
-        self.assertEqual('RNA-seq Analysis of Gs-linked GPCRs expressed in mouse inguinal white adipocytes (iWAT), epididymal white adipocytes (eWAT) and brown adipose tissues (BAT)', title1.text, 'Title1 is not correct')
-        self.assertEqual('RNA-seq Analysis of GPCRs expressed in mouse inguinal white adipocytes (iWAT), epididymal white adipocytes (eWAT) and brown adipose tissues (BAT) after high fat diet treatment.', title2.text, 'Title2 is not correct')
-        self.assertEqual('MED1 is a lipogenesis co-activator required for postnatal adipose expansion', title3.text, 'Title3 is not correct')
-        self.assertEqual('Aging Induced Syntaxin 4 Deficiency Mediates Brown Adipose Tissue Pyroptosis and Thermogenic Dysfunction', title4.text, 'Title4 is not correct')
-        self.assertEqual('Mouse brown adipocyte single nucleus RNAseq with Smartseq2', title5.text, 'Title5 is not correct')
+        self.assertEqual('Single-cell RNA sequencing of primary mouse brown adipocytes', title1.text, 'Title1 is not correct')
+        self.assertEqual('RNA-seq Analysis of Gs-linked GPCRs expressed in mouse inguinal white adipocytes (iWAT), epididymal white adipocytes (eWAT) and brown adipose tissues (BAT)', title2.text, 'Title2 is not correct')
+        self.assertEqual('RNA-seq Analysis of GPCRs expressed in mouse inguinal white adipocytes (iWAT), epididymal white adipocytes (eWAT) and brown adipose tissues (BAT) after high fat diet treatment.', title3.text, 'Title3 is not correct')
+        self.assertEqual('MED1 is a lipogenesis co-activator required for postnatal adipose expansion', title4.text, 'Title4 is not correct')
+        self.assertEqual('Aging Induced Syntaxin 4 Deficiency Mediates Brown Adipose Tissue Pyroptosis and Thermogenic Dysfunction', title5.text, 'Title5 is not correct')
+        self.assertEqual('Mouse brown adipocyte single nucleus RNAseq with Smartseq2', title6.text, 'Title6 is not correct')
 
 
     def test_ht_link_with_parent_and_child_treeview(self):

@@ -51,7 +51,7 @@ class TestBatchQuery(unittest.TestCase):
         driver.get(config.TEST_URL + "/batch")
         idsearchbox = driver.find_element(By.ID, 'ids')
         # Enter an MGP ID into the ID/Symbols field
-        idsearchbox.send_keys("MGP_CBAJ_G0024006")
+        idsearchbox.send_keys("MGP_CASTEiJ_G0006926")
         idsearchbox.submit()
         # locates the Input Type column, find all the rows of data and print it to the console
         type_header = self.driver.find_element(By.ID, 'yui-dt0-th-type')
@@ -62,7 +62,7 @@ class TestBatchQuery(unittest.TestCase):
         row1_type = self.driver.find_element(By.XPATH, '/html/body/div[2]/div[6]/table/tbody[2]/tr/td[2]/div')
         print(row1_type.text)
         # Assert that the row1 Input Type is Mouse Genome Project
-        self.assertEqual(row1_type.text, 'Mouse Genome Project')
+        self.assertEqual(row1_type.text, 'Ensembl Strain Gene Model')
 
     def test_bq_multi_mgp_ids(self):
         """
@@ -123,9 +123,9 @@ class TestBatchQuery(unittest.TestCase):
         print(row3_data.text)
         print(row4_data.text)
         # Assert each row of data is correct
-        self.assertEqual(row1_data.text, 'MGP_CBAJ_G0024006\nMouse Genome Project\nMGI:2447322\nPcdha9\nprotocadherin alpha 9\nprotein coding gene', 'Row1 data is not correct!')
+        self.assertEqual(row1_data.text, 'MGP_CBAJ_G0024006\nNo associated gene', 'Row1 data is not correct!')
         self.assertEqual(row2_data.text, 'NM_008089\nRefSeq\nMGI:95661\nGata1\nGATA binding protein 1\nprotein coding gene', 'Row2 data is not correct!')
-        self.assertEqual(row3_data.text, 'MGP_AJ_G0024271\nMouse Genome Project\nMGI:2447322\nPcdha9\nprotocadherin alpha 9\nprotein coding gene', 'Row3 data is not correct!')
+        self.assertEqual(row3_data.text, 'MGP_AJ_G0024271\nNo associated gene', 'Row3 data is not correct!')
         self.assertEqual(row4_data.text, 'MGI:95661\nMGI\nMGI:95661\nGata1\nGATA binding protein 1\nprotein coding gene', 'Row4 data is not correct!')
         
     def test_bq_mgp_ids_has_b6coord(self):
@@ -139,7 +139,7 @@ class TestBatchQuery(unittest.TestCase):
         driver.find_element(By.ID, 'attributes2').click()
         idsearchbox = driver.find_element(By.ID, 'ids')
         # Enter an MGP ID into the ID/Symbols field
-        idsearchbox.send_keys("MGP_CBAJ_G0024006")
+        idsearchbox.send_keys("MGP_CASTEiJ_G0006926")
         idsearchbox.submit()
         # locates the Input column, find all the rows of data and print it to the console
         input_header = self.driver.find_element(By.ID, 'yui-dt0-th-term-liner')
@@ -151,7 +151,7 @@ class TestBatchQuery(unittest.TestCase):
         # print each row of data to the console
         print(row1_data.text)        
         # Assert each row of data is correct
-        self.assertEqual(row1_data.text, 'MGP_CBAJ_G0024006\nMouse Genome Project\nMGI:2447322\nPcdha9\nprotocadherin alpha 9\nprotein coding gene\n18\n+\n37130933\n37320710', 'Row1 data is not correct!')
+        self.assertEqual(row1_data.text, 'MGP_CASTEiJ_G0006926\nEnsembl Strain Gene Model\nMGI:4938043\nGm17216\npredicted gene 17216\nlncRNA gene\n6\n-\n148114865\n148116071', 'Row1 data is not correct!')
        
     def test_bq_mgp_ids_has_no_b6coord(self):
         """

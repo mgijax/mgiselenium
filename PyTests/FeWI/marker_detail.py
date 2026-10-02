@@ -288,7 +288,7 @@ class TestMarkerDetail(unittest.TestCase):
         # locate the number of strain annotations
         strain_annot = self.driver.find_element(By.ID, 'annotatedStrainMarkerCount')
         # verify the strain annotations number is correct
-        self.assertEqual(strain_annot.text, '16')
+        self.assertEqual(strain_annot.text, '17')
         # verify the SNP URL
         snp_s = self.driver.find_element(By.ID, 'snpLink')
         self.assertEqual(snp_s.text, '295')
@@ -386,7 +386,7 @@ class TestMarkerDetail(unittest.TestCase):
         # switch focus back to the Gene Detail page
         driver.switch_to.window(original_window)
         # find the link for 129S1/SvImJ gene model id
-        self.driver.find_element(By.LINK_TEXT, 'MGP_129S1SvImJ_G0035536').click()
+        self.driver.find_element(By.LINK_TEXT, 'ENSMUSG00200030838').click()
         # switch focus to the new tab for sequence detail page
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
@@ -397,25 +397,26 @@ class TestMarkerDetail(unittest.TestCase):
         print(all_cells.text)
         # verify the ID/Version row of data
         self.assertEqual(all_cells.text,
-                         'ID/Version\nMGP_129S1SvImJ_G0035536 (Ensembl) Multiple Genome Viewer (MGV) Version: MGP_129S1SvImJ_G0035536.Ensembl Release 92')
+                         'ID/Version\nENSMUSG00200030838 Multiple Genome Viewer (MGV) Version: ENSMUSG00200030838.Ensembl Release 116')
 
     def test_strain_table_vs_seqmap_noB6(self):
         """
         @status this test verifies that when a canonical gene doesn't have a B6 strain gene then the strain table for C57BL/6J says "no annotation"
-        @note mrkdetail-strain-10
+        @note mrkdetail-strain-10 !!failing... no longer has genome coordinates!!!
         """
         driver = self.driver
-        self.driver.find_element(By.NAME, 'nomen').send_keys("n-R5s85")
+        self.driver.find_element(By.NAME, 'nomen').send_keys("n-R5s60")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
-        self.driver.find_element(By.LINK_TEXT, 'n-R5s85').click()
+        self.driver.find_element(By.LINK_TEXT, 'n-R5s60').click()
         WebDriverWait(driver, 10).until(EC.presence_of_element_located(
             (By.ID, 'summaryRibbon')))  # waits until the summary ribbon is displayed on the page
         # locate the Sequence Map coordinates
-        seq_map = self.driver.find_element(By.XPATH,
-                                           '//*[@id="templateBodyInsert"]/div[2]/div[2]/div[2]/section[1]/ul/li[1]/div[2]')
+        seq_map = self.driver.find_element(By.XPATH,'//*[@id="templateBodyInsert"]/div[2]/div[2]/div[2]/section[1]/ul/li[1]/div[2]')
+        # seq_map = self.driver.find_element(By.XPATH,'//*[@id="locationRibbon"]/div[2]/section[1]/ul/li/div[2]/span')
+
         print(seq_map.text)
         # verify the coordinates data for the sequence map
-        self.assertEqual(seq_map.text, 'Genome coordinates not available from the current reference assembly.',
+        self.assertEqual(seq_map.text, 'Chr12:67535887-67536005 bp, - strand\nFrom NCBI annotation of GRCm39',
                          'sequence map coordinates have changed!')
         # clicks the More toggle(turnstile) to display the strain table
         self.driver.find_element(By.ID, 'strainRibbon').find_element(By.CSS_SELECTOR,
@@ -425,9 +426,9 @@ class TestMarkerDetail(unittest.TestCase):
         table = Table(strains_table)
         # Iterate the second row of the disease table
         all_cells = table.get_column_cells('Gene Model ID')
-        print(all_cells[1].text)
+        print(all_cells[4].text)
         # verify the ID/Version row of data
-        self.assertEqual(all_cells[1].text, 'no annotation')
+        self.assertEqual(all_cells[4].text, 'no annotation')
 
     def test_strain_table_vs_seqmap_nomatch(self):
         """
@@ -515,7 +516,7 @@ class TestMarkerDetail(unittest.TestCase):
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
         # verify the correct sequence is being returned
-        assert 'MGP_AJ_G0036915 19:53381666-53386571' in self.driver.page_source
+        assert 'A/J:ENSMUSG00195002571 19:52706898-52711119' in self.driver.page_source
 
     def test_strain_table_multiple_fasta(self):
         """
@@ -523,11 +524,11 @@ class TestMarkerDetail(unittest.TestCase):
         @note mrkdetail-strain-15
         """
         driver = self.driver
-        self.driver.set_window_size(1024, 768)
+        self.driver.set_window_size(1024, 800)
         self.driver.find_element(By.NAME, 'nomen').send_keys("Pax6")
         self.driver.find_element(By.CLASS_NAME, 'buttonLabel').click()
         self.driver.find_element(By.LINK_TEXT, 'Pax6').click()
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located(
+        WebDriverWait(driver, 2).until(EC.presence_of_element_located(
             (By.ID, 'summaryRibbon')))  # waits until the summary ribbon is displayed on the page
         # clicks the More toggle(turnstile) to display the strain table
         self.driver.find_element(By.ID, 'scToggle').click()
@@ -552,9 +553,9 @@ class TestMarkerDetail(unittest.TestCase):
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 5)
         # verify the correct sequences are being returned
-        assert 'MGP_AJ_G0026191 2:103346997-103376112' in self.driver.page_source
-        assert 'MGP_C3HHeJ_G0025950 2:106465683-106497601' in self.driver.page_source
-        assert 'MGP_CBAJ_G0025928 2:115224186-115254439' in self.driver.page_source
+        assert 'A/J:ENSMUSG00195028435 2:102484499-102513003' in self.driver.page_source
+        assert 'C3H/HeJ:ENSMUSG00175029483 2:102579039-102607591' in self.driver.page_source
+        assert 'CBA/J:ENSMUSG00210035638 2:102557597-102586096' in self.driver.page_source
 
     def test_strain_table_B6_fasta(self):
         """
@@ -616,22 +617,24 @@ class TestMarkerDetail(unittest.TestCase):
         self.driver.switch_to.window(self.driver.window_handles[-1])
         wait.forNewWindow(self.driver, 2)
         # verify the correct sequences are being returned
-        assert 'MGI_C57BL6J_2151058 7:6958684-6979661' in self.driver.page_source
-        assert 'MGP_129S1SvImJ_G0004408 7:4064690-4089229' in self.driver.page_source
-        assert 'MGP_AJ_G0004385 7:3946706-3968051' in self.driver.page_source
-        assert 'MGP_AKRJ_G0004367 7:4199441-4224713' in self.driver.page_source
-        assert 'MGP_BALBcJ_G0004371 7:4050119-4074786' in self.driver.page_source
-        assert 'MGP_C3HHeJ_G0004320 7:4032181-4053614' in self.driver.page_source
-        assert 'MGP_C57BL6NJ_G0004520 7:4282414-4306205' in self.driver.page_source
-        assert 'MGP_CASTEiJ_G0004280 7:3933580-3955838' in self.driver.page_source
-        assert 'MGP_CBAJ_G0004314 7:4422337-4449131' in self.driver.page_source
-        assert 'MGP_DBA2J_G0004329 7:3984146-4005522' in self.driver.page_source
-        assert 'MGP_FVBNJ_G0004347 7:3958576-3980320' in self.driver.page_source
-        assert 'MGP_LPJ_G0004409 7:4189174-4214764' in self.driver.page_source
-        assert 'MGP_NZOHlLtJ_G0004519 7:3984097-4008151' in self.driver.page_source
-        assert 'MGP_PWKPhJ_G0004233 7:4142731-4165139' in self.driver.page_source
-        assert 'MGP_SPRETEiJ_G0004175 7:3565285-3587263' in self.driver.page_source
-        assert 'MGP_WSBEiJ_G0004319 7:4155212-4179026' in self.driver.page_source
+        assert 'C57BL/6J:MGI_C57BL6J_2151058 7:6958684-6979661' in self.driver.page_source
+        assert '129S1/SvImJ:ENSMUSG00200042830 7:3839611-3861201' in self.driver.page_source
+        assert 'A/J:ENSMUSG00195052888 7:3690805-3712391' in self.driver.page_source
+        assert 'AKR/J:ENSMUSG00220031140 7:1326056-1347965' in self.driver.page_source
+        assert 'BALB/cJ:ENSMUSG00180050553 7:3646059-3667646' in self.driver.page_source
+        assert 'C3H/HeJ:ENSMUSG00175048257 7:3570774-3592522' in self.driver.page_source
+        assert 'C57BL/6NJ:ENSMUSG00215044083 7:3716612-3738357' in self.driver.page_source
+        assert 'CAST/EiJ:ENSTCUG00005030056 7:3775139-3797049' in self.driver.page_source
+        assert 'CBA/J:ENSMUSG00210047999 7:3602174-3623762' in self.driver.page_source
+        assert 'DBA/2J:ENSMUSG00185043901 7:3831213-3852954' in self.driver.page_source
+        assert 'FVB/NJ:ENSMUSG00205049226 7:3459110-3480796' in self.driver.page_source
+        assert 'JF1/MsJ:ENSUMUG00000055443 7:3909165-3930653' in self.driver.page_source
+        assert 'LP/J:ENSMUSG00230041288 7:6845145-6866728' in self.driver.page_source
+        assert 'NOD/ShiLtJ:ENSMUSG00190050239 7:3724396-3745980' in self.driver.page_source
+        assert 'NZO/HlLtJ:ENSMUSG00225021380 7:4688748-4710331' in self.driver.page_source
+        assert 'PWK/PhJ:ENSLUMG00010049829 7:7378013-7399744' in self.driver.page_source
+        assert 'SPRET/EiJ:ENSMSPG00010050128 7:3441857-3462388' in self.driver.page_source
+        assert 'WSB/EiJ:ENSIUOG00005052340 7:3600272-3621939' in self.driver.page_source
 
     def test_strain_specific_marker(self):
         """
@@ -729,6 +732,7 @@ class TestMarkerDetail(unittest.TestCase):
         sel16 = self.driver.find_elements(By.NAME, 'seqs')[15].get_attribute('checked')
         sel17 = self.driver.find_elements(By.NAME, 'seqs')[16].get_attribute('checked')
         sel18 = self.driver.find_elements(By.NAME, 'seqs')[17].get_attribute('checked')
+        sel19 = self.driver.find_elements(By.NAME, 'seqs')[18].get_attribute('checked')
         self.assertTrue(sel1, 'sel1 is not selected')
         self.assertTrue(sel2, 'sel2 is not selected')
         self.assertTrue(sel3, 'sel3 is not selected')
@@ -742,11 +746,12 @@ class TestMarkerDetail(unittest.TestCase):
         self.assertFalse(sel11, 'sel11 is not selected')
         self.assertFalse(sel12, 'sel12 is not selected')
         self.assertFalse(sel13, 'sel13 is not selected')
-        self.assertTrue(sel14, 'sel14 is not selected')
+        self.assertFalse(sel14, 'sel14 is not selected')
         self.assertTrue(sel15, 'sel15 is not selected')
         self.assertTrue(sel16, 'sel16 is not selected')
-        self.assertFalse(sel17, 'sel17 is not selected')
-        self.assertTrue(sel18, 'sel18 is not selected')
+        self.assertTrue(sel17, 'sel17 is not selected')
+        self.assertFalse(sel18, 'sel18 is not selected')
+        self.assertTrue(sel19, 'sel19 is not selected')
 
     """def test_strain_table_send_sanger(self):
                
@@ -826,26 +831,28 @@ class TestMarkerDetail(unittest.TestCase):
         # verify the rows of data for the Strain column
         self.assertEqual(strain_cells[1].text, 'C57BL/6J')
         self.assertEqual(strain_cells[2].text, '129S1/SvImJ')
-        self.assertEqual(strain_cells[3].text, 'A/J')
+        self.assertEqual(strain_cells[3].text, '129S1/SvImJ')
         self.assertEqual(strain_cells[4].text, 'A/J')
-        self.assertEqual(strain_cells[5].text, 'AKR/J')
+        self.assertEqual(strain_cells[5].text, 'A/J')
         self.assertEqual(strain_cells[6].text, 'AKR/J')
-        self.assertEqual(strain_cells[7].text, 'BALB/cJ')
+        self.assertEqual(strain_cells[7].text, 'AKR/J')
         self.assertEqual(strain_cells[8].text, 'BALB/cJ')
-        self.assertEqual(strain_cells[9].text, 'C3H/HeJ')
+        self.assertEqual(strain_cells[9].text, 'BALB/cJ')
+        self.assertEqual(strain_cells[10].text, 'C3H/HeJ')
         # Iterate the second column of the disease table
         model_cells = table.get_column_cells('Gene Model ID')
         print(model_cells[1].text)
         # verify the Gene Model ID column of data
-        self.assertEqual(model_cells[1].text, 'MGI_C57BL6J_105105')
-        self.assertEqual(model_cells[2].text, 'MGP_129S1SvImJ_G0005544')
-        self.assertEqual(model_cells[3].text, 'MGP_AJ_G0036786')
-        self.assertEqual(model_cells[4].text, 'MGP_AJ_G0006976')
-        self.assertEqual(model_cells[5].text, 'MGP_AKRJ_G0007264')
-        self.assertEqual(model_cells[6].text, 'MGP_AKRJ_G0036736')
-        self.assertEqual(model_cells[7].text, 'MGP_BALBcJ_G0036776')
-        self.assertEqual(model_cells[8].text, 'MGP_BALBcJ_G0006952')
-        self.assertEqual(model_cells[9].text, 'no annotation')
+        self.assertEqual(model_cells[1].text, 'no annotation')
+        self.assertEqual(model_cells[2].text, 'ENSMUSG00200014099')
+        self.assertEqual(model_cells[3].text, 'ENSMUSG00200014110')
+        self.assertEqual(model_cells[4].text, 'ENSMUSG00195043999')
+        self.assertEqual(model_cells[5].text, 'ENSMUSG00195043974')
+        self.assertEqual(model_cells[6].text, 'ENSMUSG00220044034')
+        self.assertEqual(model_cells[7].text, 'ENSMUSG00220044058')
+        self.assertEqual(model_cells[8].text, 'ENSMUSG00180043150')
+        self.assertEqual(model_cells[9].text, 'ENSMUSG00180043113')
+        self.assertEqual(model_cells[10].text, 'ENSMUSG00175014189')
 
     def test_turnstile_behavior(self):
         """
@@ -1010,16 +1017,14 @@ class TestMarkerDetail(unittest.TestCase):
         wait.forNewWindow(self.driver, 2)
         self.driver.switch_to.window(self.driver.window_handles[-1])
         # find and click the Mouse Genotype for X/Sry<AKR/J>
-        WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.CLASS_NAME, 'popupTable'))
-        )
+        WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.CLASS_NAME, 'popupTable')))
         mpheno_table = Table(self.driver.find_element(By.XPATH, "/html/body/div[2]/table[3]"))
         cell = mpheno_table.get_cell(2, 1)
         print(cell.text)
-        driver.execute_script("arguments[1].click();", cell)
+        driver.execute_script("arguments[0].click();", cell)
         #WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.LINK_TEXT, 'X/Sry<AKR/J>'))).click()
         # switch focus to the new tab for Phenotypes associated with X/Sry<AKR/J>
-        wait.forNewWindow(self.driver, 4)
+        #wait.forNewWindow(self.driver, 4)
         self.driver.switch_to.window(self.driver.window_handles[-1])
         # Locate the Genetic Background column and click the link found there(Summary ribbon)
         WebDriverWait(driver, 10).until(

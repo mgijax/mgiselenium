@@ -871,7 +871,7 @@ class TestStrainDetail(unittest.TestCase):
         # find the search button and click it
         driver.find_element(By.CLASS_NAME, 'goButton').click()
         # locates the strain name link for this strain and clicks it
-        driver.find_element(By.LINK_TEXT, 'CC011/Unc').click()
+        driver.find_element(By.LINK_TEXT, 'CC011/UncJMmnc').click()
         # switch focus to the new tab for strain detail page
         driver.switch_to.window(self.driver.window_handles[-1])
         # locate the Show All button in the QTL Mapped with this Strain ribbon

@@ -29,6 +29,7 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
@@ -437,6 +438,10 @@ class TestCreSpecificity(unittest.TestCase):
         self.driver.find_element(By.CSS_SELECTOR, 'tr.pgg-row:nth-child(15) > td:nth-child(4)').click()
         self.driver.switch_to.window(self.driver.window_handles[-1])
         time.sleep(2)
+        # Send the UP key 5 times
+        body = self.driver.find_element(By.ID, 'body')
+        for _ in range(20):
+            body.send_keys(Keys.ARROW_DOWN)
         # find the link 'View All Result Details and Images" in the popup Cell Counts and click it
         self.driver.find_element(By.CSS_SELECTOR, ".view-results-button").click()
         self.driver.switch_to.window(self.driver.window_handles[-1])
@@ -474,6 +479,10 @@ class TestCreSpecificity(unittest.TestCase):
         self.driver.find_element(By.CSS_SELECTOR, 'tr.pgg-row:nth-child(15) > td:nth-child(4)').click()
         self.driver.switch_to.window(self.driver.window_handles[-1])
         time.sleep(2)
+        # Send the UP key 5 times
+        body = self.driver.find_element(By.ID, 'body')
+        for _ in range(20):
+            body.send_keys(Keys.ARROW_DOWN)
         # find the link 'View All Result Details and Images" in the popup Cell Counts and click it
         self.driver.find_element(By.CSS_SELECTOR, ".view-results-button").click()
         self.driver.switch_to.window(self.driver.window_handles[-1])
